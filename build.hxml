@@ -1,0 +1,9 @@
+-lib tokentree
+-lib haxeparser
+-lib hxparse
+
+-cp src
+
+-main tokentreeformatter.Main
+
+-neko run.n
