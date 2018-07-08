@@ -6,6 +6,8 @@ class MarkTokenText {
 			switch (token.tok) {
 				case Const(CString(text)):
 					parsedCode.tokenList.tokenText(token, printStringToken(token, parsedCode));
+				case Const(CRegexp(_, _)):
+					parsedCode.tokenList.tokenText(token, printEregToken(token, parsedCode));
 				case Comment(text):
 					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter));
 				default:
@@ -16,6 +18,10 @@ class MarkTokenText {
 	}
 
 	public static function printStringToken(token:TokenTree, parsedCode:ParsedCode):String {
+		return parsedCode.getString(token.pos.min, token.pos.max);
+	}
+
+	public static function printEregToken(token:TokenTree, parsedCode:ParsedCode):String {
 		return parsedCode.getString(token.pos.min, token.pos.max);
 	}
 

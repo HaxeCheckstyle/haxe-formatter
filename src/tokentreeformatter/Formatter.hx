@@ -45,7 +45,7 @@ class Formatter {
 
 		var formatter = new Formatter();
 		for (arg in args) {
-			formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, new Config());
+			Sys.println(formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, new Config()));
 		}
 	}
 }

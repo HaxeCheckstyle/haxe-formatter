@@ -44,6 +44,8 @@ class MarkWhitespace {
 					parsedCode.tokenList.whitespace(token, AFTER);
 				case Semicolon:
 					parsedCode.tokenList.whitespace(token, config.semicolonPolicy);
+				case Const(CString("final")):
+					parsedCode.tokenList.whitespace(token, AFTER);
 				default:
 			}
 			return GO_DEEPER;
