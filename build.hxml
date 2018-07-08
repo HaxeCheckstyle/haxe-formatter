@@ -4,6 +4,6 @@
 
 -cp src
 
--main tokentreeformatter.Main
+-main tokentreeformatter.Formatter
 
 -neko run.n

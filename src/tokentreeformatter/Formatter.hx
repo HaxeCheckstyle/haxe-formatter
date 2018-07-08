@@ -1,28 +1,25 @@
 package tokentreeformatter;
 
 import tokentreeformatter.config.Config;
-import tokentreeformatter.printer.IPrinter;
-import tokentreeformatter.printer.StdPrinter;
 import tokentreeformatter.marker.MarkEmptyLines;
 import tokentreeformatter.marker.MarkLineEnds;
 import tokentreeformatter.marker.MarkTokenText;
 import tokentreeformatter.marker.MarkWhitespace;
 import tokentreeformatter.marker.Indenter;
 import tokentreeformatter.marker.MarkWrapping;
-
 import tokentreeformatter.codedata.CodeLines;
+import tokentreeformatter.codedata.ParseFile;
+import sys.io.File;
 
-class Main {
+class Formatter {
 	public function new() {}
 
-	public function formatFile(fileName:String) {
+	public function formatFile(file:ParseFile, config:Config):String {
 		try {
 			tokentree.TokenStream.MODE = RELAXED;
-			var config:Config = new Config();
-			var indenter:Indenter = new Indenter(config.indentation);
-			var printer:IPrinter = new StdPrinter();
+			var indenter = new Indenter(config.indentation);
 
-			var parsedCode:ParsedCode = ParsedCode.createFromFile(fileName);
+			var parsedCode = ParsedCode.createFromByteData(file);
 			indenter.setParsedCode(parsedCode);
 
 			MarkTokenText.markTokenText(parsedCode, indenter);
@@ -35,19 +32,20 @@ class Main {
 			lines.applyWrapping(config.wrapping);
 			MarkEmptyLines.finalRun(lines, config.emptylines);
 
-			lines.print(printer);
+			return lines.print();
 		}
 		catch (e:Any) {
 			Sys.println('unhandled exception caught: $e');
+			return null;
 		}
 	}
 
 	public static function main() {
 		var args:Array<String> = Sys.args();
 
-		var main:Main = new Main();
+		var formatter = new Formatter();
 		for (arg in args) {
-			main.formatFile(arg);
+			formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, new Config());
 		}
 	}
 }

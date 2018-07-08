@@ -2,7 +2,6 @@ package tokentreeformatter.codedata;
 
 import tokentreeformatter.config.WrapConfig;
 import tokentreeformatter.marker.Indenter;
-import tokentreeformatter.printer.IPrinter;
 
 class CodeLines {
 	var indenter:Indenter;
@@ -41,9 +40,7 @@ class CodeLines {
 		lines = wrappedLines;
 	}
 
-	public function print(printer:IPrinter) {
-		for (line in lines) {
-			line.print(printer);
-		}
+	public function print():String {
+		return lines.map(function(line) return line.print()).join("\n");
 	}
 }

@@ -2,7 +2,6 @@ package tokentreeformatter.codedata;
 
 import tokentreeformatter.config.WrapConfig;
 import tokentreeformatter.marker.Indenter;
-import tokentreeformatter.printer.IPrinter;
 
 class CodeLine {
 
@@ -102,17 +101,16 @@ class CodeLine {
 	// function wrapArray(part:CodePart, config:WrapConfig):Array<CodeLine> {
 	// 	return [this];
 	// }
-	public function print(printer:IPrinter) {
+	public function print():String {
 		var line:String = "";
-		// trace(parts);
-		// trace (emptyLinesAfter);
 		for (part in parts) {
 			line += part.text;
 		}
-		printer.printLine(indent + StringTools.trim(line));
+		line = indent + StringTools.trim(line);
 		for (index in 0...emptyLinesAfter) {
-			printer.printEmptyLine();
+			line += "\n";
 		}
+		return line;
 	}
 }
 

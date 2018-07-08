@@ -1,0 +1,19 @@
+{
+  "name": "tokentree-formatter",
+  "url": "https://github.com/HaxeCheckstyle/tokentree-formatter",
+  "license": "MIT",
+  "tags": [
+    "cli"
+  ],
+  "description": "",
+  "version": "0.0.1",
+  "releasenote": ".",
+  "contributors": [
+    ""
+  ],
+  "dependencies": {
+    "tokentree": "",
+    "haxeparser": ""
+  },
+  "classPath": "src"
+}

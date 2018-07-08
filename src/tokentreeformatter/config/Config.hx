@@ -47,7 +47,7 @@ class Config {
 			catchPolicy: AFTER
 		};
 		wrapping = {
-			maxLineLength: 30,
+			maxLineLength: 120,
 			wrapAfterComma: true,
 			wrapBeforeDot: true,
 			wrapAfterBrOpen: true,
