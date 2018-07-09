@@ -59,7 +59,7 @@ class Config {
 			wrapAfterComma: true,
 			wrapBeforeDot: true,
 			wrapAfterBrOpen: true,
-			wrapAfterBkOpen:true
+			wrapAfterBkOpen: true
 		};
 	}
 
