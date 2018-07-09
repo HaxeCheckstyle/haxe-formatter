@@ -9,10 +9,18 @@ class Config {
 
 	public function new() {
 		emptylines = {
-			afterPackage: 2,
+			afterPackage: 1,
 			afterImportsUsing: 1,
 			betweenTypes: 1,
 			anywhereInFileMax: 1,
+			betweenClassStaticVars: 1,
+			afterClassStaticVars: 1,
+			afterClassPrivateVars: 1,
+			betweenClassVars: 0,
+			afterClassVars: 1,
+			afterClassStaticFunctions: 1,
+			betweenClassStaticFunctions: 0,
+			afterClassPrivateFunctions: 1,
 			betweenClassFunctions: 1
 		};
 		indentation = {
@@ -22,7 +30,7 @@ class Config {
 		lineEnds = {
 			at: AFTER,
 			sharp: AFTER,
-			leftCurly: BOTH,
+			leftCurly: AFTER,
 			rightCurly: BOTH
 		};
 		whitespace = {

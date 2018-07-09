@@ -561,90 +561,12 @@
     "exclude": {
         "path": "RELATIVE_TO_PROJECT",
         "all": [],
-        "Dynamic": [
-            "checkstyle/Main",
-            "checkstyle/Checker",
-            "checkstyle/ChecksInfo",
-            "checkstyle/checks/Check",
-            "checkstyle/checks/whitespace/SpacingCheck",
-            "checkstyle/checks/imports/UnusedImportCheck",
-            "TestMain",
-            "misc/ExtensionsTest",
-            "token/TokenTreeBuilderParsingTest"
-        ],
-        "MultipleStringLiterals": [
-            "checks",
-            "schema",
-            "token"
-        ],
         "CyclomaticComplexity": [
-            "checkstyle/checks/Check",
-            "checkstyle/utils/ExprUtils",
-            "checkstyle/utils/ComplexTypeUtils",
-            "checkstyle/checks/metrics/CyclomaticComplexityCheck",
-            "checkstyle/checks/block/LeftCurlyCheck",
-            "checkstyle/checks/block/RightCurlyCheck",
-            "checkstyle/checks/naming/MethodNameCheck",
-            "checkstyle/checks/type/ReturnCheck",
-            "checkstyle/checks/whitespace/OperatorWrapCheck",
-            "checkstyle/checks/whitespace/WhitespaceAfterCheck",
-            "checkstyle/checks/whitespace/WhitespaceAroundCheck",
-            "checkstyle/checks/block/EmptyBlockCheck",
-            "checkstyle/checks/whitespace/EmptyLinesCheck",
-            "checkstyle/token/walk/WalkStatement"
-        ],
-        "ExtendedEmptyLines": [
-            "checks/whitespace/EmptyLinesCheckTest:EmptyLinesCheckTests",
-            "checks/whitespace/ExtendedEmptyLinesCheckTest:ExtendedEmptyLinesCheckTests"
-        ],
-        "FieldDocComment": [
-            "checkstyle/Main",
-            "checkstyle/Checker",
-            "checkstyle/ChecksInfo",
-            "checkstyle/ParserQueue",
-            "checkstyle/checks/Check",
-            "config",
-            "detect",
-            "errors",
-            "reporter",
-            "schema",
-            "test",
-            "utils"
-        ],
-        "LeftCurly": [
-            "checkstyle/checks/metrics/CyclomaticComplexityCheck"
-        ],
-        "RightCurly": [
-            "checkstyle/checks/metrics/CyclomaticComplexityCheck"
+            "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines"
         ],
         "MethodLength": [
-            "checkstyle/checks/whitespace/WhitespaceAfterCheck",
-            "checkstyle/checks/whitespace/WhitespaceAroundCheck",
-            "checkstyle/checks/whitespace/EmptyLinesCheck",
-            "checkstyle/token/walk/WalkStatement"
-        ],
-        "NestedForDepth": [
-            "TestMain"
-        ],
-        "MemberName": [
-            "checkstyle/Main"
-        ],
-        "TypeDocComment": [
-            "checkstyle/Main",
-            "checkstyle/Checker",
-            "checkstyle/ChecksInfo",
-            "checkstyle/ParserQueue",
-            "checkstyle/checks/Check",
-            "config",
-            "detect",
-            "errors",
-            "reporter",
-            "schema",
-            "test",
-            "utils"
-        ],
-        "UnusedLocalVar": [
-            "JsonSchemaGenerator"
+            "tokentreeformatter/config/Config",
+            "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines"
         ]
     }
 }
