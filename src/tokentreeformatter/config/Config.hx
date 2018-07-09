@@ -22,7 +22,7 @@ class Config {
 		lineEnds = {
 			at: AFTER,
 			sharp: AFTER,
-			leftCurly: BOTH,
+			leftCurly: AFTER,
 			rightCurly: BOTH
 		};
 		whitespace = {
@@ -51,7 +51,7 @@ class Config {
 			wrapAfterComma: true,
 			wrapBeforeDot: true,
 			wrapAfterBrOpen: true,
-			wrapAfterBkOpen:true
+			wrapAfterBkOpen: true
 		};
 	}
 
