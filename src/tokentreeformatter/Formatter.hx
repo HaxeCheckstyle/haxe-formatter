@@ -43,9 +43,12 @@ class Formatter {
 	public static function main() {
 		var args:Array<String> = Sys.args();
 
+		var config:Config = new Config();
+		config.readConfig("hxformat.json");
+
 		var formatter = new Formatter();
 		for (arg in args) {
-			Sys.println(formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, new Config()));
+			Sys.println(formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, config));
 		}
 	}
 }

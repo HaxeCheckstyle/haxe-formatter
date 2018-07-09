@@ -7,6 +7,8 @@ Formatter based on tokentree library
 - Whitespace
 - Wrapping
 - EmptyLines
+- LineEnds
+- `hxformat.json` config file
 
 ## ToDo
 - Configuration

@@ -1,5 +1,9 @@
 package tokentreeformatter.config;
 
+import sys.FileSystem;
+import sys.io.File;
+import haxe.Json;
+
 class Config {
 	public var emptylines:EmptyLinesConfig;
 	public var indentation:IndentationConfig;
@@ -64,6 +68,37 @@ class Config {
 	}
 
 	public function readConfig(fileName:String) {
-		// TODO implement me
+		if (!FileSystem.exists(fileName)) {
+			return;
+		}
+		parseConfig(Json.parse(File.getContent(fileName)));
+	}
+
+	function parseConfig(config:FormatterConfig) {
+		if (config.emptylines != null) {
+			for (field in Reflect.fields(config.emptylines)) {
+				Reflect.setField(emptylines, field, Reflect.field(config.emptylines, field));
+			}
+		}
+		if (config.indentation != null) {
+			for (field in Reflect.fields(config.indentation)) {
+				Reflect.setField(indentation, field, Reflect.field(config.indentation, field));
+			}
+		}
+		if (config.lineEnds != null) {
+			for (field in Reflect.fields(config.lineEnds)) {
+				Reflect.setField(lineEnds, field, Reflect.field(config.lineEnds, field));
+			}
+		}
+		if (config.whitespace != null) {
+			for (field in Reflect.fields(config.whitespace)) {
+				Reflect.setField(whitespace, field, Reflect.field(config.whitespace, field));
+			}
+		}
+		if (config.wrapping != null) {
+			for (field in Reflect.fields(config.wrapping)) {
+				Reflect.setField(wrapping, field, Reflect.field(config.wrapping, field));
+			}
+		}
 	}
 }
