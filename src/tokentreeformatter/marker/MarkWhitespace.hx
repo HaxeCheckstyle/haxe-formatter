@@ -24,6 +24,13 @@ class MarkWhitespace {
 					parsedCode.tokenList.whitespace(token, config.binopPolicy);
 				case Comma:
 					parsedCode.tokenList.whitespace(token, config.commaPolicy);
+				case DblDot:
+					if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
+						parsedCode.tokenList.whitespace(token, config.caseDblDotPolicy);
+					}
+					else {
+						parsedCode.tokenList.whitespace(token, config.dblDotPolicy);
+					}
 				case Kwd(_):
 					markKeyword(token, parsedCode, config);
 				case POpen:

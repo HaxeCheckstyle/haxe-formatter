@@ -15,6 +15,8 @@ typedef WhitespaceConfig = {
 	@:default(tokentreeformatter.config.WhitespacePolicy.NONE) @:optional var typeParamClosePolicy:WhitespacePolicy;
 	@:default(tokentreeformatter.config.WhitespacePolicy.AFTER) @:optional var commaPolicy:WhitespacePolicy;
 	@:default(tokentreeformatter.config.WhitespacePolicy.NONE) @:optional var dotPolicy:WhitespacePolicy;
+	@:default(tokentreeformatter.config.WhitespacePolicy.NONE) @:optional var dblDotPolicy:WhitespacePolicy;
+	@:default(tokentreeformatter.config.WhitespacePolicy.AFTER) @:optional var caseDblDotPolicy:WhitespacePolicy;
 	@:default(tokentreeformatter.config.WhitespacePolicy.NONE) @:optional var semicolonPolicy:WhitespacePolicy;
 	@:default(tokentreeformatter.config.WhitespacePolicy.AROUND) @:optional var binopPolicy:WhitespacePolicy;
 	@:default(tokentreeformatter.config.WhitespacePolicy.AFTER) @:optional var ifPolicy:WhitespacePolicy;

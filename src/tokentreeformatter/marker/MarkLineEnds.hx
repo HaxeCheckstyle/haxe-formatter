@@ -13,6 +13,7 @@ class MarkLineEnds {
 		markComments(parsedCode, config);
 		markBrOpenClose(parsedCode, config);
 		markAt(parsedCode, config);
+		markDblDot(parsedCode, config);
 		markSharp(parsedCode, config);
 	}
 
@@ -120,6 +121,18 @@ class MarkLineEnds {
 				}
 			}
 			parsedCode.tokenList.lineEndAfter(lastChild);
+		}
+	}
+
+	static function markDblDot(parsedCode:ParsedCode, config:LineEndConfig) {
+		if (config.caseDblDot == NONE) {
+			return;
+		}
+		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
+		for (token in dblDotTokens) {
+			if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
+				parsedCode.tokenList.lineEndAfter(token);
+			}
 		}
 	}
 
