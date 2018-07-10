@@ -7,10 +7,10 @@ class CodeLine {
 
 	var parts:Array<CodePart>;
 	var currentPart:CodePart;
-	var indent:String;
+	public var indent:Int;
 	public var emptyLinesAfter:Int;
 
-	public function new(indent:String) {
+	public function new(indent:Int) {
 		this.indent = indent;
 		parts = [];
 		emptyLinesAfter = 0;
@@ -41,7 +41,7 @@ class CodeLine {
 	}
 
 	public function applyWrapping(config:WrapConfig, indenter:Indenter):Array<CodeLine> {
-		var lineLength:Int = indent.length;
+		var lineLength:Int = indent;
 		for (part in parts) {
 			lineLength += part.text.length;
 			if (lineLength > config.maxLineLength) {
@@ -78,14 +78,14 @@ class CodeLine {
 		var line:CodeLine = new CodeLine(indent);
 		var part:CodePart = parts.shift();
 		line.parts = [part];
-		var lineLength:Int = indent.length + part.text.length;
+		var lineLength:Int = indent + part.text.length;
 		var lines:Array<CodeLine> = [line];
 		while (parts.length > 0) {
 			var p:CodePart = parts.shift();
 			if (lineLength + p.text.length > config.maxLineLength) {
-				var newIndent:String = indenter.makeIndent(p.firstToken);
+				var newIndent:Int = indenter.calcIndent(p.firstToken);
 				line = new CodeLine(newIndent);
-				lineLength = newIndent.length;
+				lineLength = newIndent;
 				lines.push(line);
 			}
 			line.parts.push(p);
@@ -101,12 +101,12 @@ class CodeLine {
 	// function wrapArray(part:CodePart, config:WrapConfig):Array<CodeLine> {
 	// 	return [this];
 	// }
-	public function print():String {
+	public function print(indenter:Indenter):String {
 		var line:String = "";
 		for (part in parts) {
 			line += part.text;
 		}
-		line = indent + StringTools.trim(line);
+		line = indenter.makeIndentString(indent) + StringTools.trim(line);
 		for (index in 0...emptyLinesAfter) {
 			line += "\n";
 		}

@@ -113,7 +113,7 @@ class MarkLineEnds {
 			if (lastChild == null) {
 				continue;
 			}
-			if (config.at == AFTER_LAST)  {
+			if (config.at == AFTER_LAST) {
 				var sibling:TokenTree = token.nextSibling;
 				if ((sibling != null) && (sibling.is(At))) {
 					parsedCode.tokenList.whitespace(lastChild, AFTER);

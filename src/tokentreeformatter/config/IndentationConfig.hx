@@ -1,7 +1,7 @@
 package tokentreeformatter.config;
 
 typedef IndentationConfig = {
-	@:default(tokentreeformatter.config.IndentationConfig.ConditionalIndentationPolicy.ALIGNED) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
+	@:default(ALIGNED) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
 	@:default("tab") @:optional var character:String;
 }
 

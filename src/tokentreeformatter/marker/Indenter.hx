@@ -1,5 +1,7 @@
 package tokentreeformatter.marker;
 
+import tokentreeformatter.codedata.CodeLine;
+import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.config.IndentationConfig;
 
 class Indenter {
@@ -19,10 +21,14 @@ class Indenter {
 	}
 
 	public function makeIndent(token:TokenTree):String {
-		return StringTools.lpad("", config.character, config.character.length * calcIndent(token));
+		return makeIndentString(calcIndent(token));
 	}
 
-	function calcIndent(token:TokenTree):Int {
+	public function makeIndentString(count:Int):String {
+		return StringTools.lpad("", config.character, config.character.length * count);
+	}
+
+	public function calcIndent(token:TokenTree):Int {
 		var indent:Int = 0;
 		if (token == null) {
 			return 0;
@@ -77,5 +83,24 @@ class Indenter {
 			default:
 		}
 		return false;
+	}
+
+	public function finalRun(codeLines:CodeLines) {
+		var lastIndent:Int = 0;
+		for (index in 0...codeLines.lines.length) {
+			var line:CodeLine = codeLines.lines[index];
+			if (line.indent > lastIndent + 1) {
+				var diff:Int = line.indent - (lastIndent + 1);
+				line.indent -= diff;
+				for (index2 in (index + 1)...codeLines.lines.length) {
+					var nextLine:CodeLine = codeLines.lines[index2];
+					if (nextLine.indent <= lastIndent + 1) {
+						break;
+					}
+					nextLine.indent -= diff;
+				}
+			}
+			lastIndent = line.indent;
+		}
 	}
 }

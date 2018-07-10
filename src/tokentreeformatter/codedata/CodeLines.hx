@@ -20,7 +20,7 @@ class CodeLines {
 				continue;
 			}
 			if (line == null) {
-				line = new CodeLine(indenter.makeIndent(tokenInfo.token));
+				line = new CodeLine(indenter.calcIndent(tokenInfo.token));
 				lines.push(line);
 			}
 			line.addToken(tokenInfo);
@@ -40,7 +40,7 @@ class CodeLines {
 		lines = wrappedLines;
 	}
 
-	public function print():String {
-		return lines.map(function(line) return line.print()).join("\n");
+	public function print(lineSeparator:String):String {
+		return lines.map(function(line) return line.print(indenter)).join(lineSeparator);
 	}
 }

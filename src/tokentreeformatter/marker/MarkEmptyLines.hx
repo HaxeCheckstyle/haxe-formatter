@@ -24,10 +24,11 @@ class MarkEmptyLines {
 
 	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
 		for (line in codeLines.lines) {
-			if (line.emptyLinesAfter > config.anywhereInFileMax) {
-				line.emptyLinesAfter = config.anywhereInFileMax;
+			if (line.emptyLinesAfter > config.maxAnywhereInFile) {
+				line.emptyLinesAfter = config.maxAnywhereInFile;
 			}
 		}
+		codeLines.lines[codeLines.lines.length - 1].emptyLinesAfter = config.beforeEndOfFile;
 	}
 
 	static function markImports(parsedCode:ParsedCode, config:EmptyLinesConfig) {
@@ -49,6 +50,11 @@ class MarkEmptyLines {
 	static function markClasses(parsedCode:ParsedCode, config:EmptyLinesConfig) {
 		var classes:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdClass)], ALL);
 		for (c in classes) {
+			var block:TokenTree = TokenTreeAccessHelper.access(c).firstChild().firstOf(BrOpen).token;
+			if (block != null) {
+				parsedCode.tokenList.emptyLinesAfter(block, config.beginClass);
+			}
+
 			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
 
 			var prevToken:TokenTree = null;

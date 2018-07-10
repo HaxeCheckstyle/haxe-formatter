@@ -14,5 +14,7 @@ Formatter based on tokentree library
 - Configuration
   - more options
   - load (save)
+
+## TBD
 - import grouping and sort
 - modifier sort

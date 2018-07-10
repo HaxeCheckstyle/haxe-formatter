@@ -569,7 +569,8 @@
         ],
         "MethodLength": [
             "tokentreeformatter/config/Config",
-            "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines"
+            "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines",
+            "tokentreeformatter/marker/MarkWhitespace:makeWhitespace"
         ]
     }
 }

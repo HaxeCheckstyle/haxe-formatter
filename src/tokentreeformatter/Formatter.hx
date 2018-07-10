@@ -31,8 +31,9 @@ class Formatter {
 			var lines:CodeLines = new CodeLines(parsedCode.tokenList, indenter);
 			lines.applyWrapping(config.wrapping);
 			MarkEmptyLines.finalRun(lines, config.emptylines);
+			indenter.finalRun(lines);
 
-			return lines.print();
+			return lines.print(parsedCode.lineSeparator);
 		}
 		catch (e:Any) {
 			Sys.println('unhandled exception caught: $e');
@@ -48,7 +49,7 @@ class Formatter {
 
 		var formatter = new Formatter();
 		for (arg in args) {
-			Sys.println(formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, config));
+			Sys.print(formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, config));
 		}
 	}
 }
