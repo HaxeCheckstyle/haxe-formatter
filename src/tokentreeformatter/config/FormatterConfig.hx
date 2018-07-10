@@ -1,9 +1,9 @@
 package tokentreeformatter.config;
 
 typedef FormatterConfig = {
-	@:optional var emptylines:EmptyLinesConfig;
-	@:optional var indentation:IndentationConfig;
-	@:optional var lineEnds:LineEndConfig;
-	@:optional var whitespace:WhitespaceConfig;
-	@:optional var wrapping:WrapConfig;
+	@:default(auto) @:optional var emptylines:EmptyLinesConfig;
+	@:default(auto) @:optional var indentation:IndentationConfig;
+	@:default(auto) @:optional var lineEnds:LineEndConfig;
+	@:default(auto) @:optional var whitespace:WhitespaceConfig;
+	@:default(auto) @:optional var wrapping:WrapConfig;
 }

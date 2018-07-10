@@ -1,10 +1,10 @@
 package tokentreeformatter.config;
 
 typedef LineEndConfig = {
-	@:optional var at:AtLineEndPolicy;
-	@:optional var sharp:SharpLineEndPolicy;
-	@:optional var leftCurly:LeftCurlyLineEndPolicy;
-	@:optional var rightCurly:RightCurlyLineEndPolicy;
+	@:default(tokentreeformatter.config.LineEndConfig.AtLineEndPolicy.AFTER) @:optional var at:AtLineEndPolicy;
+	@:default(tokentreeformatter.config.LineEndConfig.SharpLineEndPolicy.AFTER) @:optional var sharp:SharpLineEndPolicy;
+	@:default(tokentreeformatter.config.LineEndConfig.LeftCurlyLineEndPolicy.AFTER) @:optional var leftCurly:LeftCurlyLineEndPolicy;
+	@:default(tokentreeformatter.config.LineEndConfig.RightCurlyLineEndPolicy.BOTH) @:optional var rightCurly:RightCurlyLineEndPolicy;
 }
 
 @:enum

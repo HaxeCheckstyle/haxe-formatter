@@ -564,6 +564,9 @@
         "CyclomaticComplexity": [
             "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines"
         ],
+        "MultipleStringLiterals": [
+            "config"
+        ],
         "MethodLength": [
             "tokentreeformatter/config/Config",
             "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines"

@@ -1,9 +1,9 @@
 package tokentreeformatter.config;
 
 typedef WrapConfig = {
-	@:optional var maxLineLength:Int;
-	@:optional var wrapAfterComma:Bool;
-	@:optional var wrapBeforeDot:Bool;
-	@:optional var wrapAfterBrOpen:Bool;
-	@:optional var wrapAfterBkOpen:Bool;
+	@:default(120) @:optional var maxLineLength:Int;
+	@:default(true) @:optional var wrapAfterComma:Bool;
+	@:default(true) @:optional var wrapBeforeDot:Bool;
+	@:default(true) @:optional var wrapAfterBrOpen:Bool;
+	@:default(true) @:optional var wrapAfterBkOpen:Bool;
 }

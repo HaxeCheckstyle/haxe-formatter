@@ -1,6 +1,7 @@
 -lib tokentree
 -lib haxeparser
 -lib hxparse
+-lib json2object
 
 -cp src
 

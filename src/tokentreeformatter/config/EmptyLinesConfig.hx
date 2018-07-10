@@ -1,17 +1,17 @@
 package tokentreeformatter.config;
 
 typedef EmptyLinesConfig = {
-	@:optional var afterPackage:Int;
-	@:optional var afterImportsUsing:Int;
-	@:optional var betweenTypes:Int;
-	@:optional var anywhereInFileMax:Int;
-	@:optional var betweenClassStaticVars:Int;
-	@:optional var afterClassStaticVars:Int;
-	@:optional var afterClassPrivateVars:Int;
-	@:optional var betweenClassVars:Int;
-	@:optional var afterClassVars:Int;
-	@:optional var afterClassStaticFunctions:Int;
-	@:optional var betweenClassStaticFunctions:Int;
-	@:optional var afterClassPrivateFunctions:Int;
-	@:optional var betweenClassFunctions:Int;
+	@:default(1) @:optional var afterPackage:Int;
+	@:default(1) @:optional var afterImportsUsing:Int;
+	@:default(1) @:optional var betweenTypes:Int;
+	@:default(1) @:optional var anywhereInFileMax:Int;
+	@:default(1) @:optional var betweenClassStaticVars:Int;
+	@:default(1) @:optional var afterClassStaticVars:Int;
+	@:default(1) @:optional var afterClassPrivateVars:Int;
+	@:default(0) @:optional var betweenClassVars:Int;
+	@:default(1) @:optional var afterClassVars:Int;
+	@:default(1) @:optional var afterClassStaticFunctions:Int;
+	@:default(0) @:optional var betweenClassStaticFunctions:Int;
+	@:default(1) @:optional var afterClassPrivateFunctions:Int;
+	@:default(1) @:optional var betweenClassFunctions:Int;
 }
