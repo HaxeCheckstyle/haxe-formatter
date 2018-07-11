@@ -1,6 +1,7 @@
 package tokentreeformatter.marker;
 
 import tokentreeformatter.config.WhitespaceConfig;
+import tokentreeformatter.config.WhitespacePolicy;
 
 class MarkWhitespace {
 
@@ -37,17 +38,17 @@ class MarkWhitespace {
 				case Kwd(_):
 					markKeyword(token, parsedCode, config);
 				case POpen:
-					parsedCode.tokenList.whitespace(token, config.pOpenPolicy);
+					successiveParenthesis(token, parsedCode, config.pOpenPolicy, config.compressSuccessiveParenthesis);
 				case PClose:
-					parsedCode.tokenList.whitespace(token, config.pClosePolicy);
+					successiveParenthesis(token, parsedCode, config.pClosePolicy, config.compressSuccessiveParenthesis);
 				case BrOpen:
-					parsedCode.tokenList.whitespace(token, config.brOpenPolicy);
+					successiveParenthesis(token, parsedCode, config.brOpenPolicy, config.compressSuccessiveParenthesis);
 				case BrClose:
-					parsedCode.tokenList.whitespace(token, config.brClosePolicy);
+					successiveParenthesis(token, parsedCode, config.brClosePolicy, config.compressSuccessiveParenthesis);
 				case BkOpen:
-					parsedCode.tokenList.whitespace(token, config.bkOpenPolicy);
+					successiveParenthesis(token, parsedCode, config.bkOpenPolicy, config.compressSuccessiveParenthesis);
 				case BkClose:
-					parsedCode.tokenList.whitespace(token, config.bkClosePolicy);
+					successiveParenthesis(token, parsedCode, config.bkClosePolicy, config.compressSuccessiveParenthesis);
 				case Question:
 					parsedCode.tokenList.whitespace(token, NONE_AFTER);
 				case Sharp(_):
@@ -60,6 +61,40 @@ class MarkWhitespace {
 			}
 			return GO_DEEPER;
 			});
+	}
+
+	static function successiveParenthesis(token:TokenTree, parsedCode:ParsedCode, policy:WhitespacePolicy, compressSuccessiveParenthesis:Bool) {
+		if (!compressSuccessiveParenthesis) {
+			parsedCode.tokenList.whitespace(token, policy);
+			return;
+		}
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		if (next != null) {
+			switch (next.token.tok) {
+				case POpen, BrOpen, BkOpen:
+					if ((policy == AFTER) || (policy == ONLY_AFTER)) {
+						policy = NONE;
+					}
+					if (policy == AROUND) {
+						policy = BEFORE;
+					}
+				default:
+			}
+		}
+		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case POpen, BrOpen, BkOpen:
+					if (policy == BEFORE) {
+						policy = NONE;
+					}
+					if (policy == AROUND) {
+						policy = AFTER;
+					}
+				default:
+			}
+		}
+		parsedCode.tokenList.whitespace(token, policy);
 	}
 
 	static function markKeyword(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {

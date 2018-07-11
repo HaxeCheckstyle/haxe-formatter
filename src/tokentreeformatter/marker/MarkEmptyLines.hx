@@ -71,12 +71,8 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markClassFieldEmptyLines(parsedCode:ParsedCode,
-		prevToken:TokenTree,
-		prevTokenType:TokenFieldType,
-		currToken:TokenTree,
-		currTokenType:TokenFieldType,
-		config:EmptyLinesConfig) {
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:EmptyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}

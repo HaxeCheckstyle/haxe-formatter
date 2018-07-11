@@ -562,15 +562,16 @@
         "path": "RELATIVE_TO_PROJECT",
         "all": [],
         "CyclomaticComplexity": [
-            "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines"
+            "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
+            "tokentreeformatter/marker/MarkLineEnds:markBrOpenClose"
         ],
         "MultipleStringLiterals": [
             "config"
         ],
         "MethodLength": [
             "tokentreeformatter/config/Config",
-            "tokentreeformatter/marker/MarkEmptyLines:makeClassFieldEmptyLines",
-            "tokentreeformatter/marker/MarkWhitespace:makeWhitespace"
+            "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
+            "tokentreeformatter/marker/MarkWhitespace:markWhitespace"
         ]
     }
 }

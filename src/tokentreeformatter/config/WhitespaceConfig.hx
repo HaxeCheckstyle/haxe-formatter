@@ -27,4 +27,5 @@ typedef WhitespaceConfig = {
 	@:default(AFTER) @:optional var catchPolicy:WhitespacePolicy;
 	@:default(AROUND) @:optional var binopPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var intervalPolicy:WhitespacePolicy;
+	@:default(true) @:optional var compressSuccessiveParenthesis:Bool;
 }
