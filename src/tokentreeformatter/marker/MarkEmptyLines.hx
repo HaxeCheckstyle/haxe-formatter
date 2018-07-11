@@ -20,6 +20,7 @@ class MarkEmptyLines {
 
 		markImports(parsedCode, config);
 		markClasses(parsedCode, config);
+		markEnumAbstracts(parsedCode, config);
 	}
 
 	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
@@ -114,8 +115,13 @@ class MarkEmptyLines {
 			case UNKNOWN:
 				return;
 		}
-		// only vars
-		if ((prevVar == currVar) && prevVar) {
+		if (prevVar != currVar) {
+			// transition between vars and functions
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassVars);
+			return;
+		}
+		if (prevVar) {
+			// only vars
 			if (prevStatic != currStatic) {
 				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassStaticVars);
 				return;
@@ -131,9 +137,8 @@ class MarkEmptyLines {
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenClassVars);
 			return;
 		}
-
-		// only functions
-		if ((prevVar == currVar) && !prevVar) {
+		else {
+			// only functions
 			if (prevStatic != currStatic) {
 				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassStaticFunctions);
 				return;
@@ -149,8 +154,77 @@ class MarkEmptyLines {
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenClassFunctions);
 			return;
 		}
-		// transition between vars and functions
-		parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassVars);
+	}
+
+	static function markEnumAbstracts(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var abstracts:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdAbstract), Kwd(KwdEnum)], ALL);
+		for (c in abstracts) {
+			if (!TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
+				continue;
+			}
+			var block:TokenTree = TokenTreeAccessHelper.access(c).firstChild().firstOf(BrOpen).token;
+			if (block != null) {
+				parsedCode.tokenList.emptyLinesAfter(block, config.beginEnumAbstract);
+			}
+
+			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
+
+			var prevToken:TokenTree = null;
+			var prevTokenType:TokenFieldType = null;
+			var currToken:TokenTree = null;
+			var currTokenType:TokenFieldType = null;
+			for (func in functions) {
+				currToken = func;
+				currTokenType = FieldUtils.getFieldType(func, PUBLIC);
+				markEnumAbstractFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+				prevToken = currToken;
+				prevTokenType = currTokenType;
+			}
+		}
+	}
+
+	static function markEnumAbstractFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:EmptyLinesConfig) {
+		if (prevToken == null) {
+			return;
+		}
+		var prevVar:Bool = false;
+		var currVar:Bool = false;
+		switch (prevTokenType) {
+			case FUNCTION(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
+				prevVar = false;
+			case VAR(name, visibility, isStatic, isInline, isFinal, isExtern):
+				prevVar = true;
+			case PROP(name, visibility, isStatic, getter, setter):
+				prevVar = true;
+			case UNKNOWN:
+				return;
+		}
+		switch (currTokenType) {
+			case FUNCTION(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
+				currVar = false;
+			case VAR(name, visibility, isStatic, isInline, isFinal, isExtern):
+				currVar = true;
+			case PROP(name, visibility, isStatic, getter, setter):
+				currVar = true;
+			case UNKNOWN:
+				return;
+		}
+		if (prevVar != currVar) {
+			// transition between vars and functions
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterEnumAbstractVars);
+			return;
+		}
+		if (prevVar) {
+			// only vars
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenEnumAbstractVars);
+			return;
+		}
+		else {
+			// only functions
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenEnumAbstractFunctions);
+			return;
+		}
 	}
 
 	static function betweenTypes(parsedCode:ParsedCode, count:Int) {

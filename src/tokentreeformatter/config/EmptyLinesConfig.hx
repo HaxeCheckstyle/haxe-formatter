@@ -16,4 +16,8 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var betweenClassStaticFunctions:Int;
 	@:default(1) @:optional var afterClassPrivateFunctions:Int;
 	@:default(1) @:optional var betweenClassFunctions:Int;
+	@:default(0) @:optional var beginEnumAbstract:Int;
+	@:default(0) @:optional var betweenEnumAbstractVars:Int;
+	@:default(1) @:optional var afterEnumAbstractVars:Int;
+	@:default(1) @:optional var betweenEnumAbstractFunctions:Int;
 }
