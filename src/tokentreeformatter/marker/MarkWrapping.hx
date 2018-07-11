@@ -23,7 +23,6 @@ class MarkWrapping {
 		if (searchTokens.length <= 0) {
 			return;
 		}
-
 		var tokens:Array<TokenTree> = parsedCode.root.filter(searchTokens, ALL);
 		for (token in tokens) {
 			switch (token.tok) {

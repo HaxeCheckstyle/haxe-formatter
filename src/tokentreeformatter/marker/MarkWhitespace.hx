@@ -36,12 +36,7 @@ class MarkWhitespace {
 				case Comma:
 					parsedCode.tokenList.whitespace(token, config.commaPolicy);
 				case DblDot:
-					if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
-						parsedCode.tokenList.whitespace(token, config.caseDblDotPolicy);
-					}
-					else {
-						parsedCode.tokenList.whitespace(token, config.dblDotPolicy);
-					}
+					markDblDot(token, parsedCode, config);
 				case Kwd(_):
 					markKeyword(token, parsedCode, config);
 				case POpen:
@@ -140,5 +135,27 @@ class MarkWhitespace {
 				parsedCode.tokenList.whitespace(token, AFTER);
 			default:
 		}
+	}
+
+	static function markDblDot(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var parent:TokenTree = token.parent;
+		if (parent == null) {
+			parsedCode.tokenList.whitespace(token, config.dblDotPolicy);
+			return;
+		}
+		switch (parent.tok) {
+			case Const(CIdent(_)):
+				parent = parent.parent;
+				if ((parent != null) && (parent.is(BrOpen))) {
+					parsedCode.tokenList.whitespace(token, config.objectDblDotPolicy);
+					return;
+				}
+			case Kwd(KwdCase), Kwd(KwdDefault):
+				parsedCode.tokenList.whitespace(token, config.caseDblDotPolicy);
+				return;
+			default:
+		}
+
+		parsedCode.tokenList.whitespace(token, config.dblDotPolicy);
 	}
 }
