@@ -24,6 +24,13 @@ class MarkWhitespace {
 					}
 				case Binop(OpInterval):
 					parsedCode.tokenList.whitespace(token, config.intervalPolicy);
+				case Binop(OpMult):
+					if (TokenTreeCheckUtils.isImport(token)) {
+						parsedCode.tokenList.whitespace(token, NONE);
+					}
+					else {
+						parsedCode.tokenList.whitespace(token, config.intervalPolicy);
+					}
 				case Binop(_):
 					parsedCode.tokenList.whitespace(token, config.binopPolicy);
 				case Comma:
