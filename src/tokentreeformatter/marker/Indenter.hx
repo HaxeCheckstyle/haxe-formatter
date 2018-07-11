@@ -16,7 +16,7 @@ class Indenter {
 		}
 	}
 
-	public function setParsedCode (parsedCode:ParsedCode) {
+	public function setParsedCode(parsedCode:ParsedCode) {
 		this.parsedCode = parsedCode;
 	}
 
@@ -36,7 +36,7 @@ class Indenter {
 
 		switch (token.tok) {
 			case BrClose, BkClose, PClose:
-				// use BrOpen, BkOpen, POpen for calculation
+			// use BrOpen, BkOpen, POpen for calculation
 				token = token.parent;
 			case Sharp(_):
 				if (config.conditionalPolicy == FIXED_ZERO) return 0;

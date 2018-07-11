@@ -3,6 +3,7 @@ package tokentreeformatter.marker;
 import tokentreeformatter.config.WhitespaceConfig;
 
 class MarkWhitespace {
+
 	public static function markWhitespace(parsedCode:ParsedCode, config:WhitespaceConfig) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
@@ -20,6 +21,8 @@ class MarkWhitespace {
 					else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
+				case Binop(OpInterval):
+					parsedCode.tokenList.whitespace(token, config.intervalPolicy);
 				case Binop(_):
 					parsedCode.tokenList.whitespace(token, config.binopPolicy);
 				case Comma:
@@ -56,10 +59,14 @@ class MarkWhitespace {
 				default:
 			}
 			return GO_DEEPER;
-		});
+			});
 	}
 
 	static function markKeyword(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+		if ((prev != null) && (prev.token.is(PClose))) {
+			prev.whitespaceAfter = SPACE;
+		}
 		switch (token.tok) {
 			case Kwd(KwdNull), Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdThis), Kwd(KwdDefault), Kwd(KwdContinue):
 				parsedCode.tokenList.whitespace(token, NONE_AFTER);
@@ -71,13 +78,23 @@ class MarkWhitespace {
 				parsedCode.tokenList.whitespace(token, config.whilePolicy);
 			case Kwd(KwdFor):
 				parsedCode.tokenList.whitespace(token, config.forPolicy);
-			case Kwd(KwdFunction):
-				parsedCode.tokenList.whitespace(token, config.functionPolicy);
+			case Kwd(KwdSwitch):
+				parsedCode.tokenList.whitespace(token, config.switchPolicy);
 			case Kwd(KwdTry):
 				parsedCode.tokenList.whitespace(token, config.tryPolicy);
 			case Kwd(KwdCatch):
 				parsedCode.tokenList.whitespace(token, config.catchPolicy);
 			case Kwd(_):
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+				if (next != null) {
+					switch (next.token.tok) {
+						case POpen:
+							return;
+						case Dot:
+							return;
+						default:
+					}
+				}
 				parsedCode.tokenList.whitespace(token, AFTER);
 			default:
 		}

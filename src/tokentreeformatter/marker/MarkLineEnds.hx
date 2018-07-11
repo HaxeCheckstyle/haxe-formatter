@@ -18,7 +18,7 @@ class MarkLineEnds {
 	}
 
 	static function markComments(parsedCode:ParsedCode, config:LineEndConfig) {
-		var commentTokens:Array<TokenTree> = parsedCode.root.filterCallback(function (token:TokenTree, index:Int):FilterResult {
+		var commentTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(_):
 					FOUND_SKIP_SUBTREE;
@@ -38,6 +38,9 @@ class MarkLineEnds {
 		for (token in brTokens) {
 			switch (token.tok) {
 				case BrOpen:
+					if ((token.children != null) && (token.children.length == 1) && (config.emptyCurly == NO_BREAK)) {
+						continue;
+					}
 					switch (config.leftCurly) {
 						case NONE:
 						case BEFORE:
@@ -49,14 +52,23 @@ class MarkLineEnds {
 							parsedCode.tokenList.lineEndAfter(token);
 					}
 				case BrClose:
+					var parent:TokenTree = token.parent;
+					var preventBefore:Bool = false;
+					if ((parent.children != null) && (parent.children.length == 1) && (config.emptyCurly == NO_BREAK)) {
+						preventBefore = true;
+					}
 					switch (config.rightCurly) {
 						case NONE:
 						case BEFORE:
-							beforeRightCurly(token, parsedCode);
+							if (!preventBefore) {
+								beforeRightCurly(token, parsedCode);
+							}
 						case AFTER:
 							afterRightCurly(token, parsedCode);
 						case BOTH:
-							beforeRightCurly(token, parsedCode);
+							if (!preventBefore) {
+								beforeRightCurly(token, parsedCode);
+							}
 							afterRightCurly(token, parsedCode);
 					}
 				default:
@@ -104,16 +116,19 @@ class MarkLineEnds {
 	}
 
 	static function markAt(parsedCode:ParsedCode, config:LineEndConfig) {
-		if (config.at == NONE) {
-			return;
-		}
 		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], ALL);
 		for (token in atTokens) {
+			var atPolicy:AtLineEndPolicy = determineAtPolicy(token, config);
 			var lastChild:TokenTree = lastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
-			if (config.at == AFTER_LAST) {
+			if (atPolicy == NONE) {
+				parsedCode.tokenList.whitespace(lastChild, AFTER);
+				continue;
+			}
+
+			if (atPolicy == AFTER_LAST) {
 				var sibling:TokenTree = token.nextSibling;
 				if ((sibling != null) && (sibling.is(At))) {
 					parsedCode.tokenList.whitespace(lastChild, AFTER);
@@ -121,6 +136,26 @@ class MarkLineEnds {
 				}
 			}
 			parsedCode.tokenList.lineEndAfter(lastChild);
+		}
+	}
+
+	static function determineAtPolicy(token:TokenTree, config:LineEndConfig):AtLineEndPolicy {
+		if (token == null) {
+			return config.atOther;
+		}
+		var parent:TokenTree = token.parent.parent;
+		if (parent == null) {
+			return config.atOther;
+		}
+		switch (parent.tok) {
+			case Kwd(KwdVar):
+				return config.atVar;
+			case Kwd(KwdFunction):
+				return config.atFunction;
+			case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
+				return config.atType;
+			default:
+				return config.atOther;
 		}
 	}
 

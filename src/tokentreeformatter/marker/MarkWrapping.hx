@@ -3,6 +3,7 @@ package tokentreeformatter.marker;
 import tokentreeformatter.config.WrapConfig;
 
 class MarkWrapping {
+
 	public static function markWrapping(parsedCode:ParsedCode, config:WrapConfig) {
 		var searchTokens:Array<TokenDef> = [];
 		if (config.wrapAfterComma) {

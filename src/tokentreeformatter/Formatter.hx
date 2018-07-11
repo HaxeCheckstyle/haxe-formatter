@@ -12,6 +12,7 @@ import tokentreeformatter.codedata.ParseFile;
 import sys.io.File;
 
 class Formatter {
+
 	public function new() {}
 
 	public function formatFile(file:ParseFile, config:Config):String {

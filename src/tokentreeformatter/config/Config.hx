@@ -5,6 +5,7 @@ import sys.io.File;
 import json2object.JsonParser;
 
 class Config {
+
 	public var emptylines:EmptyLinesConfig;
 	public var indentation:IndentationConfig;
 	public var lineEnds:LineEndConfig;

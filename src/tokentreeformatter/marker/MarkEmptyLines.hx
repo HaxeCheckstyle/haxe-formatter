@@ -64,14 +64,14 @@ class MarkEmptyLines {
 			for (func in functions) {
 				currToken = func;
 				currTokenType = FieldUtils.getFieldType(func, PRIVATE);
-				makeClassFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+				markClassFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
 				prevToken = currToken;
 				prevTokenType = currTokenType;
 			}
 		}
 	}
 
-	static function makeClassFieldEmptyLines(parsedCode:ParsedCode,
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode,
 		prevToken:TokenTree,
 		prevTokenType:TokenFieldType,
 		currToken:TokenTree,

@@ -101,6 +101,11 @@ class TokenList {
 				}
 			case NONE_AFTER:
 				info.whitespaceAfter = NONE;
+			case ONLY_AFTER:
+				if (prev != null) {
+					prev.whitespaceAfter = NONE;
+				}
+				info.whitespaceAfter = SPACE;
 			case BEFORE:
 				if (prev != null) {
 					prev.whitespaceAfter = SPACE;

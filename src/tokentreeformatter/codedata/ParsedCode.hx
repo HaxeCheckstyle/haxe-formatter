@@ -17,7 +17,7 @@ class ParsedCode {
 	public var tokenList:TokenList;
 	public var emptyLines:Array<Int>;
 
-	function new (file:ParseFile) {
+	function new(file:ParseFile) {
 		this.file = file;
 		try {
 			detectLineSeparator();
@@ -146,8 +146,8 @@ class ParsedCode {
 		var textCode:String = code.toString();
 		lines = textCode.split(lineSeparator);
 	}
-	#end
 
+	#end
 	function makeLines() {
 		var code:Bytes = cast file.content;
 		var textCode:String = code.toString();

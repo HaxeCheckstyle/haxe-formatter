@@ -7,6 +7,7 @@ class CodeLine {
 
 	var parts:Array<CodePart>;
 	var currentPart:CodePart;
+
 	public var indent:Int;
 	public var emptyLinesAfter:Int;
 

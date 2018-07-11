@@ -1,11 +1,15 @@
 package tokentreeformatter.config;
 
 typedef LineEndConfig = {
-	@:default(AFTER) @:optional var at:AtLineEndPolicy;
+	@:default(AFTER) @:optional var atType:AtLineEndPolicy;
+	@:default(NONE) @:optional var atVar:AtLineEndPolicy;
+	@:default(AFTER) @:optional var atFunction:AtLineEndPolicy;
+	@:default(NONE) @:optional var atOther:AtLineEndPolicy;
 	@:default(AFTER) @:optional var caseDblDot:CaseDblDotLineEndPolicy;
 	@:default(AFTER) @:optional var sharp:SharpLineEndPolicy;
 	@:default(AFTER) @:optional var leftCurly:LeftCurlyLineEndPolicy;
 	@:default(BOTH) @:optional var rightCurly:RightCurlyLineEndPolicy;
+	@:default(NO_BREAK) @:optional var emptyCurly:EmptyCurlyPolicy;
 }
 
 @:enum
@@ -41,4 +45,10 @@ abstract RightCurlyLineEndPolicy(String) {
 	var BEFORE = "before";
 	var AFTER = "after";
 	var BOTH = "both";
+}
+
+@:enum
+abstract EmptyCurlyPolicy(String) {
+	var NO_BREAK = "nobreak";
+	var BREAK = "break";
 }
