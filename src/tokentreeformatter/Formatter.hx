@@ -1,5 +1,7 @@
 package tokentreeformatter;
 
+import haxe.io.Path;
+import sys.io.File;
 import tokentreeformatter.config.Config;
 import tokentreeformatter.marker.MarkEmptyLines;
 import tokentreeformatter.marker.MarkLineEnds;
@@ -10,17 +12,21 @@ import tokentreeformatter.marker.MarkWrapping;
 import tokentreeformatter.marker.MarkSameLine;
 import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.codedata.ParseFile;
-import sys.io.File;
 
 class Formatter {
 
+	static inline var FORMATTER_JSON:String = "hxformat.json";
+
 	public function new() {}
 
-	public function formatFile(file:ParseFile, config:Config):String {
-		if (config.disableFormatting) {
-			return null;
-		}
+	public function formatFile(file:ParseFile):String {
 		try {
+			var config:Config = loadConfig(file.name);
+			if (config.disableFormatting) {
+				return null;
+			}
+			determineFormatterConfig(file.name);
+
 			tokentree.TokenStream.MODE = RELAXED;
 			var indenter = new Indenter(config.indentation);
 
@@ -47,15 +53,41 @@ class Formatter {
 		}
 	}
 
+	function loadConfig(fileName:String):Config {
+		var config:Config = new Config();
+		var configFileName:String = determineFormatterConfig(fileName);
+		if (configFileName == null) {
+			return config;
+		}
+		config.readConfig(configFileName);
+		return config;
+	}
+
+	function determineFormatterConfig(fileName:String):String {
+		var path:String = Path.directory(fileName);
+
+		while (path.length > 0) {
+			var configFile:String = Path.join([path, FORMATTER_JSON]);
+			if (sys.FileSystem.exists(configFile)) {
+				return configFile;
+			}
+			path = Path.normalize(Path.join([path, ".."]));
+		}
+		return null;
+	}
+
 	public static function main() {
 		var args:Array<String> = Sys.args();
 
-		var config:Config = new Config();
-		config.readConfig("hxformat.json");
-
 		var formatter = new Formatter();
 		for (arg in args) {
-			Sys.print(formatter.formatFile({name: arg, content: cast File.getBytes(arg)}, config));
+			var formattedCode:String = formatter.formatFile({
+				name: arg, content: cast File.getBytes(arg)
+				});
+			if (formattedCode == null) {
+				continue;
+			}
+			Sys.print(formattedCode);
 		}
 	}
 }

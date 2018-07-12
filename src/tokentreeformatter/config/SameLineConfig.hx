@@ -1,12 +1,12 @@
 package tokentreeformatter.config;
 
 typedef SameLineConfig = {
-	@:default(NEXT) @:optional var ifBody:SameLinePolicy;
-	@:default(NEXT) @:optional var elseBody:SameLinePolicy;
-	@:default(NEXT) @:optional var forBody:SameLinePolicy;
-	@:default(NEXT) @:optional var whileBody:SameLinePolicy;
-	@:default(NEXT) @:optional var doWhileBody:SameLinePolicy;
-	@:default(NEXT) @:optional var anonObjects:SameLinePolicy;
+	@:default(SAME) @:optional var ifBody:SameLinePolicy;
+	@:default(SAME) @:optional var elseBody:SameLinePolicy;
+	@:default(SAME) @:optional var forBody:SameLinePolicy;
+	@:default(SAME) @:optional var whileBody:SameLinePolicy;
+	@:default(SAME) @:optional var doWhileBody:SameLinePolicy;
+	@:default(SAME) @:optional var anonObjects:SameLinePolicy;
 }
 
 @:enum

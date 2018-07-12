@@ -7,26 +7,7 @@ class MarkSameLine {
 	public static function markSameLine(parsedCode:ParsedCode, config:SameLineConfig) {
 		markAnonObjectsSameLine(parsedCode, config);
 
-		var searchTokens:Array<TokenDef> = [];
-		if (config.ifBody != SAME) {
-			searchTokens.push(Kwd(KwdIf));
-		}
-		if (config.elseBody != SAME) {
-			searchTokens.push(Kwd(KwdElse));
-		}
-		if (config.forBody != SAME) {
-			searchTokens.push(Kwd(KwdFor));
-		}
-		if (config.whileBody != SAME) {
-			searchTokens.push(Kwd(KwdWhile));
-		}
-		if (config.doWhileBody != SAME) {
-			searchTokens.push(Kwd(KwdDo));
-		}
-		if (searchTokens.length <= 0) {
-			return;
-		}
-		var tokens:Array<TokenTree> = parsedCode.root.filter(searchTokens, ALL);
+		var tokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo)], ALL);
 		for (token in tokens) {
 			switch (token.tok) {
 				case Kwd(KwdIf):
@@ -71,6 +52,7 @@ class MarkSameLine {
 	static function applySameLinePolicy(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
 		switch (policy) {
 			case SAME:
+				parsedCode.tokenList.wrapBefore(token, true);
 				return;
 			case NEXT:
 				parsedCode.tokenList.lineEndBefore(token);
