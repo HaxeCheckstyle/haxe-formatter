@@ -9,8 +9,10 @@ class Config {
 	public var emptylines:EmptyLinesConfig;
 	public var indentation:IndentationConfig;
 	public var lineEnds:LineEndConfig;
+	public var sameLine:SameLineConfig;
 	public var whitespace:WhitespaceConfig;
 	public var wrapping:WrapConfig;
+	public var disableFormatting:Bool;
 
 	public function new() {
 		readConfigFromString("{}", "hxformat.json");
@@ -29,7 +31,9 @@ class Config {
 		emptylines = data.emptylines;
 		indentation = data.indentation;
 		lineEnds = data.lineEnds;
+		sameLine = data.sameLine;
 		whitespace = data.whitespace;
 		wrapping = data.wrapping;
+		disableFormatting = data.disableFormatting;
 	}
 }

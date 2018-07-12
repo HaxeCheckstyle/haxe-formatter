@@ -3,7 +3,7 @@ package tokentreeformatter.config;
 typedef WhitespaceConfig = {
 	// ( … )
 	@:default(NONE_AFTER) @:optional var pOpenPolicy:WhitespacePolicy;
-	@:default(NONE) @:optional var pClosePolicy:WhitespacePolicy;
+	@:default(ONLY_AFTER) @:optional var pClosePolicy:WhitespacePolicy;
 	// [ … ]
 	@:default(NONE_AFTER) @:optional var bkOpenPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var bkClosePolicy:WhitespacePolicy;
@@ -16,7 +16,7 @@ typedef WhitespaceConfig = {
 	@:default(ONLY_AFTER) @:optional var commaPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var dotPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var dblDotPolicy:WhitespacePolicy;
-	@:default(AFTER) @:optional var caseDblDotPolicy:WhitespacePolicy;
+	@:default(ONLY_AFTER) @:optional var caseDblDotPolicy:WhitespacePolicy;
 	@:default(AFTER) @:optional var objectDblDotPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var semicolonPolicy:WhitespacePolicy;
 	@:default(AFTER) @:optional var ifPolicy:WhitespacePolicy;

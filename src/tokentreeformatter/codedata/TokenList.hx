@@ -128,6 +128,14 @@ class TokenList {
 		info.whitespaceAfter = NL;
 	}
 
+	public function lineEndBefore(token:TokenTree) {
+		var info:TokenInfo = getPreviousToken(token);
+		if (info == null) {
+			return;
+		}
+		info.whitespaceAfter = NL;
+	}
+
 	public function emptyLinesAfter(token:TokenTree, count:Int) {
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {

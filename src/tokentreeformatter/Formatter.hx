@@ -7,6 +7,7 @@ import tokentreeformatter.marker.MarkTokenText;
 import tokentreeformatter.marker.MarkWhitespace;
 import tokentreeformatter.marker.Indenter;
 import tokentreeformatter.marker.MarkWrapping;
+import tokentreeformatter.marker.MarkSameLine;
 import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.codedata.ParseFile;
 import sys.io.File;
@@ -16,6 +17,9 @@ class Formatter {
 	public function new() {}
 
 	public function formatFile(file:ParseFile, config:Config):String {
+		if (config.disableFormatting) {
+			return null;
+		}
 		try {
 			tokentree.TokenStream.MODE = RELAXED;
 			var indenter = new Indenter(config.indentation);
@@ -28,6 +32,7 @@ class Formatter {
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
 			MarkWrapping.markWrapping(parsedCode, config.wrapping);
+			MarkSameLine.markSameLine(parsedCode, config.sameLine);
 
 			var lines:CodeLines = new CodeLines(parsedCode.tokenList, indenter);
 			lines.applyWrapping(config.wrapping);

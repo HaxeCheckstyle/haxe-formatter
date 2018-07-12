@@ -25,11 +25,11 @@ class MarkWhitespace {
 				case Binop(OpInterval):
 					parsedCode.tokenList.whitespace(token, config.intervalPolicy);
 				case Binop(OpMult):
-					if (TokenTreeCheckUtils.isImport(token)) {
+					if (TokenTreeCheckUtils.isImport(token.parent)) {
 						parsedCode.tokenList.whitespace(token, NONE);
 					}
 					else {
-						parsedCode.tokenList.whitespace(token, config.intervalPolicy);
+						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
 				case Binop(_):
 					parsedCode.tokenList.whitespace(token, config.binopPolicy);
@@ -66,11 +66,23 @@ class MarkWhitespace {
 	}
 
 	static function successiveParenthesis(token:TokenTree, parsedCode:ParsedCode, policy:WhitespacePolicy, compressSuccessiveParenthesis:Bool) {
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		if (next != null) {
+			switch (next.token.tok) {
+				case Dot, DblDot:
+					if ((policy == AFTER) || (policy == ONLY_AFTER)) {
+						policy = NONE;
+					}
+					if (policy == AROUND) {
+						policy = BEFORE;
+					}
+				default:
+			}
+		}
 		if (!compressSuccessiveParenthesis) {
 			parsedCode.tokenList.whitespace(token, policy);
 			return;
 		}
-		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
 				case POpen, BrOpen, BkOpen:

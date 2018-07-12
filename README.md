@@ -7,6 +7,9 @@ Formatter based on tokentree library
 - Whitespace
 - Wrapping
 - EmptyLines
+- SameLine
+  - if
+  - loops
 - LineEnds
 - `hxformat.json` config file
 
@@ -14,6 +17,19 @@ Formatter based on tokentree library
 - Configuration
   - more options
   - load (save)
+- better wrapping
+  - arrays
+  - objects / anonymous types
+- empty lines in
+  - abstract
+  - enum
+  - interface
+  - typedef
+- smae line
+  - try / catch
+  - objects / anonymous types
+- unittests
+  - format self
 
 ## TBD
 - import grouping and sort
