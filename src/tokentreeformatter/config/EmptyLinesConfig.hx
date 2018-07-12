@@ -6,18 +6,23 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var afterPackage:Int;
 	@:default(1) @:optional var afterImportsUsing:Int;
 	@:default(1) @:optional var betweenTypes:Int;
-	@:default(1) @:optional var beginClass:Int;
-	@:default(1) @:optional var betweenClassStaticVars:Int;
-	@:default(1) @:optional var afterClassStaticVars:Int;
-	@:default(1) @:optional var afterClassPrivateVars:Int;
-	@:default(0) @:optional var betweenClassVars:Int;
-	@:default(1) @:optional var afterClassVars:Int;
-	@:default(1) @:optional var afterClassStaticFunctions:Int;
-	@:default(1) @:optional var betweenClassStaticFunctions:Int;
-	@:default(1) @:optional var afterClassPrivateFunctions:Int;
-	@:default(1) @:optional var betweenClassFunctions:Int;
 	@:default(0) @:optional var beginEnumAbstract:Int;
 	@:default(0) @:optional var betweenEnumAbstractVars:Int;
 	@:default(1) @:optional var afterEnumAbstractVars:Int;
 	@:default(1) @:optional var betweenEnumAbstractFunctions:Int;
+	@:default(auto) @:optional var classEmptyLines:ClassFieldsEmtpyLinesConfig;
+	@:default(auto) @:optional var abstractEmptyLines:ClassFieldsEmtpyLinesConfig;
+}
+
+typedef ClassFieldsEmtpyLinesConfig = {
+	@:default(1) @:optional var beginType:Int;
+	@:default(1) @:optional var betweenStaticVars:Int;
+	@:default(1) @:optional var afterStaticVars:Int;
+	@:default(1) @:optional var afterPrivateVars:Int;
+	@:default(0) @:optional var betweenVars:Int;
+	@:default(1) @:optional var afterVars:Int;
+	@:default(1) @:optional var afterStaticFunctions:Int;
+	@:default(1) @:optional var betweenStaticFunctions:Int;
+	@:default(1) @:optional var afterPrivateFunctions:Int;
+	@:default(1) @:optional var betweenFunctions:Int;
 }

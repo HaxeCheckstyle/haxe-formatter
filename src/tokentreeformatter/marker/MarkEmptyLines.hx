@@ -19,7 +19,7 @@ class MarkEmptyLines {
 		}
 
 		markImports(parsedCode, config);
-		markClasses(parsedCode, config);
+		markClassesAndAbstracts(parsedCode, config);
 		markEnumAbstracts(parsedCode, config);
 	}
 
@@ -48,12 +48,24 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markClasses(parsedCode:ParsedCode, config:EmptyLinesConfig) {
-		var classes:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdClass)], ALL);
+	static function markClassesAndAbstracts(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var classes:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdClass), Kwd(KwdAbstract)], ALL);
 		for (c in classes) {
+			if (TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
+				continue;
+			}
+			var typeConfig:ClassFieldsEmtpyLinesConfig = null;
+			switch (c.tok) {
+				case Kwd(KwdClass):
+					typeConfig = config.classEmptyLines;
+				case Kwd(KwdAbstract):
+					typeConfig = config.abstractEmptyLines;
+				default:
+					continue;
+			}
 			var block:TokenTree = TokenTreeAccessHelper.access(c).firstChild().firstOf(BrOpen).token;
 			if (block != null) {
-				parsedCode.tokenList.emptyLinesAfter(block, config.beginClass);
+				parsedCode.tokenList.emptyLinesAfter(block, typeConfig.beginType);
 			}
 
 			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
@@ -65,7 +77,7 @@ class MarkEmptyLines {
 			for (func in functions) {
 				currToken = func;
 				currTokenType = FieldUtils.getFieldType(func, PRIVATE);
-				markClassFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+				markClassFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, typeConfig);
 				prevToken = currToken;
 				prevTokenType = currTokenType;
 			}
@@ -73,7 +85,7 @@ class MarkEmptyLines {
 	}
 
 	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-		currTokenType:TokenFieldType, config:EmptyLinesConfig) {
+		currTokenType:TokenFieldType, config:ClassFieldsEmtpyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -117,41 +129,41 @@ class MarkEmptyLines {
 		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassVars);
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
 			return;
 		}
 		if (prevVar) {
 			// only vars
 			if (prevStatic != currStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassStaticVars);
+				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterStaticVars);
 				return;
 			}
 			if (prevStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenClassStaticVars);
+				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenStaticVars);
 				return;
 			}
 			if (prevPrivate != currPrivate) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassPrivateVars);
+				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterPrivateVars);
 				return;
 			}
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenClassVars);
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
 			return;
 		}
 		else {
 			// only functions
 			if (prevStatic != currStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassStaticFunctions);
+				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterStaticFunctions);
 				return;
 			}
 			if (prevStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenClassStaticFunctions);
+				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenStaticFunctions);
 				return;
 			}
 			if (prevPrivate != currPrivate) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterClassPrivateFunctions);
+				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterPrivateFunctions);
 				return;
 			}
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenClassFunctions);
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
 			return;
 		}
 	}

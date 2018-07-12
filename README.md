@@ -7,6 +7,9 @@ Formatter based on tokentree library
 - Whitespace
 - Wrapping
 - EmptyLines
+  - abstract
+  - enum abstract
+  - class
 - SameLine
   - if
   - loops
@@ -21,7 +24,6 @@ Formatter based on tokentree library
   - arrays
   - objects / anonymous types
 - empty lines in
-  - abstract
   - enum
   - interface
   - typedef
