@@ -21,6 +21,10 @@ class MarkWhitespace {
 					}
 				case Binop(OpInterval):
 					parsedCode.tokenList.whitespace(token, config.intervalPolicy);
+				#if (haxe_ver >= 4.0)
+				case Binop(OpIn):
+					parsedCode.tokenList.whitespace(token, AROUND);
+				#end
 				case Binop(OpMult):
 					if (TokenTreeCheckUtils.isImport(token.parent)) {
 						parsedCode.tokenList.whitespace(token, NONE);
@@ -129,6 +133,14 @@ class MarkWhitespace {
 				parsedCode.tokenList.whitespace(token, config.tryPolicy);
 			case Kwd(KwdCatch):
 				parsedCode.tokenList.whitespace(token, config.catchPolicy);
+			case Kwd(KwdExtends):
+				parsedCode.tokenList.whitespace(token, AROUND);
+			case Kwd(KwdImplements):
+				parsedCode.tokenList.whitespace(token, AROUND);
+			#if (haxe_ver < 4.0)
+			case Kwd(KwdIn):
+				parsedCode.tokenList.whitespace(token, AROUND);
+			#end
 			case Kwd(_):
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 				if (next != null) {
