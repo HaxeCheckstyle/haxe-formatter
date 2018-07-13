@@ -571,6 +571,7 @@
         ],
         "MethodLength": [
             "tokentreeformatter/config/Config",
+            "tokentreeformatter/marker/Indenter:shouldIndent",
             "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
             "tokentreeformatter/marker/MarkSameLine:markSameLine",
             "tokentreeformatter/marker/MarkWhitespace:markWhitespace"

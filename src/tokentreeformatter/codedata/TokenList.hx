@@ -21,11 +21,7 @@ class TokenList {
 				fill(child.index - tokens.length);
 			}
 			tokens[index] = {
-				token: child,
-				whitespaceAfter: NONE,
-				emptyLinesAfter: 0,
-				wrapAfter: false,
-				text: null
+				token: child, whitespaceAfter: NONE, emptyLinesAfter: 0, wrapAfter: false, text: null
 			};
 			buildList(child);
 		}
@@ -134,6 +130,22 @@ class TokenList {
 			return;
 		}
 		info.whitespaceAfter = NL;
+	}
+
+	public function noLlineEndAfter(token:TokenTree) {
+		var info:TokenInfo = tokens[token.index];
+		if (info == null) {
+			return;
+		}
+		info.whitespaceAfter = SPACE;
+	}
+
+	public function noLineEndBefore(token:TokenTree) {
+		var info:TokenInfo = getPreviousToken(token);
+		if (info == null) {
+			return;
+		}
+		info.whitespaceAfter = SPACE;
 	}
 
 	public function emptyLinesAfter(token:TokenTree, count:Int) {

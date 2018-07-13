@@ -26,14 +26,21 @@ class Config {
 	}
 
 	public function readConfigFromString(jsonContent:String, fileName:String) {
-		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
-		var data:FormatterConfig = parser.fromJson(jsonContent, fileName);
-		emptyLines = data.emptyLines;
-		indentation = data.indentation;
-		lineEnds = data.lineEnds;
-		sameLine = data.sameLine;
-		whitespace = data.whitespace;
-		wrapping = data.wrapping;
-		disableFormatting = data.disableFormatting;
+		try {
+			var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
+			var data:FormatterConfig = parser.fromJson(jsonContent, fileName);
+			emptyLines = data.emptyLines;
+			indentation = data.indentation;
+			lineEnds = data.lineEnds;
+			sameLine = data.sameLine;
+			whitespace = data.whitespace;
+			wrapping = data.wrapping;
+			disableFormatting = data.disableFormatting;
+		}
+		catch (e:Any) {
+			// disable formatting rather than using an incorrect format
+			disableFormatting = true;
+			trace(e);
+		}
 	}
 }

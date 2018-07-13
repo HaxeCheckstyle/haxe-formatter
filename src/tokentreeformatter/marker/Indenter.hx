@@ -35,8 +35,8 @@ class Indenter {
 		}
 
 		switch (token.tok) {
-			case BrClose, BkClose, PClose, Kwd(KwdElse):
-			// use BrOpen, BkOpen, POpen, Kwd(KwdIf) for calculation
+			case BrClose, BkClose, PClose, Kwd(KwdElse), Kwd(KwdCatch):
+				// use BrOpen, BkOpen, POpen, Kwd(KwdIf) for calculation
 				token = token.parent;
 			case Kwd(KwdWhile):
 				var parent:TokenTree = token.parent;
@@ -44,8 +44,7 @@ class Indenter {
 					token = parent;
 				}
 			case Sharp(_):
-				if (config.conditionalPolicy == FIXED_ZERO)
-					return 0;
+				if (config.conditionalPolicy == FIXED_ZERO) return 0;
 			default:
 		}
 
@@ -99,6 +98,12 @@ class Indenter {
 				var body:TokenTree = TokenTreeAccessHelper.access(token).firstChild().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdWhile):
+				var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
+				return !body.is(BrOpen);
+			case Kwd(KwdTry):
+				var body:TokenTree = TokenTreeAccessHelper.access(token).firstChild().token;
+				return !body.is(BrOpen);
+			case Kwd(KwdCatch):
 				var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
 				return !body.is(BrOpen);
 			default:

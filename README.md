@@ -13,6 +13,7 @@ Formatter based on tokentree library
 - SameLine
   - if
   - loops
+  - try / catch
 - LineEnds
 - `hxformat.json` config file
 
@@ -27,8 +28,7 @@ Formatter based on tokentree library
   - enum
   - interface
   - typedef
-- smae line
-  - try / catch
+- same line
   - objects / anonymous types
 - unittests
   - format self

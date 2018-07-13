@@ -25,7 +25,6 @@ class Formatter {
 			if (config.disableFormatting) {
 				return null;
 			}
-			determineFormatterConfig(file.name);
 
 			tokentree.TokenStream.MODE = RELAXED;
 			var indenter = new Indenter(config.indentation);
