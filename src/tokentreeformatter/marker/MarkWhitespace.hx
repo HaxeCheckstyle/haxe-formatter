@@ -4,7 +4,6 @@ import tokentreeformatter.config.WhitespaceConfig;
 import tokentreeformatter.config.WhitespacePolicy;
 
 class MarkWhitespace {
-
 	public static function markWhitespace(parsedCode:ParsedCode, config:WhitespaceConfig) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {

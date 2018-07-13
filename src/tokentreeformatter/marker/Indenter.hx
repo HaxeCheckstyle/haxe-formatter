@@ -5,7 +5,6 @@ import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.config.IndentationConfig;
 
 class Indenter {
-
 	var config:IndentationConfig;
 	var parsedCode:ParsedCode;
 

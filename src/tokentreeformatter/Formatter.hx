@@ -14,7 +14,6 @@ import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.codedata.ParseFile;
 
 class Formatter {
-
 	static inline var FORMATTER_JSON:String = "hxformat.json";
 
 	public function new() {}

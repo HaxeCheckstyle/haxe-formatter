@@ -3,7 +3,6 @@ package tokentreeformatter.marker;
 import tokentreeformatter.config.SameLineConfig;
 
 class MarkSameLine {
-
 	public static function markSameLine(parsedCode:ParsedCode, config:SameLineConfig) {
 		markAnonObjectsSameLine(parsedCode, config);
 
@@ -13,6 +12,7 @@ class MarkSameLine {
 				case Kwd(KwdIf):
 					markBodyAfterPOpen(token, parsedCode, config.ifBody);
 				case Kwd(KwdElse):
+					applySameLinePolicy(token, parsedCode, config.ifElse);
 					markBody(token, parsedCode, config.elseBody);
 				case Kwd(KwdFor):
 					markBodyAfterPOpen(token, parsedCode, config.forBody);
