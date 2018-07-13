@@ -9,14 +9,14 @@ class Cli {
 	}
 
 	var files:Int = 0;
-	var verbose:Bool;
+	var verbose:Bool = false;
 	var mode:Mode = FORMAT;
 	var exitCode:Int = 0;
 
 	function new() {
 		var args = Sys.args();
 		if (Sys.getEnv("HAXELIB_RUN") == "1") {
-			args.pop();
+			Sys.setCwd(args.pop());
 		}
 
 		var paths = [];
@@ -43,6 +43,10 @@ class Cli {
 
 	function run(paths:Array<String>) {
 		for (path in paths) {
+			if (!FileSystem.exists(path)) {
+				Sys.println('Skipping \'$path\' (path does not exist)');
+				continue;
+			}
 			if (FileSystem.isDirectory(path)) {
 				run([for (file in FileSystem.readDirectory(path)) '$path/$file']);
 			} else {
