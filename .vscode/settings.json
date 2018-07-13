@@ -1,0 +1,4 @@
+{
+	// some issues with json2object...
+	"haxe.enableCompilationServer": false
+}

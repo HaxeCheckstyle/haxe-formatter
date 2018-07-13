@@ -262,64 +262,6 @@
         },
         {
             "props": {
-                "assignOpPolicy": "around",
-                "unaryOpPolicy": "none",
-                "ternaryOpPolicy": "around",
-                "arithmeticOpPolicy": "around",
-                "compareOpPolicy": "around",
-                "bitwiseOpPolicy": "around",
-                "boolOpPolicy": "around",
-                "intervalOpPolicy": "none",
-                "arrowPolicy": "around",
-                "functionArgPolicy": "around"
-            },
-            "type": "OperatorWhitespace"
-        },
-        {
-            "props": {
-                "tokens": [
-                    "=",
-                    "+",
-                    "-",
-                    "*",
-                    "/",
-                    "%",
-                    ">",
-                    "<",
-                    ">=",
-                    "<=",
-                    "==",
-                    "!=",
-                    "&",
-                    "|",
-                    "^",
-                    "&&",
-                    "||",
-                    "<<",
-                    ">>",
-                    ">>>",
-                    "+=",
-                    "-=",
-                    "*=",
-                    "/=",
-                    "%=",
-                    "<<=",
-                    ">>=",
-                    ">>>=",
-                    "|=",
-                    "&=",
-                    "^=",
-                    "...",
-                    "=>",
-                    "++",
-                    "--"
-                ],
-                "option": "eol"
-            },
-            "type": "OperatorWrap"
-        },
-        {
-            "props": {
                 "ignoreExtern": true,
                 "format": "^(_|[a-z][a-zA-Z0-9]*$)"
             },
@@ -347,35 +289,6 @@
                 "enforceReturnType": false
             },
             "type": "Return"
-        },
-        {
-            "props": {
-                "tokens": [
-                    "CLASS_DEF",
-                    "ENUM_DEF",
-                    "ABSTRACT_DEF",
-                    "TYPEDEF_DEF",
-                    "INTERFACE_DEF",
-                    "OBJECT_DECL",
-                    "FUNCTION",
-                    "FOR",
-                    "IF",
-                    "WHILE",
-                    "SWITCH",
-                    "TRY",
-                    "CATCH"
-                ],
-                "option": "aloneorsingle"
-            },
-            "type": "RightCurly"
-        },
-        {
-            "props": {
-                "dotPolicy": "none",
-                "commaPolicy": "after",
-                "semicolonPolicy": "after"
-            },
-            "type": "SeparatorWhitespace"
         },
         {
             "props": {
@@ -420,9 +333,6 @@
         },
         {
             "type": "Trace"
-        },
-        {
-            "type": "TrailingWhitespace"
         },
         {
             "props": {
@@ -475,54 +385,6 @@
         },
         {
             "type": "UnusedLocalVar"
-        },
-        {
-            "props": {
-                "tokens": [
-                    ",",
-                    ";"
-                ]
-            },
-            "type": "WhitespaceAfter"
-        },
-        {
-            "props": {
-                "tokens": [
-                    "=",
-                    "+",
-                    "-",
-                    "*",
-                    "/",
-                    "%",
-                    ">",
-                    "<",
-                    ">=",
-                    "<=",
-                    "==",
-                    "!=",
-                    "&",
-                    "|",
-                    "^",
-                    "&&",
-                    "||",
-                    "<<",
-                    ">>",
-                    ">>>",
-                    "+=",
-                    "-=",
-                    "*=",
-                    "/=",
-                    "%=",
-                    "<<=",
-                    ">>=",
-                    ">>>=",
-                    "|=",
-                    "&=",
-                    "^=",
-                    "=>"
-                ]
-            },
-            "type": "WhitespaceAround"
         }
     ],
     "exclude": {

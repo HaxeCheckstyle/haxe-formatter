@@ -9,6 +9,7 @@ class Cli {
 	}
 
 	var filesFormatted:Int = 0;
+	var verbose:Bool;
 
 	function new() {
 		var args = Sys.args();
@@ -18,7 +19,7 @@ class Cli {
 
 		var paths = [];
 		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed).") ["-s", "--source"
-			] => function(path:String) paths.push(path)]);
+			] => function(path:String) paths.push(path), ["-v"] => function(verbose:Bool) this.verbose = verbose]);
 		argHandler.parse(args);
 		if (args.length == 0) {
 			Sys.println("Haxe Formatter");
@@ -31,7 +32,7 @@ class Cli {
 
 		var duration = Date.now().getTime() - startTime;
 		Sys.println("");
-		var seconds = Date.fromTime(duration).getSeconds();
+		var seconds = duration / 1000;
 		Sys.println('Formatted $filesFormatted files in $seconds s.');
 	}
 
@@ -47,11 +48,16 @@ class Cli {
 
 	function formatFile(path:String) {
 		if (path.endsWith(".hx")) {
-			Sys.println('Formating $path');
+			if (verbose) {
+				Sys.println('Formatting $path');
+			}
 			var formattedFile = new Formatter().formatFile({
 				name: path, content: cast File.getBytes(path)
 				});
-			if (formattedFile != null) {
+			if (formattedFile == null) {
+				Sys.println('Failed to format $path');
+			} else {
+				filesFormatted++;
 				File.saveContent(path, formattedFile);
 			}
 		}
