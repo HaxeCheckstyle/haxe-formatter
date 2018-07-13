@@ -60,7 +60,7 @@ class MarkWhitespace {
 				case Const(CIdent("final")):
 					parsedCode.tokenList.whitespace(token, AFTER);
 				case Const(CIdent("from")), Const(CIdent("to")):
-					var parent:TokenTree = TokenTreeAccessHelper.access(token).parent().parent().is(Kwd(KwdAbstract)).token;
+					var parent:TokenTree = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
 					if (parent != null) {
 						parsedCode.tokenList.whitespace(token, AROUND);
 					}
@@ -70,11 +70,11 @@ class MarkWhitespace {
 			});
 	}
 
-	static function successiveParenthesis(token:TokenTree, parsedCode:ParsedCode, policy:WhitespacePolicy, compressSuccessiveParenthesis:Bool) {
+	public static function successiveParenthesis(token:TokenTree, parsedCode:ParsedCode, policy:WhitespacePolicy, compressSuccessiveParenthesis:Bool) {
 		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
-				case Dot, DblDot:
+				case Dot, DblDot, Semicolon:
 					if ((policy == AFTER) || (policy == ONLY_AFTER)) {
 						policy = NONE;
 					}
@@ -90,7 +90,7 @@ class MarkWhitespace {
 		}
 		if (next != null) {
 			switch (next.token.tok) {
-				case POpen, BrOpen, BkOpen:
+				case POpen, PClose, BrOpen, BrClose, BkOpen, BkClose:
 					if ((policy == AFTER) || (policy == ONLY_AFTER)) {
 						policy = NONE;
 					}
@@ -104,7 +104,7 @@ class MarkWhitespace {
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case POpen, BrOpen, BkOpen:
-					if (policy == BEFORE) {
+					if ((policy == BEFORE) || (policy == ONLY_BEFORE)) {
 						policy = NONE;
 					}
 					if (policy == AROUND) {

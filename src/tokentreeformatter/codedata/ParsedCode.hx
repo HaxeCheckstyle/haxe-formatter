@@ -31,9 +31,7 @@ class ParsedCode {
 	}
 
 	public static function createFromFile(fileName:String):ParsedCode {
-		return createFromByteData({
-			name: fileName, content: cast File.getBytes(fileName)
-		});
+		return createFromByteData({name: fileName, content: cast File.getBytes(fileName)});
 	}
 
 	public static function createFromByteData(parseFile:ParseFile):ParsedCode {
@@ -61,18 +59,14 @@ class ParsedCode {
 
 		for (i in 0...code.length) {
 			if (code.get(i) == 0x0A) {
-				linesIdx.push({
-					l: last, r: i
-				});
+				linesIdx.push({l: last, r: i});
 				last = i + 1;
 				left = false;
 			}
 			left = true;
 		}
 		if (left) {
-			linesIdx.push({
-				l: last, r: code.length
-			});
+			linesIdx.push({l: last, r: code.length});
 		}
 	}
 
@@ -100,9 +94,7 @@ class ParsedCode {
 			var matchLeft:Bool = linesIdx[center].l <= off;
 			var matchRight:Bool = linesIdx[center].r >= off;
 			if (matchLeft && matchRight) {
-				return {
-					line: center, ofs: off - linesIdx[center].l
-				};
+				return {line: center, ofs: off - linesIdx[center].l};
 			}
 			if (matchLeft) {
 				lowerBound = center + 1;

@@ -10,6 +10,8 @@ typedef WhitespaceConfig = {
 	// { … }
 	@:default(BEFORE) @:optional var brOpenPolicy:WhitespacePolicy;
 	@:default(AROUND) @:optional var brClosePolicy:WhitespacePolicy;
+	@:default(ONLY_BEFORE) @:optional var objectBrOpenPolicy:WhitespacePolicy;
+	@:default(ONLY_AFTER) @:optional var objectBrClosePolicy:WhitespacePolicy;
 	// < … >
 	@:default(NONE) @:optional var typeParamOpenPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var typeParamClosePolicy:WhitespacePolicy;

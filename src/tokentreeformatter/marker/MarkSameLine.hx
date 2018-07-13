@@ -1,41 +1,42 @@
 package tokentreeformatter.marker;
 
 import tokentreeformatter.config.SameLineConfig;
+import tokentreeformatter.config.WhitespaceConfig;
 
 class MarkSameLine {
-	public static function markSameLine(parsedCode:ParsedCode, config:SameLineConfig) {
-		markAnonObjectsSameLine(parsedCode, config);
+	public static function markSameLine(parsedCode:ParsedCode, configSameLine:SameLineConfig, configWhitespace:WhitespaceConfig) {
+		markAnonObjectsSameLine(parsedCode, configSameLine, configWhitespace);
 
 		var tokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch)], ALL);
 		for (token in tokens) {
 			switch (token.tok) {
 				case Kwd(KwdIf):
-					markBodyAfterPOpen(token, parsedCode, config.ifBody);
+					markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody);
 				case Kwd(KwdElse):
-					applySameLinePolicy(token, parsedCode, config.ifElse);
-					markBody(token, parsedCode, config.elseBody);
+					applySameLinePolicy(token, parsedCode, configSameLine.ifElse);
+					markBody(token, parsedCode, configSameLine.elseBody);
 				case Kwd(KwdFor):
-					markBodyAfterPOpen(token, parsedCode, config.forBody);
+					markBodyAfterPOpen(token, parsedCode, configSameLine.forBody);
 				case Kwd(KwdWhile):
 					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
-						applySameLinePolicy(token, parsedCode, config.doWhileBody);
+						applySameLinePolicy(token, parsedCode, configSameLine.doWhileBody);
 						continue;
 					}
-					markBodyAfterPOpen(token, parsedCode, config.whileBody);
+					markBodyAfterPOpen(token, parsedCode, configSameLine.whileBody);
 				case Kwd(KwdDo):
-					markBody(token, parsedCode, config.doWhileBody);
+					markBody(token, parsedCode, configSameLine.doWhileBody);
 				case Kwd(KwdTry):
-					markBody(token, parsedCode, config.tryBody);
+					markBody(token, parsedCode, configSameLine.tryBody);
 				case Kwd(KwdCatch):
-					applySameLinePolicy(token, parsedCode, config.tryCatch);
-					markBodyAfterPOpen(token, parsedCode, config.catchBody);
+					applySameLinePolicy(token, parsedCode, configSameLine.tryCatch);
+					markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody);
 				default:
 			}
 		}
 	}
 
 	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
-		var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
+		var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
 		if (body == null) {
 			return;
 		}
@@ -46,7 +47,7 @@ class MarkSameLine {
 	}
 
 	static function markBody(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
-		var body:TokenTree = TokenTreeAccessHelper.access(token).firstChild().token;
+		var body:TokenTree = token.access().firstChild().token;
 		if (body == null) {
 			return;
 		}
@@ -67,5 +68,24 @@ class MarkSameLine {
 		}
 	}
 
-	static function markAnonObjectsSameLine(parsedCode:ParsedCode, config:SameLineConfig) {}
+	static function markAnonObjectsSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
+		var tokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
+		for (token in tokens) {
+			if (!token.parent.isCIdent()) {
+				continue;
+			}
+			var brOpen:TokenTree = token.parent.parent;
+			if (!brOpen.is(BrOpen)) {
+				continue;
+			}
+			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			parsedCode.tokenList.noLlineEndAfter(brOpen);
+			parsedCode.tokenList.wrapAfter(brOpen, true);
+			parsedCode.tokenList.noLineEndBefore(brClose);
+			parsedCode.tokenList.wrapBefore(brClose, true);
+
+			MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectBrOpenPolicy, configWhitespace.compressSuccessiveParenthesis);
+			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectBrClosePolicy, configWhitespace.compressSuccessiveParenthesis);
+		}
+	}
 }

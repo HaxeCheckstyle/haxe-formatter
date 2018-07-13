@@ -35,7 +35,7 @@ class Formatter {
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
 			MarkWrapping.markWrapping(parsedCode, config.wrapping);
-			MarkSameLine.markSameLine(parsedCode, config.sameLine);
+			MarkSameLine.markSameLine(parsedCode, config.sameLine, config.whitespace);
 
 			var lines:CodeLines = new CodeLines(parsedCode.tokenList, indenter);
 			lines.applyWrapping(config.wrapping);

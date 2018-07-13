@@ -85,25 +85,25 @@ class Indenter {
 					return true;
 				}
 			case Kwd(KwdIf):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
+				var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdElse):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstChild().token;
+				var body:TokenTree = token.access().firstChild().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdFor):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
+				var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdDo):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstChild().token;
+				var body:TokenTree = token.access().firstChild().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdWhile):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
+				var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdTry):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstChild().token;
+				var body:TokenTree = token.access().firstChild().token;
 				return !body.is(BrOpen);
 			case Kwd(KwdCatch):
-				var body:TokenTree = TokenTreeAccessHelper.access(token).firstOf(POpen).nextSibling().token;
+				var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
 				return !body.is(BrOpen);
 			default:
 		}

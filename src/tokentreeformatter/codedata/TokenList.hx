@@ -19,9 +19,7 @@ class TokenList {
 			if (child.index >= tokens.length) {
 				fill(child.index - tokens.length);
 			}
-			tokens[index] = {
-				token: child, whitespaceAfter: NONE, emptyLinesAfter: 0, wrapAfter: false, text: null
-			};
+			tokens[index] = {token: child, whitespaceAfter: NONE, emptyLinesAfter: 0, wrapAfter: false, text: null};
 			buildList(child);
 		}
 	}
@@ -105,6 +103,15 @@ class TokenList {
 				if (prev != null) {
 					prev.whitespaceAfter = SPACE;
 				}
+			case NONE_BEFORE:
+				if (prev != null) {
+					prev.whitespaceAfter = NONE;
+				}
+			case ONLY_BEFORE:
+				if (prev != null) {
+					prev.whitespaceAfter = SPACE;
+				}
+				info.whitespaceAfter = NONE;
 			case AFTER:
 				info.whitespaceAfter = SPACE;
 			case AROUND:
@@ -149,6 +156,14 @@ class TokenList {
 
 	public function emptyLinesAfter(token:TokenTree, count:Int) {
 		var info:TokenInfo = tokens[token.index];
+		if (info == null) {
+			return;
+		}
+		info.emptyLinesAfter = count;
+	}
+
+	public function emptyLinesBefore(token:TokenTree, count:Int) {
+		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}

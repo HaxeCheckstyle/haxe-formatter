@@ -6,6 +6,7 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var afterPackage:Int;
 	@:default(1) @:optional var afterImportsUsing:Int;
 	@:default(1) @:optional var betweenTypes:Int;
+	@:default(0) @:optional var beforeRightCurly:Int;
 	@:default(0) @:optional var beginEnumAbstract:Int;
 	@:default(0) @:optional var betweenEnumAbstractVars:Int;
 	@:default(1) @:optional var afterEnumAbstractVars:Int;

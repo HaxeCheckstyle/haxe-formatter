@@ -20,6 +20,7 @@ class MarkEmptyLines {
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
 		markEnumAbstracts(parsedCode, config);
+		markRightCurly(parsedCode, config);
 	}
 
 	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
@@ -62,7 +63,7 @@ class MarkEmptyLines {
 				default:
 					continue;
 			}
-			var block:TokenTree = TokenTreeAccessHelper.access(c).firstChild().firstOf(BrOpen).token;
+			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			if (block != null) {
 				parsedCode.tokenList.emptyLinesAfter(block, typeConfig.beginType);
 			}
@@ -172,7 +173,7 @@ class MarkEmptyLines {
 			if (!TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
 				continue;
 			}
-			var block:TokenTree = TokenTreeAccessHelper.access(c).firstChild().firstOf(BrOpen).token;
+			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			if (block != null) {
 				parsedCode.tokenList.emptyLinesAfter(block, config.beginEnumAbstract);
 			}
@@ -246,12 +247,19 @@ class MarkEmptyLines {
 		}
 	}
 
+	static function markRightCurly(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var brCloses:Array<TokenTree> = parsedCode.root.filter([BrClose], ALL);
+		for (br in brCloses) {
+			parsedCode.tokenList.emptyLinesBefore(br, config.beforeRightCurly);
+		}
+	}
+
 	static function keepExistingEmptyLines(parsedCode:ParsedCode) {
 		var funcs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdFunction)], ALL);
 		for (func in funcs) {
-			var block:TokenTree = TokenTreeAccessHelper.access(func).firstChild().is(BrOpen).token;
+			var block:TokenTree = func.access().firstChild().is(BrOpen).token;
 			if (block == null) {
-				block = TokenTreeAccessHelper.access(func).firstChild().firstOf(BrOpen).token;
+				block = func.access().firstChild().firstOf(BrOpen).token;
 			}
 			if (block == null) {
 				continue;
