@@ -1,6 +1,5 @@
 *.iml
 .idea
-.vscode
 .temp
 *.iws
 *.log

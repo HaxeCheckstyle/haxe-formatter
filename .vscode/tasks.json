@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "hxml",
+			"file": "build.hxml",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "Format all files",
+			"type": "shell",
+			"command": "haxelib run tokentree-formatter -s src",
+			"problemMatcher": []
+		}
+	]
+}
