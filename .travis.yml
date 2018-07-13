@@ -5,10 +5,10 @@ haxe:
   - development
 
 install:
-  - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree
-  - haxelib git hxparse https://github.com/Simn/haxeparser
-  - haxelib git haxeparser https://github.com/Simn/haxeparser
-  - haxelib git hxargs https://github.com/Simn/hxargs
+  - haxelib git hxparse https://github.com/Simn/hxparse --never
+  - haxelib git haxeparser https://github.com/Simn/haxeparser --never
+  - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
+  - haxelib git hxargs https://github.com/Simn/hxargs --never
   - haxelib install json2object
 
 script:
