@@ -139,10 +139,6 @@ class MarkWhitespace {
 				parsedCode.tokenList.whitespace(token, config.tryPolicy);
 			case Kwd(KwdCatch):
 				parsedCode.tokenList.whitespace(token, config.catchPolicy);
-			case Kwd(KwdExtends):
-				parsedCode.tokenList.whitespace(token, AROUND);
-			case Kwd(KwdImplements):
-				parsedCode.tokenList.whitespace(token, AROUND);
 			#if (haxe_ver < 4.0)
 			case Kwd(KwdIn):
 				parsedCode.tokenList.whitespace(token, AROUND);
