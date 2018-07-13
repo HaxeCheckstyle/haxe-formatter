@@ -55,6 +55,10 @@ class MarkWhitespace {
 					parsedCode.tokenList.whitespace(token, config.semicolonPolicy);
 				case Const(CIdent("final")):
 					parsedCode.tokenList.whitespace(token, AFTER);
+				case Const(CIdent("from")), Const(CIdent("to")):
+					if (token.parent != null && token.parent.parent != null && token.parent.parent.tok.match(Kwd(KwdAbstract))) {
+						parsedCode.tokenList.whitespace(token, AROUND);
+					}
 				default:
 			}
 			return GO_DEEPER;
@@ -115,6 +119,8 @@ class MarkWhitespace {
 		switch (token.tok) {
 			case Kwd(KwdNull), Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdThis), Kwd(KwdDefault), Kwd(KwdContinue):
 				parsedCode.tokenList.whitespace(token, NONE_AFTER);
+			case Kwd(KwdExtends), Kwd(KwdImplements):
+				parsedCode.tokenList.whitespace(token, AROUND);
 			case Kwd(KwdIf):
 				parsedCode.tokenList.whitespace(token, config.ifPolicy);
 			case Kwd(KwdDo):
