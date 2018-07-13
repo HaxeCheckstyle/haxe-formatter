@@ -34,7 +34,7 @@ class Formatter {
 			indenter.setParsedCode(parsedCode);
 
 			MarkTokenText.markTokenText(parsedCode, indenter);
-			MarkEmptyLines.markEmptyLines(parsedCode, config.emptylines);
+			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
 			MarkWrapping.markWrapping(parsedCode, config.wrapping);
@@ -42,7 +42,7 @@ class Formatter {
 
 			var lines:CodeLines = new CodeLines(parsedCode.tokenList, indenter);
 			lines.applyWrapping(config.wrapping);
-			MarkEmptyLines.finalRun(lines, config.emptylines);
+			MarkEmptyLines.finalRun(lines, config.emptyLines);
 			indenter.finalRun(lines);
 
 			return lines.print(parsedCode.lineSeparator);

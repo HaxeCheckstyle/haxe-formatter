@@ -6,7 +6,7 @@ import json2object.JsonParser;
 
 class Config {
 
-	public var emptylines:EmptyLinesConfig;
+	public var emptyLines:EmptyLinesConfig;
 	public var indentation:IndentationConfig;
 	public var lineEnds:LineEndConfig;
 	public var sameLine:SameLineConfig;
@@ -28,7 +28,7 @@ class Config {
 	public function readConfigFromString(jsonContent:String, fileName:String) {
 		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
 		var data:FormatterConfig = parser.fromJson(jsonContent, fileName);
-		emptylines = data.emptylines;
+		emptyLines = data.emptyLines;
 		indentation = data.indentation;
 		lineEnds = data.lineEnds;
 		sameLine = data.sameLine;
