@@ -1,5 +1,6 @@
 package tokentreeformatter.config;
 
+import haxe.CallStack;
 import sys.FileSystem;
 import sys.io.File;
 import json2object.JsonParser;
@@ -40,6 +41,7 @@ class Config {
 			// disable formatting rather than using an incorrect format
 			disableFormatting = true;
 			trace(e);
+			Sys.println(CallStack.toString(CallStack.callStack()));
 		}
 	}
 }

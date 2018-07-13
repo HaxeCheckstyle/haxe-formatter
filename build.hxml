@@ -2,9 +2,10 @@
 -lib haxeparser
 -lib hxparse
 -lib json2object
+-lib hxargs
 
 -cp src
 
--main tokentreeformatter.Formatter
+-main tokentreeformatter.Cli
 
 -neko run.n

@@ -507,9 +507,6 @@
             "type": "UnusedLocalVar"
         },
         {
-            "type": "VariableInitialisation"
-        },
-        {
             "props": {
                 "tokens": [
                     ",",

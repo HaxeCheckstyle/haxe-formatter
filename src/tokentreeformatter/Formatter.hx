@@ -1,7 +1,6 @@
 package tokentreeformatter;
 
 import haxe.io.Path;
-import sys.io.File;
 import tokentreeformatter.config.Config;
 import tokentreeformatter.marker.MarkEmptyLines;
 import tokentreeformatter.marker.MarkLineEnds;
@@ -18,7 +17,7 @@ class Formatter {
 
 	public function new() {}
 
-	public function formatFile(file:ParseFile):String {
+	public function formatFile(file:ParseFile):Null<String> {
 		try {
 			var config:Config = loadConfig(file.name);
 			if (config.disableFormatting) {
@@ -61,7 +60,7 @@ class Formatter {
 		return config;
 	}
 
-	function determineFormatterConfig(fileName:String):String {
+	function determineFormatterConfig(fileName:String):Null<String> {
 		var path:String = Path.directory(fileName);
 
 		while (path.length > 0) {
@@ -72,20 +71,5 @@ class Formatter {
 			path = Path.normalize(Path.join([path, ".."]));
 		}
 		return null;
-	}
-
-	public static function main() {
-		var args:Array<String> = Sys.args();
-
-		var formatter = new Formatter();
-		for (arg in args) {
-			var formattedCode:String = formatter.formatFile({
-				name: arg, content: cast File.getBytes(arg)
-				});
-			if (formattedCode == null) {
-				continue;
-			}
-			Sys.print(formattedCode);
-		}
 	}
 }
