@@ -8,8 +8,10 @@ class Cli {
 		new Cli();
 	}
 
-	var filesFormatted:Int = 0;
+	var files:Int = 0;
 	var verbose:Bool;
+	var mode:Mode = FORMAT;
+	var exitCode:Int = 0;
 
 	function new() {
 		var args = Sys.args();
@@ -19,7 +21,7 @@ class Cli {
 
 		var paths = [];
 		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed).") ["-s", "--source"
-			] => function(path:String) paths.push(path), ["-v"] => function(verbose:Bool) this.verbose = verbose]);
+			] => function(path:String) paths.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = CHECK]);
 		argHandler.parse(args);
 		if (args.length == 0) {
 			Sys.println("Haxe Formatter");
@@ -33,7 +35,10 @@ class Cli {
 		var duration = Date.now().getTime() - startTime;
 		Sys.println("");
 		var seconds = duration / 1000;
-		Sys.println('Formatted $filesFormatted files in $seconds s.');
+		var action = if (mode == FORMAT) "Formatted" else "Checked";
+		Sys.println('$action $files files in $seconds s.');
+
+		Sys.exit(exitCode);
 	}
 
 	function run(paths:Array<String>) {
@@ -49,17 +54,32 @@ class Cli {
 	function formatFile(path:String) {
 		if (path.endsWith(".hx")) {
 			if (verbose) {
-				Sys.println('Formatting $path');
+				var action = if (mode == FORMAT) "Formatting" else "Checking";
+				Sys.println('$action $path');
 			}
+			var content:Bytes = File.getBytes(path);
 			var formattedFile = new Formatter().formatFile({
-				name: path, content: cast File.getBytes(path)
+				name: path, content: cast content
 				});
 			if (formattedFile == null) {
 				Sys.println('Failed to format $path');
 			} else {
-				filesFormatted++;
-				File.saveContent(path, formattedFile);
+				files++;
+				switch (mode) {
+					case FORMAT:
+						File.saveContent(path, formattedFile);
+					case CHECK:
+						if (formattedFile != content.toString()) {
+							Sys.println('Incorrect formatting in $path');
+							exitCode = 1;
+						}
+				}
 			}
 		}
 	}
+}
+
+enum Mode {
+	FORMAT;
+	CHECK;
 }
