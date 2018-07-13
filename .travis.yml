@@ -1,0 +1,15 @@
+language: haxe
+
+haxe:
+  - 3.4.7
+  - development
+
+install:
+  - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree
+  - haxelib git hxparse https://github.com/Simn/haxeparser
+  - haxelib git haxeparser https://github.com/Simn/haxeparser
+  - haxelib git hxargs https://github.com/Simn/hxargs
+  - haxelib install json2object
+
+script:
+  - haxe build.hxml

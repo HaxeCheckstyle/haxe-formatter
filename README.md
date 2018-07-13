@@ -1,5 +1,7 @@
 # TokenTree Formatter
 
+[![Build Status](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter.svg?branch=master)](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter)
+
 Formatter based on tokentree library
 
 ## Features
