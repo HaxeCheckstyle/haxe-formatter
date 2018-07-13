@@ -60,7 +60,8 @@ class MarkWhitespace {
 				case Const(CIdent("final")):
 					parsedCode.tokenList.whitespace(token, AFTER);
 				case Const(CIdent("from")), Const(CIdent("to")):
-					if (token.parent != null && token.parent.parent != null && token.parent.parent.tok.match(Kwd(KwdAbstract))) {
+					var parent:TokenTree = TokenTreeAccessHelper.access(token).parent().parent().is(Kwd(KwdAbstract)).token;
+					if (parent != null) {
 						parsedCode.tokenList.whitespace(token, AROUND);
 					}
 				default:
