@@ -3,7 +3,6 @@ package tokentreeformatter.marker;
 import tokentreeformatter.config.LineEndConfig;
 
 class MarkLineEnds {
-
 	public static function markLineEnds(parsedCode:ParsedCode, config:LineEndConfig) {
 		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], ALL);
 		for (token in semicolonTokens) {

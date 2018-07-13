@@ -1,7 +1,6 @@
 package tokentreeformatter.marker;
 
 class MarkTokenText {
-
 	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {

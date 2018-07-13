@@ -3,7 +3,6 @@ package tokentreeformatter.codedata;
 import tokentreeformatter.config.WhitespacePolicy;
 
 class TokenList {
-
 	public var tokens:Array<TokenInfo>;
 
 	public function new() {

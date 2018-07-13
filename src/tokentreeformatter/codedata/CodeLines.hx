@@ -4,7 +4,6 @@ import tokentreeformatter.config.WrapConfig;
 import tokentreeformatter.marker.Indenter;
 
 class CodeLines {
-
 	var indenter:Indenter;
 
 	public var lines:Array<CodeLine>;

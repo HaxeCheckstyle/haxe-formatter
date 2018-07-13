@@ -5,7 +5,6 @@ import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.config.EmptyLinesConfig;
 
 class MarkEmptyLines {
-
 	public static function markEmptyLines(parsedCode:ParsedCode, config:EmptyLinesConfig) {
 		keepExistingEmptyLines(parsedCode);
 
@@ -148,8 +147,7 @@ class MarkEmptyLines {
 			}
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
 			return;
-		}
-		else {
+		} else {
 			// only functions
 			if (prevStatic != currStatic) {
 				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterStaticFunctions);
@@ -231,8 +229,7 @@ class MarkEmptyLines {
 			// only vars
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenEnumAbstractVars);
 			return;
-		}
-		else {
+		} else {
 			// only functions
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenEnumAbstractFunctions);
 			return;

@@ -39,8 +39,7 @@ class Cli {
 		for (path in paths) {
 			if (FileSystem.isDirectory(path)) {
 				run([for (file in FileSystem.readDirectory(path)) '$path/$file']);
-			}
-			else {
+			} else {
 				formatFile(path);
 			}
 		}

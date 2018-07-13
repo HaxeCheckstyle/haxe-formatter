@@ -10,15 +10,13 @@ class MarkWhitespace {
 				case Binop(OpLt):
 					if (TokenTreeCheckUtils.isTypeParameter(token)) {
 						parsedCode.tokenList.whitespace(token, config.typeParamOpenPolicy);
-					}
-					else {
+					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
 				case Binop(OpGt):
 					if (TokenTreeCheckUtils.isTypeParameter(token)) {
 						parsedCode.tokenList.whitespace(token, config.typeParamClosePolicy);
-					}
-					else {
+					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
 				case Binop(OpInterval):
@@ -26,8 +24,7 @@ class MarkWhitespace {
 				case Binop(OpMult):
 					if (TokenTreeCheckUtils.isImport(token.parent)) {
 						parsedCode.tokenList.whitespace(token, NONE);
-					}
-					else {
+					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
 				case Binop(_):

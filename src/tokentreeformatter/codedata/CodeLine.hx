@@ -4,7 +4,6 @@ import tokentreeformatter.config.WrapConfig;
 import tokentreeformatter.marker.Indenter;
 
 class CodeLine {
-
 	var parts:Array<CodePart>;
 	var currentPart:CodePart;
 
@@ -23,17 +22,14 @@ class CodeLine {
 		}
 		if (currentPart == null) {
 			currentPart = {
-				firstToken: tokenInfo.token,
-				lastToken: tokenInfo.token,
-				text: ""
+				firstToken: tokenInfo.token, lastToken: tokenInfo.token, text: ""
 			};
 			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;
 		if (tokenInfo.whitespaceAfter == SPACE) {
 			currentPart.text += tokenInfo.text + " ";
-		}
-		else {
+		} else {
 			currentPart.text += tokenInfo.text;
 		}
 		if (tokenInfo.wrapAfter) {
