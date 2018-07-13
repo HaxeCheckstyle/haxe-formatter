@@ -9,7 +9,8 @@ install:
   - haxelib git haxeparser https://github.com/Simn/haxeparser --never
   - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
   - haxelib git hxargs https://github.com/Simn/hxargs --never
+  - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
   - haxelib install json2object
 
 script:
-  - haxe build.hxml
+  - haxe buildAll.hxml

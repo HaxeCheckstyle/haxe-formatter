@@ -7,5 +7,3 @@
 -cp src
 
 -main tokentreeformatter.Cli
-
--neko run.n

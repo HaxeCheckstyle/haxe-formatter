@@ -1,0 +1,3 @@
+buildCommon.hxml
+-lib hxnodejs
+-js run.js
