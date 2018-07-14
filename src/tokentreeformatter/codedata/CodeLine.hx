@@ -21,9 +21,7 @@ class CodeLine {
 			emptyLinesAfter = tokenInfo.emptyLinesAfter;
 		}
 		if (currentPart == null) {
-			currentPart = {
-				firstToken: tokenInfo.token, lastToken: tokenInfo.token, text: ""
-			};
+			currentPart = {firstToken: tokenInfo.token, lastToken: tokenInfo.token, text: ""};
 			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;

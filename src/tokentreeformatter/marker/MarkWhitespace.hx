@@ -31,6 +31,13 @@ class MarkWhitespace {
 					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
+				case Binop(OpSub):
+					if (TokenTreeCheckUtils.filterOpSub(token)) {
+						var policy:WhitespacePolicy = WhitespacePolicy.remove(config.binopPolicy, AFTER);
+						parsedCode.tokenList.whitespace(token, policy);
+					} else {
+						parsedCode.tokenList.whitespace(token, config.binopPolicy);
+					}
 				case Binop(_):
 					parsedCode.tokenList.whitespace(token, config.binopPolicy);
 				case Comma:
@@ -75,12 +82,7 @@ class MarkWhitespace {
 		if (next != null) {
 			switch (next.token.tok) {
 				case Dot, DblDot, Semicolon:
-					if ((policy == AFTER) || (policy == ONLY_AFTER)) {
-						policy = NONE;
-					}
-					if (policy == AROUND) {
-						policy = BEFORE;
-					}
+					policy = WhitespacePolicy.remove(policy, AFTER);
 				default:
 			}
 		}
@@ -91,12 +93,7 @@ class MarkWhitespace {
 		if (next != null) {
 			switch (next.token.tok) {
 				case POpen, PClose, BrOpen, BrClose, BkOpen, BkClose:
-					if ((policy == AFTER) || (policy == ONLY_AFTER)) {
-						policy = NONE;
-					}
-					if (policy == AROUND) {
-						policy = BEFORE;
-					}
+					policy = WhitespacePolicy.remove(policy, AFTER);
 				default:
 			}
 		}
@@ -104,12 +101,7 @@ class MarkWhitespace {
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case POpen, BrOpen, BkOpen:
-					if ((policy == BEFORE) || (policy == ONLY_BEFORE)) {
-						policy = NONE;
-					}
-					if (policy == AROUND) {
-						policy = AFTER;
-					}
+					policy = WhitespacePolicy.remove(policy, BEFORE);
 				default:
 			}
 		}
@@ -118,8 +110,14 @@ class MarkWhitespace {
 
 	static function markKeyword(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
 		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-		if ((prev != null) && (prev.token.is(PClose))) {
-			prev.whitespaceAfter = SPACE;
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case PClose:
+					prev.whitespaceAfter = SPACE;
+				case Const(_):
+					prev.whitespaceAfter = SPACE;
+				default:
+			}
 		}
 		switch (token.tok) {
 			case Kwd(KwdNull), Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdThis), Kwd(KwdDefault), Kwd(KwdContinue):

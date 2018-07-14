@@ -62,9 +62,7 @@ class Cli {
 				Sys.println('$action $path');
 			}
 			var content:Bytes = File.getBytes(path);
-			var formattedFile = new Formatter().formatFile({
-				name: path, content: cast content
-				});
+			var formattedFile = new Formatter().formatFile({name: path, content: cast content});
 			if (formattedFile == null) {
 				Sys.println('Failed to format $path');
 			} else {

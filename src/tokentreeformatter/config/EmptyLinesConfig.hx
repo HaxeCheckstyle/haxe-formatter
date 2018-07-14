@@ -4,6 +4,7 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var maxAnywhereInFile:Int;
 	@:default(0) @:optional var beforeEndOfFile:Int;
 	@:default(1) @:optional var afterPackage:Int;
+	@:default(1) @:optional var beforeUsing:Int;
 	@:default(1) @:optional var afterImportsUsing:Int;
 	@:default(1) @:optional var betweenTypes:Int;
 	@:default(0) @:optional var beforeRightCurly:Int;

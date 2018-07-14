@@ -391,6 +391,7 @@
         "path": "RELATIVE_TO_PROJECT",
         "all": [],
         "CyclomaticComplexity": [
+            "tokentreeformatter/config/WhitespacePolicy:remove",
             "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
             "tokentreeformatter/marker/MarkLineEnds:markBrOpenClose",
             "tokentreeformatter/marker/MarkSameLine:markSameLine"
@@ -400,7 +401,7 @@
         ],
         "MethodLength": [
             "tokentreeformatter/config/Config",
-            "tokentreeformatter/marker/Indenter:shouldIndent",
+            "tokentreeformatter/marker/Indenter",
             "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
             "tokentreeformatter/marker/MarkSameLine:markSameLine",
             "tokentreeformatter/marker/MarkWhitespace:markWhitespace"

@@ -39,12 +39,29 @@ class MarkEmptyLines {
 		}
 
 		var lastImport:TokenTree = imports[imports.length - 1];
-		var next:TokenTree = lastImport.nextSibling;
-		if (next != null) {
-			var semicolon:TokenInfo = parsedCode.tokenList.getPreviousToken(next);
-			if (semicolon != null) {
-				semicolon.emptyLinesAfter = config.afterImportsUsing;
+		parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.afterImportsUsing);
+		lastImport = null;
+		var isImport:Bool = true;
+		for (token in imports) {
+			var newIsImport:Bool;
+			switch (token.tok) {
+				case Kwd(KwdImport):
+					newIsImport = true;
+				case Kwd(KwdUsing):
+					newIsImport = false;
+				default:
+					continue;
 			}
+			if (lastImport == null) {
+				lastImport = token;
+				isImport = newIsImport;
+				continue;
+			}
+			if (newIsImport != isImport) {
+				parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.beforeUsing);
+			}
+			isImport = newIsImport;
+			lastImport = token;
 		}
 	}
 
