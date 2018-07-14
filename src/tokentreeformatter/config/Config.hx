@@ -36,8 +36,7 @@ class Config {
 			whitespace = data.whitespace;
 			wrapping = data.wrapping;
 			disableFormatting = data.disableFormatting;
-		}
-		catch (e:Any) {
+		} catch (e:Any) {
 			// disable formatting rather than using an incorrect format
 			disableFormatting = true;
 			trace(e);

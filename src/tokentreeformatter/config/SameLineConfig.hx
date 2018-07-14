@@ -9,7 +9,7 @@ typedef SameLineConfig = {
 	@:default(SAME) @:optional var doWhileBody:SameLinePolicy;
 	@:default(SAME) @:optional var tryBody:SameLinePolicy;
 	@:default(SAME) @:optional var catchBody:SameLinePolicy;
-	@:default(NEXT) @:optional var tryCatch:SameLinePolicy;
+	@:default(SAME) @:optional var tryCatch:SameLinePolicy;
 	@:default(SAME) @:optional var anonObjects:SameLinePolicy;
 }
 

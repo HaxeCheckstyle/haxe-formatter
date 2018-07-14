@@ -24,8 +24,7 @@ class ParsedCode {
 			makePosIndices();
 			makeTokens();
 			getTokenTree();
-		}
-		catch (e:Any) {
+		} catch (e:Any) {
 			throw 'failed to create parser context $e';
 		}
 	}
@@ -172,8 +171,7 @@ class ParsedCode {
 				tokens.push(t);
 				t = lexer.token(haxeparser.HaxeLexer.tok);
 			}
-		}
-		catch (e:Any) {
+		} catch (e:Any) {
 			throw 'failed to make tokens $e';
 		}
 	}

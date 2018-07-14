@@ -43,8 +43,7 @@ class Formatter {
 			indenter.finalRun(lines);
 
 			return lines.print(parsedCode.lineSeparator);
-		}
-		catch (e:Any) {
+		} catch (e:Any) {
 			Sys.println('unhandled exception caught: $e');
 			return null;
 		}
