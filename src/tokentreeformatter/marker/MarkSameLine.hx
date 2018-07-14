@@ -6,6 +6,7 @@ import tokentreeformatter.config.WhitespaceConfig;
 class MarkSameLine {
 	public static function markSameLine(parsedCode:ParsedCode, configSameLine:SameLineConfig, configWhitespace:WhitespaceConfig) {
 		markAnonObjectsSameLine(parsedCode, configSameLine, configWhitespace);
+		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
 
 		var tokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch)], ALL);
 		for (token in tokens) {
@@ -86,6 +87,30 @@ class MarkSameLine {
 
 			MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectBrOpenPolicy, configWhitespace.compressSuccessiveParenthesis);
 			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectBrClosePolicy, configWhitespace.compressSuccessiveParenthesis);
+		}
+	}
+
+	static function markDollarSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
+		var tokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Dollar(_):
+					FOUND_SKIP_SUBTREE;
+				default:
+					GO_DEEPER;
+			}
+		});
+		for (token in tokens) {
+			var brOpen:TokenTree = token.access().firstChild().is(BrOpen).token;
+			if (brOpen == null) {
+				continue;
+			}
+			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			parsedCode.tokenList.whitespace(brOpen, NONE);
+			parsedCode.tokenList.whitespace(brClose, NONE);
+			parsedCode.tokenList.wrapBefore(brOpen, false);
+			parsedCode.tokenList.wrapAfter(brOpen, false);
+			parsedCode.tokenList.wrapBefore(brClose, false);
+			parsedCode.tokenList.wrapAfter(brClose, false);
 		}
 	}
 }

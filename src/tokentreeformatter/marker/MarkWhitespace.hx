@@ -142,6 +142,8 @@ class MarkWhitespace {
 			case Kwd(KwdIn):
 				parsedCode.tokenList.whitespace(token, AROUND);
 			#end
+			case Kwd(KwdReturn):
+				parsedCode.tokenList.whitespace(token, AFTER);
 			case Kwd(_):
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 				if (next != null) {
