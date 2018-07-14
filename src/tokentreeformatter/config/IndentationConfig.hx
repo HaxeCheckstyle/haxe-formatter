@@ -7,7 +7,7 @@ typedef IndentationConfig = {
 
 @:enum
 abstract ConditionalIndentationPolicy(String) {
-	var FIXED_ZERO = "fixed_zero";
+	var FIXED_ZERO = "fixedZero";
 	var ALIGNED = "aligned";
-	var ALIGNED_INCREASE = "aligned_increase";
+	var ALIGNED_INCREASE = "alignedIncrease";
 }

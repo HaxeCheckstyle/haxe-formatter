@@ -49,6 +49,6 @@ abstract RightCurlyLineEndPolicy(String) {
 
 @:enum
 abstract EmptyCurlyPolicy(String) {
-	var NO_BREAK = "nobreak";
+	var NO_BREAK = "noBreak";
 	var BREAK = "break";
 }
