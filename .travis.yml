@@ -4,10 +4,6 @@ haxe:
   - 3.4.7
   - development
 
-matrix:
-  allow_failures:
-    - haxe: 3.4.7
-
 install:
   - haxelib git hxparse https://github.com/Simn/hxparse --never
   - haxelib git haxeparser https://github.com/Simn/haxeparser --never
