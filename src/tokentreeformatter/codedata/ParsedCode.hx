@@ -134,7 +134,7 @@ class ParsedCode {
 			}
 		}
 
-		//default
+		// default
 		lineSeparator = "\n";
 	}
 

@@ -1,0 +1,15 @@
+{}
+
+---
+
+class Main{
+//Test
+static function main(){}
+}
+
+---
+
+class Main {
+	// Test
+	static function main() {}
+}

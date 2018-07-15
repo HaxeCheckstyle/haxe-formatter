@@ -49,19 +49,19 @@ class CodeLine {
 	function wrappedAt(part:CodePart, config:WrapConfig, indenter:Indenter):Array<CodeLine> {
 		// var parent:TokenTree = part.firstToken.parent;
 		// switch (parent.tok) {
-		// 	case BrOpen:
-		// 		if (config.wrapAfterBrOpen) {
-		// 			return wrapObject(part, config);
-		// 		}
-		// 	case Const(_):
-		// 		switch (parent.parent.tok) {
-		// 			case BkOpen:
-		// 				if (config.wrapAfterBkOpen) {
-		// 					return wrapArray(part, config);
-		// 				}
-		// 			default:
-		// 		}
-		// 	default:
+		// case BrOpen:
+		// if (config.wrapAfterBrOpen) {
+		// return wrapObject(part, config);
+		// }
+		// case Const(_):
+		// switch (parent.parent.tok) {
+		// case BkOpen:
+		// if (config.wrapAfterBkOpen) {
+		// return wrapArray(part, config);
+		// }
+		// default:
+		// }
+		// default:
 		// }
 		return wrapNormal(config, indenter);
 	}
@@ -91,10 +91,10 @@ class CodeLine {
 	}
 
 	// function wrapObject(part:CodePart, config:WrapConfig):Array<CodeLine> {
-	// 	return [this];
+	// return [this];
 	// }
 	// function wrapArray(part:CodePart, config:WrapConfig):Array<CodeLine> {
-	// 	return [this];
+	// return [this];
 	// }
 	public function print(indenter:Indenter):String {
 		var line:String = "";

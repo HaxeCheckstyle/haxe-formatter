@@ -10,6 +10,8 @@ class MarkTokenText {
 					parsedCode.tokenList.tokenText(token, printEregToken(token, parsedCode));
 				case Comment(text):
 					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter));
+				case CommentLine(text):
+					parsedCode.tokenList.tokenText(token, printCommentLine(text));
 				default:
 					parsedCode.tokenList.tokenText(token, token.toString());
 			}
@@ -27,15 +29,23 @@ class MarkTokenText {
 
 	public static function printComment(text:String, token:TokenTree, parsedCode:ParsedCode, indenter:Indenter):String {
 		var lines:Array<String> = text.split(parsedCode.lineSeparator);
-		text = "/*" + lines[0];
+		var indent:Int = indenter.calcIndent(token);
+		text = "/*" + StringTools.trim(lines[0]);
 		for (index in 1...lines.length) {
 			text += parsedCode.lineSeparator;
-			var line:String = StringTools.rtrim(lines[index]);
-			if (~/^\s*\*/.match(line)) {
-				line = " " + StringTools.ltrim(line);
+			var line:String = StringTools.trim(lines[index]);
+			var lineIndent:Int = indent;
+			if ((~/^\*/.match(line)) || (index == lines.length - 1)) {
+				line = " " + line;
+			} else {
+				lineIndent++;
 			}
-			text += indenter.makeIndent(token) + line;
+			text += indenter.makeIndentString(lineIndent) + line;
 		}
 		return text + "*/";
+	}
+
+	public static function printCommentLine(text:String):String {
+		return "// " + StringTools.trim(text);
 	}
 }
