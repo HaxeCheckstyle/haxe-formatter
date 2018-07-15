@@ -28,6 +28,19 @@ class MarkLineEnds {
 			}
 		});
 		for (token in commentTokens) {
+			switch (token.tok) {
+				case CommentLine(_):
+					var commentLine:Int = parsedCode.getLinePos(token.pos.min).line;
+					var prevLine:Int = -1;
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					if (prev != null) {
+						prevLine = parsedCode.getLinePos(prev.token.pos.min).line;
+					}
+					if (prevLine == commentLine) {
+						parsedCode.tokenList.noLineEndBefore(token);
+					}
+				default:
+			}
 			parsedCode.tokenList.lineEndAfter(token);
 		}
 	}

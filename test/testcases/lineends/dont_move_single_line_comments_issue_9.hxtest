@@ -1,0 +1,27 @@
+{}
+
+---
+
+	// foo
+class Main{
+		// foo
+	static function main(){
+trace("foo"); // foo
+// foo
+trace("bar");
+// foo
+	}
+}
+
+---
+
+// foo
+class Main {
+	// foo
+	static function main() {
+		trace("foo"); // foo
+		// foo
+		trace("bar");
+		// foo
+	}
+}
