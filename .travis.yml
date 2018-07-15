@@ -11,8 +11,13 @@ install:
   - haxelib git hxargs https://github.com/Simn/hxargs --never
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
   - haxelib install json2object
+  - haxelib install compiletime 2.6.0
+  - haxelib install hxargs 3.0.2
+  - haxelib install mcover 2.1.1
+  - haxelib install munit
 
 script:
   - haxe buildAll.hxml
+  - haxe buildTest.hxml
   - node run.js -s . --check
   - neko run.n -s . --check

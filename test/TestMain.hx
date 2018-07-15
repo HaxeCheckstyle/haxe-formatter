@@ -1,11 +1,8 @@
 import haxe.EntryPoint;
 import haxe.Json;
-
 import sys.io.File;
 import sys.io.FileOutput;
-
 import massive.munit.TestRunner;
-
 import mcover.coverage.munit.client.MCoverPrintClient;
 import mcover.coverage.data.CoverageResult;
 import mcover.coverage.data.Statement;
@@ -15,7 +12,6 @@ import mcover.coverage.MCoverage;
 using StringTools;
 
 class TestMain {
-
 	public function new() {
 		var suites:Array<Class<massive.munit.TestSuite>> = [TestSuite];
 
@@ -25,7 +21,7 @@ class TestMain {
 		#if (neko || cpp || hl)
 		EntryPoint.addThread(function() {
 			while (true) Sys.sleep(1.0);
-		});
+			});
 		#end
 		runner.run(suites);
 		EntryPoint.run();
@@ -36,11 +32,11 @@ class TestMain {
 
 	function completionHandler(success:Bool) {
 		setupCoverageReport();
-		Sys.exit(success ? 0 : 1);
+		Sys.exit(success?0:1);
 	}
 
 	function setupCoverageReport() {
-		var report = { coverage: {} };
+		var report = {coverage: {}};
 		var classes = MCoverage.getLogger().coverage.getClasses();
 		for (cls in classes) {
 			var coverageData:Array<LineCoverageResult> = [null];
@@ -50,16 +46,16 @@ class TestMain {
 
 			var missingStatements:Array<Statement> = cls.getMissingStatements();
 			for (stmt in missingStatements) {
-				for (line in stmt.lines) coverageData[line + 1] = 0;
+			for (line in stmt.lines) coverageData[line + 1] = 0;
 			}
 			var missingBranches:Array<Branch> = cls.getMissingBranches();
 			for (branch in missingBranches) {
-				if (branch.lines.length <= 0) continue;
-				var count:Int = 0;
-				if (branch.trueCount > 0) count++;
-				if (branch.falseCount > 0) count++;
-				var line:Int = branch.lines[branch.lines.length - 1];
-				coverageData[line] = count + "/2";
+			if (branch.lines.length <= 0) continue;
+			var count:Int = 0;
+			if (branch.trueCount > 0) count++;
+			if (branch.falseCount > 0) count++;
+			var line:Int = branch.lines[branch.lines.length - 1];
+			coverageData[line] = count + "/2";
 			}
 
 			Reflect.setField(report.coverage, c, coverageData);

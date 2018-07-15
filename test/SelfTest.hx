@@ -8,8 +8,16 @@ import sys.FileSystem;
 
 class SelfTest {
 	@Test
-	public function testSelf() {
+	public function testSelfSrc() {
 		var files:Array<String> = collectAllFileNames("src");
+		for (file in files) {
+			checkFile(file);
+		}
+	}
+
+	@Test
+	public function testSelfTest() {
+		var files:Array<String> = collectAllFileNames("test");
 		for (file in files) {
 			checkFile(file);
 		}
