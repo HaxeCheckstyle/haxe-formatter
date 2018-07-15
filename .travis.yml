@@ -4,6 +4,9 @@ haxe:
   - 3.4.7
   - development
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+
 install:
   - haxelib git hxparse https://github.com/Simn/hxparse --never
   - haxelib git haxeparser https://github.com/Simn/haxeparser --never
