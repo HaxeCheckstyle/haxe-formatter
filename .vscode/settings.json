@@ -2,6 +2,7 @@
 	"haxe.displayConfigurations": [
 		["display.hxml"]
 	],
-	// some issues with json2object...
-	"haxe.enableCompilationServer": false
+	"[haxe]": {
+		"editor.formatOnSave":true
+	}
 }
