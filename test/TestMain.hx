@@ -32,7 +32,10 @@ class TestMain {
 
 	function completionHandler(success:Bool) {
 		setupCoverageReport();
-		Sys.exit(success ? 0 : 1);
+		if (success) {
+			File.saveContent("test/formatter-result.txt", "\n---\n");
+		}
+		Sys.exit(success?0:1);
 	}
 
 	function setupCoverageReport() {

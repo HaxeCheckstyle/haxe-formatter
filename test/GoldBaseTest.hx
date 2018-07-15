@@ -1,3 +1,4 @@
+import sys.io.File;
 import byte.ByteData;
 import haxe.PosInfos;
 import haxe.Template;
@@ -9,6 +10,9 @@ class GoldBaseTest {
 		var file:ParseFile = {name: "Test.hx", content: ByteData.ofString(unformatted)};
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var formattedCode:String = formatter.formatFile(file);
+		if (goldCode != formattedCode) {
+			File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
+		}
 		Assert.areEqual(goldCode, formattedCode, pos);
 	}
 

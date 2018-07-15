@@ -28,6 +28,9 @@ class SelfTest {
 		var file:ParseFile = {name: fileName, content: ByteData.ofString(code)};
 		var formatter:Formatter = new Formatter();
 		var formattedCode:String = formatter.formatFile(file);
+		if (code != formattedCode) {
+			File.saveContent("test/formatter-result.txt", '$code\n---\n$formattedCode');
+		}
 		Assert.areEqual(code, formattedCode, 'Format failed for $fileName');
 	}
 

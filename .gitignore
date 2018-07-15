@@ -21,3 +21,4 @@ coverage.json
 deprecated/
 
 core
+test/formatter-result.txt
