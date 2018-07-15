@@ -27,11 +27,16 @@ class SelfTest {
 		var code:String = File.getContent(fileName);
 		var file:ParseFile = {name: fileName, content: ByteData.ofString(code)};
 		var formatter:Formatter = new Formatter();
-		var formattedCode:String = formatter.formatFile(file);
-		if (code != formattedCode) {
-			File.saveContent("test/formatter-result.txt", '$code\n---\n$formattedCode');
+		var result = formatter.formatFile(file);
+		switch (result) {
+			case SUCCESS(formattedCode):
+				if (code != formattedCode) {
+					File.saveContent("test/formatter-result.txt", '$code\n---\n$formattedCode');
+				}
+				Assert.areEqual(code, formattedCode, 'Format failed for $fileName');
+			case FAILURE(errorMessage):
+				Assert.fail(errorMessage);
 		}
-		Assert.areEqual(code, formattedCode, 'Format failed for $fileName');
 	}
 
 	static function collectAllFileNames(path:String):Array<String> {

@@ -12,12 +12,17 @@ import tokentreeformatter.marker.MarkSameLine;
 import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.codedata.ParseFile;
 
+enum Result {
+	SUCCESS(formattedCode:String);
+	FAILURE(errorMessage:String);
+}
+
 class Formatter {
 	static inline var FORMATTER_JSON:String = "hxformat.json";
 
 	public function new() {}
 
-	public function formatFile(file:ParseFile):Null<String> {
+	public function formatFile(file:ParseFile):Result {
 		try {
 			var config:Config = loadConfig(file.name);
 			if (config.disableFormatting) {
@@ -42,10 +47,9 @@ class Formatter {
 			MarkEmptyLines.finalRun(lines, config.emptyLines);
 			indenter.finalRun(lines);
 
-			return lines.print(parsedCode.lineSeparator);
+			return SUCCESS(lines.print(parsedCode.lineSeparator));
 		} catch (e:Any) {
-			Sys.println('unhandled exception caught: $e');
-			return null;
+			return FAILURE(e);
 		}
 	}
 

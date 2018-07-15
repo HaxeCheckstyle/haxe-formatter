@@ -4,16 +4,22 @@ import haxe.PosInfos;
 import haxe.Template;
 import massive.munit.Assert;
 import tokentreeformatter.codedata.ParseFile;
+import tokentreeformatter.Formatter.Result;
 
 class GoldBaseTest {
 	function goldCheck(unformatted:String, goldCode:String, ?config:String, ?pos:PosInfos) {
 		var file:ParseFile = {name: "Test.hx", content: ByteData.ofString(unformatted)};
 		var formatter:GoldFormatter = new GoldFormatter(config);
-		var formattedCode:String = formatter.formatFile(file);
-		if (goldCode != formattedCode) {
-			File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
+		var result:Result = formatter.formatFile(file);
+		switch (result) {
+			case SUCCESS(formattedCode):
+				if (goldCode != formattedCode) {
+					File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
+				}
+				Assert.areEqual(goldCode, formattedCode, pos);
+			case FAILURE(errorMessage):
+				Assert.fail(errorMessage);
 		}
-		Assert.areEqual(goldCode, formattedCode, pos);
 	}
 
 	function goldCheckField(unformatted:String, gold:String, ?config:String, ?pos:PosInfos) {

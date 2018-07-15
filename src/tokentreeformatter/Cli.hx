@@ -2,6 +2,7 @@ package tokentreeformatter;
 
 import sys.io.File;
 import sys.FileSystem;
+import tokentreeformatter.Formatter.Result;
 
 class Cli {
 	static function main() {
@@ -62,20 +63,21 @@ class Cli {
 				Sys.println('$action $path');
 			}
 			var content:Bytes = File.getBytes(path);
-			var formattedFile = new Formatter().formatFile({name: path, content: cast content});
-			if (formattedFile == null) {
-				Sys.println('Failed to format $path');
-			} else {
-				files++;
-				switch (mode) {
-					case FORMAT:
-						File.saveContent(path, formattedFile);
-					case CHECK:
-						if (formattedFile != content.toString()) {
-							Sys.println('Incorrect formatting in $path');
-							exitCode = 1;
-						}
-				}
+			var result:Result = new Formatter().formatFile({name: path, content: cast content});
+			switch (result) {
+				case SUCCESS(formattedCode):
+					files++;
+					switch (mode) {
+						case FORMAT:
+							File.saveContent(path, formattedCode);
+						case CHECK:
+							if (formattedCode != content.toString()) {
+								Sys.println('Incorrect formatting in $path');
+								exitCode = 1;
+							}
+					}
+				case FAILURE(errorMessage):
+					Sys.println('Failed to format $path: $errorMessage');
 			}
 		}
 	}
