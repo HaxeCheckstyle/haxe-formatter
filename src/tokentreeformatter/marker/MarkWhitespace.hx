@@ -59,7 +59,11 @@ class MarkWhitespace {
 				case BkClose:
 					successiveParenthesis(token, parsedCode, config.bkClosePolicy, config.compressSuccessiveParenthesis);
 				case Question:
-					parsedCode.tokenList.whitespace(token, NONE_AFTER);
+					if (TokenTreeCheckUtils.isTernary(token)) {
+						parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
+					} else {
+						parsedCode.tokenList.whitespace(token, NONE_AFTER);
+					}
 				case Sharp(_):
 					parsedCode.tokenList.whitespace(token, AFTER);
 				case Semicolon:
@@ -160,7 +164,11 @@ class MarkWhitespace {
 		}
 	}
 
-	static function markDblDot(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+	static function markDblDot(token:TokenTree, ?parsedCode:ParsedCode, config:WhitespaceConfig) {
+		if (TokenTreeCheckUtils.isTernary(token)) {
+			parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
+			return;
+		}
 		var parent:TokenTree = token.parent;
 		if (parent == null) {
 			parsedCode.tokenList.whitespace(token, config.dblDotPolicy);

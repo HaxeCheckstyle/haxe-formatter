@@ -3,15 +3,19 @@
 ---
 
 class Main {
-	static function main() {
+	static function main(?value:Int) {
 		true?0:1;
+		(true)?0:1;
+		doSomething(true)?0:1;
 	}
 }
 
 ---
 
 class Main {
-	static function main() {
+	static function main(?value:Int) {
 		true ? 0 : 1;
+		(true) ? 0 : 1;
+		doSomething(true) ? 0 : 1;
 	}
 }
