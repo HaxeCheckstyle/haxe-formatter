@@ -7,17 +7,29 @@ haxe:
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
-install:
-  - haxelib git hxparse https://github.com/Simn/hxparse --never
-  - haxelib git haxeparser https://github.com/Simn/haxeparser --never
-  - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
-  - haxelib git hxargs https://github.com/Simn/hxargs --never
-  - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
-  - haxelib install json2object
-  - haxelib install compiletime 2.6.0
-  - haxelib install hxargs 3.0.2
-  - haxelib install mcover 2.1.1
-  - haxelib install munit
+matrix:
+  include:
+    - haxe: 3.4.7
+      install:
+        - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
+        - haxelib git hxargs https://github.com/Simn/hxargs --never
+        - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
+        - haxelib install haxeparser 3.3.0
+        - haxelib install compiletime
+        - haxelib install mcover
+        - haxelib install munit
+    - haxe: development
+      install:
+        - haxelib git hxparse https://github.com/Simn/hxparse --never
+        - haxelib git haxeparser https://github.com/Simn/haxeparser --never
+        - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
+        - haxelib git hxargs https://github.com/Simn/hxargs --never
+        - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
+        - haxelib git mcover https://github.com/AlexHaxe/mcover.git support-eval src
+        - haxelib git munit https://github.com/AlexHaxe/MassiveUnit.git support-eval src
+        - haxelib install mlib
+        - haxelib install mconsole
+        - haxelib install compiletime
 
 script:
   - haxe buildAll.hxml
