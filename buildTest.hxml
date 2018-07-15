@@ -1,0 +1,16 @@
+-cp src
+-cp test
+
+-lib tokentree
+-lib haxeparser
+-lib hxparse
+-lib json2object
+-lib hxargs
+-lib mcover
+-lib munit
+-lib compiletime
+
+-D unittest
+-x TestMain
+
+--macro mcover.MCover.coverage(['tokentreeformatter'], ['src'], [])
