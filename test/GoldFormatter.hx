@@ -4,9 +4,9 @@ import tokentreeformatter.config.FormatterConfig;
 import tokentreeformatter.Formatter;
 
 class GoldFormatter extends Formatter {
-	var config:FormatterConfig;
+	var config:String;
 
-	public function new(config:FormatterConfig) {
+	public function new(config:String) {
 		super();
 		this.config = config;
 	}
@@ -16,7 +16,7 @@ class GoldFormatter extends Formatter {
 			return super.loadConfig(fileName);
 		}
 		var defaultConfig:Config = new Config();
-		defaultConfig.readConfigFromString(Json.stringify(config), "goldhxformat.json");
+		defaultConfig.readConfigFromString(config, "goldhxformat.json");
 		return defaultConfig;
 	}
 }

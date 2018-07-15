@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		true?0:1;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		true ? 0 : 1;
+	}
+}

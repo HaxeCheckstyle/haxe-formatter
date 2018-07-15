@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main{
+static function main() {
+var a:Array<{value:Int}>;
+}
+}
+
+---
+
+class Main {
+	static function main() {
+		var a:Array<{value:Int}>;
+	}
+}

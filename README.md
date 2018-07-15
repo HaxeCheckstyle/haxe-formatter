@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter.svg?branch=master)](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter)
 [![Codecov](https://img.shields.io/codecov/c/github/HaxeCheckstyle/tokentree-formatter.svg)](https://codecov.io/github/HaxeCheckstyle/tokentree-formatter?branch=master)
 
-
 Formatter based on tokentree library
 
 ## Features
