@@ -18,7 +18,7 @@ typedef EmptyLinesConfig = {
 
 typedef ClassFieldsEmtpyLinesConfig = {
 	@:default(0) @:optional var beginType:Int;
-	@:default(1) @:optional var betweenStaticVars:Int;
+	@:default(0) @:optional var betweenStaticVars:Int;
 	@:default(1) @:optional var afterStaticVars:Int;
 	@:default(1) @:optional var afterPrivateVars:Int;
 	@:default(0) @:optional var betweenVars:Int;
