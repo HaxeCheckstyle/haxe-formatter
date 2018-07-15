@@ -2,7 +2,6 @@ import byte.ByteData;
 import haxe.PosInfos;
 import haxe.Template;
 import massive.munit.Assert;
-import tokentreeformatter.config.FormatterConfig;
 import tokentreeformatter.codedata.ParseFile;
 
 class GoldBaseTest {

@@ -1,6 +1,6 @@
 {
 	"haxe.displayConfigurations": [
-		["buildTest.hxml"]
+		["display.hxml"]
 	],
 	// some issues with json2object...
 	"haxe.enableCompilationServer": false
