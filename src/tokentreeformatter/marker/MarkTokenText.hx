@@ -35,10 +35,13 @@ class MarkTokenText {
 			text += parsedCode.lineSeparator;
 			var line:String = StringTools.trim(lines[index]);
 			var lineIndent:Int = indent;
-			if ((~/^\*/.match(line)) || (index == lines.length - 1)) {
-				line = " " + line;
-			} else {
+			var lastLine:Bool = index == lines.length - 1;
+			var startsWithStar:Bool = ~/^\*/.match(line);
+			if (!lastLine && !startsWithStar) {
 				lineIndent++;
+			}
+			if ((!lastLine && startsWithStar) || (lastLine && !startsWithStar)) {
+				line = " " + line;
 			}
 			text += indenter.makeIndentString(lineIndent) + line;
 		}
