@@ -20,6 +20,7 @@ typedef WhitespaceConfig = {
 	@:default(NONE) @:optional var dblDotPolicy:WhitespacePolicy;
 	@:default(ONLY_AFTER) @:optional var caseDblDotPolicy:WhitespacePolicy;
 	@:default(AFTER) @:optional var objectDblDotPolicy:WhitespacePolicy;
+	@:default(NONE) @:optional var typeDblDotPolicy:WhitespacePolicy;
 	@:default(AROUND) @:optional var ternaryPolicy:WhitespacePolicy;
 	@:default(NONE) @:optional var semicolonPolicy:WhitespacePolicy;
 	@:default(AFTER) @:optional var ifPolicy:WhitespacePolicy;

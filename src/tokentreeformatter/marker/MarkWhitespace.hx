@@ -87,6 +87,10 @@ class MarkWhitespace {
 			switch (next.token.tok) {
 				case Dot, DblDot, Semicolon:
 					policy = WhitespacePolicy.remove(policy, AFTER);
+				case Binop(OpGt):
+					if (token.is(BrClose)) {
+						policy = WhitespacePolicy.remove(policy, AFTER);
+					}
 				default:
 			}
 		}
@@ -106,6 +110,10 @@ class MarkWhitespace {
 			switch (prev.token.tok) {
 				case POpen, BrOpen, BkOpen:
 					policy = WhitespacePolicy.remove(policy, BEFORE);
+				case Binop(OpLt):
+					if (token.is(BrOpen)) {
+						policy = WhitespacePolicy.remove(policy, BEFORE);
+					}
 				default:
 			}
 		}
@@ -178,7 +186,11 @@ class MarkWhitespace {
 			case Const(CIdent(_)):
 				parent = parent.parent;
 				if ((parent != null) && (parent.is(BrOpen))) {
-					parsedCode.tokenList.whitespace(token, config.objectDblDotPolicy);
+					if (TokenTreeCheckUtils.isBrOpenAnonTypeOrTypedef(parent)) {
+						parsedCode.tokenList.whitespace(token, config.typeDblDotPolicy);
+					} else {
+						parsedCode.tokenList.whitespace(token, config.objectDblDotPolicy);
+					}
 					return;
 				}
 			case Kwd(KwdCase), Kwd(KwdDefault):
