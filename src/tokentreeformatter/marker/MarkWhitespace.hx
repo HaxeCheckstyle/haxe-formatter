@@ -70,15 +70,33 @@ class MarkWhitespace {
 					parsedCode.tokenList.whitespace(token, config.semicolonPolicy);
 				case Const(CIdent("final")):
 					parsedCode.tokenList.whitespace(token, After);
+				case Const(CIdent("is")):
+					var parent:TokenTree = token.access().parent().is(POpen).token;
+					if (parent != null) {
+						parsedCode.tokenList.whitespace(token, Around);
+					}
+					fixConstAfterConst(token, parsedCode);
 				case Const(CIdent("from")), Const(CIdent("to")):
 					var parent:TokenTree = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
 					if (parent != null) {
 						parsedCode.tokenList.whitespace(token, Around);
 					}
+					fixConstAfterConst(token, parsedCode);
+				case Const(CIdent(_)):
+					fixConstAfterConst(token, parsedCode);
 				default:
 			}
 			return GO_DEEPER;
 			});
+	}
+
+	static function fixConstAfterConst(token:TokenTree, parsedCode:ParsedCode) {
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		switch (next.token.tok) {
+			case Const(_), Kwd(_):
+				parsedCode.tokenList.whitespace(token, After);
+			default:
+		}
 	}
 
 	public static function successiveParenthesis(token:TokenTree, parsedCode:ParsedCode, policy:WhitespacePolicy, compressSuccessiveParenthesis:Bool) {

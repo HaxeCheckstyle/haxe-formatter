@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		trace(("" is String));
+		is String;
+		String String;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		trace(("" is String));
+		is String;
+		String String;
+	}
+}
