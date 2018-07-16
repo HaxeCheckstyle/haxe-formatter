@@ -96,14 +96,14 @@ class CodeLine {
 	// function wrapArray(part:CodePart, config:WrapConfig):Array<CodeLine> {
 	// return [this];
 	// }
-	public function print(indenter:Indenter):String {
+	public function print(indenter:Indenter, lineSeparator:String):String {
 		var line:String = "";
 		for (part in parts) {
 			line += part.text;
 		}
 		line = indenter.makeIndentString(indent) + line.trim();
 		for (index in 0...emptyLinesAfter) {
-			line += "\n";
+			line += lineSeparator;
 		}
 		return line;
 	}

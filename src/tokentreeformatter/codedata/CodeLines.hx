@@ -42,6 +42,6 @@ class CodeLines {
 	}
 
 	public function print(lineSeparator:String):String {
-		return lines.map(function(line) return line.print(indenter)).join(lineSeparator);
+		return lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator);
 	}
 }
