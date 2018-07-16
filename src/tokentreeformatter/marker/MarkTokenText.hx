@@ -40,6 +40,9 @@ class MarkTokenText {
 			if (!lastLine && !startsWithStar) {
 				lineIndent++;
 			}
+			if (!lastLine && line.length <= 0) {
+				lineIndent = 0;
+			}
 			if ((!lastLine && startsWithStar) || (lastLine && !startsWithStar)) {
 				line = " " + line;
 			}
