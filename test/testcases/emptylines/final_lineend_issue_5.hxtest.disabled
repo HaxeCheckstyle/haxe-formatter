@@ -8,5 +8,6 @@ class Main{final foo:Int=1;static function main(){}}
 
 class Main {
 	final foo:Int = 1;
+
 	static function main() {}
 }

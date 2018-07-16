@@ -209,7 +209,7 @@ class MarkLineEnds {
 		}
 	}
 
-	static function lastToken(token:TokenTree):TokenTree {
+	public static function lastToken(token:TokenTree):TokenTree {
 		if (token == null) {
 			return null;
 		}

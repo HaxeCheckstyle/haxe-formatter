@@ -1,6 +1,7 @@
 package tokentreeformatter.codedata;
 
 import tokentreeformatter.config.WhitespacePolicy;
+import tokentreeformatter.marker.MarkLineEnds;
 
 class TokenList {
 	public var tokens:Array<TokenInfo>;
@@ -171,15 +172,15 @@ class TokenList {
 	}
 
 	public function emptyLinesAfterSubTree(token:TokenTree, count:Int) {
-		if (token == null) {
+		var lastToken:TokenTree = MarkLineEnds.lastToken(token);
+		if (lastToken == null) {
 			return;
 		}
-		var offset:Int = token.getPos().max + 1;
-		var tokenInf:TokenInfo = findTokenAtOffset(offset);
-		if (tokenInf == null) {
+		var info:TokenInfo = tokens[lastToken.index];
+		if (info == null) {
 			return;
 		}
-		tokenInf.emptyLinesAfter = count;
+		info.emptyLinesAfter = count;
 	}
 
 	public function tokenText(token:TokenTree, text:String) {

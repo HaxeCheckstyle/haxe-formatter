@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main{var foo:Int=1;static function main(){}var foo2:Int=1;public function main2(){}}
+
+---
+
+class Main {
+	var foo:Int = 1;
+
+	static function main() {}
+
+	var foo2:Int = 1;
+
+	public function main2() {}
+}
