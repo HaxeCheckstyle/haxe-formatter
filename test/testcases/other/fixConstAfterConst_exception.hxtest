@@ -1,0 +1,13 @@
+{}
+
+---
+
+package flash.utils;
+
+typedef Function = Dynamic
+
+---
+
+package flash.utils;
+
+typedef Function = Dynamic

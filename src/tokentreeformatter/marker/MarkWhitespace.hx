@@ -92,10 +92,12 @@ class MarkWhitespace {
 
 	static function fixConstAfterConst(token:TokenTree, parsedCode:ParsedCode) {
 		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
-		switch (next.token.tok) {
-			case Const(_), Kwd(_):
-				parsedCode.tokenList.whitespace(token, After);
-			default:
+		if (next != null) {
+			switch (next.token.tok) {
+				case Const(_), Kwd(_):
+					parsedCode.tokenList.whitespace(token, After);
+				default:
+			}
 		}
 	}
 
