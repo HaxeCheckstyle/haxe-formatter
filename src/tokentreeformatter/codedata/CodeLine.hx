@@ -101,7 +101,7 @@ class CodeLine {
 		for (part in parts) {
 			line += part.text;
 		}
-		line = indenter.makeIndentString(indent) + StringTools.trim(line);
+		line = indenter.makeIndentString(indent) + line.trim();
 		for (index in 0...emptyLinesAfter) {
 			line += "\n";
 		}

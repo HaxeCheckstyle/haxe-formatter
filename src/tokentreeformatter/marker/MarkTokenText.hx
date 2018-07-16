@@ -30,10 +30,10 @@ class MarkTokenText {
 	public static function printComment(text:String, token:TokenTree, parsedCode:ParsedCode, indenter:Indenter):String {
 		var lines:Array<String> = text.split(parsedCode.lineSeparator);
 		var indent:Int = indenter.calcIndent(token);
-		text = "/*" + StringTools.trim(lines[0]);
+		text = "/*" + lines[0].trim();
 		for (index in 1...lines.length) {
 			text += parsedCode.lineSeparator;
-			var line:String = StringTools.trim(lines[index]);
+			var line:String = lines[index].trim();
 			var lineIndent:Int = indent;
 			var lastLine:Bool = index == lines.length - 1;
 			var startsWithStar:Bool = ~/^\*/.match(line);
@@ -49,6 +49,6 @@ class MarkTokenText {
 	}
 
 	public static function printCommentLine(text:String):String {
-		return "// " + StringTools.trim(text);
+		return "// " + text.trim();
 	}
 }

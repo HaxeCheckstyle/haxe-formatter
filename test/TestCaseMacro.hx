@@ -51,7 +51,7 @@ class TestCaseMacro {
 			files = files.concat(collectAllFileNames(fileName));
 			continue;
 		}
-		if (!StringTools.endsWith(item, ".hxtest")) {
+		if (!item.endsWith(".hxtest")) {
 			continue;
 		}
 		files.push(Path.join([path, item]));

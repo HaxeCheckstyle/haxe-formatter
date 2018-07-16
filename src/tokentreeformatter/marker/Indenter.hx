@@ -24,7 +24,7 @@ class Indenter {
 	}
 
 	public function makeIndentString(count:Int):String {
-		return StringTools.lpad("", config.character, config.character.length * count);
+		return "".lpad(config.character, config.character.length * count);
 	}
 
 	public function calcIndent(token:TokenTree):Int {

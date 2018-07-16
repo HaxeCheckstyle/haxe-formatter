@@ -9,8 +9,6 @@ import mcover.coverage.data.Statement;
 import mcover.coverage.data.Branch;
 import mcover.coverage.MCoverage;
 
-using StringTools;
-
 class TestMain {
 	public function new() {
 		var suites:Array<Class<massive.munit.TestSuite>> = [TestSuite];

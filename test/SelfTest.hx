@@ -49,7 +49,7 @@ class SelfTest {
 			files = files.concat(collectAllFileNames(fileName));
 			continue;
 		}
-		if (!StringTools.endsWith(item, ".hx")) {
+		if (!item.endsWith(".hx")) {
 			continue;
 		}
 		files.push(Path.join([path, item]));
