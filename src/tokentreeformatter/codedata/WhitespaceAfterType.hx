@@ -1,7 +1,7 @@
 package tokentreeformatter.codedata;
 
 enum WhitespaceAfterType {
-	NONE;
-	NL;
-	SPACE;
+	None;
+	Newline;
+	Space;
 }

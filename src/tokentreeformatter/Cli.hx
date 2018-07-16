@@ -11,7 +11,7 @@ class Cli {
 
 	var files:Int = 0;
 	var verbose:Bool = false;
-	var mode:Mode = FORMAT;
+	var mode:Mode = Format;
 	var exitCode:Int = 0;
 
 	function new() {
@@ -22,7 +22,7 @@ class Cli {
 
 		var paths = [];
 		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed).") ["-s", "--source"
-			] => function(path:String) paths.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = CHECK]);
+			] => function(path:String) paths.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = Check]);
 		argHandler.parse(args);
 		if (args.length == 0) {
 			Sys.println("Haxe Formatter");
@@ -36,7 +36,7 @@ class Cli {
 		var duration = Date.now().getTime() - startTime;
 		Sys.println("");
 		var seconds = duration / 1000;
-		var action = if (mode == FORMAT) "Formatted" else "Checked";
+		var action = if (mode == Format) "Formatted" else "Checked";
 		Sys.println('$action $files files in $seconds s.');
 
 		Sys.exit(exitCode);
@@ -59,24 +59,24 @@ class Cli {
 	function formatFile(path:String) {
 		if (path.endsWith(".hx")) {
 			if (verbose) {
-				var action = if (mode == FORMAT) "Formatting" else "Checking";
+				var action = if (mode == Format) "Formatting" else "Checking";
 				Sys.println('$action $path');
 			}
 			var content:Bytes = File.getBytes(path);
 			var result:Result = new Formatter().formatFile({name: path, content: cast content});
 			switch (result) {
-				case SUCCESS(formattedCode):
+				case Success(formattedCode):
 					files++;
 					switch (mode) {
-						case FORMAT:
+						case Format:
 							File.saveContent(path, formattedCode);
-						case CHECK:
+						case Check:
 							if (formattedCode != content.toString()) {
 								Sys.println('Incorrect formatting in $path');
 								exitCode = 1;
 							}
 					}
-				case FAILURE(errorMessage):
+				case Failure(errorMessage):
 					Sys.println('Failed to format $path: $errorMessage');
 			}
 		}
@@ -84,6 +84,6 @@ class Cli {
 }
 
 enum Mode {
-	FORMAT;
-	CHECK;
+	Format;
+	Check;
 }

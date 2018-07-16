@@ -12,22 +12,22 @@ class GoldBaseTest {
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var result:Result = formatter.formatFile(file);
 		switch (result) {
-			case SUCCESS(formattedCode):
+			case Success(formattedCode):
 				if (goldCode != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
 				}
 				Assert.areEqual(goldCode, formattedCode, pos);
-			case FAILURE(errorMessage):
+			case Failure(errorMessage):
 				Assert.fail(errorMessage);
 		}
 	}
 
 	function goldCheckField(unformatted:String, gold:String, ?config:String, ?pos:PosInfos) {
-		goldCheckTemplate(FIELD_TEMPLATE, unformatted, gold, config, pos);
+		goldCheckTemplate(FieldTemplate, unformatted, gold, config, pos);
 	}
 
 	function goldCheckExpr(unformatted:String, gold:String, ?config:String, ?pos:PosInfos) {
-		goldCheckTemplate(EXPR_TEMPLATE, unformatted, gold, config, pos);
+		goldCheckTemplate(ExprTemplate, unformatted, gold, config, pos);
 	}
 
 	function goldCheckTemplate(template:GoldBaseTemplates, unformatted:String, gold:String, ?config:String, ?pos:PosInfos) {
@@ -40,10 +40,10 @@ class GoldBaseTest {
 
 @:enum
 abstract GoldBaseTemplates(String) to String {
-	var FIELD_TEMPLATE = "class Test {
+	var FieldTemplate = "class Test {
 ::code::
 }";
-	var EXPR_TEMPLATE = "class Test {
+	var ExprTemplate = "class Test {
 	function test() {
 		::code::
 	}

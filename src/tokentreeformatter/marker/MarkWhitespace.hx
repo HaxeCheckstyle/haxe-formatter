@@ -23,17 +23,17 @@ class MarkWhitespace {
 					parsedCode.tokenList.whitespace(token, config.intervalPolicy);
 				#if (haxe_ver >= 4.0)
 				case Binop(OpIn):
-					parsedCode.tokenList.whitespace(token, AROUND);
+					parsedCode.tokenList.whitespace(token, Around);
 				#end
 				case Binop(OpMult):
 					if (TokenTreeCheckUtils.isImport(token.parent)) {
-						parsedCode.tokenList.whitespace(token, NONE);
+						parsedCode.tokenList.whitespace(token, None);
 					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
 				case Binop(OpSub):
 					if (TokenTreeCheckUtils.filterOpSub(token)) {
-						var policy:WhitespacePolicy = WhitespacePolicy.remove(config.binopPolicy, AFTER);
+						var policy:WhitespacePolicy = WhitespacePolicy.remove(config.binopPolicy, After);
 						parsedCode.tokenList.whitespace(token, policy);
 					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
@@ -62,18 +62,18 @@ class MarkWhitespace {
 					if (TokenTreeCheckUtils.isTernary(token)) {
 						parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
 					} else {
-						parsedCode.tokenList.whitespace(token, NONE_AFTER);
+						parsedCode.tokenList.whitespace(token, NoneAfter);
 					}
 				case Sharp(_):
-					parsedCode.tokenList.whitespace(token, AFTER);
+					parsedCode.tokenList.whitespace(token, After);
 				case Semicolon:
 					parsedCode.tokenList.whitespace(token, config.semicolonPolicy);
 				case Const(CIdent("final")):
-					parsedCode.tokenList.whitespace(token, AFTER);
+					parsedCode.tokenList.whitespace(token, After);
 				case Const(CIdent("from")), Const(CIdent("to")):
 					var parent:TokenTree = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
 					if (parent != null) {
-						parsedCode.tokenList.whitespace(token, AROUND);
+						parsedCode.tokenList.whitespace(token, Around);
 					}
 				default:
 			}
@@ -86,10 +86,10 @@ class MarkWhitespace {
 		if (next != null) {
 			switch (next.token.tok) {
 				case Dot, DblDot, Semicolon:
-					policy = WhitespacePolicy.remove(policy, AFTER);
+					policy = WhitespacePolicy.remove(policy, After);
 				case Binop(OpGt):
 					if (token.is(BrClose)) {
-						policy = WhitespacePolicy.remove(policy, AFTER);
+						policy = WhitespacePolicy.remove(policy, After);
 					}
 				default:
 			}
@@ -101,7 +101,7 @@ class MarkWhitespace {
 		if (next != null) {
 			switch (next.token.tok) {
 				case POpen, PClose, BrOpen, BrClose, BkOpen, BkClose:
-					policy = WhitespacePolicy.remove(policy, AFTER);
+					policy = WhitespacePolicy.remove(policy, After);
 				default:
 			}
 		}
@@ -109,10 +109,10 @@ class MarkWhitespace {
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case POpen, BrOpen, BkOpen:
-					policy = WhitespacePolicy.remove(policy, BEFORE);
+					policy = WhitespacePolicy.remove(policy, Before);
 				case Binop(OpLt):
 					if (token.is(BrOpen)) {
-						policy = WhitespacePolicy.remove(policy, BEFORE);
+						policy = WhitespacePolicy.remove(policy, Before);
 					}
 				default:
 			}
@@ -125,17 +125,17 @@ class MarkWhitespace {
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case PClose:
-					prev.whitespaceAfter = SPACE;
+					prev.whitespaceAfter = Space;
 				case Const(_):
-					prev.whitespaceAfter = SPACE;
+					prev.whitespaceAfter = Space;
 				default:
 			}
 		}
 		switch (token.tok) {
 			case Kwd(KwdNull), Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdThis), Kwd(KwdDefault), Kwd(KwdContinue):
-				parsedCode.tokenList.whitespace(token, NONE_AFTER);
+				parsedCode.tokenList.whitespace(token, NoneAfter);
 			case Kwd(KwdExtends), Kwd(KwdImplements):
-				parsedCode.tokenList.whitespace(token, AROUND);
+				parsedCode.tokenList.whitespace(token, Around);
 			case Kwd(KwdIf):
 				parsedCode.tokenList.whitespace(token, config.ifPolicy);
 			case Kwd(KwdDo):
@@ -152,10 +152,10 @@ class MarkWhitespace {
 				parsedCode.tokenList.whitespace(token, config.catchPolicy);
 			#if (haxe_ver < 4.0)
 			case Kwd(KwdIn):
-				parsedCode.tokenList.whitespace(token, AROUND);
+				parsedCode.tokenList.whitespace(token, Around);
 			#end
 			case Kwd(KwdReturn):
-				parsedCode.tokenList.whitespace(token, AFTER);
+				parsedCode.tokenList.whitespace(token, After);
 			case Kwd(_):
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 				if (next != null) {
@@ -167,7 +167,7 @@ class MarkWhitespace {
 						default:
 					}
 				}
-				parsedCode.tokenList.whitespace(token, AFTER);
+				parsedCode.tokenList.whitespace(token, After);
 			default:
 		}
 	}

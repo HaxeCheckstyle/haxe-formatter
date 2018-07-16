@@ -60,11 +60,11 @@ class MarkSameLine {
 
 	static function applySameLinePolicy(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
 		switch (policy) {
-			case SAME:
+			case Same:
 				parsedCode.tokenList.wrapBefore(token, true);
 				parsedCode.tokenList.noLineEndBefore(token);
 				return;
-			case NEXT:
+			case Next:
 				parsedCode.tokenList.lineEndBefore(token);
 		}
 	}
@@ -105,8 +105,8 @@ class MarkSameLine {
 				continue;
 			}
 			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
-			parsedCode.tokenList.whitespace(brOpen, NONE);
-			parsedCode.tokenList.whitespace(brClose, NONE);
+			parsedCode.tokenList.whitespace(brOpen, None);
+			parsedCode.tokenList.whitespace(brClose, None);
 			parsedCode.tokenList.wrapBefore(brOpen, false);
 			parsedCode.tokenList.wrapAfter(brOpen, false);
 			parsedCode.tokenList.wrapBefore(brClose, false);

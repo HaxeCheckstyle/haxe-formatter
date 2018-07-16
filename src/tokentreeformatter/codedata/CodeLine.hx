@@ -25,7 +25,7 @@ class CodeLine {
 			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;
-		if (tokenInfo.whitespaceAfter == SPACE) {
+		if (tokenInfo.whitespaceAfter == Space) {
 			currentPart.text += tokenInfo.text + " ";
 		} else {
 			currentPart.text += tokenInfo.text;

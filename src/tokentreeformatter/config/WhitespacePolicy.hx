@@ -2,61 +2,61 @@ package tokentreeformatter.config;
 
 @:enum
 abstract WhitespacePolicy(String) {
-	var NONE = "none";
-	var BEFORE = "before";
-	var NONE_BEFORE = "noneBefore";
-	var ONLY_BEFORE = "onlyBefore";
-	var AFTER = "after";
-	var ONLY_AFTER = "onlyAfter";
-	var NONE_AFTER = "noneAfter";
-	var AROUND = "around";
+	var None = "none";
+	var Before = "before";
+	var NoneBefore = "noneBefore";
+	var OnlyBefore = "onlyBefore";
+	var After = "after";
+	var OnlyAfter = "onlyAfter";
+	var NoneAfter = "noneAfter";
+	var Around = "around";
 
 	public static function remove(policy:WhitespacePolicy, remove:WhitespacePolicy):WhitespacePolicy {
 		switch (remove) {
-			case NONE:
+			case None:
 				return policy;
-			case BEFORE:
-			case NONE_BEFORE:
-				remove = BEFORE;
-			case ONLY_BEFORE:
-				remove = BEFORE;
-			case AFTER:
-			case NONE_AFTER:
-				remove = AFTER;
-			case ONLY_AFTER:
-				remove = AFTER;
-			case AROUND:
-				return NONE;
+			case Before:
+			case NoneBefore:
+				remove = Before;
+			case OnlyBefore:
+				remove = Before;
+			case After:
+			case NoneAfter:
+				remove = After;
+			case OnlyAfter:
+				remove = After;
+			case Around:
+				return None;
 		}
 		switch (policy) {
-			case NONE:
-				return NONE;
-			case BEFORE:
-				if (remove == BEFORE) {
-					return NONE;
+			case None:
+				return None;
+			case Before:
+				if (remove == Before) {
+					return None;
 				}
-			case NONE_BEFORE:
-				return NONE_BEFORE;
-			case ONLY_BEFORE:
-				if (remove == BEFORE) {
-					return NONE;
+			case NoneBefore:
+				return NoneBefore;
+			case OnlyBefore:
+				if (remove == Before) {
+					return None;
 				}
-			case AFTER:
-				if (remove == AFTER) {
-					return NONE;
+			case After:
+				if (remove == After) {
+					return None;
 				}
-			case NONE_AFTER:
-				return NONE_AFTER;
-			case ONLY_AFTER:
-				if (remove == AFTER) {
-					return NONE;
+			case NoneAfter:
+				return NoneAfter;
+			case OnlyAfter:
+				if (remove == After) {
+					return None;
 				}
-			case AROUND:
-				if (remove == BEFORE) {
-					return AFTER;
+			case Around:
+				if (remove == Before) {
+					return After;
 				}
-				if (remove == AFTER) {
-					return BEFORE;
+				if (remove == After) {
+					return Before;
 				}
 		}
 		return policy;

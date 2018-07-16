@@ -25,7 +25,7 @@ class CodeLines {
 				lines.push(line);
 			}
 			line.addToken(tokenInfo);
-			if (tokenInfo.whitespaceAfter == NL) {
+			if (tokenInfo.whitespaceAfter == Newline) {
 				line = null;
 			}
 		}

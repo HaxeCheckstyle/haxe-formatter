@@ -13,8 +13,8 @@ import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.codedata.ParseFile;
 
 enum Result {
-	SUCCESS(formattedCode:String);
-	FAILURE(errorMessage:String);
+	Success(formattedCode:String);
+	Failure(errorMessage:String);
 }
 
 class Formatter {
@@ -47,9 +47,9 @@ class Formatter {
 			MarkEmptyLines.finalRun(lines, config.emptyLines);
 			indenter.finalRun(lines);
 
-			return SUCCESS(lines.print(parsedCode.lineSeparator));
+			return Success(lines.print(parsedCode.lineSeparator));
 		} catch (e:Any) {
-			return FAILURE(e);
+			return Failure(e);
 		}
 	}
 

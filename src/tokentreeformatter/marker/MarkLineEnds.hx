@@ -50,34 +50,34 @@ class MarkLineEnds {
 		for (token in brTokens) {
 			switch (token.tok) {
 				case BrOpen:
-					if ((token.children != null) && (token.children.length == 1) && (config.emptyCurly == NO_BREAK)) {
+					if ((token.children != null) && (token.children.length == 1) && (config.emptyCurly == NoBreak)) {
 						continue;
 					}
 					switch (config.leftCurly) {
-						case NONE:
-						case BEFORE:
+						case None:
+						case Before:
 							beforeLeftCurly(token, parsedCode);
-						case AFTER:
+						case After:
 							parsedCode.tokenList.lineEndAfter(token);
-						case BOTH:
+						case Both:
 							beforeLeftCurly(token, parsedCode);
 							parsedCode.tokenList.lineEndAfter(token);
 					}
 				case BrClose:
 					var parent:TokenTree = token.parent;
 					var preventBefore:Bool = false;
-					if ((parent.children != null) && (parent.children.length == 1) && (config.emptyCurly == NO_BREAK)) {
+					if ((parent.children != null) && (parent.children.length == 1) && (config.emptyCurly == NoBreak)) {
 						preventBefore = true;
 					}
 					switch (config.rightCurly) {
-						case NONE:
-						case BEFORE:
+						case None:
+						case Before:
 							if (!preventBefore) {
 								beforeRightCurly(token, parsedCode);
 							}
-						case AFTER:
+						case After:
 							afterRightCurly(token, parsedCode);
-						case BOTH:
+						case Both:
 							if (!preventBefore) {
 								beforeRightCurly(token, parsedCode);
 							}
@@ -95,7 +95,7 @@ class MarkLineEnds {
 		}
 		switch (prevToken.token.tok) {
 			default:
-				prevToken.whitespaceAfter = NL;
+				prevToken.whitespaceAfter = Newline;
 		}
 	}
 
@@ -104,7 +104,7 @@ class MarkLineEnds {
 		if (prevToken == null) {
 			return;
 		}
-		prevToken.whitespaceAfter = NL;
+		prevToken.whitespaceAfter = Newline;
 	}
 
 	static function afterRightCurly(token:TokenTree, parsedCode:ParsedCode) {
@@ -135,15 +135,15 @@ class MarkLineEnds {
 			if (lastChild == null) {
 				continue;
 			}
-			if (atPolicy == NONE) {
-				parsedCode.tokenList.whitespace(lastChild, AFTER);
+			if (atPolicy == None) {
+				parsedCode.tokenList.whitespace(lastChild, After);
 				continue;
 			}
 
-			if (atPolicy == AFTER_LAST) {
+			if (atPolicy == AfterLast) {
 				var sibling:TokenTree = token.nextSibling;
 				if ((sibling != null) && (sibling.is(At))) {
-					parsedCode.tokenList.whitespace(lastChild, AFTER);
+					parsedCode.tokenList.whitespace(lastChild, After);
 					continue;
 				}
 			}
@@ -172,7 +172,7 @@ class MarkLineEnds {
 	}
 
 	static function markDblDot(parsedCode:ParsedCode, config:LineEndConfig) {
-		if (config.caseDblDot == NONE) {
+		if (config.caseDblDot == None) {
 			return;
 		}
 		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
@@ -192,8 +192,8 @@ class MarkLineEnds {
 					if (lastChild == null) {
 						continue;
 					}
-					if (config.sharp == NONE) {
-						parsedCode.tokenList.whitespace(lastChild, AFTER);
+					if (config.sharp == None) {
+						parsedCode.tokenList.whitespace(lastChild, After);
 						continue;
 					}
 

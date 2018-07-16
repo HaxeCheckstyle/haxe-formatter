@@ -19,7 +19,7 @@ class TokenList {
 			if (child.index >= tokens.length) {
 				fill(child.index - tokens.length);
 			}
-			tokens[index] = {token: child, whitespaceAfter: NONE, emptyLinesAfter: 0, wrapAfter: false, text: null};
+			tokens[index] = {token: child, whitespaceAfter: None, emptyLinesAfter: 0, wrapAfter: false, text: null};
 			buildList(child);
 		}
 	}
@@ -87,37 +87,37 @@ class TokenList {
 			prev = tokens[prevIndex--];
 		}
 		switch (where) {
-			case NONE:
-				info.whitespaceAfter = NONE;
+			case None:
+				info.whitespaceAfter = None;
 				if (prev != null) {
-					prev.whitespaceAfter = NONE;
+					prev.whitespaceAfter = None;
 				}
-			case NONE_AFTER:
-				info.whitespaceAfter = NONE;
-			case ONLY_AFTER:
+			case NoneAfter:
+				info.whitespaceAfter = None;
+			case OnlyAfter:
 				if (prev != null) {
-					prev.whitespaceAfter = NONE;
+					prev.whitespaceAfter = None;
 				}
-				info.whitespaceAfter = SPACE;
-			case BEFORE:
+				info.whitespaceAfter = Space;
+			case Before:
 				if (prev != null) {
-					prev.whitespaceAfter = SPACE;
+					prev.whitespaceAfter = Space;
 				}
-			case NONE_BEFORE:
+			case NoneBefore:
 				if (prev != null) {
-					prev.whitespaceAfter = NONE;
+					prev.whitespaceAfter = None;
 				}
-			case ONLY_BEFORE:
+			case OnlyBefore:
 				if (prev != null) {
-					prev.whitespaceAfter = SPACE;
+					prev.whitespaceAfter = Space;
 				}
-				info.whitespaceAfter = NONE;
-			case AFTER:
-				info.whitespaceAfter = SPACE;
-			case AROUND:
-				info.whitespaceAfter = SPACE;
+				info.whitespaceAfter = None;
+			case After:
+				info.whitespaceAfter = Space;
+			case Around:
+				info.whitespaceAfter = Space;
 				if (prev != null) {
-					prev.whitespaceAfter = SPACE;
+					prev.whitespaceAfter = Space;
 				}
 		}
 	}
@@ -127,7 +127,7 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
-		info.whitespaceAfter = NL;
+		info.whitespaceAfter = Newline;
 	}
 
 	public function lineEndBefore(token:TokenTree) {
@@ -135,7 +135,7 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
-		info.whitespaceAfter = NL;
+		info.whitespaceAfter = Newline;
 	}
 
 	public function noLlineEndAfter(token:TokenTree) {
@@ -143,7 +143,7 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
-		info.whitespaceAfter = SPACE;
+		info.whitespaceAfter = Space;
 	}
 
 	public function noLineEndBefore(token:TokenTree) {
@@ -151,7 +151,7 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
-		info.whitespaceAfter = SPACE;
+		info.whitespaceAfter = Space;
 	}
 
 	public function emptyLinesAfter(token:TokenTree, count:Int) {

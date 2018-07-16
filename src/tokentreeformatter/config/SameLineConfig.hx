@@ -1,20 +1,20 @@
 package tokentreeformatter.config;
 
 typedef SameLineConfig = {
-	@:default(SAME) @:optional var ifBody:SameLinePolicy;
-	@:default(SAME) @:optional var elseBody:SameLinePolicy;
-	@:default(SAME) @:optional var ifElse:SameLinePolicy;
-	@:default(SAME) @:optional var forBody:SameLinePolicy;
-	@:default(SAME) @:optional var whileBody:SameLinePolicy;
-	@:default(SAME) @:optional var doWhileBody:SameLinePolicy;
-	@:default(SAME) @:optional var tryBody:SameLinePolicy;
-	@:default(SAME) @:optional var catchBody:SameLinePolicy;
-	@:default(SAME) @:optional var tryCatch:SameLinePolicy;
-	@:default(SAME) @:optional var anonObjects:SameLinePolicy;
+	@:default(Same) @:optional var ifBody:SameLinePolicy;
+	@:default(Same) @:optional var elseBody:SameLinePolicy;
+	@:default(Same) @:optional var ifElse:SameLinePolicy;
+	@:default(Same) @:optional var forBody:SameLinePolicy;
+	@:default(Same) @:optional var whileBody:SameLinePolicy;
+	@:default(Same) @:optional var doWhileBody:SameLinePolicy;
+	@:default(Same) @:optional var tryBody:SameLinePolicy;
+	@:default(Same) @:optional var catchBody:SameLinePolicy;
+	@:default(Same) @:optional var tryCatch:SameLinePolicy;
+	@:default(Same) @:optional var anonObjects:SameLinePolicy;
 }
 
 @:enum
 abstract SameLinePolicy(String) {
-	var SAME = "same";
-	var NEXT = "next";
+	var Same = "same";
+	var Next = "next";
 }

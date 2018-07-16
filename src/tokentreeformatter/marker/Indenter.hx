@@ -43,7 +43,7 @@ class Indenter {
 					token = parent;
 				}
 			case Sharp(_):
-				if (config.conditionalPolicy == FIXED_ZERO) return 0;
+				if (config.conditionalPolicy == FixedZero) return 0;
 			default:
 		}
 
@@ -81,7 +81,7 @@ class Indenter {
 					return true;
 				}
 			case Sharp(_):
-				if (config.conditionalPolicy == ALIGNED_INCREASE) {
+				if (config.conditionalPolicy == AlignedIncrease) {
 					return true;
 				}
 			case Kwd(KwdIf):

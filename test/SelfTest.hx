@@ -29,12 +29,12 @@ class SelfTest {
 		var formatter:Formatter = new Formatter();
 		var result = formatter.formatFile(file);
 		switch (result) {
-			case SUCCESS(formattedCode):
+			case Success(formattedCode):
 				if (code != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$code\n---\n$formattedCode');
 				}
 				Assert.areEqual(code, formattedCode, 'Format failed for $fileName');
-			case FAILURE(errorMessage):
+			case Failure(errorMessage):
 				Assert.fail(errorMessage);
 		}
 	}
