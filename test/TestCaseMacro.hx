@@ -29,11 +29,9 @@ class TestCaseMacro {
 		var config:String = segments[0];
 		var unformatted:String = segments[1];
 		var gold:String = segments[2];
-
 		var configExpr = {expr: EConst(CString(config)), pos: Context.currentPos()};
 		var unformattedExpr = {expr: EConst(CString(unformatted)), pos: Context.currentPos()};
 		var goldExpr = {expr: EConst(CString(gold)), pos: Context.currentPos()};
-
 		var fieldName:String = new haxe.io.Path(fileName).file;
 		var callExprDef = ECall(macro $i{"goldCheck"}, [unformattedExpr, goldExpr, configExpr]);
 		var bodyExpr = {expr: callExprDef, pos: Context.currentPos()};
@@ -45,7 +43,8 @@ class TestCaseMacro {
 		var items:Array<String> = FileSystem.readDirectory(path);
 		var files:Array<String> = [];
 		for (item in items) {
-		if (item == "." || item == "..") continue;
+		if (item == "." || item == "..")
+			continue;
 		var fileName = Path.join([path, item]);
 		if (FileSystem.isDirectory(fileName)) {
 			files = files.concat(collectAllFileNames(fileName));

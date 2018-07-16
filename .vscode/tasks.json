@@ -20,7 +20,7 @@
 		{
 			"label": "Format all files",
 			"type": "shell",
-			"command": "haxelib run tokentree-formatter -s src",
+			"command": "haxelib run tokentree-formatter -s .",
 			"problemMatcher": []
 		}
 	]
