@@ -85,6 +85,7 @@
                     "afterPackage",
                     "afterImports",
                     "beforeUsing",
+                    "beforeFileEnd",
                     "betweenTypes",
                     "afterAbstractVars",
                     "betweenAbstractMethods",
@@ -100,7 +101,7 @@
                     "beginInterface",
                     "betweenClassStaticVars",
                     "betweenClassVars",
-                    "betweenInterfaceFields"
+                    "betweenInterfaceFields",
                 ]
             },
             "type": "ExtendedEmptyLines"
