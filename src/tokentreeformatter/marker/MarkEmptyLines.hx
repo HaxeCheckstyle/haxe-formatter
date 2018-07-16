@@ -29,7 +29,7 @@ class MarkEmptyLines {
 				line.emptyLinesAfter = config.maxAnywhereInFile;
 			}
 		}
-		codeLines.lines[codeLines.lines.length - 1].emptyLinesAfter = config.beforeEndOfFile;
+		codeLines.lines[codeLines.lines.length - 1].emptyLinesAfter = config.finalNewline ? 1 : 0;
 	}
 
 	static function markImports(parsedCode:ParsedCode, config:EmptyLinesConfig) {
