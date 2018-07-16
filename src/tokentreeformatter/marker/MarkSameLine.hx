@@ -15,17 +15,7 @@ class MarkSameLine {
 					markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody);
 				case Kwd(KwdElse):
 					markBody(token, parsedCode, configSameLine.elseBody);
-					var policy:SameLinePolicy = configSameLine.ifElse;
-					if (policy == Same) {
-						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-						if (prev == null) {
-							policy = Next;
-						}
-						if ((!prev.token.is(BrClose)) && (configSameLine.ifBody != Same)) {
-							policy = Next;
-						}
-					}
-					applySameLinePolicy(token, parsedCode, policy);
+					applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
 				case Kwd(KwdFor):
 					markBodyAfterPOpen(token, parsedCode, configSameLine.forBody);
 				case Kwd(KwdWhile):
@@ -39,8 +29,8 @@ class MarkSameLine {
 				case Kwd(KwdTry):
 					markBody(token, parsedCode, configSameLine.tryBody);
 				case Kwd(KwdCatch):
-					applySameLinePolicy(token, parsedCode, configSameLine.tryCatch);
 					markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody);
+					applySameLinePolicyChained(token, parsedCode, configSameLine.tryBody, configSameLine.tryCatch);
 				default:
 			}
 		}
@@ -66,6 +56,19 @@ class MarkSameLine {
 			return;
 		}
 		applySameLinePolicy(body, parsedCode, policy);
+	}
+
+	static function applySameLinePolicyChained(token:TokenTree, parsedCode:ParsedCode, previousBlockPolicy:SameLinePolicy, policy:SameLinePolicy) {
+		if (policy == Same) {
+			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+			if (prev == null) {
+				policy = Next;
+			}
+			if ((!prev.token.is(BrClose)) && (previousBlockPolicy != Same)) {
+				policy = Next;
+			}
+		}
+		applySameLinePolicy(token, parsedCode, policy);
 	}
 
 	static function applySameLinePolicy(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {

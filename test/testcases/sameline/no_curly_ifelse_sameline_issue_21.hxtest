@@ -7,6 +7,10 @@ class Main {
 		if (true) trace(""); else trace("");
 
 		if (true) {trace("");} else {trace("");}
+
+		try trace("") catch(e:Any) trace("");
+
+		try {trace("");} catch(e:Any) {trace("");}
 	}
 }
 
@@ -22,6 +26,17 @@ class Main {
 		if (true) {
 			trace("");
 		} else {
+			trace("");
+		}
+
+		try
+			trace("")
+		catch (e:Any)
+			trace("");
+
+		try {
+			trace("");
+		} catch (e:Any) {
 			trace("");
 		}
 	}
