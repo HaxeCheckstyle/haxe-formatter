@@ -43,7 +43,9 @@ class Indenter {
 					token = parent;
 				}
 			case Sharp(_):
-				if (config.conditionalPolicy == FixedZero) return 0;
+				if (config.conditionalPolicy == FixedZero) {
+					return 0;
+				}
 			default:
 		}
 

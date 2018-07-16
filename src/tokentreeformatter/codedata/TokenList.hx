@@ -184,7 +184,9 @@ class TokenList {
 
 	public function tokenText(token:TokenTree, text:String) {
 		var info:TokenInfo = tokens[token.index];
-		if (info == null) return;
+		if (info == null) {
+			return;
+		}
 		info.text = text;
 	}
 
