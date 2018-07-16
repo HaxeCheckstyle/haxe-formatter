@@ -1,5 +1,6 @@
 package tokentreeformatter;
 
+import haxe.CallStack;
 import haxe.io.Path;
 import tokentreeformatter.config.Config;
 import tokentreeformatter.marker.MarkEmptyLines;
@@ -50,7 +51,8 @@ class Formatter {
 
 			return Success(lines.print(parsedCode.lineSeparator));
 		} catch (e:Any) {
-			return Failure(e);
+			var callstack = CallStack.toString(CallStack.exceptionStack());
+			return Failure(e + "\n" + callstack);
 		}
 	}
 
