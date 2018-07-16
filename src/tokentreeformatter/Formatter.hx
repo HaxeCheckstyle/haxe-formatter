@@ -52,7 +52,7 @@ class Formatter {
 			return Success(lines.print(parsedCode.lineSeparator));
 		} catch (e:Any) {
 			var callstack = CallStack.toString(CallStack.exceptionStack());
-			return Failure(e + "\n" + callstack);
+			return Failure(e + "\n" + callstack + "\n\n");
 		}
 	}
 
