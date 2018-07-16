@@ -1,0 +1,28 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		if (true) trace(""); else trace("");
+
+		if (true) {trace("");} else {trace("");}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		if (true)
+			trace("");
+		else
+			trace("");
+
+		if (true) {
+			trace("");
+		} else {
+			trace("");
+		}
+	}
+}

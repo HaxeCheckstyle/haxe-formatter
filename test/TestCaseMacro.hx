@@ -43,17 +43,17 @@ class TestCaseMacro {
 		var items:Array<String> = FileSystem.readDirectory(path);
 		var files:Array<String> = [];
 		for (item in items) {
-		if (item == "." || item == "..")
-			continue;
-		var fileName = Path.join([path, item]);
-		if (FileSystem.isDirectory(fileName)) {
-			files = files.concat(collectAllFileNames(fileName));
-			continue;
-		}
-		if (!item.endsWith(".hxtest")) {
-			continue;
-		}
-		files.push(Path.join([path, item]));
+			if (item == "." || item == "..")
+				continue;
+			var fileName = Path.join([path, item]);
+			if (FileSystem.isDirectory(fileName)) {
+				files = files.concat(collectAllFileNames(fileName));
+				continue;
+			}
+			if (!item.endsWith(".hxtest")) {
+				continue;
+			}
+			files.push(Path.join([path, item]));
 		}
 		return files;
 	}

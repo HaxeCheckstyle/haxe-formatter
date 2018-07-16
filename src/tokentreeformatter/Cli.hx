@@ -37,8 +37,9 @@ class Cli {
 		Sys.println("");
 		var seconds = duration / 1000;
 		var action = if (mode == Format)
-			"Formatted" else
-				"Checked";
+			"Formatted"
+		else
+			"Checked";
 		Sys.println('$action $files files in $seconds s.');
 
 		Sys.exit(exitCode);
@@ -63,8 +64,9 @@ class Cli {
 		if (path.endsWith(".hx")) {
 			if (verbose) {
 				var action = if (mode == Format)
-					"Formatting" else
-						"Checking";
+					"Formatting"
+				else
+					"Checking";
 				Sys.println('$action $path');
 			}
 			var content:Bytes = File.getBytes(path);

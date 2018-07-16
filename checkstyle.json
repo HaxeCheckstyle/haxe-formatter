@@ -380,6 +380,7 @@
         "all": [],
         "CyclomaticComplexity": [
             "tokentreeformatter/config/WhitespacePolicy:remove",
+            "tokentreeformatter/marker/Indenter",
             "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
             "tokentreeformatter/marker/MarkLineEnds:markBrOpenClose",
             "tokentreeformatter/marker/MarkSameLine:markSameLine"

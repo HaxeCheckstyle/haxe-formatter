@@ -14,8 +14,18 @@ class MarkSameLine {
 				case Kwd(KwdIf):
 					markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody);
 				case Kwd(KwdElse):
-					applySameLinePolicy(token, parsedCode, configSameLine.ifElse);
 					markBody(token, parsedCode, configSameLine.elseBody);
+					var policy:SameLinePolicy = configSameLine.ifElse;
+					if (policy == Same) {
+						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+						if (prev == null) {
+							policy = Next;
+						}
+						if ((!prev.token.is(BrClose)) && (configSameLine.ifBody != Same)) {
+							policy = Next;
+						}
+					}
+					applySameLinePolicy(token, parsedCode, policy);
 				case Kwd(KwdFor):
 					markBodyAfterPOpen(token, parsedCode, configSameLine.forBody);
 				case Kwd(KwdWhile):

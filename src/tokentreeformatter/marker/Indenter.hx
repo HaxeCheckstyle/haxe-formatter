@@ -59,13 +59,17 @@ class Indenter {
 	}
 
 	function shouldIndent(token:TokenTree):Bool {
+		var tokenInfo:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+		if (tokenInfo == null) {
+			return false;
+		}
 		switch (token.tok) {
 			case BrOpen, BkOpen, POpen:
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 				if (next == null) {
 					return true;
 				}
-				if (shouldIndent(next.token)) {
+				if ((tokenInfo.whitespaceAfter != Newline) && shouldIndent(next.token)) {
 					return false;
 				}
 				return true;
@@ -74,7 +78,7 @@ class Indenter {
 				if (next == null) {
 					return true;
 				}
-				if (shouldIndent(next.token)) {
+				if ((tokenInfo.whitespaceAfter != Newline) && shouldIndent(next.token)) {
 					return false;
 				}
 				return true;

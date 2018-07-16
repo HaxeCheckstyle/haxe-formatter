@@ -12,6 +12,7 @@ if (false) trace("");
 
 class Main {
 	static function main() {
-		if (false) trace("");
+		if (false)
+			trace("");
 	}
 }
