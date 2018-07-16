@@ -50,13 +50,13 @@ class CodeLine {
 		// var parent:TokenTree = part.firstToken.parent;
 		// switch (parent.tok) {
 		// case BrOpen:
-		// if (config.wrapAfterBrOpen) {
+		// if (config.wrapAfterOpeningBrace) {
 		// return wrapObject(part, config);
 		// }
 		// case Const(_):
 		// switch (parent.parent.tok) {
 		// case BkOpen:
-		// if (config.wrapAfterBkOpen) {
+		// if (config.owrapAfterOpeningBracket) {
 		// return wrapArray(part, config);
 		// }
 		// default:

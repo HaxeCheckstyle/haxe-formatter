@@ -85,8 +85,8 @@ class MarkSameLine {
 			parsedCode.tokenList.noLineEndBefore(brClose);
 			parsedCode.tokenList.wrapBefore(brClose, true);
 
-			MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectBrOpenPolicy, configWhitespace.compressSuccessiveParenthesis);
-			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectBrClosePolicy, configWhitespace.compressSuccessiveParenthesis);
+			MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingClosePolicy, configWhitespace.compressSuccessiveParenthesis);
 		}
 	}
 

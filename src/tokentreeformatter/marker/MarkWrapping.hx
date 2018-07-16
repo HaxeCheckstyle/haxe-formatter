@@ -11,11 +11,11 @@ class MarkWrapping {
 		if (config.wrapBeforeDot) {
 			searchTokens.push(Dot);
 		}
-		if (config.wrapAfterBrOpen) {
+		if (config.wrapAfterOpeningBrace) {
 			searchTokens.push(BrOpen);
 			searchTokens.push(BrClose);
 		}
-		if (config.wrapAfterBkOpen) {
+		if (config.wrapAfterOpeningBracket) {
 			searchTokens.push(BkOpen);
 			searchTokens.push(BkClose);
 		}

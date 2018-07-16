@@ -47,17 +47,17 @@ class MarkWhitespace {
 				case Kwd(_):
 					markKeyword(token, parsedCode, config);
 				case POpen:
-					successiveParenthesis(token, parsedCode, config.pOpenPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, parsedCode, config.openingParenPolicy, config.compressSuccessiveParenthesis);
 				case PClose:
-					successiveParenthesis(token, parsedCode, config.pClosePolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, parsedCode, config.closingParenPolicy, config.compressSuccessiveParenthesis);
 				case BrOpen:
-					successiveParenthesis(token, parsedCode, config.brOpenPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, parsedCode, config.openingBracePolicy, config.compressSuccessiveParenthesis);
 				case BrClose:
-					successiveParenthesis(token, parsedCode, config.brClosePolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, parsedCode, config.closingBracePolicy, config.compressSuccessiveParenthesis);
 				case BkOpen:
-					successiveParenthesis(token, parsedCode, config.bkOpenPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, parsedCode, config.openingBracketPolicy, config.compressSuccessiveParenthesis);
 				case BkClose:
-					successiveParenthesis(token, parsedCode, config.bkClosePolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, parsedCode, config.closingBracketPolicy, config.compressSuccessiveParenthesis);
 				case Question:
 					if (TokenTreeCheckUtils.isTernary(token)) {
 						parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
@@ -179,7 +179,7 @@ class MarkWhitespace {
 		}
 		var parent:TokenTree = token.parent;
 		if (parent == null) {
-			parsedCode.tokenList.whitespace(token, config.dblDotPolicy);
+			parsedCode.tokenList.whitespace(token, config.colonPolicy);
 			return;
 		}
 		switch (parent.tok) {
@@ -187,18 +187,18 @@ class MarkWhitespace {
 				parent = parent.parent;
 				if ((parent != null) && (parent.is(BrOpen))) {
 					if (TokenTreeCheckUtils.isBrOpenAnonTypeOrTypedef(parent)) {
-						parsedCode.tokenList.whitespace(token, config.typeDblDotPolicy);
+						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
 					} else {
-						parsedCode.tokenList.whitespace(token, config.objectDblDotPolicy);
+						parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
 					}
 					return;
 				}
 			case Kwd(KwdCase), Kwd(KwdDefault):
-				parsedCode.tokenList.whitespace(token, config.caseDblDotPolicy);
+				parsedCode.tokenList.whitespace(token, config.caseColonPolicy);
 				return;
 			default:
 		}
 
-		parsedCode.tokenList.whitespace(token, config.dblDotPolicy);
+		parsedCode.tokenList.whitespace(token, config.colonPolicy);
 	}
 }

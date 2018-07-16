@@ -172,7 +172,7 @@ class MarkLineEnds {
 	}
 
 	static function markDblDot(parsedCode:ParsedCode, config:LineEndConfig) {
-		if (config.caseDblDot == None) {
+		if (config.caseColon == None) {
 			return;
 		}
 		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);

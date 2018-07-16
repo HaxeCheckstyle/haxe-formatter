@@ -2,25 +2,25 @@ package tokentreeformatter.config;
 
 typedef WhitespaceConfig = {
 	// ( … )
-	@:default(NoneAfter) @:optional var pOpenPolicy:WhitespacePolicy;
-	@:default(OnlyAfter) @:optional var pClosePolicy:WhitespacePolicy;
+	@:default(NoneAfter) @:optional var openingParenPolicy:WhitespacePolicy;
+	@:default(OnlyAfter) @:optional var closingParenPolicy:WhitespacePolicy;
 	// [ … ]
-	@:default(NoneAfter) @:optional var bkOpenPolicy:WhitespacePolicy;
-	@:default(None) @:optional var bkClosePolicy:WhitespacePolicy;
+	@:default(NoneAfter) @:optional var openingBracketPolicy:WhitespacePolicy;
+	@:default(None) @:optional var closingBracketPolicy:WhitespacePolicy;
 	// { … }
-	@:default(Before) @:optional var brOpenPolicy:WhitespacePolicy;
-	@:default(Around) @:optional var brClosePolicy:WhitespacePolicy;
-	@:default(OnlyBefore) @:optional var objectBrOpenPolicy:WhitespacePolicy;
-	@:default(OnlyAfter) @:optional var objectBrClosePolicy:WhitespacePolicy;
+	@:default(Before) @:optional var openingBracePolicy:WhitespacePolicy;
+	@:default(Around) @:optional var closingBracePolicy:WhitespacePolicy;
+	@:default(OnlyBefore) @:optional var objectOpeningBracePolicy:WhitespacePolicy;
+	@:default(OnlyAfter) @:optional var objectClosingClosePolicy:WhitespacePolicy;
 	// < … >
 	@:default(None) @:optional var typeParamOpenPolicy:WhitespacePolicy;
 	@:default(None) @:optional var typeParamClosePolicy:WhitespacePolicy;
 	@:default(OnlyAfter) @:optional var commaPolicy:WhitespacePolicy;
 	@:default(None) @:optional var dotPolicy:WhitespacePolicy;
-	@:default(None) @:optional var dblDotPolicy:WhitespacePolicy;
-	@:default(OnlyAfter) @:optional var caseDblDotPolicy:WhitespacePolicy;
-	@:default(After) @:optional var objectDblDotPolicy:WhitespacePolicy;
-	@:default(None) @:optional var typeDblDotPolicy:WhitespacePolicy;
+	@:default(None) @:optional var colonPolicy:WhitespacePolicy;
+	@:default(OnlyAfter) @:optional var caseColonPolicy:WhitespacePolicy;
+	@:default(After) @:optional var objectFieldColonPolicy:WhitespacePolicy;
+	@:default(None) @:optional var typeHintColonPolicy:WhitespacePolicy;
 	@:default(Around) @:optional var ternaryPolicy:WhitespacePolicy;
 	@:default(None) @:optional var semicolonPolicy:WhitespacePolicy;
 	@:default(After) @:optional var ifPolicy:WhitespacePolicy;

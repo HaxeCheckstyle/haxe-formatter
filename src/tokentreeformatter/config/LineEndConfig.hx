@@ -5,7 +5,7 @@ typedef LineEndConfig = {
 	@:default(None) @:optional var atVar:AtLineEndPolicy;
 	@:default(After) @:optional var atFunction:AtLineEndPolicy;
 	@:default(None) @:optional var atOther:AtLineEndPolicy;
-	@:default(After) @:optional var caseDblDot:CaseDblDotLineEndPolicy;
+	@:default(After) @:optional var caseColon:CaseColonLineEndPolicy;
 	@:default(After) @:optional var sharp:SharpLineEndPolicy;
 	@:default(After) @:optional var leftCurly:LeftCurlyLineEndPolicy;
 	@:default(Both) @:optional var rightCurly:RightCurlyLineEndPolicy;
@@ -20,7 +20,7 @@ abstract AtLineEndPolicy(String) {
 }
 
 @:enum
-abstract CaseDblDotLineEndPolicy(String) {
+abstract CaseColonLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
 }
