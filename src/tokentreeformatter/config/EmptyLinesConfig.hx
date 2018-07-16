@@ -7,7 +7,9 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var beforeUsing:Int;
 	@:default(1) @:optional var afterImportsUsing:Int;
 	@:default(1) @:optional var betweenTypes:Int;
-	@:default(0) @:optional var beforeRightCurly:Int;
+	@:default(Remove) @:optional var beforeRightCurly:KeepEmptyLinesPolicy;
+	@:default(Remove) @:optional var afterLeftCurly:KeepEmptyLinesPolicy;
+	@:default(Remove) @:optional var afterReturn:KeepEmptyLinesPolicy;
 	@:default(0) @:optional var beginEnumAbstract:Int;
 	@:default(0) @:optional var betweenEnumAbstractVars:Int;
 	@:default(1) @:optional var afterEnumAbstractVars:Int;
@@ -27,4 +29,10 @@ typedef ClassFieldsEmtpyLinesConfig = {
 	@:default(1) @:optional var betweenStaticFunctions:Int;
 	@:default(1) @:optional var afterPrivateFunctions:Int;
 	@:default(1) @:optional var betweenFunctions:Int;
+}
+
+@:enum
+abstract KeepEmptyLinesPolicy(String) {
+	var Keep = "keep";
+	var Remove = "remove";
 }

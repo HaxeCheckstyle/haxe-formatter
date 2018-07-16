@@ -20,7 +20,15 @@ class MarkEmptyLines {
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
 		markEnumAbstracts(parsedCode, config);
-		markRightCurly(parsedCode, config);
+		if (config.beforeRightCurly == Remove) {
+			markRightCurly(parsedCode);
+		}
+		if (config.afterLeftCurly == Remove) {
+			markLeftCurly(parsedCode);
+		}
+		if (config.afterReturn == Remove) {
+			markReturn(parsedCode);
+		}
 	}
 
 	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
@@ -36,6 +44,7 @@ class MarkEmptyLines {
 		var imports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdImport), Kwd(KwdUsing)], ALL);
 		if (imports.length <= 0) {
 			return;
+			// fjdkfjsdf
 		}
 
 		var lastImport:TokenTree = imports[imports.length - 1];
@@ -264,10 +273,24 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markRightCurly(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	static function markLeftCurly(parsedCode:ParsedCode) {
+		var brOpens:Array<TokenTree> = parsedCode.root.filter([BrOpen], ALL);
+		for (br in brOpens) {
+			parsedCode.tokenList.emptyLinesAfter(br, 0);
+		}
+	}
+
+	static function markRightCurly(parsedCode:ParsedCode) {
 		var brCloses:Array<TokenTree> = parsedCode.root.filter([BrClose], ALL);
 		for (br in brCloses) {
-			parsedCode.tokenList.emptyLinesBefore(br, config.beforeRightCurly);
+			parsedCode.tokenList.emptyLinesBefore(br, 0);
+		}
+	}
+
+	static function markReturn(parsedCode:ParsedCode) {
+		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], ALL);
+		for (ret in returns) {
+			parsedCode.tokenList.emptyLinesAfterSubTree(ret, 0);
 		}
 	}
 

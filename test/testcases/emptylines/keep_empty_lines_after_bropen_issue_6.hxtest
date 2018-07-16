@@ -1,0 +1,39 @@
+{
+	"emptyLines":{
+		"afterLeftCurly": "keep"
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+
+		if (false) {
+
+			trace("");
+			trace("");
+
+			trace("");
+			trace("");
+
+		}
+
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+
+		if (false) {
+
+			trace("");
+			trace("");
+
+			trace("");
+			trace("");
+		}
+	}
+}
