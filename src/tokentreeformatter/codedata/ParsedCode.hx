@@ -7,14 +7,14 @@ import sys.io.File;
 class ParsedCode {
 	static inline var BAD_OFFSET:String = "Bad offset";
 
-	public var file:ParseFile;
-	public var tokens:Array<Token>;
-	public var linesIdx:Array<LineIds>;
-	public var lines:Array<String>;
-	public var lineSeparator:String;
-	public var root:TokenTree;
-	public var tokenList:TokenList;
-	public var emptyLines:Array<Int>;
+	public var file(default, null):ParseFile;
+	public var tokens(default, null):Array<Token>;
+	public var linesIdx(default, null):Array<LineIds>;
+	public var lines(default, null):Array<String>;
+	public var lineSeparator(default, null):String;
+	public var root(default, null):TokenTree;
+	public var tokenList(default, null):TokenList;
+	public var emptyLines(default, null):Array<Int>;
 
 	function new(file:ParseFile) {
 		this.file = file;
