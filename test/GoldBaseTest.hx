@@ -19,6 +19,8 @@ class GoldBaseTest {
 				Assert.areEqual(goldCode, formattedCode, pos);
 			case Failure(errorMessage):
 				Assert.fail(errorMessage, pos);
+			case Disabled:
+				Assert.fail("Formatting is disabled", pos);
 		}
 	}
 

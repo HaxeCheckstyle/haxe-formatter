@@ -15,6 +15,7 @@ import tokentreeformatter.codedata.ParseFile;
 enum Result {
 	Success(formattedCode:String);
 	Failure(errorMessage:String);
+	Disabled;
 }
 
 class Formatter {
@@ -26,7 +27,7 @@ class Formatter {
 		try {
 			var config:Config = loadConfig(file.name);
 			if (config.disableFormatting) {
-				return null;
+				return Disabled;
 			}
 
 			tokentree.TokenStream.MODE = RELAXED;

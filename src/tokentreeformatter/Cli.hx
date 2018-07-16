@@ -83,6 +83,7 @@ class Cli {
 					}
 				case Failure(errorMessage):
 					Sys.println('Failed to format $path: $errorMessage');
+				case Disabled:
 			}
 		}
 	}

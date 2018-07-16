@@ -36,6 +36,8 @@ class SelfTest {
 				Assert.areEqual(code, formattedCode, 'Format failed for $fileName');
 			case Failure(errorMessage):
 				Assert.fail(errorMessage);
+			case Disabled:
+				Assert.fail("Formatting is disabled");
 		}
 	}
 
