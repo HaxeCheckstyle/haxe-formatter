@@ -13,6 +13,10 @@ class MarkSameLine {
 			switch (token.tok) {
 				case Kwd(KwdIf):
 					markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody);
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
+						applySameLinePolicy(token, parsedCode, configSameLine.elseIf);
+					}
 				case Kwd(KwdElse):
 					markBody(token, parsedCode, configSameLine.elseBody);
 					applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
