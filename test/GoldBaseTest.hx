@@ -18,7 +18,7 @@ class GoldBaseTest {
 				}
 				Assert.areEqual(goldCode, formattedCode, pos);
 			case Failure(errorMessage):
-				Assert.fail(errorMessage);
+				Assert.fail(errorMessage, pos);
 		}
 	}
 

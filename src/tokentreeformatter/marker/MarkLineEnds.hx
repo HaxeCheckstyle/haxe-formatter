@@ -184,7 +184,7 @@ class MarkLineEnds {
 	}
 
 	static function markSharp(parsedCode:ParsedCode, config:LineEndConfig) {
-		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([Sharp("if"), Sharp("else"), Sharp("elseif"), Sharp("end")], ALL);
+		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([Sharp("if"), Sharp("else"), Sharp("elseif"), Sharp("end"), Sharp("error")], ALL);
 		for (token in sharpTokens) {
 			switch (token.tok) {
 				case Sharp("if"), Sharp("elseif"):
@@ -196,7 +196,12 @@ class MarkLineEnds {
 						parsedCode.tokenList.whitespace(lastChild, After);
 						continue;
 					}
-
+					parsedCode.tokenList.lineEndAfter(lastChild);
+				case Sharp("error"):
+					var lastChild:TokenTree = lastToken(token.getFirstChild());
+					if (lastChild == null) {
+						lastChild = token;
+					}
 					parsedCode.tokenList.lineEndAfter(lastChild);
 				default:
 					parsedCode.tokenList.lineEndAfter(token);
@@ -205,6 +210,9 @@ class MarkLineEnds {
 	}
 
 	static function lastToken(token:TokenTree):TokenTree {
+		if (token == null) {
+			return null;
+		}
 		if (token.children == null) {
 			return token;
 		}
