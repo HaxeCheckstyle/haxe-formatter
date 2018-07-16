@@ -4,10 +4,10 @@ about: Create a testcase to help us improve formatter
 
 ---
 
-**Describe the bug**
+**Describe the bug**<br/>
 A clear and concise description of what the bug is.
 
-**Sample of expected formatting**
+**Sample of expected output**
 ```
 class Main {
 	static function main() {
@@ -16,7 +16,7 @@ class Main {
 }
 ```
 
-**Sample of broken formatting**
+**Sample of broken output**
 ```
 class Main {
 static function main() {
@@ -25,10 +25,10 @@ doSomething("");
 }
 ```
 
-**Provide a test case**
-Sections delimited by `---`; empty lines required before and after `---`
-Section 1: replace `{}` with content of your `hxformat.json` required to reproduce or leave empty for default config
-Section 2: Replace with input code 
+**Provide a test case**<br/>
+Sections delimited by `---`; empty lines required before and after `---`<br/>
+Section 1: replace `{}` with content of your `hxformat.json` required to reproduce or leave empty for default config<br/>
+Section 2: Replace with input code<br/>
 Section 3: Replace with expected / gold output
 
 ```
@@ -37,9 +37,7 @@ Section 3: Replace with expected / gold output
 ---
 
 class Main {
-	static function main() {
-		doSomething("");
-	}
+	static function main() { doSomething(""); }
 }
 
 ---
