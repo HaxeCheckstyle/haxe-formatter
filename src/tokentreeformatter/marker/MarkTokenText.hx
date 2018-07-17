@@ -16,7 +16,7 @@ class MarkTokenText {
 					parsedCode.tokenList.tokenText(token, token.toString());
 			}
 			return GO_DEEPER;
-			});
+		});
 	}
 
 	public static function printStringToken(token:TokenTree, parsedCode:ParsedCode):String {

@@ -125,7 +125,7 @@ class Indenter {
 				line.indent -= diff;
 				for (index2 in (index + 1)...codeLines.lines.length) {
 					var nextLine:CodeLine = codeLines.lines[index2];
-					if (nextLine.indent <= lastIndent + 1) {
+					if (nextLine.indent <= lastIndent) {
 						break;
 					}
 					nextLine.indent -= diff;

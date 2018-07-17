@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+static function main() {
+trace(function() {
+trace("");
+});
+}
+}
+
+---
+
+class Main {
+	static function main() {
+		trace(function() {
+			trace("");
+		});
+	}
+}

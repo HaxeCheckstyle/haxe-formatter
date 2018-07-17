@@ -19,7 +19,7 @@ class TestMain {
 		EntryPoint.addThread(function() {
 			while (true)
 				Sys.sleep(1.0);
-			});
+		});
 		#end
 		runner.run(suites);
 		EntryPoint.run();

@@ -87,7 +87,7 @@ class MarkWhitespace {
 				default:
 			}
 			return GO_DEEPER;
-			});
+		});
 	}
 
 	static function fixConstAfterConst(token:TokenTree, parsedCode:ParsedCode) {
