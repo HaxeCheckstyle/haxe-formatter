@@ -32,6 +32,9 @@ class MarkEmptyLines {
 	}
 
 	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
+		if (codeLines.lines.length <= 0) {
+			return;
+		}
 		for (line in codeLines.lines) {
 			if (line.emptyLinesAfter > config.maxAnywhereInFile) {
 				line.emptyLinesAfter = config.maxAnywhereInFile;
