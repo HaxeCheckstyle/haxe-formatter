@@ -11,6 +11,7 @@ class Main {
 		if (false) {trace("");} else if (true) {trace("");}
 	}
 }
+
 ---
 
 class Main {
