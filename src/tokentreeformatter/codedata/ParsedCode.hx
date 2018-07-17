@@ -19,6 +19,7 @@ class ParsedCode {
 	function new(file:ParseFile) {
 		this.file = file;
 		try {
+			removeBOM();
 			detectLineSeparator();
 			makeLines();
 			makePosIndices();
@@ -47,6 +48,19 @@ class ParsedCode {
 			tokenList.buildList(root);
 		}
 		return root;
+	}
+
+	function removeBOM() {
+		if (file.content == null)
+			return;
+		if (file.content.readByte(0) != 0xEF)
+			return;
+		if (file.content.readByte(1) != 0xBB)
+			return;
+		if (file.content.readByte(2) != 0xBF)
+			return;
+		var withBOM:Bytes = cast file.content;
+		file.content = cast withBOM.sub(3, file.content.length - 3);
 	}
 
 	function makePosIndices() {
