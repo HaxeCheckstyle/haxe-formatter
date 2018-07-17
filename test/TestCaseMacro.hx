@@ -24,7 +24,7 @@ class TestCaseMacro {
 		var reg = new EReg('$nl$nl---$nl$nl', "g");
 		var segments = reg.split(content);
 		if (segments.length != 3) {
-			return null;
+			throw 'invalid testcase format for: $fileName';
 		}
 		var config:String = segments[0];
 		var unformatted:String = segments[1];
