@@ -10,5 +10,4 @@ typedef ObjectDeclField = {
 #else
 typedef ObjectDeclField = haxe.macro.ObjectField;
 #end
-
 #end

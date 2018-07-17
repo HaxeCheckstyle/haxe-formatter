@@ -1,4 +1,1 @@
-typedef StructInfo = {
-	name:String,
-	doc:String,
-}
+typedef StructInfo = {name:String, doc:String}
