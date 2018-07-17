@@ -1,8 +1,9 @@
+import haxe.io.Path;
 import sys.io.File;
 import sys.FileSystem;
 
 class TestSingleRun {
-	public static inline var SINGLE_RUN_FILE:String = "testSingleRun.txt";
+	public static inline var SINGLE_RUN_FILE:String = "test/single-run.txt";
 
 	var singleRunTestCase:String;
 
@@ -12,7 +13,7 @@ class TestSingleRun {
 
 	function readSingleRun():String {
 		if (FileSystem.exists(SINGLE_RUN_FILE)) {
-			var singleRun:String = StringTools.trim(File.getContent(SINGLE_RUN_FILE));
+			var singleRun:String = File.getContent(SINGLE_RUN_FILE).trim();
 			if (singleRun.length <= 0) {
 				return null;
 			}
@@ -29,6 +30,14 @@ class TestSingleRun {
 		if (!isSingleRun()) {
 			return true;
 		}
-		return singleRunTestCase == testName;
+		return normalizePath(singleRunTestCase).endsWith(normalizePath(testName));
+	}
+
+	function normalizePath(path:String):String {
+		path = Path.normalize(path);
+		if (Sys.systemName() == "Windows") {
+			return path.toLowerCase();
+		}
+		return path;
 	}
 }

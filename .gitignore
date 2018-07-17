@@ -23,4 +23,4 @@ resources/schema.xml
 
 core
 test/formatter-result.txt
-testSingleRun.txt
+test/single-run.txt
