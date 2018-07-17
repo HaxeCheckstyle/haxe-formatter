@@ -10,8 +10,8 @@ install:
   - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
   - haxelib git hxargs https://github.com/Simn/hxargs --never
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
-  - haxelib git mcover https://github.com/AlexHaxe/mcover.git support-eval src
-  - haxelib git munit https://github.com/AlexHaxe/MassiveUnit.git support-eval src
+  - haxelib git mcover https://github.com/massiveinteractive/mcover master src
+  - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
   - haxelib install json2object
   - haxelib install mlib
   - haxelib install mconsole
