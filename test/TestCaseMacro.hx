@@ -1,6 +1,7 @@
 import haxe.macro.Expr;
 import haxe.macro.Context;
 import haxe.io.Path;
+import sys.io.File;
 import sys.FileSystem;
 
 class TestCaseMacro {
@@ -8,7 +9,11 @@ class TestCaseMacro {
 	public macro static function build(folder:String):Array<Field> {
 		var fields:Array<Field> = Context.getBuildFields();
 		var testCases:Array<String> = collectAllFileNames(folder);
+		var singleRun:TestSingleRun = new TestSingleRun();
 		for (testCase in testCases) {
+			if (!singleRun.matchesTest(testCase)) {
+				continue;
+			}
 			var field:Field = buildTestCaseField(testCase);
 			if (field == null) {
 				continue;

@@ -4,7 +4,10 @@ class TestSuite extends massive.munit.TestSuite {
 
 		CompileTime.importPackage("testcases");
 
-		add(SelfTest);
+		var singleRun:TestSingleRun = new TestSingleRun();
+		if (!singleRun.isSingleRun()) {
+			add(SelfTest);
+		}
 
 		var tests = CompileTime.getAllClasses(GoldBaseTest);
 		for (testClass in tests)
