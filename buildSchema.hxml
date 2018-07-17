@@ -1,0 +1,10 @@
+-lib tokentree
+-lib haxeparser
+-lib hxparse
+-lib json2object
+-lib hxargs
+
+-cp src
+-cp schema
+-xml resources/schema.xml
+-x SchemaGenerator

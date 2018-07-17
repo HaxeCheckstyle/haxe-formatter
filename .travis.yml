@@ -29,6 +29,7 @@ matrix:
 script:
   - haxe buildAll.hxml
   - haxe buildTest.hxml
+  - haxe buildSchema.hxml
   - node run.js -s . --check
   - neko run.n -s . --check
 
