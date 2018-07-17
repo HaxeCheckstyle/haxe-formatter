@@ -38,10 +38,10 @@ class Formatter {
 			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
 
-			MarkTokenText.markTokenText(parsedCode, indenter);
 			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
+			MarkTokenText.markTokenText(parsedCode, indenter);
 			MarkWrapping.markWrapping(parsedCode, config.wrapping);
 			MarkSameLine.markSameLine(parsedCode, config.sameLine, config.whitespace);
 

@@ -22,7 +22,7 @@ class Cli {
 
 		var paths = [];
 		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed).") ["-s", "--source"
-			] => function(path:String) paths.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = Check]);
+		] => function(path:String) paths.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = Check]);
 		argHandler.parse(args);
 		if (args.length == 0) {
 			Sys.println("Haxe Formatter");
