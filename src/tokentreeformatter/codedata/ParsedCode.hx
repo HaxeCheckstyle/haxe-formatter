@@ -2,7 +2,6 @@ package tokentreeformatter.codedata;
 
 import haxeparser.HaxeLexer;
 import tokentree.TokenTreeBuilder;
-import sys.io.File;
 
 class ParsedCode {
 	static inline var BAD_OFFSET:String = "Bad offset";
@@ -16,26 +15,24 @@ class ParsedCode {
 	public var tokenList(default, null):TokenList;
 	public var emptyLines(default, null):Array<Int>;
 
-	function new(file:ParseFile) {
+	public function new(file:ParseFile, ?tokenData:TokenData) {
 		this.file = file;
 		try {
 			removeBOM();
 			detectLineSeparator();
 			makeLines();
 			makePosIndices();
-			makeTokens();
-			getTokenTree();
+			if (tokenData == null) {
+				makeTokens();
+				getTokenTree();
+			} else {
+				tokens = tokenData.tokens;
+				root = tokenData.tokenTree;
+				makeTokenList();
+			}
 		} catch (e:Any) {
 			throw 'failed to create parser context $e';
 		}
-	}
-
-	public static function createFromFile(fileName:String):ParsedCode {
-		return createFromByteData({name: fileName, content: cast File.getBytes(fileName)});
-	}
-
-	public static function createFromByteData(parseFile:ParseFile):ParsedCode {
-		return new ParsedCode(parseFile);
 	}
 
 	public function getTokenTree():TokenTree {
@@ -44,8 +41,7 @@ class ParsedCode {
 		}
 		if (root == null) {
 			root = TokenTreeBuilder.buildTokenTree(tokens, file.content);
-			tokenList = new TokenList();
-			tokenList.buildList(root);
+			makeTokenList();
 		}
 		return root;
 	}
@@ -61,6 +57,11 @@ class ParsedCode {
 			return;
 		var withBOM:Bytes = cast file.content;
 		file.content = cast withBOM.sub(3, file.content.length - 3);
+	}
+	
+	function makeTokenList() {
+		tokenList = new TokenList();
+		tokenList.buildList(root);
 	}
 
 	function makePosIndices() {

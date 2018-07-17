@@ -12,6 +12,7 @@ import tokentreeformatter.marker.MarkWrapping;
 import tokentreeformatter.marker.MarkSameLine;
 import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.codedata.ParseFile;
+import tokentreeformatter.codedata.TokenData;
 
 enum Result {
 	Success(formattedCode:String);
@@ -24,7 +25,7 @@ class Formatter {
 
 	public function new() {}
 
-	public function formatFile(file:ParseFile):Result {
+	public function formatFile(file:ParseFile, ?tokenData:TokenData):Result {
 		try {
 			var config:Config = loadConfig(file.name);
 			if (config.disableFormatting) {
@@ -32,9 +33,9 @@ class Formatter {
 			}
 
 			tokentree.TokenStream.MODE = RELAXED;
-			var indenter = new Indenter(config.indentation);
+			var parsedCode = new ParsedCode(file, tokenData);
 
-			var parsedCode = ParsedCode.createFromByteData(file);
+			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
 
 			MarkTokenText.markTokenText(parsedCode, indenter);
