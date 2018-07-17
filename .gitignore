@@ -19,6 +19,7 @@ debug/
 
 coverage.json
 deprecated/
+resources/schema.xml
 
 core
 test/formatter-result.txt
