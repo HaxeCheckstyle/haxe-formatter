@@ -1,4 +1,4 @@
-import byte.ByteData;
+import haxe.io.Bytes;
 import haxe.io.Path;
 import massive.munit.Assert;
 import tokentreeformatter.Formatter;
@@ -25,7 +25,7 @@ class SelfTest {
 
 	function checkFile(fileName:String) {
 		var code:String = File.getContent(fileName);
-		var file:ParseFile = {name: fileName, content: ByteData.ofString(code)};
+		var file:ParseFile = {name: fileName, content: Bytes.ofString(code)};
 		var formatter:Formatter = new Formatter();
 		var result = formatter.formatFile(file);
 		switch (result) {

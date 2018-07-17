@@ -40,7 +40,7 @@ class ParsedCode {
 			return null;
 		}
 		if (root == null) {
-			root = TokenTreeBuilder.buildTokenTree(tokens, file.content);
+			root = TokenTreeBuilder.buildTokenTree(tokens, ByteData.ofBytes(file.content));
 			makeTokenList();
 		}
 		return root;
@@ -49,23 +49,23 @@ class ParsedCode {
 	function removeBOM() {
 		if (file.content == null)
 			return;
-		if (file.content.readByte(0) != 0xEF)
+		if (file.content.get(0) != 0xEF)
 			return;
-		if (file.content.readByte(1) != 0xBB)
+		if (file.content.get(1) != 0xBB)
 			return;
-		if (file.content.readByte(2) != 0xBF)
+		if (file.content.get(2) != 0xBF)
 			return;
-		var withBOM:Bytes = cast file.content;
-		file.content = cast withBOM.sub(3, file.content.length - 3);
+		var withBOM:Bytes = file.content;
+		file.content = withBOM.sub(3, file.content.length - 3);
 	}
-	
+
 	function makeTokenList() {
 		tokenList = new TokenList();
 		tokenList.buildList(root);
 	}
 
 	function makePosIndices() {
-		var code:Bytes = cast file.content;
+		var code:Bytes = file.content;
 		linesIdx = [];
 
 		var last = 0;
@@ -123,7 +123,7 @@ class ParsedCode {
 	}
 
 	public function getString(off:Int, off2:Int):String {
-		var code:Bytes = cast file.content;
+		var code:Bytes = file.content;
 		var len:Int = off2 - off;
 		if ((off >= code.length) || (off + len > code.length)) {
 			return "";
@@ -132,7 +132,7 @@ class ParsedCode {
 	}
 
 	function detectLineSeparator() {
-		var codeBytes:Bytes = cast file.content;
+		var codeBytes:Bytes = file.content;
 		var code:String = codeBytes.toString();
 
 		for (i in 0...code.length) {
@@ -155,14 +155,14 @@ class ParsedCode {
 
 	#if false
 	function makeLines() {
-		var code:Bytes = cast file.content;
+		var code:Bytes = file.content;
 		var textCode:String = code.toString();
 		lines = textCode.split(lineSeparator);
 	}
 
 	#end
 	function makeLines() {
-		var code:Bytes = cast file.content;
+		var code:Bytes = file.content;
 		var textCode:String = code.toString();
 		lines = textCode.split(lineSeparator);
 
@@ -179,7 +179,7 @@ class ParsedCode {
 		try {
 			tokens = [];
 			root = null;
-			var lexer = new HaxeLexer(file.content, file.name);
+			var lexer = new HaxeLexer(ByteData.ofBytes(file.content), file.name);
 			var t:Token = lexer.token(haxeparser.HaxeLexer.tok);
 
 			while (t.tok != Eof) {

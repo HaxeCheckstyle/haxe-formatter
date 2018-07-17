@@ -1,5 +1,5 @@
 import sys.io.File;
-import byte.ByteData;
+import haxe.io.Bytes;
 import haxe.PosInfos;
 import haxe.Template;
 import massive.munit.Assert;
@@ -8,7 +8,7 @@ import tokentreeformatter.Formatter.Result;
 
 class GoldBaseTest {
 	function goldCheck(unformatted:String, goldCode:String, ?config:String, ?pos:PosInfos) {
-		var file:ParseFile = {name: "Test.hx", content: ByteData.ofString(unformatted)};
+		var file:ParseFile = {name: "Test.hx", content: Bytes.ofString(unformatted)};
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var result:Result = formatter.formatFile(file);
 		switch (result) {

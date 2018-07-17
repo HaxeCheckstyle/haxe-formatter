@@ -70,7 +70,7 @@ class Cli {
 				Sys.println('$action $path');
 			}
 			var content:Bytes = File.getBytes(path);
-			var result:Result = new Formatter().formatFile({name: path, content: cast content});
+			var result:Result = new Formatter().formatFile({name: path, content: content});
 			switch (result) {
 				case Success(formattedCode):
 					files++;
