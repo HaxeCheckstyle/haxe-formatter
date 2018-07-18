@@ -12,14 +12,9 @@ class MarkSameLine {
 		for (token in tokens) {
 			switch (token.tok) {
 				case Kwd(KwdIf):
-					markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody);
-					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-					if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
-						applySameLinePolicy(token, parsedCode, configSameLine.elseIf);
-					}
+					markIf(token, parsedCode, configSameLine);
 				case Kwd(KwdElse):
-					markBody(token, parsedCode, configSameLine.elseBody);
-					applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+					markElse(token, parsedCode, configSameLine);
 				case Kwd(KwdFor):
 					markBodyAfterPOpen(token, parsedCode, configSameLine.forBody);
 				case Kwd(KwdWhile):
@@ -38,6 +33,47 @@ class MarkSameLine {
 				default:
 			}
 		}
+	}
+
+	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		var parent:TokenTree = token.parent;
+		var isExpr:Bool = false;
+		switch (parent.tok) {
+			case Kwd(KwdReturn):
+				isExpr = true;
+			case Binop(OpAssign):
+				isExpr = true;
+			default:
+		}
+		if (isExpr && configSameLine.expressionIf == Same) {
+			markBodyAfterPOpen(token, parsedCode, Same);
+			return;
+		}
+
+		markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody);
+		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+		if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
+			applySameLinePolicy(token, parsedCode, configSameLine.elseIf);
+		}
+	}
+
+	static function markElse(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		var parent:TokenTree = token.parent.parent;
+		var isExpr:Bool = false;
+		switch (parent.tok) {
+			case Kwd(KwdReturn):
+				isExpr = true;
+			case Binop(OpAssign):
+				isExpr = true;
+			default:
+		}
+		if (isExpr && configSameLine.expressionIf == Same) {
+			markBody(token, parsedCode, Same);
+			return;
+		}
+
+		markBody(token, parsedCode, configSameLine.elseBody);
+		applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
 	}
 
 	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {

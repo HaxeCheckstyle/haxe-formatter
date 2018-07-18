@@ -36,10 +36,7 @@ class Cli {
 		var duration = Date.now().getTime() - startTime;
 		Sys.println("");
 		var seconds = duration / 1000;
-		var action = if (mode == Format)
-			"Formatted"
-		else
-			"Checked";
+		var action = if (mode == Format) "Formatted" else "Checked";
 		Sys.println('$action $files files in $seconds s.');
 
 		Sys.exit(exitCode);
@@ -63,10 +60,7 @@ class Cli {
 	function formatFile(path:String) {
 		if (path.endsWith(".hx")) {
 			if (verbose) {
-				var action = if (mode == Format)
-					"Formatting"
-				else
-					"Checking";
+				var action = if (mode == Format) "Formatting" else "Checking";
 				Sys.println('$action $path');
 			}
 			var content:Bytes = File.getBytes(path);

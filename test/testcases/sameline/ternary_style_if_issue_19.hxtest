@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		var foo = if (foo) foo else foo;
+		return if (foo) foo else foo;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var foo = if (foo) foo else foo;
+		return if (foo) foo else foo;
+	}
+}
