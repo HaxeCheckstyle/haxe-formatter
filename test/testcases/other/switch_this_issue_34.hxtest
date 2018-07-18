@@ -1,0 +1,22 @@
+{}
+
+---
+
+class Foo {
+	public function toString() {
+		return switch this {
+			case Right(e): Type.getEnumName(e);
+		}
+	}
+}
+
+---
+
+class Foo {
+	public function toString() {
+		return switch this {
+			case Right(e):
+				Type.getEnumName(e);
+		}
+	}
+}
