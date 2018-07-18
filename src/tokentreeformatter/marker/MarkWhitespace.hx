@@ -14,11 +14,7 @@ class MarkWhitespace {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);
 					}
 				case Binop(OpGt):
-					if (TokenTreeCheckUtils.isTypeParameter(token)) {
-						parsedCode.tokenList.whitespace(token, config.typeParamClosePolicy);
-					} else {
-						parsedCode.tokenList.whitespace(token, config.binopPolicy);
-					}
+					markGt(token, parsedCode, config);
 				case Binop(OpInterval):
 					parsedCode.tokenList.whitespace(token, config.intervalPolicy);
 				#if (haxe_ver >= 4.0)
@@ -88,6 +84,40 @@ class MarkWhitespace {
 			}
 			return GO_DEEPER;
 		});
+	}
+
+	static function markGt(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		if (TokenTreeCheckUtils.isOpGtTypedefExtension(token)) {
+			parsedCode.tokenList.whitespace(token, config.typeExtensionPolicy);
+			return;
+		}
+		if (TokenTreeCheckUtils.isTypeParameter(token)) {
+			parsedCode.tokenList.whitespace(token, config.typeParamClosePolicy);
+			var hasAfter:Bool = false;
+			switch (config.typeParamClosePolicy) {
+				case After, Around, OnlyAfter:
+					hasAfter = true;
+				default:
+			}
+			var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+			if (next != null) {
+				switch (next.token.tok) {
+					case Kwd(_):
+						parsedCode.tokenList.whitespace(token, After);
+					case Comma, Semicolon:
+						if (hasAfter) {
+							parsedCode.tokenList.whitespace(token, NoneAfter);
+						}
+					case Binop(OpGt), PClose, BrClose:
+						if (hasAfter) {
+							parsedCode.tokenList.whitespace(token, NoneAfter);
+						}
+					default:
+				}
+			}
+		} else {
+			parsedCode.tokenList.whitespace(token, config.binopPolicy);
+		}
 	}
 
 	static function fixConstAfterConst(token:TokenTree, parsedCode:ParsedCode) {

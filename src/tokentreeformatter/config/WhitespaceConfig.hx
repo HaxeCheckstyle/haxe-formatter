@@ -15,6 +15,7 @@ typedef WhitespaceConfig = {
 	// < … >
 	@:default(None) @:optional var typeParamOpenPolicy:WhitespacePolicy;
 	@:default(None) @:optional var typeParamClosePolicy:WhitespacePolicy;
+	@:default(Around) @:optional var typeExtensionPolicy:WhitespacePolicy;
 	@:default(OnlyAfter) @:optional var commaPolicy:WhitespacePolicy;
 	@:default(None) @:optional var dotPolicy:WhitespacePolicy;
 	@:default(None) @:optional var colonPolicy:WhitespacePolicy;

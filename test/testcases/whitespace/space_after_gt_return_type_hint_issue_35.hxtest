@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Foo {
+	function foo():Option<Int> return None;
+}
+
+---
+
+class Foo {
+	function foo():Option<Int> return None;
+}
