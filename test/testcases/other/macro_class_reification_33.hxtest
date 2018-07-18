@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Macro {
+	static function foo() {
+		macro class {
+			public function new() {}
+		}
+	}
+}
+
+---
+
+class Macro {
+	static function foo() {
+		macro class {
+			public function new() {}
+		}
+	}
+}
