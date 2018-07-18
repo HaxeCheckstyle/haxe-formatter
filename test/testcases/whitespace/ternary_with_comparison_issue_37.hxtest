@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	function main() {
+		setNext(transform != null?transform.alphaMultiplier:1.0);
+		angle = ((y < 0) ? -angle:angle) * FlxAngle.TO_DEG;
+		len == null?foo:bar;
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		setNext(transform != null ? transform.alphaMultiplier : 1.0);
+		angle = ((y < 0) ? -angle : angle) * FlxAngle.TO_DEG;
+		len == null ? foo : bar;
+	}
+}
