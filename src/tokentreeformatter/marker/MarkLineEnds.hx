@@ -9,11 +9,11 @@ class MarkLineEnds {
 			parsedCode.tokenList.lineEndAfter(token);
 		}
 
-		markComments(parsedCode, config);
 		markBrOpenClose(parsedCode, config);
 		markAt(parsedCode, config);
 		markDblDot(parsedCode, config);
 		markSharp(parsedCode, config);
+		markComments(parsedCode, config);
 	}
 
 	static function markComments(parsedCode:ParsedCode, config:LineEndConfig) {

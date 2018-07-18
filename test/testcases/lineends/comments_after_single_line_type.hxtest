@@ -1,0 +1,10 @@
+{}
+
+---
+
+public function put() {} // foo
+
+
+---
+
+public function put() {} // foo
