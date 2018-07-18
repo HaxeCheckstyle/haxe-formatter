@@ -105,7 +105,7 @@ class MarkWhitespace {
 		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
-				case Dot, DblDot, Semicolon:
+				case Dot, Comma, DblDot, Semicolon:
 					policy = WhitespacePolicy.remove(policy, After);
 				case Binop(OpGt):
 					if (token.is(BrClose)) {

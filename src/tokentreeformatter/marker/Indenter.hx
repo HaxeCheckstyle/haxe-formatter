@@ -77,10 +77,14 @@ class Indenter {
 
 	function findIndentingCandidates(token:TokenTree):Array<TokenTree> {
 		var indentingTokensCandidates:Array<TokenTree> = [];
-		while ((token.parent != null) && (token.parent.tok != null)) {
-			token = token.parent;
-			if (isIndentingToken(token)) {
-				indentingTokensCandidates.push(token);
+		var parent:TokenTree = token;
+		while ((parent.parent != null) && (parent.parent.tok != null)) {
+			parent = parent.parent;
+			if (parent.pos.min > token.pos.min) {
+				continue;
+			}
+			if (isIndentingToken(parent)) {
+				indentingTokensCandidates.push(parent);
 			}
 		}
 		return indentingTokensCandidates;

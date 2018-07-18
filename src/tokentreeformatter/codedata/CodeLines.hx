@@ -5,7 +5,6 @@ import tokentreeformatter.marker.Indenter;
 
 class CodeLines {
 	var indenter:Indenter;
-
 	public var lines(default, null):Array<CodeLine>;
 
 	public function new(list:TokenList, indenter:Indenter) {

@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	public var file(default, null):ParseFile;
+}
+
+---
+
+class Main {
+	public var file(default, null):ParseFile;
+}

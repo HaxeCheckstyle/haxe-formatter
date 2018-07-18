@@ -75,7 +75,7 @@ class JsonSchemaGenerator {
 		switch (type) {
 			case TType(_.get() => dt, params):
 				return switch [dt, params] {
-					case [{pack: [], name: "Null"} , [realT]]:
+					case [{pack: [], name: "Null"}, [realT]]:
 						genSchema(realT, typeName, pos, structInfo, refs, order, extendCB);
 					default:
 						if (!refs.exists(dt.name)) {
@@ -88,10 +88,10 @@ class JsonSchemaGenerator {
 				}
 			case TInst(_.get() => cl, params):
 				switch [cl, params] {
-					case [{pack: [], name: "String"} , []]:
+					case [{pack: [], name: "String"}, []]:
 						return SchemaUtils.makeObjectDecl([{field: "type", expr: macro "string"}], structInfo, order, pos);
-					case [{pack: [], name: "Array"} , [elemType]]:
-						var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "array"} , {field: "items", expr: genSchema(elemType, typeName + ".items", pos, null,
+					case [{pack: [], name: "Array"}, [elemType]]:
+						var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "array"}, {field: "items", expr: genSchema(elemType, typeName + ".items", pos, null,
 							refs, -1, extendCB)}];
 						if (extendCB != null)
 							extendCB(fields, typeName, pos, refs);
@@ -106,16 +106,16 @@ class JsonSchemaGenerator {
 
 			case TAbstract(_.get() => ab, params):
 				switch [ab, params] {
-					case [{pack: [], name: "Int"} , []]:
+					case [{pack: [], name: "Int"}, []]:
 						var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "integer"}];
 						if (extendCB != null)
 							extendCB(fields, typeName, pos, refs);
 						return SchemaUtils.makeObjectDecl(fields, structInfo, order, pos);
-					case [{pack: [], name: "Float"} , []]:
+					case [{pack: [], name: "Float"}, []]:
 						return SchemaUtils.makeObjectDecl([{field: "type", expr: macro "number"}], structInfo, order, pos);
-					case [{pack: [], name: "Bool"} , []]:
+					case [{pack: [], name: "Bool"}, []]:
 						return SchemaUtils.makeObjectDecl([{field: "type", expr: macro "boolean"}], structInfo, order, pos);
-					case [{pack: [], name: "Any"} , []]:
+					case [{pack: [], name: "Any"}, []]:
 						return SchemaUtils.makeObjectDecl([{field: "type", expr: macro "object"}], structInfo, order, pos);
 					default:
 						if (ab.meta.has(":enum")) {
@@ -144,7 +144,7 @@ class JsonSchemaGenerator {
 				if (extendCB != null) {
 					extendCB(props, typeName, pos, refs);
 				}
-				return SchemaUtils.makeObject({pos: pos, expr: EObjectDecl(props)} , structInfo, required, order, pos);
+				return SchemaUtils.makeObject({pos: pos, expr: EObjectDecl(props)}, structInfo, required, order, pos);
 			default:
 		}
 		throw new Error("Cannot generate Json schema for type " + type, pos); // + type.toString(), pos);
