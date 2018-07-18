@@ -36,5 +36,4 @@ class SchemaUtils {
 		return {name: name, doc: StringTools.trim(doc)};
 	}
 }
-
 #end

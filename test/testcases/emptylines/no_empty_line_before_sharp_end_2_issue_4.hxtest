@@ -1,0 +1,31 @@
+{}
+
+---
+
+#if macro
+
+class Main {
+
+	static function main() {}
+
+}
+
+#end
+
+class Main2 {
+
+	static function main() {}
+
+}
+
+---
+
+#if macro
+class Main {
+	static function main() {}
+}
+#end
+
+class Main2 {
+	static function main() {}
+}

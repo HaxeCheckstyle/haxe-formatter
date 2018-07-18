@@ -8,8 +8,8 @@ using haxe.macro.Tools;
 using StringTools;
 
 typedef ExtendedFieldsCB = Array<ObjectDeclField>->String->Position->DynamicAccess<Expr>->Void;
-
 #end
+
 // adapted from https://github.com/nadako/haxe-type-to-json-schema
 class JsonSchemaGenerator {
 	macro public static function generate(type:String, id:String):Expr {

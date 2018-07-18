@@ -13,8 +13,8 @@ typedef CheckName = {
 	var name:String;
 	var path:String;
 }
-
 #end
+
 class FormatterSchemaGenerator {
 	macro public static function generate(type:String, id:String):Expr {
 		return JsonSchemaGenerator.generateWithCallback(type, id, formatterFieldsCallback);
