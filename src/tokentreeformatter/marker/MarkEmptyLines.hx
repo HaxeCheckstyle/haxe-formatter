@@ -285,14 +285,14 @@ class MarkEmptyLines {
 						skip = false;
 						break;
 					case Sharp("end"):
-						type = sibling;
-						sibling = type.nextSibling;
 					case Comment(_), CommentLine(_):
 						break;
 					case Kwd(_):
 						break;
 					default:
 				}
+				type = sibling;
+				sibling = type.nextSibling;
 			}
 			if (!skip) {
 				parsedCode.tokenList.emptyLinesAfterSubTree(type, count);
