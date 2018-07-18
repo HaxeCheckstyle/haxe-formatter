@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	function foo(s : { i : Int }) {}
+}
+
+---
+
+class Main {
+	function foo(s:{i:Int}) {}
+}

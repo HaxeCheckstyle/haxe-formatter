@@ -97,13 +97,13 @@ class MarkSameLine {
 				continue;
 			}
 			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
-			parsedCode.tokenList.noLlineEndAfter(brOpen);
+			parsedCode.tokenList.whitespace(brOpen, NoneAfter);
 			parsedCode.tokenList.wrapAfter(brOpen, true);
-			parsedCode.tokenList.noLineEndBefore(brClose);
+			parsedCode.tokenList.whitespace(brClose, NoneBefore);
 			parsedCode.tokenList.wrapBefore(brClose, true);
 
-			MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
-			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingClosePolicy, configWhitespace.compressSuccessiveParenthesis);
+			// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 		}
 	}
 

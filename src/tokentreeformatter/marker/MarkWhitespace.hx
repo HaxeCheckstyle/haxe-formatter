@@ -132,8 +132,10 @@ class MarkWhitespace {
 					policy = WhitespacePolicy.remove(policy, Before);
 				case Binop(OpLt):
 					if (token.is(BrOpen)) {
-						policy = WhitespacePolicy.remove(policy, Before);
+						return;
 					}
+				case DblDot:
+					return;
 				default:
 			}
 		}

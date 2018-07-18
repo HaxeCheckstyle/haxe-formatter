@@ -6,9 +6,10 @@ class Main
 {
 	static public function main()
 	{
-		var s:
-		{
+		var report = {
+			coverage:{
 
+			}
 		};
 	}
 }
@@ -17,6 +18,6 @@ class Main
 
 class Main {
 	static public function main() {
-		var s:{};
+		var report = {coverage: {}};
 	}
 }

@@ -139,7 +139,7 @@ class TokenList {
 		info.whitespaceAfter = Newline;
 	}
 
-	public function noLlineEndAfter(token:TokenTree) {
+	public function noLineEndAfter(token:TokenTree) {
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
