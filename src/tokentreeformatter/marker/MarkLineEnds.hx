@@ -50,7 +50,8 @@ class MarkLineEnds {
 		for (token in brTokens) {
 			switch (token.tok) {
 				case BrOpen:
-					if ((token.children != null) && (token.children.length == 1) && (config.emptyCurly == NoBreak)) {
+					var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+					if ((next != null) && next.token.is(BrClose) && (config.emptyCurly == NoBreak)) {
 						continue;
 					}
 					switch (config.leftCurly) {
@@ -64,9 +65,9 @@ class MarkLineEnds {
 							parsedCode.tokenList.lineEndAfter(token);
 					}
 				case BrClose:
-					var parent:TokenTree = token.parent;
 					var preventBefore:Bool = false;
-					if ((parent.children != null) && (parent.children.length == 1) && (config.emptyCurly == NoBreak)) {
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					if ((prev != null) && prev.token.is(BrOpen) && (config.emptyCurly == NoBreak)) {
 						preventBefore = true;
 					}
 					switch (config.rightCurly) {
