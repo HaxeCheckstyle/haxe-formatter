@@ -32,5 +32,8 @@ typedef WhitespaceConfig = {
 	@:default(After) @:optional var catchPolicy:WhitespacePolicy;
 	@:default(Around) @:optional var binopPolicy:WhitespacePolicy;
 	@:default(None) @:optional var intervalPolicy:WhitespacePolicy;
+	/**
+		should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`
+	**/
 	@:default(true) @:optional var compressSuccessiveParenthesis:Bool;
 }

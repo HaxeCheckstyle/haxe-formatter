@@ -42,6 +42,7 @@
             "properties": {
                 "character": {
                     "type": "string",
+                    "description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
                     "propertyOrder": 1
                 },
                 "conditionalPolicy": {
@@ -503,6 +504,7 @@
                 },
                 "compressSuccessiveParenthesis": {
                     "type": "boolean",
+                    "description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
                     "propertyOrder": 27
                 },
                 "forPolicy": {
@@ -603,6 +605,20 @@
                     "type": "string",
                     "propertyOrder": 4
                 },
+                "objectClosingBracePolicy": {
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "type": "string",
+                    "propertyOrder": 7
+                },
                 "ifPolicy": {
                     "enum": [
                         "none",
@@ -644,20 +660,6 @@
                     ],
                     "type": "string",
                     "propertyOrder": 11
-                },
-                "objectClosingClosePolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 7
                 }
             },
             "additionalProperties": false
@@ -753,22 +755,27 @@
             "properties": {
                 "wrapAfterOpeningBracket": {
                     "type": "boolean",
+                    "description": "should wrapping happen after opening brackets `[`",
                     "propertyOrder": 4
                 },
                 "maxLineLength": {
                     "type": "integer",
+                    "description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
                     "propertyOrder": 0
                 },
                 "wrapBeforeDot": {
                     "type": "boolean",
+                    "description": "should wrapping happen before dot",
                     "propertyOrder": 2
                 },
                 "wrapAfterComma": {
                     "type": "boolean",
+                    "description": "should wrapping happen after comma",
                     "propertyOrder": 1
                 },
                 "wrapAfterOpeningBrace": {
                     "type": "boolean",
+                    "description": "should wrapping happen after opening braces `{`",
                     "propertyOrder": 3
                 }
             },
