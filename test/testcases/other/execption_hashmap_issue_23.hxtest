@@ -1,0 +1,14 @@
+{}
+
+---
+
+abstract HashMap<K:{function hashCode():Int;}, V>(HashMapData<K,V>) {
+
+}
+
+
+---
+
+abstract HashMap<K: {
+	function hashCode():Int;
+}, V>(HashMapData<K, V>) {}
