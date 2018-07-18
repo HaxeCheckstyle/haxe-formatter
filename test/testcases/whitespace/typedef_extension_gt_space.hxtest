@@ -1,0 +1,18 @@
+{}
+
+---
+
+typedef Foo = {};
+
+typedef Bar = {
+	> Foo, var foo:Int; var bar:Int;
+}
+
+---
+
+typedef Foo = {};
+
+typedef Bar = {
+	> Foo, var foo:Int;
+	var bar:Int;
+}
