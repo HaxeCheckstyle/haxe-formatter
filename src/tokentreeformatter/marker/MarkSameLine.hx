@@ -16,7 +16,7 @@ class MarkSameLine {
 				case Kwd(KwdElse):
 					markElse(token, parsedCode, configSameLine);
 				case Kwd(KwdFor):
-					markBodyAfterPOpen(token, parsedCode, configSameLine.forBody);
+					markFor(token, parsedCode, configSameLine);
 				case Kwd(KwdWhile):
 					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
 						applySameLinePolicy(token, parsedCode, configSameLine.doWhileBody);
@@ -74,6 +74,19 @@ class MarkSameLine {
 
 		markBody(token, parsedCode, configSameLine.elseBody);
 		applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+	}
+
+	static function markFor(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		var parent:TokenTree = token.parent;
+		switch (parent.tok) {
+			case BkOpen:
+				if (configSameLine.comprehensionFor == Same) {
+					markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor);
+					return;
+				}
+			default:
+		}
+		markBodyAfterPOpen(token, parsedCode, configSameLine.forBody);
 	}
 
 	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {

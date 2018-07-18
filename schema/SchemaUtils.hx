@@ -15,8 +15,7 @@ class SchemaUtils {
 		var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "object"}, {field: "properties", expr: props}, {field: "additionalProperties",
 			expr: macro false}];
 		if (required.length > 0) {
-			var exprs:Array<Expr> = [for (req in required)
-				macro $v{req}];
+			var exprs:Array<Expr> = [for (req in required) macro $v{req}];
 			fields.push({field: "required", expr: macro $a{exprs}});
 		}
 		return makeObjectDecl(fields, structInfo, order, pos);
