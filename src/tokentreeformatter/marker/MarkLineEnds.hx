@@ -157,8 +157,8 @@ class MarkLineEnds {
 			return config.atOther;
 		}
 		var parent:TokenTree = token.parent.parent;
-		if (parent == null) {
-			return config.atOther;
+		if ((parent == null) || (parent.tok == null)) {
+			return config.atType;
 		}
 		switch (parent.tok) {
 			case Kwd(KwdVar):

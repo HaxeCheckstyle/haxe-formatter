@@ -1,0 +1,14 @@
+{}
+
+---
+
+#if foo @:keep #end
+class Foo {}
+
+
+---
+
+#if foo
+@:keep
+#end
+class Foo {}
