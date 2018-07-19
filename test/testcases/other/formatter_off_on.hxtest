@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Foo {
+	function foo() {
+		switch (bar) {
+			// @formatter:off
+			case foo if (switch(bar) { case _: false; }): doSomething();
+			case foo if (true): doSomething();
+			case foo2: doSomething();
+			// @formatter:on
+		}
+	}
+}
+
+---
+
+class Foo {
+	function foo() {
+		switch (bar) {
+			// @formatter:off
+			case foo if (switch(bar) { case _: false; }): doSomething();
+			case foo if (true): doSomething();
+			case foo2: doSomething();
+			// @formatter:on
+		}
+	}
+}

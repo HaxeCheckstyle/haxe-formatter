@@ -1,6 +1,7 @@
 package tokentreeformatter.marker;
 
 import tokentree.utils.FieldUtils;
+import tokentreeformatter.codedata.CodeLine;
 import tokentreeformatter.codedata.CodeLines;
 import tokentreeformatter.config.EmptyLinesConfig;
 
@@ -36,11 +37,18 @@ class MarkEmptyLines {
 			return;
 		}
 		for (line in codeLines.lines) {
+			if (line.verbatim) {
+				continue;
+			}
 			if (line.emptyLinesAfter > config.maxAnywhereInFile) {
 				line.emptyLinesAfter = config.maxAnywhereInFile;
 			}
 		}
-		codeLines.lines[codeLines.lines.length - 1].emptyLinesAfter = config.finalNewline ? 1 : 0;
+		var lastLine:CodeLine = codeLines.lines[codeLines.lines.length - 1];
+		if (lastLine.verbatim) {
+			return;
+		}
+		lastLine.emptyLinesAfter = config.finalNewline ? 1 : 0;
 	}
 
 	static function markImports(parsedCode:ParsedCode, config:EmptyLinesConfig) {

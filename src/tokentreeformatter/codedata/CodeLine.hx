@@ -9,11 +9,13 @@ class CodeLine {
 
 	public var indent:Int;
 	public var emptyLinesAfter:Int;
+	public var verbatim:Bool;
 
 	public function new(indent:Int) {
 		this.indent = indent;
 		parts = [];
 		emptyLinesAfter = 0;
+		verbatim = false;
 	}
 
 	public function addToken(tokenInfo:TokenInfo) {
