@@ -55,7 +55,6 @@ class MarkEmptyLines {
 		var imports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdImport), Kwd(KwdUsing)], ALL);
 		if (imports.length <= 0) {
 			return;
-			// fjdkfjsdf
 		}
 
 		var lastImport:TokenTree = imports[imports.length - 1];
