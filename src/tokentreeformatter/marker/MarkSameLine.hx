@@ -35,17 +35,43 @@ class MarkSameLine {
 		}
 	}
 
-	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+	static function shouldIfBeSameLine(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		if (!token.is(Kwd(KwdIf))) {
+			return false;
+		}
 		var parent:TokenTree = token.parent;
-		var isExpr:Bool = false;
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
-				isExpr = true;
+				return true;
 			case Binop(OpAssign):
-				isExpr = true;
+				return true;
+			case POpen:
+				var pos:Position = parent.getPos();
+				if ((pos.min < token.pos.min) && (pos.max > token.pos.max)) {
+					return true;
+				}
+			case Kwd(KwdElse):
+				return shouldElseBeSameLine(parent);
 			default:
 		}
-		if (isExpr && configSameLine.expressionIf == Same) {
+		return false;
+	}
+
+	static function shouldElseBeSameLine(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		if (!token.is(Kwd(KwdElse))) {
+			return false;
+		}
+		return shouldIfBeSameLine(token.parent);
+	}
+
+	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		if (shouldIfBeSameLine(token) && configSameLine.expressionIf == Same) {
 			markBodyAfterPOpen(token, parsedCode, Same);
 			return;
 		}
@@ -58,16 +84,7 @@ class MarkSameLine {
 	}
 
 	static function markElse(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		var parent:TokenTree = token.parent.parent;
-		var isExpr:Bool = false;
-		switch (parent.tok) {
-			case Kwd(KwdReturn):
-				isExpr = true;
-			case Binop(OpAssign):
-				isExpr = true;
-			default:
-		}
-		if (isExpr && configSameLine.expressionIf == Same) {
+		if (shouldElseBeSameLine(token) && configSameLine.expressionIf == Same) {
 			markBody(token, parsedCode, Same);
 			return;
 		}
@@ -129,6 +146,19 @@ class MarkSameLine {
 			case Same:
 				parsedCode.tokenList.wrapBefore(token, true);
 				parsedCode.tokenList.noLineEndBefore(token);
+				var lastToken:TokenTree = MarkLineEnds.lastToken(token);
+				if (lastToken == null) {
+					return;
+				}
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(lastToken);
+				if (next == null) {
+					return;
+				}
+				switch (next.token.tok) {
+					case Kwd(KwdElse):
+						parsedCode.tokenList.noLineEndAfter(lastToken);
+					default:
+				}
 				return;
 			case Next:
 				parsedCode.tokenList.lineEndBefore(token);

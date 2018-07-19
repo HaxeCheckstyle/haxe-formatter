@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		trace(if (Math.random() > 0.5) true else false);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		trace(if (Math.random() > 0.5) true else false);
+	}
+}
