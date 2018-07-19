@@ -72,7 +72,7 @@ class MarkSameLine {
 
 	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
 		if (shouldIfBeSameLine(token) && configSameLine.expressionIf == Same) {
-			markBodyAfterPOpen(token, parsedCode, Same, true);
+			markBodyAfterPOpen(token, parsedCode, Same, configSameLine.expressionIfWithBlocks);
 			return;
 		}
 
@@ -85,7 +85,14 @@ class MarkSameLine {
 
 	static function markElse(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
 		if (shouldElseBeSameLine(token) && configSameLine.expressionIf == Same) {
-			markBody(token, parsedCode, Same, true);
+			markBody(token, parsedCode, Same, configSameLine.expressionIfWithBlocks);
+			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+			if (prev == null) {
+				return;
+			}
+			if (prev.token.is(BrClose)) {
+				applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+			}
 			return;
 		}
 

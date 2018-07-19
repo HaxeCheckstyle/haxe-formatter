@@ -3,13 +3,21 @@
 ---
 
 class Main{
+//*************************
+// Test
+//    Test
 //Test
+///////////////////////////
 static function main(){}
 }
 
 ---
 
 class Main {
+	//*************************
 	// Test
+	//    Test
+	// Test
+	///////////////////////////
 	static function main() {}
 }

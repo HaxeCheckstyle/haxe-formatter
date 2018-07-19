@@ -1,4 +1,8 @@
-{}
+{
+	"sameLine": {
+		"expressionIfWithBlocks": true
+	}
+}
 
 ---
 
@@ -16,10 +20,6 @@ class Main {
 
 class Main {
 	public static function main() {
-		var foo = if (bar) {
-			"";
-		} else {
-			"";
-		};
+		var foo = if (bar) { ""; } else { ""; };
 	}
 }
