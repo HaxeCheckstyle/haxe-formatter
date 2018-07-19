@@ -47,14 +47,18 @@ class ParsedCode {
 	}
 
 	function removeBOM() {
-		if (file.content == null)
+		if (file.content == null) {
 			return;
-		if (file.content.get(0) != 0xEF)
+		}
+		if (file.content.get(0) != 0xEF) {
 			return;
-		if (file.content.get(1) != 0xBB)
+		}
+		if (file.content.get(1) != 0xBB) {
 			return;
-		if (file.content.get(2) != 0xBF)
+		}
+		if (file.content.get(2) != 0xBF) {
 			return;
+		}
 		var withBOM:Bytes = file.content;
 		file.content = withBOM.sub(3, file.content.length - 3);
 	}
