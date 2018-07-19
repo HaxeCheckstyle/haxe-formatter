@@ -55,6 +55,6 @@ class MarkTokenText {
 		if (~/^[A-Za-z0-9]+/.match(text)) {
 			return "// " + text.trim();
 		}
-		return "//" + text;
+		return "//" + text.rtrim();
 	}
 }
