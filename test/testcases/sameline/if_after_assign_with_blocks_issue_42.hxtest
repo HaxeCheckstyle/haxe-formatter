@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = if (bar) {
+			"";
+		} else {
+			"";
+		};
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = if (bar) { ""; } else { ""; };
+	}
+}
