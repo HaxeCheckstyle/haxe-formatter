@@ -101,7 +101,7 @@
                     "beginInterface",
                     "betweenClassStaticVars",
                     "betweenClassVars",
-                    "betweenInterfaceFields",
+                    "betweenInterfaceFields"
                 ]
             },
             "type": "ExtendedEmptyLines"
