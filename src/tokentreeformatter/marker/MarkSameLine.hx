@@ -148,8 +148,18 @@ class MarkSameLine {
 			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
 			parsedCode.tokenList.whitespace(brOpen, NoneAfter);
 			parsedCode.tokenList.wrapAfter(brOpen, true);
+			if (brClose == null) {
+				continue;
+			}
 			parsedCode.tokenList.whitespace(brClose, NoneBefore);
 			parsedCode.tokenList.wrapBefore(brClose, true);
+			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+			switch (next.token.tok) {
+				case BrOpen:
+					parsedCode.tokenList.whitespace(brClose, After);
+					continue;
+				default:
+			}
 
 			// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);

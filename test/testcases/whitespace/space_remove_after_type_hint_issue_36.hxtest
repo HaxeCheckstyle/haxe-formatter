@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {function foo():{i:Int}{return{i:0};}}
+
+---
+
+class Main {
+	function foo():{i:Int} {
+		return {i: 0};
+	}
+}
