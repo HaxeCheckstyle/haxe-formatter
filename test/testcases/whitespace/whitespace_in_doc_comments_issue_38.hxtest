@@ -1,0 +1,63 @@
+{}
+
+---
+
+/**
+
+	```
+	function generatorWithoutReturn():Generator {
+		php.Syntax.yield(1);
+		if (foo)
+			doSomething();
+		return null;
+	}
+	```
+	  space indent
+**/
+class Test {
+
+/**
+
+	```
+	function generatorWithoutReturn():Generator {
+		php.Syntax.yield(1);
+		if (foo)
+			doSomething();
+		return null;
+	}
+	```
+	  space indent
+**/
+	function new(){}
+}
+
+
+---
+
+/**
+
+	```
+	function generatorWithoutReturn():Generator {
+		php.Syntax.yield(1);
+		if (foo)
+			doSomething();
+		return null;
+	}
+	```
+	  space indent
+**/
+class Test {
+	/**
+
+		```
+		function generatorWithoutReturn():Generator {
+			php.Syntax.yield(1);
+			if (foo)
+				doSomething();
+			return null;
+		}
+		```
+		  space indent
+	**/
+	function new() {}
+}
