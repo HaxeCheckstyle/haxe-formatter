@@ -40,9 +40,17 @@ class MarkLineEnds {
 					if (prevLine == commentLine) {
 						parsedCode.tokenList.noLineEndBefore(token);
 					}
+					parsedCode.tokenList.lineEndAfter(token);
+				case Comment(_):
+					var commentLine:LinePos = parsedCode.getLinePos(token.pos.min);
+					var prefix:String = parsedCode.getString(parsedCode.linesIdx[commentLine.line].l, token.pos.min);
+					if (~/^\s*$/.match(prefix)) {
+						parsedCode.tokenList.lineEndAfter(token);
+						continue;
+					}
+					parsedCode.tokenList.whitespace(token, Around);
 				default:
 			}
-			parsedCode.tokenList.lineEndAfter(token);
 		}
 	}
 
