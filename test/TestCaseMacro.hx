@@ -41,7 +41,9 @@ class TestCaseMacro {
 		var callExprDef = ECall(macro $i{"goldCheck"}, [unformattedExpr, goldExpr, configExpr]);
 		var bodyExpr = {expr: callExprDef, pos: Context.currentPos()};
 		var func = FFun({args: [], ret: null, expr: bodyExpr});
-		return {kind: func, meta: [{name: "Test", pos: Context.currentPos()}], access: [APublic], name: fieldName, pos: Context.currentPos()};
+		return {
+			kind: func, meta: [{name: "Test", pos: Context.currentPos()}], access: [APublic], name: fieldName, pos: Context.currentPos()
+		};
 	}
 
 	static function collectAllFileNames(path:String):Array<String> {

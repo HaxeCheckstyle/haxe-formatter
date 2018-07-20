@@ -241,6 +241,21 @@ class MarkSameLine {
 		if (!brOpen.is(BrOpen)) {
 			return;
 		}
+		if (!shouldAnonTypeSameLine(brOpen, parsedCode, config)) {
+			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			if (brClose == null) {
+				return;
+			}
+			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+			switch (next.token.tok) {
+				case Binop(OpGt):
+					parsedCode.tokenList.whitespace(brClose, NoneAfter);
+				case Binop(OpAnd):
+					parsedCode.tokenList.whitespace(brClose, After);
+				default:
+			}
+			return;
+		}
 		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
 		parsedCode.tokenList.whitespace(brOpen, NoneAfter);
 		parsedCode.tokenList.wrapAfter(brOpen, true);
@@ -263,11 +278,33 @@ class MarkSameLine {
 		MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 	}
 
+	static function shouldAnonTypeSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {
+		if (brOpen.children == null) {
+			return true;
+		}
+		for (child in brOpen.children) {
+			switch (child.tok) {
+				case Kwd(KwdVar):
+					return false;
+				case Binop(OpGt):
+					return false;
+				default:
+			}
+		}
+		if (brOpen.children.length > config.maxAnonTypeFields + 1) {
+			return false;
+		}
+		return true;
+	}
+
 	static function markObjectDeclSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
 		if (brOpen == null) {
 			return;
 		}
 		if (!brOpen.is(BrOpen)) {
+			return;
+		}
+		if (!shouldbjectDeclSameLine(brOpen, parsedCode, config)) {
 			return;
 		}
 		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
@@ -290,6 +327,16 @@ class MarkSameLine {
 
 		// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 		MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+	}
+
+	static function shouldbjectDeclSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {
+		if (brOpen.children == null) {
+			return true;
+		}
+		if (brOpen.children.length > config.maxObjectFields + 1) {
+			return false;
+		}
+		return true;
 	}
 
 	static function markTypedefSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {}

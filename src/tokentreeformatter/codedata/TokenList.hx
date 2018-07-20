@@ -20,7 +20,9 @@ class TokenList {
 			if (child.index >= tokens.length) {
 				fill(child.index - tokens.length);
 			}
-			tokens[index] = {token: child, whitespaceAfter: None, emptyLinesAfter: 0, wrapAfter: false, text: null};
+			tokens[index] = {
+				token: child, whitespaceAfter: None, emptyLinesAfter: 0, wrapAfter: false, text: null
+			};
 			buildList(child);
 		}
 	}

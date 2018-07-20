@@ -211,34 +211,57 @@ class MarkLineEnds {
 		}
 	}
 
+	static function findTypedefBrOpen(token:TokenTree):TokenTree {
+		var assign:TokenTree = token.access().firstChild().isCIdent().firstOf(Binop(OpAssign)).token;
+		if (assign == null) {
+			return null;
+		}
+		var brOpen:TokenTree = assign.getFirstChild();
+		while (brOpen != null) {
+			switch (brOpen.tok) {
+				case BrOpen:
+					return brOpen;
+				case Const(CIdent(_)):
+					brOpen = brOpen.getLastChild();
+				case Binop(OpAnd):
+					brOpen = brOpen.getFirstChild();
+				default:
+					return null;
+			}
+		}
+		return null;
+	}
+
 	static function markStructureExtension(parsedCode:ParsedCode, config:LineEndConfig) {
 		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
 		for (token in typedefTokens) {
-			var allCommas:Array<TokenTree> = token.filter([Comma], ALL);
-			for (comma in allCommas) {
-				var parentAccess:TokenTreeAccessHelper = comma.access().parent();
-				if (parentAccess.is(Binop(OpGt)).exists()) {
-					parsedCode.tokenList.lineEndAfter(comma);
-					continue;
-				}
-				parentAccess = parentAccess.isCIdent().parent();
-				if (parentAccess.is(BrOpen).exists()) {
-					parsedCode.tokenList.lineEndAfter(comma);
-					continue;
-				}
-				if (parentAccess.is(Question).parent().is(BrOpen).exists()) {
-					parsedCode.tokenList.lineEndAfter(comma);
-					continue;
-				}
+			var brOpen:TokenTree = findTypedefBrOpen(token);
+			if (brOpen == null) {
+				continue;
 			}
-			var allBrClose:Array<TokenTree> = token.filter([BrClose], ALL);
-			for (br in allBrClose) {
-				var next:TokenInfo = parsedCode.tokenList.getNextToken(br);
-				if (next == null) {
-					continue;
-				}
-				if (next.token.is(Binop(OpAnd))) {
-					parsedCode.tokenList.noLineEndAfter(br);
+			if ((brOpen.children == null) || (brOpen.children.length <= 0)) {
+				continue;
+			}
+			for (child in brOpen.children) {
+				switch (child.tok) {
+					case Binop(OpGt), Const(CIdent(_)), Question:
+						var lastChild:TokenTree = lastToken(child);
+						if (lastChild == null) {
+							continue;
+						}
+						parsedCode.tokenList.lineEndAfter(lastChild);
+					case BrClose:
+						var next:TokenInfo = parsedCode.tokenList.getNextToken(child);
+						if (next == null) {
+							continue;
+						}
+						if (next.token.is(Binop(OpAnd))) {
+							parsedCode.tokenList.noLineEndAfter(child);
+						}
+						if (next.token.is(Binop(OpGt))) {
+							parsedCode.tokenList.whitespace(child, NoneAfter);
+						}
+					default:
 				}
 			}
 		}

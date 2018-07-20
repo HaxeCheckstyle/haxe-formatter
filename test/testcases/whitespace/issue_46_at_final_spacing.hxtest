@@ -1,0 +1,14 @@
+{}
+
+---
+
+class Main {
+	@:final static function main() {}
+}
+
+---
+
+class Main {
+	@:final
+	static function main() {}
+}
