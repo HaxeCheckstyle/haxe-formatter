@@ -3,11 +3,13 @@
 ---
 
 class Main {
-	function foo(s : { i : Int }) {}
+	function foo(s : { i : Int }):{ i : Int } {call({s:{i:5}});}
 }
 
 ---
 
 class Main {
-	function foo(s:{i:Int}) {}
+	function foo(s:{i:Int}):{i:Int} {
+		call({s: {i: 5}});
+	}
 }

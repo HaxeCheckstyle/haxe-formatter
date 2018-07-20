@@ -14,6 +14,7 @@ class MarkLineEnds {
 		markDblDot(parsedCode, config);
 		markSharp(parsedCode, config);
 		markComments(parsedCode, config);
+		markStructureExtension(parsedCode, config);
 	}
 
 	static function markComments(parsedCode:ParsedCode, config:LineEndConfig) {
@@ -206,6 +207,39 @@ class MarkLineEnds {
 					parsedCode.tokenList.lineEndAfter(lastChild);
 				default:
 					parsedCode.tokenList.lineEndAfter(token);
+			}
+		}
+	}
+
+	static function markStructureExtension(parsedCode:ParsedCode, config:LineEndConfig) {
+		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
+		for (token in typedefTokens) {
+			var allCommas:Array<TokenTree> = token.filter([Comma], ALL);
+			for (comma in allCommas) {
+				var parentAccess:TokenTreeAccessHelper = comma.access().parent();
+				if (parentAccess.is(Binop(OpGt)).exists()) {
+					parsedCode.tokenList.lineEndAfter(comma);
+					continue;
+				}
+				parentAccess = parentAccess.isCIdent().parent();
+				if (parentAccess.is(BrOpen).exists()) {
+					parsedCode.tokenList.lineEndAfter(comma);
+					continue;
+				}
+				if (parentAccess.is(Question).parent().is(BrOpen).exists()) {
+					parsedCode.tokenList.lineEndAfter(comma);
+					continue;
+				}
+			}
+			var allBrClose:Array<TokenTree> = token.filter([BrClose], ALL);
+			for (br in allBrClose) {
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(br);
+				if (next == null) {
+					continue;
+				}
+				if (next.token.is(Binop(OpAnd))) {
+					parsedCode.tokenList.noLineEndAfter(br);
+				}
 			}
 		}
 	}

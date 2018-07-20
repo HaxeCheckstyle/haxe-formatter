@@ -238,10 +238,18 @@ class MarkWhitespace {
 			case Const(CIdent(_)):
 				parent = parent.parent;
 				if ((parent != null) && (parent.is(BrOpen))) {
-					if (TokenTreeCheckUtils.isBrOpenAnonTypeOrTypedef(parent)) {
-						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-					} else {
-						parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
+					var brOpenType:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
+					switch (brOpenType) {
+						case BLOCK:
+							parsedCode.tokenList.whitespace(token, config.colonPolicy);
+						case TYPEDEFDECL:
+							parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+						case OBJECTDECL:
+							parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
+						case ANONTYPE:
+							parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+						case UNKNOWN:
+							parsedCode.tokenList.whitespace(token, config.colonPolicy);
 					}
 					return;
 				}

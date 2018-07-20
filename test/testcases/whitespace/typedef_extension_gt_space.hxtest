@@ -13,6 +13,7 @@ typedef Bar = {
 typedef Foo = {};
 
 typedef Bar = {
-	> Foo, var foo:Int;
+	> Foo,
+	var foo:Int;
 	var bar:Int;
 }

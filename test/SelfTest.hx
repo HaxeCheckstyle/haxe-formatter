@@ -23,6 +23,14 @@ class SelfTest {
 		}
 	}
 
+	@Test
+	public function testSelfSchema() {
+		var files:Array<String> = collectAllFileNames("schema");
+		for (file in files) {
+			checkFile(file);
+		}
+	}
+
 	function checkFile(fileName:String) {
 		var code:String = File.getContent(fileName);
 		var file:ParseFile = {name: fileName, content: Bytes.ofString(code)};
@@ -45,8 +53,9 @@ class SelfTest {
 		var items:Array<String> = FileSystem.readDirectory(path);
 		var files:Array<String> = [];
 		for (item in items) {
-			if (item == "." || item == "..")
+			if (item == "." || item == "..") {
 				continue;
+			}
 			var fileName = Path.join([path, item]);
 			if (FileSystem.isDirectory(fileName)) {
 				files = files.concat(collectAllFileNames(fileName));

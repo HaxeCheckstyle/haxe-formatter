@@ -5,7 +5,7 @@ import tokentreeformatter.config.WhitespaceConfig;
 
 class MarkSameLine {
 	public static function markSameLine(parsedCode:ParsedCode, configSameLine:SameLineConfig, configWhitespace:WhitespaceConfig) {
-		markAnonObjectsSameLine(parsedCode, configSameLine, configWhitespace);
+		markAnonObjectsTypedefsSameLine(parsedCode, configSameLine, configWhitespace);
 		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
 
 		var tokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch)], ALL);
@@ -215,38 +215,84 @@ class MarkSameLine {
 		}
 	}
 
-	static function markAnonObjectsSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
-		var tokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
+	static function markAnonObjectsTypedefsSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
+		var tokens:Array<TokenTree> = parsedCode.root.filter([BrOpen], ALL);
 		for (token in tokens) {
-			if (!token.parent.isCIdent()) {
-				continue;
+			var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
+			switch (type) {
+				case BLOCK:
+					continue;
+				case TYPEDEFDECL:
+					markTypedefSameLine(token, parsedCode, config, configWhitespace);
+				case OBJECTDECL:
+					markObjectDeclSameLine(token, parsedCode, config, configWhitespace);
+				case ANONTYPE:
+					markAnonTypeSameLine(token, parsedCode, config, configWhitespace);
+				case UNKNOWN:
+					continue;
 			}
-			var brOpen:TokenTree = token.parent.parent;
-			if (!brOpen.is(BrOpen)) {
-				continue;
-			}
-			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
-			parsedCode.tokenList.whitespace(brOpen, NoneAfter);
-			parsedCode.tokenList.wrapAfter(brOpen, true);
-			if (brClose == null) {
-				continue;
-			}
-			parsedCode.tokenList.whitespace(brClose, NoneBefore);
-			parsedCode.tokenList.wrapBefore(brClose, true);
-			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
-			if (next != null) {
-				switch (next.token.tok) {
-					case BrOpen:
-						parsedCode.tokenList.whitespace(brClose, After);
-						continue;
-					default:
-				}
-			}
-
-			// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
-			MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 		}
 	}
+
+	static function markAnonTypeSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
+		if (brOpen == null) {
+			return;
+		}
+		if (!brOpen.is(BrOpen)) {
+			return;
+		}
+		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+		parsedCode.tokenList.whitespace(brOpen, NoneAfter);
+		parsedCode.tokenList.wrapAfter(brOpen, true);
+		if (brClose == null) {
+			return;
+		}
+		parsedCode.tokenList.whitespace(brClose, NoneBefore);
+		parsedCode.tokenList.wrapBefore(brClose, true);
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+		if (next != null) {
+			switch (next.token.tok) {
+				case BrOpen:
+					parsedCode.tokenList.whitespace(brClose, After);
+					return;
+				default:
+			}
+		}
+
+		// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+		MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+	}
+
+	static function markObjectDeclSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
+		if (brOpen == null) {
+			return;
+		}
+		if (!brOpen.is(BrOpen)) {
+			return;
+		}
+		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+		parsedCode.tokenList.whitespace(brOpen, NoneAfter);
+		parsedCode.tokenList.wrapAfter(brOpen, true);
+		if (brClose == null) {
+			return;
+		}
+		parsedCode.tokenList.whitespace(brClose, NoneBefore);
+		parsedCode.tokenList.wrapBefore(brClose, true);
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+		if (next != null) {
+			switch (next.token.tok) {
+				case BrOpen:
+					parsedCode.tokenList.whitespace(brClose, After);
+					return;
+				default:
+			}
+		}
+
+		// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+		MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+	}
+
+	static function markTypedefSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {}
 
 	static function markDollarSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
 		var tokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
