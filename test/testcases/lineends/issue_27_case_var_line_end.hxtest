@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+static function main() {
+switch (foo) {
+case var bar:
+trace("");
+}
+}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (foo) {
+			case var bar:
+				trace("");
+		}
+	}
+}
