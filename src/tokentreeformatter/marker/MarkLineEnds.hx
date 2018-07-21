@@ -3,6 +3,11 @@ package tokentreeformatter.marker;
 import tokentreeformatter.config.LineEndConfig;
 
 class MarkLineEnds {
+	public static inline var SHARP_IF:String = "if";
+	public static inline var SHARP_ELSE_IF:String = "elseif";
+	public static inline var SHARP_ELSE:String = "else";
+	public static inline var SHARP_END:String = "end";
+
 	public static function markLineEnds(parsedCode:ParsedCode, config:LineEndConfig) {
 		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], ALL);
 		for (token in semicolonTokens) {
@@ -194,10 +199,10 @@ class MarkLineEnds {
 	}
 
 	static function markSharp(parsedCode:ParsedCode, config:LineEndConfig) {
-		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([Sharp("if"), Sharp("else"), Sharp("elseif"), Sharp("end"), Sharp("error")], ALL);
+		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([Sharp(SHARP_IF), Sharp(SHARP_ELSE), Sharp(SHARP_ELSE_IF), Sharp(SHARP_END), Sharp("error")], ALL);
 		for (token in sharpTokens) {
 			switch (token.tok) {
-				case Sharp("if"), Sharp("elseif"):
+				case Sharp(SHARP_IF), Sharp(SHARP_ELSE_IF):
 					var lastChild:TokenTree = lastToken(token.getFirstChild());
 					if (lastChild == null) {
 						continue;
@@ -206,7 +211,25 @@ class MarkLineEnds {
 						parsedCode.tokenList.whitespace(lastChild, After);
 						continue;
 					}
+					if (isInlineSharp(token, parsedCode)) {
+						parsedCode.tokenList.noLineEndBefore(token);
+						continue;
+					}
 					parsedCode.tokenList.lineEndAfter(lastChild);
+				case Sharp(SHARP_ELSE):
+					if (isInlineSharp(token, parsedCode)) {
+						parsedCode.tokenList.noLineEndBefore(token);
+						continue;
+					}
+					parsedCode.tokenList.lineEndAfter(token);
+				case Sharp(SHARP_END):
+					if (isInlineSharp(token, parsedCode)) {
+						parsedCode.tokenList.noLineEndBefore(token);
+						if (!isOnlyWhitespaceAfterToken(token, parsedCode)) {
+							continue;
+						}
+					}
+					parsedCode.tokenList.lineEndAfter(token);
 				case Sharp("error"):
 					var lastChild:TokenTree = lastToken(token.getFirstChild());
 					if (lastChild == null) {
@@ -217,6 +240,33 @@ class MarkLineEnds {
 					parsedCode.tokenList.lineEndAfter(token);
 			}
 		}
+	}
+
+	static function isInlineSharp(token:TokenTree, parsedCode:ParsedCode):Bool {
+		switch (token.tok) {
+			case Sharp(SHARP_IF):
+				return !isOnlyWhitespaceBeforeToken(token, parsedCode);
+			case Sharp(SHARP_ELSE):
+				return isInlineSharp(token.parent, parsedCode);
+			case Sharp(SHARP_ELSE_IF):
+				return isInlineSharp(token.parent, parsedCode);
+			case Sharp(SHARP_END):
+				return isInlineSharp(token.parent, parsedCode);
+			default:
+				return false;
+		}
+	}
+
+	static function isOnlyWhitespaceBeforeToken(token:TokenTree, parsedCode:ParsedCode):Bool {
+		var tokenLine:LinePos = parsedCode.getLinePos(token.pos.min);
+		var prefix:String = parsedCode.getString(parsedCode.linesIdx[tokenLine.line].l, token.pos.min);
+		return (~/^\s*$/.match(prefix));
+	}
+
+	static function isOnlyWhitespaceAfterToken(token:TokenTree, parsedCode:ParsedCode):Bool {
+		var tokenLine:LinePos = parsedCode.getLinePos(token.pos.max);
+		var prefix:String = parsedCode.getString(token.pos.max, parsedCode.linesIdx[tokenLine.line].r);
+		return (~/^\s*$/.match(prefix));
 	}
 
 	static function findTypedefBrOpen(token:TokenTree):TokenTree {

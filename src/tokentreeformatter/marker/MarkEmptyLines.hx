@@ -104,7 +104,8 @@ class MarkEmptyLines {
 				parsedCode.tokenList.emptyLinesAfter(block, typeConfig.beginType);
 			}
 
-			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
+			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
+			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
 
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
@@ -286,12 +287,12 @@ class MarkEmptyLines {
 			var skip:Bool = false;
 			while (sibling != null) {
 				switch (sibling.tok) {
-					case Sharp("if"):
+					case Sharp(MarkLineEnds.SHARP_IF):
 						break;
-					case Sharp("else"), Sharp("elseif"):
+					case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
 						skip = false;
 						break;
-					case Sharp("end"):
+					case Sharp(MarkLineEnds.SHARP_END):
 					case Comment(_), CommentLine(_):
 						break;
 					case Kwd(_):

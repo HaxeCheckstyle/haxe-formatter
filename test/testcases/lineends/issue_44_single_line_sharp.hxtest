@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public #if !cppia inline #end function addChar(c:Int):Void {
+		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
+	}
+}
+
+---
+
+class Main {
+	public #if !cppia inline #end function addChar(c:Int):Void {
+		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
+	}
+}

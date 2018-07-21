@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main{final foo:Int=1;final static function main():{final x:Int, y:Int}{}}
+
+---
+
+class Main {
+	final foo:Int = 1;
+
+	final static function main():{final x:Int, y:Int} {}
+}
