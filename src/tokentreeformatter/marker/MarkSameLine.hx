@@ -43,6 +43,9 @@ class MarkSameLine {
 			return false;
 		}
 		var parent:TokenTree = token.parent;
+		if (parent.tok == null) {
+			return false;
+		}
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
 				return true;
@@ -101,7 +104,13 @@ class MarkSameLine {
 	}
 
 	static function markFor(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		if (token == null) {
+			return;
+		}
 		var parent:TokenTree = token.parent;
+		if ((parent == null) || (parent.tok == null)) {
+			return;
+		}
 		switch (parent.tok) {
 			case BkOpen:
 				if (configSameLine.comprehensionFor == Same) {

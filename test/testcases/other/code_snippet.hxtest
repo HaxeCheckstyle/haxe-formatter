@@ -1,0 +1,19 @@
+{}
+
+---
+
+for (foo in bar) trace(foo);
+if (!emulated) {
+        b2[0] = 0xCC;
+        b2[0] == 0xCC;
+        b[1] == 0xCC;
+}
+
+---
+
+for (foo in bar) trace(foo);
+if (!emulated) {
+	b2[0] = 0xCC;
+	b2[0] == 0xCC;
+	b[1] == 0xCC;
+}
