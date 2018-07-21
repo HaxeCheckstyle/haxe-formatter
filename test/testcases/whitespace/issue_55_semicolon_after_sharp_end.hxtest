@@ -1,0 +1,18 @@
+{}
+
+---
+
+class Main {
+	static inline function get_onMobile():Bool {
+		return #if foo true #else false #end
+		;
+	}
+}
+
+---
+
+class Main {
+	static inline function get_onMobile():Bool {
+		return #if foo true #else false #end;
+	}
+}
