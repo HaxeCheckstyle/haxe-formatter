@@ -294,6 +294,7 @@
         "all": [],
         "CyclomaticComplexity": [
             "tokentreeformatter/config/WhitespacePolicy:remove",
+            "tokentreeformatter/config/WhitespacePolicy:add",
             "tokentreeformatter/marker/Indenter",
             "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
             "tokentreeformatter/marker/MarkLineEnds:markBrOpenClose",
@@ -304,10 +305,12 @@
         ],
         "MethodLength": [
             "tokentreeformatter/config/Config",
+            "tokentreeformatter/config/WhitespacePolicy:add",
             "tokentreeformatter/marker/Indenter",
             "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
             "tokentreeformatter/marker/MarkSameLine:markSameLine",
-            "tokentreeformatter/marker/MarkWhitespace:markWhitespace"
+			"tokentreeformatter/marker/MarkWhitespace:markWhitespace",
+			"tokentreeformatter/marker/MarkWhitespace:markKeyword"
         ]
     }
 }

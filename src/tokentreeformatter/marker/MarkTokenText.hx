@@ -37,7 +37,7 @@ class MarkTokenText {
 		if (prefixReg.match(lastLine)) {
 			prefix = prefixReg.matched(1);
 		}
-		text = "/*" + lines[0].trim();
+		text = "/*" + lines[0];
 		for (index in 1...lines.length) {
 			text += parsedCode.lineSeparator;
 			var line:String = lines[index].rtrim();

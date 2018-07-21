@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		switch ["foo"] {
+			case [value] if (value.indexOf("f") != -1):
+				trace(value);
+			case _:
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		switch ["foo"] {
+			case [value] if (value.indexOf("f") != -1):
+				trace(value);
+			case _:
+		}
+	}
+}

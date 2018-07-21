@@ -11,20 +11,20 @@ abstract WhitespacePolicy(String) {
 	var NoneAfter = "noneAfter";
 	var Around = "around";
 
-	public static function remove(policy:WhitespacePolicy, remove:WhitespacePolicy):WhitespacePolicy {
-		switch (remove) {
+	public static function remove(policy:WhitespacePolicy, removePolicy:WhitespacePolicy):WhitespacePolicy {
+		switch (removePolicy) {
 			case None:
 				return policy;
 			case Before:
 			case NoneBefore:
-				remove = Before;
+				removePolicy = Before;
 			case OnlyBefore:
-				remove = Before;
+				removePolicy = Before;
 			case After:
 			case NoneAfter:
-				remove = After;
+				removePolicy = After;
 			case OnlyAfter:
-				remove = After;
+				removePolicy = After;
 			case Around:
 				return None;
 		}
@@ -32,32 +32,87 @@ abstract WhitespacePolicy(String) {
 			case None:
 				return None;
 			case Before:
-				if (remove == Before) {
+				if (removePolicy == Before) {
 					return None;
 				}
 			case NoneBefore:
 				return NoneBefore;
 			case OnlyBefore:
-				if (remove == Before) {
+				if (removePolicy == Before) {
 					return None;
 				}
 			case After:
-				if (remove == After) {
+				if (removePolicy == After) {
 					return None;
 				}
 			case NoneAfter:
 				return NoneAfter;
 			case OnlyAfter:
-				if (remove == After) {
+				if (removePolicy == After) {
 					return None;
 				}
 			case Around:
-				if (remove == Before) {
+				if (removePolicy == Before) {
 					return After;
 				}
-				if (remove == After) {
+				if (removePolicy == After) {
 					return Before;
 				}
+		}
+		return policy;
+	}
+
+	public static function add(policy:WhitespacePolicy, addPolicy:WhitespacePolicy):WhitespacePolicy {
+		switch (addPolicy) {
+			case None:
+				return policy;
+			case Before:
+			case NoneBefore:
+				addPolicy = Before;
+			case OnlyBefore:
+				addPolicy = Before;
+			case After:
+			case NoneAfter:
+				addPolicy = After;
+			case OnlyAfter:
+				addPolicy = After;
+			case Around:
+				return None;
+		}
+		switch (policy) {
+			case None:
+				return addPolicy;
+			case Before:
+				if (addPolicy == After) {
+					return Around;
+				}
+			case NoneBefore:
+				if (addPolicy == Before) {
+					return OnlyBefore;
+				}
+				if (addPolicy == After) {
+					return OnlyAfter;
+				}
+			case OnlyBefore:
+				if (addPolicy == After) {
+					return Around;
+				}
+			case After:
+				if (addPolicy == Before) {
+					return Around;
+				}
+			case NoneAfter:
+				if (addPolicy == Before) {
+					return OnlyBefore;
+				}
+				if (addPolicy == After) {
+					return OnlyAfter;
+				}
+			case OnlyAfter:
+				if (addPolicy == Before) {
+					return Around;
+				}
+			case Around:
 		}
 		return policy;
 	}

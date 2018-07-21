@@ -284,7 +284,7 @@ class MarkSameLine {
 		}
 
 		// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
-		MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+		MarkWhitespace.successiveParenthesis(brClose, true, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 	}
 
 	static function shouldAnonTypeSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {
@@ -335,7 +335,7 @@ class MarkSameLine {
 		}
 
 		// MarkWhitespace.successiveParenthesis(brOpen, parsedCode, configWhitespace.objectOpeningBracePolicy, configWhitespace.compressSuccessiveParenthesis);
-		MarkWhitespace.successiveParenthesis(brClose, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
+		MarkWhitespace.successiveParenthesis(brClose, true, parsedCode, configWhitespace.objectClosingBracePolicy, configWhitespace.compressSuccessiveParenthesis);
 	}
 
 	static function shouldbjectDeclSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {

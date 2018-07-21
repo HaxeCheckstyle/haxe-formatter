@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		return untyped (o:IHxObject).__hx_getField(field, false, false, true);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return untyped (o:IHxObject).__hx_getField(field, false, false, true);
+	}
+}

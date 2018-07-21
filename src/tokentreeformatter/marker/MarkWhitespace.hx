@@ -32,7 +32,7 @@ class MarkWhitespace {
 						var policy:WhitespacePolicy = WhitespacePolicy.remove(config.binopPolicy, After);
 						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 						switch (prev.token.tok) {
-							case POpen, Binop(OpAssign), Binop(OpAssignOp(_)):
+							case POpen:
 								policy = WhitespacePolicy.remove(policy, Before);
 							default:
 						}
@@ -49,17 +49,17 @@ class MarkWhitespace {
 				case Kwd(_):
 					markKeyword(token, parsedCode, config);
 				case POpen:
-					successiveParenthesis(token, parsedCode, config.openingParenPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, false, parsedCode, config.openingParenPolicy, config.compressSuccessiveParenthesis);
 				case PClose:
-					successiveParenthesis(token, parsedCode, config.closingParenPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, true, parsedCode, config.closingParenPolicy, config.compressSuccessiveParenthesis);
 				case BrOpen:
-					successiveParenthesis(token, parsedCode, config.openingBracePolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, false, parsedCode, config.openingBracePolicy, config.compressSuccessiveParenthesis);
 				case BrClose:
-					successiveParenthesis(token, parsedCode, config.closingBracePolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, true, parsedCode, config.closingBracePolicy, config.compressSuccessiveParenthesis);
 				case BkOpen:
-					successiveParenthesis(token, parsedCode, config.openingBracketPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, false, parsedCode, config.openingBracketPolicy, config.compressSuccessiveParenthesis);
 				case BkClose:
-					successiveParenthesis(token, parsedCode, config.closingBracketPolicy, config.compressSuccessiveParenthesis);
+					successiveParenthesis(token, true, parsedCode, config.closingBracketPolicy, config.compressSuccessiveParenthesis);
 				case Question:
 					if (TokenTreeCheckUtils.isTernary(token)) {
 						parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
@@ -137,7 +137,8 @@ class MarkWhitespace {
 		}
 	}
 
-	public static function successiveParenthesis(token:TokenTree, parsedCode:ParsedCode, policy:WhitespacePolicy, compressSuccessiveParenthesis:Bool) {
+	public static function successiveParenthesis(token:TokenTree, closing:Bool, parsedCode:ParsedCode, policy:WhitespacePolicy,
+		compressSuccessiveParenthesis:Bool) {
 		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
@@ -146,6 +147,10 @@ class MarkWhitespace {
 				case Binop(OpGt):
 					if (token.is(BrClose)) {
 						policy = WhitespacePolicy.remove(policy, After);
+					}
+				case Kwd(_):
+					if (closing) {
+						policy = WhitespacePolicy.add(policy, After);
 					}
 				default:
 			}
@@ -156,7 +161,13 @@ class MarkWhitespace {
 		}
 		if (next != null) {
 			switch (next.token.tok) {
-				case POpen, PClose, BrOpen, BrClose, BkOpen, BkClose:
+				case BrClose:
+					var selfInfo:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+					if (selfInfo.whitespaceAfter == Newline) {
+						return;
+					}
+					policy = WhitespacePolicy.remove(policy, After);
+				case POpen, PClose, BrOpen, BkOpen, BkClose:
 					policy = WhitespacePolicy.remove(policy, After);
 				default:
 			}
@@ -214,6 +225,8 @@ class MarkWhitespace {
 			#end
 			case Kwd(KwdReturn):
 				parsedCode.tokenList.whitespace(token, After);
+			case Kwd(KwdUntyped):
+				parsedCode.tokenList.whitespace(token, Around);
 			case Kwd(_):
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 				if (next != null) {
