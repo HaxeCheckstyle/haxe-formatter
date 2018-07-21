@@ -1,5 +1,6 @@
 -cp src
 -cp test
+-cp schema
 
 -lib tokentree
 -lib haxeparser
