@@ -52,59 +52,7 @@
             "type": "ERegLiteral"
         },
         {
-            "props": {
-                "tokens": [
-                    "CLASS_DEF",
-                    "ENUM_DEF",
-                    "ABSTRACT_DEF",
-                    "TYPEDEF_DEF",
-                    "INTERFACE_DEF",
-                    "OBJECT_DECL",
-                    "FUNCTION",
-                    "FOR",
-                    "IF",
-                    "WHILE",
-                    "SWITCH",
-                    "TRY",
-                    "CATCH"
-                ],
-                "option": "empty"
-            },
-            "type": "EmptyBlock"
-        },
-        {
             "type": "EmptyPackage"
-        },
-        {
-            "props": {
-                "max": 1,
-                "skipSingleLineTypes": true,
-                "defaultPolicy": "none",
-                "exact": [
-                    "inFunction",
-                    "afterPackage",
-                    "afterImports",
-                    "beforeUsing",
-                    "beforeFileEnd",
-                    "betweenTypes",
-                    "afterAbstractVars",
-                    "betweenAbstractMethods",
-                    "afterClassStaticVars",
-                    "afterClassVars",
-                    "betweenClassMethods"
-                ],
-                "upto": [
-                    "betweenImports",
-                    "anywhereInFile",
-                    "betweenAbstractVars",
-                    "beginClass",
-                    "beginInterface",
-                    "betweenClassStaticVars",
-                    "betweenClassVars",
-                    "betweenInterfaceFields"
-                ]
-            },
-            "type": "ExtendedEmptyLines"
         },
         {
             "type": "FieldDocComment",
