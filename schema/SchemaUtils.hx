@@ -3,8 +3,9 @@ import haxe.macro.Expr;
 
 class SchemaUtils {
 	public static function makeObjectDecl(fields:Array<ObjectDeclField>, structInfo:Null<StructInfo>, order:Int, pos:Position):Expr {
-		if (order >= 0)
+		if (order >= 0) {
 			fields.push({field: "propertyOrder", expr: macro $v{order}});
+		}
 		if (structInfo != null && structInfo.doc != null) {
 			fields.push({field: "description", expr: macro $v{StringTools.trim(structInfo.doc)}});
 		}
@@ -27,11 +28,13 @@ class SchemaUtils {
 	}
 
 	public static function makeStructInfo(name:String, doc:String):Null<StructInfo> {
-		if (doc == null)
+		if (doc == null) {
 			return null;
+		}
 		doc = StringTools.trim(doc);
-		if (doc.length <= 0)
+		if (doc.length <= 0) {
 			return null;
+		}
 		return {name: name, doc: StringTools.trim(doc)};
 	}
 }

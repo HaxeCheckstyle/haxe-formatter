@@ -1,202 +1,146 @@
 {
-    "id": "https://raw.githubusercontent.com/HaxeCheckstyle/tokentree-formatter/master/resources/formatter-schema.json",
-    "$ref": "#/definitions/FormatterConfig",
     "$schema": "http://json-schema.org/schema#",
     "definitions": {
-        "FormatterConfig": {
-            "type": "object",
+        "LineEndConfig": {
+            "additionalProperties": false,
             "properties": {
-                "whitespace": {
-                    "propertyOrder": 5,
-                    "$ref": "#/definitions/WhitespaceConfig"
+                "atOther": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after",
+                        "afterLast"
+                    ],
+                    "propertyOrder": 3
                 },
-                "indentation": {
-                    "propertyOrder": 2,
-                    "$ref": "#/definitions/IndentationConfig"
+                "rightCurly": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "after",
+                        "both"
+                    ],
+                    "propertyOrder": 7
                 },
-                "sameLine": {
-                    "propertyOrder": 4,
-                    "$ref": "#/definitions/SameLineConfig"
+                "caseColon": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after"
+                    ],
+                    "propertyOrder": 4
                 },
-                "disableFormatting": {
-                    "type": "boolean",
+                "sharp": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after"
+                    ],
+                    "propertyOrder": 5
+                },
+                "emptyCurly": {
+                    "type": "string",
+                    "enum": [
+                        "noBreak",
+                        "break"
+                    ],
+                    "propertyOrder": 8
+                },
+                "leftCurly": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after",
+                        "before",
+                        "both"
+                    ],
+                    "propertyOrder": 6
+                },
+                "atFunction": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after",
+                        "afterLast"
+                    ],
+                    "propertyOrder": 2
+                },
+                "atVar": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after",
+                        "afterLast"
+                    ],
+                    "propertyOrder": 1
+                },
+                "atType": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "after",
+                        "afterLast"
+                    ],
                     "propertyOrder": 0
-                },
-                "emptyLines": {
-                    "propertyOrder": 1,
-                    "$ref": "#/definitions/EmptyLinesConfig"
-                },
-                "lineEnds": {
-                    "propertyOrder": 3,
-                    "$ref": "#/definitions/LineEndConfig"
-                },
-                "wrapping": {
-                    "propertyOrder": 6,
-                    "$ref": "#/definitions/WrapConfig"
                 }
             },
-            "additionalProperties": false
+            "type": "object"
         },
         "IndentationConfig": {
-            "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "character": {
-                    "type": "string",
                     "description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
+                    "type": "string",
                     "propertyOrder": 1
                 },
                 "conditionalPolicy": {
+                    "type": "string",
                     "enum": [
                         "fixedZero",
                         "aligned",
                         "alignedIncrease"
                     ],
-                    "type": "string",
                     "propertyOrder": 0
                 }
             },
-            "additionalProperties": false
-        },
-        "SameLineConfig": {
-            "type": "object",
-            "properties": {
-                "forBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 5
-                },
-                "tryBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 9
-                },
-                "anonObjects": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 12
-                },
-                "whileBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 7
-                },
-                "elseIf": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 3
-                },
-                "expressionIf": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 4
-                },
-                "ifBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 0
-                },
-                "ifElse": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 2
-                },
-                "elseBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 1
-                },
-                "comprehensionFor": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 6
-                },
-                "tryCatch": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 11
-                },
-                "doWhileBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 8
-                },
-                "catchBody": {
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 10
-                }
-            },
-            "additionalProperties": false
+            "type": "object"
         },
         "ClassFieldsEmtpyLinesConfig": {
-            "type": "object",
+            "additionalProperties": false,
             "properties": {
-                "betweenStaticFunctions": {
+                "beginType": {
                     "type": "integer",
-                    "propertyOrder": 7
+                    "propertyOrder": 0
                 },
                 "afterStaticFunctions": {
                     "type": "integer",
                     "propertyOrder": 6
                 },
-                "afterVars": {
+                "betweenStaticFunctions": {
                     "type": "integer",
-                    "propertyOrder": 5
+                    "propertyOrder": 7
+                },
+                "betweenVars": {
+                    "type": "integer",
+                    "propertyOrder": 4
+                },
+                "afterStaticVars": {
+                    "type": "integer",
+                    "propertyOrder": 2
                 },
                 "betweenFunctions": {
                     "type": "integer",
                     "propertyOrder": 9
                 },
+                "afterVars": {
+                    "type": "integer",
+                    "propertyOrder": 5
+                },
                 "afterPrivateFunctions": {
                     "type": "integer",
                     "propertyOrder": 8
-                },
-                "beginType": {
-                    "type": "integer",
-                    "propertyOrder": 0
-                },
-                "afterStaticVars": {
-                    "type": "integer",
-                    "propertyOrder": 2
                 },
                 "afterPrivateVars": {
                     "type": "integer",
@@ -205,72 +149,86 @@
                 "betweenStaticVars": {
                     "type": "integer",
                     "propertyOrder": 1
-                },
-                "betweenVars": {
-                    "type": "integer",
-                    "propertyOrder": 4
                 }
             },
-            "additionalProperties": false
+            "type": "object"
+        },
+        "FormatterConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "disableFormatting": {
+                    "type": "boolean",
+                    "propertyOrder": 0
+                },
+                "indentation": {
+                    "$ref": "#/definitions/IndentationConfig",
+                    "propertyOrder": 2
+                },
+                "emptyLines": {
+                    "$ref": "#/definitions/EmptyLinesConfig",
+                    "propertyOrder": 1
+                },
+                "lineEnds": {
+                    "$ref": "#/definitions/LineEndConfig",
+                    "propertyOrder": 3
+                },
+                "sameLine": {
+                    "$ref": "#/definitions/SameLineConfig",
+                    "propertyOrder": 4
+                },
+                "wrapping": {
+                    "$ref": "#/definitions/WrapConfig",
+                    "propertyOrder": 6
+                },
+                "whitespace": {
+                    "$ref": "#/definitions/WhitespaceConfig",
+                    "propertyOrder": 5
+                }
+            },
+            "type": "object"
         },
         "EmptyLinesConfig": {
-            "type": "object",
+            "additionalProperties": false,
             "properties": {
-                "beginEnumAbstract": {
-                    "type": "integer",
-                    "propertyOrder": 9
-                },
-                "betweenTypes": {
-                    "type": "integer",
-                    "propertyOrder": 5
-                },
-                "betweenEnumAbstractVars": {
-                    "type": "integer",
-                    "propertyOrder": 10
-                },
-                "afterLeftCurly": {
+                "beforeRightCurly": {
+                    "type": "string",
                     "enum": [
                         "keep",
                         "remove"
                     ],
+                    "propertyOrder": 6
+                },
+                "afterLeftCurly": {
                     "type": "string",
+                    "enum": [
+                        "keep",
+                        "remove"
+                    ],
                     "propertyOrder": 7
                 },
                 "afterReturn": {
+                    "type": "string",
                     "enum": [
                         "keep",
                         "remove"
                     ],
-                    "type": "string",
                     "propertyOrder": 8
                 },
-                "maxAnywhereInFile": {
+                "afterPackage": {
                     "type": "integer",
-                    "propertyOrder": 1
+                    "propertyOrder": 2
                 },
-                "abstractEmptyLines": {
-                    "propertyOrder": 14,
-                    "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig"
-                },
-                "betweenEnumAbstractFunctions": {
+                "beginEnumAbstract": {
                     "type": "integer",
-                    "propertyOrder": 12
-                },
-                "classEmptyLines": {
-                    "propertyOrder": 13,
-                    "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig"
+                    "propertyOrder": 9
                 },
                 "finalNewline": {
                     "type": "boolean",
                     "propertyOrder": 0
                 },
-                "afterImportsUsing": {
+                "betweenTypes": {
                     "type": "integer",
-                    "propertyOrder": 4
-                },
-                "afterPackage": {
-                    "type": "integer",
-                    "propertyOrder": 2
+                    "propertyOrder": 5
                 },
                 "afterEnumAbstractVars": {
                     "type": "integer",
@@ -280,147 +238,69 @@
                     "type": "integer",
                     "propertyOrder": 3
                 },
-                "beforeRightCurly": {
-                    "enum": [
-                        "keep",
-                        "remove"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 6
+                "maxAnywhereInFile": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                },
+                "abstractEmptyLines": {
+                    "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
+                    "propertyOrder": 14
+                },
+                "afterImportsUsing": {
+                    "type": "integer",
+                    "propertyOrder": 4
+                },
+                "classEmptyLines": {
+                    "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
+                    "propertyOrder": 13
+                },
+                "betweenEnumAbstractFunctions": {
+                    "type": "integer",
+                    "propertyOrder": 12
+                },
+                "betweenEnumAbstractVars": {
+                    "type": "integer",
+                    "propertyOrder": 10
                 }
             },
-            "additionalProperties": false
+            "type": "object"
         },
-        "WhitespaceConfig": {
-            "type": "object",
+        "WrapConfig": {
+            "additionalProperties": false,
             "properties": {
-                "whilePolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 20
+                "wrapAfterComma": {
+                    "description": "should wrapping happen after comma",
+                    "type": "boolean",
+                    "propertyOrder": 1
                 },
-                "typeParamOpenPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 8
-                },
-                "closingBracketPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 3
-                },
-                "ternaryPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 16
-                },
-                "typeHintColonPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 15
-                },
-                "commaPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 10
-                },
-                "openingParenPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
+                "maxLineLength": {
+                    "description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
+                    "type": "integer",
                     "propertyOrder": 0
                 },
-                "objectOpeningBracePolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 6
+                "wrapAfterOpeningBrace": {
+                    "description": "should wrapping happen after opening braces `{`",
+                    "type": "boolean",
+                    "propertyOrder": 3
                 },
-                "openingBracketPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
+                "wrapBeforeDot": {
+                    "description": "should wrapping happen before dot",
+                    "type": "boolean",
                     "propertyOrder": 2
                 },
-                "tryPolicy": {
+                "wrapAfterOpeningBracket": {
+                    "description": "should wrapping happen after opening brackets `[`",
+                    "type": "boolean",
+                    "propertyOrder": 4
+                }
+            },
+            "type": "object"
+        },
+        "WhitespaceConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "openingParenPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -431,10 +311,24 @@
                         "noneAfter",
                         "around"
                     ],
+                    "propertyOrder": 0
+                },
+                "ternaryPolicy": {
                     "type": "string",
-                    "propertyOrder": 23
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 17
                 },
                 "typeParamClosePolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -445,10 +339,10 @@
                         "noneAfter",
                         "around"
                     ],
-                    "type": "string",
                     "propertyOrder": 9
                 },
-                "objectFieldColonPolicy": {
+                "caseColonPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -459,10 +353,10 @@
                         "noneAfter",
                         "around"
                     ],
-                    "type": "string",
                     "propertyOrder": 14
                 },
                 "closingBracePolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -473,127 +367,10 @@
                         "noneAfter",
                         "around"
                     ],
-                    "type": "string",
                     "propertyOrder": 5
-                },
-                "semicolonPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 17
-                },
-                "catchPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 24
-                },
-                "binopPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 25
-                },
-                "compressSuccessiveParenthesis": {
-                    "type": "boolean",
-                    "description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
-                    "propertyOrder": 27
-                },
-                "forPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 21
-                },
-                "colonPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 12
-                },
-                "doPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 19
-                },
-                "switchPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 22
-                },
-                "caseColonPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 13
                 },
                 "closingParenPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -604,52 +381,10 @@
                         "noneAfter",
                         "around"
                     ],
-                    "type": "string",
                     "propertyOrder": 1
-                },
-                "openingBracePolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 4
-                },
-                "objectClosingBracePolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 7
-                },
-                "ifPolicy": {
-                    "enum": [
-                        "none",
-                        "before",
-                        "noneBefore",
-                        "onlyBefore",
-                        "after",
-                        "onlyAfter",
-                        "noneAfter",
-                        "around"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 18
                 },
                 "intervalPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -660,10 +395,10 @@
                         "noneAfter",
                         "around"
                     ],
-                    "type": "string",
-                    "propertyOrder": 26
+                    "propertyOrder": 27
                 },
-                "dotPolicy": {
+                "commaPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
@@ -674,128 +409,420 @@
                         "noneAfter",
                         "around"
                     ],
-                    "type": "string",
                     "propertyOrder": 11
-                }
-            },
-            "additionalProperties": false
-        },
-        "LineEndConfig": {
-            "type": "object",
-            "properties": {
-                "atType": {
+                },
+                "typeParamOpenPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
                         "after",
-                        "afterLast"
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
                     ],
-                    "type": "string",
-                    "propertyOrder": 0
-                },
-                "emptyCurly": {
-                    "enum": [
-                        "noBreak",
-                        "break"
-                    ],
-                    "type": "string",
                     "propertyOrder": 8
                 },
-                "rightCurly": {
+                "openingBracketPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
                         "before",
+                        "noneBefore",
+                        "onlyBefore",
                         "after",
-                        "both"
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
                     ],
-                    "type": "string",
-                    "propertyOrder": 7
-                },
-                "atFunction": {
-                    "enum": [
-                        "none",
-                        "after",
-                        "afterLast"
-                    ],
-                    "type": "string",
                     "propertyOrder": 2
                 },
-                "leftCurly": {
+                "closingBracketPolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
-                        "after",
                         "before",
-                        "both"
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
                     ],
+                    "propertyOrder": 3
+                },
+                "compressSuccessiveParenthesis": {
+                    "description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
+                    "type": "boolean",
+                    "propertyOrder": 28
+                },
+                "objectOpeningBracePolicy": {
                     "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
                     "propertyOrder": 6
                 },
-                "atOther": {
+                "openingBracePolicy": {
+                    "type": "string",
                     "enum": [
                         "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
                         "after",
-                        "afterLast"
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
                     ],
-                    "type": "string",
-                    "propertyOrder": 3
-                },
-                "sharp": {
-                    "enum": [
-                        "none",
-                        "after"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 5
-                },
-                "atVar": {
-                    "enum": [
-                        "none",
-                        "after",
-                        "afterLast"
-                    ],
-                    "type": "string",
-                    "propertyOrder": 1
-                },
-                "caseColon": {
-                    "enum": [
-                        "none",
-                        "after"
-                    ],
-                    "type": "string",
                     "propertyOrder": 4
+                },
+                "doPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 20
+                },
+                "semicolonPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 18
+                },
+                "forPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 22
+                },
+                "objectFieldColonPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 15
+                },
+                "colonPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 13
+                },
+                "objectClosingBracePolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 7
+                },
+                "dotPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 12
+                },
+                "switchPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 23
+                },
+                "typeExtensionPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 10
+                },
+                "whilePolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 21
+                },
+                "typeHintColonPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 16
+                },
+                "catchPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 25
+                },
+                "binopPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 26
+                },
+                "ifPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 19
+                },
+                "tryPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 24
                 }
             },
-            "additionalProperties": false
+            "type": "object"
         },
-        "WrapConfig": {
-            "type": "object",
+        "SameLineConfig": {
+            "additionalProperties": false,
             "properties": {
-                "wrapAfterOpeningBracket": {
-                    "type": "boolean",
-                    "description": "should wrapping happen after opening brackets `[`",
-                    "propertyOrder": 4
+                "tryBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 10
                 },
-                "maxLineLength": {
-                    "type": "integer",
-                    "description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
-                    "propertyOrder": 0
+                "comprehensionFor": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 7
                 },
-                "wrapBeforeDot": {
-                    "type": "boolean",
-                    "description": "should wrapping happen before dot",
+                "ifElse": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
                     "propertyOrder": 2
                 },
-                "wrapAfterComma": {
+                "anonObjects": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 13
+                },
+                "expressionIfWithBlocks": {
+                    "description": "will place if with one expression in a block in one line (requires \"expressionIf\" = \"same\")\n\t\tvar foo = if (bar) { \"\"; } else { \"\"; };",
                     "type": "boolean",
-                    "description": "should wrapping happen after comma",
+                    "propertyOrder": 5
+                },
+                "catchBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 11
+                },
+                "elseIf": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 3
+                },
+                "maxObjectFields": {
+                    "type": "integer",
+                    "propertyOrder": 14
+                },
+                "expressionIf": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 4
+                },
+                "ifBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 0
+                },
+                "elseBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
                     "propertyOrder": 1
                 },
-                "wrapAfterOpeningBrace": {
-                    "type": "boolean",
-                    "description": "should wrapping happen after opening braces `{`",
-                    "propertyOrder": 3
+                "maxAnonTypeFields": {
+                    "type": "integer",
+                    "propertyOrder": 15
+                },
+                "tryCatch": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 12
+                },
+                "doWhileBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 9
+                },
+                "forBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 6
+                },
+                "whileBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 8
                 }
             },
-            "additionalProperties": false
+            "type": "object"
         }
-    }
+    },
+    "$ref": "#/definitions/FormatterConfig",
+    "id": "https://raw.githubusercontent.com/HaxeCheckstyle/tokentree-formatter/master/resources/formatter-schema.json"
 }

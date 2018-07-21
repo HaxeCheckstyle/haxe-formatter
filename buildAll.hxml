@@ -1,3 +1,5 @@
 buildJS.hxml
 --next
 buildNeko.hxml
+--next
+buildSchema.hxml

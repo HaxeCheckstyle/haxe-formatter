@@ -1,11 +1,6 @@
 #if macro
 import haxe.DynamicAccess;
-import haxe.macro.Context;
 import haxe.macro.Expr;
-import haxe.macro.Type;
-import sys.FileSystem;
-import haxe.io.Path;
-import haxe.ds.ArraySort;
 
 using StringTools;
 
