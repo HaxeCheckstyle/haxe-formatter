@@ -1,8 +1,6 @@
 {
     "defaultSeverity": "INFO",
-    "checks": [{
-            "type": "Anonymous"
-        },
+    "checks": [
         {
             "type": "ArrayAccess"
         },
@@ -269,12 +267,6 @@
         },
         {
             "type": "Trace"
-        },
-        {
-            "props": {
-                "ignoreEnumAbstractValues": true
-            },
-            "type": "Type"
         },
         {
             "type": "TypeDocComment",

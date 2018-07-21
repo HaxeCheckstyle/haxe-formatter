@@ -5,6 +5,9 @@ import sys.FileSystem;
 import tokentreeformatter.Formatter.Result;
 
 class Cli {
+	// TODO: use a macro to read this from haxelib.json
+	static inline var VERSION = "0.0.1";
+
 	static function main() {
 		new Cli();
 	}
@@ -23,10 +26,11 @@ class Cli {
 		var paths = [];
 		var help = false;
 		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed)") ["-s", "--source"] => function(path:String) paths
-			.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = Check, ["--help"] => function() help = true]);
+			.push(path), @doc("Print additional information") ["-v"] => function() verbose = true, @doc("Don't format, only check if files are formatted correctly") [
+			"--check"] => function() mode = Check, @doc("Display this list of options") ["--help"] => function() help = true]);
 
 		function printHelp() {
-			Sys.println("Haxe Formatter");
+			Sys.println('Haxe Formatter $VERSION');
 			Sys.println(argHandler.getDoc());
 		}
 
