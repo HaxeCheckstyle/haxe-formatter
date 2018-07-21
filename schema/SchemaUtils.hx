@@ -1,13 +1,15 @@
 #if macro
 import haxe.macro.Expr;
 
+using StringTools;
+
 class SchemaUtils {
 	public static function makeObjectDecl(fields:Array<ObjectDeclField>, structInfo:Null<StructInfo>, order:Int, pos:Position):Expr {
 		if (order >= 0) {
 			fields.push({field: "propertyOrder", expr: macro $v{order}});
 		}
 		if (structInfo != null && structInfo.doc != null) {
-			fields.push({field: "description", expr: macro $v{StringTools.trim(structInfo.doc)}});
+			fields.push({field: "description", expr: macro $v{structInfo.doc}});
 		}
 		return {pos: pos, expr: EObjectDecl(fields)};
 	}
@@ -31,11 +33,11 @@ class SchemaUtils {
 		if (doc == null) {
 			return null;
 		}
-		doc = StringTools.trim(doc);
+		doc = doc.trim().replace("\r", "");
 		if (doc.length <= 0) {
 			return null;
 		}
-		return {name: name, doc: StringTools.trim(doc)};
+		return {name: name, doc: doc};
 	}
 }
 #end
