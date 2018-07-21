@@ -1,0 +1,18 @@
+{}
+
+---
+
+typedef Foo = String
+typedef Bar = Int
+typedef Bar2={}
+typedef Bar3 = Int
+
+---
+
+typedef Foo = String
+
+typedef Bar = Int
+
+typedef Bar2 = {}
+
+typedef Bar3 = Int

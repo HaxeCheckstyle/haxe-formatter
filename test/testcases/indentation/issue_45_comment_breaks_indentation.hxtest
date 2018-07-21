@@ -1,0 +1,33 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		if (nBuckets > (size << 1))
+			resize(nBuckets - 1); // clear "deleted" elements
+		else
+			resize(nBuckets + 2); // clear 'eleted' elements
+		if (nBuckets > (size << 1)) // clear 'eleted' elements
+			resize(nBuckets - 1); // clear "deleted" elements
+		else // clear 'eleted' elements
+			resize(nBuckets + 2); // clear 'eleted' elements
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		if (nBuckets > (size << 1))
+			resize(nBuckets - 1); // clear "deleted" elements
+		else
+			resize(nBuckets + 2); // clear 'eleted' elements
+		if (nBuckets > (size << 1))
+			// clear 'eleted' elements
+			resize(nBuckets - 1); // clear "deleted" elements
+		else
+			// clear 'eleted' elements
+			resize(nBuckets + 2); // clear 'eleted' elements
+	}
+}

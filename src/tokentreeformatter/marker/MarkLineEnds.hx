@@ -225,6 +225,11 @@ class MarkLineEnds {
 				case Sharp(SHARP_END):
 					if (isInlineSharp(token, parsedCode)) {
 						parsedCode.tokenList.noLineEndBefore(token);
+						var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+						if ((next != null) && next.token.is(Semicolon)) {
+							parsedCode.tokenList.whitespace(token, NoneAfter);
+							continue;
+						}
 						if (!isOnlyWhitespaceAfterToken(token, parsedCode)) {
 							continue;
 						}
@@ -245,7 +250,21 @@ class MarkLineEnds {
 	static function isInlineSharp(token:TokenTree, parsedCode:ParsedCode):Bool {
 		switch (token.tok) {
 			case Sharp(SHARP_IF):
-				return !isOnlyWhitespaceBeforeToken(token, parsedCode);
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if (prev == null) {
+					return !isOnlyWhitespaceBeforeToken(token, parsedCode);
+				}
+				if (prev.whitespaceAfter == Newline) {
+					return false;
+				}
+				switch (prev.token.tok) {
+					case Semicolon:
+						return false;
+					case BrClose:
+						return false;
+					default:
+						return true;
+				}
 			case Sharp(SHARP_ELSE):
 				return isInlineSharp(token.parent, parsedCode);
 			case Sharp(SHARP_ELSE_IF):
@@ -293,6 +312,7 @@ class MarkLineEnds {
 	static function markStructureExtension(parsedCode:ParsedCode, config:LineEndConfig) {
 		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
 		for (token in typedefTokens) {
+			markAfterTypedef(token, parsedCode);
 			var brOpen:TokenTree = findTypedefBrOpen(token);
 			if (brOpen == null) {
 				continue;
@@ -323,6 +343,19 @@ class MarkLineEnds {
 				}
 			}
 		}
+	}
+
+	static function markAfterTypedef(token:TokenTree, parsedCode:ParsedCode) {
+		var lastChild:TokenTree = lastToken(token);
+		if (lastChild == null) {
+			return;
+		}
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+		if ((next != null) && next.token.is(Semicolon)) {
+			parsedCode.tokenList.whitespace(lastChild, NoneAfter);
+			return;
+		}
+		parsedCode.tokenList.lineEndAfter(lastChild);
 	}
 
 	public static function lastToken(token:TokenTree):TokenTree {

@@ -4,6 +4,8 @@
 
 typedef Foo = {};
 
+typedef Foo = {}
+
 typedef Bar = {
 	> Foo, var foo:Int; var bar:Int;
 }
@@ -11,6 +13,8 @@ typedef Bar = {
 ---
 
 typedef Foo = {};
+
+typedef Foo = {}
 
 typedef Bar = {
 	> Foo,

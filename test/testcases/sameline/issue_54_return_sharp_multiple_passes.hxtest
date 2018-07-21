@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	static inline function get_onMobile():Bool
+	{
+		return
+			#if js
+				html5.onMobile;
+			#elseif mobile
+				true;
+			#else
+				false;
+			#end
+	}
+}
+
+---
+
+class Main {
+	static inline function get_onMobile():Bool {
+		return #if js html5.onMobile; #elseif mobile true; #else false; #end
+	}
+}
