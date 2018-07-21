@@ -21,12 +21,24 @@ class Cli {
 		}
 
 		var paths = [];
-		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed).") ["-s", "--source"
-		] => function(path:String) paths.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = Check]);
-		argHandler.parse(args);
-		if (args.length == 0) {
+		var help = false;
+		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed)") ["-s", "--source"] => function(path:String) paths
+			.push(path), ["-v"] => function() verbose = true, ["--check"] => function() mode = Check, ["--help"] => function() help = true]);
+
+		function printHelp() {
 			Sys.println("Haxe Formatter");
 			Sys.println(argHandler.getDoc());
+		}
+
+		try {
+			argHandler.parse(args);
+		} catch (e:Any) {
+			Sys.println(e + "\n");
+			printHelp();
+			Sys.exit(1);
+		}
+		if (args.length == 0 || help) {
+			printHelp();
 			Sys.exit(0);
 		}
 
