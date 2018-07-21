@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	public final foo:Int;
+}
+
+---
+
+class Main {
+	public final foo:Int;
+}
