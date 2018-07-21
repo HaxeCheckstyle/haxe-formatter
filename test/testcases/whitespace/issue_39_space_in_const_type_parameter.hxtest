@@ -1,0 +1,9 @@
+{}
+
+---
+
+abstract Tls<T>(hl.Abstract<"hl_tls">) {}
+
+---
+
+abstract Tls<T>(hl.Abstract<"hl_tls">) {}
