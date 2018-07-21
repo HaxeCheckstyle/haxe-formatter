@@ -30,6 +30,12 @@ class MarkWhitespace {
 				case Binop(OpSub):
 					if (TokenTreeCheckUtils.filterOpSub(token)) {
 						var policy:WhitespacePolicy = WhitespacePolicy.remove(config.binopPolicy, After);
+						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+						switch (prev.token.tok) {
+							case POpen, Binop(OpAssign), Binop(OpAssignOp(_)):
+								policy = WhitespacePolicy.remove(policy, Before);
+							default:
+						}
 						parsedCode.tokenList.whitespace(token, policy);
 					} else {
 						parsedCode.tokenList.whitespace(token, config.binopPolicy);

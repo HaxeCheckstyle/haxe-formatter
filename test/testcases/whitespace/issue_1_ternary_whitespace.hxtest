@@ -7,6 +7,8 @@ class Main {
 		true?0:1;
 		(true)?0:1;
 		doSomething(true)?0:1;
+		setNext(transform != null?transform.alphaMultiplier:1.0);
+		angle = ((y < 0) ? -angle:angle) * FlxAngle.TO_DEG;
 	}
 }
 
@@ -17,5 +19,7 @@ class Main {
 		true ? 0 : 1;
 		(true) ? 0 : 1;
 		doSomething(true) ? 0 : 1;
+		setNext(transform != null ? transform.alphaMultiplier : 1.0);
+		angle = ((y < 0) ? -angle : angle) * FlxAngle.TO_DEG;
 	}
 }

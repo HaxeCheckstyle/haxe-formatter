@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		var value = 1;
+		trace(-value);
+		n += (Math.ceil( -n) >> 1) << 1;
+		var dx:Float = (SpriteA.x + SpriteA.origin.x) -(SpriteB.x + SpriteB.origin.x);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var value = 1;
+		trace(-value);
+		n += (Math.ceil(-n) >> 1) << 1;
+		var dx:Float = (SpriteA.x + SpriteA.origin.x) - (SpriteB.x + SpriteB.origin.x);
+	}
+}
