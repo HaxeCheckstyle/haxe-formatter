@@ -5,7 +5,6 @@ import haxe.macro.Expr;
 import haxe.macro.Type;
 
 using haxe.macro.Tools;
-using StringTools;
 
 typedef ExtendedFieldsCB = Array<ObjectDeclField>->String->Position->DynamicAccess<Expr>->Void;
 #end
