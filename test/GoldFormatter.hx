@@ -1,5 +1,5 @@
-import tokentreeformatter.config.Config;
-import tokentreeformatter.Formatter;
+import formatter.config.Config;
+import formatter.Formatter;
 
 class GoldFormatter extends Formatter {
 	var config:String;

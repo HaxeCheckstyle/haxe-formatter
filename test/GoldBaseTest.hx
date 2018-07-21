@@ -3,8 +3,8 @@ import haxe.io.Bytes;
 import haxe.PosInfos;
 import haxe.Template;
 import massive.munit.Assert;
-import tokentreeformatter.codedata.ParseFile;
-import tokentreeformatter.Formatter.Result;
+import formatter.codedata.ParseFile;
+import formatter.Formatter.Result;
 
 class GoldBaseTest {
 	function goldCheck(unformatted:String, goldCode:String, ?config:String, ?pos:PosInfos) {

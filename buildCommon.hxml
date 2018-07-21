@@ -6,4 +6,4 @@
 
 -cp src
 
--main tokentreeformatter.Cli
+-main formatter.Cli

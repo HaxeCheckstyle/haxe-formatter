@@ -13,4 +13,4 @@
 -D unittest
 -x TestMain
 
---macro mcover.MCover.coverage(['tokentreeformatter'], ['src'], [])
+--macro mcover.MCover.coverage(['formatter'], ['src'], [])

@@ -1,8 +1,8 @@
 import haxe.io.Bytes;
 import haxe.io.Path;
 import massive.munit.Assert;
-import tokentreeformatter.Formatter;
-import tokentreeformatter.codedata.ParseFile;
+import formatter.Formatter;
+import formatter.codedata.ParseFile;
 import sys.io.File;
 import sys.FileSystem;
 
