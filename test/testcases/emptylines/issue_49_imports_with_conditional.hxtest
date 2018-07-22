@@ -1,0 +1,13 @@
+{}
+
+---
+
+#if !macro
+import haxeLanguageServer.helper.DisplayOffsetConverter;
+#end
+
+---
+
+#if !macro
+import haxeLanguageServer.helper.DisplayOffsetConverter;
+#end

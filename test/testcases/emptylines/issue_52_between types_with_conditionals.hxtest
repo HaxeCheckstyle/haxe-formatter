@@ -1,0 +1,21 @@
+{}
+
+---
+
+#if foo
+
+typedef Foo = String;
+
+#else
+
+typedef Bar = Int;
+
+#end
+
+---
+
+#if foo
+typedef Foo = String;
+#else
+typedef Bar = Int;
+#end

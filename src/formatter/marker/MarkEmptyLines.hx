@@ -59,7 +59,13 @@ class MarkEmptyLines {
 		}
 
 		var lastImport:TokenTree = imports[imports.length - 1];
-		parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.afterImportsUsing);
+		if (lastImport.nextSibling != null) {
+			switch (lastImport.nextSibling.tok) {
+				case Sharp(MarkLineEnds.SHARP_END), Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
+				default:
+					parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.afterImportsUsing);
+			}
+		}
 		lastImport = null;
 		var isImport:Bool = true;
 		for (token in imports) {
@@ -368,7 +374,7 @@ class MarkEmptyLines {
 					case Sharp(MarkLineEnds.SHARP_IF):
 						break;
 					case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
-						skip = false;
+						skip = true;
 						break;
 					case Sharp(MarkLineEnds.SHARP_END):
 					case Comment(_), CommentLine(_):
