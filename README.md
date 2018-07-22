@@ -1,7 +1,7 @@
 # Haxe Formatter
 
-[![Build Status](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter.svg?branch=master)](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter)
-[![Codecov](https://img.shields.io/codecov/c/github/HaxeCheckstyle/tokentree-formatter.svg)](https://codecov.io/github/HaxeCheckstyle/tokentree-formatter?branch=master)
+[![Build Status](https://travis-ci.org/HaxeCheckstyle/tokentree-formatter.svg?branch=master)](https://travis-ci.org/HaxeCheckstyle/haxe-formatter)
+[![Codecov](https://img.shields.io/codecov/c/github/HaxeCheckstyle/haxe-formatter.svg)](https://codecov.io/github/HaxeCheckstyle/haxe-formatter?branch=master)
 
 **use at your own risk**
 
