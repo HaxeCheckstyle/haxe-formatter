@@ -60,7 +60,28 @@ class MarkSameLine {
 				}
 			case Kwd(KwdElse):
 				return shouldElseBeSameLine(parent);
+			case DblDot:
+				return isReturnExpression(parent);
 			default:
+		}
+		return false;
+	}
+
+	static function isReturnExpression(token:TokenTree):Bool {
+		var parent:TokenTree = token;
+		while (parent.parent.tok != null) {
+			parent = parent.parent;
+			switch (parent.tok) {
+				case Kwd(KwdReturn):
+					return true;
+				case Kwd(KwdFunction):
+					return false;
+				case BkOpen:
+					return false;
+				case Binop(OpAssign):
+					return true;
+				default:
+			}
 		}
 		return false;
 	}
