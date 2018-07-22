@@ -112,6 +112,28 @@
             },
             "type": "object"
         },
+        "InterfaceFieldsEmtpyLinesConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "beginType": {
+                    "type": "integer",
+                    "propertyOrder": 0
+                },
+                "betweenVars": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                },
+                "betweenFunctions": {
+                    "type": "integer",
+                    "propertyOrder": 3
+                },
+                "afterVars": {
+                    "type": "integer",
+                    "propertyOrder": 2
+                }
+            },
+            "type": "object"
+        },
         "ClassFieldsEmtpyLinesConfig": {
             "additionalProperties": false,
             "properties": {
@@ -231,6 +253,10 @@
                     "type": "boolean",
                     "propertyOrder": 0
                 },
+                "externClassEmptyLines": {
+                    "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
+                    "propertyOrder": 14
+                },
                 "betweenTypes": {
                     "type": "integer",
                     "propertyOrder": 5
@@ -249,7 +275,7 @@
                 },
                 "abstractEmptyLines": {
                     "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
-                    "propertyOrder": 14
+                    "propertyOrder": 15
                 },
                 "afterImportsUsing": {
                     "type": "integer",
@@ -262,6 +288,10 @@
                 "betweenEnumAbstractFunctions": {
                     "type": "integer",
                     "propertyOrder": 12
+                },
+                "interfaceEmptyLines": {
+                    "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
+                    "propertyOrder": 16
                 },
                 "betweenEnumAbstractVars": {
                     "type": "integer",

@@ -20,6 +20,7 @@ class MarkEmptyLines {
 
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
+		markInterfaces(parsedCode, config);
 		markEnumAbstracts(parsedCode, config);
 		if (config.beforeRightCurly == Remove) {
 			markRightCurly(parsedCode);
@@ -94,6 +95,10 @@ class MarkEmptyLines {
 			switch (c.tok) {
 				case Kwd(KwdClass):
 					typeConfig = config.classEmptyLines;
+					if (c.access().firstChild().firstOf(Kwd(KwdExtern)).exists()) {
+						markExternClass(c, parsedCode, config.externClassEmptyLines);
+						continue;
+					}
 				case Kwd(KwdAbstract):
 					typeConfig = config.abstractEmptyLines;
 				default:
@@ -199,6 +204,77 @@ class MarkEmptyLines {
 				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterPrivateFunctions);
 				return;
 			}
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
+			return;
+		}
+	}
+
+	static function markExternClass(c:TokenTree, parsedCode:ParsedCode, config:InterfaceFieldsEmtpyLinesConfig) {
+		var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
+		if (block != null) {
+			parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
+		}
+		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
+		var fields:Array<TokenTree> = block.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
+
+		var prevToken:TokenTree = null;
+		var prevTokenType:TokenFieldType = null;
+		var currToken:TokenTree = null;
+		var currTokenType:TokenFieldType = null;
+		for (field in fields) {
+			currToken = field;
+			currTokenType = FieldUtils.getFieldType(field, PUBLIC);
+			markInterfaceEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+			prevToken = currToken;
+			prevTokenType = currTokenType;
+		}
+	}
+
+	static function markInterfaces(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var interfaces:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdInterface)], ALL);
+		for (i in interfaces) {
+			markExternClass(i, parsedCode, config.interfaceEmptyLines);
+		}
+	}
+
+	static function markInterfaceEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:InterfaceFieldsEmtpyLinesConfig) {
+		if (prevToken == null) {
+			return;
+		}
+		var prevVar:Bool = false;
+		var currVar:Bool = false;
+		switch (prevTokenType) {
+			case FUNCTION(name, _, _, _, _, _, _):
+				prevVar = false;
+			case VAR(name, _, _, _, _, _):
+				prevVar = true;
+			case PROP(name, _, _, _, _):
+				prevVar = true;
+			case UNKNOWN:
+				return;
+		}
+		switch (currTokenType) {
+			case FUNCTION(name, _, _, _, _, _, _):
+				currVar = false;
+			case VAR(name, _, _, _, _, _):
+				currVar = true;
+			case PROP(name, _, _, _, _):
+				currVar = true;
+			case UNKNOWN:
+				return;
+		}
+		if (prevVar != currVar) {
+			// transition between vars and functions
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
+			return;
+		}
+		if (prevVar) {
+			// only vars
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
+			return;
+		} else {
+			// only functions
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
 			return;
 		}

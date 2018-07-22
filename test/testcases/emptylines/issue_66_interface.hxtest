@@ -1,0 +1,19 @@
+{}
+
+---
+
+interface Foo extends Bar {
+	var foo:Int;
+	var bar:Int;
+	function new():Void;
+	function foo():Void;
+}
+
+---
+
+interface Foo extends Bar {
+	var foo:Int;
+	var bar:Int;
+	function new():Void;
+	function foo():Void;
+}

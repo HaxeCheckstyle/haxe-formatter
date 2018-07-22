@@ -1,0 +1,19 @@
+{}
+
+---
+
+extern class Foo {
+	var foo:Int;
+	var bar:Int;
+	function new():Void;
+	function foo():Void;
+}
+
+---
+
+extern class Foo {
+	var foo:Int;
+	var bar:Int;
+	function new():Void;
+	function foo():Void;
+}
