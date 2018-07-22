@@ -100,8 +100,10 @@ class JsonSchemaGenerator {
 					case [{pack: [], name: "String"}, []]:
 						return SchemaUtils.makeObjectDecl([{field: FIELD_NAME_TYPE, expr: macro "string"}], structInfo, order, pos);
 					case [{pack: [], name: "Array"}, [elemType]]:
-						var fields:Array<ObjectDeclField> = [{field: FIELD_NAME_TYPE, expr: macro "array"}, {field: "items", expr: genSchema(elemType, typeName + ".items", pos,
-							null, refs, -1, extendCB)}];
+						var fields:Array<ObjectDeclField> = [
+							{field: FIELD_NAME_TYPE, expr: macro "array"},
+							{field: "items", expr: genSchema(elemType, typeName + ".items", pos, null, refs, -1, extendCB)}
+						];
 						if (extendCB != null) {
 							extendCB(fields, typeName, pos, refs);
 						}

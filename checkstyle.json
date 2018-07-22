@@ -24,20 +24,6 @@
             "type": "ConstantName"
         },
         {
-            "props": {
-                "thresholds": [{
-                        "complexity": 20,
-                        "severity": "WARNING"
-                    },
-                    {
-                        "complexity": 25,
-                        "severity": "ERROR"
-                    }
-                ]
-            },
-            "type": "CyclomaticComplexity"
-        },
-        {
             "type": "DefaultComesLast"
         },
         {
@@ -134,12 +120,6 @@
                 "maxTotal": 50
             },
             "type": "MethodCount"
-        },
-        {
-            "props": {
-                "max": 50
-            },
-            "type": "MethodLength"
         },
         {
             "props": {
@@ -292,25 +272,8 @@
     "exclude": {
         "path": "RELATIVE_TO_PROJECT",
         "all": [],
-        "CyclomaticComplexity": [
-            "tokentreeformatter/config/WhitespacePolicy:remove",
-            "tokentreeformatter/config/WhitespacePolicy:add",
-            "tokentreeformatter/marker/Indenter",
-            "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
-            "tokentreeformatter/marker/MarkLineEnds:markBrOpenClose",
-            "tokentreeformatter/marker/MarkSameLine:markSameLine"
-        ],
         "MultipleStringLiterals": [
             "config"
-        ],
-        "MethodLength": [
-            "tokentreeformatter/config/Config",
-            "tokentreeformatter/config/WhitespacePolicy:add",
-            "tokentreeformatter/marker/Indenter",
-            "tokentreeformatter/marker/MarkEmptyLines:markClassFieldEmptyLines",
-            "tokentreeformatter/marker/MarkSameLine:markSameLine",
-			"tokentreeformatter/marker/MarkWhitespace:markWhitespace",
-			"tokentreeformatter/marker/MarkWhitespace:markKeyword"
         ]
     }
 }

@@ -27,27 +27,63 @@ class Indenter {
 		return "".lpad(config.character, config.character.length * count);
 	}
 
+	public function calcAbsoluteIndent(indent:Int):Int {
+		if (config.character == "\t") {
+			return indent * config.tabWidth;
+		}
+		return indent;
+	}
+
 	public function calcIndent(token:TokenTree):Int {
 		if (token == null) {
 			return 0;
 		}
 		switch (token.tok) {
-			case BrClose, BkClose, PClose, Kwd(KwdElse), Kwd(KwdCatch):
-				// use BrOpen, BkOpen, POpen, Kwd(KwdIf) for calculation
-				token = token.parent;
-			case Kwd(KwdWhile):
-				var parent:TokenTree = token.parent;
-				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
-					token = parent;
-				}
 			case Sharp(_):
 				if (config.conditionalPolicy == FixedZero) {
 					return 0;
 				}
 			default:
 		}
-
+		token = findEffectiveParent(token);
 		return calcFromCandidates(token);
+	}
+
+	function findEffectiveParent(token:TokenTree):TokenTree {
+		switch (token.tok) {
+			case BrOpen:
+				var parent:TokenTree = token.parent;
+				switch (parent.tok) {
+					case Kwd(KwdIf), Kwd(KwdElse):
+						return findEffectiveParent(token.parent);
+					case Kwd(KwdCatch):
+						return findEffectiveParent(token.parent);
+					case Kwd(KwdDo), Kwd(KwdWhile):
+						return findEffectiveParent(token.parent);
+					default:
+				}
+			case BrClose, BkClose, PClose:
+				return findEffectiveParent(token.parent);
+			case Kwd(KwdIf):
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if (prev.whitespaceAfter == Newline) {
+					return token;
+				}
+
+				// var parent:TokenTree = token.parent;
+				// if (parent.is(Kwd(KwdElse))) {
+				return findEffectiveParent(token.parent);
+				// }
+			case Kwd(KwdElse), Kwd(KwdCatch):
+				return findEffectiveParent(token.parent);
+			case Kwd(KwdWhile):
+				var parent:TokenTree = token.parent;
+				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
+					return findEffectiveParent(token.parent);
+				}
+			default:
+		}
+		return token;
 	}
 
 	function calcFromCandidates(token:TokenTree):Int {
@@ -58,6 +94,9 @@ class Indenter {
 		var indentingTokens:Array<TokenTree> = [];
 		var prevToken:TokenTree = indentingTokensCandidates.shift();
 		if (!redundantIndentation(token, prevToken)) {
+			indentingTokens.push(prevToken);
+		} else {
+			prevToken = indentingTokensCandidates.shift();
 			indentingTokens.push(prevToken);
 		}
 		if (indentingTokensCandidates.length <= 0) {
@@ -91,12 +130,16 @@ class Indenter {
 	}
 
 	function isIndentingToken(token:TokenTree):Bool {
-		if (token == null)
+		if (token == null) {
 			return false;
+		}
 		switch (token.tok) {
 			case BrOpen, BkOpen, POpen:
 				return true;
 			case Binop(OpAssign):
+				if (token.children.length == 1) {
+					return false;
+				}
 				return true;
 			case DblDot:
 				if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
@@ -180,8 +223,9 @@ class Indenter {
 					default:
 				}
 			case Kwd(KwdElse):
-				if (tokenInfo.whitespaceAfter == Newline)
+				if (tokenInfo.whitespaceAfter == Newline) {
 					return false;
+				}
 				switch (prev.tok) {
 					case BrOpen, DblDot:
 						return true;

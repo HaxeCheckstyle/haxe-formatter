@@ -14,6 +14,10 @@ typedef WrapConfig = {
 	**/
 	@:default(true) @:optional var wrapBeforeDot:Bool;
 	/**
+		should wrapping happen after opening braces `(`
+	**/
+	@:default(true) @:optional var wrapAfterOpeningParenthesis:Bool;
+	/**
 		should wrapping happen after opening braces `{`
 	**/
 	@:default(true) @:optional var wrapAfterOpeningBrace:Bool;
@@ -21,4 +25,8 @@ typedef WrapConfig = {
 		should wrapping happen after opening brackets `[`
 	**/
 	@:default(true) @:optional var wrapAfterOpeningBracket:Bool;
+	@:default(30) @:optional var arrayMaxInlineAtLength:Int;
+	@:default(30) @:optional var arrayMaxItemLength:Int;
+	@:default(2) @:optional var arrayMaxOneLineItems:Int;
+	@:default(60) @:optional var arrayTotalItemLengthOneLine:Int;
 }

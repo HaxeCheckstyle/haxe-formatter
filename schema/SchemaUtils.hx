@@ -15,8 +15,11 @@ class SchemaUtils {
 	}
 
 	public static function makeObject(props:Expr, structInfo:Null<StructInfo>, required:Array<String>, order:Int, pos:Position):Expr {
-		var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "object"}, {field: "properties", expr: props}, {field: "additionalProperties",
-			expr: macro false}];
+		var fields:Array<ObjectDeclField> = [
+			{field: "type", expr: macro "object"},
+			{field: "properties", expr: props},
+			{field: "additionalProperties", expr: macro false}
+		];
 		if (required.length > 0) {
 			var exprs:Array<Expr> = [for (req in required) macro $v{req}];
 			fields.push({field: "required", expr: macro $a{exprs}});
@@ -25,7 +28,10 @@ class SchemaUtils {
 	}
 
 	public static function makeEnum(enumList:Expr, structInfo:Null<StructInfo>, order:Int, pos:Position):Expr {
-		var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "string"}, {field: "enum", expr: enumList}];
+		var fields:Array<ObjectDeclField> = [
+			{field: "type", expr: macro "string"},
+			{field: "enum", expr: enumList}
+		];
 		return makeObjectDecl(fields, structInfo, order, pos);
 	}
 

@@ -103,6 +103,11 @@
                         "alignedIncrease"
                     ],
                     "propertyOrder": 0
+                },
+                "tabWidth": {
+                    "description": "if `character` is set to \"tab\", formatter uses `tabWidth` to calculate absolute line length",
+                    "type": "integer",
+                    "propertyOrder": 2
                 }
             },
             "type": "object"
@@ -281,17 +286,38 @@
                 "wrapAfterOpeningBrace": {
                     "description": "should wrapping happen after opening braces `{`",
                     "type": "boolean",
-                    "propertyOrder": 3
+                    "propertyOrder": 4
                 },
                 "wrapBeforeDot": {
                     "description": "should wrapping happen before dot",
                     "type": "boolean",
                     "propertyOrder": 2
                 },
+                "arrayTotalItemLengthOneLine": {
+                    "type": "integer",
+                    "propertyOrder": 9
+                },
                 "wrapAfterOpeningBracket": {
                     "description": "should wrapping happen after opening brackets `[`",
                     "type": "boolean",
-                    "propertyOrder": 4
+                    "propertyOrder": 5
+                },
+                "arrayMaxItemLength": {
+                    "type": "integer",
+                    "propertyOrder": 7
+                },
+                "arrayMaxInlineAtLength": {
+                    "type": "integer",
+                    "propertyOrder": 6
+                },
+                "arrayMaxOneLineItems": {
+                    "type": "integer",
+                    "propertyOrder": 8
+                },
+                "wrapAfterOpeningParenthesis": {
+                    "description": "should wrapping happen after opening braces `(`",
+                    "type": "boolean",
+                    "propertyOrder": 3
                 }
             },
             "type": "object"

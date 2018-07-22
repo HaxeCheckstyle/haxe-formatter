@@ -137,8 +137,7 @@ class MarkWhitespace {
 		}
 	}
 
-	public static function successiveParenthesis(token:TokenTree, closing:Bool, parsedCode:ParsedCode, policy:WhitespacePolicy,
-		compressSuccessiveParenthesis:Bool) {
+	public static function successiveParenthesis(token:TokenTree, closing:Bool, parsedCode:ParsedCode, policy:WhitespacePolicy, compress:Bool) {
 		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
@@ -148,6 +147,8 @@ class MarkWhitespace {
 					if (token.is(BrClose)) {
 						policy = WhitespacePolicy.remove(policy, After);
 					}
+				case Binop(OpArrow):
+					policy = WhitespacePolicy.add(policy, After);
 				case Kwd(_):
 					if (closing) {
 						policy = WhitespacePolicy.add(policy, After);
@@ -155,7 +156,7 @@ class MarkWhitespace {
 				default:
 			}
 		}
-		if (!compressSuccessiveParenthesis) {
+		if (!compress) {
 			parsedCode.tokenList.whitespace(token, policy);
 			return;
 		}

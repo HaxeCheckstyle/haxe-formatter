@@ -39,16 +39,27 @@ class CodeLine {
 
 	public function applyWrapping(config:WrapConfig, indenter:Indenter):Array<CodeLine> {
 		var lineLength:Int = indent;
-		for (part in parts) {
+		for (index in 0...parts.length) {
+			var part:CodePart = parts[index];
 			lineLength += part.text.length;
 			if (lineLength > config.maxLineLength) {
-				return wrappedAt(part, config, indenter);
+				return wrappedAt(index, config, indenter);
 			}
 		}
 		return [this];
 	}
 
-	function wrappedAt(part:CodePart, config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+	function wrappedAt(index:Int, config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+		// while (index >= 0) {
+		// 	var current:CodePart = parts[index];
+		// 	if (current.lastToken.is(BkOpen)) {
+		// 		return wrapArray(index, config, indenter);
+		// 	}
+		// 	// if (current.lastToken.is(BrOpen)) {
+		// 	// 	return wrapObject(index);
+		// 	// }
+		// 	index--;
+		// }
 		// var parent:TokenTree = part.firstToken.parent;
 		// switch (parent.tok) {
 		// case BrOpen:
@@ -95,8 +106,8 @@ class CodeLine {
 	// function wrapObject(part:CodePart, config:WrapConfig):Array<CodeLine> {
 	// return [this];
 	// }
-	// function wrapArray(part:CodePart, config:WrapConfig):Array<CodeLine> {
-	// return [this];
+	// function wrapArray(index:Int, config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+	// 	return [this];
 	// }
 	public function print(indenter:Indenter, lineSeparator:String):String {
 		var line:String = "";

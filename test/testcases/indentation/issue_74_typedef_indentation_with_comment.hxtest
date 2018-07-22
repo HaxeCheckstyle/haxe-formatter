@@ -1,0 +1,23 @@
+{}
+
+---
+
+typedef Package = {
+	var path:JsonPackagePath;
+	// var ?contents:Array<{name:String, kind:PackageContentKind}>;
+}
+
+typedef Module = {
+	var path:JsonModulePath;
+}
+
+---
+
+typedef Package = {
+	var path:JsonPackagePath;
+	// var ?contents:Array<{name:String, kind:PackageContentKind}>;
+}
+
+typedef Module = {
+	var path:JsonModulePath;
+}

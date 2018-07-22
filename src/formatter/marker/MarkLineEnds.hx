@@ -199,7 +199,9 @@ class MarkLineEnds {
 	}
 
 	static function markSharp(parsedCode:ParsedCode, config:LineEndConfig) {
-		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([Sharp(SHARP_IF), Sharp(SHARP_ELSE), Sharp(SHARP_ELSE_IF), Sharp(SHARP_END), Sharp("error")], ALL);
+		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([
+			Sharp(SHARP_IF), Sharp(SHARP_ELSE), Sharp(SHARP_ELSE_IF), Sharp(SHARP_END), Sharp("error")
+		], ALL);
 		for (token in sharpTokens) {
 			switch (token.tok) {
 				case Sharp(SHARP_IF), Sharp(SHARP_ELSE_IF):

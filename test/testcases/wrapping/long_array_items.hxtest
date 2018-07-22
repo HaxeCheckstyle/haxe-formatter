@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	var argHandler = ["File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)"];
+}
+
+---
+
+class Main {
+	var argHandler = [
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)",
+		"File or directory with .hx files to format (multiple allowed)"
+	];
+}

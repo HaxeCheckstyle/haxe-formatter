@@ -25,9 +25,16 @@ class Cli {
 
 		var paths = [];
 		var help = false;
-		var argHandler = hxargs.Args.generate([@doc("File or directory with .hx files to format (multiple allowed)") ["-s", "--source"] => function(path:String) paths
-			.push(path), @doc("Print additional information") ["-v"] => function() verbose = true, @doc("Don't format, only check if files are formatted correctly") [
-			"--check"] => function() mode = Check, @doc("Display this list of options") ["--help"] => function() help = true]);
+		var argHandler = hxargs.Args.generate([
+			@doc("File or directory with .hx files to format (multiple allowed)")
+			["-s", "--source"] => function(path:String) paths.push(path),
+			@doc("Print additional information")
+			["-v"] => function() verbose = true,
+			@doc("Don't format, only check if files are formatted correctly")
+			["--check"] => function() mode = Check,
+			@doc("Display this list of options")
+			["--help"] => function() help = true
+		]);
 
 		function printHelp() {
 			Sys.println('Haxe Formatter $VERSION');

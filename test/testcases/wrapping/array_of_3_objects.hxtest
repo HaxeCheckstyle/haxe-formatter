@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "object"},
+	{field: "properties", expr: props},
+	{field: "additionalProperties", expr: macro false}];
+}
+
+---
+
+class Main {
+	var fields:Array<ObjectDeclField> = [
+		{field: "type", expr: macro "object"},
+		{field: "properties", expr: props},
+		{field: "additionalProperties", expr: macro false}
+	];
+}

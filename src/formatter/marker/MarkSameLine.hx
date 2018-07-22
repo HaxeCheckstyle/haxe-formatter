@@ -8,7 +8,9 @@ class MarkSameLine {
 		markAnonObjectsTypedefsSameLine(parsedCode, configSameLine, configWhitespace);
 		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
 
-		var tokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch)], ALL);
+		var tokens:Array<TokenTree> = parsedCode.root.filter([
+			Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch)
+		], ALL);
 		for (token in tokens) {
 			switch (token.tok) {
 				case Kwd(KwdIf):
