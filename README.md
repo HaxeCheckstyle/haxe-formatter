@@ -18,6 +18,8 @@ Formatter based on tokentree library
   - abstract
   - enum abstract
   - class
+  - extern class
+  - interface
 - SameLine
   - if
   - loops
@@ -25,6 +27,10 @@ Formatter based on tokentree library
   - objects / anonymous types
 - LineEnds
 - `hxformat.json` config file
+- supports `// @formatter:off` and `// @formatter:on` to preserve hand crafted format of code sections
+- unittests
+  - format self
+  - easy testcase definition through .hxtest
 
 ## ToDo
 - Configuration
@@ -35,11 +41,9 @@ Formatter based on tokentree library
   - objects / anonymous types
 - empty lines in
   - enum
-  - interface
   - typedef
-- unittests
-  - format self
 
 ## TBD
-- import grouping and sort
-- modifier sort
+- code modification e.g.
+  - import grouping and sort
+  - modifier sort
