@@ -21,7 +21,7 @@ class MarkEmptyLines {
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
 		markInterfaces(parsedCode, config);
-		markEnumAbstracts(parsedCode, config);
+		markEnumAbstracts(parsedCode, config.enumAbstractEmptyLines);
 		if (config.beforeRightCurly == Remove) {
 			markRightCurly(parsedCode);
 		}
@@ -174,6 +174,10 @@ class MarkEmptyLines {
 			case UNKNOWN:
 				return;
 		}
+		prevToken = skipSharpFields(prevToken);
+		if (prevToken == null) {
+			return;
+		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
@@ -269,6 +273,10 @@ class MarkEmptyLines {
 			case UNKNOWN:
 				return;
 		}
+		prevToken = skipSharpFields(prevToken);
+		if (prevToken == null) {
+			return;
+		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
 			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
@@ -285,7 +293,7 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markEnumAbstracts(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	static function markEnumAbstracts(parsedCode:ParsedCode, config:EnumAbstractFieldsEmtpyLinesConfig) {
 		var abstracts:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdAbstract), Kwd(KwdEnum)], ALL);
 		for (c in abstracts) {
 			if (!TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
@@ -293,7 +301,7 @@ class MarkEmptyLines {
 			}
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			if (block != null) {
-				parsedCode.tokenList.emptyLinesAfter(block, config.beginEnumAbstract);
+				parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
 			}
 
 			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
@@ -313,7 +321,7 @@ class MarkEmptyLines {
 	}
 
 	static function markEnumAbstractFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-		currTokenType:TokenFieldType, config:EmptyLinesConfig) {
+		currTokenType:TokenFieldType, config:EnumAbstractFieldsEmtpyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -339,20 +347,41 @@ class MarkEmptyLines {
 			case UNKNOWN:
 				return;
 		}
+		prevToken = skipSharpFields(prevToken);
+		if (prevToken == null) {
+			return;
+		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterEnumAbstractVars);
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
 			return;
 		}
 		if (prevVar) {
 			// only vars
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenEnumAbstractVars);
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
 			return;
 		} else {
 			// only functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenEnumAbstractFunctions);
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
 			return;
 		}
+	}
+
+	static function skipSharpFields(prevToken:TokenTree):TokenTree {
+		var next:TokenTree = prevToken.nextSibling;
+		if (next == null) {
+			return prevToken;
+		}
+		switch (next.tok) {
+			case Sharp(MarkLineEnds.SHARP_END):
+				return next;
+			case Sharp(MarkLineEnds.SHARP_IF):
+				return prevToken;
+			case Sharp(_):
+				return null;
+			default:
+		}
+		return prevToken;
 	}
 
 	static function betweenTypes(parsedCode:ParsedCode, count:Int) {

@@ -1,0 +1,29 @@
+{}
+
+---
+
+class TokenTree extends Token {
+	static inline var MAX_LEVEL:Int = 9999;
+	public var index:Int;
+	public var inserted:Bool;
+	#if (!keep_whitespace)
+	public var space:String;
+
+	#end
+	public function new() {
+	}
+}
+
+---
+
+class TokenTree extends Token {
+	static inline var MAX_LEVEL:Int = 9999;
+
+	public var index:Int;
+	public var inserted:Bool;
+	#if (!keep_whitespace)
+	public var space:String;
+	#end
+
+	public function new() {}
+}

@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		if (is("")) {}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (is("")) {}
+	}
+}

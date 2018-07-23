@@ -245,25 +245,17 @@
                     "type": "integer",
                     "propertyOrder": 2
                 },
-                "beginEnumAbstract": {
-                    "type": "integer",
-                    "propertyOrder": 9
-                },
                 "finalNewline": {
                     "type": "boolean",
                     "propertyOrder": 0
                 },
                 "externClassEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
-                    "propertyOrder": 14
+                    "propertyOrder": 11
                 },
                 "betweenTypes": {
                     "type": "integer",
                     "propertyOrder": 5
-                },
-                "afterEnumAbstractVars": {
-                    "type": "integer",
-                    "propertyOrder": 11
                 },
                 "beforeUsing": {
                     "type": "integer",
@@ -273,9 +265,13 @@
                     "type": "integer",
                     "propertyOrder": 1
                 },
+                "enumAbstractEmptyLines": {
+                    "$ref": "#/definitions/EnumAbstractFieldsEmtpyLinesConfig",
+                    "propertyOrder": 9
+                },
                 "abstractEmptyLines": {
                     "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
-                    "propertyOrder": 15
+                    "propertyOrder": 12
                 },
                 "afterImportsUsing": {
                     "type": "integer",
@@ -283,19 +279,33 @@
                 },
                 "classEmptyLines": {
                     "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
-                    "propertyOrder": 13
-                },
-                "betweenEnumAbstractFunctions": {
-                    "type": "integer",
-                    "propertyOrder": 12
+                    "propertyOrder": 10
                 },
                 "interfaceEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
-                    "propertyOrder": 16
-                },
-                "betweenEnumAbstractVars": {
+                    "propertyOrder": 13
+                }
+            },
+            "type": "object"
+        },
+        "EnumAbstractFieldsEmtpyLinesConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "beginType": {
                     "type": "integer",
-                    "propertyOrder": 10
+                    "propertyOrder": 0
+                },
+                "betweenVars": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                },
+                "betweenFunctions": {
+                    "type": "integer",
+                    "propertyOrder": 3
+                },
+                "afterVars": {
+                    "type": "integer",
+                    "propertyOrder": 2
                 }
             },
             "type": "object"

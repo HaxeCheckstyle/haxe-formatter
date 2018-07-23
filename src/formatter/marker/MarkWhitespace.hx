@@ -75,7 +75,10 @@ class MarkWhitespace {
 				case Const(CIdent("is")):
 					var parent:TokenTree = token.access().parent().is(POpen).token;
 					if (parent != null) {
-						parsedCode.tokenList.whitespace(token, Around);
+						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(parent);
+						if ((prev != null) && (prev.token.is(POpen))) {
+							parsedCode.tokenList.whitespace(token, Around);
+						}
 					}
 					fixConstAfterConst(token, parsedCode);
 				case Const(CIdent("from")), Const(CIdent("to")):
