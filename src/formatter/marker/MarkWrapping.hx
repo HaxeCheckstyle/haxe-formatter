@@ -8,6 +8,9 @@ class MarkWrapping {
 		if (config.wrapAfterComma) {
 			searchTokens.push(Comma);
 		}
+		if (config.wrapAfterPlus) {
+			searchTokens.push(Binop(OpAdd));
+		}
 		if (config.wrapBeforeDot) {
 			searchTokens.push(Dot);
 		}
@@ -36,6 +39,8 @@ class MarkWrapping {
 					arrayWrapping(token, parsedCode, indenter, config);
 				case POpen:
 					markPWrapping(token, parsedCode, config);
+				case Binop(OpAdd):
+					parsedCode.tokenList.wrapAfter(token, true);
 				default:
 			}
 		}

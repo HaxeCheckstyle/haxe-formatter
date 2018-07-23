@@ -325,24 +325,28 @@
                 },
                 "arrayTotalItemLengthOneLine": {
                     "type": "integer",
-                    "propertyOrder": 9
+                    "propertyOrder": 10
                 },
                 "wrapAfterOpeningBracket": {
                     "description": "should wrapping happen after opening brackets `[`",
                     "type": "boolean",
-                    "propertyOrder": 5
+                    "propertyOrder": 6
                 },
                 "arrayMaxItemLength": {
                     "type": "integer",
-                    "propertyOrder": 7
+                    "propertyOrder": 8
                 },
                 "arrayMaxInlineAtLength": {
                     "type": "integer",
-                    "propertyOrder": 6
+                    "propertyOrder": 7
+                },
+                "wrapAfterPlus": {
+                    "type": "boolean",
+                    "propertyOrder": 5
                 },
                 "arrayMaxOneLineItems": {
                     "type": "integer",
-                    "propertyOrder": 8
+                    "propertyOrder": 9
                 },
                 "wrapAfterOpeningParenthesis": {
                     "description": "should wrapping happen after opening braces `(`",

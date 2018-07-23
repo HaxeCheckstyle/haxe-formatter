@@ -1,5 +1,6 @@
 package formatter;
 
+import sys.FileSystem;
 import haxe.CallStack;
 import haxe.io.Path;
 import formatter.config.Config;
@@ -68,7 +69,7 @@ class Formatter {
 	}
 
 	function determineFormatterConfig(fileName:String):Null<String> {
-		var path:String = Path.directory(fileName);
+		var path:String = Path.directory(FileSystem.absolutePath(fileName));
 
 		while (path.length > 0) {
 			var configFile:String = Path.join([path, FORMATTER_JSON]);

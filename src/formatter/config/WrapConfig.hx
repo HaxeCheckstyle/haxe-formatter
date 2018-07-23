@@ -21,6 +21,7 @@ typedef WrapConfig = {
 		should wrapping happen after opening braces `{`
 	**/
 	@:default(true) @:optional var wrapAfterOpeningBrace:Bool;
+	@:default(true) @:optional var wrapAfterPlus:Bool;
 	/**
 		should wrapping happen after opening brackets `[`
 	**/
