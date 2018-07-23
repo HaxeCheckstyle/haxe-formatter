@@ -1,7 +1,8 @@
 # Haxe Formatter
 
 [![Build Status](https://travis-ci.org/HaxeCheckstyle/haxe-formatter.svg?branch=master)](https://travis-ci.org/HaxeCheckstyle/haxe-formatter)
-[![Codecov](https://img.shields.io/codecov/c/github/HaxeCheckstyle/haxe-formatter.svg)](https://codecov.io/github/HaxeCheckstyle/haxe-formatter?branch=master)
+[![codecov](https://codecov.io/gh/HaxeCheckstyle/haxe-formatter/branch/master/graph/badge.svg)](https://codecov.io/gh/HaxeCheckstyle/haxe-formatter)
+
 
 **use at your own risk**
 
