@@ -1,0 +1,28 @@
+{
+	"sameLine":{
+		"expressionCase":"same"
+	}
+}
+
+
+---
+
+class Main {
+	function foo():Bool {
+		return switch (tok) {
+			case POpen:
+				if (token) false;
+				else true;
+		}
+	}
+}
+
+---
+
+class Main {
+	function foo():Bool {
+		return switch (tok) {
+			case POpen: if (token) false; else true;
+		}
+	}
+}

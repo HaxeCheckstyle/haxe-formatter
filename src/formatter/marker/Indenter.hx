@@ -45,6 +45,7 @@ class Indenter {
 				}
 			default:
 		}
+
 		token = findEffectiveParent(token);
 		return calcFromCandidates(token);
 	}
@@ -69,11 +70,13 @@ class Indenter {
 				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
-
-				// var parent:TokenTree = token.parent;
-				// if (parent.is(Kwd(KwdElse))) {
+				var parent:TokenTree = token.parent;
+				switch (parent.tok) {
+					case Binop(_):
+						return token;
+					default:
+				}
 				return findEffectiveParent(token.parent);
-				// }
 			case Kwd(KwdElse), Kwd(KwdCatch):
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdWhile):

@@ -9,7 +9,7 @@ class MarkSameLine {
 		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
 
 		var tokens:Array<TokenTree> = parsedCode.root.filter([
-			Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch)
+			Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdCase), Kwd(KwdDefault)
 		], ALL);
 		for (token in tokens) {
 			switch (token.tok) {
@@ -32,6 +32,10 @@ class MarkSameLine {
 				case Kwd(KwdCatch):
 					markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody, false);
 					applySameLinePolicyChained(token, parsedCode, configSameLine.tryBody, configSameLine.tryCatch);
+				case Kwd(KwdCase):
+					markCase(token, parsedCode, configSameLine);
+				case Kwd(KwdDefault):
+					markCase(token, parsedCode, configSameLine);
 				default:
 			}
 		}
@@ -124,6 +128,26 @@ class MarkSameLine {
 
 		markBody(token, parsedCode, configSameLine.elseBody, false);
 		applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+	}
+
+	static function markCase(token:TokenTree, parsedCode:ParsedCode, config:SameLineConfig) {
+		if (token == null) {
+			return;
+		}
+		var dblDot:TokenTree = token.access().firstOf(DblDot).token;
+		if (dblDot == null) {
+			return;
+		}
+		if (isReturnExpression(token) && (config.expressionCase == Same)) {
+			parsedCode.tokenList.noLineEndAfter(dblDot);
+			return;
+		}
+		if (config.caseBody != Same) {
+			return;
+		}
+		if ((dblDot.children != null) && (dblDot.children.length == 1)) {
+			parsedCode.tokenList.noLineEndAfter(dblDot);
+		}
 	}
 
 	static function markFor(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {

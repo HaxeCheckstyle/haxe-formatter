@@ -786,6 +786,14 @@
                     ],
                     "propertyOrder": 2
                 },
+                "expressionCase": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 15
+                },
                 "anonObjects": {
                     "type": "string",
                     "enum": [
@@ -817,7 +825,7 @@
                 },
                 "maxObjectFields": {
                     "type": "integer",
-                    "propertyOrder": 14
+                    "propertyOrder": 16
                 },
                 "expressionIf": {
                     "type": "string",
@@ -835,6 +843,14 @@
                     ],
                     "propertyOrder": 0
                 },
+                "caseBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 14
+                },
                 "elseBody": {
                     "type": "string",
                     "enum": [
@@ -845,7 +861,7 @@
                 },
                 "maxAnonTypeFields": {
                     "type": "integer",
-                    "propertyOrder": 15
+                    "propertyOrder": 17
                 },
                 "tryCatch": {
                     "type": "string",

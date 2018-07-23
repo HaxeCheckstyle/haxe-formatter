@@ -19,6 +19,8 @@ typedef SameLineConfig = {
 	@:default(Next) @:optional var catchBody:SameLinePolicy;
 	@:default(Same) @:optional var tryCatch:SameLinePolicy;
 	@:default(Same) @:optional var anonObjects:SameLinePolicy;
+	@:default(Next) @:optional var caseBody:SameLinePolicy;
+	@:default(Next) @:optional var expressionCase:SameLinePolicy;
 	@:default(3) @:optional var maxObjectFields:Int;
 	@:default(3) @:optional var maxAnonTypeFields:Int;
 }

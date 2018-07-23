@@ -117,7 +117,6 @@ class MarkEmptyLines {
 
 			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
 			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
-
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
 			var currToken:TokenTree = null;
