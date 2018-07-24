@@ -33,7 +33,13 @@ class TestMain {
 		if (success) {
 			File.saveContent("test/formatter-result.txt", "\n---\n");
 		}
+		#if eval
+		if (!success) {
+			Sys.exit(1);
+		}
+		#else
 		Sys.exit(success ? 0 : 1);
+		#end
 	}
 
 	function setupCoverageReport() {
@@ -42,23 +48,28 @@ class TestMain {
 		for (cls in classes) {
 			var coverageData:Array<LineCoverageResult> = [null];
 			var results:CoverageResult = cls.getResults();
-			for (i in 1...results.l)
+			for (i in 1...results.l) {
 				coverageData[i] = 1;
+			}
 			var c = cls.name.replace(".", "/") + ".hx";
 			var missingStatements:Array<Statement> = cls.getMissingStatements();
 			for (stmt in missingStatements) {
-				for (line in stmt.lines)
+				for (line in stmt.lines) {
 					coverageData[line + 1] = 0;
+				}
 			}
 			var missingBranches:Array<Branch> = cls.getMissingBranches();
 			for (branch in missingBranches) {
-				if (branch.lines.length <= 0)
+				if (branch.lines.length <= 0) {
 					continue;
+				}
 				var count:Int = 0;
-				if (branch.trueCount > 0)
+				if (branch.trueCount > 0) {
 					count++;
-				if (branch.falseCount > 0)
+				}
+				if (branch.falseCount > 0) {
 					count++;
+				}
 				var line:Int = branch.lines[branch.lines.length - 1];
 				coverageData[line] = count + "/2";
 			}

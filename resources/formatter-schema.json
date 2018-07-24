@@ -835,6 +835,14 @@
                 },
                 "maxObjectFields": {
                     "type": "integer",
+                    "propertyOrder": 17
+                },
+                "functionBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
                     "propertyOrder": 16
                 },
                 "expressionIf": {
@@ -871,7 +879,7 @@
                 },
                 "maxAnonTypeFields": {
                     "type": "integer",
-                    "propertyOrder": 17
+                    "propertyOrder": 18
                 },
                 "tryCatch": {
                     "type": "string",

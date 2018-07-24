@@ -173,6 +173,14 @@ class Indenter {
 			case Kwd(KwdTry):
 				return true;
 			case Kwd(KwdCatch):
+			case Kwd(KwdFunction):
+				if (token.access().firstOf(BrOpen).exists()) {
+					return false;
+				}
+				if (token.access().firstChild().firstOf(BrOpen).exists()) {
+					return false;
+				}
+				return true;
 			default:
 		}
 		return false;

@@ -8,10 +8,7 @@ class MarkSameLine {
 		markAnonObjectsTypedefsSameLine(parsedCode, configSameLine, configWhitespace);
 		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
 
-		var tokens:Array<TokenTree> = parsedCode.root.filter([
-			Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdDo), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdCase), Kwd(KwdDefault)
-		], ALL);
-		for (token in tokens) {
+		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdIf):
 					markIf(token, parsedCode, configSameLine);
@@ -22,7 +19,7 @@ class MarkSameLine {
 				case Kwd(KwdWhile):
 					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
 						applySameLinePolicy(token, parsedCode, configSameLine.doWhileBody);
-						continue;
+						return GO_DEEPER;
 					}
 					markBodyAfterPOpen(token, parsedCode, configSameLine.whileBody, false);
 				case Kwd(KwdDo):
@@ -36,9 +33,12 @@ class MarkSameLine {
 					markCase(token, parsedCode, configSameLine);
 				case Kwd(KwdDefault):
 					markCase(token, parsedCode, configSameLine);
+				case Kwd(KwdFunction):
+					markFunction(token, parsedCode, configSameLine);
 				default:
 			}
-		}
+			return GO_DEEPER;
+		});
 	}
 
 	static function shouldIfBeSameLine(token:TokenTree):Bool {
@@ -171,15 +171,33 @@ class MarkSameLine {
 
 	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy, includeBrOpen:Bool) {
 		var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
+		while (body != null) {
+			switch (body.tok) {
+				case BrOpen:
+					if (includeBrOpen) {
+						markBlockBody(body, parsedCode, policy);
+					}
+					return;
+				case CommentLine(_):
+					var commentLine:Int = parsedCode.getLinePos(body.pos.min).line;
+					var prevLine:Int = -1;
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(body);
+					if (prev != null) {
+						prevLine = parsedCode.getLinePos(prev.token.pos.min).line;
+					}
+					if (prevLine != commentLine) {
+						applySameLinePolicy(body, parsedCode, policy);
+						return;
+					}
+					body = body.nextSibling;
+				default:
+					break;
+			}
+		}
 		if (body == null) {
 			return;
 		}
-		if (body.is(BrOpen)) {
-			if (includeBrOpen) {
-				markBlockBody(body, parsedCode, policy);
-			}
-			return;
-		}
+
 		applySameLinePolicy(body, parsedCode, policy);
 	}
 
@@ -419,5 +437,46 @@ class MarkSameLine {
 			parsedCode.tokenList.wrapBefore(brClose, false);
 			parsedCode.tokenList.wrapAfter(brClose, false);
 		}
+	}
+
+	static function markFunction(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		var body:TokenTree = token.access().firstChild().isCIdent().token;
+		if (body == null) {
+			body = token;
+		}
+		if ((body == null) || (body.children == null)) {
+			return;
+		}
+		for (child in body.children) {
+			switch (child.tok) {
+				case DblDot:
+				#if (haxe_ver >= 4.0)
+				case Kwd(KwdFinal):
+				#end
+				case Const(CIdent("final")):
+				case Kwd(KwdPublic):
+				case Kwd(KwdPrivate):
+				case Kwd(KwdStatic):
+				case Kwd(KwdOverride):
+				case Kwd(KwdExtern):
+				case Kwd(KwdInline):
+				case Kwd(KwdMacro):
+				case BrOpen:
+					return;
+				case Semicolon:
+					return;
+				case POpen:
+				case At:
+				case CommentLine(_):
+					return;
+				default:
+					applySameLinePolicy(child, parsedCode, configSameLine.functionBody);
+					return;
+			}
+		}
+	}
+
+	static inline function get_onMobile():Bool {
+		return #if foo true #else false #end;
 	}
 }

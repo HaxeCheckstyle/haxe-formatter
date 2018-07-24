@@ -10,9 +10,9 @@ class Foo {
 			case foo if (true): doSomething();
 			case foo2: doSomething();
 			// @formatter:on
-		}
-	}
-}
+			}
+			}
+			}
 
 ---
 

@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	static function main() trace("foo");
+}
+
+---
+
+class Main {
+	static function main() trace("foo");
+}

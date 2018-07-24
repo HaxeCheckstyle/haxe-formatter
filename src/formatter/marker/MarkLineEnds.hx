@@ -75,12 +75,14 @@ class MarkLineEnds {
 				continue;
 			}
 			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(brOpen);
-			switch (prev.token.tok) {
-				case Dollar(_):
-					parsedCode.tokenList.whitespace(brOpen, None);
-					parsedCode.tokenList.whitespace(brClose, None);
-					continue;
-				default:
+			if (prev != null) {
+				switch (prev.token.tok) {
+					case Dollar(_):
+						parsedCode.tokenList.whitespace(brOpen, None);
+						parsedCode.tokenList.whitespace(brClose, None);
+						continue;
+					default:
+				}
 			}
 			var next:TokenInfo = parsedCode.tokenList.getNextToken(brOpen);
 			var isEmpty:Bool = false;

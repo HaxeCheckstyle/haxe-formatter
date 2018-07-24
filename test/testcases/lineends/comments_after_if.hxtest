@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main{
+	function main(){
+		if (true) // foo
+			return;
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		if (true) // foo
+			return;
+	}
+}
