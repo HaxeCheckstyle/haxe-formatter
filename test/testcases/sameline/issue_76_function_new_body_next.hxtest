@@ -1,0 +1,17 @@
+{
+	"sameLine": {
+		"functionBody": "next"
+	}
+}
+
+---
+
+class Main {
+	function new() {}
+}
+
+---
+
+class Main {
+	function new() {}
+}

@@ -442,6 +442,9 @@ class MarkSameLine {
 	static function markFunction(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
 		var body:TokenTree = token.access().firstChild().isCIdent().token;
 		if (body == null) {
+			body = token.access().firstChild().is(Kwd(KwdNew)).token;
+		}
+		if (body == null) {
 			body = token;
 		}
 		if ((body == null) || (body.children == null)) {
