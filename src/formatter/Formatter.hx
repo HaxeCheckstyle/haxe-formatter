@@ -32,6 +32,9 @@ class Formatter {
 			if (config.disableFormatting) {
 				return Disabled;
 			}
+			if (config.isExcluded(file.name)) {
+				return Disabled;
+			}
 
 			tokentree.TokenStream.MODE = RELAXED;
 			var parsedCode = new ParsedCode(file, tokenData);

@@ -13,8 +13,10 @@ class Config {
 	public var whitespace:WhitespaceConfig;
 	public var wrapping:WrapConfig;
 	public var disableFormatting:Bool;
+	public var excludes:Array<EReg>;
 
 	public function new() {
+		excludes = [];
 		readConfigFromString("{}", "hxformat.json");
 	}
 
@@ -36,11 +38,24 @@ class Config {
 			whitespace = data.whitespace;
 			wrapping = data.wrapping;
 			disableFormatting = data.disableFormatting;
+			excludes = [];
+			for (exclude in data.excludes) {
+				excludes.push(new EReg(exclude, ""));
+			}
 		} catch (e:Any) {
 			// disable formatting rather than using an incorrect format
 			disableFormatting = true;
 			trace(e);
 			Sys.println(CallStack.toString(CallStack.callStack()));
 		}
+	}
+
+	public function isExcluded(fileName:String):Bool {
+		for (exclude in excludes) {
+			if (exclude.match(fileName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
