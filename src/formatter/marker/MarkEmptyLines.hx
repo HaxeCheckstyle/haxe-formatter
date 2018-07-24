@@ -21,7 +21,6 @@ class MarkEmptyLines {
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
 		markInterfaces(parsedCode, config);
-		markEnumAbstracts(parsedCode, config.enumAbstractEmptyLines);
 		if (config.beforeRightCurly == Remove) {
 			markRightCurly(parsedCode);
 		}
@@ -92,9 +91,18 @@ class MarkEmptyLines {
 	}
 
 	static function markClassesAndAbstracts(parsedCode:ParsedCode, config:EmptyLinesConfig) {
-		var classes:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdClass), Kwd(KwdAbstract)], ALL);
+		var classes:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdClass), Kwd(KwdAbstract):
+					FOUND_SKIP_SUBTREE;
+				default:
+					GO_DEEPER;
+			}
+		});
+
 		for (c in classes) {
 			if (TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
+				markEnumAbstracts(c, parsedCode, config.enumAbstractEmptyLines);
 				continue;
 			}
 			var typeConfig:ClassFieldsEmtpyLinesConfig = null;
@@ -293,30 +301,24 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markEnumAbstracts(parsedCode:ParsedCode, config:EnumAbstractFieldsEmtpyLinesConfig) {
-		var abstracts:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdAbstract), Kwd(KwdEnum)], ALL);
-		for (c in abstracts) {
-			if (!TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
-				continue;
-			}
-			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
-			if (block != null) {
-				parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
-			}
+	static function markEnumAbstracts(token:TokenTree, parsedCode:ParsedCode, config:EnumAbstractFieldsEmtpyLinesConfig) {
+		var block:TokenTree = token.access().firstChild().firstOf(BrOpen).token;
+		if (block != null) {
+			parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
+		}
 
-			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
+		var functions:Array<TokenTree> = token.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
 
-			var prevToken:TokenTree = null;
-			var prevTokenType:TokenFieldType = null;
-			var currToken:TokenTree = null;
-			var currTokenType:TokenFieldType = null;
-			for (func in functions) {
-				currToken = func;
-				currTokenType = FieldUtils.getFieldType(func, PUBLIC);
-				markEnumAbstractFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
-				prevToken = currToken;
-				prevTokenType = currTokenType;
-			}
+		var prevToken:TokenTree = null;
+		var prevTokenType:TokenFieldType = null;
+		var currToken:TokenTree = null;
+		var currTokenType:TokenFieldType = null;
+		for (func in functions) {
+			currToken = func;
+			currTokenType = FieldUtils.getFieldType(func, PUBLIC);
+			markEnumAbstractFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+			prevToken = currToken;
+			prevTokenType = currTokenType;
 		}
 	}
 

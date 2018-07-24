@@ -60,45 +60,64 @@ class MarkLineEnds {
 	}
 
 	static function markBrOpenClose(parsedCode:ParsedCode, config:LineEndConfig) {
-		var brTokens:Array<TokenTree> = parsedCode.root.filter([BrOpen, BrClose], ALL);
-		for (token in brTokens) {
+		var brTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case BrOpen:
-					var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
-					if ((next != null) && next.token.is(BrClose) && (config.emptyCurly == NoBreak)) {
-						continue;
-					}
-					switch (config.leftCurly) {
-						case None:
-						case Before:
-							beforeLeftCurly(token, parsedCode);
-						case After:
-							parsedCode.tokenList.lineEndAfter(token);
-						case Both:
-							beforeLeftCurly(token, parsedCode);
-							parsedCode.tokenList.lineEndAfter(token);
-					}
-				case BrClose:
-					var preventBefore:Bool = false;
-					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-					if ((prev != null) && prev.token.is(BrOpen) && (config.emptyCurly == NoBreak)) {
-						preventBefore = true;
-					}
-					switch (config.rightCurly) {
-						case None:
-						case Before:
-							if (!preventBefore) {
-								beforeRightCurly(token, parsedCode);
-							}
-						case After:
-							afterRightCurly(token, parsedCode);
-						case Both:
-							if (!preventBefore) {
-								beforeRightCurly(token, parsedCode);
-							}
-							afterRightCurly(token, parsedCode);
-					}
+					return FOUND_GO_DEEPER;
 				default:
+			}
+			return GO_DEEPER;
+		});
+
+		for (brOpen in brTokens) {
+			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			if (brClose == null) {
+				continue;
+			}
+			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(brOpen);
+			switch (prev.token.tok) {
+				case Dollar(_):
+					parsedCode.tokenList.whitespace(brOpen, None);
+					parsedCode.tokenList.whitespace(brClose, None);
+					continue;
+				default:
+			}
+			var next:TokenInfo = parsedCode.tokenList.getNextToken(brOpen);
+			var isEmpty:Bool = false;
+			if ((next != null) && next.token.is(BrClose) && (config.emptyCurly == NoBreak)) {
+				isEmpty = true;
+			}
+			if (!isEmpty) {
+				switch (config.leftCurly) {
+					case None:
+					case Before:
+						beforeLeftCurly(brOpen, parsedCode);
+					case After:
+						parsedCode.tokenList.lineEndAfter(brOpen);
+					case Both:
+						beforeLeftCurly(brOpen, parsedCode);
+						parsedCode.tokenList.lineEndAfter(brOpen);
+				}
+			}
+
+			var preventBefore:Bool = false;
+			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(brClose);
+			if (isEmpty) {
+				preventBefore = true;
+			}
+			switch (config.rightCurly) {
+				case None:
+				case Before:
+					if (!preventBefore) {
+						beforeRightCurly(brClose, parsedCode);
+					}
+				case After:
+					afterRightCurly(brClose, parsedCode);
+				case Both:
+					if (!preventBefore) {
+						beforeRightCurly(brClose, parsedCode);
+					}
+					afterRightCurly(brClose, parsedCode);
 			}
 		}
 	}

@@ -34,16 +34,14 @@ class TestCaseMacro {
 		var config:String = segments[0];
 		var unformatted:String = segments[1];
 		var gold:String = segments[2];
-		var configExpr = {expr: EConst(CString(config)), pos: Context.currentPos()};
-		var unformattedExpr = {expr: EConst(CString(unformatted)), pos: Context.currentPos()};
-		var goldExpr = {expr: EConst(CString(gold)), pos: Context.currentPos()};
 		var fieldName:String = new haxe.io.Path(fileName).file;
-		var callExprDef = ECall(macro $i{"goldCheck"}, [unformattedExpr, goldExpr, configExpr]);
-		var bodyExpr = {expr: callExprDef, pos: Context.currentPos()};
-		var func = FFun({args: [], ret: null, expr: bodyExpr});
-		return {
-			kind: func, meta: [{name: "Test", pos: Context.currentPos()}], access: [APublic], name: fieldName, pos: Context.currentPos()
-		};
+
+		return (macro class {
+			@Test
+			public function $fieldName() {
+				goldCheck($v{unformatted}, $v{gold}, $v{config});
+			};
+		}).fields[0];
 	}
 
 	static function collectAllFileNames(path:String):Array<String> {

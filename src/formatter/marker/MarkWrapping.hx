@@ -4,46 +4,36 @@ import formatter.config.WrapConfig;
 
 class MarkWrapping {
 	public static function markWrapping(parsedCode:ParsedCode, indenter:Indenter, config:WrapConfig) {
-		var searchTokens:Array<TokenDef> = [];
-		if (config.wrapAfterComma) {
-			searchTokens.push(Comma);
-		}
-		if (config.wrapAfterPlus) {
-			searchTokens.push(Binop(OpAdd));
-		}
-		if (config.wrapBeforeDot) {
-			searchTokens.push(Dot);
-		}
-		if (config.wrapAfterOpeningBrace) {
-			searchTokens.push(BrOpen);
-		}
-		if (config.wrapAfterOpeningBracket) {
-			searchTokens.push(BkOpen);
-		}
-		if (config.wrapAfterOpeningParenthesis) {
-			searchTokens.push(POpen);
-		}
-		if (searchTokens.length <= 0) {
-			return;
-		}
-		var tokens:Array<TokenTree> = parsedCode.root.filter(searchTokens, ALL);
-		for (token in tokens) {
+		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Comma:
-					parsedCode.tokenList.wrapAfter(token, true);
+					if (config.wrapAfterComma) {
+						parsedCode.tokenList.wrapAfter(token, true);
+					}
 				case Dot:
-					parsedCode.tokenList.wrapBefore(token, true);
+					if (config.wrapBeforeDot) {
+						parsedCode.tokenList.wrapBefore(token, true);
+					}
 				case BrOpen:
-					markBrWrapping(token, parsedCode, config);
+					if (config.wrapAfterOpeningBrace) {
+						markBrWrapping(token, parsedCode, config);
+					}
 				case BkOpen:
-					arrayWrapping(token, parsedCode, indenter, config);
+					if (config.wrapAfterOpeningBracket) {
+						arrayWrapping(token, parsedCode, indenter, config);
+					}
 				case POpen:
-					markPWrapping(token, parsedCode, config);
+					if (config.wrapAfterOpeningParenthesis) {
+						markPWrapping(token, parsedCode, config);
+					}
 				case Binop(OpAdd):
-					parsedCode.tokenList.wrapAfter(token, true);
+					if (config.wrapAfterPlus) {
+						parsedCode.tokenList.wrapAfter(token, true);
+					}
 				default:
 			}
-		}
+			return GO_DEEPER;
+		});
 	}
 
 	static function markBrWrapping(token:TokenTree, parsedCode:ParsedCode, config:WrapConfig) {
