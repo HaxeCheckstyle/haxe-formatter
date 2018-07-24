@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+static final version = ~/[0-9]+/;
+var major(get,never):Int;
+inline function get_major() return this.major;
+var minor(get,never):Int;
+inline function get_minor() return this.minor;
+}
+
+---
+
+class Main {
+	static final version = ~/[0-9]+/;
+
+	var major(get, never):Int;
+
+	inline function get_major() return this.major;
+
+	var minor(get, never):Int;
+
+	inline function get_minor() return this.minor;
+}

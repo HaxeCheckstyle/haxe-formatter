@@ -1,5 +1,8 @@
 package formatter.codedata;
 
+import haxe.PosInfos;
+import sys.io.File;
+import sys.io.FileOutput;
 import formatter.config.WhitespacePolicy;
 import formatter.marker.MarkLineEnds;
 
@@ -125,55 +128,73 @@ class TokenList {
 		}
 	}
 
-	public function lineEndAfter(token:TokenTree) {
+	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, "NewLine");
+		#end
 		info.whitespaceAfter = Newline;
 	}
 
-	public function lineEndBefore(token:TokenTree) {
+	public function lineEndBefore(token:TokenTree, ?pos:PosInfos) {
 		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, "NewLine");
+		#end
 		info.whitespaceAfter = Newline;
 	}
 
-	public function noLineEndAfter(token:TokenTree) {
+	public function noLineEndAfter(token:TokenTree, ?pos:PosInfos) {
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, "Space");
+		#end
 		info.whitespaceAfter = Space;
 	}
 
-	public function noLineEndBefore(token:TokenTree) {
+	public function noLineEndBefore(token:TokenTree, ?pos:PosInfos) {
 		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, "Space");
+		#end
 		info.whitespaceAfter = Space;
 	}
 
-	public function emptyLinesAfter(token:TokenTree, count:Int) {
+	public function emptyLinesAfter(token:TokenTree, count:Int, ?pos:PosInfos) {
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, '$count');
+		#end
 		info.emptyLinesAfter = count;
 	}
 
-	public function emptyLinesBefore(token:TokenTree, count:Int) {
+	public function emptyLinesBefore(token:TokenTree, count:Int, ?pos:PosInfos) {
 		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, '$count');
+		#end
 		info.emptyLinesAfter = count;
 	}
 
-	public function emptyLinesAfterSubTree(token:TokenTree, count:Int) {
+	public function emptyLinesAfterSubTree(token:TokenTree, count:Int, ?pos:PosInfos) {
 		var lastToken:TokenTree = MarkLineEnds.lastToken(token);
 		if (lastToken == null) {
 			return;
@@ -182,6 +203,9 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, lastToken, '$count');
+		#end
 		info.emptyLinesAfter = count;
 	}
 
@@ -193,19 +217,25 @@ class TokenList {
 		info.text = text;
 	}
 
-	public function wrapAfter(token:TokenTree, wrap:Bool) {
+	public function wrapAfter(token:TokenTree, wrap:Bool, ?pos:PosInfos) {
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, '$wrap');
+		#end
 		info.wrapAfter = wrap;
 	}
 
-	public function wrapBefore(token:TokenTree, wrap:Bool) {
+	public function wrapBefore(token:TokenTree, wrap:Bool, ?pos:PosInfos) {
 		var prev:TokenInfo = getPreviousToken(token);
 		if (prev == null) {
 			return;
 		}
+		#if debugLog
+		logAction(pos, token, '$wrap');
+		#end
 		prev.wrapAfter = wrap;
 	}
 
@@ -223,4 +253,13 @@ class TokenList {
 		}
 		return lastInfo;
 	}
+
+	#if debugLog
+	function logAction(callerPos:PosInfos, token:TokenTree, what:String, ?pos:PosInfos) {
+		var text:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName} [${pos.methodName}($what)] on `${token}` (${token.pos})';
+		var file:FileOutput = File.append("hxformat.log", false);
+		file.writeString(text + "\n");
+		file.close();
+	}
+	#end
 }

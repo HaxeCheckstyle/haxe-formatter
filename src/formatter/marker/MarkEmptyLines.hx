@@ -439,7 +439,16 @@ class MarkEmptyLines {
 	static function markReturn(parsedCode:ParsedCode) {
 		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], ALL);
 		for (ret in returns) {
-			parsedCode.tokenList.emptyLinesAfterSubTree(ret, 0);
+			var lastChild:TokenTree = MarkLineEnds.lastToken(ret);
+			if (lastChild == null) {
+				continue;
+			}
+			var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+			switch (next.token.tok) {
+				case BrClose:
+					parsedCode.tokenList.emptyLinesAfterSubTree(ret, 0);
+				default:
+			}
 		}
 	}
 
