@@ -104,6 +104,8 @@ class MarkWrapping {
 			parsedCode.tokenList.lineEndBefore(token);
 		}
 		if (totalLength <= config.arrayTotalItemLengthOneLine) {
+			parsedCode.tokenList.whitespace(token, NoneAfter);
+			parsedCode.tokenList.whitespace(bkClose, NoneBefore);
 			return;
 		}
 		if (maxLength > config.arrayMaxItemLength) {

@@ -135,6 +135,12 @@ class ParsedCode {
 		return code.sub(off, off2 - off).toString();
 	}
 
+	public function isOriginalSameLine(first:TokenTree, second:TokenTree):Bool {
+		var startLine:Int = getLinePos(first.pos.min).line;
+		var endLine:Int = getLinePos(second.pos.min).line;
+		return (startLine == endLine);
+	}
+
 	function detectLineSeparator() {
 		var codeBytes:Bytes = file.content;
 		var code:String = codeBytes.toString();

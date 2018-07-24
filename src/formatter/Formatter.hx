@@ -52,7 +52,6 @@ class Formatter {
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			lines.applyWrapping(config.wrapping);
 			MarkEmptyLines.finalRun(lines, config.emptyLines);
-			indenter.finalRun(lines);
 
 			return Success(lines.print(parsedCode.lineSeparator));
 		} catch (e:Any) {

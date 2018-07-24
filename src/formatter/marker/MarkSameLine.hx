@@ -179,15 +179,12 @@ class MarkSameLine {
 					}
 					return;
 				case CommentLine(_):
-					var commentLine:Int = parsedCode.getLinePos(body.pos.min).line;
-					var prevLine:Int = -1;
 					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(body);
 					if (prev != null) {
-						prevLine = parsedCode.getLinePos(prev.token.pos.min).line;
-					}
-					if (prevLine != commentLine) {
-						applySameLinePolicy(body, parsedCode, policy);
-						return;
+						if (!parsedCode.isOriginalSameLine(body, prev.token)) {
+							applySameLinePolicy(body, parsedCode, policy);
+							return;
+						}
 					}
 					body = body.nextSibling;
 				default:

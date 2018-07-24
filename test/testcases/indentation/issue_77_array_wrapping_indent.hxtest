@@ -1,0 +1,20 @@
+{}
+
+---
+
+
+class Main {
+	function main() {
+		return [{one: two, three: four, five: six, seven: eight}];
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		return [{
+			one: two, three: four, five: six, seven: eight
+		}];
+	}
+}

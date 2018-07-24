@@ -254,9 +254,32 @@ class TokenList {
 		return lastInfo;
 	}
 
+	public function isSameLine(first:TokenTree, second:TokenTree):Bool {
+		var startIndex:Int = first.index;
+		var endIndex:Int = second.index;
+		if (startIndex == endIndex) {
+			return true;
+		}
+
+		if (startIndex > endIndex) {
+			startIndex = second.index;
+			endIndex = first.index;
+		}
+		while (startIndex < endIndex) {
+			var currTok:TokenInfo = tokens[startIndex++];
+			if (currTok == null) {
+				continue;
+			}
+			if (currTok.whitespaceAfter == Newline) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	#if debugLog
 	function logAction(callerPos:PosInfos, token:TokenTree, what:String, ?pos:PosInfos) {
-		var text:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName} [${pos.methodName}($what)] on `${token}` (${token.pos})';
+		var text:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName} [${pos.methodName} ($what)] on `${token}` (${token.pos})';
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString(text + "\n");
 		file.close();
