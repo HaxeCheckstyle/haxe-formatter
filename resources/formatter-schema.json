@@ -1,6 +1,36 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "definitions": {
+        "ConditionalEmtpyLinesConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "afterElse": {
+                    "type": "integer",
+                    "propertyOrder": 2
+                },
+                "afterIf": {
+                    "type": "integer",
+                    "propertyOrder": 0
+                },
+                "beforeElse": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                },
+                "beforeEnd": {
+                    "type": "integer",
+                    "propertyOrder": 3
+                },
+                "beforeError": {
+                    "type": "integer",
+                    "propertyOrder": 4
+                },
+                "afterError": {
+                    "type": "integer",
+                    "propertyOrder": 5
+                }
+            },
+            "type": "object"
+        },
         "LineEndConfig": {
             "additionalProperties": false,
             "properties": {
@@ -261,6 +291,10 @@
                 "finalNewline": {
                     "type": "boolean",
                     "propertyOrder": 0
+                },
+                "conditionalsEmptyLines": {
+                    "$ref": "#/definitions/ConditionalEmtpyLinesConfig",
+                    "propertyOrder": 14
                 },
                 "externClassEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
@@ -539,7 +573,7 @@
                 "compressSuccessiveParenthesis": {
                     "description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
                     "type": "boolean",
-                    "propertyOrder": 28
+                    "propertyOrder": 31
                 },
                 "objectOpeningBracePolicy": {
                     "type": "string",
@@ -555,6 +589,20 @@
                     ],
                     "propertyOrder": 6
                 },
+                "functionTypeHaxe3Policy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 29
+                },
                 "openingBracePolicy": {
                     "type": "string",
                     "enum": [
@@ -568,6 +616,20 @@
                         "around"
                     ],
                     "propertyOrder": 4
+                },
+                "arrowFunctionsPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 28
                 },
                 "doPolicy": {
                     "type": "string",
@@ -764,6 +826,20 @@
                         "around"
                     ],
                     "propertyOrder": 19
+                },
+                "functionTypeHaxe4Policy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 30
                 },
                 "tryPolicy": {
                     "type": "string",

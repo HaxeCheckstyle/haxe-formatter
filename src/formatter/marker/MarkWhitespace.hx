@@ -89,6 +89,8 @@ class MarkWhitespace {
 					fixConstAfterConst(token, parsedCode);
 				case Const(CIdent(_)):
 					fixConstAfterConst(token, parsedCode);
+				case Arrow:
+					markArrow(token, parsedCode, config);
 				default:
 			}
 			return GO_DEEPER;
@@ -292,5 +294,17 @@ class MarkWhitespace {
 		}
 
 		parsedCode.tokenList.whitespace(token, config.colonPolicy);
+	}
+
+	static function markArrow(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var arrowType:ArrowType = TokenTreeCheckUtils.getArrowType(token);
+		switch (arrowType) {
+			case ARROW_FUNCTION:
+				parsedCode.tokenList.whitespace(token, config.arrowFunctionsPolicy);
+			case FUNCTION_TYPE_HAXE3:
+				parsedCode.tokenList.whitespace(token, config.functionTypeHaxe3Policy);
+			case FUNCTION_TYPE_HAXE4:
+				parsedCode.tokenList.whitespace(token, config.functionTypeHaxe4Policy);
+		}
 	}
 }

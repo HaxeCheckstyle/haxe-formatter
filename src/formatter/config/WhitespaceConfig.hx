@@ -33,6 +33,9 @@ typedef WhitespaceConfig = {
 	@:default(After) @:optional var catchPolicy:WhitespacePolicy;
 	@:default(Around) @:optional var binopPolicy:WhitespacePolicy;
 	@:default(None) @:optional var intervalPolicy:WhitespacePolicy;
+	@:default(Around) @:optional var arrowFunctionsPolicy:WhitespacePolicy;
+	@:default(None) @:optional var functionTypeHaxe3Policy:WhitespacePolicy;
+	@:default(Around) @:optional var functionTypeHaxe4Policy:WhitespacePolicy;
 	/**
 		should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`
 	**/

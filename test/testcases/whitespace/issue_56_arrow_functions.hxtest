@@ -1,0 +1,51 @@
+{}
+
+---
+
+class Main {
+	static public function main() {
+		// arrow functions
+		var f = () ->trace("");
+		var f = () -> {};
+		var f = arg-> {};
+		var f = (arg) -> {};
+		var f = (arg1:Int, arg2:String) -> {};
+
+		// old function type syntax
+		var f:Void->Void;
+		var f:Int->String->Void;
+		var f:(Int->Int) ->Int->Int;
+
+		// new function type syntax
+		var f:() ->Void;
+		var f:(Int) ->Int;
+		var f:(name:String) ->Void;
+		var f:(Int, String) ->Bool;
+		var f:(resolve:(value:Dynamic) ->Void, reject:(reason:Dynamic) ->Void) ->Void;
+	}
+}
+
+---
+
+class Main {
+	static public function main() {
+		// arrow functions
+		var f = () -> trace("");
+		var f = () -> {};
+		var f = arg -> {};
+		var f = (arg) -> {};
+		var f = (arg1:Int, arg2:String) -> {};
+
+		// old function type syntax
+		var f:Void->Void;
+		var f:Int->String->Void;
+		var f:(Int->Int)->Int->Int;
+
+		// new function type syntax
+		var f:() -> Void;
+		var f:(Int) -> Int;
+		var f:(name:String) -> Void;
+		var f:(Int, String) -> Bool;
+		var f:(resolve:(value:Dynamic) -> Void, reject:(reason:Dynamic) -> Void) -> Void;
+	}
+}
