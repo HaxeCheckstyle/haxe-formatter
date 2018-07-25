@@ -1,0 +1,33 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"atVar": "after"
+    },
+    "sameLine": {
+        "ifElse": "next",
+        "ifBody": "next",
+		"elseBody": "next",
+		"caseBody": "same"
+    }
+}
+
+---
+
+class Main {
+static function main() {
+if (false){ trace("");}
+}
+}
+
+---
+
+class Main
+{
+	static function main()
+	{
+		if (false)
+		{
+			trace("");
+		}
+	}
+}

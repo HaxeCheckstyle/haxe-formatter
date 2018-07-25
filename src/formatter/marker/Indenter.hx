@@ -1,7 +1,5 @@
 package formatter.marker;
 
-import formatter.codedata.CodeLine;
-import formatter.codedata.CodeLines;
 import formatter.config.IndentationConfig;
 
 class Indenter {
@@ -45,7 +43,6 @@ class Indenter {
 				}
 			default:
 		}
-
 		token = findEffectiveParent(token);
 		return calcFromCandidates(token);
 	}
@@ -56,11 +53,17 @@ class Indenter {
 				var parent:TokenTree = token.parent;
 				switch (parent.tok) {
 					case Kwd(KwdIf), Kwd(KwdElse):
-						return findEffectiveParent(token.parent);
+						return findEffectiveParent(parent);
 					case Kwd(KwdCatch):
-						return findEffectiveParent(token.parent);
-					case Kwd(KwdDo), Kwd(KwdWhile):
-						return findEffectiveParent(token.parent);
+						return findEffectiveParent(parent);
+					case Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor):
+						return findEffectiveParent(parent);
+					case Kwd(KwdFunction):
+						return findEffectiveParent(parent);
+					case Const(CIdent(_)), Kwd(KwdNew):
+						if (parent.parent.is(Kwd(KwdFunction))) {
+							return findEffectiveParent(parent.parent);
+						}
 					default:
 				}
 			case BrClose, BkClose, PClose:
@@ -112,13 +115,20 @@ class Indenter {
 						prevToken = currentToken;
 						continue;
 					}
+				case BrOpen:
+					switch (currentToken.tok) {
+						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction):
+							prevToken = currentToken;
+							continue;
+						default:
+					}
 				default:
 			}
 			if (parsedCode.tokenList.isSameLine(prevToken, currentToken)) {
 				prevToken = currentToken;
 				continue;
 			}
-			indentingTokens.push(prevToken);
+			indentingTokens.push(currentToken);
 			prevToken = currentToken;
 		}
 		return indentingTokens.length;

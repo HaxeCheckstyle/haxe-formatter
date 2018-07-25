@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		context.callDisplay(function() {
+			call();
+		}, function() {
+			call();
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		context.callDisplay(function() {
+			call();
+		}, function() {
+			call();
+		});
+	}
+}
