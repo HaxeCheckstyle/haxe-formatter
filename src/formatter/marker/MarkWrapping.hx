@@ -88,13 +88,13 @@ class MarkWrapping {
 		var atLength:Int = 0;
 		for (child in token.children) {
 			if (child.is(At)) {
-				atLength += calcLength(child, parsedCode);
+				atLength += parsedCode.tokenList.calcLength(child);
 				continue;
 			}
 			if (child.is(BkClose)) {
 				break;
 			}
-			var length:Int = calcLength(child, parsedCode);
+			var length:Int = parsedCode.tokenList.calcLength(child);
 			totalLength += length;
 			if (length > maxLength) {
 				maxLength = length;
@@ -144,7 +144,7 @@ class MarkWrapping {
 			if (child.is(BkClose)) {
 				continue;
 			}
-			var length:Int = calcLength(child, parsedCode) + 1;
+			var length:Int = parsedCode.tokenList.calcLength(child) + 1;
 			if (length + lineLength > config.maxLineLength) {
 				parsedCode.tokenList.lineEndBefore(child);
 				lineLength = length + indent;
@@ -155,20 +155,5 @@ class MarkWrapping {
 			}
 		}
 		parsedCode.tokenList.lineEndBefore(bkClose);
-	}
-
-	static function calcLength(token:TokenTree, parsedCode:ParsedCode):Int {
-		if (token == null) {
-			return 0;
-		}
-		var current:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
-		var length:Int = current.text.length;
-		if ((token.children == null) || (token.children.length <= 0)) {
-			return length;
-		}
-		for (child in token.children) {
-			length += calcLength(child, parsedCode);
-		}
-		return length;
 	}
 }

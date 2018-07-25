@@ -1,10 +1,11 @@
 package formatter.config;
 
 typedef LineEndConfig = {
-	@:default(After) @:optional var atType:AtLineEndPolicy;
-	@:default(None) @:optional var atVar:AtLineEndPolicy;
-	@:default(After) @:optional var atFunction:AtLineEndPolicy;
-	@:default(None) @:optional var atOther:AtLineEndPolicy;
+	@:default(After) @:optional var metadataType:AtLineEndPolicy;
+	@:default(None) @:optional var metadataVar:AtLineEndPolicy;
+	@:default(After) @:optional var metadataFunction:AtLineEndPolicy;
+	@:default(None) @:optional var metadataOther:AtLineEndPolicy;
+	@:default(40) @:optional var maxMetadataLength:Int;
 	@:default(After) @:optional var caseColon:CaseColonLineEndPolicy;
 	@:default(After) @:optional var sharp:SharpLineEndPolicy;
 	@:default(After) @:optional var leftCurly:LeftCurlyLineEndPolicy;

@@ -163,44 +163,67 @@ class MarkLineEnds {
 	static function markAt(parsedCode:ParsedCode, config:LineEndConfig) {
 		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], ALL);
 		for (token in atTokens) {
-			var atPolicy:AtLineEndPolicy = determineAtPolicy(token, config);
+			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token, config);
 			var lastChild:TokenTree = lastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
-			if (atPolicy == None) {
-				parsedCode.tokenList.whitespace(lastChild, After);
+			if (metadataPolicy == After) {
+				parsedCode.tokenList.lineEndAfter(lastChild);
 				continue;
 			}
-
-			if (atPolicy == AfterLast) {
-				var sibling:TokenTree = token.nextSibling;
-				if ((sibling != null) && (sibling.is(At))) {
-					parsedCode.tokenList.whitespace(lastChild, After);
+			if ((token.previousSibling != null) && (token.previousSibling.is(At))) {
+				// only look at first metadata
+				continue;
+			}
+			var totalLength:Int = parsedCode.tokenList.calcLength(token) + 1;
+			var next:TokenTree = token.nextSibling;
+			var metadata:Array<TokenTree> = [token];
+			while ((next != null) && (next.is(At))) {
+				totalLength += parsedCode.tokenList.calcLength(next) + 1;
+				metadata.push(next);
+				next = next.nextSibling;
+			}
+			if (totalLength > config.maxMetadataLength) {
+				metadataPolicy = After;
+			}
+			for (meta in metadata) {
+				lastChild = lastToken(meta);
+				if (lastChild == null) {
 					continue;
 				}
+				switch (metadataPolicy) {
+					case None:
+						parsedCode.tokenList.whitespace(lastChild, After);
+					case After:
+						parsedCode.tokenList.lineEndAfter(lastChild);
+					case AfterLast:
+						parsedCode.tokenList.whitespace(lastChild, After);
+				}
 			}
-			parsedCode.tokenList.lineEndAfter(lastChild);
+			if (metadataPolicy == AfterLast) {
+				parsedCode.tokenList.lineEndAfter(lastChild);
+			}
 		}
 	}
 
-	static function determineAtPolicy(token:TokenTree, config:LineEndConfig):AtLineEndPolicy {
+	static function determineMetadataPolicy(token:TokenTree, config:LineEndConfig):AtLineEndPolicy {
 		if (token == null) {
-			return config.atOther;
+			return config.metadataOther;
 		}
 		var parent:TokenTree = token.parent.parent;
 		if ((parent == null) || (parent.tok == null)) {
-			return config.atType;
+			return config.metadataType;
 		}
 		switch (parent.tok) {
 			case Kwd(KwdVar):
-				return config.atVar;
+				return config.metadataVar;
 			case Kwd(KwdFunction):
-				return config.atFunction;
+				return config.metadataFunction;
 			case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
-				return config.atType;
+				return config.metadataType;
 			default:
-				return config.atOther;
+				return config.metadataOther;
 		}
 	}
 

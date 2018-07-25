@@ -1,0 +1,16 @@
+{}
+
+---
+
+class Main {
+	@:allow(haxeLanguageServer.server.HaxeServer) var displayServerConfig:DisplayServerConfig;
+	@:optional var foo:Int;
+}
+
+---
+
+class Main {
+	@:allow(haxeLanguageServer.server.HaxeServer)
+	var displayServerConfig:DisplayServerConfig;
+	@:optional var foo:Int;
+}

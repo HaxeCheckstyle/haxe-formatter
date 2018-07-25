@@ -277,6 +277,27 @@ class TokenList {
 		return true;
 	}
 
+	public function calcLength(token:TokenTree):Int {
+		if (token == null) {
+			return 0;
+		}
+		var current:TokenInfo = tokens[token.index];
+		if (current == null) {
+			return 0;
+		}
+		if (current.text == null) {
+			current.text = '${current.token}';
+		}
+		var length:Int = current.text.length;
+		if ((token.children == null) || (token.children.length <= 0)) {
+			return length;
+		}
+		for (child in token.children) {
+			length += calcLength(child);
+		}
+		return length;
+	}
+
 	#if debugLog
 	function logAction(callerPos:PosInfos, token:TokenTree, what:String, ?pos:PosInfos) {
 		var text:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName} [${pos.methodName} ($what)] on `${token}` (${token.pos})';
