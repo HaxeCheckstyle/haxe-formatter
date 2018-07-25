@@ -172,7 +172,16 @@ class MarkWhitespace {
 					}
 					policy = WhitespacePolicy.remove(policy, After);
 				case POpen, PClose, BrOpen, BkOpen, BkClose:
-					policy = WhitespacePolicy.remove(policy, After);
+					if (token.is(PClose)) {
+						switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
+							case CONDITION:
+								policy = WhitespacePolicy.add(policy, After);
+							default:
+								policy = WhitespacePolicy.remove(policy, After);
+						}
+					} else {
+						policy = WhitespacePolicy.remove(policy, After);
+					}
 				default:
 			}
 		}

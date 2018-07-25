@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		trace(if (false) [] else null);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		trace(if (false) [] else null);
+	}
+}
