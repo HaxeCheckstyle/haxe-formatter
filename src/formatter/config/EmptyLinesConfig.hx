@@ -15,6 +15,16 @@ typedef EmptyLinesConfig = {
 	@:default(auto) @:optional var externClassEmptyLines:InterfaceFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var abstractEmptyLines:ClassFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var interfaceEmptyLines:InterfaceFieldsEmtpyLinesConfig;
+	@:default(auto) @:optional var conditionalsEmptyLines:ConditionalEmtpyLinesConfig;
+}
+
+typedef ConditionalEmtpyLinesConfig = {
+	@:default(0) @:optional var afterIf:Int;
+	@:default(0) @:optional var beforeElse:Int;
+	@:default(0) @:optional var afterElse:Int;
+	@:default(0) @:optional var beforeEnd:Int;
+	@:default(0) @:optional var beforeError:Int;
+	@:default(0) @:optional var afterError:Int;
 }
 
 typedef ClassFieldsEmtpyLinesConfig = {

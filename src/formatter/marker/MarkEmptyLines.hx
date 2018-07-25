@@ -21,6 +21,7 @@ class MarkEmptyLines {
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
 		markInterfaces(parsedCode, config);
+		markSharp(parsedCode, config.conditionalsEmptyLines);
 		if (config.beforeRightCurly == Remove) {
 			markRightCurly(parsedCode);
 		}
@@ -447,6 +448,39 @@ class MarkEmptyLines {
 			switch (next.token.tok) {
 				case BrClose:
 					parsedCode.tokenList.emptyLinesAfterSubTree(ret, 0);
+				default:
+			}
+		}
+	}
+
+	static function markSharp(parsedCode:ParsedCode, config:ConditionalEmtpyLinesConfig) {
+		var sharps:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Sharp(_):
+					FOUND_GO_DEEPER;
+				default:
+					GO_DEEPER;
+			}
+		});
+		for (sharp in sharps) {
+			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(sharp);
+			if ((prev != null) && (prev.whitespaceAfter != Newline)) {
+				continue;
+			}
+			switch (sharp.tok) {
+				case Sharp(MarkLineEnds.SHARP_IF):
+					parsedCode.tokenList.emptyLinesAfterSubTree(sharp.getFirstChild(), config.afterIf);
+				case Sharp(MarkLineEnds.SHARP_ELSE_IF):
+					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeElse);
+					parsedCode.tokenList.emptyLinesAfterSubTree(sharp.getFirstChild(), config.afterIf);
+				case Sharp(MarkLineEnds.SHARP_ELSE):
+					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeElse);
+					parsedCode.tokenList.emptyLinesAfter(sharp, config.afterElse);
+				case Sharp(MarkLineEnds.SHARP_END):
+					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeEnd);
+				case Sharp(MarkLineEnds.SHARP_ERROR):
+					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeError);
+					parsedCode.tokenList.emptyLinesAfterSubTree(sharp, config.afterError);
 				default:
 			}
 		}

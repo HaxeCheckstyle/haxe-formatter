@@ -43,11 +43,11 @@ class Formatter {
 			indenter.setParsedCode(parsedCode);
 
 			MarkTokenText.markTokenText(parsedCode, indenter, config.indentation);
-			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
 			MarkSameLine.markSameLine(parsedCode, config.sameLine, config.whitespace);
 			MarkWrapping.markWrapping(parsedCode, indenter, config.wrapping);
+			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
 
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			lines.applyWrapping(config.wrapping);

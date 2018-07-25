@@ -7,6 +7,7 @@ class MarkLineEnds {
 	public static inline var SHARP_ELSE_IF:String = "elseif";
 	public static inline var SHARP_ELSE:String = "else";
 	public static inline var SHARP_END:String = "end";
+	public static inline var SHARP_ERROR:String = "error";
 
 	public static function markLineEnds(parsedCode:ParsedCode, config:LineEndConfig) {
 		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], ALL);
@@ -255,7 +256,17 @@ class MarkLineEnds {
 						continue;
 					}
 					if (isInlineSharp(token, parsedCode)) {
-						parsedCode.tokenList.noLineEndBefore(token);
+						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+						if (prev == null) {
+							parsedCode.tokenList.noLineEndBefore(token);
+						} else {
+							switch (prev.token.tok) {
+								case POpen, BrOpen, BkOpen:
+									parsedCode.tokenList.whitespace(token, NoneBefore);
+								default:
+									parsedCode.tokenList.noLineEndBefore(token);
+							}
+						}
 						continue;
 					}
 					parsedCode.tokenList.lineEndAfter(lastChild);

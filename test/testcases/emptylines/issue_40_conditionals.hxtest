@@ -1,0 +1,45 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		if (false) {
+
+			trace(#if php "" #elseif js " " #else "-" #end);
+
+		}
+
+		#if false
+
+		trace("");
+
+		#elseif (php || js)
+
+		trace("-");
+
+		#else
+
+		trace("+");
+
+		#end
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (false) {
+			trace(#if php "" #elseif js " " #else "-" #end);
+		}
+
+		#if false
+		trace("");
+		#elseif (php || js)
+		trace("-");
+		#else
+		trace("+");
+		#end
+	}
+}
