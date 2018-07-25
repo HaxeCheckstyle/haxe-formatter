@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+    /**
+        Description
+         - point A
+         - point B
+    **/
+    static public function main() {}
+}
+
+---
+
+class Main {
+	/**
+		Description
+		 - point A
+		 - point B
+	**/
+	static public function main() {}
+}

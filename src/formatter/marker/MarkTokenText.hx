@@ -1,7 +1,9 @@
 package formatter.marker;
 
+import formatter.config.IndentationConfig;
+
 class MarkTokenText {
-	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter) {
+	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter, config:IndentationConfig) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Const(CString(text)):
@@ -9,7 +11,7 @@ class MarkTokenText {
 				case Const(CRegexp(_, _)):
 					parsedCode.tokenList.tokenText(token, printEregToken(token, parsedCode));
 				case Comment(text):
-					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter));
+					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter, config));
 				case CommentLine(text):
 					parsedCode.tokenList.tokenText(token, printCommentLine(text));
 				default:
@@ -27,7 +29,7 @@ class MarkTokenText {
 		return parsedCode.getString(token.pos.min, token.pos.max);
 	}
 
-	public static function printComment(text:String, token:TokenTree, parsedCode:ParsedCode, indenter:Indenter):String {
+	public static function printComment(text:String, token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:IndentationConfig):String {
 		var lines:Array<String> = text.split(parsedCode.lineSeparator);
 		var indent:Int = indenter.calcIndent(token);
 
@@ -46,6 +48,9 @@ class MarkTokenText {
 			}
 			var lineIndent:Int = indent;
 			var lastLine:Bool = index == lines.length - 1;
+			if (!lastLine) {
+				line = convertLeadingIndent(line, config);
+			}
 			var startsWithStar:Bool = ~/^\*/.match(line);
 			if (!lastLine && line.length <= 0) {
 				lineIndent = 0;
@@ -56,6 +61,24 @@ class MarkTokenText {
 			text += indenter.makeIndentString(lineIndent) + line;
 		}
 		return text + "*/";
+	}
+
+	static function convertLeadingIndent(line:String, config:IndentationConfig):String {
+		var spaceIndent:String = " ".lpad(" ", config.tabWidth);
+		var oneIndent:String = config.character;
+		var whitespaceReg:EReg = ~/^\s+/;
+		if (!whitespaceReg.match(line)) {
+			return line;
+		}
+		var match:String = whitespaceReg.matched(0);
+		if (config.character == "\t") {
+			var newPrefix:String = match.replace(spaceIndent, oneIndent);
+			line = newPrefix + line.substr(match.length);
+		} else {
+			var newPrefix:String = match.replace("\t", oneIndent);
+			line = newPrefix + line.substr(match.length);
+		}
+		return line;
 	}
 
 	public static function printCommentLine(text:String):String {
