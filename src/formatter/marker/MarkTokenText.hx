@@ -10,12 +10,21 @@ class MarkTokenText {
 					parsedCode.tokenList.tokenText(token, printStringToken(token, parsedCode));
 				case Const(CRegexp(_, _)):
 					parsedCode.tokenList.tokenText(token, printEregToken(token, parsedCode));
-				case Comment(text):
-					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter, config));
 				case CommentLine(text):
 					parsedCode.tokenList.tokenText(token, printCommentLine(text));
 				default:
 					parsedCode.tokenList.tokenText(token, token.toString());
+			}
+			return GO_DEEPER;
+		});
+	}
+
+	public static function finalRun(parsedCode:ParsedCode, indenter:Indenter, config:IndentationConfig) {
+		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Comment(text):
+					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter, config));
+				default:
 			}
 			return GO_DEEPER;
 		});

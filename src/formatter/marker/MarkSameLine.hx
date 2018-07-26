@@ -21,7 +21,7 @@ class MarkSameLine {
 						applySameLinePolicy(token, parsedCode, configSameLine.doWhileBody);
 						return GO_DEEPER;
 					}
-					markBodyAfterPOpen(token, parsedCode, configSameLine.whileBody, false);
+					markWhile(token, parsedCode, configSameLine);
 				case Kwd(KwdDo):
 					markBody(token, parsedCode, configSameLine.doWhileBody, false);
 				case Kwd(KwdTry):
@@ -167,6 +167,25 @@ class MarkSameLine {
 			default:
 		}
 		markBodyAfterPOpen(token, parsedCode, configSameLine.forBody, false);
+	}
+
+	static function markWhile(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		if (token == null) {
+			return;
+		}
+		var parent:TokenTree = token.parent;
+		if ((parent == null) || (parent.tok == null)) {
+			return;
+		}
+		switch (parent.tok) {
+			case BkOpen:
+				if (configSameLine.comprehensionFor == Same) {
+					markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
+					return;
+				}
+			default:
+		}
+		markBodyAfterPOpen(token, parsedCode, configSameLine.whileBody, false);
 	}
 
 	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy, includeBrOpen:Bool) {
@@ -469,6 +488,7 @@ class MarkSameLine {
 				case At:
 				case CommentLine(_):
 					return;
+				case Binop(OpLt):
 				default:
 					applySameLinePolicy(child, parsedCode, configSameLine.functionBody);
 					return;

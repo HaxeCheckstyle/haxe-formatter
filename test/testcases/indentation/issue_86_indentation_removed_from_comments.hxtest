@@ -1,0 +1,34 @@
+{}
+
+---
+
+typedef ImplementationClientCapabilities = {
+    /**
+        Capabilities specific to the `textDocument/implementation`
+    **/
+    var ?implementation:{
+        /**
+            Whether implementation supports dynamic registration. If this is set to `true`
+            the client supports the new `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
+            return value for the corresponding server capability as well.
+        **/
+        var ?dynamicRegistration:Bool;
+    };
+}
+
+
+---
+
+typedef ImplementationClientCapabilities = {
+	/**
+		Capabilities specific to the `textDocument/implementation`
+	**/
+	var ?implementation:{
+		/**
+			Whether implementation supports dynamic registration. If this is set to `true`
+			the client supports the new `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
+			return value for the corresponding server capability as well.
+		**/
+		var ?dynamicRegistration:Bool;
+	};
+}

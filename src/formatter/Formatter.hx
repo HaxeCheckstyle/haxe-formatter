@@ -49,6 +49,8 @@ class Formatter {
 			MarkWrapping.markWrapping(parsedCode, indenter, config.wrapping);
 			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
 
+			MarkTokenText.finalRun(parsedCode, indenter, config.indentation);
+
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			lines.applyWrapping(config.wrapping);
 			MarkEmptyLines.finalRun(lines, config.emptyLines);

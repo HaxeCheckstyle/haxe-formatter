@@ -1,0 +1,21 @@
+{
+	"sameLine": {
+		"functionBody": "next"
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var b = [while (i < 10) i++];
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var b = [while (i < 10) i++];
+	}
+}

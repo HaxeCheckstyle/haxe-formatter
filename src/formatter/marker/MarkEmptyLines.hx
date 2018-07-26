@@ -61,7 +61,9 @@ class MarkEmptyLines {
 		var lastImport:TokenTree = imports[imports.length - 1];
 		if (lastImport.nextSibling != null) {
 			switch (lastImport.nextSibling.tok) {
-				case Sharp(MarkLineEnds.SHARP_END), Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
+				case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
+				case Sharp(MarkLineEnds.SHARP_END):
+					parsedCode.tokenList.emptyLinesAfterSubTree(lastImport.nextSibling, config.afterImportsUsing);
 				default:
 					parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.afterImportsUsing);
 			}
@@ -70,6 +72,7 @@ class MarkEmptyLines {
 		var isImport:Bool = true;
 		for (token in imports) {
 			var newIsImport:Bool;
+			var effectiveToken:TokenTree = token;
 			switch (token.tok) {
 				case Kwd(KwdImport):
 					newIsImport = true;
@@ -78,8 +81,15 @@ class MarkEmptyLines {
 				default:
 					continue;
 			}
+			if (token.nextSibling != null) {
+				switch (token.nextSibling.tok) {
+					case Sharp(MarkLineEnds.SHARP_END):
+						effectiveToken = token.nextSibling;
+					default:
+				}
+			}
 			if (lastImport == null) {
-				lastImport = token;
+				lastImport = effectiveToken;
 				isImport = newIsImport;
 				continue;
 			}
@@ -87,7 +97,7 @@ class MarkEmptyLines {
 				parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.beforeUsing);
 			}
 			isImport = newIsImport;
-			lastImport = token;
+			lastImport = effectiveToken;
 		}
 	}
 

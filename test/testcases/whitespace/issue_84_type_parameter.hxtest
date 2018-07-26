@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	public static function equals<T>(a1:Array<T>, a2:Array<T>):Bool {}
+}
+
+---
+
+class Main {
+	public static function equals<T>(a1:Array<T>, a2:Array<T>):Bool {}
+}

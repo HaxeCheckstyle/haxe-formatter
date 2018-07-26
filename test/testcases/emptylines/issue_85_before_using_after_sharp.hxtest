@@ -1,0 +1,17 @@
+{}
+
+---
+
+#if macro
+import StringTools;
+#end
+
+using StringTools;
+
+---
+
+#if macro
+import StringTools;
+#end
+
+using StringTools;

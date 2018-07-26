@@ -1,0 +1,17 @@
+{}
+
+---
+
+#if macro
+import StringTools;
+#end
+
+class Main{}
+
+---
+
+#if macro
+import StringTools;
+#end
+
+class Main {}
