@@ -64,6 +64,11 @@ class Indenter {
 						if (parent.parent.is(Kwd(KwdFunction))) {
 							return findEffectiveParent(parent.parent);
 						}
+					case Binop(OpAssign):
+						var access:TokenTreeAccessHelper = parent.access().parent().parent().is(Kwd(KwdTypedef));
+						if (access.exists()) {
+							return access.token;
+						}
 					default:
 				}
 			case BrClose, BkClose, PClose:
@@ -143,6 +148,11 @@ class Indenter {
 						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction):
 							prevToken = currentToken;
 							continue;
+						case Binop(OpAssign):
+							if (currentToken.access().parent().parent().is(Kwd(KwdTypedef)).exists()) {
+								prevToken = currentToken;
+								continue;
+							}
 						default:
 					}
 				default:

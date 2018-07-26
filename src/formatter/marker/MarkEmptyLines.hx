@@ -455,6 +455,9 @@ class MarkEmptyLines {
 				continue;
 			}
 			var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+			if (next == null) {
+				continue;
+			}
 			switch (next.token.tok) {
 				case BrClose:
 					parsedCode.tokenList.emptyLinesAfterSubTree(ret, 0);

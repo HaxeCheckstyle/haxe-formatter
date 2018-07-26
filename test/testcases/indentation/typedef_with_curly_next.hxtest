@@ -1,0 +1,25 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+    },
+	"sameLine": {
+		"tryBody": "next",
+		"catchBody": "next",
+		"tryCatch": "next"
+    }
+}
+
+---
+
+typedef Test = {
+	var name:String;
+	var id:Int64;
+}
+
+---
+
+typedef Test =
+{
+	var name:String;
+	var id:Int64;
+}
