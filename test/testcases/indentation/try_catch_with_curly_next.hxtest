@@ -1,0 +1,43 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+    },
+	"sameLine": {
+		"tryBody": "next",
+		"catchBody": "next",
+		"tryCatch": "next"
+    }
+}
+
+---
+
+@:enum
+class Main {
+	public function recycle()
+	{
+		try {
+			doSomethingDangerous();
+		}
+		catch (e:Any) {
+			reportOnError(e);
+		}
+	}
+}
+
+---
+
+@:enum
+class Main
+{
+	public function recycle()
+	{
+		try
+		{
+			doSomethingDangerous();
+		}
+		catch (e:Any)
+		{
+			reportOnError(e);
+		}
+	}
+}

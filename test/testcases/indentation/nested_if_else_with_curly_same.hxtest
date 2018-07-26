@@ -1,0 +1,64 @@
+{}
+
+---
+
+class Main {
+	public function recycle(?ObjectClass:Class<T>, ?ObjectFactory:Void->T, Force:Bool = false, Revive:Bool = true):T
+	{
+		var basic:FlxBasic = null;
+
+		// rotated recycling
+		if (maxSize > 0)
+		{
+			// create new instance
+			if (length < maxSize)
+			{
+				return recycleCreateObject(ObjectClass, ObjectFactory);
+			}
+			// get the next member if at capacity
+		else
+		{
+				if (Revive)
+					basic.revive();
+		}
+		}
+		// grow-style recycling - grab a basic with exists == false or create a new one
+	else
+	{
+			if (basic != null)
+			{
+				if (Revive)
+					basic.revive();
+			}
+	}
+	}
+
+}
+
+---
+
+class Main {
+	public function recycle(?ObjectClass:Class<T>, ?ObjectFactory:Void->T, Force:Bool = false, Revive:Bool = true):T {
+		var basic:FlxBasic = null;
+
+		// rotated recycling
+		if (maxSize > 0) {
+			// create new instance
+			if (length < maxSize) {
+				return recycleCreateObject(ObjectClass, ObjectFactory);
+			}
+			// get the next member if at capacity
+			else {
+				if (Revive)
+					basic.revive();
+			}
+		}
+		// grow-style recycling - grab a basic with exists == false or create a new one
+		else {
+			if (basic != null) {
+				if (Revive)
+					basic.revive();
+			}
+		}
+	}
+}

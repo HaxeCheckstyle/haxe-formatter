@@ -54,7 +54,7 @@ class Indenter {
 				switch (parent.tok) {
 					case Kwd(KwdIf), Kwd(KwdElse):
 						return findEffectiveParent(parent);
-					case Kwd(KwdCatch):
+					case Kwd(KwdTry), Kwd(KwdCatch):
 						return findEffectiveParent(parent);
 					case Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor):
 						return findEffectiveParent(parent);
@@ -87,6 +87,24 @@ class Indenter {
 				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
 					return findEffectiveParent(token.parent);
 				}
+			case Kwd(KwdFunction):
+				var parent:TokenTree = token.parent;
+				switch (parent.tok) {
+					case POpen:
+						return findEffectiveParent(token.parent);
+					default:
+				}
+			case CommentLine(_):
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+				if (next == null) {
+					return token;
+				}
+				switch (next.token.tok) {
+					case Kwd(KwdElse):
+						return findEffectiveParent(next.token);
+					default:
+						return token;
+				}
 			default:
 		}
 		return token;
@@ -112,6 +130,11 @@ class Indenter {
 					}
 				case Kwd(KwdCatch):
 					if (currentToken.is(Kwd(KwdTry))) {
+						prevToken = currentToken;
+						continue;
+					}
+				case Kwd(KwdFunction):
+					if (currentToken.is(POpen)) {
 						prevToken = currentToken;
 						continue;
 					}

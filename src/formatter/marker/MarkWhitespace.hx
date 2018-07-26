@@ -269,6 +269,9 @@ class MarkWhitespace {
 			return;
 		}
 		switch (parent.tok) {
+			case At:
+				parsedCode.tokenList.whitespace(token, None);
+				return;
 			case Const(CIdent(_)):
 				parent = parent.parent;
 				if ((parent != null) && (parent.is(BrOpen))) {
