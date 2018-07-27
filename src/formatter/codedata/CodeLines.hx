@@ -8,6 +8,7 @@ class CodeLines {
 	static inline var formatterOn:String = " @formatter:on";
 
 	var indenter:Indenter;
+
 	public var lines(default, null):Array<CodeLine>;
 
 	public function new(parsedCode:ParsedCode, indenter:Indenter) {

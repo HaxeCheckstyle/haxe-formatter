@@ -1,0 +1,10 @@
+{}
+
+---
+
+typedef RequestHandler<P,R,E> = P->CancellationToken->(R->Void)->(ResponseError<E>->Void)->Void;
+
+
+---
+
+typedef RequestHandler<P, R, E> = P->CancellationToken->(R->Void)->(ResponseError<E>->Void)->Void;

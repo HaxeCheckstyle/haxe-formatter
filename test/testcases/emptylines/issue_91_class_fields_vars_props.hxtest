@@ -1,0 +1,15 @@
+{}
+
+---
+
+private class CancellationTokenImpl {
+    public var canceled(default,null):Bool;
+    public var callback:Void->Void;
+}
+
+---
+
+private class CancellationTokenImpl {
+	public var canceled(default, null):Bool;
+	public var callback:Void->Void;
+}

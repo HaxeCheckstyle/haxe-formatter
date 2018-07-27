@@ -55,7 +55,7 @@ class MarkSameLine {
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
 				return true;
-			case Binop(OpAssign):
+			case Binop(_):
 				return true;
 			case POpen:
 				var pos:Position = parent.getPos();

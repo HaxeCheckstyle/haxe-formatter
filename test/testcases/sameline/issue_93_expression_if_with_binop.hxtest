@@ -1,0 +1,17 @@
+{}
+
+---
+
+ class Main {
+	public static function main() {
+		Sys.println(" \n" + if (hasError) "Failed!" else "Success.");
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		Sys.println(" \n" + if (hasError) "Failed!" else "Success.");
+	}
+}
