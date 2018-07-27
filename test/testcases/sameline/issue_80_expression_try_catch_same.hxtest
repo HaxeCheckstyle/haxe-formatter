@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var xml = try Xml.parse(data).firstElement() catch (_:Any) null;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var xml = try Xml.parse(data).firstElement() catch (_:Any) null;
+	}
+}

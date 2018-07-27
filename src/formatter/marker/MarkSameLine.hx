@@ -25,10 +25,9 @@ class MarkSameLine {
 				case Kwd(KwdDo):
 					markBody(token, parsedCode, configSameLine.doWhileBody, false);
 				case Kwd(KwdTry):
-					markBody(token, parsedCode, configSameLine.tryBody, false);
+					markTry(token, parsedCode, configSameLine);
 				case Kwd(KwdCatch):
-					markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody, false);
-					applySameLinePolicyChained(token, parsedCode, configSameLine.tryBody, configSameLine.tryCatch);
+					markCatch(token, parsedCode, configSameLine);
 				case Kwd(KwdCase):
 					markCase(token, parsedCode, configSameLine);
 				case Kwd(KwdDefault):
@@ -41,11 +40,8 @@ class MarkSameLine {
 		});
 	}
 
-	static function shouldIfBeSameLine(token:TokenTree):Bool {
+	static function isEpression(token:TokenTree):Bool {
 		if (token == null) {
-			return false;
-		}
-		if (!token.is(Kwd(KwdIf))) {
 			return false;
 		}
 		var parent:TokenTree = token.parent;
@@ -90,6 +86,16 @@ class MarkSameLine {
 		return false;
 	}
 
+	static function shouldIfBeSameLine(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		if (!token.is(Kwd(KwdIf))) {
+			return false;
+		}
+		return isEpression(token);
+	}
+
 	static function shouldElseBeSameLine(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
@@ -98,6 +104,26 @@ class MarkSameLine {
 			return false;
 		}
 		return shouldIfBeSameLine(token.parent);
+	}
+
+	static function shouldTryBeSameLine(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		if (!token.is(Kwd(KwdTry))) {
+			return false;
+		}
+		return isEpression(token);
+	}
+
+	static function shouldCatchBeSameLine(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		if (!token.is(Kwd(KwdCatch))) {
+			return false;
+		}
+		return shouldTryBeSameLine(token.parent);
 	}
 
 	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
@@ -128,6 +154,23 @@ class MarkSameLine {
 
 		markBody(token, parsedCode, configSameLine.elseBody, false);
 		applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+	}
+
+	static function markTry(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		if (shouldTryBeSameLine(token) && configSameLine.expressionTry == Same) {
+			markBody(token, parsedCode, Same, false);
+			return;
+		}
+		markBody(token, parsedCode, configSameLine.tryBody, false);
+	}
+
+	static function markCatch(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		if (shouldCatchBeSameLine(token) && configSameLine.expressionTry == Same) {
+			markBodyAfterPOpen(token, parsedCode, Same, false);
+			return;
+		}
+		markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody, false);
+		applySameLinePolicyChained(token, parsedCode, configSameLine.tryBody, configSameLine.tryCatch);
 	}
 
 	static function markCase(token:TokenTree, parsedCode:ParsedCode, config:SameLineConfig) {
