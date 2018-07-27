@@ -18,7 +18,8 @@ class Main {
 
 class Main {
 	public static function main() {
-		[1, 2, 3].map(function() trace(i));
+		[1, 2, 3].map(function()
+			trace(i));
 	}
 
 	public static function main2() [1, 2, 3].map(function()
