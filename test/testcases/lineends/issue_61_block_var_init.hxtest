@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {
+			var bar = "foo";
+			bar;
+		}
+		trace(foo);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {
+			var bar = "foo";
+			bar;
+		}
+		trace(foo);
+	}
+}

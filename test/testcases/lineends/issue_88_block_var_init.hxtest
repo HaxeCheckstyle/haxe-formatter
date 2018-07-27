@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var variableWithBlockInit:Int = {
+			function foo():Int return 0;
+			var bar = foo();
+			bar;
+		};
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var variableWithBlockInit:Int = {
+			function foo():Int return 0;
+			var bar = foo();
+			bar;
+		};
+	}
+}

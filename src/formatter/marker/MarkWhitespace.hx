@@ -272,7 +272,7 @@ class MarkWhitespace {
 			case At:
 				parsedCode.tokenList.whitespace(token, None);
 				return;
-			case Const(CIdent(_)):
+			case Const(CIdent(_)), Const(CString(_)):
 				parent = parent.parent;
 				if ((parent != null) && (parent.is(BrOpen))) {
 					var brOpenType:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
