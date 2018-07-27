@@ -893,6 +893,14 @@
                     ],
                     "propertyOrder": 15
                 },
+                "expressionTry": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 16
+                },
                 "anonObjects": {
                     "type": "string",
                     "enum": [
@@ -924,7 +932,7 @@
                 },
                 "maxObjectFields": {
                     "type": "integer",
-                    "propertyOrder": 17
+                    "propertyOrder": 19
                 },
                 "functionBody": {
                     "type": "string",
@@ -932,7 +940,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 16
+                    "propertyOrder": 17
                 },
                 "expressionIf": {
                     "type": "string",
@@ -968,7 +976,7 @@
                 },
                 "maxAnonTypeFields": {
                     "type": "integer",
-                    "propertyOrder": 18
+                    "propertyOrder": 20
                 },
                 "tryCatch": {
                     "type": "string",
@@ -985,6 +993,14 @@
                         "next"
                     ],
                     "propertyOrder": 9
+                },
+                "anonFunctionBody": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 18
                 },
                 "forBody": {
                     "type": "string",

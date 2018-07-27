@@ -18,12 +18,11 @@ class MarkSameLine {
 					markFor(token, parsedCode, configSameLine);
 				case Kwd(KwdWhile):
 					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
-						applySameLinePolicy(token, parsedCode, configSameLine.doWhileBody);
 						return GO_DEEPER;
 					}
 					markWhile(token, parsedCode, configSameLine);
 				case Kwd(KwdDo):
-					markBody(token, parsedCode, configSameLine.doWhileBody, false);
+					markDoWhile(token, parsedCode, configSameLine);
 				case Kwd(KwdTry):
 					markTry(token, parsedCode, configSameLine);
 				case Kwd(KwdCatch):
@@ -554,5 +553,14 @@ class MarkSameLine {
 			return;
 		}
 		applySameLinePolicy(body, parsedCode, policy);
+	}
+
+	static function markDoWhile(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		markBody(token, parsedCode, configSameLine.doWhileBody, false);
+		var whileTok:TokenTree = token.access().firstOf(Kwd(KwdWhile)).token;
+		if (whileTok == null) {
+			return;
+		}
+		applySameLinePolicy(whileTok, parsedCode, configSameLine.doWhile);
 	}
 }

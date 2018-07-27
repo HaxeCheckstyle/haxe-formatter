@@ -15,6 +15,7 @@ typedef SameLineConfig = {
 	@:default(Same) @:optional var comprehensionFor:SameLinePolicy;
 	@:default(Next) @:optional var whileBody:SameLinePolicy;
 	@:default(Next) @:optional var doWhileBody:SameLinePolicy;
+	@:default(Same) @:optional var doWhile:SameLinePolicy;
 	@:default(Next) @:optional var tryBody:SameLinePolicy;
 	@:default(Next) @:optional var catchBody:SameLinePolicy;
 	@:default(Same) @:optional var tryCatch:SameLinePolicy;

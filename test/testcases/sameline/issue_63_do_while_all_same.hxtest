@@ -1,0 +1,28 @@
+{
+	"sameLine": {
+		"doWhileBody": "same",
+		"doWhile": "same"
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		do trace(""); while (true);
+		do {
+			trace("");
+		} while (true);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		do trace(""); while (true);
+		do {
+			trace("");
+		} while (true);
+	}
+}
