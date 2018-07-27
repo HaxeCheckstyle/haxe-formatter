@@ -239,9 +239,10 @@ class MarkEmptyLines {
 
 	static function markExternClass(c:TokenTree, parsedCode:ParsedCode, config:InterfaceFieldsEmtpyLinesConfig) {
 		var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
-		if (block != null) {
-			parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
+		if (block == null) {
+			return;
 		}
+		parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
 		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
 		var fields:Array<TokenTree> = block.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
 

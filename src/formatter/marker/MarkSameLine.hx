@@ -337,6 +337,9 @@ class MarkSameLine {
 				return;
 			}
 			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+			if (next == null) {
+				return;
+			}
 			switch (next.token.tok) {
 				case Binop(OpGt):
 					parsedCode.tokenList.whitespace(brClose, NoneAfter);

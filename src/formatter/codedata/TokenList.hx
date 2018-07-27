@@ -20,6 +20,9 @@ class TokenList {
 
 		for (child in token.children) {
 			var index:Int = child.index;
+			if ((index < 0) || (child.inserted)) {
+				continue;
+			}
 			if (child.index >= tokens.length) {
 				fill(child.index - tokens.length);
 			}
@@ -38,6 +41,9 @@ class TokenList {
 
 	public function getTokenAt(index:Int):TokenInfo {
 		if (tokens.length <= index) {
+			return null;
+		}
+		if (index < 0) {
 			return null;
 		}
 		return tokens[index];
@@ -80,6 +86,9 @@ class TokenList {
 	}
 
 	public function whitespace(token:TokenTree, where:WhitespacePolicy) {
+		if (token.index < 0) {
+			return;
+		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
@@ -129,6 +138,9 @@ class TokenList {
 	}
 
 	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {
+		if (token.index < 0) {
+			return;
+		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
@@ -151,6 +163,9 @@ class TokenList {
 	}
 
 	public function noLineEndAfter(token:TokenTree, ?pos:PosInfos) {
+		if (token.index < 0) {
+			return;
+		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
@@ -173,6 +188,9 @@ class TokenList {
 	}
 
 	public function emptyLinesAfter(token:TokenTree, count:Int, ?pos:PosInfos) {
+		if (token.index < 0) {
+			return;
+		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
@@ -210,6 +228,9 @@ class TokenList {
 	}
 
 	public function tokenText(token:TokenTree, text:String) {
+		if (token.index < 0) {
+			return;
+		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
@@ -218,6 +239,9 @@ class TokenList {
 	}
 
 	public function wrapAfter(token:TokenTree, wrap:Bool, ?pos:PosInfos) {
+		if (token.index < 0) {
+			return;
+		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
 			return;
@@ -260,6 +284,9 @@ class TokenList {
 		if (startIndex == endIndex) {
 			return true;
 		}
+		if ((startIndex < 0) || (endIndex < 0)) {
+			return false;
+		}
 
 		if (startIndex > endIndex) {
 			startIndex = second.index;
@@ -279,6 +306,9 @@ class TokenList {
 
 	public function calcLength(token:TokenTree):Int {
 		if (token == null) {
+			return 0;
+		}
+		if (token.index < 0) {
 			return 0;
 		}
 		var current:TokenInfo = tokens[token.index];
