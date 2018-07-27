@@ -1,0 +1,26 @@
+{
+	"sameLine": {
+		"functionBody": "same",
+		"anonFunctionBody": "next"
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		[1, 2, 3].map(function() trace(i));
+	}
+	public static function main2() [1, 2, 3].map(function() trace(i))
+}
+
+---
+
+class Main {
+	public static function main() {
+		[1, 2, 3].map(function() trace(i));
+	}
+
+	public static function main2() [1, 2, 3].map(function()
+		trace(i))
+}

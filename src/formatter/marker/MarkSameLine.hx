@@ -506,13 +506,18 @@ class MarkSameLine {
 		if (body == null) {
 			body = token.access().firstChild().is(Kwd(KwdNew)).token;
 		}
+		var policy:SameLinePolicy = configSameLine.functionBody;
 		if (body == null) {
 			body = token;
+			policy = configSameLine.anonFunctionBody;
 		}
 		if ((body == null) || (body.children == null)) {
 			return;
 		}
-		for (child in body.children) {
+		var index:Int = 0;
+		var foundPOpen:Bool = false;
+		while (index < body.children.length) {
+			var child:TokenTree = body.children[index++];
 			switch (child.tok) {
 				case DblDot:
 				#if (haxe_ver >= 4.0)
@@ -531,18 +536,23 @@ class MarkSameLine {
 				case Semicolon:
 					return;
 				case POpen:
+					if (foundPOpen) {
+						body = child;
+						break;
+					}
+					foundPOpen = true;
 				case At:
 				case CommentLine(_):
 					return;
 				case Binop(OpLt):
 				default:
-					applySameLinePolicy(child, parsedCode, configSameLine.functionBody);
-					return;
+					body = child;
+					break;
 			}
 		}
-	}
-
-	static inline function get_onMobile():Bool {
-		return #if foo true #else false #end;
+		if (body == null) {
+			return;
+		}
+		applySameLinePolicy(body, parsedCode, policy);
 	}
 }
