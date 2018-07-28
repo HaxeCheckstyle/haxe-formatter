@@ -22,6 +22,9 @@ class MarkEmptyLines {
 		markClassesAndAbstracts(parsedCode, config);
 		markInterfaces(parsedCode, config);
 		markSharp(parsedCode, config.conditionalsEmptyLines);
+		if (config.beforeDocCommentEmptyLines != Ignore) {
+			markComments(parsedCode, config);
+		}
 		if (config.beforeRightCurly == Remove) {
 			markRightCurly(parsedCode);
 		}
@@ -496,6 +499,44 @@ class MarkEmptyLines {
 					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeError);
 					parsedCode.tokenList.emptyLinesAfterSubTree(sharp, config.afterError);
 				default:
+			}
+		}
+	}
+
+	static function markComments(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var comments:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Comment(text):
+					if (text.startsWith("*")) FOUND_GO_DEEPER; else GO_DEEPER;
+				default:
+					GO_DEEPER;
+			}
+		});
+		for (comment in comments) {
+			if (comment.previousSibling == null) {
+				continue;
+			}
+			if (comment.nextSibling == null) {
+				continue;
+			}
+			switch (comment.nextSibling.tok) {
+				case Kwd(KwdVar):
+				case Kwd(KwdFunction):
+				case Kwd(KwdAbstract):
+				case Kwd(KwdClass):
+				case Kwd(KwdEnum):
+				case Kwd(KwdInterface):
+				case Kwd(KwdTypedef):
+				case Sharp(_):
+				default:
+					continue;
+			}
+			switch (config.beforeDocCommentEmptyLines) {
+				case Ignore:
+				case None:
+					parsedCode.tokenList.emptyLinesBefore(comment, 0);
+				case One:
+					parsedCode.tokenList.emptyLinesBefore(comment, 1);
 			}
 		}
 	}

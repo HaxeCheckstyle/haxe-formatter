@@ -328,6 +328,16 @@
                     "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
                     "propertyOrder": 10
                 },
+                "beforeDocCommentEmptyLines": {
+                    "description": "\"one\" adds one empty line above doc comments\n\t\t\"none\" removes all empty lines above doc comments\n\t\t\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+                    "type": "string",
+                    "enum": [
+                        "ignore",
+                        "none",
+                        "one"
+                    ],
+                    "propertyOrder": 15
+                },
                 "interfaceEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
                     "propertyOrder": 13

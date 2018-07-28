@@ -8,6 +8,7 @@ typedef FormatterConfig = {
 	@:default(auto) @:optional var sameLine:SameLineConfig;
 	@:default(auto) @:optional var whitespace:WhitespaceConfig;
 	@:default(auto) @:optional var wrapping:WrapConfig;
+
 	/**
 		regular expressions matching files to exclude from formatting
 	**/

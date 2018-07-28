@@ -16,6 +16,13 @@ typedef EmptyLinesConfig = {
 	@:default(auto) @:optional var abstractEmptyLines:ClassFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var interfaceEmptyLines:InterfaceFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var conditionalsEmptyLines:ConditionalEmtpyLinesConfig;
+
+	/**
+		"one" adds one empty line above doc comments
+		"none" removes all empty lines above doc comments
+		"ignore" respects empty lines set via "betweenVars", "betweenFunctions", etc.
+	**/
+	@:default(One) @:optional var beforeDocCommentEmptyLines:CommentEmptyLinesPolicy;
 }
 
 typedef ConditionalEmtpyLinesConfig = {
@@ -58,4 +65,11 @@ typedef InterfaceFieldsEmtpyLinesConfig = {
 abstract KeepEmptyLinesPolicy(String) {
 	var Keep = "keep";
 	var Remove = "remove";
+}
+
+@:enum
+abstract CommentEmptyLinesPolicy(String) {
+	var Ignore = "ignore";
+	var None = "none";
+	var One = "one";
 }

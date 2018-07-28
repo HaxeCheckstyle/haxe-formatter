@@ -405,6 +405,9 @@ class MarkSameLine {
 				case BrOpen:
 					parsedCode.tokenList.whitespace(brClose, After);
 					return;
+				case Kwd(_), Const(_):
+					parsedCode.tokenList.lineEndAfter(brClose);
+					return;
 				default:
 			}
 		}
@@ -455,6 +458,9 @@ class MarkSameLine {
 			switch (next.token.tok) {
 				case BrOpen:
 					parsedCode.tokenList.whitespace(brClose, After);
+					return;
+				case Kwd(_), Const(_):
+					parsedCode.tokenList.lineEndAfter(brClose);
 					return;
 				default:
 			}

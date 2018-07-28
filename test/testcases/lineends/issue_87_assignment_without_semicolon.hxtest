@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {
+
+		}
+		trace("");
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {}
+		trace("");
+	}
+}

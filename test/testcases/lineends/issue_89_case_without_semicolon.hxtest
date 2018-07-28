@@ -1,0 +1,32 @@
+{}
+
+---
+
+import haxe.ds.Option;
+
+class Main {
+	public static function main() {
+		var foo = switch (None) {
+			case Some(v): {i: 0}
+			case None: {i: 1}
+			default: {i: 2}
+		}
+	}
+}
+
+---
+
+import haxe.ds.Option;
+
+class Main {
+	public static function main() {
+		var foo = switch (None) {
+			case Some(v):
+				{i: 0}
+			case None:
+				{i: 1}
+			default:
+				{i: 2}
+		}
+	}
+}

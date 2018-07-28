@@ -6,6 +6,7 @@ typedef SameLineConfig = {
 	@:default(Same) @:optional var ifElse:SameLinePolicy;
 	@:default(Same) @:optional var elseIf:SameLinePolicy;
 	@:default(Same) @:optional var expressionIf:SameLinePolicy;
+
 	/**
 		will place if with one expression in a block in one line (requires "expressionIf" = "same")
 		var foo = if (bar) { ""; } else { ""; };
