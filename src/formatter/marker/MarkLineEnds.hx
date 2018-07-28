@@ -212,31 +212,46 @@ class MarkLineEnds {
 		if (token == null) {
 			return config.metadataOther;
 		}
-		var parent:TokenTree = token.parent.parent;
+		var parent:TokenTree = token.parent;
 		if ((parent == null) || (parent.tok == null)) {
 			return config.metadataType;
 		}
 		switch (parent.tok) {
-			case Kwd(KwdVar):
-				return config.metadataVar;
+			case Const(CIdent(_)), Kwd(KwdNew), Dollar(_):
+				switch (parent.parent.tok) {
+					case Kwd(KwdVar):
+						return config.metadataVar;
+					case Kwd(KwdFunction):
+						return config.metadataFunction;
+					case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
+						return config.metadataType;
+					default:
+						return config.metadataOther;
+				}
 			case Kwd(KwdFunction):
 				return config.metadataFunction;
-			case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
-				return config.metadataType;
+			case Sharp(_):
+				return After;
 			default:
 				return config.metadataOther;
 		}
 	}
 
 	static function markDblDot(parsedCode:ParsedCode, config:LineEndConfig) {
-		if (config.caseColon == None) {
-			return;
-		}
 		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
 		for (token in dblDotTokens) {
-			if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
+			if (!token.parent.is(Kwd(KwdCase)) && !token.parent.is(Kwd(KwdDefault))) {
+				continue;
+			}
+
+			if (config.caseColon != None) {
 				parsedCode.tokenList.lineEndAfter(token);
 			}
+			var lastChild:TokenTree = lastToken(token);
+			if (lastChild == null) {
+				continue;
+			}
+			parsedCode.tokenList.lineEndAfter(lastChild);
 		}
 	}
 

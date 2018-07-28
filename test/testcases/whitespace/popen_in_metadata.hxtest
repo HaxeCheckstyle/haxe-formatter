@@ -1,0 +1,25 @@
+{
+	"lineEnds": {
+		"metadataType": "after"
+	},
+	"whitespace": {
+		"openingParenPolicy": "before"
+	}
+
+}
+
+---
+
+@:allow(pack.Base)
+@test("foo")
+class Main {
+	function main(){}
+}
+
+---
+
+@:allow(pack.Base)
+@test("foo")
+class Main {
+	function main () {}
+}

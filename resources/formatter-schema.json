@@ -867,7 +867,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 10
+                    "propertyOrder": 11
                 },
                 "comprehensionFor": {
                     "type": "string",
@@ -891,7 +891,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 15
+                    "propertyOrder": 16
                 },
                 "expressionTry": {
                     "type": "string",
@@ -899,7 +899,15 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 16
+                    "propertyOrder": 17
+                },
+                "doWhile": {
+                    "type": "string",
+                    "enum": [
+                        "same",
+                        "next"
+                    ],
+                    "propertyOrder": 10
                 },
                 "anonObjects": {
                     "type": "string",
@@ -907,7 +915,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 13
+                    "propertyOrder": 14
                 },
                 "expressionIfWithBlocks": {
                     "description": "will place if with one expression in a block in one line (requires \"expressionIf\" = \"same\")\n\t\tvar foo = if (bar) { \"\"; } else { \"\"; };",
@@ -920,7 +928,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 11
+                    "propertyOrder": 12
                 },
                 "elseIf": {
                     "type": "string",
@@ -932,7 +940,7 @@
                 },
                 "maxObjectFields": {
                     "type": "integer",
-                    "propertyOrder": 19
+                    "propertyOrder": 20
                 },
                 "functionBody": {
                     "type": "string",
@@ -940,7 +948,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 17
+                    "propertyOrder": 18
                 },
                 "expressionIf": {
                     "type": "string",
@@ -964,7 +972,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 14
+                    "propertyOrder": 15
                 },
                 "elseBody": {
                     "type": "string",
@@ -976,7 +984,7 @@
                 },
                 "maxAnonTypeFields": {
                     "type": "integer",
-                    "propertyOrder": 20
+                    "propertyOrder": 21
                 },
                 "tryCatch": {
                     "type": "string",
@@ -984,7 +992,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 12
+                    "propertyOrder": 13
                 },
                 "doWhileBody": {
                     "type": "string",
@@ -1000,7 +1008,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 18
+                    "propertyOrder": 19
                 },
                 "forBody": {
                     "type": "string",

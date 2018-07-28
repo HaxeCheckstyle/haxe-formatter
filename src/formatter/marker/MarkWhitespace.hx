@@ -49,7 +49,7 @@ class MarkWhitespace {
 				case Kwd(_):
 					markKeyword(token, parsedCode, config);
 				case POpen:
-					successiveParenthesis(token, false, parsedCode, config.openingParenPolicy, config.compressSuccessiveParenthesis);
+					markPOpen(token, parsedCode, config);
 				case PClose:
 					successiveParenthesis(token, true, parsedCode, config.closingParenPolicy, config.compressSuccessiveParenthesis);
 				case BrOpen:
@@ -309,5 +309,24 @@ class MarkWhitespace {
 			case FUNCTION_TYPE_HAXE4:
 				parsedCode.tokenList.whitespace(token, config.functionTypeHaxe4Policy);
 		}
+	}
+
+	static function markPOpen(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var parent:TokenTree = token.parent;
+		var policy:WhitespacePolicy = config.openingParenPolicy;
+		while ((parent != null) && (parent.tok != null)) {
+			switch (parent.tok) {
+				case Const(CIdent(_)):
+				case Dot:
+				case DblDot:
+				case At:
+					policy = WhitespacePolicy.remove(policy, Before);
+					break;
+				default:
+					break;
+			}
+			parent = parent.parent;
+		}
+		successiveParenthesis(token, false, parsedCode, policy, config.compressSuccessiveParenthesis);
 	}
 }
