@@ -271,6 +271,9 @@ class MarkLineEnds {
 						continue;
 					}
 					if (isInlineSharp(token, parsedCode)) {
+						if (token.is(Sharp(SHARP_IF)) && isOnlyWhitespaceBeforeToken(token, parsedCode)) {
+							continue;
+						}
 						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 						if (prev == null) {
 							parsedCode.tokenList.noLineEndBefore(token);
@@ -323,6 +326,13 @@ class MarkLineEnds {
 	static function isInlineSharp(token:TokenTree, parsedCode:ParsedCode):Bool {
 		switch (token.tok) {
 			case Sharp(SHARP_IF):
+				var sharpEnd:TokenTree = token.getLastChild();
+				if ((sharpEnd == null) || (!sharpEnd.is(Sharp(SHARP_END)))) {
+					return false;
+				}
+				if (!isOnlyWhitespaceAfterToken(sharpEnd, parsedCode)) {
+					return true;
+				}
 				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 				if (prev == null) {
 					return !isOnlyWhitespaceBeforeToken(token, parsedCode);

@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	#if !cppia inline #end function addChar(c:Int):Void {}
+}
+
+---
+
+class Main {
+	#if !cppia inline #end function addChar(c:Int):Void {}
+}
