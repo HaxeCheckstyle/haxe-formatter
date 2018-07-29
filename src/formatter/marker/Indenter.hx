@@ -48,6 +48,9 @@ class Indenter {
 	}
 
 	function findEffectiveParent(token:TokenTree):TokenTree {
+		if (token.tok == null) {
+			return token.getFirstChild();
+		}
 		switch (token.tok) {
 			case BrOpen:
 				var parent:TokenTree = token.parent;

@@ -13,6 +13,7 @@ static public function main() {}
 
 class Main {
 	#if !js
-	inline #end
+	inline
+	#end
 	static public function main() {}
 }

@@ -290,6 +290,7 @@ class MarkLineEnds {
 						parsedCode.tokenList.noLineEndBefore(token);
 						continue;
 					}
+					parsedCode.tokenList.lineEndBefore(token);
 					parsedCode.tokenList.lineEndAfter(token);
 				case Sharp(SHARP_END):
 					if (isInlineSharp(token, parsedCode)) {
@@ -302,6 +303,8 @@ class MarkLineEnds {
 						if (!isOnlyWhitespaceAfterToken(token, parsedCode)) {
 							continue;
 						}
+					} else {
+						parsedCode.tokenList.lineEndBefore(token);
 					}
 					parsedCode.tokenList.lineEndAfter(token);
 				case Sharp("error"):
