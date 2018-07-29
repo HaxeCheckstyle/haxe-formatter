@@ -583,7 +583,7 @@ class MarkEmptyLines {
 				case Kwd(KwdEnum):
 				case Kwd(KwdInterface):
 				case Kwd(KwdTypedef):
-				case Const(CIdent("final")):
+				case Const(CIdent(_)):
 				#if (haxe_ver >= 4.0)
 				case Kwd(KwdFinal):
 				#end

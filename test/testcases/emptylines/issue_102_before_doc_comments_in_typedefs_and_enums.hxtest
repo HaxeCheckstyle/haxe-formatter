@@ -1,0 +1,51 @@
+{}
+
+---
+
+enum PathPrinting {
+    /**
+        Always print the full dot path for types.
+    **/
+    Always;
+    /**
+        Always only print the unqualified type name.
+    **/
+    Never;
+}
+
+typedef PathPrinting = {
+    /**
+        Always print the full dot path for types.
+    **/
+	always: Bool,
+    /**
+        Always print the full dot path for types.
+    **/
+	never: Bool
+}
+
+---
+
+enum PathPrinting {
+	/**
+		Always print the full dot path for types.
+	**/
+	Always;
+
+	/**
+		Always only print the unqualified type name.
+	**/
+	Never;
+}
+
+typedef PathPrinting = {
+	/**
+		Always print the full dot path for types.
+	**/
+	always:Bool,
+
+	/**
+		Always print the full dot path for types.
+	**/
+	never:Bool
+}
