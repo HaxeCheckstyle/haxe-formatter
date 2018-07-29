@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		items.push({
+			label: if (anon.fields.length == 0) "{}" else "{fields...}"
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		items.push({label: if (anon.fields.length == 0) "{}" else "{fields...}"});
+	}
+}

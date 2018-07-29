@@ -60,7 +60,15 @@ class MarkSameLine {
 			case Kwd(KwdElse):
 				return shouldElseBeSameLine(parent);
 			case DblDot:
-				return isReturnExpression(parent);
+				switch (parent.parent.tok) {
+					case Const(CIdent(_)):
+						if (parent.parent.parent.is(Kwd(KwdCase))) {
+							return false;
+						}
+						return true;
+					default:
+						return isReturnExpression(parent);
+				}
 			default:
 		}
 		return false;
