@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		return untyped if( e.params == null ) [] else e.params;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return untyped if (e.params == null) [] else e.params;
+	}
+}

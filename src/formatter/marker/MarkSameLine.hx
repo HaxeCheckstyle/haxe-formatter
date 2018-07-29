@@ -39,7 +39,7 @@ class MarkSameLine {
 		});
 	}
 
-	static function isEpression(token:TokenTree):Bool {
+	static function isExpression(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -50,6 +50,8 @@ class MarkSameLine {
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
 				return true;
+			case Kwd(KwdUntyped):
+				return isExpression(parent);
 			case Binop(_):
 				return true;
 			case POpen:
@@ -100,7 +102,7 @@ class MarkSameLine {
 		if (!token.is(Kwd(KwdIf))) {
 			return false;
 		}
-		return isEpression(token);
+		return isExpression(token);
 	}
 
 	static function shouldElseBeSameLine(token:TokenTree):Bool {
@@ -120,7 +122,7 @@ class MarkSameLine {
 		if (!token.is(Kwd(KwdTry))) {
 			return false;
 		}
-		return isEpression(token);
+		return isExpression(token);
 	}
 
 	static function shouldCatchBeSameLine(token:TokenTree):Bool {
