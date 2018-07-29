@@ -1,0 +1,17 @@
+{}
+
+---
+
+enum Result {
+	Success(formattedCode:String);
+	Failure(errorMessage:String);
+	Disabled;
+}
+
+---
+
+enum Result {
+	Success(formattedCode:String);
+	Failure(errorMessage:String);
+	Disabled;
+}

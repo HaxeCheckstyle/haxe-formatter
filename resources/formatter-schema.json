@@ -122,6 +122,20 @@
             },
             "type": "object"
         },
+        "TypedefFieldsEmtpyLinesConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "beginType": {
+                    "type": "integer",
+                    "propertyOrder": 0
+                },
+                "betweenFields": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                }
+            },
+            "type": "object"
+        },
         "IndentationConfig": {
             "additionalProperties": false,
             "properties": {
@@ -294,6 +308,10 @@
                 },
                 "conditionalsEmptyLines": {
                     "$ref": "#/definitions/ConditionalEmtpyLinesConfig",
+                    "propertyOrder": 16
+                },
+                "enumEmptyLines": {
+                    "$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
                     "propertyOrder": 14
                 },
                 "externClassEmptyLines": {
@@ -311,6 +329,10 @@
                 "maxAnywhereInFile": {
                     "type": "integer",
                     "propertyOrder": 1
+                },
+                "typedefEmptyLines": {
+                    "$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
+                    "propertyOrder": 15
                 },
                 "enumAbstractEmptyLines": {
                     "$ref": "#/definitions/EnumAbstractFieldsEmtpyLinesConfig",
@@ -336,7 +358,7 @@
                         "none",
                         "one"
                     ],
-                    "propertyOrder": 15
+                    "propertyOrder": 17
                 },
                 "interfaceEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",

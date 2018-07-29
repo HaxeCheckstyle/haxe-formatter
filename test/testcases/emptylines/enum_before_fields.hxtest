@@ -1,0 +1,28 @@
+{
+	"emptyLines": {
+		"afterLeftCurly": "keep",
+		"enumEmptyLines": {
+			"beginType": 1,
+			"betweenFields": 1
+		}
+	}
+}
+
+---
+
+enum Result {
+	Success(formattedCode:String);
+	Failure(errorMessage:String);
+	Disabled;
+}
+
+---
+
+enum Result {
+
+	Success(formattedCode:String);
+
+	Failure(errorMessage:String);
+
+	Disabled;
+}

@@ -1,0 +1,29 @@
+{}
+
+---
+
+typedef Color = {
+	/**
+		The red component of this color in the range [0-1].
+	**/
+	final red:Float;
+
+	/**
+	 * The green component of this color in the range [0-1].
+	 */
+	final green:Float;
+}
+
+---
+
+typedef Color = {
+	/**
+		The red component of this color in the range [0-1].
+	**/
+	final red:Float;
+
+	/**
+	 * The green component of this color in the range [0-1].
+	 */
+	final green:Float;
+}

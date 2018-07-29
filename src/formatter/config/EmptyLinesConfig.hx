@@ -15,6 +15,8 @@ typedef EmptyLinesConfig = {
 	@:default(auto) @:optional var externClassEmptyLines:InterfaceFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var abstractEmptyLines:ClassFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var interfaceEmptyLines:InterfaceFieldsEmtpyLinesConfig;
+	@:default(auto) @:optional var enumEmptyLines:TypedefFieldsEmtpyLinesConfig;
+	@:default(auto) @:optional var typedefEmptyLines:TypedefFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var conditionalsEmptyLines:ConditionalEmtpyLinesConfig;
 
 	/**
@@ -59,6 +61,11 @@ typedef InterfaceFieldsEmtpyLinesConfig = {
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(0) @:optional var afterVars:Int;
 	@:default(0) @:optional var betweenFunctions:Int;
+}
+
+typedef TypedefFieldsEmtpyLinesConfig = {
+	@:default(0) @:optional var beginType:Int;
+	@:default(0) @:optional var betweenFields:Int;
 }
 
 @:enum

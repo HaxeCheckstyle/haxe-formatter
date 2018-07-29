@@ -21,6 +21,8 @@ class MarkEmptyLines {
 		markImports(parsedCode, config);
 		markClassesAndAbstracts(parsedCode, config);
 		markInterfaces(parsedCode, config);
+		markEnums(parsedCode, config);
+		markTypedefs(parsedCode, config);
 		markSharp(parsedCode, config.conditionalsEmptyLines);
 		if (config.beforeDocCommentEmptyLines != Ignore) {
 			markComments(parsedCode, config);
@@ -384,6 +386,60 @@ class MarkEmptyLines {
 		}
 	}
 
+	static function markEnums(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var enums:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdEnum)], ALL);
+		for (e in enums) {
+			if (e.parent.tok != null) {
+				switch (e.parent.tok) {
+					case Const(_):
+						continue;
+					case At, DblDot:
+						continue;
+					default:
+				}
+			}
+			var block:TokenTree = e.access().firstChild().firstOf(BrOpen).token;
+			if (block == null) {
+				continue;
+			}
+			markEnumFields(block, parsedCode, config.enumEmptyLines);
+		}
+	}
+
+	static function markEnumFields(block:TokenTree, parsedCode:ParsedCode, config:TypedefFieldsEmtpyLinesConfig) {
+		parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
+		if ((block.children == null) || (block.children.length <= 0)) {
+			return;
+		}
+		var prevToken:TokenTree = null;
+		for (child in block.children) {
+			switch (child.tok) {
+				case BrClose:
+					return;
+				case Comment(_), CommentLine(_):
+					continue;
+				default:
+			}
+			if (prevToken == null) {
+				prevToken = child;
+				continue;
+			}
+			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFields);
+			prevToken = child;
+		}
+	}
+
+	static function markTypedefs(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		var typedefs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
+		for (t in typedefs) {
+			var block:TokenTree = t.access().firstChild().firstOf(Binop(OpAssign)).firstOf(BrOpen).token;
+			if (block == null) {
+				continue;
+			}
+			markEnumFields(block, parsedCode, config.typedefEmptyLines);
+		}
+	}
+
 	static function skipSharpFields(prevToken:TokenTree):TokenTree {
 		var next:TokenTree = prevToken.nextSibling;
 		if (next == null) {
@@ -527,6 +583,10 @@ class MarkEmptyLines {
 				case Kwd(KwdEnum):
 				case Kwd(KwdInterface):
 				case Kwd(KwdTypedef):
+				case Const(CIdent("final")):
+				#if (haxe_ver >= 4.0)
+				case Kwd(KwdFinal):
+				#end
 				case Sharp(_):
 				default:
 					continue;

@@ -1,0 +1,35 @@
+{}
+
+---
+
+typedef Color = {
+	final red:Float;
+	final green:Float;
+	var green:Float;
+}
+
+typedef ConditionalEmtpyLinesConfig = {
+	@:default(0) @:optional var afterIf:Int;
+	@:default(0) @:optional var beforeElse:Int;
+	@:default(0) @:optional var afterElse:Int;
+	@:default(0) @:optional var beforeEnd:Int;
+	@:default(0) @:optional var beforeError:Int;
+	@:default(0) @:optional var afterError:Int;
+}
+
+---
+
+typedef Color = {
+	final red:Float;
+	final green:Float;
+	var green:Float;
+}
+
+typedef ConditionalEmtpyLinesConfig = {
+	@:default(0) @:optional var afterIf:Int;
+	@:default(0) @:optional var beforeElse:Int;
+	@:default(0) @:optional var afterElse:Int;
+	@:default(0) @:optional var beforeEnd:Int;
+	@:default(0) @:optional var beforeError:Int;
+	@:default(0) @:optional var afterError:Int;
+}
