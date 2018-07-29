@@ -284,6 +284,7 @@ class MarkLineEnds {
 						}
 						continue;
 					}
+					parsedCode.tokenList.lineEndBefore(token);
 					parsedCode.tokenList.lineEndAfter(lastChild);
 				case Sharp(SHARP_ELSE):
 					if (isInlineSharp(token, parsedCode)) {
