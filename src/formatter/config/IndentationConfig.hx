@@ -1,6 +1,12 @@
 package formatter.config;
 
 typedef IndentationConfig = {
+	/**
+		only applies to non inlined conditionals
+		"fixedZero" = all conditional statements should start in column 1
+		"aligned" = conditional statements share indentation of surrounding code
+		"alignedIncrease" = same as "aligned" but will increase indent by +1 for enclosed code
+	**/
 	@:default(Aligned) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
 
 	/**

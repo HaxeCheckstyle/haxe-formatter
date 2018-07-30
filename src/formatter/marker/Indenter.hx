@@ -194,6 +194,8 @@ class Indenter {
 				return true;
 			case Binop(OpAssign):
 				return true;
+			case Binop(OpLt):
+				return TokenTreeCheckUtils.isTypeParameter(token);
 			case DblDot:
 				if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
 					return true;

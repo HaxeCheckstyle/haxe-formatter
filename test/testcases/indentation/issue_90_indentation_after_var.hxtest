@@ -1,0 +1,14 @@
+{}
+
+---
+
+typedef FoldingRangeServerCapabilities = {
+	var ?foldingRangeProvider:EitherType<Bool, EitherType<FoldingRangeProviderOptions,FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions>>;
+}
+
+---
+
+typedef FoldingRangeServerCapabilities = {
+	var ?foldingRangeProvider:EitherType<Bool, EitherType<FoldingRangeProviderOptions,
+		FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions>>;
+}
