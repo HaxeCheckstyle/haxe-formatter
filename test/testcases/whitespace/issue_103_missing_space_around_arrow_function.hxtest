@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		fields.map(field -> field.type);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		fields.map(field -> field.type);
+	}
+}

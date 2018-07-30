@@ -1,0 +1,13 @@
+{}
+
+---
+
+enum Item {
+	Staff(block:Float, ?magic:Int);
+}
+
+---
+
+enum Item {
+	Staff(block:Float, ?magic:Int);
+}
