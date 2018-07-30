@@ -3,9 +3,7 @@
 ---
 
 class Main {
-	public static function addFinalizable(instance : {
-		function finalize() : Void;
-	}, inPin : Bool) : Void {}
+	public static function addFinalizable(instance : {function finalize() : Void;	}, inPin : Bool) : Void {}
 }
 
 ---

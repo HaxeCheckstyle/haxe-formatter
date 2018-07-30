@@ -145,6 +145,7 @@
                     "propertyOrder": 1
                 },
                 "conditionalPolicy": {
+                    "description": "only applies to non inlined conditionals\n\t\t\"fixedZero\" = all conditional statements should start in column 1\n\t\t\"aligned\" = conditional statements share indentation of surrounding code\n\t\t\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code",
                     "type": "string",
                     "enum": [
                         "fixedZero",
@@ -251,6 +252,7 @@
             "additionalProperties": false,
             "properties": {
                 "disableFormatting": {
+                    "description": "turns off formatting for all files in current folder and subfolders\n\t\tunless subfolder contains a \"hxformat.json\"",
                     "type": "boolean",
                     "propertyOrder": 0
                 },

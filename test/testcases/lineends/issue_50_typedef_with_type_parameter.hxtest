@@ -16,6 +16,14 @@ typedef InitializeResult = Response<{
 
 ---
 
-typedef InitializeResult = Response<{var protocolVersion:Version; var haxeVersion:Version; var methods:Array<String>;}>;
+typedef InitializeResult = Response<{
+	var protocolVersion:Version;
+	var haxeVersion:Version;
+	var methods:Array<String>;
+}>;
 
-typedef InitializeResult = Response<{protocolVersion:Version, haxeVersion:Version, methods:Array<String>}>;
+typedef InitializeResult = Response<{
+	protocolVersion:Version,
+	haxeVersion:Version,
+	methods:Array<String>
+}>;

@@ -13,5 +13,9 @@ typedef HaxeMethodResult = {
 ---
 
 typedef HaxeMethodResult = {
-	final ?additionalTimes:{final arrival:Float; final beforeProcessing:Float; final afterProcessing:Float;}
+	final ?additionalTimes:{
+		final arrival:Float;
+		final beforeProcessing:Float;
+		final afterProcessing:Float;
+	}
 }

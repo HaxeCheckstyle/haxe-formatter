@@ -58,6 +58,15 @@ class MarkWrapping {
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
+		if (token.index + 1 == brClose.index) {
+			parsedCode.tokenList.whitespace(token, NoneAfter);
+			parsedCode.tokenList.whitespace(brClose, NoneBefore);
+			return;
+		}
+		if (!parsedCode.isOriginalSameLine(token, brClose)) {
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			return;
+		}
 		var maxLength:Int = 0;
 		var totalLength:Int = 0;
 		for (child in token.children) {
@@ -92,7 +101,16 @@ class MarkWrapping {
 
 	static function objectLiteralWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:ObjectLiteralWrapping) {
 		var brClose:TokenTree = token.access().firstOf(BrClose).token;
-		if ((token.children == null) || (token.children.length <= 0)) {
+		if ((token.children == null) || (token.children.length <= 1)) {
+			return;
+		}
+		if (token.index + 1 == brClose.index) {
+			parsedCode.tokenList.whitespace(token, NoneAfter);
+			parsedCode.tokenList.whitespace(brClose, NoneBefore);
+			return;
+		}
+		if (!parsedCode.isOriginalSameLine(token, brClose)) {
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
 			return;
 		}
 		var maxLength:Int = 0;

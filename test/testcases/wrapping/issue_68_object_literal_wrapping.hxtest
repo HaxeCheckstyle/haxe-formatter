@@ -29,7 +29,10 @@ class Main {
 				path: "haxe",
 				env: new haxe.DynamicAccess(),
 				arguments: [],
-				print: {completion: false, reusing: false}
+				print: {
+					completion: false,
+					reusing: false
+				}
 			},
 			displayArguments: [],
 			sendMethodResults: false
