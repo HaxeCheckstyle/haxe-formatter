@@ -101,6 +101,9 @@ class TokenList {
 			}
 			prev = tokens[prevIndex--];
 		}
+		if ((prev != null) && needsLineBreak(prev.token)) {
+			prev = null;
+		}
 		switch (where) {
 			case None:
 				info.whitespaceAfter = None;
@@ -162,12 +165,28 @@ class TokenList {
 		info.whitespaceAfter = Newline;
 	}
 
+	function needsLineBreak(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		switch (token.tok) {
+			case CommentLine(_):
+				return true;
+			default:
+		}
+		return false;
+	}
+
 	public function noLineEndAfter(token:TokenTree, ?pos:PosInfos) {
 		if (token.index < 0) {
 			return;
 		}
 		var info:TokenInfo = tokens[token.index];
 		if (info == null) {
+			return;
+		}
+		if (needsLineBreak(info.token)) {
+			info.whitespaceAfter = Newline;
 			return;
 		}
 		#if debugLog
@@ -179,6 +198,10 @@ class TokenList {
 	public function noLineEndBefore(token:TokenTree, ?pos:PosInfos) {
 		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {
+			return;
+		}
+		if (needsLineBreak(info.token)) {
+			info.whitespaceAfter = Newline;
 			return;
 		}
 		#if debugLog

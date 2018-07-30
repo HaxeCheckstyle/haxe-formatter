@@ -407,6 +407,18 @@ class MarkSameLine {
 		if (brClose == null) {
 			return;
 		}
+		for (child in brOpen.children) {
+			switch (child.tok) {
+				case BrClose:
+					break;
+				default:
+			}
+			var lastChild:TokenTree = MarkLineEnds.lastToken(child);
+			if (lastChild == null) {
+				continue;
+			}
+			parsedCode.tokenList.noLineEndAfter(lastChild);
+		}
 		parsedCode.tokenList.whitespace(brClose, NoneBefore);
 		parsedCode.tokenList.wrapBefore(brClose, true);
 		var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
@@ -432,9 +444,9 @@ class MarkSameLine {
 		}
 		for (child in brOpen.children) {
 			switch (child.tok) {
-				case Kwd(KwdVar):
-					return false;
 				case Binop(OpGt):
+					return false;
+				case Comment(_), CommentLine(_):
 					return false;
 				default:
 			}
@@ -486,6 +498,13 @@ class MarkSameLine {
 		}
 		if (brOpen.children.length > config.maxObjectFields + 1) {
 			return false;
+		}
+		for (child in brOpen.children) {
+			switch (child.tok) {
+				case Comment(_), CommentLine(_):
+					return false;
+				default:
+			}
 		}
 		return true;
 	}

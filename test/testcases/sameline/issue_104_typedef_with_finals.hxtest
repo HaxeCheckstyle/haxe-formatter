@@ -1,0 +1,17 @@
+{}
+
+---
+
+typedef HaxeMethodResult = {
+    final ?additionalTimes:{
+        final arrival:Float;
+        final beforeProcessing:Float;
+        final afterProcessing:Float;
+    }
+}
+
+---
+
+typedef HaxeMethodResult = {
+	final ?additionalTimes:{final arrival:Float; final beforeProcessing:Float; final afterProcessing:Float;}
+}

@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var struct = {
+			field: "" // some comment
+		};
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var struct = {
+			field: "" // some comment
+		};
+	}
+}
