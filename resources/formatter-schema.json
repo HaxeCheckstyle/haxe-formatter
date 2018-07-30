@@ -229,6 +229,24 @@
             },
             "type": "object"
         },
+        "ObjectLiteralWrapping": {
+            "additionalProperties": false,
+            "properties": {
+                "totalItemLengthOneLine": {
+                    "type": "integer",
+                    "propertyOrder": 2
+                },
+                "maxOneLineItems": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                },
+                "maxItemLength": {
+                    "type": "integer",
+                    "propertyOrder": 0
+                }
+            },
+            "type": "object"
+        },
         "FormatterConfig": {
             "additionalProperties": false,
             "properties": {
@@ -267,6 +285,28 @@
                 "whitespace": {
                     "$ref": "#/definitions/WhitespaceConfig",
                     "propertyOrder": 5
+                }
+            },
+            "type": "object"
+        },
+        "ArrayWrapping": {
+            "additionalProperties": false,
+            "properties": {
+                "totalItemLengthOneLine": {
+                    "type": "integer",
+                    "propertyOrder": 3
+                },
+                "maxInlineAtLength": {
+                    "type": "integer",
+                    "propertyOrder": 0
+                },
+                "maxOneLineItems": {
+                    "type": "integer",
+                    "propertyOrder": 2
+                },
+                "maxItemLength": {
+                    "type": "integer",
+                    "propertyOrder": 1
                 }
             },
             "type": "object"
@@ -367,6 +407,24 @@
             },
             "type": "object"
         },
+        "AnonTypeWrapping": {
+            "additionalProperties": false,
+            "properties": {
+                "totalItemLengthOneLine": {
+                    "type": "integer",
+                    "propertyOrder": 2
+                },
+                "maxOneLineItems": {
+                    "type": "integer",
+                    "propertyOrder": 1
+                },
+                "maxItemLength": {
+                    "type": "integer",
+                    "propertyOrder": 0
+                }
+            },
+            "type": "object"
+        },
         "EnumAbstractFieldsEmtpyLinesConfig": {
             "additionalProperties": false,
             "properties": {
@@ -397,6 +455,14 @@
                     "type": "boolean",
                     "propertyOrder": 1
                 },
+                "anonType": {
+                    "$ref": "#/definitions/AnonTypeWrapping",
+                    "propertyOrder": 8
+                },
+                "arrayWrap": {
+                    "$ref": "#/definitions/ArrayWrapping",
+                    "propertyOrder": 7
+                },
                 "maxLineLength": {
                     "description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
                     "type": "integer",
@@ -412,30 +478,18 @@
                     "type": "boolean",
                     "propertyOrder": 2
                 },
-                "arrayTotalItemLengthOneLine": {
-                    "type": "integer",
-                    "propertyOrder": 10
-                },
                 "wrapAfterOpeningBracket": {
                     "description": "should wrapping happen after opening brackets `[`",
                     "type": "boolean",
                     "propertyOrder": 6
                 },
-                "arrayMaxItemLength": {
-                    "type": "integer",
-                    "propertyOrder": 8
-                },
-                "arrayMaxInlineAtLength": {
-                    "type": "integer",
-                    "propertyOrder": 7
+                "objectLiteral": {
+                    "$ref": "#/definitions/ObjectLiteralWrapping",
+                    "propertyOrder": 9
                 },
                 "wrapAfterPlus": {
                     "type": "boolean",
                     "propertyOrder": 5
-                },
-                "arrayMaxOneLineItems": {
-                    "type": "integer",
-                    "propertyOrder": 9
                 },
                 "wrapAfterOpeningParenthesis": {
                     "description": "should wrapping happen after opening braces `(`",

@@ -13,8 +13,6 @@ class Main {
 
 class Main {
 	function main() {
-		return [{
-			one: two, three: four, five: six, seven: eight
-		}];
+		return [{one: two, three: four, five: six, seven: eight}];
 	}
 }

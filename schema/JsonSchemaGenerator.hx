@@ -102,7 +102,10 @@ class JsonSchemaGenerator {
 					case [{pack: [], name: "Array"}, [elemType]]:
 						var fields:Array<ObjectDeclField> = [
 							{field: FIELD_NAME_TYPE, expr: macro "array"},
-							{field: "items", expr: genSchema(elemType, typeName + ".items", pos, null, refs, -1, extendCB)}
+							{
+								field: "items",
+								expr: genSchema(elemType, typeName + ".items", pos, null, refs, -1, extendCB)
+							}
 						];
 						if (extendCB != null) {
 							extendCB(fields, typeName, pos, refs);
@@ -155,7 +158,10 @@ class JsonSchemaGenerator {
 				for (i in 0...anon.fields.length) {
 					var f = anon.fields[i];
 					var doc:StructInfo = SchemaUtils.makeStructInfo(f.name, f.doc);
-					props.push({field: f.name, expr: genSchema(f.type, typeName + "." + f.name, f.pos, doc, refs, i, extendCB)});
+					props.push({
+						field: f.name,
+						expr: genSchema(f.type, typeName + "." + f.name, f.pos, doc, refs, i, extendCB)
+					});
 					if (!f.meta.has(":optional")) {
 						required.push(f.name);
 					}

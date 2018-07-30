@@ -27,7 +27,11 @@ class TokenList {
 				fill(child.index - tokens.length);
 			}
 			tokens[index] = {
-				token: child, whitespaceAfter: None, emptyLinesAfter: 0, wrapAfter: false, text: null
+				token: child,
+				whitespaceAfter: None,
+				emptyLinesAfter: 0,
+				wrapAfter: false,
+				text: null
 			};
 			buildList(child);
 		}
@@ -236,7 +240,7 @@ class TokenList {
 	}
 
 	public function emptyLinesAfterSubTree(token:TokenTree, count:Int, ?pos:PosInfos) {
-		var lastToken:TokenTree = MarkLineEnds.lastToken(token);
+		var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 		if (lastToken == null) {
 			return;
 		}

@@ -165,7 +165,7 @@ class MarkLineEnds {
 		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], ALL);
 		for (token in atTokens) {
 			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token, config);
-			var lastChild:TokenTree = lastToken(token);
+			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
@@ -189,7 +189,7 @@ class MarkLineEnds {
 				metadataPolicy = After;
 			}
 			for (meta in metadata) {
-				lastChild = lastToken(meta);
+				lastChild = TokenTreeCheckUtils.getLastToken(meta);
 				if (lastChild == null) {
 					continue;
 				}
@@ -247,7 +247,7 @@ class MarkLineEnds {
 			if (config.caseColon != None) {
 				parsedCode.tokenList.lineEndAfter(token);
 			}
-			var lastChild:TokenTree = lastToken(token);
+			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
@@ -262,7 +262,7 @@ class MarkLineEnds {
 		for (token in sharpTokens) {
 			switch (token.tok) {
 				case Sharp(SHARP_IF), Sharp(SHARP_ELSE_IF):
-					var lastChild:TokenTree = lastToken(token.getFirstChild());
+					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token.getFirstChild());
 					if (lastChild == null) {
 						continue;
 					}
@@ -312,7 +312,7 @@ class MarkLineEnds {
 					}
 					parsedCode.tokenList.lineEndAfter(token);
 				case Sharp("error"):
-					var lastChild:TokenTree = lastToken(token.getFirstChild());
+					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token.getFirstChild());
 					if (lastChild == null) {
 						lastChild = token;
 					}
@@ -406,7 +406,7 @@ class MarkLineEnds {
 			for (child in brOpen.children) {
 				switch (child.tok) {
 					case Binop(OpGt), Const(CIdent(_)), Question:
-						var lastChild:TokenTree = lastToken(child);
+						var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 						if (lastChild == null) {
 							continue;
 						}
@@ -429,7 +429,7 @@ class MarkLineEnds {
 	}
 
 	static function markAfterTypedef(token:TokenTree, parsedCode:ParsedCode) {
-		var lastChild:TokenTree = lastToken(token);
+		var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 		if (lastChild == null) {
 			return;
 		}
@@ -439,26 +439,5 @@ class MarkLineEnds {
 			return;
 		}
 		parsedCode.tokenList.lineEndAfter(lastChild);
-	}
-
-	public static function lastToken(token:TokenTree):TokenTree {
-		if (token == null) {
-			return null;
-		}
-		if (token.children == null) {
-			return token;
-		}
-		if (token.children.length <= 0) {
-			return token;
-		}
-		var lastChild:TokenTree = token.getLastChild();
-		while (lastChild != null) {
-			var newLast:TokenTree = lastChild.getLastChild();
-			if (newLast == null) {
-				return lastChild;
-			}
-			lastChild = newLast;
-		}
-		return null;
 	}
 }

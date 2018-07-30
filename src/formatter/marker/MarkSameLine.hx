@@ -311,7 +311,7 @@ class MarkSameLine {
 							continue;
 					}
 				default:
-					var lastToken:TokenTree = MarkLineEnds.lastToken(child);
+					var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 					if (lastToken == null) {
 						return;
 					}
@@ -338,7 +338,7 @@ class MarkSameLine {
 			case Same:
 				parsedCode.tokenList.wrapBefore(token, true);
 				parsedCode.tokenList.noLineEndBefore(token);
-				var lastToken:TokenTree = MarkLineEnds.lastToken(token);
+				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
 					return;
 				}
@@ -413,7 +413,7 @@ class MarkSameLine {
 					break;
 				default:
 			}
-			var lastChild:TokenTree = MarkLineEnds.lastToken(child);
+			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 			if (lastChild == null) {
 				continue;
 			}

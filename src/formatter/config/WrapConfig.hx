@@ -31,8 +31,26 @@ typedef WrapConfig = {
 		should wrapping happen after opening brackets `[`
 	**/
 	@:default(true) @:optional var wrapAfterOpeningBracket:Bool;
-	@:default(30) @:optional var arrayMaxInlineAtLength:Int;
-	@:default(30) @:optional var arrayMaxItemLength:Int;
-	@:default(2) @:optional var arrayMaxOneLineItems:Int;
-	@:default(60) @:optional var arrayTotalItemLengthOneLine:Int;
+	@:default(auto) @:optional var arrayWrap:ArrayWrapping;
+	@:default(auto) @:optional var anonType:AnonTypeWrapping;
+	@:default(auto) @:optional var objectLiteral:ObjectLiteralWrapping;
+}
+
+typedef ArrayWrapping = {
+	@:default(30) @:optional var maxInlineAtLength:Int;
+	@:default(30) @:optional var maxItemLength:Int;
+	@:default(2) @:optional var maxOneLineItems:Int;
+	@:default(60) @:optional var totalItemLengthOneLine:Int;
+}
+
+typedef AnonTypeWrapping = {
+	@:default(30) @:optional var maxItemLength:Int;
+	@:default(3) @:optional var maxOneLineItems:Int;
+	@:default(60) @:optional var totalItemLengthOneLine:Int;
+}
+
+typedef ObjectLiteralWrapping = {
+	@:default(30) @:optional var maxItemLength:Int;
+	@:default(3) @:optional var maxOneLineItems:Int;
+	@:default(60) @:optional var totalItemLengthOneLine:Int;
 }

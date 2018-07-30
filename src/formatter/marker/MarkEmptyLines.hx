@@ -510,7 +510,7 @@ class MarkEmptyLines {
 	static function markReturn(parsedCode:ParsedCode) {
 		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], ALL);
 		for (ret in returns) {
-			var lastChild:TokenTree = MarkLineEnds.lastToken(ret);
+			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(ret);
 			if (lastChild == null) {
 				continue;
 			}

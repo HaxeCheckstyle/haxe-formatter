@@ -9,6 +9,12 @@ class Main {
 			y:2,
 			z:3
 		};
+		return {
+			x:1,
+			y:2,
+			z:3,
+			text:"some extra long description for item + some extra long description for item",
+		};
 	}
 }
 
@@ -17,5 +23,11 @@ class Main {
 class Main {
 	static function main() {
 		return {x: 1, y: 2, z: 3};
+		return {
+			x: 1,
+			y: 2,
+			z: 3,
+			text: "some extra long description for item + some extra long description for item",
+		};
 	}
 }

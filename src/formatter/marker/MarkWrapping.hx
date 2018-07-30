@@ -16,7 +16,7 @@ class MarkWrapping {
 					}
 				case BrOpen:
 					if (config.wrapAfterOpeningBrace) {
-						markBrWrapping(token, parsedCode, config);
+						markBrWrapping(token, parsedCode, indenter, config);
 					}
 				case BkOpen:
 					if (config.wrapAfterOpeningBracket) {
@@ -36,22 +36,94 @@ class MarkWrapping {
 		});
 	}
 
-	static function markBrWrapping(token:TokenTree, parsedCode:ParsedCode, config:WrapConfig) {
+	static function markBrWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:WrapConfig) {
 		var brClose:TokenTree = token.access().firstOf(BrClose).token;
 		switch (TokenTreeCheckUtils.getBrOpenType(token)) {
 			case BLOCK:
 			case TYPEDEFDECL:
 			case OBJECTDECL:
-				parsedCode.tokenList.wrapAfter(token, true);
-				if (brClose != null) {
-					parsedCode.tokenList.wrapBefore(brClose, true);
-				}
+				// parsedCode.tokenList.wrapAfter(token, true);
+				// if (brClose != null) {
+				// 	parsedCode.tokenList.wrapBefore(brClose, true);
+				// }
+				objectLiteralWrapping(token, parsedCode, indenter, config.objectLiteral);
 			case ANONTYPE:
-				parsedCode.tokenList.wrapAfter(token, true);
-				if (brClose != null) {
-					parsedCode.tokenList.wrapBefore(brClose, true);
-				}
+				anonTypeWrapping(token, parsedCode, indenter, config.anonType);
 			case UNKNOWN:
+		}
+	}
+
+	static function anonTypeWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:AnonTypeWrapping) {
+		var brClose:TokenTree = token.access().firstOf(BrClose).token;
+		if ((token.children == null) || (token.children.length <= 0)) {
+			return;
+		}
+		var maxLength:Int = 0;
+		var totalLength:Int = 0;
+		for (child in token.children) {
+			switch (child.tok) {
+				case BrClose:
+					break;
+				case CommentLine(_):
+					wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+					return;
+				default:
+			}
+			var length:Int = parsedCode.tokenList.calcLength(child);
+			totalLength += length;
+			if (length > maxLength) {
+				maxLength = length;
+			}
+		}
+		if (totalLength <= config.totalItemLengthOneLine) {
+			parsedCode.tokenList.whitespace(token, NoneAfter);
+			parsedCode.tokenList.whitespace(brClose, NoneBefore);
+			return;
+		}
+		if (maxLength > config.maxItemLength) {
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			return;
+		}
+		if (token.children.length - 1 > config.maxOneLineItems) {
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			return;
+		}
+	}
+
+	static function objectLiteralWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:ObjectLiteralWrapping) {
+		var brClose:TokenTree = token.access().firstOf(BrClose).token;
+		if ((token.children == null) || (token.children.length <= 0)) {
+			return;
+		}
+		var maxLength:Int = 0;
+		var totalLength:Int = 0;
+		for (child in token.children) {
+			switch (child.tok) {
+				case BrClose:
+					break;
+				case CommentLine(_):
+					wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+					return;
+				default:
+			}
+			var length:Int = parsedCode.tokenList.calcLength(child);
+			totalLength += length;
+			if (length > maxLength) {
+				maxLength = length;
+			}
+		}
+		if (totalLength <= config.totalItemLengthOneLine) {
+			parsedCode.tokenList.whitespace(token, NoneAfter);
+			parsedCode.tokenList.whitespace(brClose, NoneBefore);
+			return;
+		}
+		if (maxLength > config.maxItemLength) {
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			return;
+		}
+		if (token.children.length - 1 > config.maxOneLineItems) {
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			return;
 		}
 	}
 
@@ -100,31 +172,43 @@ class MarkWrapping {
 				maxLength = length;
 			}
 		}
-		if (atLength > config.arrayMaxInlineAtLength) {
+		if (atLength > config.arrayWrap.maxInlineAtLength) {
 			parsedCode.tokenList.lineEndBefore(token);
 		}
-		if (totalLength <= config.arrayTotalItemLengthOneLine) {
+		if (totalLength <= config.arrayWrap.totalItemLengthOneLine) {
 			parsedCode.tokenList.whitespace(token, NoneAfter);
 			parsedCode.tokenList.whitespace(bkClose, NoneBefore);
 			return;
 		}
-		if (maxLength > config.arrayMaxItemLength) {
-			wrapArrayOneLineEach(token, bkClose, parsedCode, indenter, config);
+		if (maxLength > config.arrayWrap.maxItemLength) {
+			wrapChildOneLineEach(token, bkClose, parsedCode, indenter);
 			return;
 		}
-		if (token.children.length - 1 > config.arrayMaxOneLineItems) {
-			wrapArrayWithMany(token, bkClose, parsedCode, indenter, config);
+		if (token.children.length - 1 > config.arrayWrap.maxOneLineItems) {
+			wrapArrayWithMany(token, bkClose, parsedCode, indenter, config.maxLineLength);
 			return;
 		}
 	}
 
-	static function wrapArrayOneLineEach(bkOpen:TokenTree, bkClose:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:WrapConfig) {
+	public static function wrapChildOneLineEach(bkOpen:TokenTree, bkClose:TokenTree, parsedCode:ParsedCode, indenter:Indenter) {
 		parsedCode.tokenList.lineEndAfter(bkOpen);
 		for (child in bkOpen.children) {
-			if (child.is(BkClose)) {
-				continue;
+			switch (child.tok) {
+				case BkClose:
+					continue;
+				case BrClose:
+					continue;
+				case CommentLine(_):
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(child);
+					if (prev != null) {
+						if (parsedCode.isOriginalSameLine(child, prev.token)) {
+							parsedCode.tokenList.noLineEndBefore(child);
+						}
+					}
+					continue;
+				default:
 			}
-			var lastChild:TokenTree = MarkLineEnds.lastToken(child);
+			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 			if (lastChild == null) {
 				parsedCode.tokenList.lineEndAfter(child);
 			} else {
@@ -133,7 +217,7 @@ class MarkWrapping {
 		}
 	}
 
-	static function wrapArrayWithMany(bkOpen:TokenTree, bkClose:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:WrapConfig) {
+	static function wrapArrayWithMany(bkOpen:TokenTree, bkClose:TokenTree, parsedCode:ParsedCode, indenter:Indenter, maxLineLength:Int) {
 		parsedCode.tokenList.lineEndAfter(bkOpen);
 		var indent:Int = indenter.calcAbsoluteIndent(indenter.calcIndent(bkOpen.children[0]));
 		var lineLength:Int = indent;
@@ -145,11 +229,11 @@ class MarkWrapping {
 				continue;
 			}
 			var length:Int = parsedCode.tokenList.calcLength(child) + 1;
-			if (length + lineLength > config.maxLineLength) {
+			if (length + lineLength > maxLineLength) {
 				parsedCode.tokenList.lineEndBefore(child);
 				lineLength = length + indent;
 			} else {
-				var lastChild:TokenTree = MarkLineEnds.lastToken(child);
+				var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 				parsedCode.tokenList.whitespace(lastChild, After);
 				lineLength += length;
 			}
