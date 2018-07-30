@@ -1,0 +1,38 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var defaults:InitOptions = {
+			displayServerConfig: {
+				path: "haxe",
+				env: new haxe.DynamicAccess(),
+				arguments: [],
+				print: {
+					completion: false,
+					reusing: false
+				}
+			},
+			displayArguments: [],
+			sendMethodResults: false
+		};
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var defaults:InitOptions = {
+			displayServerConfig: {
+				path: "haxe",
+				env: new haxe.DynamicAccess(),
+				arguments: [],
+				print: {completion: false, reusing: false}
+			},
+			displayArguments: [],
+			sendMethodResults: false
+		};
+	}
+}
