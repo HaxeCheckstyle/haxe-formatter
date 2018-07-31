@@ -246,7 +246,7 @@ class MarkWrapping {
 			if (child.is(BkClose)) {
 				continue;
 			}
-			var length:Int = parsedCode.tokenList.calcLength(child) + 1;
+			var length:Int = parsedCode.tokenList.calcLength(child);
 			if (length + lineLength > maxLineLength) {
 				parsedCode.tokenList.lineEndBefore(child);
 				lineLength = length + indent;

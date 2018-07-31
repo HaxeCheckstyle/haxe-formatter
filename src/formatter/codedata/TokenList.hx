@@ -342,10 +342,14 @@ class TokenList {
 		if (current == null) {
 			return 0;
 		}
+		var spaceAdd:Int = 0;
+		if (current.whitespaceAfter == Space) {
+			spaceAdd = 1;
+		}
 		if (current.text == null) {
 			current.text = '${current.token}';
 		}
-		var length:Int = current.text.length;
+		var length:Int = current.text.length + spaceAdd;
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return length;
 		}

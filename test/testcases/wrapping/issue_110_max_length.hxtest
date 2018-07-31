@@ -1,0 +1,34 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {triggerCharacters: [".", "@", ":", " ", ">"], resolveProvider: true};
+	}
+}
+
+typedef HaxeMethodResult = {
+	final method:String;
+	final debugInfo:String;
+	final response:Response<Dynamic>;
+	final ?additionalTimes:{final arrival:Float; final beforeProcessing:Float; final afterProcessing:Float;}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {
+			triggerCharacters: [".", "@", ":", " ", ">"],
+			resolveProvider: true
+		};
+	}
+}
+
+typedef HaxeMethodResult = {
+	final method:String;
+	final debugInfo:String;
+	final response:Response<Dynamic>;
+	final ?additionalTimes:{final arrival:Float; final beforeProcessing:Float; final afterProcessing:Float;}
+}
