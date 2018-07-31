@@ -40,7 +40,10 @@ class JsonSchemaGenerator {
 		switch (main.expr) {
 			case EObjectDecl(fields):
 				fields.push({field: "definitions", expr: definitions});
-				fields.push({field: SCHEMA_KEY, expr: macro "http://json-schema.org/schema#"});
+				fields.push({
+					field: SCHEMA_KEY,
+					expr: macro "http://json-schema.org/schema#"
+				});
 				if (id != null) {
 					fields.push({field: "id", expr: macro '$id'});
 				}
