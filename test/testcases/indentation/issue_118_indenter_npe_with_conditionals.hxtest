@@ -22,9 +22,8 @@ class Serializer {
 		#if js
 		if (js.Syntax.typeof(ci) == vt && ci == v) {
 		#else
-		if (cache[i] == v)
+		if (cache[i] == v) {
 		#end
-
 	}
 }
 function serializeFields(v:{}) {}
