@@ -54,6 +54,9 @@ class Indenter {
 		switch (token.tok) {
 			case BrOpen:
 				var parent:TokenTree = token.parent;
+				if (parent.tok == null) {
+					return token;
+				}
 				switch (parent.tok) {
 					case Kwd(KwdIf), Kwd(KwdElse):
 						return findEffectiveParent(parent);
@@ -82,6 +85,9 @@ class Indenter {
 					return token;
 				}
 				var parent:TokenTree = token.parent;
+				if (parent.tok == null) {
+					return token;
+				}
 				switch (parent.tok) {
 					case Binop(_):
 						return token;
@@ -92,11 +98,17 @@ class Indenter {
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdWhile):
 				var parent:TokenTree = token.parent;
+				if (parent.tok == null) {
+					return token;
+				}
 				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
 					return findEffectiveParent(token.parent);
 				}
 			case Kwd(KwdFunction):
 				var parent:TokenTree = token.parent;
+				if (parent.tok == null) {
+					return token;
+				}
 				switch (parent.tok) {
 					case POpen:
 						return findEffectiveParent(token.parent);

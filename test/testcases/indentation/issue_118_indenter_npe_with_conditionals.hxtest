@@ -1,0 +1,31 @@
+{}
+
+---
+
+class Serializer {
+	function serializeRef(v:Dynamic) {
+		#if js
+		if( js.Syntax.typeof(ci) == vt && ci == v ) {
+		#else
+		if( cache[i] == v ) {
+		#end
+		}
+	}
+
+	function serializeFields(v:{}) {}
+}
+
+---
+
+class Serializer {
+	function serializeRef(v:Dynamic) {
+		#if js
+		if (js.Syntax.typeof(ci) == vt && ci == v) {
+		#else
+		if (cache[i] == v)
+		#end
+
+	}
+}
+function serializeFields(v:{}) {}
+}
