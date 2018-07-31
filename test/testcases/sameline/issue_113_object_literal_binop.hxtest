@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		if (haxeVersion >= {major: 4, minor: 0, patch: 0})
+			return new Haxe4DisplayOffsetConverter();
+		else
+			return new Haxe3DisplayOffsetConverter();
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (haxeVersion >= {major: 4, minor: 0, patch: 0})
+			return new Haxe4DisplayOffsetConverter();
+		else
+			return new Haxe3DisplayOffsetConverter();
+	}
+}
