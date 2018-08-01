@@ -1,0 +1,27 @@
+{}
+
+---
+
+class Main {
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType, config:ClassFieldsEmtpyLinesConfig) {}
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int) {}
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int) {}
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>) {}
+}
+
+---
+
+class Main {
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:ClassFieldsEmtpyLinesConfig) {}
+
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int) {}
+
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int,
+		verylongparam7:Int) {}
+
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>,
+		verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>,
+		verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>,
+		verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>) {}
+}

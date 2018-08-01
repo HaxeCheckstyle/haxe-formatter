@@ -19,10 +19,7 @@ typedef HaxeMethodResult = {
 
 class Main {
 	public static function main() {
-		var foo = {
-			triggerCharacters: [".", "@", ":", " ", ">"],
-			resolveProvider: true
-		};
+		var foo = {triggerCharacters: [".", "@", ":", " ", ">"], resolveProvider: true};
 	}
 }
 

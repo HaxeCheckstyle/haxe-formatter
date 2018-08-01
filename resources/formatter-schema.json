@@ -230,20 +230,57 @@
             },
             "type": "object"
         },
-        "ObjectLiteralWrapping": {
+        "WrapCondition": {
+            "required": [
+                "cond"
+            ],
             "additionalProperties": false,
             "properties": {
-                "totalItemLengthOneLine": {
-                    "type": "integer",
-                    "propertyOrder": 2
+                "cond": {
+                    "type": "string",
+                    "enum": [
+                        "itemCount >= n",
+                        "itemCount <= n",
+                        "anyItemLength >= n",
+                        "anyItemLength <= n",
+                        "totalItemLength >= n",
+                        "totalItemLength <= n",
+                        "lineLength >= n",
+                        "lineLength <= n"
+                    ],
+                    "propertyOrder": 0
                 },
-                "maxOneLineItems": {
+                "value": {
                     "type": "integer",
                     "propertyOrder": 1
-                },
-                "maxItemLength": {
-                    "type": "integer",
+                }
+            },
+            "type": "object"
+        },
+        "WrapRule": {
+            "required": [
+                "conditions",
+                "type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "conditions": {
+                    "items": {
+                        "$ref": "#/definitions/WrapCondition"
+                    },
+                    "type": "array",
                     "propertyOrder": 0
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "onePerLine",
+                        "onePerLineKeep",
+                        "equalNumber",
+                        "fillLine",
+                        "noWrap"
+                    ],
+                    "propertyOrder": 1
                 }
             },
             "type": "object"
@@ -287,28 +324,6 @@
                 "whitespace": {
                     "$ref": "#/definitions/WhitespaceConfig",
                     "propertyOrder": 5
-                }
-            },
-            "type": "object"
-        },
-        "ArrayWrapping": {
-            "additionalProperties": false,
-            "properties": {
-                "totalItemLengthOneLine": {
-                    "type": "integer",
-                    "propertyOrder": 3
-                },
-                "maxInlineAtLength": {
-                    "type": "integer",
-                    "propertyOrder": 0
-                },
-                "maxOneLineItems": {
-                    "type": "integer",
-                    "propertyOrder": 2
-                },
-                "maxItemLength": {
-                    "type": "integer",
-                    "propertyOrder": 1
                 }
             },
             "type": "object"
@@ -409,24 +424,6 @@
             },
             "type": "object"
         },
-        "AnonTypeWrapping": {
-            "additionalProperties": false,
-            "properties": {
-                "totalItemLengthOneLine": {
-                    "type": "integer",
-                    "propertyOrder": 2
-                },
-                "maxOneLineItems": {
-                    "type": "integer",
-                    "propertyOrder": 1
-                },
-                "maxItemLength": {
-                    "type": "integer",
-                    "propertyOrder": 0
-                }
-            },
-            "type": "object"
-        },
         "EnumAbstractFieldsEmtpyLinesConfig": {
             "additionalProperties": false,
             "properties": {
@@ -457,12 +454,28 @@
                     "type": "boolean",
                     "propertyOrder": 1
                 },
+                "functionSignature": {
+                    "description": "function signature wrapping rules",
+                    "items": {
+                        "$ref": "#/definitions/WrapRule"
+                    },
+                    "type": "array",
+                    "propertyOrder": 9
+                },
                 "anonType": {
-                    "$ref": "#/definitions/AnonTypeWrapping",
-                    "propertyOrder": 8
+                    "description": "anon types wrapping rules",
+                    "items": {
+                        "$ref": "#/definitions/WrapRule"
+                    },
+                    "type": "array",
+                    "propertyOrder": 11
                 },
                 "arrayWrap": {
-                    "$ref": "#/definitions/ArrayWrapping",
+                    "description": "function signature wrapping rules",
+                    "items": {
+                        "$ref": "#/definitions/WrapRule"
+                    },
+                    "type": "array",
                     "propertyOrder": 7
                 },
                 "maxLineLength": {
@@ -485,9 +498,21 @@
                     "type": "boolean",
                     "propertyOrder": 6
                 },
+                "typeParameter": {
+                    "description": "function signature wrapping rules",
+                    "items": {
+                        "$ref": "#/definitions/WrapRule"
+                    },
+                    "type": "array",
+                    "propertyOrder": 8
+                },
                 "objectLiteral": {
-                    "$ref": "#/definitions/ObjectLiteralWrapping",
-                    "propertyOrder": 9
+                    "description": "object literal wrapping rules",
+                    "items": {
+                        "$ref": "#/definitions/WrapRule"
+                    },
+                    "type": "array",
+                    "propertyOrder": 10
                 },
                 "wrapAfterPlus": {
                     "type": "boolean",
@@ -979,7 +1004,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 16
+                    "propertyOrder": 15
                 },
                 "expressionTry": {
                     "type": "string",
@@ -987,7 +1012,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 17
+                    "propertyOrder": 16
                 },
                 "doWhile": {
                     "type": "string",
@@ -996,14 +1021,6 @@
                         "next"
                     ],
                     "propertyOrder": 10
-                },
-                "anonObjects": {
-                    "type": "string",
-                    "enum": [
-                        "same",
-                        "next"
-                    ],
-                    "propertyOrder": 14
                 },
                 "expressionIfWithBlocks": {
                     "description": "will place if with one expression in a block in one line (requires \"expressionIf\" = \"same\")\n\t\tvar foo = if (bar) { \"\"; } else { \"\"; };",
@@ -1026,17 +1043,13 @@
                     ],
                     "propertyOrder": 3
                 },
-                "maxObjectFields": {
-                    "type": "integer",
-                    "propertyOrder": 20
-                },
                 "functionBody": {
                     "type": "string",
                     "enum": [
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 18
+                    "propertyOrder": 17
                 },
                 "expressionIf": {
                     "type": "string",
@@ -1060,7 +1073,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 15
+                    "propertyOrder": 14
                 },
                 "elseBody": {
                     "type": "string",
@@ -1069,10 +1082,6 @@
                         "next"
                     ],
                     "propertyOrder": 1
-                },
-                "maxAnonTypeFields": {
-                    "type": "integer",
-                    "propertyOrder": 21
                 },
                 "tryCatch": {
                     "type": "string",
@@ -1096,7 +1105,7 @@
                         "same",
                         "next"
                     ],
-                    "propertyOrder": 19
+                    "propertyOrder": 18
                 },
                 "forBody": {
                     "type": "string",

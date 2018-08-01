@@ -29,6 +29,7 @@ class TokenList {
 			tokens[index] = {
 				token: child,
 				whitespaceAfter: None,
+				whitespaceAfterWithoutNL: None,
 				emptyLinesAfter: 0,
 				wrapAfter: false,
 				text: null
@@ -89,7 +90,7 @@ class TokenList {
 		return nextToken;
 	}
 
-	public function whitespace(token:TokenTree, where:WhitespacePolicy) {
+	public function whitespace(token:TokenTree, where:WhitespacePolicy, ?pos:PosInfos) {
 		if (token.index < 0) {
 			return;
 		}
@@ -142,6 +143,15 @@ class TokenList {
 					prev.whitespaceAfter = Space;
 				}
 		}
+		if (prev != null && prev.whitespaceAfter != Newline) {
+			prev.whitespaceAfterWithoutNL = prev.whitespaceAfter;
+		}
+		if (info.whitespaceAfter != Newline) {
+			info.whitespaceAfterWithoutNL = info.whitespaceAfter;
+		}
+		#if debugLog
+		logAction(pos, token, '$where');
+		#end
 	}
 
 	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {
@@ -196,7 +206,7 @@ class TokenList {
 		#if debugLog
 		logAction(pos, token, "Space");
 		#end
-		info.whitespaceAfter = Space;
+		info.whitespaceAfter = Space; // info.whitespaceAfterWithoutNL;
 	}
 
 	public function noLineEndBefore(token:TokenTree, ?pos:PosInfos) {
@@ -211,7 +221,7 @@ class TokenList {
 		#if debugLog
 		logAction(pos, token, "Space");
 		#end
-		info.whitespaceAfter = Space;
+		info.whitespaceAfter = Space; // info.whitespaceAfterWithoutNL;
 	}
 
 	public function emptyLinesAfter(token:TokenTree, count:Int, ?pos:PosInfos) {
@@ -290,6 +300,22 @@ class TokenList {
 		prev.wrapAfter = wrap;
 	}
 
+	public function noWrappingBetween(tokenStart:TokenTree, tokenEnd:TokenTree, ?pos:PosInfos) {
+		if ((tokenStart == null) || (tokenEnd == null)) {
+			return;
+		}
+		for (index in tokenStart.index...tokenEnd.index) {
+			var info:TokenInfo = tokens[index];
+			if (info == null) {
+				continue;
+			}
+			info.wrapAfter = false;
+			if (info.whitespaceAfter == Newline) {
+				info.whitespaceAfter = info.whitespaceAfterWithoutNL;
+			}
+		}
+	}
+
 	public function findTokenAtOffset(offset:Int):TokenInfo {
 		var lastInfo:TokenInfo = null;
 
@@ -355,6 +381,77 @@ class TokenList {
 		}
 		for (child in token.children) {
 			length += calcLength(child);
+		}
+		return length;
+	}
+
+	public function calcLineLength(token:TokenTree):Int {
+		if (token == null) {
+			return 0;
+		}
+		if (token.index < 0) {
+			return 0;
+		}
+		var start:Int = token.index - 1;
+		while (true) {
+			if (start < 0) {
+				break;
+			}
+			var info:TokenInfo = tokens[start--];
+			if (info == null) {
+				continue;
+			}
+			if (info.whitespaceAfter == Newline) {
+				start += 2;
+				break;
+			}
+		}
+		var length:Int = 0;
+		while (true) {
+			if (start >= tokens.length) {
+				break;
+			}
+			var info:TokenInfo = tokens[start++];
+			if (info == null) {
+				continue;
+			}
+			length += info.text.length;
+			switch (info.whitespaceAfter) {
+				case None:
+				case Newline:
+					break;
+				case Space:
+					length += 1;
+			}
+		}
+		return length;
+	}
+
+	public function calcLineLengthBefore(token:TokenTree):Int {
+		if (token == null) {
+			return 0;
+		}
+		if (token.index < 0) {
+			return 0;
+		}
+		var start:Int = token.index - 1;
+		var length:Int = 0;
+		while (true) {
+			if (start < 0) {
+				break;
+			}
+			var info:TokenInfo = tokens[start--];
+			if (info == null) {
+				continue;
+			}
+			switch (info.whitespaceAfter) {
+				case None:
+				case Newline:
+					break;
+				case Space:
+					length += 1;
+			}
+			length += info.text.length;
 		}
 		return length;
 	}

@@ -46,7 +46,7 @@ class Formatter {
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
 			MarkSameLine.markSameLine(parsedCode, config.sameLine, config.whitespace);
-			MarkWrapping.markWrapping(parsedCode, indenter, config.wrapping);
+			MarkWrapping.markWrapping(parsedCode, indenter, config);
 			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
 
 			MarkTokenText.finalRun(parsedCode, indenter, config.indentation);

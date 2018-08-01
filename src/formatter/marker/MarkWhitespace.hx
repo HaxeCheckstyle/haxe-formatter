@@ -210,8 +210,10 @@ class MarkWhitespace {
 			switch (prev.token.tok) {
 				case PClose:
 					prev.whitespaceAfter = Space;
+					prev.whitespaceAfterWithoutNL = Space;
 				case Const(_):
 					prev.whitespaceAfter = Space;
+					prev.whitespaceAfterWithoutNL = Space;
 				default:
 			}
 		}

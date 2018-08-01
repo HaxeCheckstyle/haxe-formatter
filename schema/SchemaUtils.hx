@@ -28,10 +28,7 @@ class SchemaUtils {
 	}
 
 	public static function makeEnum(enumList:Expr, structInfo:Null<StructInfo>, order:Int, pos:Position):Expr {
-		var fields:Array<ObjectDeclField> = [
-			{field: "type", expr: macro "string"},
-			{field: "enum", expr: enumList}
-		];
+		var fields:Array<ObjectDeclField> = [{field: "type", expr: macro "string"}, {field: "enum", expr: enumList}];
 		return makeObjectDecl(fields, structInfo, order, pos);
 	}
 

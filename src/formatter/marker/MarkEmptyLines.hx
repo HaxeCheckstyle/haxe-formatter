@@ -459,7 +459,11 @@ class MarkEmptyLines {
 
 	static function betweenTypes(parsedCode:ParsedCode, count:Int) {
 		var types:Array<TokenTree> = parsedCode.root.filter([
-			Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef)
+			Kwd(KwdAbstract),
+			Kwd(KwdClass),
+			Kwd(KwdEnum),
+			Kwd(KwdInterface),
+			Kwd(KwdTypedef)
 		], ALL);
 		if (types.length <= 1) {
 			return;

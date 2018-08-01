@@ -9,6 +9,6 @@ typedef FoldingRangeServerCapabilities = {
 ---
 
 typedef FoldingRangeServerCapabilities = {
-	var ?foldingRangeProvider:EitherType<Bool, EitherType<FoldingRangeProviderOptions,
-		FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions>>;
+	var ?foldingRangeProvider:EitherType<Bool,
+		EitherType<FoldingRangeProviderOptions, FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions>>;
 }
