@@ -458,13 +458,22 @@ class MarkEmptyLines {
 	}
 
 	static function betweenTypes(parsedCode:ParsedCode, count:Int) {
-		var types:Array<TokenTree> = parsedCode.root.filter([
-			Kwd(KwdAbstract),
-			Kwd(KwdClass),
-			Kwd(KwdEnum),
-			Kwd(KwdInterface),
-			Kwd(KwdTypedef)
-		], ALL);
+		var types:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
+					FOUND_SKIP_SUBTREE;
+				case Kwd(KwdVar), Kwd(KwdFunction):
+					FOUND_SKIP_SUBTREE;
+				case Const(CIdent("final")):
+					FOUND_SKIP_SUBTREE;
+				#if (haxe_ver >= 4.0)
+				case Kwd(KwdFinal):
+					FOUND_SKIP_SUBTREE;
+				#end
+				default:
+					GO_DEEPER;
+			}
+		});
 		if (types.length <= 1) {
 			return;
 		}

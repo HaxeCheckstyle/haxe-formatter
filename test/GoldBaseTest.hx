@@ -11,6 +11,20 @@ class GoldBaseTest {
 		var file:ParseFile = {name: "Test.hx", content: Bytes.ofString(unformatted)};
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var result:Result = formatter.formatFile(file);
+		handleResult(result, goldCode, pos);
+
+		// second run to make sure result is stable
+		switch (result) {
+			case Success(formattedCode):
+				file = {name: "Test.hx", content: Bytes.ofString(formattedCode)};
+				result = formatter.formatFile(file);
+				handleResult(result, formattedCode, pos);
+			case Failure(errorMessage):
+			case Disabled:
+		}
+	}
+
+	function handleResult(result:Result, goldCode:String, ?pos:PosInfos) {
 		switch (result) {
 			case Success(formattedCode):
 				if (goldCode != formattedCode) {

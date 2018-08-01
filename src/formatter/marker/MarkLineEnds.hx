@@ -45,13 +45,31 @@ class MarkLineEnds {
 					}
 					parsedCode.tokenList.lineEndAfter(token);
 				case Comment(_):
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					if (prev != null) {
+						if (parsedCode.isOriginalSameLine(token, prev.token)) {
+							if (prev.whitespaceAfter == Newline) {
+								parsedCode.tokenList.lineEndAfter(token);
+							}
+							parsedCode.tokenList.noLineEndBefore(token);
+						}
+					}
 					var commentLine:LinePos = parsedCode.getLinePos(token.pos.min);
 					var prefix:String = parsedCode.getString(parsedCode.linesIdx[commentLine.line].l, token.pos.min);
 					if (~/^\s*$/.match(prefix)) {
 						parsedCode.tokenList.lineEndAfter(token);
 						continue;
 					}
-					parsedCode.tokenList.whitespace(token, Around);
+					var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+					if (info == null) {
+						parsedCode.tokenList.whitespace(token, Around);
+					} else {
+						if (info.whitespaceAfter == Newline) {
+							parsedCode.tokenList.whitespace(token, Before);
+						} else {
+							parsedCode.tokenList.whitespace(token, Around);
+						}
+					}
 				default:
 			}
 		}

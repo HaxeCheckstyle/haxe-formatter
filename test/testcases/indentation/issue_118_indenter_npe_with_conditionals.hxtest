@@ -26,5 +26,6 @@ class Serializer {
 		#end
 	}
 }
+
 function serializeFields(v:{}) {}
 }
