@@ -191,8 +191,10 @@ class MarkSameLine {
 			return;
 		}
 		if (isReturnExpression(token) && (config.expressionCase == Same)) {
-			parsedCode.tokenList.noLineEndAfter(dblDot);
-			return;
+			if ((dblDot.children != null) && (dblDot.children.length == 1)) {
+				parsedCode.tokenList.noLineEndAfter(dblDot);
+				return;
+			}
 		}
 		if (config.caseBody != Same) {
 			return;
