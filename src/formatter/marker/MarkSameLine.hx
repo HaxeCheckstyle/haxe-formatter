@@ -394,7 +394,18 @@ class MarkSameLine {
 			}
 			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
 			parsedCode.tokenList.whitespace(brOpen, None);
-			parsedCode.tokenList.whitespace(brClose, None);
+			parsedCode.tokenList.noLineEndAfter(brClose);
+			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+			if (next != null) {
+				switch (next.token.tok) {
+					case PClose, BrClose, BkClose:
+						parsedCode.tokenList.whitespace(brClose, None);
+					case Semicolon, Dot, DblDot:
+						parsedCode.tokenList.whitespace(brClose, None);
+					default:
+						parsedCode.tokenList.whitespace(brClose, OnlyAfter);
+				}
+			}
 			parsedCode.tokenList.wrapBefore(brOpen, false);
 			parsedCode.tokenList.wrapAfter(brOpen, false);
 			parsedCode.tokenList.wrapBefore(brClose, false);

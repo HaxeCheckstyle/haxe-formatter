@@ -18,7 +18,7 @@ class GoldBaseTest {
 			case Success(formattedCode):
 				file = {name: "Test.hx", content: Bytes.ofString(formattedCode)};
 				result = formatter.formatFile(file);
-				handleResult(result, formattedCode, pos);
+				handleResult(result, goldCode, pos);
 			case Failure(errorMessage):
 			case Disabled:
 		}
