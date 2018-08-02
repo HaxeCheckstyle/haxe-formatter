@@ -1,0 +1,23 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		return switch (foo) {
+			case bar: "hello world"; // test
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return switch (foo) {
+			case bar:
+				"hello world"; // test
+		}
+	}
+}

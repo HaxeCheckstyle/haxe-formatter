@@ -85,6 +85,10 @@ class MarkSameLine {
 					return true;
 				case Kwd(KwdFunction):
 					return false;
+				case POpen:
+					return true;
+				case DblDot:
+					return true;
 				case BkOpen:
 					return false;
 				case Binop(OpAssign):
@@ -209,7 +213,25 @@ class MarkSameLine {
 		if (!isReturnExpression(token)) {
 			return false;
 		}
-		if ((dblDot.children == null) || (dblDot.children.length != 1)) {
+		if (dblDot.children == null) {
+			return false;
+		}
+		if (dblDot.children.length == 2) {
+			var second:TokenTree = dblDot.children[1];
+			switch (second.tok) {
+				case CommentLine(_):
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(second);
+					if (prev != null) {
+						if (parsedCode.isOriginalSameLine(dblDot, prev.token)) {
+							return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);
+						}
+						return false;
+					}
+				default:
+					return false;
+			}
+		}
+		if (dblDot.children.length != 1) {
 			return false;
 		}
 		return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);

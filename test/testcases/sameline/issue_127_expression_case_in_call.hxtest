@@ -1,0 +1,27 @@
+{
+	"sameLine": {
+		"expressionCase": "same"
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		trace(switch (Math.random() > 0.5) {
+			case true: "yes";
+			case false: "no";
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		trace(switch (Math.random() > 0.5) {
+			case true: "yes";
+			case false: "no";
+		});
+	}
+}
