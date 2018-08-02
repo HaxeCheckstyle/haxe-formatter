@@ -1,0 +1,15 @@
+{}
+
+---
+
+class Main {
+	static var _haxelibRepo:Null<String>;
+	static var haxelibRepo(get, never):Null<String>;
+}
+
+---
+
+class Main {
+	static var _haxelibRepo:Null<String>;
+	static var haxelibRepo(get, never):Null<String>;
+}
