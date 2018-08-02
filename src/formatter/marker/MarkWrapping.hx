@@ -221,6 +221,8 @@ class MarkWrapping {
 				switch (next.token.tok) {
 					case DblDot:
 						parsedCode.tokenList.noLineEndAfter(brClose);
+					case Dot:
+						parsedCode.tokenList.whitespace(brClose, NoneAfter);
 					default:
 				}
 		}

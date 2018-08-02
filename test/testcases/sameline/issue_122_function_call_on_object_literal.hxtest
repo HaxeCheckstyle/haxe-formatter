@@ -1,0 +1,18 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		return {start: 0}.isEmpty();
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return {start: 0}.isEmpty();
+	}
+}
