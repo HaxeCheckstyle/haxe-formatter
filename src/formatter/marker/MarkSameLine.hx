@@ -180,6 +180,7 @@ class MarkSameLine {
 	static function markCatch(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
 		if (shouldCatchBeSameLine(token) && configSameLine.expressionTry == Same) {
 			markBodyAfterPOpen(token, parsedCode, Same, false);
+			applySameLinePolicy(token, parsedCode, configSameLine.tryCatch);
 			return;
 		}
 		markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody, false);
