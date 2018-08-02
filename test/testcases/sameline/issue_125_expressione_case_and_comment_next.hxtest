@@ -1,4 +1,7 @@
 {
+	"sameLine": {
+		"expressionCase": "next"
+	}
 }
 
 ---
