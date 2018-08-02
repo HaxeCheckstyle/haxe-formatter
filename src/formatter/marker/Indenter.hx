@@ -172,7 +172,7 @@ class Indenter {
 					}
 				default:
 			}
-			if (parsedCode.tokenList.isSameLine(prevToken, currentToken)) {
+			if (!mustIndent(currentToken, prevToken)) {
 				prevToken = currentToken;
 				continue;
 			}
@@ -180,6 +180,15 @@ class Indenter {
 			prevToken = currentToken;
 		}
 		return indentingTokens.length;
+	}
+
+	function mustIndent(currentToken:TokenTree, prevToken:TokenTree):Bool {
+		switch (currentToken.tok) {
+			case DblDot:
+				return true;
+			default:
+		}
+		return !parsedCode.tokenList.isSameLine(prevToken, currentToken);
 	}
 
 	function findIndentingCandidates(token:TokenTree):Array<TokenTree> {
@@ -235,6 +244,10 @@ class Indenter {
 			case Kwd(KwdCatch):
 				return true;
 			case Kwd(KwdFunction):
+				return true;
+			case Kwd(KwdReturn):
+				return true;
+			case Kwd(KwdUntyped):
 				return true;
 			default:
 		}

@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	function foo() untyped {
+		trace("");
+	}
+
+	function foo() return {
+		x: 0,
+		y: 0
+	}
+}
+
+---
+
+class Main {
+	function foo()
+		untyped {
+			trace("");
+		}
+
+	function foo()
+		return {
+			x: 0,
+			y: 0
+		}
+}

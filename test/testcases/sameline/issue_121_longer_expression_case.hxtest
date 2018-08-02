@@ -1,0 +1,45 @@
+{
+	"sameLine": {
+		"expressionCase": "same"
+	}
+}
+
+---
+
+class Main {
+	public static function prepareSignature(type:String):String {
+		return switch (parseDisplayType(type)) {
+			case DTFunction(args, ret):
+				printFunctionSignature(args, ret, {
+					argumentTypeHints: true,
+					returnTypeHint: Always,
+					useArrowSyntax: false
+				});
+			case DTFunction(args, ret): printFunctionSignature(args, ret, {
+					argumentTypeHints: true,
+					returnTypeHint: Always,
+					useArrowSyntax: false
+				});
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function prepareSignature(type:String):String {
+		return switch (parseDisplayType(type)) {
+			case DTFunction(args, ret):
+				printFunctionSignature(args, ret, {
+					argumentTypeHints: true,
+					returnTypeHint: Always,
+					useArrowSyntax: false
+				});
+			case DTFunction(args, ret): printFunctionSignature(args, ret, {
+					argumentTypeHints: true,
+					returnTypeHint: Always,
+					useArrowSyntax: false
+				});
+		}
+	}
+}

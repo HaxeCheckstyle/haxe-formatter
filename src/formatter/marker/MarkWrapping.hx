@@ -98,7 +98,6 @@ class MarkWrapping {
 	}
 
 	static function markBrWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:Config) {
-		var brClose:TokenTree = token.access().firstOf(BrClose).token;
 		switch (TokenTreeCheckUtils.getBrOpenType(token)) {
 			case BLOCK:
 			case TYPEDEFDECL:
@@ -215,6 +214,15 @@ class MarkWrapping {
 				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength);
 			case NoWrap:
 				noWrap(token, brClose, parsedCode, indenter);
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+				if (next == null) {
+					return;
+				}
+				switch (next.token.tok) {
+					case DblDot:
+						parsedCode.tokenList.noLineEndAfter(brClose);
+					default:
+				}
 		}
 	}
 

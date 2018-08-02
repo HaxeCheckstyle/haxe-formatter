@@ -97,6 +97,10 @@ class MarkLineEnds {
 						parsedCode.tokenList.whitespace(brOpen, None);
 						parsedCode.tokenList.whitespace(brClose, None);
 						continue;
+					case Kwd(KwdMacro):
+						parsedCode.tokenList.whitespace(brOpen, NoneAfter);
+						parsedCode.tokenList.whitespace(brClose, NoneBefore);
+						continue;
 					default:
 				}
 			}

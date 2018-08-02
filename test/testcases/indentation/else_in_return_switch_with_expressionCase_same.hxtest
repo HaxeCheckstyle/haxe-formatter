@@ -10,8 +10,7 @@
 class Main {
 	function foo():Bool {
 		return switch (tok) {
-			case POpen:
-				if (token) false;
+			case POpen: if (token) false;
 				else true;
 		}
 	}

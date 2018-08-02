@@ -37,19 +37,19 @@ class CodeLine {
 		}
 	}
 
-	public function applyWrapping(config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+	public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
 		var lineLength:Int = indent;
 		for (index in 0...parts.length) {
 			var part:CodePart = parts[index];
 			lineLength += part.text.length;
 			if (lineLength > config.maxLineLength) {
-				return wrappedAt(index, config, indenter);
+				return wrappedAt(index, config, parsedCode, indenter);
 			}
 		}
 		return [this];
 	}
 
-	function wrappedAt(index:Int, config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+	function wrappedAt(index:Int, config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
 		// while (index >= 0) {
 		// 	var current:CodePart = parts[index];
 		// 	if (current.lastToken.is(BkOpen)) {
@@ -76,10 +76,10 @@ class CodeLine {
 		// }
 		// default:
 		// }
-		return wrapNormal(config, indenter);
+		return wrapNormal(config, parsedCode, indenter);
 	}
 
-	function wrapNormal(config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+	function wrapNormal(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
 		if (parts.length <= 0) {
 			return [this];
 		}
@@ -88,9 +88,11 @@ class CodeLine {
 		line.parts = [part];
 		var lineLength:Int = indent + part.text.length;
 		var lines:Array<CodeLine> = [line];
+		var lastPart:CodePart = part;
 		while (parts.length > 0) {
 			var p:CodePart = parts.shift();
 			if (lineLength + p.text.length > config.maxLineLength) {
+				parsedCode.tokenList.lineEndAfter(lastPart.lastToken);
 				var newIndent:Int = indenter.calcIndent(p.firstToken);
 				line = new CodeLine(newIndent);
 				lineLength = newIndent;
@@ -98,6 +100,7 @@ class CodeLine {
 			}
 			line.parts.push(p);
 			lineLength += p.text.length;
+			lastPart = p;
 		}
 		line.emptyLinesAfter = emptyLinesAfter;
 		return lines;

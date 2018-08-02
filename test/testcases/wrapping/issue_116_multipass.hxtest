@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	function testPrintFunctionDeclaration() {
+		assertPrintedEquals(parseFunctionArgumentType,
+			"function(a:flixel.FlxObject, ?b:String):Void",
+			"?Callback:Null<flixel.FlxObject -> ?String -> Void>",
+			{argumentTypeHints: true, returnTypeHint: Always, useArrowSyntax: false});
+	}
+}
+
+---
+
+class Main {
+	function testPrintFunctionDeclaration() {
+		assertPrintedEquals(parseFunctionArgumentType, "function(a:flixel.FlxObject, ?b:String):Void", "?Callback:Null<flixel.FlxObject -> ?String -> Void>",
+			{argumentTypeHints: true, returnTypeHint: Always, useArrowSyntax: false});
+	}
+}

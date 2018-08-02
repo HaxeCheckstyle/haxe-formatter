@@ -190,11 +190,9 @@ class MarkSameLine {
 		if (dblDot == null) {
 			return;
 		}
-		if (isReturnExpression(token) && (config.expressionCase == Same)) {
-			if ((dblDot.children != null) && (dblDot.children.length == 1)) {
-				parsedCode.tokenList.noLineEndAfter(dblDot);
-				return;
-			}
+		if (checkExpressionCase(token, dblDot, parsedCode, config)) {
+			parsedCode.tokenList.noLineEndAfter(dblDot);
+			return;
 		}
 		if (config.caseBody != Same) {
 			return;
@@ -202,6 +200,19 @@ class MarkSameLine {
 		if ((dblDot.children != null) && (dblDot.children.length == 1)) {
 			parsedCode.tokenList.noLineEndAfter(dblDot);
 		}
+	}
+
+	static function checkExpressionCase(token:TokenTree, dblDot:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {
+		if (config.expressionCase != Same) {
+			return false;
+		}
+		if (!isReturnExpression(token)) {
+			return false;
+		}
+		if ((dblDot.children == null) || (dblDot.children.length != 1)) {
+			return false;
+		}
+		return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);
 	}
 
 	static function markFor(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {

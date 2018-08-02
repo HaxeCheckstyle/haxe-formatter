@@ -8,16 +8,18 @@ class CodeLines {
 	static inline var formatterOn:String = " @formatter:on";
 
 	var indenter:Indenter;
+	var parsedCode:ParsedCode;
 
 	public var lines(default, null):Array<CodeLine>;
 
 	public function new(parsedCode:ParsedCode, indenter:Indenter) {
 		lines = [];
 		this.indenter = indenter;
-		buildLines(parsedCode);
+		this.parsedCode = parsedCode;
+		buildLines();
 	}
 
-	function buildLines(parsedCode:ParsedCode) {
+	function buildLines() {
 		var line:CodeLine = null;
 		var index:Int = 0;
 		while (index < parsedCode.tokenList.tokens.length) {
@@ -78,7 +80,7 @@ class CodeLines {
 		var wrappedLines:Array<CodeLine> = [];
 
 		for (line in lines) {
-			var wrappedCode:Array<CodeLine> = line.applyWrapping(config, indenter);
+			var wrappedCode:Array<CodeLine> = line.applyWrapping(config, parsedCode, indenter);
 			wrappedLines = wrappedLines.concat(wrappedCode);
 		}
 		lines = wrappedLines;

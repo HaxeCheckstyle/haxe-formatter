@@ -9,6 +9,23 @@
 class Boot {
 	static function __init__() untyped {
 		#if (as3 || no_flash_override)
+		String.prototype.charCodeAtHX = function(i) : Null<Int>
+		#else
+		String.prototype.charCodeAt = function(i) : Null<Int>
+		#end
+		{
+			var s : String = __this__;
+			var x : Float = s.cca(i);
+			if( __global__["isNaN"](x) )
+				return null;
+			return Std.int(x);
+		};
+	}
+}
+
+class Boot {
+	static function __init__() untyped {
+		#if (as3 || no_flash_override)
 		String.prototype.charCodeAtHX = function(i) : Null<Int> {
 		#else
 		String.prototype.charCodeAt = function(i) : Null<Int> {
@@ -23,6 +40,23 @@ class Boot {
 }
 
 ---
+
+class Boot {
+	static function __init__() untyped {
+		#if (as3 || no_flash_override)
+		String.prototype.charCodeAtHX = function(i):Null<Int>
+		#else
+		String.prototype.charCodeAt = function(i):Null<Int>
+		#end
+		{
+			var s:String = __this__;
+			var x:Float = s.cca(i);
+			if (__global__["isNaN"](x))
+				return null;
+			return Std.int(x);
+		};
+	}
+}
 
 class Boot {
 	static function __init__() untyped {

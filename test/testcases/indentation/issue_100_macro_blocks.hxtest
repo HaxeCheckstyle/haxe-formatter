@@ -1,0 +1,40 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		assignments = assignments.concat(generateAssignments(
+		    innerFields,
+		    macro {$struct.$name;},
+		    macro {$defaults.$name;}
+		));
+		assignments = assignments.assignments.assignments.assignments.assignments.assignments.assignments.assignments.concat(generateAssignments(
+		    innerFields,
+		    macro {$struct.$name;},
+		    macro {$defaults.$name;}
+		));
+		assignments = assignments.assignments.assignments.assignments.assignments.assignments.assignments.assignments.concat(generateAssignments(
+		    innerFields,
+		    innerFields,
+		    innerFields,
+		    innerFields,
+		    innerFields,
+		    innerFields,
+		    macro {$struct.$name;},
+		    macro {$defaults.$name;}
+		));
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		assignments = assignments.concat(generateAssignments(innerFields, macro {$struct.$name;}, macro {$defaults.$name;}));
+		assignments = assignments.assignments.assignments.assignments.assignments.assignments.assignments.assignments.concat(generateAssignments(innerFields,
+			macro {$struct.$name;}, macro {$defaults.$name;}));
+		assignments = assignments.assignments.assignments.assignments.assignments.assignments.assignments.assignments.concat(generateAssignments(innerFields,
+			innerFields, innerFields, innerFields, innerFields, innerFields, macro {$struct.$name;}, macro {$defaults.$name;}));
+	}
+}

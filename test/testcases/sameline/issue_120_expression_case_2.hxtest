@@ -1,0 +1,35 @@
+{
+	"sameLine": {
+		"expressionCase": "same"
+	}
+}
+
+---
+
+class Main {
+	public static function prepareSignature(type:String):String {
+		return switch (parseDisplayType(type)) {
+			case DTFunction(args, ret):
+				printFunctionSignature(args, ret, {argumentTypeHints: true, returnTypeHint: Always, useArrowSyntax: false});
+			case DTFunction(args, ret): printFunctionSignature(args, ret, {argumentTypeHints: true, returnTypeHint: Always, useArrowSyntax: false});
+			case DTValue(type):
+				if (type == null) "" else type;
+			case DTValue(type): if (type == null) "" else type;
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function prepareSignature(type:String):String {
+		return switch (parseDisplayType(type)) {
+			case DTFunction(args, ret):
+				printFunctionSignature(args, ret, {argumentTypeHints: true, returnTypeHint: Always, useArrowSyntax: false});
+			case DTFunction(args, ret): printFunctionSignature(args, ret, {argumentTypeHints: true, returnTypeHint: Always, useArrowSyntax: false});
+			case DTValue(type):
+				if (type == null) "" else type;
+			case DTValue(type): if (type == null) "" else type;
+		}
+	}
+}

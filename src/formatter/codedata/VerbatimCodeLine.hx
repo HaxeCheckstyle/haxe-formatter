@@ -14,7 +14,7 @@ class VerbatimCodeLine extends CodeLine {
 
 	override public function addToken(tokenInfo:TokenInfo) {}
 
-	override public function applyWrapping(config:WrapConfig, indenter:Indenter):Array<CodeLine> {
+	override public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
 		return [this];
 	}
 
