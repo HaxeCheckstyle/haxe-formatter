@@ -52,6 +52,10 @@ class MarkSameLine {
 				return true;
 			case Kwd(KwdUntyped):
 				return isExpression(parent);
+			case Kwd(KwdFor), Kwd(KwdWhile):
+				if (parent.parent.is(BkOpen)) {
+					return true;
+				}
 			case Binop(_):
 				return true;
 			case POpen:

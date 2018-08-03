@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		return avoidDuplicates([for (arg in args) if (arg.name != null) arg.name else guessName(arg.type)]);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return avoidDuplicates([for (arg in args) if (arg.name != null) arg.name else guessName(arg.type)]);
+	}
+}
