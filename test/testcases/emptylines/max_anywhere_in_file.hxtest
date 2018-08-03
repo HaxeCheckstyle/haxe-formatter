@@ -1,0 +1,26 @@
+{
+	"emptyLines": {
+		"maxAnywhereInFile":1,
+		"betweenTypes":2
+	}
+}
+
+---
+
+typedef Color = {
+	var green:Float;
+}
+
+typedef ConditionalEmtpyLinesConfig = {
+	@:default(0) @:optional var afterError:Int;
+}
+
+---
+
+typedef Color = {
+	var green:Float;
+}
+
+typedef ConditionalEmtpyLinesConfig = {
+	@:default(0) @:optional var afterError:Int;
+}
