@@ -64,7 +64,7 @@ class MarkTokenText {
 			if (!lastLine && line.length <= 0) {
 				lineIndent = 0;
 			}
-			if ((!lastLine && startsWithStar) || (lastLine && !startsWithStar)) {
+			if ((!lastLine && startsWithStar) || (lastLine && line.length == 0)) {
 				line = " " + line;
 			}
 			text += indenter.makeIndentString(lineIndent) + line;
@@ -73,7 +73,7 @@ class MarkTokenText {
 	}
 
 	static function convertLeadingIndent(line:String, config:IndentationConfig):String {
-		var spaceIndent:String = " ".lpad(" ", config.tabWidth);
+		var spaceIndent:String = "".lpad(" ", config.tabWidth);
 		var oneIndent:String = config.character;
 		var whitespaceReg:EReg = ~/^\s+/;
 		if (!whitespaceReg.match(line)) {

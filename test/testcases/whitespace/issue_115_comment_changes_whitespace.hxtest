@@ -1,0 +1,24 @@
+{}
+
+---
+
+/* enum abstract PackageContentKind(Int) {
+    var Module;
+    var Package;
+}*/
+
+/* enum abstract PackageContentKind(Int) {
+    var Module;
+    var Package;
+*/
+
+---
+
+/* enum abstract PackageContentKind(Int) {
+	var Module;
+	var Package;
+}*/
+/* enum abstract PackageContentKind(Int) {
+	var Module;
+	var Package;
+ */
