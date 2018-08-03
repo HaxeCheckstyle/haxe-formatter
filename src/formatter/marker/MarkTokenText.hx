@@ -12,8 +12,6 @@ import formatter.codedata.ParsedCode;
 import formatter.codedata.TokenData;
 
 class MarkTokenText {
-	static var DOLLAR:Int = "$".fastCodeAt(0);
-
 	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter, config:Config) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
@@ -70,7 +68,7 @@ class MarkTokenText {
 	static function isDollarEscaped(text:String, index:Int):Bool {
 		var escaped:Bool = false;
 		while (--index >= 0) {
-			if (text.fastCodeAt(index) != DOLLAR) {
+			if (text.fastCodeAt(index) != "$".code) {
 				return escaped;
 			}
 			escaped = !escaped;
@@ -105,8 +103,9 @@ class MarkTokenText {
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			var formatted:String = lines.print(parsedCode.lineSeparator);
 			return formatted.trim();
-		} catch (e:Any) {}
-
+		} catch (e:Any) {
+			// ignore any errors
+		}
 		return fragment;
 	}
 
@@ -134,25 +133,25 @@ class MarkTokenText {
 		var lines:Array<String> = text.split(parsedCode.lineSeparator);
 		var indent:Int = indenter.calcIndent(token);
 
-		var lastLine:String = lines[lines.length - 1];
-		var prefixReg:EReg = ~/^(\s*)/;
-		var prefix:String = "";
-		if (prefixReg.match(lastLine)) {
-			prefix = prefixReg.matched(1);
+		var linesNew:Array<String> = [];
+		for (line in lines) {
+			linesNew.push(convertLeadingIndent(line, config));
 		}
+		lines = removeCommentPrefix(linesNew);
+
 		text = "/*" + lines[0];
 		for (index in 1...lines.length) {
 			text += parsedCode.lineSeparator;
 			var line:String = lines[index].rtrim();
-			if (line.startsWith(prefix)) {
-				line = line.substr(prefix.length);
-			}
 			var lineIndent:Int = indent;
 			var lastLine:Bool = index == lines.length - 1;
-			if (!lastLine) {
-				line = convertLeadingIndent(line, config);
-			}
 			var startsWithStar:Bool = ~/^\*/.match(line);
+			if (!lastLine) {
+				lineIndent++;
+			}
+			if (startsWithStar) {
+				lineIndent = indent;
+			}
 			if (!lastLine && line.length <= 0) {
 				lineIndent = 0;
 			}
@@ -162,6 +161,39 @@ class MarkTokenText {
 			text += indenter.makeIndentString(lineIndent) + line;
 		}
 		return text + "*/";
+	}
+
+	static function removeCommentPrefix(lines:Array<String>):Array<String> {
+		var prefixReg:EReg = ~/^(\s*)/;
+		var prefix:String = null;
+		var linesNew:Array<String> = [];
+		for (index in 1...lines.length - 1) {
+			var line:String = lines[index];
+			if (prefixReg.match(line)) {
+				var linePrefix:String = prefixReg.matched(1);
+				if (linePrefix.length <= 0) {
+					continue;
+				}
+				if ((prefix == null) || (prefix.length > linePrefix.length)) {
+					prefix = linePrefix;
+				}
+			}
+		}
+		if (prefix != null) {
+			linesNew = [];
+			for (line in lines) {
+				if (line.startsWith(prefix)) {
+					line = line.substr(prefix.length);
+				}
+				linesNew.push(line);
+			}
+			lines = linesNew;
+		}
+		var lastLine:String = lines[lines.length - 1];
+		if (~/^\s*\*?$/.match(lastLine)) {
+			lines[lines.length - 1] = lastLine.ltrim();
+		}
+		return lines;
 	}
 
 	static function convertLeadingIndent(line:String, config:IndentationConfig):String {
