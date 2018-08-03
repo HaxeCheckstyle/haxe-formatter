@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		'${i+1}';
+		'$${i+1}';
+		'$$${i+1}';
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		'${i + 1}';
+		'$${i+1}';
+		'$$${i + 1}';
+	}
+}

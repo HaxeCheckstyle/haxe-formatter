@@ -41,4 +41,5 @@ typedef WhitespaceConfig = {
 		should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`
 	**/
 	@:default(true) @:optional var compressSuccessiveParenthesis:Bool;
+	@:default(true) @:optional var formatStringInterpolation:Bool;
 }

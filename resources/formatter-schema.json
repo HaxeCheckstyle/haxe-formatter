@@ -856,6 +856,10 @@
                     ],
                     "propertyOrder": 23
                 },
+                "formatStringInterpolation": {
+                    "type": "boolean",
+                    "propertyOrder": 32
+                },
                 "typeExtensionPolicy": {
                     "type": "string",
                     "enum": [

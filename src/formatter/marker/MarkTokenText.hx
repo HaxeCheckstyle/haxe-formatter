@@ -12,6 +12,8 @@ import formatter.codedata.ParsedCode;
 import formatter.codedata.TokenData;
 
 class MarkTokenText {
+	static var DOLLAR:Int = "$".fastCodeAt(0);
+
 	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter, config:Config) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
@@ -41,10 +43,16 @@ class MarkTokenText {
 
 	public static function printStringToken(token:TokenTree, parsedCode:ParsedCode, config:Config):String {
 		var text:String = parsedCode.getString(token.pos.min, token.pos.max);
+		if (!config.whitespace.formatStringInterpolation) {
+			return text;
+		}
 		if (text.startsWith("'")) {
 			var start:Int = 0;
 			var index:Int;
 			while ((index = text.indexOf("${", start)) >= 0) {
+				if (isDollarEscaped(text, index)) {
+					return text;
+				}
 				start = index + 1;
 				var indexEnd:Int = text.indexOf("}", index + 2);
 				var fragment:String = text.substring(index + 2, indexEnd);
@@ -57,6 +65,17 @@ class MarkTokenText {
 			}
 		}
 		return text;
+	}
+
+	static function isDollarEscaped(text:String, index:Int):Bool {
+		var escaped:Bool = false;
+		while (--index >= 0) {
+			if (text.fastCodeAt(index) != DOLLAR) {
+				return escaped;
+			}
+			escaped = !escaped;
+		}
+		return escaped;
 	}
 
 	static function formatFragment(fragment:String, config:Config):String {
