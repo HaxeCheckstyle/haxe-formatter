@@ -249,7 +249,10 @@ class MarkSameLine {
 		switch (parent.tok) {
 			case BkOpen:
 				if (configSameLine.comprehensionFor == Same) {
+					parsedCode.tokenList.whitespace(token, NoneBefore);
 					markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
+					var bkClose:TokenTree = parent.getLastChild();
+					parsedCode.tokenList.whitespace(bkClose, NoneBefore);
 					return;
 				}
 			default:
@@ -268,7 +271,10 @@ class MarkSameLine {
 		switch (parent.tok) {
 			case BkOpen:
 				if (configSameLine.comprehensionFor == Same) {
+					parsedCode.tokenList.whitespace(token, NoneBefore);
 					markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
+					var bkClose:TokenTree = parent.getLastChild();
+					parsedCode.tokenList.whitespace(bkClose, NoneBefore);
 					return;
 				}
 			default:

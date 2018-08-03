@@ -269,19 +269,24 @@ class MarkWrapping {
 		var atLength:Int = 0;
 		var itemCount:Int = 0;
 		for (child in token.children) {
-			if (child.is(At)) {
-				atLength += parsedCode.tokenList.calcLength(child);
-				continue;
+			switch (child.tok) {
+				case At:
+					atLength += parsedCode.tokenList.calcLength(child);
+					continue;
+				case BkClose:
+					break;
+				case Kwd(KwdFor):
+					return;
+				case Kwd(KwdWhile):
+					return;
+				default:
+					var length:Int = parsedCode.tokenList.calcLength(child);
+					totalLength += length;
+					if (length > maxLength) {
+						maxLength = length;
+					}
+					itemCount++;
 			}
-			if (child.is(BkClose)) {
-				break;
-			}
-			var length:Int = parsedCode.tokenList.calcLength(child);
-			totalLength += length;
-			if (length > maxLength) {
-				maxLength = length;
-			}
-			itemCount++;
 		}
 
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
