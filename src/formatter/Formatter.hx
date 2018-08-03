@@ -42,7 +42,7 @@ class Formatter {
 			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
 
-			MarkTokenText.markTokenText(parsedCode, indenter, config.indentation);
+			MarkTokenText.markTokenText(parsedCode, indenter, config);
 			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
 			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
 			MarkSameLine.markSameLine(parsedCode, config.sameLine, config.whitespace);

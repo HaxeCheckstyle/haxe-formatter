@@ -1,13 +1,22 @@
 package formatter.marker;
 
+import haxeparser.HaxeLexer;
+import tokentree.TokenStreamProgress;
+import tokentree.walk.WalkStatement;
+import tokentree.TokenStream;
+import formatter.config.Config;
 import formatter.config.IndentationConfig;
+import formatter.codedata.CodeLines;
+import formatter.codedata.ParseFile;
+import formatter.codedata.ParsedCode;
+import formatter.codedata.TokenData;
 
 class MarkTokenText {
-	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter, config:IndentationConfig) {
+	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter, config:Config) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Const(CString(text)):
-					parsedCode.tokenList.tokenText(token, printStringToken(token, parsedCode));
+					parsedCode.tokenList.tokenText(token, printStringToken(token, parsedCode, config));
 				case Const(CRegexp(_, _)):
 					parsedCode.tokenList.tokenText(token, printEregToken(token, parsedCode));
 				case CommentLine(text):
@@ -30,8 +39,72 @@ class MarkTokenText {
 		});
 	}
 
-	public static function printStringToken(token:TokenTree, parsedCode:ParsedCode):String {
-		return parsedCode.getString(token.pos.min, token.pos.max);
+	public static function printStringToken(token:TokenTree, parsedCode:ParsedCode, config:Config):String {
+		var text:String = parsedCode.getString(token.pos.min, token.pos.max);
+		if (text.startsWith("'")) {
+			var start:Int = 0;
+			var index:Int;
+			while ((index = text.indexOf("${", start)) >= 0) {
+				start = index + 1;
+				var indexEnd:Int = text.indexOf("}", index + 2);
+				var fragment:String = text.substring(index + 2, indexEnd);
+				if (fragment.indexOf("{") >= 0) {
+					continue;
+				}
+				var formatted:String = formatFragment(fragment, config);
+				start += formatted.length - fragment.length;
+				text = text.substr(0, index + 2) + formatted + text.substr(indexEnd);
+			}
+		}
+		return text;
+	}
+
+	static function formatFragment(fragment:String, config:Config):String {
+		try {
+			var file:ParseFile = {
+				name: "string interpolation",
+				content: cast ByteData.ofString(fragment)
+			};
+			var tokens:Array<Token> = makeTokens(ByteData.ofString(fragment), file.name);
+			var stream:TokenStream = new TokenStream(tokens, ByteData.ofString(fragment));
+			var root:TokenTree = new TokenTree(null, "", null, -1);
+			var progress:TokenStreamProgress = new TokenStreamProgress(stream);
+			while (progress.streamHasChanged()) {
+				if (stream.hasMore()) {
+					WalkStatement.walkStatement(stream, root);
+				}
+			}
+			var tokenData:TokenData = {
+				tokens: tokens,
+				tokenTree: root
+			};
+			var parsedCode:ParsedCode = new ParsedCode(file, tokenData);
+			var indenter = new Indenter(config.indentation);
+			indenter.setParsedCode(parsedCode);
+			MarkTokenText.markTokenText(parsedCode, indenter, config);
+			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
+			var lines:CodeLines = new CodeLines(parsedCode, indenter);
+			var formatted:String = lines.print(parsedCode.lineSeparator);
+			return formatted.trim();
+		} catch (e:Any) {}
+
+		return fragment;
+	}
+
+	static function makeTokens(fragment:ByteData, name:String):Array<Token> {
+		var tokens:Array<Token> = [];
+		try {
+			var lexer = new HaxeLexer(fragment, name);
+			var t:Token = lexer.token(haxeparser.HaxeLexer.tok);
+
+			while (t.tok != Eof) {
+				tokens.push(t);
+				t = lexer.token(haxeparser.HaxeLexer.tok);
+			}
+		} catch (e:Any) {
+			throw 'failed to make tokens $e';
+		}
+		return tokens;
 	}
 
 	public static function printEregToken(token:TokenTree, parsedCode:ParsedCode):String {

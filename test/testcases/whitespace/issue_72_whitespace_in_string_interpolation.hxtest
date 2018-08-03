@@ -1,0 +1,31 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		'${i+1}';
+		'${foo(i).call()*( i + 1 ) }';
+		'some text${i+1}more text${foo(i).call()*( i + 1 ) }end text';
+		'${foo ("{") }';
+		'${foo ("}") }';
+		"${i+1}";
+		"${foo(i).call()*( i + 1 ) }";
+		"some text${i+1}more text${foo(i).call()*( i + 1 ) }end text";
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		'${i + 1}';
+		'${foo(i).call() * (i + 1)}';
+		'some text${i + 1}more text${foo(i).call() * (i + 1)}end text';
+		'${foo ("{") }';
+		'${foo ("}") }';
+		"${i+1}";
+		"${foo(i).call()*( i + 1 ) }";
+		"some text${i+1}more text${foo(i).call()*( i + 1 ) }end text";
+	}
+}
