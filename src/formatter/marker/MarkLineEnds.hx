@@ -305,7 +305,7 @@ class MarkLineEnds {
 							parsedCode.tokenList.noLineEndBefore(token);
 						} else {
 							switch (prev.token.tok) {
-								case POpen, BrOpen, BkOpen:
+								case POpen, BrOpen, BkOpen, Dot, DblDot:
 									parsedCode.tokenList.whitespace(token, NoneBefore);
 								default:
 									parsedCode.tokenList.noLineEndBefore(token);
@@ -353,8 +353,21 @@ class MarkLineEnds {
 		switch (token.tok) {
 			case Sharp(SHARP_IF):
 				var sharpEnd:TokenTree = token.getLastChild();
-				if ((sharpEnd == null) || (!sharpEnd.is(Sharp(SHARP_END)))) {
+				if (sharpEnd == null) {
 					return false;
+				}
+				switch (sharpEnd.tok) {
+					case Sharp(SHARP_END):
+					case Semicolon:
+						sharpEnd = sharpEnd.previousSibling;
+						if (sharpEnd == null) {
+							return false;
+						}
+						if (!sharpEnd.is(Sharp(SHARP_END))) {
+							return false;
+						}
+					default:
+						return false;
 				}
 				if (!isOnlyWhitespaceAfterToken(sharpEnd, parsedCode)) {
 					return true;
