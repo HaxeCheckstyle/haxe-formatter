@@ -1,0 +1,21 @@
+{}
+
+---
+
+typedef Metadata = {
+	var name:String;
+	var doc:JsonDoc;
+	/* var parameters:Array<String>;
+	var platforms:Array<Platform>;
+	var target:Array<MetadataTarget>; */
+}
+
+---
+
+typedef Metadata = {
+	var name:String;
+	var doc:JsonDoc;
+	/* var parameters:Array<String>;
+		var platforms:Array<Platform>;
+		var target:Array<MetadataTarget>; */
+}

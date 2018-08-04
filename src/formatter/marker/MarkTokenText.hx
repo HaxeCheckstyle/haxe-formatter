@@ -155,8 +155,17 @@ class MarkTokenText {
 			if (!lastLine && line.length <= 0) {
 				lineIndent = 0;
 			}
-			if ((!lastLine && startsWithStar) || (lastLine && line.length == 0)) {
+			if (!lastLine && startsWithStar) {
 				line = " " + line;
+			}
+			if (lastLine) {
+				if (~/^\s*$/.match(line)) {
+					line = " ";
+				}
+				if (~/[^*\s]/.match(line)) {
+					lineIndent = indent + 1;
+					line = line.rtrim() + " ";
+				}
 			}
 			text += indenter.makeIndentString(lineIndent) + line;
 		}
