@@ -66,15 +66,7 @@ class MarkSameLine {
 			case Kwd(KwdElse):
 				return shouldElseBeSameLine(parent);
 			case DblDot:
-				switch (parent.parent.tok) {
-					case Const(CIdent(_)):
-						if (parent.parent.parent.is(Kwd(KwdCase))) {
-							return false;
-						}
-						return true;
-					default:
-						return isReturnExpression(parent);
-				}
+				return isReturnExpression(parent);
 			default:
 		}
 		return false;
@@ -94,6 +86,8 @@ class MarkSameLine {
 				case DblDot:
 					return true;
 				case BkOpen:
+					return false;
+				case Arrow:
 					return false;
 				case Binop(OpAssign):
 					return true;

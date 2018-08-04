@@ -1,0 +1,70 @@
+{}
+
+---
+
+
+package haxe.ui.util;
+
+#if (macro || sys)
+import sys.io.File;
+
+#end
+class Properties {}
+
+class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
+
+class Main {
+
+
+var dx:Float = (SpriteA.x + SpriteA.origin.x) -(SpriteB.x + SpriteB.origin.x);
+var dy:Float = (SpriteA.y + SpriteA.origin.y) -(SpriteB.y + SpriteB.origin.y);
+function main ()  {
+n += (Math.ceil( -n) >> 1) << 1;
+
+
+
+        if (StringTools.startsWith(data, "<")) { // xml
+            var xml:Xml = Xml.parse(data).firstElement();
+        for (el in xml.elements()) {
+            var o:Dynamic = xml2Object(el);
+            ds.add(o);
+        }
+        }
+
+   return if (difference > 0) 1;
+        else if (difference < 0) -1;
+        else
+            0;
+}
+}
+
+---
+
+package haxe.ui.util;
+
+#if (macro || sys)
+import sys.io.File;
+#end
+
+class Properties {}
+
+class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
+
+class Main {
+	var dx:Float = (SpriteA.x + SpriteA.origin.x) - (SpriteB.x + SpriteB.origin.x);
+	var dy:Float = (SpriteA.y + SpriteA.origin.y) - (SpriteB.y + SpriteB.origin.y);
+
+	function main() {
+		n += (Math.ceil(-n) >> 1) << 1;
+
+		if (StringTools.startsWith(data, "<")) { // xml
+			var xml:Xml = Xml.parse(data).firstElement();
+			for (el in xml.elements()) {
+				var o:Dynamic = xml2Object(el);
+				ds.add(o);
+			}
+		}
+
+		return if (difference > 0) 1; else if (difference < 0) -1; else 0;
+	}
+}

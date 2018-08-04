@@ -1,0 +1,63 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		callDisplay(result -> {
+			switch (result) {
+				case DResult(data):
+					if (Reflect.hasField(response, "error"))
+						errback(response.error.message);
+					else
+						runHaxeMethodCallback(response, beforeCallTime, arrivalTime, callback, errback, method);
+				case DCancelled:
+			}
+		});
+	}
+}
+
+class Main {
+	static function main() {
+		callDisplay(result -> {
+			switch (result) {
+				case DResult(data):
+					if (foo)
+						bar();
+					trace(data);
+				case DCancelled:
+			}
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		callDisplay(result -> {
+			switch (result) {
+				case DResult(data):
+					if (Reflect.hasField(response, "error"))
+						errback(response.error.message);
+					else
+						runHaxeMethodCallback(response, beforeCallTime, arrivalTime, callback, errback, method);
+				case DCancelled:
+			}
+		});
+	}
+}
+
+class Main {
+	static function main() {
+		callDisplay(result -> {
+			switch (result) {
+				case DResult(data):
+					if (foo)
+						bar();
+					trace(data);
+				case DCancelled:
+			}
+		});
+	}
+}
