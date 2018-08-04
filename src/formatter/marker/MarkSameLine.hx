@@ -403,13 +403,11 @@ class MarkSameLine {
 			var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
 			switch (type) {
 				case BLOCK:
-					continue;
 				case TYPEDEFDECL:
 					markTypedefSameLine(token, parsedCode, config, configWhitespace);
 				case OBJECTDECL:
 				case ANONTYPE:
 				case UNKNOWN:
-					continue;
 			}
 		}
 	}

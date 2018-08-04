@@ -178,6 +178,7 @@ class MarkLineEnds {
 			case PClose:
 			case Comma:
 			case Semicolon:
+			case Binop(OpAssign):
 			default:
 				parsedCode.tokenList.lineEndAfter(token);
 		}

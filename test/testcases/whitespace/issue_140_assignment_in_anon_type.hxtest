@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var content:{?name:String} = Json.parse(File.getContent(haxelibFile));
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var content:{?name:String} = Json.parse(File.getContent(haxelibFile));
+	}
+}
