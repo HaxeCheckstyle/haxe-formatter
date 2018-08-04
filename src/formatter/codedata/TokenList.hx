@@ -304,13 +304,23 @@ class TokenList {
 		if ((tokenStart == null) || (tokenEnd == null)) {
 			return;
 		}
+		var nestLevel:Int = 0;
 		for (index in tokenStart.index...tokenEnd.index) {
 			var info:TokenInfo = tokens[index];
 			if (info == null) {
 				continue;
 			}
 			info.wrapAfter = false;
-			if (info.whitespaceAfter == Newline) {
+			switch (info.token.tok) {
+				case BrOpen, BkOpen:
+					if (index != tokenStart.index) {
+						nestLevel++;
+					}
+				case BrClose, BkClose:
+					nestLevel--;
+				default:
+			}
+			if ((nestLevel <= 0) && (info.whitespaceAfter == Newline)) {
 				info.whitespaceAfter = info.whitespaceAfterWithoutNL;
 			}
 		}

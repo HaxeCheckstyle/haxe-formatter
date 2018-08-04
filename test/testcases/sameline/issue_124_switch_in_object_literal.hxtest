@@ -1,0 +1,32 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {
+			bar: switch (b) {
+				case true: "true";
+				case false: "false";
+				case halftrue: trace("halftrue -> false"); "false";
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var foo = {
+			bar: switch (b) {
+				case true: "true";
+				case false: "false";
+				case halftrue:
+					trace("halftrue -> false");
+					"false";
+			}
+		}
+	}
+}
