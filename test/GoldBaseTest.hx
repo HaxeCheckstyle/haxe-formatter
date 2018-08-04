@@ -7,8 +7,8 @@ import formatter.codedata.ParseFile;
 import formatter.Formatter.Result;
 
 class GoldBaseTest {
-	function goldCheck(unformatted:String, goldCode:String, ?config:String, ?pos:PosInfos) {
-		var file:ParseFile = {name: "Test.hx", content: Bytes.ofString(unformatted)};
+	function goldCheck(unformatted:String, goldCode:String, lineSeparator:String, ?config:String, ?pos:PosInfos) {
+		var file:ParseFile = {name: "Test.hx", content: Bytes.ofString(unformatted), lineSeparator: lineSeparator};
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var result:Result = formatter.formatFile(file);
 		handleResult(result, goldCode, pos);

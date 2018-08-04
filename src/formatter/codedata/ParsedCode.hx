@@ -19,7 +19,11 @@ class ParsedCode {
 		this.file = file;
 		try {
 			removeBOM();
-			detectLineSeparator();
+			if (file.lineSeparator == null) {
+				detectLineSeparator();
+			} else {
+				lineSeparator = file.lineSeparator;
+			}
 			makeLines();
 			makePosIndices();
 			if (tokenData == null) {

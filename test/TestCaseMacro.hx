@@ -35,11 +35,12 @@ class TestCaseMacro {
 		var unformatted:String = segments[1];
 		var gold:String = segments[2];
 		var fieldName:String = new haxe.io.Path(fileName).file;
+		var lineSeparator:String = detectLineSeparator(content);
 
 		return (macro class {
 			@Test
 			public function $fieldName() {
-				goldCheck($v{unformatted}, $v{gold}, $v{config});
+				goldCheck($v{unformatted}, $v{gold}, $v{lineSeparator}, $v{config});
 			};
 		}).fields[0];
 	}
@@ -65,6 +66,25 @@ class TestCaseMacro {
 			files.push(Path.join([path, item]));
 		}
 		return files;
+	}
+
+	public static function detectLineSeparator(code:String):String {
+		for (i in 0...code.length) {
+			var char = code.charAt(i);
+			if ((char == "\r") || (char == "\n")) {
+				var separator:String = char;
+				if ((char == "\r") && (i + 1 < code.length)) {
+					char = code.charAt(i + 1);
+					if (char == "\n") {
+						separator += char;
+					}
+				}
+				return separator;
+			}
+		}
+
+		// default
+		return "\n";
 	}
 	#end
 }
