@@ -363,17 +363,33 @@
                     "type": "boolean",
                     "propertyOrder": 0
                 },
+                "beforeBlocks": {
+                    "type": "string",
+                    "enum": [
+                        "keep",
+                        "remove"
+                    ],
+                    "propertyOrder": 9
+                },
                 "conditionalsEmptyLines": {
                     "$ref": "#/definitions/ConditionalEmtpyLinesConfig",
-                    "propertyOrder": 16
+                    "propertyOrder": 18
+                },
+                "afterBlocks": {
+                    "type": "string",
+                    "enum": [
+                        "keep",
+                        "remove"
+                    ],
+                    "propertyOrder": 10
                 },
                 "enumEmptyLines": {
                     "$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
-                    "propertyOrder": 14
+                    "propertyOrder": 16
                 },
                 "externClassEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
-                    "propertyOrder": 11
+                    "propertyOrder": 13
                 },
                 "betweenTypes": {
                     "type": "integer",
@@ -389,15 +405,15 @@
                 },
                 "typedefEmptyLines": {
                     "$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
-                    "propertyOrder": 15
+                    "propertyOrder": 17
                 },
                 "enumAbstractEmptyLines": {
                     "$ref": "#/definitions/EnumAbstractFieldsEmtpyLinesConfig",
-                    "propertyOrder": 9
+                    "propertyOrder": 11
                 },
                 "abstractEmptyLines": {
                     "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
-                    "propertyOrder": 12
+                    "propertyOrder": 14
                 },
                 "afterImportsUsing": {
                     "type": "integer",
@@ -405,7 +421,7 @@
                 },
                 "classEmptyLines": {
                     "$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
-                    "propertyOrder": 10
+                    "propertyOrder": 12
                 },
                 "beforeDocCommentEmptyLines": {
                     "description": "\"one\" adds one empty line above doc comments\n\t\t\"none\" removes all empty lines above doc comments\n\t\t\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
@@ -415,11 +431,11 @@
                         "none",
                         "one"
                     ],
-                    "propertyOrder": 17
+                    "propertyOrder": 19
                 },
                 "interfaceEmptyLines": {
                     "$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
-                    "propertyOrder": 13
+                    "propertyOrder": 15
                 }
             },
             "type": "object"

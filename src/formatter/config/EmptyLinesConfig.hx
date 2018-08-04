@@ -10,6 +10,8 @@ typedef EmptyLinesConfig = {
 	@:default(Remove) @:optional var beforeRightCurly:KeepEmptyLinesPolicy;
 	@:default(Remove) @:optional var afterLeftCurly:KeepEmptyLinesPolicy;
 	@:default(Remove) @:optional var afterReturn:KeepEmptyLinesPolicy;
+	@:default(Remove) @:optional var beforeBlocks:KeepEmptyLinesPolicy;
+	@:default(Remove) @:optional var afterBlocks:KeepEmptyLinesPolicy;
 	@:default(auto) @:optional var enumAbstractEmptyLines:EnumAbstractFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var classEmptyLines:ClassFieldsEmtpyLinesConfig;
 	@:default(auto) @:optional var externClassEmptyLines:InterfaceFieldsEmtpyLinesConfig;

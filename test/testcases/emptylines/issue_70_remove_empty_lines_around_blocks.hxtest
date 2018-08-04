@@ -1,0 +1,115 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+
+		if (foo)
+
+			trace("bar");
+
+		else
+
+			trace("bar");
+
+		doSomething();
+
+		if (foo)
+
+{
+			trace("bar");
+}
+
+		else
+
+{
+
+			trace("bar");
+
+}
+
+		switch (val) {
+			case 1:
+
+				doSomething(); // comment
+				doSomething(); // comment
+
+			case 2:
+
+				doSomething(); // comment
+
+			default:
+
+				doSomething(); // comment
+
+		}
+
+		for (i in a)
+
+			doSomething(i);
+
+		while (true)
+
+			doSomething(i);
+
+
+		do
+
+			doSomething(i);
+
+		while (true);
+
+		try
+
+		doSomething();
+
+		catch (e:Any)
+
+		handleError(e);
+
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (foo)
+			trace("bar");
+		else
+			trace("bar");
+
+		doSomething();
+
+		if (foo) {
+			trace("bar");
+		} else {
+			trace("bar");
+		}
+
+		switch (val) {
+			case 1:
+				doSomething(); // comment
+				doSomething(); // comment
+			case 2:
+				doSomething(); // comment
+			default:
+				doSomething(); // comment
+		}
+
+		for (i in a)
+			doSomething(i);
+
+		while (true)
+			doSomething(i);
+
+		do
+			doSomething(i); while (true);
+
+		try
+			doSomething();
+		catch (e:Any)
+			handleError(e);
+	}
+}

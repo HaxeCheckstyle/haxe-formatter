@@ -123,7 +123,6 @@ class JsonSchemaGenerator {
 							return SchemaUtils.makeObjectDecl(fields, structInfo, order, pos);
 						}
 				}
-
 			case TAbstract(_.get() => ab, params):
 				switch [ab, params] {
 					case [{pack: [], name: "Int"}, []]:
@@ -152,7 +151,6 @@ class JsonSchemaGenerator {
 							return SchemaUtils.makeEnum(getAbstractEnumValues(macro $p{pack}), structInfo, order, pos);
 						}
 				}
-
 			case TAnonymous(_.get() => anon):
 				var required = [];
 				// sort by declaration position

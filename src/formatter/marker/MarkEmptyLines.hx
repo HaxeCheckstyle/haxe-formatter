@@ -36,6 +36,9 @@ class MarkEmptyLines {
 		if (config.afterReturn == Remove) {
 			markReturn(parsedCode);
 		}
+		if ((config.beforeBlocks == Remove) || (config.afterBlocks == Remove)) {
+			markAroundBlocks(parsedCode, config);
+		}
 	}
 
 	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
@@ -611,6 +614,60 @@ class MarkEmptyLines {
 				case One:
 					parsedCode.tokenList.emptyLinesBefore(comment, 1);
 			}
+		}
+	}
+
+	static function markAroundBlocks(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Kwd(KwdIf):
+					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+					var block:TokenTree = token.access().firstOf(Kwd(KwdElse)).previousSibling().token;
+					if (block != null) {
+						removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+					}
+				case Kwd(KwdElse):
+					removeEmptyLinesAroundBlock(token.getFirstChild(), parsedCode, config.beforeBlocks, Keep);
+				case Kwd(KwdCase), Kwd(KwdDefault):
+					var block:TokenTree = token.access().firstOf(DblDot).firstChild().token;
+					removeEmptyLinesAroundBlock(block, parsedCode, config.beforeBlocks, Keep);
+					block = token.access().firstOf(DblDot).lastChild().token;
+					removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+				case Kwd(KwdFunction):
+				case Kwd(KwdFor):
+					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+				case Kwd(KwdDo):
+					removeEmptyLinesAroundBlock(token.getFirstChild(), parsedCode, config.beforeBlocks, Keep);
+					var block:TokenTree = token.access().lastChild().previousSibling().token;
+					removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+				case Kwd(KwdWhile):
+					if ((token.parent == null) || (!token.parent.is(Kwd(KwdDo)))) {
+						removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+					}
+				case Kwd(KwdTry):
+					removeEmptyLinesAroundBlock(token.getFirstChild(), parsedCode, config.beforeBlocks, Keep);
+					var block:TokenTree = token.access().lastChild().previousSibling().token;
+					removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+				case Kwd(KwdCatch):
+					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+				default:
+			}
+			return GO_DEEPER;
+		});
+	}
+
+	static function removeEmptyLinesAroundBlock(block:TokenTree, parsedCode:ParsedCode, before:KeepEmptyLinesPolicy, after:KeepEmptyLinesPolicy) {
+		if (block == null) {
+			return;
+		}
+		if (before == Remove) {
+			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(block);
+			if (prev != null) {
+				parsedCode.tokenList.emptyLinesAfter(prev.token, 0);
+			}
+		}
+		if (after == Remove) {
+			parsedCode.tokenList.emptyLinesAfterSubTree(block, 0);
 		}
 	}
 
