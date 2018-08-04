@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		macro {
+			if ($struct == null) {
+				$struct = $defaults;
+			} else {
+				$b{generateAssignments(fields, struct, defaults)};
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		macro {
+			if ($struct == null) {
+				$struct = $defaults;
+			} else {
+				$b{generateAssignments(fields, struct, defaults)};
+			}
+		}
+	}
+}
