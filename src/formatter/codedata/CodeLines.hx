@@ -72,7 +72,10 @@ class CodeLines {
 	function copyVerbatim(parsedCode:ParsedCode, startLine:Int, endLine:Int) {
 		var startOffs:Int = parsedCode.linesIdx[startLine].l;
 		var endOffs:Int = parsedCode.linesIdx[endLine].r;
-		var content:String = parsedCode.getString(startOffs, endOffs).rtrim();
+		var content:String = parsedCode.getString(startOffs, endOffs);
+		if (endLine < parsedCode.lines.length - 1) {
+			content = content.rtrim();
+		}
 		lines.push(new VerbatimCodeLine(content));
 	}
 
