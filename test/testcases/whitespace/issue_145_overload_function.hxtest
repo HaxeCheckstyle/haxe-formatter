@@ -1,0 +1,15 @@
+{}
+
+---
+
+class Main {
+	@:overload(function<T>():Void {})
+	function foo():Void;
+}
+
+---
+
+class Main {
+	@:overload(function<T>():Void {})
+	function foo():Void;
+}

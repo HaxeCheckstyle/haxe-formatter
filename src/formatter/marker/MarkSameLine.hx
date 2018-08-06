@@ -377,7 +377,17 @@ class MarkSameLine {
 		switch (policy) {
 			case Same:
 				parsedCode.tokenList.wrapBefore(token, true);
-				parsedCode.tokenList.noLineEndBefore(token);
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if (prev == null) {
+					parsedCode.tokenList.noLineEndBefore(token);
+				} else {
+					switch (prev.token.tok) {
+						case POpen, Dot:
+							parsedCode.tokenList.whitespace(token, NoneBefore);
+						default:
+							parsedCode.tokenList.noLineEndBefore(token);
+					}
+				}
 				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
 					return;
