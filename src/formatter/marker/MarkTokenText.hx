@@ -133,6 +133,14 @@ class MarkTokenText {
 		var lines:Array<String> = text.split(parsedCode.lineSeparator);
 		var indent:Int = indenter.calcIndent(token);
 
+		var startsWithStar:Bool = lines.length >= 3;
+		for (index in 1...lines.length - 1) {
+			if (!~/^\s*\*\s/.match(lines[index])) {
+				startsWithStar = false;
+				break;
+			}
+		}
+
 		var linesNew:Array<String> = [];
 		for (line in lines) {
 			linesNew.push(convertLeadingIndent(line, config));
@@ -145,7 +153,6 @@ class MarkTokenText {
 			var line:String = lines[index].rtrim();
 			var lineIndent:Int = indent;
 			var lastLine:Bool = index == lines.length - 1;
-			var startsWithStar:Bool = ~/^\*/.match(line);
 			if (!lastLine) {
 				lineIndent++;
 			}

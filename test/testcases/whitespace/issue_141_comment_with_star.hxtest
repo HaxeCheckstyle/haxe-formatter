@@ -1,0 +1,43 @@
+{}
+
+---
+
+typedef DisplayArgumentsProvider = {
+    /**
+        Called when this display argument provider is no longer active, for instance because the user has chosen to use
+        another provider. The provider is informed about this to stop unnecessary system calls if deactivated.
+
+        *Note:* a deactivated provider can be activated again!
+    **/
+    function deactivate():Void;
+
+    /**
+     * Called when this display argument provider is no longer active, for instance because the user has chosen to use
+     * another provider. The provider is informed about this to stop unnecessary system calls if deactivated.
+     *
+     * *Note:* a deactivated provider can be activated again!
+    **/
+    function deactivate():Void;
+
+}
+
+---
+
+typedef DisplayArgumentsProvider = {
+	/**
+		Called when this display argument provider is no longer active, for instance because the user has chosen to use
+		another provider. The provider is informed about this to stop unnecessary system calls if deactivated.
+
+		*Note:* a deactivated provider can be activated again!
+	**/
+	function deactivate():Void;
+
+	/**
+	 * Called when this display argument provider is no longer active, for instance because the user has chosen to use
+	 * another provider. The provider is informed about this to stop unnecessary system calls if deactivated.
+	 *
+	 * *Note:* a deactivated provider can be activated again!
+	**/
+	function deactivate():Void;
+
+}
