@@ -39,5 +39,4 @@ typedef DisplayArgumentsProvider = {
 	 * *Note:* a deactivated provider can be activated again!
 	**/
 	function deactivate():Void;
-
 }

@@ -135,7 +135,7 @@ class MarkTokenText {
 
 		var startsWithStar:Bool = lines.length >= 3;
 		for (index in 1...lines.length - 1) {
-			if (!~/^\s*\*\s/.match(lines[index])) {
+			if (!~/^\s*\*(\s|$)/.match(lines[index])) {
 				startsWithStar = false;
 				break;
 			}
