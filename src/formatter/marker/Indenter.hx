@@ -57,6 +57,17 @@ class Indenter {
 				if (parent.tok == null) {
 					return token;
 				}
+				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
+				switch (type) {
+					case BLOCK:
+					case TYPEDEFDECL:
+						return token.parent;
+					case OBJECTDECL:
+						return token;
+					case ANONTYPE:
+						return token;
+					case UNKNOWN:
+				}
 				switch (parent.tok) {
 					case Kwd(KwdIf), Kwd(KwdElse):
 						return findEffectiveParent(parent);

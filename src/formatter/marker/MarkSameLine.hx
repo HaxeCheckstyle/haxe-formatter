@@ -39,7 +39,7 @@ class MarkSameLine {
 		});
 	}
 
-	static function isExpression(token:TokenTree):Bool {
+	static function isExpression(token:TokenTree, parsedCode:ParsedCode):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -51,7 +51,7 @@ class MarkSameLine {
 			case Kwd(KwdReturn):
 				return true;
 			case Kwd(KwdUntyped):
-				return isExpression(parent);
+				return isExpression(parent, parsedCode);
 			case Kwd(KwdFor), Kwd(KwdWhile):
 				if (parent.parent.is(BkOpen)) {
 					return true;
@@ -64,7 +64,7 @@ class MarkSameLine {
 					return true;
 				}
 			case Kwd(KwdElse):
-				return shouldElseBeSameLine(parent);
+				return shouldElseBeSameLine(parent, parsedCode);
 			case DblDot:
 				return isReturnExpression(parent);
 			default:
@@ -97,52 +97,58 @@ class MarkSameLine {
 		return false;
 	}
 
-	static function shouldIfBeSameLine(token:TokenTree):Bool {
+	static function shouldIfBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdIf))) {
 			return false;
 		}
-		return isExpression(token);
+		var body:TokenTree = getBodyAfterCondition(token);
+		if (body == null) {
+			return false;
+		}
+		if (!parsedCode.isOriginalSameLine(token, body)) {
+			return false;
+		}
+		return isExpression(token, parsedCode);
 	}
 
-	static function shouldElseBeSameLine(token:TokenTree):Bool {
+	static function shouldElseBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdElse))) {
 			return false;
 		}
-		return shouldIfBeSameLine(token.parent);
+		return shouldIfBeSameLine(token.parent, parsedCode);
 	}
 
-	static function shouldTryBeSameLine(token:TokenTree):Bool {
+	static function shouldTryBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdTry))) {
 			return false;
 		}
-		return isExpression(token);
+		return isExpression(token, parsedCode);
 	}
 
-	static function shouldCatchBeSameLine(token:TokenTree):Bool {
+	static function shouldCatchBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdCatch))) {
 			return false;
 		}
-		return shouldTryBeSameLine(token.parent);
+		return shouldTryBeSameLine(token.parent, parsedCode);
 	}
 
 	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldIfBeSameLine(token) && configSameLine.expressionIf == Same) {
+		if (shouldIfBeSameLine(token, parsedCode) && configSameLine.expressionIf == Same) {
 			markBodyAfterPOpen(token, parsedCode, Same, configSameLine.expressionIfWithBlocks);
 			return;
 		}
-
 		markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody, false);
 		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 		if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
@@ -151,7 +157,7 @@ class MarkSameLine {
 	}
 
 	static function markElse(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldElseBeSameLine(token) && configSameLine.expressionIf == Same) {
+		if (shouldElseBeSameLine(token, parsedCode) && configSameLine.expressionIf == Same) {
 			markBody(token, parsedCode, Same, configSameLine.expressionIfWithBlocks);
 			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 			if (prev == null) {
@@ -168,7 +174,7 @@ class MarkSameLine {
 	}
 
 	static function markTry(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldTryBeSameLine(token) && configSameLine.expressionTry == Same) {
+		if (shouldTryBeSameLine(token, parsedCode) && configSameLine.expressionTry == Same) {
 			markBody(token, parsedCode, Same, false);
 			return;
 		}
@@ -176,7 +182,7 @@ class MarkSameLine {
 	}
 
 	static function markCatch(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldCatchBeSameLine(token) && configSameLine.expressionTry == Same) {
+		if (shouldCatchBeSameLine(token, parsedCode) && configSameLine.expressionTry == Same) {
 			markBodyAfterPOpen(token, parsedCode, Same, false);
 			applySameLinePolicy(token, parsedCode, configSameLine.tryCatch);
 			return;
@@ -247,11 +253,19 @@ class MarkSameLine {
 		switch (parent.tok) {
 			case BkOpen:
 				if (configSameLine.comprehensionFor == Same) {
-					parsedCode.tokenList.whitespace(token, NoneBefore);
-					markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
 					var bkClose:TokenTree = parent.getLastChild();
-					parsedCode.tokenList.whitespace(bkClose, NoneBefore);
-					return;
+					var origSame:Bool = false;
+					if (bkClose != null) {
+						origSame = parsedCode.isOriginalSameLine(parent, bkClose);
+					}
+					if (origSame) {
+						parsedCode.tokenList.whitespace(token, NoneBefore);
+						markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
+						parsedCode.tokenList.whitespace(bkClose, NoneBefore);
+						return;
+					} else {
+						parsedCode.tokenList.lineEndAfter(parent);
+					}
 				}
 			default:
 		}
@@ -269,26 +283,67 @@ class MarkSameLine {
 		switch (parent.tok) {
 			case BkOpen:
 				if (configSameLine.comprehensionFor == Same) {
-					parsedCode.tokenList.whitespace(token, NoneBefore);
-					markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
 					var bkClose:TokenTree = parent.getLastChild();
-					parsedCode.tokenList.whitespace(bkClose, NoneBefore);
-					return;
+					var origSame:Bool = false;
+					if (bkClose != null) {
+						origSame = parsedCode.isOriginalSameLine(parent, bkClose);
+					}
+					if (origSame) {
+						parsedCode.tokenList.whitespace(token, NoneBefore);
+						markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
+						parsedCode.tokenList.whitespace(bkClose, NoneBefore);
+						return;
+					} else {
+						parsedCode.tokenList.lineEndAfter(parent);
+					}
 				}
 			default:
 		}
 		markBodyAfterPOpen(token, parsedCode, configSameLine.whileBody, false);
 	}
 
-	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy, includeBrOpen:Bool) {
+	static function getBodyAfterCondition(token:TokenTree):TokenTree {
 		var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
+		if (body != null) {
+			return body;
+		}
+		if (token.children == null) {
+			return null;
+		}
+		for (child in token.children) {
+			switch (child.tok) {
+				case BrOpen:
+					return child;
+				case At:
+				case Const(CIdent(_)):
+					return child.nextSibling;
+				case Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdNull):
+					return child.nextSibling;
+				default:
+			}
+		}
+		return null;
+	}
+
+	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy, includeBrOpen:Bool) {
+		var body:TokenTree = getBodyAfterCondition(token);
 		while (body != null) {
 			switch (body.tok) {
 				case BrOpen:
-					if (includeBrOpen) {
-						markBlockBody(body, parsedCode, policy);
+					var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(body);
+					switch (type) {
+						case BLOCK:
+							if (includeBrOpen) {
+								markBlockBody(body, parsedCode, policy);
+							}
+							return;
+						case TYPEDEFDECL:
+						case OBJECTDECL:
+							applySameLinePolicy(body, parsedCode, policy);
+						case ANONTYPE:
+						case UNKNOWN:
 					}
-					return;
+					body = body.nextSibling;
 				case CommentLine(_):
 					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(body);
 					if (prev != null) {

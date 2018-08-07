@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var fixes = [
+			for (key in map.keys())
+				if (key.code == DKUnusedImport)
+					{range: patchRange(doc, key.range), newText: ""}
+		];
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var fixes = [
+			for (key in map.keys())
+				if (key.code == DKUnusedImport)
+					{range: patchRange(doc, key.range), newText: ""}
+		];
+	}
+}

@@ -21,15 +21,19 @@ class Main {
 
 class Main {
 	public static function main() {
-		var fixedArgs = [for (arg in ~/\s*,\s*/g.split(args)) {
-			var fixedArg = addNamesToSignatureType(arg, index);
-			index++;
-			fixedArg;
-		}];
-		var fixedArgs = [while (index < 10) {
-			var fixedArg = addNamesToSignatureType(arg, index);
-			index++;
-			fixedArg;
-		}];
+		var fixedArgs = [
+			for (arg in ~/\s*,\s*/g.split(args)) {
+				var fixedArg = addNamesToSignatureType(arg, index);
+				index++;
+				fixedArg;
+			}
+		];
+		var fixedArgs = [
+			while (index < 10) {
+				var fixedArg = addNamesToSignatureType(arg, index);
+				index++;
+				fixedArg;
+			}
+		];
 	}
 }
