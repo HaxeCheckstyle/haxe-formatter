@@ -130,16 +130,38 @@ class Indenter {
 		return token;
 	}
 
+	function setupCalcFromCandidates(token:TokenTree, prevToken:TokenTree, indentingTokensCandidates:Array<TokenTree>):Array<TokenTree> {
+		var indentingTokens:Array<TokenTree> = [];
+		if (!isIndentingToken(token)) {
+			if (!parsedCode.tokenList.isSameLine(prevToken, token)) {
+				indentingTokens.push(prevToken);
+			}
+			return indentingTokens;
+		}
+		if (prevToken.is(POpen) && token.is(BrOpen)) {
+			var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+			if (info.whitespaceAfter != Newline) {
+				indentingTokens.push(prevToken);
+			}
+			return indentingTokens;
+		}
+		if (!parsedCode.tokenList.isSameLine(prevToken, token)) {
+			indentingTokens.push(prevToken);
+			return indentingTokens;
+		}
+		indentingTokensCandidates.unshift(prevToken);
+		prevToken = token;
+		return indentingTokens;
+	}
+
 	function calcFromCandidates(token:TokenTree):Int {
 		var indentingTokensCandidates:Array<TokenTree> = findIndentingCandidates(token);
 		if (indentingTokensCandidates.length <= 0) {
 			return 0;
 		}
 		var prevToken:TokenTree = indentingTokensCandidates.shift();
-		var indentingTokens:Array<TokenTree> = [];
-		if (!isIndentingToken(token) || (!parsedCode.tokenList.isSameLine(prevToken, token))) {
-			indentingTokens.push(prevToken);
-		}
+		var indentingTokens:Array<TokenTree> = setupCalcFromCandidates(token, prevToken, indentingTokensCandidates);
+
 		while (indentingTokensCandidates.length > 0) {
 			var currentToken:TokenTree = indentingTokensCandidates.shift();
 			switch (prevToken.tok) {
@@ -161,6 +183,13 @@ class Indenter {
 				case BrOpen:
 					switch (currentToken.tok) {
 						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction):
+							prevToken = currentToken;
+							continue;
+						case POpen:
+							var child:TokenTree = currentToken.getFirstChild();
+							if (child.index != prevToken.index) {
+								return calcFromCandidates(child) + indentingTokens.length;
+							}
 							prevToken = currentToken;
 							continue;
 						case Binop(OpAssign):

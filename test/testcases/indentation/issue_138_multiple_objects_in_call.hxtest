@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var result = formatter.formatFile({
+			name: doc.uri.toFsPath().toString(),
+			content: doc.tokens.bytes
+		}, {
+			tokens: doc.tokens.list,
+			tokenTree: doc.tokens.tree
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var result = formatter.formatFile({
+			name: doc.uri.toFsPath().toString(),
+			content: doc.tokens.bytes
+		}, {
+			tokens: doc.tokens.list,
+			tokenTree: doc.tokens.tree
+		});
+	}
+}

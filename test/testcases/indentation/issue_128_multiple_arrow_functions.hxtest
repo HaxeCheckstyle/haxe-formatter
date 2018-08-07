@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	function readClassPaths() {
+		context.callHaxeMethod(_ -> {
+			stopProgress();
+		}, error -> {
+			stopProgress();
+		});
+	}
+}
+
+---
+
+class Main {
+	function readClassPaths() {
+		context.callHaxeMethod(_ -> {
+			stopProgress();
+		}, error -> {
+			stopProgress();
+		});
+	}
+}
