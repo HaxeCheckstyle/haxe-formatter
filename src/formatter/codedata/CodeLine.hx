@@ -38,7 +38,7 @@ class CodeLine {
 	}
 
 	public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
-		var lineLength:Int = indent;
+		var lineLength:Int = indenter.calcAbsoluteIndent(indent);
 		for (index in 0...parts.length) {
 			var part:CodePart = parts[index];
 			lineLength += part.text.length;
@@ -95,7 +95,7 @@ class CodeLine {
 				parsedCode.tokenList.lineEndAfter(lastPart.lastToken);
 				var newIndent:Int = indenter.calcIndent(p.firstToken);
 				line = new CodeLine(newIndent);
-				lineLength = newIndent;
+				lineLength = indenter.calcAbsoluteIndent(newIndent);
 				lines.push(line);
 			}
 			line.parts.push(p);

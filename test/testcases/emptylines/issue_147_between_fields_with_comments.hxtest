@@ -1,0 +1,33 @@
+{}
+
+---
+
+extern class Selection {
+	/**
+	 * A selection is reversed if [active](#Selection.active).isBefore([anchor](#Selection.anchor)).
+	 */
+	var isReversed:Bool;
+
+	/**
+	 * Create a selection from two positions.
+	 */
+	// foo
+	// foo
+	function new(anchor:Position, active:Position):Void;
+}
+
+---
+
+extern class Selection {
+	/**
+	 * A selection is reversed if [active](#Selection.active).isBefore([anchor](#Selection.anchor)).
+	 */
+	var isReversed:Bool;
+
+	/**
+	 * Create a selection from two positions.
+	 */
+	// foo
+	// foo
+	function new(anchor:Position, active:Position):Void;
+}

@@ -591,21 +591,32 @@ class MarkEmptyLines {
 			if (comment.nextSibling == null) {
 				continue;
 			}
-			switch (comment.nextSibling.tok) {
-				case Kwd(KwdVar):
-				case Kwd(KwdFunction):
-				case Kwd(KwdAbstract):
-				case Kwd(KwdClass):
-				case Kwd(KwdEnum):
-				case Kwd(KwdInterface):
-				case Kwd(KwdTypedef):
-				case Const(CIdent(_)):
-				#if (haxe_ver >= 4.0)
-				case Kwd(KwdFinal):
-				#end
-				case Sharp(_):
-				default:
-					continue;
+			var next:TokenTree = comment.nextSibling;
+			var found:Bool = true;
+			while (next != null) {
+				switch (next.tok) {
+					case Kwd(KwdVar):
+					case Kwd(KwdFunction):
+					case Kwd(KwdAbstract):
+					case Kwd(KwdClass):
+					case Kwd(KwdEnum):
+					case Kwd(KwdInterface):
+					case Kwd(KwdTypedef):
+					case Const(CIdent(_)):
+					#if (haxe_ver >= 4.0)
+					case Kwd(KwdFinal):
+					#end
+					case Sharp(_):
+					case CommentLine(_):
+						next = next.nextSibling;
+						continue;
+					default:
+						found = false;
+				}
+				break;
+			}
+			if (!found) {
+				continue;
 			}
 			switch (config.beforeDocCommentEmptyLines) {
 				case Ignore:
