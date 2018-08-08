@@ -642,8 +642,6 @@ class MarkEmptyLines {
 				case Kwd(KwdCase), Kwd(KwdDefault):
 					var block:TokenTree = token.access().firstOf(DblDot).firstChild().token;
 					removeEmptyLinesAroundBlock(block, parsedCode, config.beforeBlocks, Keep);
-					block = token.access().firstOf(DblDot).lastChild().token;
-					removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
 				case Kwd(KwdFunction):
 				case Kwd(KwdFor):
 					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);

@@ -92,8 +92,10 @@ class Main {
 			case 1:
 				doSomething(); // comment
 				doSomething(); // comment
+
 			case 2:
 				doSomething(); // comment
+
 			default:
 				doSomething(); // comment
 		}

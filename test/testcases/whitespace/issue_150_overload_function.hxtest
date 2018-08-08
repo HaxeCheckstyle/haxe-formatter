@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var args = signature.args.map(arg -> {
+			name: if (arg.name == "") null else arg.name
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var args = signature.args.map(arg -> {
+			name: if (arg.name == "") null else arg.name
+		});
+	}
+}

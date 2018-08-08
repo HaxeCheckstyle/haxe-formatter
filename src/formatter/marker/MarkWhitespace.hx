@@ -219,6 +219,18 @@ class MarkWhitespace {
 		}
 		switch (token.tok) {
 			case Kwd(KwdNull), Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdThis), Kwd(KwdDefault), Kwd(KwdContinue):
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+				if (next != null) {
+					switch (next.token.tok) {
+						case Kwd(_):
+							parsedCode.tokenList.whitespace(token, After);
+							return;
+						case Const(CIdent(_)):
+							parsedCode.tokenList.whitespace(token, After);
+							return;
+						default:
+					}
+				}
 				parsedCode.tokenList.whitespace(token, NoneAfter);
 			case Kwd(KwdExtends), Kwd(KwdImplements):
 				parsedCode.tokenList.whitespace(token, Around);
