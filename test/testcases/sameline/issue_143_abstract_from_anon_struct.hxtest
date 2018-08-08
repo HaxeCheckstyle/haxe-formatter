@@ -1,0 +1,9 @@
+{}
+
+---
+
+abstract Foo(Bar) from {a:String} {}
+
+---
+
+abstract Foo(Bar) from {a:String} {}

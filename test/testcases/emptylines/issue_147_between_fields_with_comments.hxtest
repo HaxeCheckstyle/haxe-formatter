@@ -12,8 +12,28 @@ extern class Selection {
 	 * Create a selection from two positions.
 	 */
 	// foo
-	// foo
 	function new(anchor:Position, active:Position):Void;
+
+	/**
+	 * Create a selection from two positions.
+	 */
+	// foo
+	// foo
+	// foo
+	// foo
+	function main(anchor:Position, active:Position):Void;
+
+	/**
+	 * Create a selection from two positions.
+	 */
+	// foo
+	// foo
+	// foo
+	// foo
+	/**
+	 * Create a selection from two positions.
+	 */
+	function main2(anchor:Position, active:Position):Void;
 }
 
 ---
@@ -28,6 +48,26 @@ extern class Selection {
 	 * Create a selection from two positions.
 	 */
 	// foo
-	// foo
 	function new(anchor:Position, active:Position):Void;
+
+	/**
+	 * Create a selection from two positions.
+	 */
+	// foo
+	// foo
+	// foo
+	// foo
+	function main(anchor:Position, active:Position):Void;
+	/**
+	 * Create a selection from two positions.
+	 */
+	// foo
+	// foo
+	// foo
+	// foo
+
+	/**
+	 * Create a selection from two positions.
+	 */
+	function main2(anchor:Position, active:Position):Void;
 }

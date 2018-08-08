@@ -166,6 +166,11 @@ class MarkWrapping {
 				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength);
 			case NoWrap:
 				noWrap(token, brClose, parsedCode, indenter);
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if (prev == null) {
+					return;
+				}
+				prev.whitespaceAfter = prev.whitespaceAfterWithoutNL;
 		}
 	}
 

@@ -1,0 +1,9 @@
+{}
+
+---
+
+abstract Foo({i:Int}) {}
+
+---
+
+abstract Foo({i:Int}) {}

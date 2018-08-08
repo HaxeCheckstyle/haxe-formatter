@@ -1,0 +1,21 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+
+}
+
+---
+
+class Main {
+	var test:{x:Int};
+	var test:{x:Int} = build();
+}
+
+---
+
+class Main
+{
+	var test:{x:Int};
+	var test:{x:Int} = build();
+}

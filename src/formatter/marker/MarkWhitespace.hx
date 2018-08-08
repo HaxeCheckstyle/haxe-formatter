@@ -276,29 +276,44 @@ class MarkWhitespace {
 				return;
 			case Const(CIdent(_)), Const(CString(_)):
 				parent = parent.parent;
-				if ((parent != null) && (parent.is(BrOpen))) {
-					var brOpenType:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
-					switch (brOpenType) {
-						case BLOCK:
-							parsedCode.tokenList.whitespace(token, config.colonPolicy);
-						case TYPEDEFDECL:
-							parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-						case OBJECTDECL:
-							parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
-						case ANONTYPE:
-							parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-						case UNKNOWN:
-							parsedCode.tokenList.whitespace(token, config.colonPolicy);
-					}
+				if (parent == null) {
+					parsedCode.tokenList.whitespace(token, config.colonPolicy);
 					return;
+				}
+				switch (parent.tok) {
+					case BrOpen:
+						var brOpenType:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
+						switch (brOpenType) {
+							case BLOCK:
+								parsedCode.tokenList.whitespace(token, config.colonPolicy);
+							case TYPEDEFDECL:
+								parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+							case OBJECTDECL:
+								parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
+							case ANONTYPE:
+								parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+							case UNKNOWN:
+								parsedCode.tokenList.whitespace(token, config.colonPolicy);
+						}
+					case POpen:
+						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+					case Kwd(KwdVar), Kwd(KwdFunction):
+						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+					case Const(CIdent("final")):
+						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+					#if (haxe_ver >= 4.0)
+					case Kwd(KwdFinal):
+						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+					#end
+					default:
+						parsedCode.tokenList.whitespace(token, config.colonPolicy);
 				}
 			case Kwd(KwdCase), Kwd(KwdDefault):
 				parsedCode.tokenList.whitespace(token, config.caseColonPolicy);
 				return;
 			default:
+				parsedCode.tokenList.whitespace(token, config.colonPolicy);
 		}
-
-		parsedCode.tokenList.whitespace(token, config.colonPolicy);
 	}
 
 	static function markArrow(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
