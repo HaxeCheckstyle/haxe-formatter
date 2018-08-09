@@ -1,0 +1,21 @@
+{}
+
+---
+
+class FlxSimplex
+{
+	static inline function getCornerNoise(a:Int):Float
+	{
+		y = b3 == 1 ? b0 == 1 ? -y : y : b2 == 0 ? b1 == 1 ? -y : y : 0;
+		return t * t * (x + y);
+	}
+}
+
+---
+
+class FlxSimplex {
+	static inline function getCornerNoise(a:Int):Float {
+		y = b3 == 1 ? b0 == 1 ? -y : y : b2 == 0 ? b1 == 1 ? -y : y : 0;
+		return t * t * (x + y);
+	}
+}

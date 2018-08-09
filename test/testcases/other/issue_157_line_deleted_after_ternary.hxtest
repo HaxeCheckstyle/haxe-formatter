@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	function __dispatchEvent (event:Event):Bool {
+		var parent = event.bubbles ? this.parent : null;
+		var result = super.__dispatchEvent (event);
+		return result;
+	}
+}
+
+---
+
+class Main {
+	function __dispatchEvent(event:Event):Bool {
+		var parent = event.bubbles ? this.parent : null;
+		var result = super.__dispatchEvent(event);
+		return result;
+	}
+}
