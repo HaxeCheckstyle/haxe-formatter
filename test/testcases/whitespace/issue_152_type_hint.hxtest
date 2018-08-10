@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		token.setCallback(function() sendNotification(CANCEL_METHOD, {id: id}));
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		token.setCallback(function() sendNotification(CANCEL_METHOD, {id: id}));
+	}
+}
