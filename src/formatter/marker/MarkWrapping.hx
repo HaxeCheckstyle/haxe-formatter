@@ -240,9 +240,6 @@ class MarkWrapping {
 				wrapFunctionSignature(token, parsedCode, indenter, config);
 			case CALL:
 				parsedCode.tokenList.wrapAfter(token, true);
-				if (pClose != null) {
-					parsedCode.tokenList.wrapBefore(pClose, true);
-				}
 				for (child in token.children) {
 					if (child.is(PClose)) {
 						continue;
@@ -253,6 +250,9 @@ class MarkWrapping {
 					} else {
 						parsedCode.tokenList.wrapAfter(lastChild, true);
 					}
+				}
+				if (pClose != null) {
+					parsedCode.tokenList.wrapBefore(pClose, false);
 				}
 			case CONDITION:
 				parsedCode.tokenList.wrapAfter(token, true);
@@ -283,6 +283,9 @@ class MarkWrapping {
 				case Kwd(KwdFor):
 					return;
 				case Kwd(KwdWhile):
+					return;
+				case CommentLine(_):
+					wrapChildOneLineEach(token, bkClose, parsedCode, indenter);
 					return;
 				default:
 					var length:Int = parsedCode.tokenList.calcLength(child);
