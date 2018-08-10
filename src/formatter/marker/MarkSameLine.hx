@@ -537,6 +537,7 @@ class MarkSameLine {
 				case Kwd(KwdFinal):
 				#end
 				case Const(CIdent("final")):
+				case Kwd(KwdDynamic):
 				case Kwd(KwdPublic):
 				case Kwd(KwdPrivate):
 				case Kwd(KwdStatic):

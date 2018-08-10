@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	public dynamic function logError(message:String):Void {}
+}
+
+---
+
+class Main {
+	public dynamic function logError(message:String):Void {}
+}
