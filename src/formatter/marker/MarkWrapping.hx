@@ -101,11 +101,20 @@ class MarkWrapping {
 		switch (TokenTreeCheckUtils.getBrOpenType(token)) {
 			case BLOCK:
 			case TYPEDEFDECL:
+				typedefWrapping(token, parsedCode, indenter, config);
 			case OBJECTDECL:
 				objectLiteralWrapping(token, parsedCode, indenter, config);
 			case ANONTYPE:
 				anonTypeWrapping(token, parsedCode, indenter, config);
 			case UNKNOWN:
+		}
+	}
+
+	static function typedefWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:Config) {
+		var brClose:TokenTree = token.access().firstOf(BrClose).token;
+		if (parsedCode.isOriginalSameLine(token, brClose)) {
+			noWrap(token, brClose, parsedCode, indenter);
+			return;
 		}
 	}
 

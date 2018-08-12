@@ -1,0 +1,46 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"indentation": {
+		"character": "    ",
+		"conditionalPolicy": "fixedZero"
+	},
+	"whitespace": {
+		"colonPolicy": "around",
+		"typeHintColonPolicy": "around",
+		"openingParenPolicy": "before",
+		"openingBracketPolicy": "before"
+	},
+	"sameLine": {
+		"catchBody": "next",
+		"tryCatch": "next",
+		"tryBody": "next",
+		"elseIf": "next",
+		"whileBody": "next",
+		"ifBody": "next",
+		"elseBody": "next",
+		"forBody": "next",
+		"ifElse": "next"
+	}
+}
+
+---
+
+class Main {
+    override public function main (param1:Parameter) : Void
+        {
+        // no additional parts?!
+        }
+}
+
+---
+
+class Main
+{
+    override public function main (param1 : Parameter) : Void
+    {
+        // no additional parts?!
+    }
+}

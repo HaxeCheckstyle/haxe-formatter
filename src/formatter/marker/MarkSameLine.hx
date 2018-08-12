@@ -5,7 +5,6 @@ import formatter.config.WhitespaceConfig;
 
 class MarkSameLine {
 	public static function markSameLine(parsedCode:ParsedCode, configSameLine:SameLineConfig, configWhitespace:WhitespaceConfig) {
-		markAnonObjectsTypedefsSameLine(parsedCode, configSameLine, configWhitespace);
 		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
 
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
@@ -461,23 +460,6 @@ class MarkSameLine {
 				parsedCode.tokenList.lineEndBefore(token);
 		}
 	}
-
-	static function markAnonObjectsTypedefsSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
-		var tokens:Array<TokenTree> = parsedCode.root.filter([BrOpen], ALL);
-		for (token in tokens) {
-			var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
-			switch (type) {
-				case BLOCK:
-				case TYPEDEFDECL:
-					markTypedefSameLine(token, parsedCode, config, configWhitespace);
-				case OBJECTDECL:
-				case ANONTYPE:
-				case UNKNOWN:
-			}
-		}
-	}
-
-	static function markTypedefSameLine(brOpen:TokenTree, parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {}
 
 	static function markDollarSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
 		var tokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
