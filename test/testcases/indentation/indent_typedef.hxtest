@@ -2,7 +2,8 @@
 
 ---
 
-typedef ParseFile = {var name:String;var content:ByteData;}
+typedef ParseFile = {var name:String;
+var content:ByteData;}
 
 ---
 
