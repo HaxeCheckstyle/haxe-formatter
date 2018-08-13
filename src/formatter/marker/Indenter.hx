@@ -210,6 +210,13 @@ class Indenter {
 							}
 						default:
 					}
+				case DblDot:
+					switch (currentToken.tok) {
+						case Kwd(KwdCase), Kwd(KwdDefault):
+							prevToken = currentToken;
+							continue;
+						default:
+					}
 				default:
 			}
 			if (!mustIndent(currentToken, prevToken)) {
