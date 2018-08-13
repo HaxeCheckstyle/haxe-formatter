@@ -231,9 +231,9 @@ class MarkTokenText {
 	}
 
 	public static function printCommentLine(text:String):String {
-		if (~/^[A-Za-z0-9]+/.match(text)) {
-			return "// " + text.trim();
+		if (~/^[\/\*\-]+/.match(text)) {
+			return "//" + text.rtrim();
 		}
-		return "//" + text.rtrim();
+		return "// " + text.trim();
 	}
 }

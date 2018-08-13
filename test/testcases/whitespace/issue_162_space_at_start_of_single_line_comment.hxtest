@@ -1,0 +1,24 @@
+{}
+
+---
+
+class Main {
+	//foo
+	//<- foo
+	//*******
+	//---------
+	////////////
+	public static function main() {
+	}
+}
+
+---
+
+class Main {
+	// foo
+	// <- foo
+	//*******
+	//---------
+	////////////
+	public static function main() {}
+}
