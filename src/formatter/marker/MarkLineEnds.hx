@@ -94,9 +94,11 @@ class MarkLineEnds {
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case Dollar(_):
-						parsedCode.tokenList.whitespace(brOpen, None);
-						parsedCode.tokenList.whitespace(brClose, None);
-						continue;
+						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
+							parsedCode.tokenList.whitespace(brOpen, None);
+							parsedCode.tokenList.whitespace(brClose, None);
+							continue;
+						}
 					case Kwd(KwdMacro):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
 							parsedCode.tokenList.whitespace(brOpen, NoneAfter);

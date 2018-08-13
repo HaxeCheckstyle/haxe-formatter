@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var name = "Foo";
+		var cl = macro class $name {
+			public function new() {}
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var name = "Foo";
+		var cl = macro class $name {
+			public function new() {}
+		}
+	}
+}

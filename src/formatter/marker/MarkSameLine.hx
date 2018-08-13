@@ -485,18 +485,23 @@ class MarkSameLine {
 				continue;
 			}
 			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			if (!parsedCode.isOriginalSameLine(brOpen, brClose)) {
+				continue;
+			}
 			parsedCode.tokenList.whitespace(brOpen, None);
-			parsedCode.tokenList.noLineEndAfter(brClose);
 			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
 			if (next != null) {
 				switch (next.token.tok) {
-					case PClose, BrClose, BkClose:
+					case BrClose:
+					case PClose, BkClose:
 						parsedCode.tokenList.whitespace(brClose, None);
 					case Semicolon, Dot, DblDot:
 						parsedCode.tokenList.whitespace(brClose, None);
 					default:
 						parsedCode.tokenList.whitespace(brClose, OnlyAfter);
 				}
+			} else {
+				parsedCode.tokenList.noLineEndAfter(brClose);
 			}
 			parsedCode.tokenList.wrapBefore(brOpen, false);
 			parsedCode.tokenList.wrapAfter(brOpen, false);
