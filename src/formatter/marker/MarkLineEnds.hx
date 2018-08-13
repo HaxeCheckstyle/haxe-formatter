@@ -93,11 +93,14 @@ class MarkLineEnds {
 			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(brOpen);
 			if (prev != null) {
 				switch (prev.token.tok) {
-					case Dollar(_):
+					case Dollar(name):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
 							parsedCode.tokenList.whitespace(brOpen, None);
 							parsedCode.tokenList.whitespace(brClose, None);
 							continue;
+						}
+						if (name.length <= 1) {
+							parsedCode.tokenList.whitespace(brOpen, NoneBefore);
 						}
 					case Kwd(KwdMacro):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {

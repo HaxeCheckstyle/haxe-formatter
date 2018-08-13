@@ -231,7 +231,7 @@ class MarkTokenText {
 	}
 
 	public static function printCommentLine(text:String):String {
-		if (~/^[\/\*\-]+/.match(text)) {
+		if (~/^[\/\*\-\s]+/.match(text)) {
 			return "//" + text.rtrim();
 		}
 		return "// " + text.trim();

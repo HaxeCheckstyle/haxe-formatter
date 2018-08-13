@@ -24,11 +24,11 @@ class Main {
 		return (macro class {
 			@Test
 			public function $fieldName() {
-				goldCheck($v {
+				goldCheck($v{
 					unformatted
-				}, $v {
+				}, $v{
 					gold
-				}, $v {config});
+				}, $v{config});
 			};
 		}).fields[0];
 	}
