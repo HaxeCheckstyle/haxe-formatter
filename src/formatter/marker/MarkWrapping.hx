@@ -248,7 +248,7 @@ class MarkWrapping {
 			case PARAMETER:
 				wrapFunctionSignature(token, parsedCode, indenter, config);
 			case CALL:
-				parsedCode.tokenList.wrapAfter(token, true);
+				parsedCode.tokenList.wrapBefore(token, true);
 				for (child in token.children) {
 					if (child.is(PClose)) {
 						continue;

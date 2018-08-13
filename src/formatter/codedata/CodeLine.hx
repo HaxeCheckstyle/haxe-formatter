@@ -86,7 +86,7 @@ class CodeLine {
 		var line:CodeLine = new CodeLine(indent);
 		var part:CodePart = parts.shift();
 		line.parts = [part];
-		var lineLength:Int = indent + part.text.length;
+		var lineLength:Int = indenter.calcAbsoluteIndent(indent) + part.text.length;
 		var lines:Array<CodeLine> = [line];
 		var lastPart:CodePart = part;
 		while (parts.length > 0) {
