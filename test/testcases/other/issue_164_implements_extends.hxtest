@@ -1,0 +1,11 @@
+{}
+
+---
+
+class Server implements ISocket extends BaseHandler
+{
+}
+
+---
+
+class Server implements ISocket extends BaseHandler {}
