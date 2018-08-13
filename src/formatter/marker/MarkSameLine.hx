@@ -266,6 +266,15 @@ class MarkSameLine {
 						parsedCode.tokenList.lineEndAfter(parent);
 					}
 				}
+			case Kwd(KwdMacro):
+				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
+				if (lastToken == null) {
+					return;
+				}
+				if (parsedCode.isOriginalSameLine(token, lastToken)) {
+					markBodyAfterPOpen(token, parsedCode, Same, false);
+					return;
+				}
 			default:
 		}
 		markBodyAfterPOpen(token, parsedCode, configSameLine.forBody, false);

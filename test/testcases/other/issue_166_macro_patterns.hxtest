@@ -1,0 +1,23 @@
+{}
+
+---
+
+class ExtendedLoops {
+  static public function apply(e:Expr)
+    return switch e {
+      case macro for ($i{_} in $_) $_: e;
+      case macro for ($head) $body: e;
+      default: e;
+    }
+}
+
+---
+
+class ExtendedLoops {
+	static public function apply(e:Expr)
+		return switch e {
+			case macro for ($i{_} in $_) $_: e;
+			case macro for ($head) $body: e;
+			default: e;
+		}
+}
