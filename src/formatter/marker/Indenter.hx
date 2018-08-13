@@ -289,6 +289,10 @@ class Indenter {
 				return true;
 			case Kwd(KwdUntyped):
 				return true;
+			case Kwd(KwdSwitch):
+				return true;
+			case Kwd(KwdCase), Kwd(KwdDefault):
+				return true;
 			default:
 		}
 		return false;

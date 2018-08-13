@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		if (true)
+			switch (foo) {
+				case bar:
+			}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (true)
+			switch (foo) {
+				case bar:
+			}
+	}
+}

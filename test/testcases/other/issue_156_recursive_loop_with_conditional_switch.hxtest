@@ -1,0 +1,41 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		#if neko
+			switch (Sys.command ("neko", ["tests.n", name, field.name])) {
+		#elseif cpp
+			switch (Sys.command ("./bin/FunctionalTest", [name, field.name])) {
+		#end
+			case 0:
+				passed++;
+				Sys.println (" succedded");
+			case 1:
+				Sys.println(" failed");
+			case _:
+				Sys.println(" errored");
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		#if neko
+		switch (Sys.command("neko", ["tests.n", name, field.name])) {
+		#elseif cpp
+		switch (Sys.command("./bin/FunctionalTest", [name, field.name])) {
+		#end
+		case 0:
+			passed++;
+			Sys.println(" succedded");
+		case 1:
+			Sys.println(" failed");
+		case _:
+			Sys.println(" errored");
+	}
+}
+}
