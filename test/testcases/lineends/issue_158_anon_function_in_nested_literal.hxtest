@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		{
+			"outer": {
+				foo: function() {
+					trace("bar");
+				}
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		{
+			"outer": {
+				foo: function() {
+					trace("bar");
+				}
+			}
+		}
+	}
+}
