@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var f:Int->?Int->Void;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var f:Int->?Int->Void;
+	}
+}
