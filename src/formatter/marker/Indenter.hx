@@ -77,6 +77,8 @@ class Indenter {
 						return findEffectiveParent(parent);
 					case Kwd(KwdFunction):
 						return findEffectiveParent(parent);
+					case Kwd(KwdSwitch):
+						return findEffectiveParent(parent);
 					case Const(CIdent(_)), Kwd(KwdNew):
 						if (parent.parent.is(Kwd(KwdFunction))) {
 							return findEffectiveParent(parent.parent);
@@ -193,7 +195,7 @@ class Indenter {
 					}
 				case BrOpen:
 					switch (currentToken.tok) {
-						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction):
+						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch):
 							prevToken = currentToken;
 							continue;
 						case POpen:
