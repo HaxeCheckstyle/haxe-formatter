@@ -1,0 +1,26 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+}
+
+---
+
+class Main
+{
+	public static function main()
+	{
+		return
+			{original: this, warmer: warmer, colder: colder};
+	}
+}
+
+---
+
+class Main
+{
+	public static function main()
+	{
+		return {original: this, warmer: warmer, colder: colder};
+	}
+}

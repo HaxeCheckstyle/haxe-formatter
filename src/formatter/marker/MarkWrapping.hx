@@ -232,15 +232,22 @@ class MarkWrapping {
 			case NoWrap:
 				noWrap(token, brClose, parsedCode, indenter);
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
-				if (next == null) {
-					return;
+				if (next != null) {
+					switch (next.token.tok) {
+						case DblDot:
+							parsedCode.tokenList.noLineEndAfter(brClose);
+						case Dot:
+							parsedCode.tokenList.whitespace(brClose, NoneAfter);
+						default:
+					}
 				}
-				switch (next.token.tok) {
-					case DblDot:
-						parsedCode.tokenList.noLineEndAfter(brClose);
-					case Dot:
-						parsedCode.tokenList.whitespace(brClose, NoneAfter);
-					default:
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if (prev != null) {
+					switch (prev.token.tok) {
+						case Kwd(_):
+							parsedCode.tokenList.whitespace(token, Before);
+						default:
+					}
 				}
 		}
 	}
