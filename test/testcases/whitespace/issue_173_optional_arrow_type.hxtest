@@ -5,6 +5,7 @@
 class Main {
 	public static function main() {
 		var f:Int->?Int->Void;
+		var f:Int->?Int->?Int->?Int->?Int->Void;
 	}
 }
 
@@ -13,5 +14,6 @@ class Main {
 class Main {
 	public static function main() {
 		var f:Int->?Int->Void;
+		var f:Int->?Int->?Int->?Int->?Int->Void;
 	}
 }
