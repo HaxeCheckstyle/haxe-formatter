@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		throw "Can't insert node " + key + " with the size of (" + data.width + "; " + data.height + ") in atlas " + name + " with the max size of (" + maxWidth +
+		"; " + maxHeight + ") and powerOfTwo: " + powerOfTwo;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		throw "Can't insert node " + key + " with the size of (" + data.width + "; " + data.height + ") in atlas " + name + " with the max size of (" +
+			maxWidth + "; " + maxHeight + ") and powerOfTwo: " + powerOfTwo;
+	}
+}
