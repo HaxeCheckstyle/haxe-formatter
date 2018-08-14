@@ -166,12 +166,17 @@ class MarkTokenText {
 				line = " " + line;
 			}
 			if (lastLine) {
+				var leadingWS:EReg = ~/^\s*}/;
+				if (leadingWS.match(line)) {
+					line = line.trim();
+				} else {
+					if (~/[^*\s]/.match(line)) {
+						lineIndent = indent + 1;
+						line = line.rtrim() + " ";
+					}
+				}
 				if (~/^\s*$/.match(line)) {
 					line = " ";
-				}
-				if (~/[^*\s]/.match(line)) {
-					lineIndent = indent + 1;
-					line = line.rtrim() + " ";
 				}
 			}
 			text += indenter.makeIndentString(lineIndent) + line;
