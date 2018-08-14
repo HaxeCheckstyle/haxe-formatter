@@ -1,0 +1,77 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+class Main {
+	public static function main() {
+		//
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+class Main {
+	public static function main() {
+		{ doSomething();}
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+class Main {
+	public static function main() {
+		/* doSomething(); */
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+class Main {
+	public static function main() {
+		//
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+class Main {
+	public static function main() {
+		{
+			doSomething();
+		}
+		#if foo
+		trace("foo");
+		#end
+	}
+}
+
+class Main {
+	public static function main() {
+		/* doSomething(); */
+		#if foo
+		trace("foo");
+		#end
+	}
+}

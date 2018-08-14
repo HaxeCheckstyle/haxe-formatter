@@ -380,6 +380,9 @@ class MarkLineEnds {
 				if (!isOnlyWhitespaceAfterToken(sharpEnd, parsedCode)) {
 					return true;
 				}
+				if (!isOnlyWhitespaceBeforeToken(token, parsedCode)) {
+					return true;
+				}
 				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 				if (prev == null) {
 					return !isOnlyWhitespaceBeforeToken(token, parsedCode);
@@ -391,6 +394,8 @@ class MarkLineEnds {
 					case Semicolon:
 						return false;
 					case BrClose:
+						return false;
+					case Comment(_), CommentLine(_):
 						return false;
 					default:
 						return true;
