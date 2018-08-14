@@ -51,7 +51,10 @@ class MarkWrapping {
 		if (next != null) {
 			switch (next.token.tok) {
 				case BrOpen:
-					parsedCode.tokenList.whitespace(close, After);
+					var info:TokenInfo = parsedCode.tokenList.getTokenAt(close.index);
+					if (info.whitespaceAfter != Newline) {
+						parsedCode.tokenList.whitespace(close, After);
+					}
 				case Semicolon, Dot, POpen:
 					parsedCode.tokenList.whitespace(close, NoneAfter);
 				case Binop(OpGt):

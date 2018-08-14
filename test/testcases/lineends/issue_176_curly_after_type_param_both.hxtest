@@ -1,0 +1,34 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+}
+
+---
+
+class FlxBounds<T> {
+	// foo
+}
+
+class Main
+{
+	function get_cameras():Array<FlxCamera>
+	{
+		call();
+	}
+}
+
+---
+
+class FlxBounds<T>
+{
+	// foo
+}
+
+class Main
+{
+	function get_cameras():Array<FlxCamera>
+	{
+		call();
+	}
+}
