@@ -138,6 +138,8 @@ class MarkWrapping {
 					parsedCode.tokenList.whitespace(brClose, After);
 				case Binop(OpGt):
 					parsedCode.tokenList.whitespace(brClose, NoneAfter);
+				case Const(CIdent("from")), Const(CIdent("to")):
+					parsedCode.tokenList.whitespace(brClose, After);
 				case Kwd(_), Const(_):
 					parsedCode.tokenList.lineEndAfter(brClose);
 				default:

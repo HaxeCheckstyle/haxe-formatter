@@ -1,0 +1,10 @@
+{}
+
+---
+
+abstract ServerOptions(Dynamic) from Executable from {run:Executable, debug:Executable} from {run:NodeModule, debug:NodeModule} from NodeModule {}
+
+
+---
+
+abstract ServerOptions(Dynamic) from Executable from {run:Executable, debug:Executable} from {run:NodeModule, debug:NodeModule} from NodeModule {}
