@@ -588,6 +588,15 @@ class MarkEmptyLines {
 			if (comment.previousSibling == null) {
 				continue;
 			}
+			if ((comment.parent != null) && (comment.parent.tok != null)) {
+				switch (comment.parent.tok) {
+					case Sharp(_):
+						if (comment.parent.getFirstChild() == comment.previousSibling) {
+							continue;
+						}
+					default:
+				}
+			}
 			if (comment.nextSibling == null) {
 				continue;
 			}

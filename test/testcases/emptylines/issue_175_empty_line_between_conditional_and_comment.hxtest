@@ -1,0 +1,60 @@
+{}
+
+---
+
+using foo;
+/**
+ * Static counters for performance tracking.
+ */
+class Main {
+	#if FLX_DEBUG
+	/**
+	 * Static counters for performance tracking.
+	 */
+	@:allow(flixel.FlxGame) static var activeCount:Int = 0;
+
+	/**
+	 * Static counters for performance tracking.
+	 */
+	@:allow(flixel.FlxGame) static var activeCount2:Int = 0;
+	#end
+
+	var foo:Int;
+
+	#if FLX_DEBUG
+	/**
+	 *
+	 */
+	static var activeCount:Int = 0;
+	#end
+}
+
+---
+
+using foo;
+
+/**
+ * Static counters for performance tracking.
+ */
+class Main {
+	#if FLX_DEBUG
+	/**
+	 * Static counters for performance tracking.
+	 */
+	@:allow(flixel.FlxGame) static var activeCount:Int = 0;
+
+	/**
+	 * Static counters for performance tracking.
+	 */
+	@:allow(flixel.FlxGame) static var activeCount2:Int = 0;
+	#end
+
+	var foo:Int;
+
+	#if FLX_DEBUG
+	/**
+	 *
+	 */
+	static var activeCount:Int = 0;
+	#end
+}
