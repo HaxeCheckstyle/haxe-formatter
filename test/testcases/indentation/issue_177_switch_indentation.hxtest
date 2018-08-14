@@ -1,0 +1,30 @@
+{}
+
+---
+
+class Main
+{
+	public static function main()
+	{
+		switch (stage.window.context.type)
+			{
+				case OPENGL, OPENGLES, WEBGL:
+					DRAW_TILES;
+				default:
+					BLITTING;
+			}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		switch (stage.window.context.type) {
+			case OPENGL, OPENGLES, WEBGL:
+				DRAW_TILES;
+			default:
+				BLITTING;
+		}
+	}
+}
