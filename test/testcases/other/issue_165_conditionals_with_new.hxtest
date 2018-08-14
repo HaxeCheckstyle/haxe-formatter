@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var process = #if sys new sys.io.Process #elseif nodejs js.node.ChildProcess.spawn #end ('curl', []);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var process = #if sys new sys.io.Process #elseif nodejs js.node.ChildProcess.spawn #end ('curl', []);
+	}
+}
