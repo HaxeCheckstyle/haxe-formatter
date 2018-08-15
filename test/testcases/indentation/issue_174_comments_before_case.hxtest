@@ -1,0 +1,63 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		switch (foo) {
+			// nothing to do
+			case A:
+			// nothing to do
+				call();
+
+			// nothing to do
+			// nothing to do
+			case B:
+			// nothing to do
+		}
+		switch (foo) {
+			// nothing to do
+			case A:
+			// nothing to do
+				call();
+
+			// nothing to do
+			// nothing to do
+			case B:
+			// nothing to do
+			default:
+			// nothing to do
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		switch (foo) {
+			// nothing to do
+			case A:
+				// nothing to do
+				call();
+
+			// nothing to do
+			// nothing to do
+			case B:
+				// nothing to do
+		}
+		switch (foo) {
+			// nothing to do
+			case A:
+				// nothing to do
+				call();
+
+			// nothing to do
+			// nothing to do
+			case B:
+			// nothing to do
+			default:
+				// nothing to do
+		}
+	}
+}

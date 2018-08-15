@@ -60,7 +60,7 @@ typedef WrapConfig = {
 		function signature wrapping rules
 	**/
 	@:default([{
-		conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
+		conditions: [{cond: AnyItemLengthLargerThan, value: 50}],
 		type: FillLine
 	}])
 	@:optional

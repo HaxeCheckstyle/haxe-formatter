@@ -31,6 +31,8 @@ class MarkWrapping {
 					if (TokenTreeCheckUtils.isTypeParameter(token)) {
 						wrapTypeParameter(token, parsedCode, indenter, config);
 					}
+				case Binop(OpArrow), Arrow:
+					parsedCode.tokenList.wrapAfter(token, true);
 				default:
 			}
 			return GO_DEEPER;
@@ -62,10 +64,6 @@ class MarkWrapping {
 				default:
 			}
 		}
-		// if (!parsedCode.isOriginalSameLine(token, close)) {
-		// 	wrapChildOneLineEach(token, close, parsedCode, indenter);
-		// 	return;
-		// }
 		var maxLength:Int = 0;
 		var totalLength:Int = 0;
 		var itemCount:Int = 0;
@@ -364,7 +362,6 @@ class MarkWrapping {
 	}
 
 	public static function wrapChildOneLineEach(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, keepFirst:Bool = false) {
-		parsedCode.tokenList.noWrappingBetween(open, close);
 		if (!keepFirst) {
 			parsedCode.tokenList.lineEndAfter(open);
 		}
