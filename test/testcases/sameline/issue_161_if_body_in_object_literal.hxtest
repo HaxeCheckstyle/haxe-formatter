@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		{
+			foo: {
+				if (foo)
+					bar;
+				"";
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		{
+			foo: {
+				if (foo)
+					bar;
+				"";
+			}
+		}
+	}
+}

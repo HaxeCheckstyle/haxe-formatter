@@ -90,6 +90,16 @@ class MarkSameLine {
 					return false;
 				case Binop(OpAssign):
 					return true;
+				case BrOpen:
+					var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
+					switch (type) {
+						case BLOCK:
+						case TYPEDEFDECL:
+						case OBJECTDECL:
+							return true;
+						case ANONTYPE:
+						case UNKNOWN:
+					}
 				default:
 			}
 		}
