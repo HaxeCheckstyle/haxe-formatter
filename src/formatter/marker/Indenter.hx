@@ -1,5 +1,10 @@
 package formatter.marker;
 
+#if debugIndent
+import haxe.PosInfos;
+import sys.io.File;
+import sys.io.FileOutput;
+#end
 import formatter.config.IndentationConfig;
 
 class Indenter {
@@ -43,7 +48,13 @@ class Indenter {
 				}
 			default:
 		}
+		#if debugIndent
+		log(token, "------");
+		#end
 		token = findEffectiveParent(token);
+		#if debugIndent
+		log(token, "effectiveParent");
+		#end
 		return calcFromCandidates(token);
 	}
 
@@ -169,6 +180,9 @@ class Indenter {
 
 	function calcFromCandidates(token:TokenTree):Int {
 		var indentingTokensCandidates:Array<TokenTree> = findIndentingCandidates(token);
+		#if debugIndent
+		log(token, "candidates: " + indentingTokensCandidates);
+		#end
 		if (indentingTokensCandidates.length <= 0) {
 			return 0;
 		}
@@ -196,8 +210,13 @@ class Indenter {
 				case BrOpen:
 					switch (currentToken.tok) {
 						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch):
-							prevToken = currentToken;
-							continue;
+							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
+							switch (type) {
+								case OBJECTDECL:
+								default:
+									prevToken = currentToken;
+									continue;
+							}
 						case POpen:
 							var child:TokenTree = currentToken.getFirstChild();
 							if (child.index != prevToken.index) {
@@ -228,6 +247,9 @@ class Indenter {
 			indentingTokens.push(currentToken);
 			prevToken = currentToken;
 		}
+		#if debugIndent
+		log(token, "final: " + indentingTokens);
+		#end
 		return indentingTokens.length;
 	}
 
@@ -306,4 +328,13 @@ class Indenter {
 		}
 		return false;
 	}
+
+	#if debugIndent
+	function log(token:TokenTree, what:String, ?pos:PosInfos) {
+		var text:String = '`${token}` - $what - ${pos.fileName}:${pos.lineNumber}';
+		var file:FileOutput = File.append("hxformat.log", false);
+		file.writeString(text + "\n");
+		file.close();
+	}
+	#end
 }

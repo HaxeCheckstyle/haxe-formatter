@@ -1,10 +1,11 @@
 package formatter.codedata;
 
 import haxe.PosInfos;
+#if debugLog
 import sys.io.File;
 import sys.io.FileOutput;
+#end
 import formatter.config.WhitespacePolicy;
-import formatter.marker.MarkLineEnds;
 
 class TokenList {
 	public var tokens:Array<TokenInfo>;
@@ -322,6 +323,9 @@ class TokenList {
 			}
 			if ((nestLevel <= 0) && (info.whitespaceAfter == Newline)) {
 				info.whitespaceAfter = info.whitespaceAfterWithoutNL;
+				#if debugLog
+				logAction(pos, info.token, 'whitespaceAfter: ${info.whitespaceAfterWithoutNL}');
+				#end
 			}
 		}
 	}
@@ -464,6 +468,22 @@ class TokenList {
 			length += info.text.length;
 		}
 		return length;
+	}
+
+	public function isNewLineBefore(token:TokenTree):Bool {
+		var info:TokenInfo = getPreviousToken(token);
+		if (info == null) {
+			return false;
+		}
+		return info.whitespaceAfter == Newline;
+	}
+
+	public function isNewLineAfter(token:TokenTree):Bool {
+		var info:TokenInfo = getTokenAt(token.index);
+		if (info == null) {
+			return false;
+		}
+		return info.whitespaceAfter == Newline;
 	}
 
 	#if debugLog

@@ -1,0 +1,27 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var expectedEdits = [for (usage in markedUsages) {
+				range: usage,
+				newText: newName
+			}
+		];
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var expectedEdits = [
+			for (usage in markedUsages)
+				{
+					range: usage,
+					newText: newName
+				}
+		];
+	}
+}
