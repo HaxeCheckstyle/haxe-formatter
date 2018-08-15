@@ -1,0 +1,57 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		return ident.children.map(function(token) {
+			return token.access().is(At).firstChild().is(DblDot).firstChild().token;
+		}).filter(function(token) {
+				return token != null;
+			});
+		var items:Array<QuickPickItem> = [
+            for (name in displayArguments.providers.keys())
+                {
+                label: name,
+                description: displayArguments.providers[name].description
+                }
+        ];
+		for (line in parseFile(src))
+		switch line {
+		case Comment(_):
+		case Simple(arg):
+			result.push(arg);
+		case Param(name, value):
+			result.push(name);
+			result.push(value);
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return ident.children.map(function(token) {
+			return token.access().is(At).firstChild().is(DblDot).firstChild().token;
+		}).filter(function(token) {
+			return token != null;
+		});
+		var items:Array<QuickPickItem> = [
+			for (name in displayArguments.providers.keys())
+				{
+					label: name,
+					description: displayArguments.providers[name].description
+				}
+		];
+		for (line in parseFile(src))
+			switch line {
+				case Comment(_):
+				case Simple(arg):
+					result.push(arg);
+				case Param(name, value):
+					result.push(name);
+					result.push(value);
+			}
+	}
+}

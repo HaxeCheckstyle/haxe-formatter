@@ -207,6 +207,13 @@ class Indenter {
 						prevToken = currentToken;
 						continue;
 					}
+				case Dot:
+					switch (currentToken.tok) {
+						case Dot:
+							prevToken = currentToken;
+							continue;
+						default:
+					}
 				case BrOpen:
 					switch (currentToken.tok) {
 						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch):
@@ -282,7 +289,7 @@ class Indenter {
 			return false;
 		}
 		switch (token.tok) {
-			case BrOpen, BkOpen, POpen:
+			case BrOpen, BkOpen, POpen, Dot:
 				return true;
 			case Binop(OpAssign):
 				return true;
