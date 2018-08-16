@@ -22,6 +22,7 @@ typedef WhitespaceConfig = {
 	@:default(OnlyAfter) @:optional var caseColonPolicy:WhitespacePolicy;
 	@:default(After) @:optional var objectFieldColonPolicy:WhitespacePolicy;
 	@:default(None) @:optional var typeHintColonPolicy:WhitespacePolicy;
+	@:default(Around) @:optional var typeCheckColonPolicy:WhitespacePolicy;
 	@:default(Around) @:optional var ternaryPolicy:WhitespacePolicy;
 	@:default(None) @:optional var semicolonPolicy:WhitespacePolicy;
 	@:default(After) @:optional var ifPolicy:WhitespacePolicy;

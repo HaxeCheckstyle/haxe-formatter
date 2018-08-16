@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var item = ({title: "Edit settings"} : vscode.MessageItem);
+		var output = (result.stderr:Buffer).toString().trim();
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var item = ({title: "Edit settings"} : vscode.MessageItem);
+		var output = (result.stderr : Buffer).toString().trim();
+	}
+}

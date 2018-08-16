@@ -23,7 +23,7 @@ import haxe.ds.Option;
 
 class Main {
 	public static function main() {
-		return switch (null:Option<Int>) {
+		return switch (null : Option<Int>) {
 			case Some(v):
 				if (v > 0) true else false;
 			case None:

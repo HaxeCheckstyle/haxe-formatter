@@ -273,57 +273,21 @@ class MarkWhitespace {
 	}
 
 	static function markDblDot(token:TokenTree, ?parsedCode:ParsedCode, config:WhitespaceConfig) {
-		if (TokenTreeCheckUtils.isTernary(token)) {
-			parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
-			return;
-		}
-		var parent:TokenTree = token.parent;
-		if (parent == null) {
-			parsedCode.tokenList.whitespace(token, config.colonPolicy);
-			return;
-		}
-		switch (parent.tok) {
-			case At:
-				parsedCode.tokenList.whitespace(token, None);
-				return;
-			case Const(CIdent(_)), Const(CString(_)):
-				parent = parent.parent;
-				if (parent == null) {
-					parsedCode.tokenList.whitespace(token, config.colonPolicy);
-					return;
-				}
-				switch (parent.tok) {
-					case BrOpen:
-						var brOpenType:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
-						switch (brOpenType) {
-							case BLOCK:
-								parsedCode.tokenList.whitespace(token, config.colonPolicy);
-							case TYPEDEFDECL:
-								parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-							case OBJECTDECL:
-								parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
-							case ANONTYPE:
-								parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-							case UNKNOWN:
-								parsedCode.tokenList.whitespace(token, config.colonPolicy);
-						}
-					case POpen:
-						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-					case Kwd(KwdVar), Kwd(KwdFunction):
-						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-					case Const(CIdent("final")):
-						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-					#if (haxe_ver >= 4.0)
-					case Kwd(KwdFinal):
-						parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
-					#end
-					default:
-						parsedCode.tokenList.whitespace(token, config.colonPolicy);
-				}
-			case Kwd(KwdCase), Kwd(KwdDefault):
+		var type:ColonType = TokenTreeCheckUtils.getColonType(token);
+		switch (type) {
+			case SWITCH_CASE:
 				parsedCode.tokenList.whitespace(token, config.caseColonPolicy);
-				return;
-			default:
+			case TYPE_HINT:
+				parsedCode.tokenList.whitespace(token, config.typeHintColonPolicy);
+			case TYPE_CHECK:
+				parsedCode.tokenList.whitespace(token, config.typeCheckColonPolicy);
+			case TERNARY:
+				parsedCode.tokenList.whitespace(token, config.ternaryPolicy);
+			case OBJECT_LITERAL:
+				parsedCode.tokenList.whitespace(token, config.objectFieldColonPolicy);
+			case AT:
+				parsedCode.tokenList.whitespace(token, None);
+			case UNKNOWN:
 				parsedCode.tokenList.whitespace(token, config.colonPolicy);
 		}
 	}

@@ -14,6 +14,6 @@ class Main {
 class Main {
 	public static function main() {
 		if (untyped false || !!document.documentMode)
-			return untyped (o:IHxObject).__hx_getField(field, false, false, true);
+			return untyped (o : IHxObject).__hx_getField(field, false, false, true);
 	}
 }
