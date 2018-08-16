@@ -83,7 +83,7 @@ class JsonSchemaGenerator {
 	}
 
 	public static function genSchema(type:Type, typeName:String, pos:Position, structInfo:Null<StructInfo>, refs:DynamicAccess<Expr>, order:Int,
-		extendCB:ExtendedFieldsCB):Expr {
+			extendCB:ExtendedFieldsCB):Expr {
 		switch (type) {
 			case TType(_.get() => dt, params):
 				return switch [dt, params] {

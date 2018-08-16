@@ -72,11 +72,13 @@ typedef WrapConfig = {
 	@:default([
 		{
 			conditions: [{cond: ItemCountLargerThan, value: 7}],
-			type: FillLine
+			type: FillLine,
+			additionalIndent: 1
 		},
 		{
 			conditions: [{cond: LineLengthLargerThan, value: 140}],
-			type: FillLine
+			type: FillLine,
+			additionalIndent: 1
 		}
 	])
 	@:optional
@@ -134,6 +136,7 @@ typedef WrapConfig = {
 typedef WrapRule = {
 	var conditions:Array<WrapCondition>;
 	var type:WrappingType;
+	@:default(0) @:optional var additionalIndent:Int;
 }
 
 @:enum

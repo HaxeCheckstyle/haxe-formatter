@@ -72,7 +72,7 @@ class MarkWrapping {
 				case BrClose:
 					break;
 				case CommentLine(_):
-					wrapChildOneLineEach(token, close, parsedCode, indenter);
+					wrapChildOneLineEach(token, close, parsedCode, indenter, 0);
 					return;
 				default:
 			}
@@ -84,15 +84,15 @@ class MarkWrapping {
 			itemCount++;
 		}
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
-		var type:WrappingType = determineWrapType(config.wrapping.typeParameter, itemCount, maxLength, totalLength, lineLength);
-		switch (type) {
+		var rule:WrapRule = determineWrapType(config.wrapping.typeParameter, itemCount, maxLength, totalLength, lineLength);
+		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, close, parsedCode, indenter);
+				wrapChildOneLineEach(token, close, parsedCode, indenter, rule.additionalIndent);
 			case OnePerLineKeep:
-				wrapChildOneLineEach(token, close, parsedCode, indenter, true);
+				wrapChildOneLineEach(token, close, parsedCode, indenter, rule.additionalIndent, true);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine(token, close, parsedCode, indenter, config.wrapping.maxLineLength);
+				wrapFillLine(token, close, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
 			case NoWrap:
 				noWrap(token, close, parsedCode, indenter);
 		}
@@ -144,7 +144,7 @@ class MarkWrapping {
 			}
 		}
 		if (!parsedCode.isOriginalSameLine(token, brClose)) {
-			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter, 0);
 			return;
 		}
 		var maxLength:Int = 0;
@@ -155,7 +155,7 @@ class MarkWrapping {
 				case BrClose:
 					break;
 				case CommentLine(_):
-					wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+					wrapChildOneLineEach(token, brClose, parsedCode, indenter, 0);
 					return;
 				default:
 			}
@@ -167,15 +167,15 @@ class MarkWrapping {
 			itemCount++;
 		}
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
-		var type:WrappingType = determineWrapType(config.wrapping.anonType, itemCount, maxLength, totalLength, lineLength);
-		switch (type) {
+		var rule:WrapRule = determineWrapType(config.wrapping.anonType, itemCount, maxLength, totalLength, lineLength);
+		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent);
 			case OnePerLineKeep:
-				wrapChildOneLineEach(token, brClose, parsedCode, indenter, true);
+				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent, true);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength);
+				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
 			case NoWrap:
 				noWrap(token, brClose, parsedCode, indenter);
 				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
@@ -197,7 +197,7 @@ class MarkWrapping {
 			return;
 		}
 		if (!parsedCode.isOriginalSameLine(token, brClose)) {
-			wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+			wrapChildOneLineEach(token, brClose, parsedCode, indenter, 0);
 			return;
 		}
 		var maxLength:Int = 0;
@@ -208,7 +208,7 @@ class MarkWrapping {
 				case BrClose:
 					break;
 				case CommentLine(_):
-					wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+					wrapChildOneLineEach(token, brClose, parsedCode, indenter, 0);
 					return;
 				default:
 			}
@@ -220,15 +220,15 @@ class MarkWrapping {
 			itemCount++;
 		}
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
-		var type:WrappingType = determineWrapType(config.wrapping.objectLiteral, itemCount, maxLength, totalLength, lineLength);
-		switch (type) {
+		var rule:WrapRule = determineWrapType(config.wrapping.objectLiteral, itemCount, maxLength, totalLength, lineLength);
+		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, brClose, parsedCode, indenter);
+				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent);
 			case OnePerLineKeep:
-				wrapChildOneLineEach(token, brClose, parsedCode, indenter, true);
+				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent, true);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength);
+				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
 			case NoWrap:
 				noWrap(token, brClose, parsedCode, indenter);
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
@@ -304,7 +304,7 @@ class MarkWrapping {
 				case Kwd(KwdWhile):
 					return;
 				case CommentLine(_):
-					wrapChildOneLineEach(token, bkClose, parsedCode, indenter);
+					wrapChildOneLineEach(token, bkClose, parsedCode, indenter, 0);
 					return;
 				default:
 					var length:Int = parsedCode.tokenList.calcLength(child);
@@ -317,12 +317,12 @@ class MarkWrapping {
 		}
 
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
-		var type:WrappingType = determineWrapType(config.wrapping.arrayWrap, itemCount, maxLength, totalLength, lineLength);
-		switch (type) {
+		var rule:WrapRule = determineWrapType(config.wrapping.arrayWrap, itemCount, maxLength, totalLength, lineLength);
+		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, bkClose, parsedCode, indenter);
+				wrapChildOneLineEach(token, bkClose, parsedCode, indenter, rule.additionalIndent);
 			case OnePerLineKeep:
-				wrapChildOneLineEach(token, bkClose, parsedCode, indenter, true);
+				wrapChildOneLineEach(token, bkClose, parsedCode, indenter, rule.additionalIndent, true);
 			case EqualNumber:
 			case FillLine:
 				wrapArrayWithMany(token, bkClose, parsedCode, indenter, config.wrapping.maxLineLength);
@@ -361,7 +361,8 @@ class MarkWrapping {
 		parsedCode.tokenList.whitespace(close, NoneBefore);
 	}
 
-	public static function wrapChildOneLineEach(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, keepFirst:Bool = false) {
+	public static function wrapChildOneLineEach(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, additionalIndent:Int = 0,
+			keepFirst:Bool = false) {
 		if (!keepFirst) {
 			parsedCode.tokenList.lineEndAfter(open);
 		}
@@ -385,8 +386,10 @@ class MarkWrapping {
 						}
 					}
 					parsedCode.tokenList.lineEndAfter(child);
+					parsedCode.tokenList.additionalIndent(child, additionalIndent);
 					continue;
 				default:
+					parsedCode.tokenList.additionalIndent(child, additionalIndent);
 			}
 			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 			if (lastChild == null) {
@@ -397,10 +400,11 @@ class MarkWrapping {
 		}
 	}
 
-	public static function wrapFillLine(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, maxLineLength:Int) {
+	public static function wrapFillLine(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, maxLineLength:Int,
+			additionalIndent:Int = 0) {
 		parsedCode.tokenList.noWrappingBetween(open, close);
 		var indent:Int = indenter.calcIndent(open);
-		var lineLength:Int = parsedCode.tokenList.calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent);
+		var lineLength:Int = parsedCode.tokenList.calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent + additionalIndent);
 		for (child in open.children) {
 			switch (child.tok) {
 				case PClose, BrClose, BkClose:
@@ -417,8 +421,10 @@ class MarkWrapping {
 						}
 					}
 					parsedCode.tokenList.lineEndAfter(child);
+					parsedCode.tokenList.additionalIndent(child, additionalIndent);
 					continue;
 				default:
+					parsedCode.tokenList.additionalIndent(child, additionalIndent);
 			}
 			var tokenLength:Int = parsedCode.tokenList.calcLength(child);
 			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
@@ -495,27 +501,31 @@ class MarkWrapping {
 			itemCount++;
 		}
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
-		var type:WrappingType = determineWrapType(config.wrapping.functionSignature, itemCount, maxLength, totalLength, lineLength);
-		switch (type) {
+		var rule:WrapRule = determineWrapType(config.wrapping.functionSignature, itemCount, maxLength, totalLength, lineLength);
+		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, pClose, parsedCode, indenter);
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, rule.additionalIndent);
 			case OnePerLineKeep:
-				wrapChildOneLineEach(token, pClose, parsedCode, indenter, true);
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, rule.additionalIndent, true);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength);
+				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
 			case NoWrap:
 				parsedCode.tokenList.noWrappingBetween(token, pClose);
 		}
 	}
 
-	static function determineWrapType(config:Array<WrapRule>, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrappingType {
+	static function determineWrapType(config:Array<WrapRule>, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
 		for (rule in config) {
 			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength)) {
-				return rule.type;
+				return rule;
 			}
 		}
-		return NoWrap;
+		return {
+			conditions: [],
+			type: NoWrap,
+			additionalIndent: 0
+		};
 	}
 
 	static function matchesRule(rule:WrapRule, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):Bool {

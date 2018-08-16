@@ -7,4 +7,5 @@ typedef TokenInfo = {
 	var emptyLinesAfter:Int;
 	var wrapAfter:Bool;
 	var text:String;
+	var additionalIndent:Int;
 }

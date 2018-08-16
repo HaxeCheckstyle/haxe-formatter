@@ -159,7 +159,7 @@ class MarkEmptyLines {
 	}
 
 	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-		currTokenType:TokenFieldType, config:ClassFieldsEmtpyLinesConfig) {
+			currTokenType:TokenFieldType, config:ClassFieldsEmtpyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -275,7 +275,7 @@ class MarkEmptyLines {
 	}
 
 	static function markInterfaceEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-		currTokenType:TokenFieldType, config:InterfaceFieldsEmtpyLinesConfig) {
+			currTokenType:TokenFieldType, config:InterfaceFieldsEmtpyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -343,7 +343,7 @@ class MarkEmptyLines {
 	}
 
 	static function markEnumAbstractFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-		currTokenType:TokenFieldType, config:EnumAbstractFieldsEmtpyLinesConfig) {
+			currTokenType:TokenFieldType, config:EnumAbstractFieldsEmtpyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}

@@ -36,7 +36,7 @@ class CodeLines {
 				default:
 			}
 			if (line == null) {
-				line = new CodeLine(indenter.calcIndent(tokenInfo.token));
+				line = new CodeLine(indenter.calcIndent(tokenInfo.token) + tokenInfo.additionalIndent);
 				lines.push(line);
 			}
 			line.addToken(tokenInfo);

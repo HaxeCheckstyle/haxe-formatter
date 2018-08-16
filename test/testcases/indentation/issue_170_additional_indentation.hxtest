@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+    function handleJsonRpc(params:TextDocumentPositionParams, token:CancellationToken, resolve:Definition->Void, reject:ResponseError<NoData>->Void,
+        doc:TextDocument, offset:Int) {
+        call();
+    }
+}
+
+---
+
+class Main {
+	function handleJsonRpc(params:TextDocumentPositionParams, token:CancellationToken, resolve:Definition->Void, reject:ResponseError<NoData>->Void,
+			doc:TextDocument, offset:Int) {
+		call();
+	}
+}

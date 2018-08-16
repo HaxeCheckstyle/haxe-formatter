@@ -33,7 +33,8 @@ class TokenList {
 				whitespaceAfterWithoutNL: None,
 				emptyLinesAfter: 0,
 				wrapAfter: false,
-				text: null
+				text: null,
+				additionalIndent: 0
 			};
 			buildList(child);
 		}
@@ -328,6 +329,23 @@ class TokenList {
 				#end
 			}
 		}
+	}
+
+	public function additionalIndent(token:TokenTree, indent:Null<Int>, ?pos:PosInfos) {
+		if (indent == null) {
+			return;
+		}
+		if (token.index < 0) {
+			return;
+		}
+		var info:TokenInfo = tokens[token.index];
+		if (info == null) {
+			return;
+		}
+		#if debugLog
+		logAction(pos, token, '$indent');
+		#end
+		info.additionalIndent = indent;
 	}
 
 	public function findTokenAtOffset(offset:Int):TokenInfo {

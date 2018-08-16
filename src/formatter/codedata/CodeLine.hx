@@ -50,32 +50,6 @@ class CodeLine {
 	}
 
 	function wrappedAt(index:Int, config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
-		// while (index >= 0) {
-		// 	var current:CodePart = parts[index];
-		// 	if (current.lastToken.is(BkOpen)) {
-		// 		return wrapArray(index, config, indenter);
-		// 	}
-		// 	// if (current.lastToken.is(BrOpen)) {
-		// 	// 	return wrapObject(index);
-		// 	// }
-		// 	index--;
-		// }
-		// var parent:TokenTree = part.firstToken.parent;
-		// switch (parent.tok) {
-		// case BrOpen:
-		// if (config.wrapAfterOpeningBrace) {
-		// return wrapObject(part, config);
-		// }
-		// case Const(_):
-		// switch (parent.parent.tok) {
-		// case BkOpen:
-		// if (config.owrapAfterOpeningBracket) {
-		// return wrapArray(part, config);
-		// }
-		// default:
-		// }
-		// default:
-		// }
 		return wrapNormal(config, parsedCode, indenter);
 	}
 
@@ -93,7 +67,12 @@ class CodeLine {
 			var p:CodePart = parts.shift();
 			if (lineLength + p.text.length > config.maxLineLength) {
 				parsedCode.tokenList.lineEndAfter(lastPart.lastToken);
-				var newIndent:Int = indenter.calcIndent(p.firstToken);
+				var info:TokenInfo = parsedCode.tokenList.getTokenAt(p.firstToken.index);
+				var additionalIndent:Int = 0;
+				if (info != null) {
+					additionalIndent = info.additionalIndent;
+				}
+				var newIndent:Int = indenter.calcIndent(p.firstToken) + additionalIndent;
 				line = new CodeLine(newIndent);
 				lineLength = indenter.calcAbsoluteIndent(newIndent);
 				lines.push(line);
@@ -106,12 +85,6 @@ class CodeLine {
 		return lines;
 	}
 
-	// function wrapObject(part:CodePart, config:WrapConfig):Array<CodeLine> {
-	// return [this];
-	// }
-	// function wrapArray(index:Int, config:WrapConfig, indenter:Indenter):Array<CodeLine> {
-	// 	return [this];
-	// }
 	public function print(indenter:Indenter, lineSeparator:String):String {
 		var line:String = "";
 		for (part in parts) {
