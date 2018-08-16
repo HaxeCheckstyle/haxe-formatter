@@ -571,7 +571,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 17
+                    "propertyOrder": 18
                 },
                 "typeParamClosePolicy": {
                     "type": "string",
@@ -641,7 +641,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 27
+                    "propertyOrder": 28
                 },
                 "commaPolicy": {
                     "type": "string",
@@ -656,6 +656,20 @@
                         "around"
                     ],
                     "propertyOrder": 11
+                },
+                "typeCheckColonPolicy": {
+                    "type": "string",
+                    "enum": [
+                        "none",
+                        "before",
+                        "noneBefore",
+                        "onlyBefore",
+                        "after",
+                        "onlyAfter",
+                        "noneAfter",
+                        "around"
+                    ],
+                    "propertyOrder": 17
                 },
                 "typeParamOpenPolicy": {
                     "type": "string",
@@ -702,7 +716,7 @@
                 "compressSuccessiveParenthesis": {
                     "description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
                     "type": "boolean",
-                    "propertyOrder": 31
+                    "propertyOrder": 32
                 },
                 "objectOpeningBracePolicy": {
                     "type": "string",
@@ -730,7 +744,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 29
+                    "propertyOrder": 30
                 },
                 "openingBracePolicy": {
                     "type": "string",
@@ -758,7 +772,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 28
+                    "propertyOrder": 29
                 },
                 "doPolicy": {
                     "type": "string",
@@ -772,7 +786,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 20
+                    "propertyOrder": 21
                 },
                 "semicolonPolicy": {
                     "type": "string",
@@ -786,7 +800,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 18
+                    "propertyOrder": 19
                 },
                 "forPolicy": {
                     "type": "string",
@@ -800,7 +814,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 22
+                    "propertyOrder": 23
                 },
                 "objectFieldColonPolicy": {
                     "type": "string",
@@ -870,11 +884,11 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 23
+                    "propertyOrder": 24
                 },
                 "formatStringInterpolation": {
                     "type": "boolean",
-                    "propertyOrder": 32
+                    "propertyOrder": 33
                 },
                 "typeExtensionPolicy": {
                     "type": "string",
@@ -902,7 +916,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 21
+                    "propertyOrder": 22
                 },
                 "typeHintColonPolicy": {
                     "type": "string",
@@ -930,7 +944,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 25
+                    "propertyOrder": 26
                 },
                 "binopPolicy": {
                     "type": "string",
@@ -944,7 +958,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 26
+                    "propertyOrder": 27
                 },
                 "ifPolicy": {
                     "type": "string",
@@ -958,7 +972,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 19
+                    "propertyOrder": 20
                 },
                 "functionTypeHaxe4Policy": {
                     "type": "string",
@@ -972,7 +986,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 30
+                    "propertyOrder": 31
                 },
                 "tryPolicy": {
                     "type": "string",
@@ -986,7 +1000,7 @@
                         "noneAfter",
                         "around"
                     ],
-                    "propertyOrder": 24
+                    "propertyOrder": 25
                 }
             },
             "type": "object"
