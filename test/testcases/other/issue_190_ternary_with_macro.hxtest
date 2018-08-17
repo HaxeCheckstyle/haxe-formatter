@@ -1,0 +1,45 @@
+{}
+
+---
+
+class GenExtractor {
+	static public function anon(fields:Array<FieldInfo>, ct)
+		return (macro function(value:$ct) {
+			var __ret:Dynamic = {};
+			$b{
+				[
+					for (f in fields) {
+						var name = f.name;
+						var assert = f.optional ? macro null:macro macro {
+							$assert;
+							var value = value.$name;
+							__ret.$name = ${f.expr};
+						}
+					}
+				]
+			}
+			return __ret;
+		}).getFunction().sure();
+}
+
+---
+
+class GenExtractor {
+	static public function anon(fields:Array<FieldInfo>, ct)
+		return (macro function(value:$ct) {
+			var __ret:Dynamic = {};
+			$b{
+				[
+					for (f in fields) {
+						var name = f.name;
+						var assert = f.optional ? macro null : macro macro {
+							$assert;
+							var value = value.$name;
+							__ret.$name = ${f.expr};
+						}
+					}
+				]
+			}
+			return __ret;
+		}).getFunction().sure();
+}
