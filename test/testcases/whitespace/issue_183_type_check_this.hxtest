@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		return switch ((this:DiagnosticsKind<T>)) {}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return switch ((this : DiagnosticsKind<T>)) {}
+	}
+}

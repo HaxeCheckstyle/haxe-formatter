@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	@:overload(function<T>(key : String, defaultValue : T):T {})
+	@:overload(function<T>(key : String):T {})
+	function get<T>(key:String):Null<T>;
+}
+
+---
+
+class Main {
+	@:overload(function<T>(key:String, defaultValue:T):T {})
+	@:overload(function<T>(key:String):T {})
+	function get<T>(key:String):Null<T>;
+}

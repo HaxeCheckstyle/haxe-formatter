@@ -1,0 +1,13 @@
+{}
+
+---
+
+typedef ITokenizeLineResult = {
+	var tokens(default, null) : Array<IToken>;
+}
+
+---
+
+typedef ITokenizeLineResult = {
+	var tokens(default, null):Array<IToken>;
+}
