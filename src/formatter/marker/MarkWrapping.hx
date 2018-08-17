@@ -259,15 +259,17 @@ class MarkWrapping {
 				wrapFunctionSignature(token, parsedCode, indenter, config);
 			case CALL:
 				parsedCode.tokenList.wrapBefore(token, true);
-				for (child in token.children) {
-					if (child.is(PClose)) {
-						continue;
-					}
-					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-					if (lastChild == null) {
-						parsedCode.tokenList.wrapAfter(lastChild, true);
-					} else {
-						parsedCode.tokenList.wrapAfter(lastChild, true);
+				if (token.children != null) {
+					for (child in token.children) {
+						if (child.is(PClose)) {
+							continue;
+						}
+						var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+						if (lastChild == null) {
+							parsedCode.tokenList.wrapAfter(lastChild, true);
+						} else {
+							parsedCode.tokenList.wrapAfter(lastChild, true);
+						}
 					}
 				}
 				if (pClose != null) {

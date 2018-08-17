@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Cson {
+    static function tokenize(text: String): Array<String> {
+       tokens.push(#if cpp sub(text, #else text.sub( #end from, i - from + 1));
+    }
+}
+
+---
+
+class Cson {
+	static function tokenize(text:String):Array<String> {
+		tokens.push(#if cpp sub(text, #else text.sub( #end from, i - from + 1));
+	}
+}
