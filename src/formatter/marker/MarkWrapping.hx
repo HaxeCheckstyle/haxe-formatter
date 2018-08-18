@@ -246,6 +246,8 @@ class MarkWrapping {
 					switch (prev.token.tok) {
 						case Kwd(_):
 							parsedCode.tokenList.whitespace(token, Before);
+						case POpen:
+							parsedCode.tokenList.whitespace(token, NoneBefore);
 						default:
 					}
 				}
@@ -260,6 +262,9 @@ class MarkWrapping {
 			case CALL:
 				parsedCode.tokenList.wrapBefore(token, true);
 				if (token.children != null) {
+					if (parsedCode.tokenList.isSameLineBetween(token, pClose, true)) {
+						parsedCode.tokenList.noWrappingBetween(token, pClose);
+					}
 					for (child in token.children) {
 						if (child.is(PClose)) {
 							continue;

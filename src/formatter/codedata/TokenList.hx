@@ -504,6 +504,27 @@ class TokenList {
 		return info.whitespaceAfter == Newline;
 	}
 
+	public function isSameLineBetween(tokenStart:TokenTree, tokenEnd:TokenTree, exclude:Bool):Bool {
+		if ((tokenStart == null) || (tokenEnd == null)) {
+			return true;
+		}
+		var start:Int = tokenStart.index;
+		var end:Int = tokenEnd.index;
+		if (exclude) {
+			start++;
+		}
+		for (index in start...end) {
+			var info:TokenInfo = tokens[index];
+			if (info == null) {
+				continue;
+			}
+			if (info.whitespaceAfter == Newline) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	#if debugLog
 	function logAction(callerPos:PosInfos, token:TokenTree, what:String, ?pos:PosInfos) {
 		var text:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName} [${pos.methodName} ($what)] on `${token}` (${token.pos})';

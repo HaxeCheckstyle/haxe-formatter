@@ -1,0 +1,26 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+}
+
+---
+
+class Main
+{
+	public static function main()
+	{
+		values.push(
+			{name: f.name, value: value});
+	}
+}
+
+---
+
+class Main
+{
+	public static function main()
+	{
+		values.push({name: f.name, value: value});
+	}
+}
