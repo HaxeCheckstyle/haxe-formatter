@@ -1,0 +1,30 @@
+{}
+
+---
+
+class ClassicFor {
+	private static function makeForLoop():Expr {
+		init.push(macro while($condition) {
+				var shouldBreak:Bool = true;
+				do $block while(shouldBreak = false);
+				if(shouldBreak) break;
+				$incrementExpr;
+			}
+		);
+	}
+}
+
+---
+
+class ClassicFor {
+	private static function makeForLoop():Expr {
+		init.push(macro while ($condition) {
+			var shouldBreak:Bool = true;
+			do
+				$block while (shouldBreak = false);
+			if (shouldBreak)
+				break;
+			$incrementExpr;
+		});
+	}
+}

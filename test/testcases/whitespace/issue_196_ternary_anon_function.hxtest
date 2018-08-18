@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var guarded = !AnyTypes.toBool(guard) ? function(t0, t1) return t0 == t1 : guard;
+		foo;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var guarded = !AnyTypes.toBool(guard) ? function(t0, t1) return t0 == t1 : guard;
+		foo;
+	}
+}

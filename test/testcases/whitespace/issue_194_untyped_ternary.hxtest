@@ -1,0 +1,19 @@
+{}
+
+---
+
+class PrePreloader extends Sprite {
+	public function new() {
+		_url = (l_loaderInfo != null) ? untyped l_loaderInfo.parameters.gameUrl : _GAME_URL;
+		_init();
+	}
+}
+
+---
+
+class PrePreloader extends Sprite {
+	public function new() {
+		_url = (l_loaderInfo != null) ? untyped l_loaderInfo.parameters.gameUrl : _GAME_URL;
+		_init();
+	}
+}

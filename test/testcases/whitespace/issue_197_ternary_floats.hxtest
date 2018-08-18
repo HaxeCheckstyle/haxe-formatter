@@ -1,0 +1,19 @@
+{}
+
+---
+
+class TestManifold extends TestCase {
+	override function _onMouseWheel(delta:Int):Void {
+		var angle = UI.get().isShiftDown ? 1. : 5.;
+		s.body.transform(p.x, p.y, a);
+	}
+}
+
+---
+
+class TestManifold extends TestCase {
+	override function _onMouseWheel(delta:Int):Void {
+		var angle = UI.get().isShiftDown ? 1. : 5.;
+		s.body.transform(p.x, p.y, a);
+	}
+}
