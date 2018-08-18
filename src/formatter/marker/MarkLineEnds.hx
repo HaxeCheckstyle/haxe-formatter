@@ -97,6 +97,14 @@ class MarkLineEnds {
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
 							parsedCode.tokenList.whitespace(brOpen, None);
 							parsedCode.tokenList.whitespace(brClose, None);
+							var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+							if (next != null) {
+								switch (next.token.tok) {
+									case DblDot:
+										parsedCode.tokenList.whitespace(brClose, After);
+									default:
+								}
+							}
 							continue;
 						}
 						if (name.length <= 1) {
@@ -456,6 +464,9 @@ class MarkLineEnds {
 					}
 					if (lastChild.is(BrClose)) {
 						switch (next.token.tok) {
+							case Arrow:
+								parsedCode.tokenList.whitespace(lastChild, None);
+								continue;
 							case Binop(OpAnd):
 								parsedCode.tokenList.noLineEndAfter(lastChild);
 								continue;

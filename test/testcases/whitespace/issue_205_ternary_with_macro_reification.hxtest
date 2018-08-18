@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Macros {
+	public static function buildNetworkSerializable() {
+		macro {
+			if (id < (isRPC ? $v{firstRPCID} : $v{firstFID})) {}
+		}
+	}
+}
+
+---
+
+class Macros {
+	public static function buildNetworkSerializable() {
+		macro {
+			if (id < (isRPC ? $v{firstRPCID} : $v{firstFID})) {}
+		}
+	}
+}

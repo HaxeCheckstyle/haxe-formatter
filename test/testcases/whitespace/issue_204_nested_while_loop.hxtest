@@ -1,0 +1,33 @@
+{}
+
+---
+
+class Earcut {
+	function foo() {
+		do {
+			while (true) {}
+		} while (true);
+	}
+
+	function bar() {
+		do {
+			while (true) {}
+		} while (true);
+	}
+}
+
+---
+
+class Earcut {
+	function foo() {
+		do {
+			while (true) {}
+		} while (true);
+	}
+
+	function bar() {
+		do {
+			while (true) {}
+		} while (true);
+	}
+}

@@ -1,0 +1,9 @@
+{}
+
+---
+
+typedef ValueXYListenerCallback = {x:Float, y:Float}->Void;
+
+---
+
+typedef ValueXYListenerCallback = {x:Float, y:Float}->Void;

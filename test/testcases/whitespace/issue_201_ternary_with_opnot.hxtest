@@ -1,0 +1,21 @@
+{}
+
+---
+
+class ListControlRow
+{
+	public function select(inIndex:Int,inFlags:Int=0)
+	{
+		mMultiSelect[s] = toggle ? !mMultiSelect[s] : true;
+		onMultiSelect(mMultiSelect);
+	}
+}
+
+---
+
+class ListControlRow {
+	public function select(inIndex:Int, inFlags:Int = 0) {
+		mMultiSelect[s] = toggle ? !mMultiSelect[s] : true;
+		onMultiSelect(mMultiSelect);
+	}
+}
