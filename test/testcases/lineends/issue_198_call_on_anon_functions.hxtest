@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		kvs(map).each(function(l, r) {
+			map1.set(l, r);
+		}.tupled());
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		kvs(map).each(function(l, r) {
+			map1.set(l, r);
+		}.tupled());
+	}
+}

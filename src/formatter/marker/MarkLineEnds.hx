@@ -183,6 +183,7 @@ class MarkLineEnds {
 		}
 		switch (nextToken.token.tok) {
 			case PClose:
+			case Dot:
 			case Comma:
 			case Semicolon:
 			case Binop(OpAssign):
