@@ -428,20 +428,7 @@ class MarkLineEnds {
 		if (assign == null) {
 			return null;
 		}
-		var brOpen:TokenTree = assign.getFirstChild();
-		while (brOpen != null) {
-			switch (brOpen.tok) {
-				case BrOpen:
-					return brOpen;
-				case Const(CIdent(_)):
-					brOpen = brOpen.getLastChild();
-				case Binop(OpAnd):
-					brOpen = brOpen.getFirstChild();
-				default:
-					return null;
-			}
-		}
-		return null;
+		return assign.access().firstOf(BrOpen).token;
 	}
 
 	static function markStructureExtension(parsedCode:ParsedCode, config:LineEndConfig) {
@@ -455,6 +442,35 @@ class MarkLineEnds {
 			if ((brOpen.children == null) || (brOpen.children.length <= 0)) {
 				continue;
 			}
+			var assignParent:TokenTree = brOpen.parent;
+			if (assignParent.children.length > 1) {
+				for (child in assignParent.children) {
+					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+					if (lastChild == null) {
+						continue;
+					}
+					var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+					if (next == null) {
+						continue;
+					}
+					if (lastChild.is(BrClose)) {
+						switch (next.token.tok) {
+							case Binop(OpAnd):
+								parsedCode.tokenList.noLineEndAfter(lastChild);
+								continue;
+							case Semicolon:
+								parsedCode.tokenList.whitespace(lastChild, NoneAfter);
+								continue;
+							default:
+						}
+					}
+					if (next.token.is(BrOpen)) {
+						continue;
+					}
+					parsedCode.tokenList.lineEndAfter(lastChild);
+				}
+			}
+
 			for (child in brOpen.children) {
 				switch (child.tok) {
 					case Binop(OpGt), Const(CIdent(_)), Question:

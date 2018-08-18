@@ -1,0 +1,56 @@
+{}
+
+---
+
+typedef TextDocumentClientCapabilities = /* ColorClientCapabilities & */
+{
+	var foo:Int;
+}
+
+typedef TextDocumentClientCapabilities =
+	ImplementationClientCapabilities &
+	TypeDefinitionClientCapabilities &
+	/* ColorClientCapabilities & */
+	FoldingRangeClientCapabilities & {
+	var foo:Int;
+}
+
+typedef TextDocumentClientCapabilities =
+	/* ColorClientCapabilities & */
+	FoldingRangeClientCapabilities & {
+	var foo:Int;
+	} &	ImplementationClientCapabilities &
+	TypeDefinitionClientCapabilities;
+
+typedef TextDocumentClientCapabilities =
+{
+	var foo:Int;
+} &{
+	var foo:Int;
+}
+
+---
+
+typedef TextDocumentClientCapabilities = /* ColorClientCapabilities & */ {
+	var foo:Int;
+}
+
+typedef TextDocumentClientCapabilities = ImplementationClientCapabilities &
+	TypeDefinitionClientCapabilities &
+	/* ColorClientCapabilities & */
+	FoldingRangeClientCapabilities & {
+	var foo:Int;
+}
+
+typedef TextDocumentClientCapabilities = /* ColorClientCapabilities & */
+	FoldingRangeClientCapabilities & {
+	var foo:Int;
+} &
+	ImplementationClientCapabilities &
+	TypeDefinitionClientCapabilities;
+
+typedef TextDocumentClientCapabilities = {
+	var foo:Int;
+} & {
+	var foo:Int;
+}

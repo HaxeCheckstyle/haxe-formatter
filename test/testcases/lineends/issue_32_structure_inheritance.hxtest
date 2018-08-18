@@ -36,4 +36,5 @@ typedef Bar2 = {
 typedef Bar3 = Bar & {
 	foo:Int,
 	?bar:Int
-} & Bar2
+} &
+	Bar2
