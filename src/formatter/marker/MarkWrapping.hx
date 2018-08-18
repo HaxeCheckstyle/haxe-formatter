@@ -257,6 +257,27 @@ class MarkWrapping {
 	static function markPWrapping(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:Config) {
 		var pClose:TokenTree = token.access().firstOf(PClose).token;
 		switch (TokenTreeCheckUtils.getPOpenType(token)) {
+			case AT:
+				if (token.children != null) {
+					if (parsedCode.tokenList.isSameLineBetween(token, pClose, true)) {
+						parsedCode.tokenList.noWrappingBetween(token, pClose);
+					}
+					for (child in token.children) {
+						if (child.is(PClose)) {
+							continue;
+						}
+						var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+						if (lastChild == null) {
+							parsedCode.tokenList.wrapAfter(lastChild, true);
+						} else {
+							parsedCode.tokenList.wrapAfter(lastChild, true);
+						}
+					}
+				}
+				parsedCode.tokenList.wrapAfter(token, true);
+				if (pClose != null) {
+					parsedCode.tokenList.wrapBefore(pClose, false);
+				}
 			case PARAMETER:
 				wrapFunctionSignature(token, parsedCode, indenter, config);
 			case CALL:
