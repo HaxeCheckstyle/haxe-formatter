@@ -55,13 +55,13 @@ Use `--check` to run formatter in check mode to see if code is properly formatte
 ### VSCode extension
 To enable formatter on VSCode add
 ```
-	"[haxe]": {
-		"editor.formatOnSave":true
-	}
+"[haxe]": {
+  "editor.formatOnSave":true
+}
 ```
 or
 ```
-  "editor.formatOnSave":true
+"editor.formatOnSave":true
 ```
 to your settings.
 
