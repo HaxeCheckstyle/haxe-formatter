@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		#if cs
+		pony.cs.Synchro.lock(isRead, function() {
+		#end
+			// some code
+		#if cs
+		});
+		#end
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		#if cs
+		pony.cs.Synchro.lock(isRead, function() {
+		#end
+		// some code
+		#if cs
+		});
+		#end
+	}
+}
