@@ -7,6 +7,7 @@
 .DS_Store
 *.n
 *.js
+*.js.map
 *.zip
 .haxelib/
 out/
@@ -24,3 +25,4 @@ resources/schema.xml
 core
 test/formatter-result.txt
 test/single-run.txt
+result.txt

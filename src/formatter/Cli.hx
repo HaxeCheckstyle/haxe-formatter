@@ -28,10 +28,16 @@ class Cli {
 		var argHandler = hxargs.Args.generate([
 			@doc("File or directory with .hx files to format (multiple allowed)")
 			["-s", "--source"] => function(path:String) paths.push(path),
+
 			@doc("Print additional information")
 			["-v"] => function() verbose = true,
+
 			@doc("Don't format, only check if files are formatted correctly")
 			["--check"] => function() mode = Check,
+
+			#if debug@doc("Don't format, only check if formatting is stable")
+			["--check-stability"] => function() mode = CheckStability, #end
+
 			@doc("Display this list of options")
 			["--help"] => function() help = true
 		]);
@@ -98,6 +104,19 @@ class Cli {
 								Sys.println('Incorrect formatting in $path');
 								exitCode = 1;
 							}
+						case CheckStability:
+							var secondResult = new Formatter().formatFile({name: path, content: Bytes.ofString(formattedCode)});
+							function unstable() {
+								Sys.println('Unstable formatting in $path');
+								exitCode = 1;
+							}
+							switch (secondResult) {
+								case Success(formattedCode2) if (formattedCode != formattedCode2):
+									unstable();
+								case Failure(errorMessage):
+									unstable();
+								case _:
+							}
 					}
 				case Failure(errorMessage):
 					Sys.println('Failed to format $path: $errorMessage');
@@ -110,4 +129,5 @@ class Cli {
 enum Mode {
 	Format;
 	Check;
+	CheckStability;
 }
