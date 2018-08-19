@@ -1,14 +1,41 @@
 package formatter.config;
 
 typedef EmptyLinesConfig = {
+	/**
+		adds a final newline
+	**/
 	@:default(true) @:optional var finalNewline:Bool;
+
+	/**
+		maximum consecutive empty lines anywhere in file - runs last, all empty lines policies are limited to "maxAnywhereInFile"
+	**/
 	@:default(1) @:optional var maxAnywhereInFile:Int;
+
+	/**
+		empty lines after package
+	**/
 	@:default(1) @:optional var afterPackage:Int;
 	@:default(1) @:optional var beforeUsing:Int;
 	@:default(1) @:optional var afterImportsUsing:Int;
+
+	/**
+		empty lines between types
+	**/
 	@:default(1) @:optional var betweenTypes:Int;
+
+	/**
+		Remove or keep empty lines above "}"
+	**/
 	@:default(Remove) @:optional var beforeRightCurly:KeepEmptyLinesPolicy;
+
+	/**
+		Remove or keep empty lines below "{"
+	**/
 	@:default(Remove) @:optional var afterLeftCurly:KeepEmptyLinesPolicy;
+
+	/**
+		Remove or keep empty lines below "return"
+	**/
 	@:default(Remove) @:optional var afterReturn:KeepEmptyLinesPolicy;
 	@:default(Remove) @:optional var beforeBlocks:KeepEmptyLinesPolicy;
 	@:default(Remove) @:optional var afterBlocks:KeepEmptyLinesPolicy;

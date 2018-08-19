@@ -336,6 +336,7 @@
             "additionalProperties": false,
             "properties": {
                 "beforeRightCurly": {
+                    "description": "Remove or keep empty lines above \"}\"",
                     "type": "string",
                     "enum": [
                         "keep",
@@ -344,6 +345,7 @@
                     "propertyOrder": 6
                 },
                 "afterLeftCurly": {
+                    "description": "Remove or keep empty lines below \"{\"",
                     "type": "string",
                     "enum": [
                         "keep",
@@ -352,6 +354,7 @@
                     "propertyOrder": 7
                 },
                 "afterReturn": {
+                    "description": "Remove or keep empty lines below \"return\"",
                     "type": "string",
                     "enum": [
                         "keep",
@@ -360,10 +363,12 @@
                     "propertyOrder": 8
                 },
                 "afterPackage": {
+                    "description": "empty lines after package",
                     "type": "integer",
                     "propertyOrder": 2
                 },
                 "finalNewline": {
+                    "description": "adds a final newline",
                     "type": "boolean",
                     "propertyOrder": 0
                 },
@@ -396,6 +401,7 @@
                     "propertyOrder": 13
                 },
                 "betweenTypes": {
+                    "description": "empty lines between types",
                     "type": "integer",
                     "propertyOrder": 5
                 },
@@ -404,6 +410,7 @@
                     "propertyOrder": 3
                 },
                 "maxAnywhereInFile": {
+                    "description": "maximum consecutive empty lines anywhere in file - runs last, all empty lines policies are limited to \"maxAnywhereInFile\"",
                     "type": "integer",
                     "propertyOrder": 1
                 },
@@ -1053,6 +1060,7 @@
                     "propertyOrder": 16
                 },
                 "doWhile": {
+                    "description": "should non block body of \"while\" of \"do…while\" be on same line or next",
                     "type": "string",
                     "enum": [
                         "same",
@@ -1130,6 +1138,7 @@
                     "propertyOrder": 13
                 },
                 "doWhileBody": {
+                    "description": "should non block body of \"do…while\" be on same line or next",
                     "type": "string",
                     "enum": [
                         "same",
@@ -1146,6 +1155,7 @@
                     "propertyOrder": 18
                 },
                 "forBody": {
+                    "description": "should non block body of \"for\" be on same line or next",
                     "type": "string",
                     "enum": [
                         "same",
@@ -1154,6 +1164,7 @@
                     "propertyOrder": 6
                 },
                 "whileBody": {
+                    "description": "should non block body of \"while\" be on same line or next",
                     "type": "string",
                     "enum": [
                         "same",

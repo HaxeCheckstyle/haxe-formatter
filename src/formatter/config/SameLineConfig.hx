@@ -12,10 +12,26 @@ typedef SameLineConfig = {
 		var foo = if (bar) { ""; } else { ""; };
 	**/
 	@:default(false) @:optional var expressionIfWithBlocks:Bool;
+
+	/**
+		should non block body of "for" be on same line or next
+	**/
 	@:default(Next) @:optional var forBody:SameLinePolicy;
 	@:default(Same) @:optional var comprehensionFor:SameLinePolicy;
+
+	/**
+		should non block body of "while" be on same line or next
+	**/
 	@:default(Next) @:optional var whileBody:SameLinePolicy;
+
+	/**
+		should non block body of "do…while" be on same line or next
+	**/
 	@:default(Next) @:optional var doWhileBody:SameLinePolicy;
+
+	/**
+		should non block body of "while" of "do…while" be on same line or next
+	**/
 	@:default(Same) @:optional var doWhile:SameLinePolicy;
 	@:default(Next) @:optional var tryBody:SameLinePolicy;
 	@:default(Next) @:optional var catchBody:SameLinePolicy;
