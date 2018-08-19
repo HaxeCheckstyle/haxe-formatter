@@ -35,8 +35,10 @@ class Cli {
 			@doc("Don't format, only check if files are formatted correctly")
 			["--check"] => function() mode = Check,
 
-			#if debug@doc("Don't format, only check if formatting is stable")
-			["--check-stability"] => function() mode = CheckStability, #end
+			#if debug
+			@doc("Don't format, only check if formatting is stable")
+			["--check-stability"] => function() mode = CheckStability,
+			#end
 
 			@doc("Display this list of options")
 			["--help"] => function() help = true

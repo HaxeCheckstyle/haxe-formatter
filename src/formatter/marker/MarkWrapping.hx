@@ -406,6 +406,8 @@ class MarkWrapping {
 						parsedCode.tokenList.whitespace(child, NoneBefore);
 					}
 					return;
+				case Sharp(_):
+					wrapChildOneLineEachSharp(child, parsedCode, indenter, additionalIndent, keepFirst);
 				case CommentLine(_):
 					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(child);
 					if (prev != null) {
@@ -424,6 +426,59 @@ class MarkWrapping {
 				parsedCode.tokenList.lineEndAfter(child);
 			} else {
 				parsedCode.tokenList.lineEndAfter(lastChild);
+			}
+		}
+	}
+
+	public static function wrapChildOneLineEachSharp(sharp:TokenTree, parsedCode:ParsedCode, indenter:Indenter, additionalIndent:Int = 0,
+			keepFirst:Bool = false) {
+		var children:Array<TokenTree> = sharp.children;
+		var skipFirst:Bool = false;
+		parsedCode.tokenList.lineEndBefore(sharp);
+		switch (sharp.tok) {
+			case Sharp(MarkLineEnds.SHARP_IF):
+				parsedCode.tokenList.lineEndAfter(TokenTreeCheckUtils.getLastToken(sharp.getFirstChild()));
+				skipFirst = true;
+			case Sharp(MarkLineEnds.SHARP_ELSE_IF):
+				parsedCode.tokenList.lineEndAfter(TokenTreeCheckUtils.getLastToken(sharp.getFirstChild()));
+				skipFirst = true;
+			case Sharp(MarkLineEnds.SHARP_ELSE):
+				parsedCode.tokenList.lineEndAfter(sharp);
+			case Sharp(MarkLineEnds.SHARP_END):
+				parsedCode.tokenList.lineEndAfter(sharp);
+				return;
+			default:
+		}
+		for (child in children) {
+			if (skipFirst) {
+				skipFirst = false;
+				continue;
+			}
+			switch (child.tok) {
+				case PClose, BrClose, BkClose:
+					if (keepFirst) {
+						parsedCode.tokenList.whitespace(child, NoneBefore);
+					}
+					return;
+				case Binop(OpGt):
+					if (keepFirst) {
+						parsedCode.tokenList.whitespace(child, NoneBefore);
+					}
+					return;
+				case Sharp(_):
+					wrapChildOneLineEachSharp(child, parsedCode, indenter, additionalIndent, keepFirst);
+				case CommentLine(_):
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(child);
+					if (prev != null) {
+						if (parsedCode.isOriginalSameLine(child, prev.token)) {
+							parsedCode.tokenList.noLineEndBefore(child);
+						}
+					}
+					parsedCode.tokenList.lineEndAfter(child);
+					parsedCode.tokenList.additionalIndent(child, additionalIndent);
+					continue;
+				default:
+					parsedCode.tokenList.additionalIndent(child, additionalIndent);
 			}
 		}
 	}

@@ -1,0 +1,33 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var argHandler = hxargs.Args.generate([
+			@doc("Don't format, only check if files are formatted correctly")
+			["--check"] => function() mode = Check,
+
+			#if debug
+			@doc("Don't format, only check if formatting is stable")
+			["--check-stability"] => function() mode = CheckStability,
+			#end
+		]);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var argHandler = hxargs.Args.generate([
+			@doc("Don't format, only check if files are formatted correctly")
+			["--check"] => function() mode = Check,
+
+			#if debug
+			@doc("Don't format, only check if formatting is stable")
+			["--check-stability"] => function() mode = CheckStability,
+			#end
+		]);
+	}
+}
