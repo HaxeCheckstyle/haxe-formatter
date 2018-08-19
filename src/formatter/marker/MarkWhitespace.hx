@@ -312,6 +312,9 @@ class MarkWhitespace {
 				case Const(CIdent(_)):
 				case Dot:
 				case DblDot:
+				case Unop(_):
+					policy = WhitespacePolicy.remove(policy, Before);
+					break;
 				case At:
 					policy = WhitespacePolicy.remove(policy, Before);
 					break;

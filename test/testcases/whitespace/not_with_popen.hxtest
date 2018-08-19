@@ -1,0 +1,21 @@
+{
+	"whitespace": {
+		"openingParenPolicy": "before"
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		var x = (! (last is PfostenGruppe));
+	}
+}
+
+---
+
+class Main {
+	function main () {
+		var x = (!(last is PfostenGruppe));
+	}
+}
