@@ -166,13 +166,19 @@ class MarkTokenText {
 				line = " " + line;
 			}
 			if (lastLine) {
+				if (~/^\s*\*\s*[^\s\*]/.match(line)) {
+					line = " " + line;
+				}
 				var leadingWS:EReg = ~/^\s*}/;
 				if (leadingWS.match(line)) {
 					line = line.trim();
 				} else {
-					if (~/[^*\s]/.match(line)) {
+					if (~/^[^*\s]/.match(line)) {
 						lineIndent = indent + 1;
-						line = line.rtrim() + " ";
+					}
+					line = line.rtrim();
+					if (!line.endsWith("*")) {
+						line += " ";
 					}
 				}
 				if (~/^\s*$/.match(line)) {
@@ -188,7 +194,12 @@ class MarkTokenText {
 		var prefixReg:EReg = ~/^(\s*)/;
 		var prefix:String = null;
 		var linesNew:Array<String> = [];
-		for (index in 1...lines.length - 1) {
+		var endIndex:Int = lines.length - 1;
+		var lastLine:String = lines[lines.length - 1];
+		if (!~/^\s*\*?$/.match(lastLine)) {
+			endIndex = lines.length;
+		}
+		for (index in 1...endIndex) {
 			var line:String = lines[index];
 			if (prefixReg.match(line)) {
 				var linePrefix:String = prefixReg.matched(1);
@@ -202,7 +213,11 @@ class MarkTokenText {
 		}
 		if (prefix != null) {
 			linesNew = [];
+			var startPrefix:String = prefix + " *";
 			for (line in lines) {
+				if (line.startsWith(startPrefix)) {
+					line = line.substr(startPrefix.length - 1);
+				}
 				if (line.startsWith(prefix)) {
 					line = line.substr(prefix.length);
 				}
