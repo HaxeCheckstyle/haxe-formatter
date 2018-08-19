@@ -320,6 +320,8 @@ class TokenList {
 					}
 				case BrClose, BkClose:
 					nestLevel--;
+				case CommentLine(_):
+					continue;
 				default:
 			}
 			if ((nestLevel <= 0) && (info.whitespaceAfter == Newline)) {

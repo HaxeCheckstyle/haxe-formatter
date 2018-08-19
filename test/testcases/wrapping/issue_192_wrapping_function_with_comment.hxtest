@@ -1,0 +1,16 @@
+{}
+
+---
+
+class Main {
+	public static function open(url:String = null, floating:Bool = false,
+		?useWideViewPort:Bool = false // Android only
+	):Void {}
+}
+
+---
+
+class Main {
+	public static function open(url:String = null, floating:Bool = false, ?useWideViewPort:Bool = false // Android only
+	):Void {}
+}
