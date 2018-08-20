@@ -208,14 +208,7 @@ class MarkLineEnds {
 			if (lastChild == null) {
 				continue;
 			}
-			if (metadataPolicy != None && metadataPolicy != ForceAfter && metadataPolicy != ForceAfterLast) {
-				var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
-				if ((next != null) && (parsedCode.isOriginalSameLine(lastChild, next.token))) {
-					parsedCode.tokenList.noLineEndAfter(lastChild);
-					continue;
-				}
-			}
-			if ((metadataPolicy == After) || (metadataPolicy == ForceAfter)) {
+			if (metadataPolicy == After) {
 				parsedCode.tokenList.lineEndAfter(lastChild);
 				continue;
 			}
@@ -241,10 +234,22 @@ class MarkLineEnds {
 				}
 				switch (metadataPolicy) {
 					case None:
+						var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+						if ((next != null) && (!parsedCode.isOriginalSameLine(lastChild, next.token))) {
+							parsedCode.tokenList.lineEndAfter(lastChild);
+							continue;
+						}
 						parsedCode.tokenList.whitespace(lastChild, After);
-					case After, ForceAfter:
+					case After:
 						parsedCode.tokenList.lineEndAfter(lastChild);
-					case AfterLast, ForceAfterLast:
+					case AfterLast:
+						var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+						if ((next != null) && (!parsedCode.isOriginalSameLine(lastChild, next.token))) {
+							parsedCode.tokenList.lineEndAfter(lastChild);
+							continue;
+						}
+						parsedCode.tokenList.whitespace(lastChild, After);
+					case ForceAfterLast:
 						parsedCode.tokenList.whitespace(lastChild, After);
 				}
 			}

@@ -22,7 +22,6 @@ abstract AtLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
 	var AfterLast = "afterLast";
-	var ForceAfter = "forceAfter";
 	var ForceAfterLast = "forceAfterLast";
 }
 

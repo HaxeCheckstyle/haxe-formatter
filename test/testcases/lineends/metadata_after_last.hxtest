@@ -1,6 +1,6 @@
 {
 	"lineEnds": {
-		"metadataFunction": "forceAfterLast"
+		"metadataFunction": "afterLast"
 	}
 }
 
@@ -26,12 +26,14 @@ class Main {
 	@Test @doc("this is main")
 	function main() {}
 
-	@Test @doc("this is main")
+	@Test
+	@doc("this is main")
 	function main() {}
 
 	@Test @doc("this is main")
 	function main() {}
 
-	@Test @doc("this is main")
+	@Test
+	@doc("this is main")
 	function main() {}
 }
