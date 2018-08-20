@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		// if ( AppConfig.Instance().getBrowserType() == "DESKTOP" ){
+		preload();
+		/*}else{
+			gameTypePanel.init();
+			this.addChild(gameTypePanel);
+			gameTypePanel.addEventListener( GameTypePanel.GAME_TYPE_SELECTED, preload );
+		}*/
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		// if ( AppConfig.Instance().getBrowserType() == "DESKTOP" ){
+		preload();
+		/*}else{
+			gameTypePanel.init();
+			this.addChild(gameTypePanel);
+			gameTypePanel.addEventListener( GameTypePanel.GAME_TYPE_SELECTED, preload );
+		}*/
+	}
+}

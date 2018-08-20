@@ -196,7 +196,7 @@ class MarkTokenText {
 		var linesNew:Array<String> = [];
 		var endIndex:Int = lines.length - 1;
 		var lastLine:String = lines[lines.length - 1];
-		if (!~/^\s*\*?$/.match(lastLine)) {
+		if (!~/^\s*[\*\}]?$/.match(lastLine)) {
 			endIndex = lines.length;
 		}
 		for (index in 1...endIndex) {
