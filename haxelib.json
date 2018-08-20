@@ -9,7 +9,7 @@
 	],
 	"description": "A code formatter for Haxe",
 	"version": "1.0.0",
-	"releasenote": ".",
+	"releasenote": "Initial release.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
