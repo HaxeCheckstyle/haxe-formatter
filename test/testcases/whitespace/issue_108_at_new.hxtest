@@ -11,8 +11,7 @@ class TestMeta {
 ---
 
 class TestMeta {
-	@new
-	public function new() {}
+	@new public function new() {}
 
 	@new
 	public function new() {}

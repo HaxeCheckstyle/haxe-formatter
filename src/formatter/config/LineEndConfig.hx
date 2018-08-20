@@ -1,9 +1,9 @@
 package formatter.config;
 
 typedef LineEndConfig = {
-	@:default(After) @:optional var metadataType:AtLineEndPolicy;
+	@:default(None) @:optional var metadataType:AtLineEndPolicy;
 	@:default(None) @:optional var metadataVar:AtLineEndPolicy;
-	@:default(After) @:optional var metadataFunction:AtLineEndPolicy;
+	@:default(None) @:optional var metadataFunction:AtLineEndPolicy;
 	@:default(None) @:optional var metadataOther:AtLineEndPolicy;
 
 	/**
