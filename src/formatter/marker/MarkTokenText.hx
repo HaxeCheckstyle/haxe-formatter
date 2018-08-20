@@ -173,7 +173,7 @@ class MarkTokenText {
 				if (leadingWS.match(line)) {
 					line = line.trim();
 				} else {
-					if (~/^[^*\s]/.match(line)) {
+					if (~/^\s*[^*\s]/.match(line)) {
 						lineIndent = indent + 1;
 					}
 					line = line.rtrim();

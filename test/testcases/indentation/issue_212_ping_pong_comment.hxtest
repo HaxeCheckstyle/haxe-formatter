@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	/** The URI&nbsp;of a program that processes information submitted by the button. If specified, this attribute overrides the
+
+		<code><a rel="custom" href="https://developer.mozilla.org/en/HTML/Element/form#attr-action">action</a></code>
+		 attribute of the <code><a rel="custom" href="https://developer.mozilla.org/en/HTML/Element/form">&lt;form&gt;</a></code>
+		 element that owns this element. */
+	public var formAction:String;
+}
+
+---
+
+class Main {
+	/** The URI&nbsp;of a program that processes information submitted by the button. If specified, this attribute overrides the
+
+		<code><a rel="custom" href="https://developer.mozilla.org/en/HTML/Element/form#attr-action">action</a></code>
+		 attribute of the <code><a rel="custom" href="https://developer.mozilla.org/en/HTML/Element/form">&lt;form&gt;</a></code>
+		 element that owns this element. */
+	public var formAction:String;
+}
