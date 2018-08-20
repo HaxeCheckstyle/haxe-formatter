@@ -1,0 +1,39 @@
+{}
+
+---
+
+class Main {
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+			?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
+
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+			?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool> {}
+
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+			?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool> { // empty
+	}
+
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+			?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool> {
+		// empty
+	}
+}
+
+---
+
+class Main {
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+		?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
+
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+		?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool> {}
+
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+			?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool> { // empty
+	}
+
+	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+			?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool> {
+		// empty
+	}
+}

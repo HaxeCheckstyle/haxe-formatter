@@ -564,6 +564,7 @@ class MarkWrapping {
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
+		var emptyBody:Bool = hasEmptyFunctionBody(token);
 		var maxLength:Int = 0;
 		var totalLength:Int = 0;
 		var atLength:Int = 0;
@@ -585,16 +586,48 @@ class MarkWrapping {
 		}
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
 		var rule:WrapRule = determineWrapType(config.wrapping.functionSignature, itemCount, maxLength, totalLength, lineLength);
+		var addIdent:Int = rule.additionalIndent;
+		if (emptyBody) {
+			addIdent = 0;
+		}
 		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, pClose, parsedCode, indenter, rule.additionalIndent);
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIdent);
 			case OnePerLineKeep:
-				wrapChildOneLineEach(token, pClose, parsedCode, indenter, rule.additionalIndent, true);
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIdent, true);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
+				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength, addIdent);
 			case NoWrap:
 				parsedCode.tokenList.noWrappingBetween(token, pClose);
+		}
+	}
+
+	static function hasEmptyFunctionBody(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		var body:TokenTree = token.nextSibling;
+		if (body == null) {
+			return false;
+		}
+		if (body.is(DblDot)) {
+			body = body.nextSibling;
+		}
+		if (body == null) {
+			return false;
+		}
+		switch (body.tok) {
+			case Semicolon:
+				return true;
+			case BrOpen:
+				var brClose:TokenTree = body.getFirstChild();
+				if (brClose == null) {
+					return false;
+				}
+				return brClose.is(BrClose);
+			default:
+				return false;
 		}
 	}
 
