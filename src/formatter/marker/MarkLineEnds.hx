@@ -208,7 +208,7 @@ class MarkLineEnds {
 			if (lastChild == null) {
 				continue;
 			}
-			if (metadataPolicy != ForceAfter && metadataPolicy != ForceAfterLast) {
+			if (metadataPolicy != None && metadataPolicy != ForceAfter && metadataPolicy != ForceAfterLast) {
 				var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
 				if ((next != null) && (parsedCode.isOriginalSameLine(lastChild, next.token))) {
 					parsedCode.tokenList.noLineEndAfter(lastChild);

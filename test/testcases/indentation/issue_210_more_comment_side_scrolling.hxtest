@@ -1,0 +1,35 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		/*if (askServer) {
+
+			LogHelper.println ("");
+
+		} else {*/
+	}
+
+	/***************************************************************************
+	 * MEMBERS                                                                 *
+	**************************************************************************/
+	public static function main() {}
+}
+
+---
+
+class Main {
+	public static function main() {
+		/*if (askServer) {
+
+			LogHelper.println ("");
+
+		} else {*/
+	}
+
+	/***************************************************************************
+	 * MEMBERS                                                                 *
+	**************************************************************************/
+	public static function main() {}
+}

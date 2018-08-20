@@ -12,7 +12,8 @@ class Main {
 ---
 
 class Main {
-	@:allow(haxeLanguageServer.server.HaxeServer) var displayServerConfig:DisplayServerConfig;
+	@:allow(haxeLanguageServer.server.HaxeServer)
+	var displayServerConfig:DisplayServerConfig;
 	@:allow(haxeLanguageServer.server.HaxeServer)
 	var displayServerConfig:DisplayServerConfig;
 	@:optional var foo:Int;

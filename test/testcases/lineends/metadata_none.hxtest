@@ -1,0 +1,18 @@
+{
+	"lineEnds": {
+		"metadataFunction": "none"
+	}
+}
+
+---
+
+class Main{
+	@Test @doc("this is main") function main(){
+	}
+}
+
+---
+
+class Main {
+	@Test @doc("this is main") function main(){}
+}
