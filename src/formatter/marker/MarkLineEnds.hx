@@ -216,16 +216,11 @@ class MarkLineEnds {
 				// only look at first metadata
 				continue;
 			}
-			var totalLength:Int = parsedCode.tokenList.calcLength(token) + 1;
 			var next:TokenTree = token.nextSibling;
 			var metadata:Array<TokenTree> = [token];
 			while ((next != null) && (next.is(At))) {
-				totalLength += parsedCode.tokenList.calcLength(next) + 1;
 				metadata.push(next);
 				next = next.nextSibling;
-			}
-			if (totalLength > config.maxMetadataLength) {
-				metadataPolicy = After;
 			}
 			for (meta in metadata) {
 				lastChild = TokenTreeCheckUtils.getLastToken(meta);

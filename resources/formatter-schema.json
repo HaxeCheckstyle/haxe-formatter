@@ -54,11 +54,6 @@
                     ],
                     "propertyOrder": 2
                 },
-                "maxMetadataLength": {
-                    "description": "if total length of all metadata on a type, function, etc. exceeds `maxMetadataLength`, all line end policy switches to `After`",
-                    "type": "integer",
-                    "propertyOrder": 4
-                },
                 "rightCurly": {
                     "type": "string",
                     "enum": [
@@ -67,7 +62,7 @@
                         "after",
                         "both"
                     ],
-                    "propertyOrder": 8
+                    "propertyOrder": 7
                 },
                 "caseColon": {
                     "type": "string",
@@ -75,7 +70,7 @@
                         "none",
                         "after"
                     ],
-                    "propertyOrder": 5
+                    "propertyOrder": 4
                 },
                 "metadataType": {
                     "type": "string",
@@ -93,7 +88,7 @@
                         "none",
                         "after"
                     ],
-                    "propertyOrder": 6
+                    "propertyOrder": 5
                 },
                 "emptyCurly": {
                     "type": "string",
@@ -101,7 +96,7 @@
                         "noBreak",
                         "break"
                     ],
-                    "propertyOrder": 9
+                    "propertyOrder": 8
                 },
                 "leftCurly": {
                     "type": "string",
@@ -111,7 +106,7 @@
                         "before",
                         "both"
                     ],
-                    "propertyOrder": 7
+                    "propertyOrder": 6
                 },
                 "metadataOther": {
                     "type": "string",

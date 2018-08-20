@@ -5,11 +5,6 @@ typedef LineEndConfig = {
 	@:default(None) @:optional var metadataVar:AtLineEndPolicy;
 	@:default(None) @:optional var metadataFunction:AtLineEndPolicy;
 	@:default(None) @:optional var metadataOther:AtLineEndPolicy;
-
-	/**
-		if total length of all metadata on a type, function, etc. exceeds `maxMetadataLength`, all line end policy switches to `After`
-	**/
-	@:default(40) @:optional var maxMetadataLength:Int;
 	@:default(After) @:optional var caseColon:CaseColonLineEndPolicy;
 	@:default(After) @:optional var sharp:SharpLineEndPolicy;
 	@:default(After) @:optional var leftCurly:LeftCurlyLineEndPolicy;
