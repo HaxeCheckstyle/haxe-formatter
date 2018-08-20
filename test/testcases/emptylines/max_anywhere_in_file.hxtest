@@ -11,7 +11,7 @@ typedef Color = {
 	var green:Float;
 }
 
-typedef ConditionalEmtpyLinesConfig = {
+typedef ConditionalEmptyLinesConfig = {
 	@:default(0) @:optional var afterError:Int;
 }
 
@@ -21,6 +21,6 @@ typedef Color = {
 	var green:Float;
 }
 
-typedef ConditionalEmtpyLinesConfig = {
+typedef ConditionalEmptyLinesConfig = {
 	@:default(0) @:optional var afterError:Int;
 }

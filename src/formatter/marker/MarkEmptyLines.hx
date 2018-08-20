@@ -124,7 +124,7 @@ class MarkEmptyLines {
 				markEnumAbstracts(c, parsedCode, config.enumAbstractEmptyLines);
 				continue;
 			}
-			var typeConfig:ClassFieldsEmtpyLinesConfig = null;
+			var typeConfig:ClassFieldsEmptyLinesConfig = null;
 			switch (c.tok) {
 				case Kwd(KwdClass):
 					typeConfig = config.classEmptyLines;
@@ -159,7 +159,7 @@ class MarkEmptyLines {
 	}
 
 	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-			currTokenType:TokenFieldType, config:ClassFieldsEmtpyLinesConfig) {
+			currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -245,7 +245,7 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markExternClass(c:TokenTree, parsedCode:ParsedCode, config:InterfaceFieldsEmtpyLinesConfig) {
+	static function markExternClass(c:TokenTree, parsedCode:ParsedCode, config:InterfaceFieldsEmptyLinesConfig) {
 		var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 		if (block == null) {
 			return;
@@ -275,7 +275,7 @@ class MarkEmptyLines {
 	}
 
 	static function markInterfaceEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-			currTokenType:TokenFieldType, config:InterfaceFieldsEmtpyLinesConfig) {
+			currTokenType:TokenFieldType, config:InterfaceFieldsEmptyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -321,7 +321,7 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markEnumAbstracts(token:TokenTree, parsedCode:ParsedCode, config:EnumAbstractFieldsEmtpyLinesConfig) {
+	static function markEnumAbstracts(token:TokenTree, parsedCode:ParsedCode, config:EnumAbstractFieldsEmptyLinesConfig) {
 		var block:TokenTree = token.access().firstChild().firstOf(BrOpen).token;
 		if (block != null) {
 			parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
@@ -343,7 +343,7 @@ class MarkEmptyLines {
 	}
 
 	static function markEnumAbstractFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-			currTokenType:TokenFieldType, config:EnumAbstractFieldsEmtpyLinesConfig) {
+			currTokenType:TokenFieldType, config:EnumAbstractFieldsEmptyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -409,7 +409,7 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markEnumFields(block:TokenTree, parsedCode:ParsedCode, config:TypedefFieldsEmtpyLinesConfig) {
+	static function markEnumFields(block:TokenTree, parsedCode:ParsedCode, config:TypedefFieldsEmptyLinesConfig) {
 		parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
 		if ((block.children == null) || (block.children.length <= 0)) {
 			return;
@@ -542,7 +542,7 @@ class MarkEmptyLines {
 		}
 	}
 
-	static function markSharp(parsedCode:ParsedCode, config:ConditionalEmtpyLinesConfig) {
+	static function markSharp(parsedCode:ParsedCode, config:ConditionalEmptyLinesConfig) {
 		var sharps:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Sharp(_):

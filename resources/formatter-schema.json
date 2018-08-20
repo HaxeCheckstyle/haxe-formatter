@@ -1,36 +1,6 @@
 {
 	"$schema": "http://json-schema.org/schema#",
 	"definitions": {
-		"ConditionalEmtpyLinesConfig": {
-			"additionalProperties": false,
-			"properties": {
-				"afterElse": {
-					"type": "integer",
-					"propertyOrder": 2
-				},
-				"afterIf": {
-					"type": "integer",
-					"propertyOrder": 0
-				},
-				"beforeElse": {
-					"type": "integer",
-					"propertyOrder": 1
-				},
-				"beforeEnd": {
-					"type": "integer",
-					"propertyOrder": 3
-				},
-				"beforeError": {
-					"type": "integer",
-					"propertyOrder": 4
-				},
-				"afterError": {
-					"type": "integer",
-					"propertyOrder": 5
-				}
-			},
-			"type": "object"
-		},
 		"LineEndConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -121,20 +91,6 @@
 			},
 			"type": "object"
 		},
-		"TypedefFieldsEmtpyLinesConfig": {
-			"additionalProperties": false,
-			"properties": {
-				"beginType": {
-					"type": "integer",
-					"propertyOrder": 0
-				},
-				"betweenFields": {
-					"type": "integer",
-					"propertyOrder": 1
-				}
-			},
-			"type": "object"
-		},
 		"IndentationConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -161,7 +117,7 @@
 			},
 			"type": "object"
 		},
-		"InterfaceFieldsEmtpyLinesConfig": {
+		"EnumAbstractFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
@@ -179,52 +135,6 @@
 				"afterVars": {
 					"type": "integer",
 					"propertyOrder": 2
-				}
-			},
-			"type": "object"
-		},
-		"ClassFieldsEmtpyLinesConfig": {
-			"additionalProperties": false,
-			"properties": {
-				"beginType": {
-					"type": "integer",
-					"propertyOrder": 0
-				},
-				"afterStaticFunctions": {
-					"type": "integer",
-					"propertyOrder": 6
-				},
-				"betweenStaticFunctions": {
-					"type": "integer",
-					"propertyOrder": 7
-				},
-				"betweenVars": {
-					"type": "integer",
-					"propertyOrder": 4
-				},
-				"afterStaticVars": {
-					"type": "integer",
-					"propertyOrder": 2
-				},
-				"betweenFunctions": {
-					"type": "integer",
-					"propertyOrder": 9
-				},
-				"afterVars": {
-					"type": "integer",
-					"propertyOrder": 5
-				},
-				"afterPrivateFunctions": {
-					"type": "integer",
-					"propertyOrder": 8
-				},
-				"afterPrivateVars": {
-					"type": "integer",
-					"propertyOrder": 3
-				},
-				"betweenStaticVars": {
-					"type": "integer",
-					"propertyOrder": 1
 				}
 			},
 			"type": "object"
@@ -250,6 +160,20 @@
 					"propertyOrder": 0
 				},
 				"value": {
+					"type": "integer",
+					"propertyOrder": 1
+				}
+			},
+			"type": "object"
+		},
+		"TypedefFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"betweenFields": {
 					"type": "integer",
 					"propertyOrder": 1
 				}
@@ -297,7 +221,7 @@
 					"propertyOrder": 0
 				},
 				"excludes": {
-					"description": "regular expressions matching files to exclude from formatting",
+					"description": "regular expressions matching files to exclude from formatting\n\t\tdefault ist to exclude any \".haxelib\" folder",
 					"items": {
 						"type": "string"
 					},
@@ -380,7 +304,7 @@
 					"propertyOrder": 9
 				},
 				"conditionalsEmptyLines": {
-					"$ref": "#/definitions/ConditionalEmtpyLinesConfig",
+					"$ref": "#/definitions/ConditionalEmptyLinesConfig",
 					"propertyOrder": 18
 				},
 				"afterBlocks": {
@@ -392,11 +316,11 @@
 					"propertyOrder": 10
 				},
 				"enumEmptyLines": {
-					"$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
 					"propertyOrder": 16
 				},
 				"externClassEmptyLines": {
-					"$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
 					"propertyOrder": 13
 				},
 				"betweenTypes": {
@@ -414,15 +338,15 @@
 					"propertyOrder": 1
 				},
 				"typedefEmptyLines": {
-					"$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
 					"propertyOrder": 17
 				},
 				"enumAbstractEmptyLines": {
-					"$ref": "#/definitions/EnumAbstractFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/EnumAbstractFieldsEmptyLinesConfig",
 					"propertyOrder": 11
 				},
 				"abstractEmptyLines": {
-					"$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
 					"propertyOrder": 14
 				},
 				"afterImportsUsing": {
@@ -430,7 +354,7 @@
 					"propertyOrder": 4
 				},
 				"classEmptyLines": {
-					"$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
 					"propertyOrder": 12
 				},
 				"beforeDocCommentEmptyLines": {
@@ -444,13 +368,89 @@
 					"propertyOrder": 19
 				},
 				"interfaceEmptyLines": {
-					"$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
 					"propertyOrder": 15
 				}
 			},
 			"type": "object"
 		},
-		"EnumAbstractFieldsEmtpyLinesConfig": {
+		"ClassFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"afterStaticFunctions": {
+					"type": "integer",
+					"propertyOrder": 6
+				},
+				"betweenStaticFunctions": {
+					"type": "integer",
+					"propertyOrder": 7
+				},
+				"betweenVars": {
+					"type": "integer",
+					"propertyOrder": 4
+				},
+				"afterStaticVars": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"betweenFunctions": {
+					"type": "integer",
+					"propertyOrder": 9
+				},
+				"afterVars": {
+					"type": "integer",
+					"propertyOrder": 5
+				},
+				"afterPrivateFunctions": {
+					"type": "integer",
+					"propertyOrder": 8
+				},
+				"afterPrivateVars": {
+					"type": "integer",
+					"propertyOrder": 3
+				},
+				"betweenStaticVars": {
+					"type": "integer",
+					"propertyOrder": 1
+				}
+			},
+			"type": "object"
+		},
+		"ConditionalEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"afterElse": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"afterIf": {
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"beforeElse": {
+					"type": "integer",
+					"propertyOrder": 1
+				},
+				"beforeEnd": {
+					"type": "integer",
+					"propertyOrder": 3
+				},
+				"beforeError": {
+					"type": "integer",
+					"propertyOrder": 4
+				},
+				"afterError": {
+					"type": "integer",
+					"propertyOrder": 5
+				}
+			},
+			"type": "object"
+		},
+		"InterfaceFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
