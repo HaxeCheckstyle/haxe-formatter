@@ -6,7 +6,7 @@ import formatter.Formatter.Result;
 
 class Cli {
 	// TODO: use a macro to read this from haxelib.json
-	static inline var VERSION = "0.0.1";
+	static inline var VERSION = "1.0.0";
 
 	static function main() {
 		new Cli();

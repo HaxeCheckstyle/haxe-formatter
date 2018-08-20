@@ -8,7 +8,7 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"releasenote": ".",
 	"contributors": [
 		"AlexHaxe",

@@ -1,3 +1,3 @@
-## dev branch / next version (x.x.x)
+## version 1.0.0 (2018-08-xx)
 
-- initial version
+- initial release
