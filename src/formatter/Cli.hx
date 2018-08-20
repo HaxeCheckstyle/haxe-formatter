@@ -136,6 +136,7 @@ class Cli {
 					}
 				case Failure(errorMessage):
 					Sys.println('Failed to format $path: $errorMessage');
+					exitCode = 1;
 				case Disabled:
 			}
 		}
