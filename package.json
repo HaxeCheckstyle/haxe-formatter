@@ -1,0 +1,29 @@
+{
+    "name": "haxe-formatter",
+    "version": "1.0.0",
+    "description": "A code formatter for Haxe",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HaxeCheckstyle/haxe-formatter"
+    },
+    "keywords": [
+        "haxe",
+        "formatter"
+    ],
+    "author": {
+        "name": "Alexander Blum",
+        "email": "Alexander.Blum@gmail.com"
+    },
+    "dependencies": {
+        "grunt": "latest",
+        "grunt-cli": "latest"
+    },
+    "bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
+    "license": "MIT",
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-haxe": "^0.1.12",
+        "grunt-shell": "^1.1.1",
+        "grunt-zip": "^0.16.0"
+    }
+}
