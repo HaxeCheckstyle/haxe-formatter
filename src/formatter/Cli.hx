@@ -19,6 +19,20 @@ class Cli {
 
 	function new() {
 		var args = Sys.args();
+
+		#if neko
+		// use the faster JS version if possible
+		try {
+			var process = new sys.io.Process("node", ["-v"]);
+			var nodeExists = process.exitCode() == 0;
+			process.close();
+			if (nodeExists) {
+				var exitCode = Sys.command("node", ["run.js"].concat(args));
+				Sys.exit(exitCode);
+			}
+		} catch (e:Any) {}
+		#end
+
 		if (Sys.getEnv("HAXELIB_RUN") == "1") {
 			Sys.setCwd(args.pop());
 		}
