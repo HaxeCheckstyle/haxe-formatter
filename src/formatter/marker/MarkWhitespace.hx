@@ -196,7 +196,7 @@ class MarkWhitespace {
 					if (token.is(BrOpen)) {
 						return;
 					}
-				case DblDot:
+				case DblDot, Arrow:
 					return;
 				default:
 			}

@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Main {
+	var copy:Uri->Uri->{overwrite:Bool}->EitherType<Void, Thenable<Void>>;
+}
+
+---
+
+class Main {
+	var copy:Uri->Uri->{overwrite:Bool}->EitherType<Void, Thenable<Void>>;
+}
