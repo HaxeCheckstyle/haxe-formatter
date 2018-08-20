@@ -1,4 +1,8 @@
-{}
+{
+	"lineEnds": {
+		"metadataFunction": "forceAfter"
+	}
+}
 
 ---
 
@@ -11,7 +15,8 @@ class Main {
 ---
 
 class Main {
-	@:final static function main() {}
+	@:final
+	static function main() {}
 
 	@:final
 	static function main() {}

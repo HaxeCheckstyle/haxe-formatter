@@ -1,0 +1,20 @@
+{
+	"lineEnds": {
+		"metadataFunction": "forceAfter"
+	}
+}
+
+---
+
+class Main{
+	@Test @doc("this is main") function main(){
+	}
+}
+
+---
+
+class Main {
+	@Test
+	@doc("this is main")
+	function main() {}
+}

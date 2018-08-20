@@ -39,7 +39,9 @@
                     "enum": [
                         "none",
                         "after",
-                        "afterLast"
+                        "afterLast",
+                        "forceAfter",
+                        "forceAfterLast"
                     ],
                     "propertyOrder": 1
                 },
@@ -48,7 +50,9 @@
                     "enum": [
                         "none",
                         "after",
-                        "afterLast"
+                        "afterLast",
+                        "forceAfter",
+                        "forceAfterLast"
                     ],
                     "propertyOrder": 2
                 },
@@ -80,7 +84,9 @@
                     "enum": [
                         "none",
                         "after",
-                        "afterLast"
+                        "afterLast",
+                        "forceAfter",
+                        "forceAfterLast"
                     ],
                     "propertyOrder": 0
                 },
@@ -115,7 +121,9 @@
                     "enum": [
                         "none",
                         "after",
-                        "afterLast"
+                        "afterLast",
+                        "forceAfter",
+                        "forceAfterLast"
                     ],
                     "propertyOrder": 3
                 }

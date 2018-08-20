@@ -4,11 +4,15 @@
 
 class TestMeta {
 	@new public function new() {}
+	@new
+	public function new() {}
 }
 
 ---
 
 class TestMeta {
+	@new public function new() {}
+
 	@new
 	public function new() {}
 }

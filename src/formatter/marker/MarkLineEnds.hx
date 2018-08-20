@@ -208,7 +208,14 @@ class MarkLineEnds {
 			if (lastChild == null) {
 				continue;
 			}
-			if (metadataPolicy == After) {
+			if (metadataPolicy != ForceAfter && metadataPolicy != ForceAfterLast) {
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+				if ((next != null) && (parsedCode.isOriginalSameLine(lastChild, next.token))) {
+					parsedCode.tokenList.noLineEndAfter(lastChild);
+					continue;
+				}
+			}
+			if ((metadataPolicy == After) || (metadataPolicy == ForceAfter)) {
 				parsedCode.tokenList.lineEndAfter(lastChild);
 				continue;
 			}
@@ -235,13 +242,13 @@ class MarkLineEnds {
 				switch (metadataPolicy) {
 					case None:
 						parsedCode.tokenList.whitespace(lastChild, After);
-					case After:
+					case After, ForceAfter:
 						parsedCode.tokenList.lineEndAfter(lastChild);
-					case AfterLast:
+					case AfterLast, ForceAfterLast:
 						parsedCode.tokenList.whitespace(lastChild, After);
 				}
 			}
-			if (metadataPolicy == AfterLast) {
+			if ((metadataPolicy == AfterLast) || (metadataPolicy == ForceAfterLast)) {
 				parsedCode.tokenList.lineEndAfter(lastChild);
 			}
 		}
