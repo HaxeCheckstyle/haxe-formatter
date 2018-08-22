@@ -6,7 +6,7 @@
 
 A Haxe Code Formatter based on the [tokentree](https://github.com/HaxeCheckstyle/tokentree) library.
 
-![](resources/schema.png)
+![](resources/formatOnSave.gif)
 
 **It's recommended to make a backup of your files and use a diff tool.**
 
@@ -58,11 +58,11 @@ When creating your custom `hxformat.json` file, you only need to provide setting
 
 ### Ways to opt-out of formatting
 1. turn off formatter in your IDE / don't run CLI version
-  - affects all files
+    - affects all files
 2. place a `hxformat.json` file with `{ "disableFormatting": true }` in you workspace
-  - affects all files and subfolders from where you placed `hxformat.json`
-  - since formatter searches for a `hxformat.json` file closest to the file being formatted, you can `disableFormatting` in a subfolder, while enabling it everywhere else
-  - you can reverse a `disableFormatting` by placing a `hxformat.json` with `{}` (for built-in formatter config) in a subfolder, every file in that subfolder and below will get formatted
+    - affects all files and subfolders from where you placed `hxformat.json`
+    - since formatter searches for a `hxformat.json` file closest to the file being formatted, you can `disableFormatting` in a subfolder, while enabling it everywhere else
+    - you can reverse a `disableFormatting` by placing a `hxformat.json` with `{}` (for built-in formatter config) in a subfolder, every file in that subfolder and below will get formatted
 3. use `excludes` inside your `hxformat.json` to specify a number of regexes, that will exclude any filename from formatting matching any one of these regexes
 4. use `// @formatter:off` and `// @formatter:on` comments inside your code to turn off formatting for parts of your code, it's line based and includes lines containing `// @formatter:off` and `// @formatter:on`.
 
