@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		ansIds[ansi] = cids[ci];
+			++ci;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		ansIds[ansi] = cids[ci];
+		++ci;
+	}
+}

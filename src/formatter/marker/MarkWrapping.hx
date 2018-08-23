@@ -368,7 +368,7 @@ class MarkWrapping {
 		for (child in open.children) {
 			switch (child.tok) {
 				case PClose, BrClose, BkClose:
-					continue;
+					break;
 				case Binop(OpGt):
 					continue;
 				case Semicolon, Comma:
@@ -536,7 +536,7 @@ class MarkWrapping {
 				continue;
 			}
 			if (child.is(BkClose)) {
-				continue;
+				break;
 			}
 			var length:Int = parsedCode.tokenList.calcLength(child);
 			if (length + lineLength > maxLineLength) {
@@ -615,7 +615,7 @@ class MarkWrapping {
 			body = body.nextSibling;
 		}
 		if (body == null) {
-			return false;
+			return true;
 		}
 		switch (body.tok) {
 			case Semicolon:

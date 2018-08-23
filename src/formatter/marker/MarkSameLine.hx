@@ -388,8 +388,18 @@ class MarkSameLine {
 			return;
 		}
 		if (body.is(BrOpen)) {
-			if (includeBrOpen) {
-				markBlockBody(body, parsedCode, policy);
+			var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(body);
+			switch (type) {
+				case BLOCK:
+					if (includeBrOpen) {
+						markBlockBody(body, parsedCode, policy);
+					}
+					return;
+				case TYPEDEFDECL:
+				case OBJECTDECL:
+					applySameLinePolicy(body, parsedCode, policy);
+				case ANONTYPE:
+				case UNKNOWN:
 			}
 			return;
 		}
@@ -403,8 +413,19 @@ class MarkSameLine {
 		if (!token.is(BrOpen)) {
 			return;
 		}
-		if ((token.children == null) || (token.children.length > 2)) {
+		if (token.children == null) {
 			return;
+		}
+
+		var lastChild:TokenTree = token.getLastChild();
+		if (lastChild.is(Semicolon)) {
+			if (token.children.length > 3) {
+				return;
+			}
+		} else {
+			if (token.children.length > 2) {
+				return;
+			}
 		}
 		parsedCode.tokenList.noLineEndAfter(token);
 		for (child in token.children) {
@@ -421,8 +442,8 @@ class MarkSameLine {
 						case Comma:
 							parsedCode.tokenList.whitespace(child, NoneAfter);
 						default:
-							continue;
 					}
+					return;
 				default:
 					var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 					if (lastToken == null) {
@@ -534,45 +555,30 @@ class MarkSameLine {
 		if ((body == null) || (body.children == null)) {
 			return;
 		}
-		var index:Int = 0;
-		var foundPOpen:Bool = false;
-		while (index < body.children.length) {
-			var child:TokenTree = body.children[index++];
-			switch (child.tok) {
-				case DblDot:
-				#if (haxe_ver >= 4.0)
-				case Kwd(KwdFinal):
-				#end
-				case Const(CIdent("final")):
-				case Kwd(KwdDynamic):
-				case Kwd(KwdPublic):
-				case Kwd(KwdPrivate):
-				case Kwd(KwdStatic):
-				case Kwd(KwdOverride):
-				case Kwd(KwdExtern):
-				case Kwd(KwdInline):
-				case Kwd(KwdMacro):
-				case BrOpen:
-					return;
-				case Semicolon:
-					return;
-				case POpen:
-					if (foundPOpen) {
-						body = child;
-						break;
-					}
-					foundPOpen = true;
-				case At:
-				case CommentLine(_):
-					return;
-				case Binop(OpLt):
-				default:
-					body = child;
-					break;
-			}
+		body = body.access().firstOf(POpen).token;
+		if (body == null) {
+			return;
+		}
+		if (body.nextSibling == null) {
+			return;
+		}
+		body = body.nextSibling;
+		switch (body.tok) {
+			case DblDot:
+				body = body.nextSibling;
+			default:
 		}
 		if (body == null) {
 			return;
+		}
+		switch (body.tok) {
+			case BrOpen:
+				return;
+			case Semicolon:
+				return;
+			case CommentLine(_):
+				return;
+			default:
 		}
 		applySameLinePolicy(body, parsedCode, policy);
 	}
