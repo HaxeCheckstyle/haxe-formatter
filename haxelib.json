@@ -1,6 +1,6 @@
 {
 	"name": "formatter",
-	"url": "https://github.com/HaxeCheckstyle/tokentree-formatter",
+	"url": "https://github.com/HaxeCheckstyle/haxe-formatter",
 	"license": "MIT",
 	"tags": [
 		"cli",
