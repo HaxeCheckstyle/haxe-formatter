@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		ansIds[ansi] = cids[ci];
+			++ci;
+			do a++ while (true);
+			do ++a while (true);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		ansIds[ansi] = cids[ci];
+		++ci;
+		do
+			a++ while (true);
+		do
+			++a while (true);
+	}
+}

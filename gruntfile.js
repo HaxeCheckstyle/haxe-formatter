@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 					"src/**",
 					"run.n", "run.js",
 					"resources/formatter-schema.json",
-                    "haxelib.json", "README.md", "CHANGELOG.md", "LICENSE"
+                    "haxelib.json", "README.md", "CHANGELOG.md", "LICENSE.md"
                 ],
                 dest: "formatter.zip",
                 compression: "DEFLATE"
