@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		macro function() {
+			$i{field.name} ();
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		macro function() {
+			$i{field.name}();
+		}
+	}
+}

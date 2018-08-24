@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var a = (10:A);
+		var a = (10.0:A);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var a = (10 : A);
+		var a = (10.0 : A);
+	}
+}
