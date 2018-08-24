@@ -1,6 +1,6 @@
 ## dev branch / next version (1.x.x)
 
-- Added `Keep` to SameLinePolicy
+- Added `Keep` to SameLinePolicy [#226](https://github.com/HaxeCheckstyle/haxe-formatter/issues/226
 - Fixed indentation of else with object literal body, fixes [#220](https://github.com/HaxeCheckstyle/haxe-formatter/issues/220) ([#224](https://github.com/HaxeCheckstyle/haxe-formatter/issues/224))
 - Fixed indentation of prefix unary, fixes [#221](https://github.com/HaxeCheckstyle/haxe-formatter/issues/221) ([#224](https://github.com/HaxeCheckstyle/haxe-formatter/issues/224))
 - Fixed whitespace after macro reification, fixes [#218](https://github.com/HaxeCheckstyle/haxe-formatter/issues/218) + [#219](https://github.com/HaxeCheckstyle/haxe-formatter/issues/219) ([#225](https://github.com/HaxeCheckstyle/haxe-formatter/issues/225))
