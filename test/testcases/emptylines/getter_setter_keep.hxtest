@@ -1,4 +1,9 @@
-{}
+{
+	"sameLine": {
+		"functionBody": "keep"
+	}
+}
+
 
 ---
 
@@ -20,13 +25,11 @@ class Main {
 
 	var major(get, never):Int;
 
-	inline function get_major()
-		return this.major;
+	inline function get_major() return this.major;
 
 	var minor(get, never):Int;
 
-	inline function get_minor()
-		return this.minor;
+	inline function get_minor() return this.minor;
 
 	inline function get_major()
 		return this.major;
