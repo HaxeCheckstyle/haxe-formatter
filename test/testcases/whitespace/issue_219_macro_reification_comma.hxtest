@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		cases.push(macro {name: $v{tp.name} , exec: new $tp()});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		cases.push(macro {name: $v{tp.name}, exec: new $tp()});
+	}
+}

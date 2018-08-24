@@ -524,10 +524,10 @@ class MarkSameLine {
 			if (next != null) {
 				switch (next.token.tok) {
 					case BrClose:
-					case PClose, BkClose:
+					case POpen, PClose, BkOpen, BkClose:
 						parsedCode.tokenList.whitespace(brClose, None);
 					case DblDot:
-					case Semicolon, Dot:
+					case Comma, Semicolon, Dot:
 						parsedCode.tokenList.whitespace(brClose, None);
 					default:
 						parsedCode.tokenList.whitespace(brClose, OnlyAfter);
