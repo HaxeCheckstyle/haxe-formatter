@@ -1,10 +1,44 @@
 package formatter.config;
 
 typedef SameLineConfig = {
+	/**
+		same line policy for non block body of "if"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Next) @:optional var ifBody:SameLinePolicy;
+
+	/**
+		same line policy for non block body of "else"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Next) @:optional var elseBody:SameLinePolicy;
+
+	/**
+		same line policy for "else" part of "if…else"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Same) @:optional var ifElse:SameLinePolicy;
+
+	/**
+		same line policy for "if" part of "else if"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Same) @:optional var elseIf:SameLinePolicy;
+
+	/**
+		same line policy for non block body of "if" in a value place / as expression
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Same) @:optional var expressionIf:SameLinePolicy;
 
 	/**
@@ -14,32 +48,79 @@ typedef SameLineConfig = {
 	@:default(false) @:optional var expressionIfWithBlocks:Bool;
 
 	/**
-		should non block body of "for" be on same line or next
+		same line policy for non block body of "for"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
 	**/
 	@:default(Next) @:optional var forBody:SameLinePolicy;
 	@:default(Same) @:optional var comprehensionFor:SameLinePolicy;
 
 	/**
-		should non block body of "while" be on same line or next
+		same line policy for non block body of "while" (not "do…while")
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
 	**/
 	@:default(Next) @:optional var whileBody:SameLinePolicy;
 
 	/**
-		should non block body of "do…while" be on same line or next
+		same line policy for non block body of "do…while"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
 	**/
 	@:default(Next) @:optional var doWhileBody:SameLinePolicy;
 
 	/**
-		should non block body of "while" of "do…while" be on same line or next
+		same line policy for "while" part in "do…while"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
 	**/
 	@:default(Same) @:optional var doWhile:SameLinePolicy;
+
+	/**
+		same line policy for non block body of "try"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Next) @:optional var tryBody:SameLinePolicy;
+
+	/**
+		same line policy for non block body of "catch"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Next) @:optional var catchBody:SameLinePolicy;
+
+	/**
+		same line policy for "catch" part of "try…catch"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Same) @:optional var tryCatch:SameLinePolicy;
 	@:default(Next) @:optional var caseBody:SameLinePolicy;
 	@:default(Same) @:optional var expressionCase:SameLinePolicy;
 	@:default(Same) @:optional var expressionTry:SameLinePolicy;
+
+	/**
+		same line policy for non block body of "function"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Next) @:optional var functionBody:SameLinePolicy;
+
+	/**
+		same line policy for non block body of anon "function"
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
 	@:default(Same) @:optional var anonFunctionBody:SameLinePolicy;
 }
 
@@ -47,4 +128,5 @@ typedef SameLineConfig = {
 abstract SameLinePolicy(String) {
 	var Same = "same";
 	var Next = "next";
+	var Keep = "keep";
 }

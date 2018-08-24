@@ -1019,10 +1019,12 @@
 			"additionalProperties": false,
 			"properties": {
 				"tryBody": {
+					"description": "same line policy for non block body of \"try\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 11
 				},
@@ -1030,15 +1032,18 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 7
 				},
 				"ifElse": {
+					"description": "same line policy for \"else\" part of \"if…else\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 2
 				},
@@ -1046,7 +1051,8 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 15
 				},
@@ -1054,16 +1060,18 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 16
 				},
 				"doWhile": {
-					"description": "should non block body of \"while\" of \"do…while\" be on same line or next",
+					"description": "same line policy for \"while\" part in \"do…while\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 10
 				},
@@ -1073,42 +1081,52 @@
 					"propertyOrder": 5
 				},
 				"catchBody": {
+					"description": "same line policy for non block body of \"catch\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 12
 				},
 				"elseIf": {
+					"description": "same line policy for \"if\" part of \"else if\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 3
 				},
 				"functionBody": {
+					"description": "same line policy for non block body of \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 17
 				},
 				"expressionIf": {
+					"description": "same line policy for non block body of \"if\" in a value place / as expression\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 4
 				},
 				"ifBody": {
+					"description": "same line policy for non block body of \"if\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 0
 				},
@@ -1116,58 +1134,68 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 14
 				},
 				"elseBody": {
+					"description": "same line policy for non block body of \"else\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 1
 				},
 				"tryCatch": {
+					"description": "same line policy for \"catch\" part of \"try…catch\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 13
 				},
 				"doWhileBody": {
-					"description": "should non block body of \"do…while\" be on same line or next",
+					"description": "same line policy for non block body of \"do…while\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 9
 				},
 				"anonFunctionBody": {
+					"description": "same line policy for non block body of anon \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 18
 				},
 				"forBody": {
-					"description": "should non block body of \"for\" be on same line or next",
+					"description": "same line policy for non block body of \"for\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 6
 				},
 				"whileBody": {
-					"description": "should non block body of \"while\" be on same line or next",
+					"description": "same line policy for non block body of \"while\" (not \"do…while\")\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 8
 				}

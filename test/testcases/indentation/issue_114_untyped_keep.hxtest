@@ -1,6 +1,9 @@
 {
-
+	"sameLine": {
+		"functionBody": "keep"
+	}
 }
+
 
 ---
 
@@ -29,16 +32,14 @@ class Main {
 ---
 
 class Main {
-	function foo()
-		untyped {
-			trace("");
-		}
+	function foo() untyped {
+		trace("");
+	}
 
-	function foo()
-		return {
-			x: 0,
-			y: 0
-		}
+	function foo() return {
+		x: 0,
+		y: 0
+	}
 
 	function foo()
 		untyped {
