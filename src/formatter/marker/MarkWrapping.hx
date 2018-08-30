@@ -33,6 +33,8 @@ class MarkWrapping {
 					}
 				case Binop(OpArrow), Arrow:
 					parsedCode.tokenList.wrapAfter(token, true);
+				case CommentLine(_):
+					parsedCode.tokenList.wrapBefore(token, false);
 				default:
 			}
 			return GO_DEEPER;
@@ -54,7 +56,7 @@ class MarkWrapping {
 			switch (next.token.tok) {
 				case BrOpen:
 					var info:TokenInfo = parsedCode.tokenList.getTokenAt(close.index);
-					if (info.whitespaceAfter != Newline) {
+					if ((info.whitespaceAfter != Newline) && (info.whitespaceAfter != SpaceOrNewline)) {
 						parsedCode.tokenList.whitespace(close, After);
 					}
 				case Semicolon, Dot, POpen:
@@ -133,11 +135,12 @@ class MarkWrapping {
 		if (next != null) {
 			switch (next.token.tok) {
 				case BrOpen:
-					parsedCode.tokenList.whitespace(brClose, After);
+					parsedCode.tokenList.noLineEndAfter(brClose);
 				case Binop(OpGt):
+					parsedCode.tokenList.noLineEndAfter(brClose);
 					parsedCode.tokenList.whitespace(brClose, NoneAfter);
 				case Const(CIdent("from")), Const(CIdent("to")):
-					parsedCode.tokenList.whitespace(brClose, After);
+					parsedCode.tokenList.noLineEndAfter(brClose);
 				case Kwd(_), Const(_):
 					parsedCode.tokenList.lineEndAfter(brClose);
 				default:
@@ -182,7 +185,14 @@ class MarkWrapping {
 				if (prev == null) {
 					return;
 				}
-				prev.whitespaceAfter = prev.whitespaceAfterWithoutNL;
+				switch (prev.whitespaceAfter) {
+					case None:
+					case Newline:
+						prev.whitespaceAfter = None;
+					case Space:
+					case SpaceOrNewline:
+						prev.whitespaceAfter = Space;
+				}
 		}
 	}
 
@@ -236,7 +246,7 @@ class MarkWrapping {
 					switch (next.token.tok) {
 						case DblDot:
 							parsedCode.tokenList.noLineEndAfter(brClose);
-						case Dot:
+						case Dot, Comma:
 							parsedCode.tokenList.whitespace(brClose, NoneAfter);
 						default:
 					}
@@ -245,9 +255,10 @@ class MarkWrapping {
 				if (prev != null) {
 					switch (prev.token.tok) {
 						case Kwd(_):
+							parsedCode.tokenList.noLineEndBefore(token);
 							parsedCode.tokenList.whitespace(token, Before);
 						case POpen:
-							parsedCode.tokenList.whitespace(token, NoneBefore);
+							parsedCode.tokenList.noLineEndBefore(token);
 						default:
 					}
 				}
@@ -261,22 +272,23 @@ class MarkWrapping {
 				if (token.children != null) {
 					if (parsedCode.tokenList.isSameLineBetween(token, pClose, true)) {
 						parsedCode.tokenList.noWrappingBetween(token, pClose);
-					}
-					for (child in token.children) {
-						if (child.is(PClose)) {
-							continue;
+					} else {
+						parsedCode.tokenList.wrapAfter(token, true);
+						if (pClose != null) {
+							parsedCode.tokenList.wrapBefore(pClose, false);
 						}
-						var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-						if (lastChild == null) {
-							parsedCode.tokenList.wrapAfter(lastChild, true);
-						} else {
-							parsedCode.tokenList.wrapAfter(lastChild, true);
+						for (child in token.children) {
+							if (child.is(PClose)) {
+								continue;
+							}
+							var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+							if (lastChild == null) {
+								parsedCode.tokenList.wrapAfter(lastChild, true);
+							} else {
+								parsedCode.tokenList.wrapAfter(lastChild, true);
+							}
 						}
 					}
-				}
-				parsedCode.tokenList.wrapAfter(token, true);
-				if (pClose != null) {
-					parsedCode.tokenList.wrapBefore(pClose, false);
 				}
 			case PARAMETER:
 				wrapFunctionSignature(token, parsedCode, indenter, config);
@@ -363,7 +375,20 @@ class MarkWrapping {
 	}
 
 	public static function noWrap(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter) {
-		parsedCode.tokenList.whitespace(open, NoneAfter);
+		var colon:TokenTree = open.access().is(BrOpen).parent().is(DblDot).token;
+		if (colon != null) {
+			var type:ColonType = TokenTreeCheckUtils.getColonType(colon);
+			switch (type) {
+				case SWITCH_CASE:
+				case TYPE_HINT:
+				case TYPE_CHECK:
+				case TERNARY:
+				case OBJECT_LITERAL:
+					parsedCode.tokenList.noLineEndBefore(open);
+				case AT:
+				case UNKNOWN:
+			}
+		}
 		parsedCode.tokenList.noWrappingBetween(open, close);
 		for (child in open.children) {
 			switch (child.tok) {
@@ -381,12 +406,12 @@ class MarkWrapping {
 			} else {
 				switch (lastChild.tok) {
 					case Comma, Semicolon:
-						parsedCode.tokenList.whitespace(lastChild, After);
+						parsedCode.tokenList.noLineEndAfter(lastChild);
 					default:
 				}
 			}
 		}
-		parsedCode.tokenList.whitespace(close, NoneBefore);
+		parsedCode.tokenList.noLineEndBefore(close);
 	}
 
 	public static function wrapChildOneLineEach(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, additionalIndent:Int = 0,
@@ -398,12 +423,12 @@ class MarkWrapping {
 			switch (child.tok) {
 				case PClose, BrClose, BkClose:
 					if (keepFirst) {
-						parsedCode.tokenList.whitespace(child, NoneBefore);
+						parsedCode.tokenList.noLineEndBefore(child);
 					}
 					return;
 				case Binop(OpGt):
 					if (keepFirst) {
-						parsedCode.tokenList.whitespace(child, NoneBefore);
+						parsedCode.tokenList.noLineEndBefore(child);
 					}
 					return;
 				case Sharp(_):

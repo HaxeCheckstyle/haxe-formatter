@@ -1,0 +1,21 @@
+{
+	"whitespace" : {
+		"typeHintColonPolicy" : "around",
+		"openingParenPolicy": "before"
+	}
+}
+
+---
+
+class Main {
+	function onWorkspaceSymbols (params:WorkspaceSymbolParams, token:CancellationToken, resolve:Array<SymbolInformation>->Void, reject:ResponseError<NoData>->Void):Array<String> { doSomething(); }
+}
+
+---
+
+class Main {
+	function onWorkspaceSymbols (params : WorkspaceSymbolParams, token : CancellationToken, resolve : Array<SymbolInformation>->Void,
+			reject : ResponseError<NoData>->Void) : Array<String> {
+		doSomething ();
+	}
+}

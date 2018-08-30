@@ -32,10 +32,8 @@ class Main {
 ---
 
 class Main {
-	@:deprecated(
-		"Unless you rely on reproducing the exact output of shuffleArray(), you should use shuffle() instead, which is both faster and higher quality.")
-	@:glVertexSource(
-		"
+	@:deprecated("Unless you rely on reproducing the exact output of shuffleArray(), you should use shuffle() instead, which is both faster and higher quality.")
+	@:glVertexSource("
 		#pragma header
 
 		attribute float alpha;

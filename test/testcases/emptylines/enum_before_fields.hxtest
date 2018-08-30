@@ -1,8 +1,10 @@
 {
 	"emptyLines": {
 		"afterLeftCurly": "keep",
+		"beforeRightCurly": "keep",
 		"enumEmptyLines": {
 			"beginType": 1,
+			"endType": 1,
 			"betweenFields": 1
 		}
 	}
@@ -25,4 +27,5 @@ enum Result {
 	Failure(errorMessage:String);
 
 	Disabled;
+
 }

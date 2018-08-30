@@ -1,8 +1,11 @@
 package formatter;
 
+import haxe.Json;
+import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
 import formatter.Formatter.Result;
+import formatter.config.FormatterConfig;
 
 class Cli {
 	// TODO: use a macro to read this from haxelib.json
@@ -54,6 +57,9 @@ class Cli {
 			["--check-stability"] => function() mode = CheckStability,
 			#end
 
+			@doc("Generate a default hxformat.json and exit")
+			["--default-config"] => function(path) generateDefaultConfig(path),
+
 			@doc("Display this list of options")
 			["--help"] => function() help = true
 		]);
@@ -85,6 +91,14 @@ class Cli {
 		Sys.println('$action $files files in $seconds s.');
 
 		Sys.exit(exitCode);
+	}
+
+	function generateDefaultConfig(path) {
+		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
+		var config:FormatterConfig = parser.fromJson("{}", "default-hxformat.json");
+
+		File.saveContent(path, Json.stringify(config, null, "\t"));
+		Sys.exit(0);
 	}
 
 	function run(paths:Array<String>) {

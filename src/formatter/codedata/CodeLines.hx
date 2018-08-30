@@ -40,7 +40,7 @@ class CodeLines {
 				lines.push(line);
 			}
 			line.addToken(tokenInfo);
-			if (tokenInfo.whitespaceAfter == Newline) {
+			if ((tokenInfo.whitespaceAfter == Newline) || (tokenInfo.whitespaceAfter == SpaceOrNewline)) {
 				line = null;
 			}
 			index++;

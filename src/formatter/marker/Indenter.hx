@@ -58,6 +58,10 @@ class Indenter {
 		return calcFromCandidates(token);
 	}
 
+	public function shouldAddTrailingWhitespace():Bool {
+		return config.trailingWhitespace;
+	}
+
 	function findEffectiveParent(token:TokenTree):TokenTree {
 		if (token.tok == null) {
 			return token.getFirstChild();
@@ -105,7 +109,7 @@ class Indenter {
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdIf):
 				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-				if (prev.whitespaceAfter == Newline) {
+				if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
 					return token;
 				}
 				var parent:TokenTree = token.parent;
@@ -164,7 +168,7 @@ class Indenter {
 		}
 		if (prevToken.is(POpen) && token.is(BrOpen)) {
 			var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
-			if (info.whitespaceAfter != Newline) {
+			if ((info.whitespaceAfter != Newline) && (info.whitespaceAfter != SpaceOrNewline)) {
 				indentingTokens.push(prevToken);
 			}
 			return indentingTokens;
@@ -298,6 +302,16 @@ class Indenter {
 			case DblDot:
 				if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
 					return true;
+				}
+				var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+				if (info == null) {
+					return false;
+				}
+				switch (info.whitespaceAfter) {
+					case None, Space:
+						return false;
+					case Newline, SpaceOrNewline:
+						return true;
 				}
 			case Sharp(_):
 				if (config.conditionalPolicy == AlignedIncrease) {

@@ -1,0 +1,76 @@
+{
+  "lineEnds": {
+    "leftCurly": "both",
+    "rightCurly": "both"
+  }
+}
+
+---
+
+class Main {
+	static function main() {
+		var options =
+		{
+			type: "POST",
+			data: {code: code},
+			dataType: "json"
+		};
+        var options =
+            {
+                type: "POST",
+                data:
+                {
+                    config: data,
+                    anrede: angebotEvent.anrede,
+                    name: angebotEvent.nachname,
+                    firma: angebotEvent.firma,
+                    strasse: angebotEvent.strasse,
+                    plz: angebotEvent.plz,
+                    ort: angebotEvent.ort,
+                    land: angebotEvent.land,
+                    telefon: angebotEvent.telefon,
+                    email: angebotEvent.email,
+                    infomail: angebotEvent.infomail,
+                    datenschutz: angebotEvent.datenschutz,
+                    bemerkung: angebotEvent.bemerkung
+                },
+                dataType: "json"
+            };
+	}
+}
+
+---
+
+class Main
+{
+	static function main()
+	{
+		var options =
+			{
+				type: "POST",
+				data: {code: code},
+				dataType: "json"
+			};
+		var options =
+			{
+				type: "POST",
+				data:
+					{
+						config: data,
+						anrede: angebotEvent.anrede,
+						name: angebotEvent.nachname,
+						firma: angebotEvent.firma,
+						strasse: angebotEvent.strasse,
+						plz: angebotEvent.plz,
+						ort: angebotEvent.ort,
+						land: angebotEvent.land,
+						telefon: angebotEvent.telefon,
+						email: angebotEvent.email,
+						infomail: angebotEvent.infomail,
+						datenschutz: angebotEvent.datenschutz,
+						bemerkung: angebotEvent.bemerkung
+					},
+				dataType: "json"
+			};
+	}
+}

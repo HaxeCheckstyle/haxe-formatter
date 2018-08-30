@@ -66,7 +66,15 @@ typedef ConditionalEmptyLinesConfig = {
 }
 
 typedef ClassFieldsEmptyLinesConfig = {
+	/**
+		add empty lines after opening "{" of type
+	**/
 	@:default(0) @:optional var beginType:Int;
+
+	/**
+		add empty lines before closing "}" of type
+	**/
+	@:default(0) @:optional var endType:Int;
 	@:default(0) @:optional var betweenStaticVars:Int;
 	@:default(1) @:optional var afterStaticVars:Int;
 	@:default(1) @:optional var afterPrivateVars:Int;
@@ -79,21 +87,45 @@ typedef ClassFieldsEmptyLinesConfig = {
 }
 
 typedef EnumAbstractFieldsEmptyLinesConfig = {
+	/**
+		add empty lines after opening "{" of type
+	**/
 	@:default(0) @:optional var beginType:Int;
+
+	/**
+		add empty lines before closing "}" of type
+	**/
+	@:default(0) @:optional var endType:Int;
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(1) @:optional var afterVars:Int;
 	@:default(1) @:optional var betweenFunctions:Int;
 }
 
 typedef InterfaceFieldsEmptyLinesConfig = {
+	/**
+		add empty lines after opening "{" of type
+	**/
 	@:default(0) @:optional var beginType:Int;
+
+	/**
+		add empty lines before closing "}" of type
+	**/
+	@:default(0) @:optional var endType:Int;
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(0) @:optional var afterVars:Int;
 	@:default(0) @:optional var betweenFunctions:Int;
 }
 
 typedef TypedefFieldsEmptyLinesConfig = {
+	/**
+		add empty lines after opening "{" of type
+	**/
 	@:default(0) @:optional var beginType:Int;
+
+	/**
+		add empty lines before closing "}" of type
+	**/
+	@:default(0) @:optional var endType:Int;
 	@:default(0) @:optional var betweenFields:Int;
 }
 

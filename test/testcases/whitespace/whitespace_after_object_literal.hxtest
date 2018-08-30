@@ -1,0 +1,27 @@
+{
+}
+
+---
+
+
+class Main {
+    static function main() {
+		switch (foo) {
+			case {kind: TkIdent, text: "error"}:
+				doSomething();
+		}
+        {f: macro ${a},}
+    }
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (foo) {
+			case {kind: TkIdent, text: "error"}:
+				doSomething();
+		}
+		{f: macro ${a},}
+	}
+}

@@ -42,8 +42,12 @@ class MarkWhitespace {
 					}
 				case Binop(_):
 					parsedCode.tokenList.whitespace(token, config.binopPolicy);
+				case Unop(_):
+					markUnop(token, parsedCode, config);
 				case Comma:
 					parsedCode.tokenList.whitespace(token, config.commaPolicy);
+				case Dollar(_):
+					markDollar(token, parsedCode, config);
 				case DblDot:
 					markDblDot(token, parsedCode, config);
 				case Kwd(_):
@@ -67,9 +71,9 @@ class MarkWhitespace {
 						parsedCode.tokenList.whitespace(token, NoneAfter);
 					}
 				case Sharp(_):
-					parsedCode.tokenList.whitespace(token, After);
+					parsedCode.tokenList.whitespace(token, Around);
 				case Semicolon:
-					parsedCode.tokenList.whitespace(token, config.semicolonPolicy);
+					markSemicolon(token, parsedCode, config);
 				case Const(CIdent("final")):
 					parsedCode.tokenList.whitespace(token, After);
 				case Const(CIdent("is")):
@@ -91,6 +95,10 @@ class MarkWhitespace {
 					fixConstAfterConst(token, parsedCode);
 				case Arrow:
 					markArrow(token, parsedCode, config);
+				case CommentLine(_):
+					parsedCode.tokenList.whitespace(token, Before);
+				case Comment(_):
+					parsedCode.tokenList.whitespace(token, Around);
 				default:
 			}
 			return GO_DEEPER;
@@ -103,29 +111,20 @@ class MarkWhitespace {
 			return;
 		}
 		if (TokenTreeCheckUtils.isTypeParameter(token)) {
-			parsedCode.tokenList.whitespace(token, config.typeParamClosePolicy);
-			var hasAfter:Bool = false;
-			switch (config.typeParamClosePolicy) {
-				case After, Around, OnlyAfter:
-					hasAfter = true;
-				default:
-			}
+			var policy:WhitespacePolicy = config.typeParamClosePolicy;
 			var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
 			if (next != null) {
 				switch (next.token.tok) {
 					case Kwd(_):
-						parsedCode.tokenList.whitespace(token, After);
+						policy = WhitespacePolicy.add(policy, After);
 					case Comma, Semicolon:
-						if (hasAfter) {
-							parsedCode.tokenList.whitespace(token, NoneAfter);
-						}
+						policy = WhitespacePolicy.remove(policy, After);
 					case Binop(OpGt), PClose, BrClose:
-						if (hasAfter) {
-							parsedCode.tokenList.whitespace(token, NoneAfter);
-						}
+						policy = WhitespacePolicy.remove(policy, After);
 					default:
 				}
 			}
+			parsedCode.tokenList.whitespace(token, policy);
 		} else {
 			parsedCode.tokenList.whitespace(token, config.binopPolicy);
 		}
@@ -169,7 +168,7 @@ class MarkWhitespace {
 			switch (next.token.tok) {
 				case BrClose:
 					var selfInfo:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
-					if (selfInfo.whitespaceAfter == Newline) {
+					if ((selfInfo.whitespaceAfter == Newline) || (selfInfo.whitespaceAfter == SpaceOrNewline)) {
 						return;
 					}
 					policy = WhitespacePolicy.remove(policy, After);
@@ -177,6 +176,8 @@ class MarkWhitespace {
 					if (token.is(PClose)) {
 						switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
 							case CONDITION:
+								policy = WhitespacePolicy.add(policy, After);
+							case PARAMETER:
 								policy = WhitespacePolicy.add(policy, After);
 							default:
 								policy = WhitespacePolicy.remove(policy, After);
@@ -210,10 +211,8 @@ class MarkWhitespace {
 			switch (prev.token.tok) {
 				case PClose:
 					prev.whitespaceAfter = Space;
-					prev.whitespaceAfterWithoutNL = Space;
 				case Const(_):
 					prev.whitespaceAfter = Space;
-					prev.whitespaceAfterWithoutNL = Space;
 				default:
 			}
 		}
@@ -272,6 +271,42 @@ class MarkWhitespace {
 		}
 	}
 
+	static function markUnop(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		if (next != null) {
+			switch (next.token.tok) {
+				case Comma, Semicolon:
+					return;
+				case PClose, BkClose, BrClose:
+					return;
+				default:
+			}
+		}
+		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+		if (prev == null) {
+			return;
+		}
+		switch (prev.token.tok) {
+			case Const(CIdent(_)):
+				parsedCode.tokenList.whitespace(token, After);
+			default:
+		}
+	}
+
+	static function markDollar(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		if (next == null) {
+			return;
+		}
+		switch (next.token.tok) {
+			case Kwd(_):
+				parsedCode.tokenList.whitespace(token, After);
+			case Const(_):
+				parsedCode.tokenList.whitespace(token, After);
+			default:
+		}
+	}
+
 	static function markDblDot(token:TokenTree, ?parsedCode:ParsedCode, config:WhitespaceConfig) {
 		var type:ColonType = TokenTreeCheckUtils.getColonType(token);
 		switch (type) {
@@ -292,6 +327,19 @@ class MarkWhitespace {
 		}
 	}
 
+	static function markSemicolon(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
+		var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		var policy:WhitespacePolicy = config.semicolonPolicy;
+		if (next != null) {
+			switch (next.token.tok) {
+				case BrClose:
+					policy = WhitespacePolicy.remove(policy, After);
+				default:
+			}
+		}
+		parsedCode.tokenList.whitespace(token, policy);
+	}
+
 	static function markArrow(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
 		var arrowType:ArrowType = TokenTreeCheckUtils.getArrowType(token);
 		switch (arrowType) {
@@ -305,23 +353,32 @@ class MarkWhitespace {
 	}
 
 	static function markPOpen(token:TokenTree, parsedCode:ParsedCode, config:WhitespaceConfig) {
-		var parent:TokenTree = token.parent;
 		var policy:WhitespacePolicy = config.openingParenPolicy;
-		while ((parent != null) && (parent.tok != null)) {
-			switch (parent.tok) {
-				case Const(CIdent(_)):
-				case Dot:
-				case DblDot:
-				case Unop(_):
-					policy = WhitespacePolicy.remove(policy, Before);
-					break;
-				case At:
-					policy = WhitespacePolicy.remove(policy, Before);
-					break;
-				default:
-					break;
-			}
-			parent = parent.parent;
+		var type:POpenType = TokenTreeCheckUtils.getPOpenType(token);
+		switch (type) {
+			case AT:
+				policy = WhitespacePolicy.remove(policy, Before);
+			case PARAMETER:
+			case CALL:
+			case FORLOOP:
+			case CONDITION, EXPRESSION:
+				var parent:TokenTree = token.parent;
+				while ((parent != null) && (parent.tok != null)) {
+					switch (parent.tok) {
+						case Const(CIdent(_)):
+						case Dot:
+						case DblDot:
+						case Unop(_):
+							policy = WhitespacePolicy.remove(policy, Before);
+							break;
+						case At:
+							policy = WhitespacePolicy.remove(policy, Before);
+							break;
+						default:
+							break;
+					}
+					parent = parent.parent;
+				}
 		}
 		successiveParenthesis(token, false, parsedCode, policy, config.compressSuccessiveParenthesis);
 	}

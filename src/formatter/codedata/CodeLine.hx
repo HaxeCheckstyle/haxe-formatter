@@ -93,6 +93,9 @@ class CodeLine {
 		line = indenter.makeIndentString(indent) + line.trim();
 		for (index in 0...emptyLinesAfter) {
 			line += lineSeparator;
+			if (indenter.shouldAddTrailingWhitespace()) {
+				line += indenter.makeIndentString(indent);
+			}
 		}
 		return line;
 	}

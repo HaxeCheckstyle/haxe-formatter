@@ -145,6 +145,12 @@ class ParsedCode {
 		return (startLine == endLine);
 	}
 
+	public function linesBetweenOriginal(first:TokenTree, second:TokenTree):Int {
+		var startLine:Int = getLinePos(first.pos.min).line;
+		var endLine:Int = getLinePos(second.pos.min).line;
+		return (endLine - startLine);
+	}
+
 	function detectLineSeparator() {
 		var codeBytes:Bytes = file.content;
 		var code:String = codeBytes.toString();

@@ -48,7 +48,7 @@ class MarkLineEnds {
 					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
-							if (prev.whitespaceAfter == Newline) {
+							if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
 								parsedCode.tokenList.lineEndAfter(token);
 							}
 							parsedCode.tokenList.noLineEndBefore(token);
@@ -64,11 +64,7 @@ class MarkLineEnds {
 					if (info == null) {
 						parsedCode.tokenList.whitespace(token, Around);
 					} else {
-						if (info.whitespaceAfter == Newline) {
-							parsedCode.tokenList.whitespace(token, Before);
-						} else {
-							parsedCode.tokenList.whitespace(token, Around);
-						}
+						parsedCode.tokenList.whitespace(token, Around);
 					}
 				default:
 			}
@@ -95,6 +91,8 @@ class MarkLineEnds {
 				switch (prev.token.tok) {
 					case Dollar(name):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
+							parsedCode.tokenList.noLineEndAfter(brOpen);
+							parsedCode.tokenList.noLineEndBefore(brClose);
 							parsedCode.tokenList.whitespace(brOpen, None);
 							parsedCode.tokenList.whitespace(brClose, None);
 							var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
@@ -112,8 +110,8 @@ class MarkLineEnds {
 						}
 					case Kwd(KwdMacro):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
-							parsedCode.tokenList.whitespace(brOpen, NoneAfter);
-							parsedCode.tokenList.whitespace(brClose, NoneBefore);
+							parsedCode.tokenList.noLineEndAfter(brOpen);
+							parsedCode.tokenList.noLineEndBefore(brClose);
 							continue;
 						}
 					default:
@@ -166,7 +164,14 @@ class MarkLineEnds {
 		}
 		switch (prevToken.token.tok) {
 			default:
-				prevToken.whitespaceAfter = Newline;
+				switch (prevToken.whitespaceAfter) {
+					case None:
+						prevToken.whitespaceAfter = Newline;
+					case Newline:
+					case Space:
+						prevToken.whitespaceAfter = SpaceOrNewline;
+					case SpaceOrNewline:
+				}
 		}
 	}
 
@@ -175,7 +180,14 @@ class MarkLineEnds {
 		if (prevToken == null) {
 			return;
 		}
-		prevToken.whitespaceAfter = Newline;
+		switch (prevToken.whitespaceAfter) {
+			case None:
+				prevToken.whitespaceAfter = Newline;
+			case Newline:
+			case Space:
+				prevToken.whitespaceAfter = SpaceOrNewline;
+			case SpaceOrNewline:
+		}
 	}
 
 	static function afterRightCurly(token:TokenTree, parsedCode:ParsedCode) {
@@ -394,6 +406,10 @@ class MarkLineEnds {
 					default:
 						return false;
 				}
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if ((prev != null) && prev.token.is(Semicolon)) {
+					return false;
+				}
 				if (!isOnlyWhitespaceAfterToken(sharpEnd, parsedCode)) {
 					return true;
 				}
@@ -404,7 +420,7 @@ class MarkLineEnds {
 				if (prev == null) {
 					return !isOnlyWhitespaceBeforeToken(token, parsedCode);
 				}
-				if (prev.whitespaceAfter == Newline) {
+				if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
 					return false;
 				}
 				switch (prev.token.tok) {

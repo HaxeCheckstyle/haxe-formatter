@@ -10,6 +10,8 @@
 -lib munit
 -lib compiletime
 
+# -D debugLog
+# -D debugIndent
 -D unittest
 -x TestMain
 
