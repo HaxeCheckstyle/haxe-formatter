@@ -18,10 +18,9 @@ class Main {
         var options =
             {
                 type: "POST",
-                url: '?action=angebotAnfordern&lang=${Translator.getLanguage ()}&format=raw',
                 data:
                 {
-                    zaunKonfiguration: data,
+                    config: data,
                     anrede: angebotEvent.anrede,
                     name: angebotEvent.nachname,
                     firma: angebotEvent.firma,
@@ -55,10 +54,9 @@ class Main
 		var options =
 			{
 				type: "POST",
-				url: '?action=angebotAnfordern&lang=${Translator.getLanguage()}&format=raw',
 				data:
 					{
-						zaunKonfiguration: data,
+						config: data,
 						anrede: angebotEvent.anrede,
 						name: angebotEvent.nachname,
 						firma: angebotEvent.firma,
