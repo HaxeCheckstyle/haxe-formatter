@@ -1,0 +1,31 @@
+{
+  "whitespace": {
+    "colonPolicy": "around",
+    "typeHintColonPolicy": "around",
+    "openingParenPolicy": "before",
+    "openingBracketPolicy": "before"
+  }
+}
+
+
+---
+
+
+class Main {
+    static function main() {
+		if (!isLoaded ())
+        {
+            return;
+        }
+    }
+}
+
+---
+
+class Main {
+	static function main () {
+		if (!isLoaded ()) {
+			return;
+		}
+	}
+}

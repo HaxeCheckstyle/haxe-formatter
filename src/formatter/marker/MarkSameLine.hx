@@ -215,9 +215,15 @@ class MarkSameLine {
 		if (config.caseBody != Same) {
 			return;
 		}
-		if ((dblDot.children != null) && (dblDot.children.length == 1)) {
-			parsedCode.tokenList.noLineEndAfter(dblDot);
+		if ((dblDot.children == null) || (dblDot.children.length > 1)) {
+			return;
 		}
+		var first:TokenTree = dblDot.getFirstChild();
+		var last:TokenTree = TokenTreeCheckUtils.getLastToken(first);
+		if (parsedCode.linesBetweenOriginal(first, last) > 2) {
+			return;
+		}
+		parsedCode.tokenList.noLineEndAfter(dblDot);
 	}
 
 	static function checkExpressionCase(token:TokenTree, dblDot:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {

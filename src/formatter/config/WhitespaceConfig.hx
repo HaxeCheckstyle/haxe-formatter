@@ -9,13 +9,13 @@ typedef WhitespaceConfig = {
 	@:default(None) @:optional var closingBracketPolicy:WhitespacePolicy;
 	// { … }
 	@:default(Before) @:optional var openingBracePolicy:WhitespacePolicy;
-	@:default(Around) @:optional var closingBracePolicy:WhitespacePolicy;
+	@:default(After) @:optional var closingBracePolicy:WhitespacePolicy;
 	@:default(OnlyBefore) @:optional var objectOpeningBracePolicy:WhitespacePolicy;
 	@:default(OnlyAfter) @:optional var objectClosingBracePolicy:WhitespacePolicy;
 	// < … >
 	@:default(None) @:optional var typeParamOpenPolicy:WhitespacePolicy;
 	@:default(None) @:optional var typeParamClosePolicy:WhitespacePolicy;
-	@:default(Around) @:optional var typeExtensionPolicy:WhitespacePolicy;
+	@:default(After) @:optional var typeExtensionPolicy:WhitespacePolicy;
 	@:default(OnlyAfter) @:optional var commaPolicy:WhitespacePolicy;
 	@:default(None) @:optional var dotPolicy:WhitespacePolicy;
 	@:default(None) @:optional var colonPolicy:WhitespacePolicy;
@@ -24,7 +24,7 @@ typedef WhitespaceConfig = {
 	@:default(None) @:optional var typeHintColonPolicy:WhitespacePolicy;
 	@:default(Around) @:optional var typeCheckColonPolicy:WhitespacePolicy;
 	@:default(Around) @:optional var ternaryPolicy:WhitespacePolicy;
-	@:default(None) @:optional var semicolonPolicy:WhitespacePolicy;
+	@:default(OnlyAfter) @:optional var semicolonPolicy:WhitespacePolicy;
 	@:default(After) @:optional var ifPolicy:WhitespacePolicy;
 	@:default(After) @:optional var doPolicy:WhitespacePolicy;
 	@:default(After) @:optional var whilePolicy:WhitespacePolicy;

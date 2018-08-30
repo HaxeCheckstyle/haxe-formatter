@@ -4,4 +4,5 @@ enum WhitespaceAfterType {
 	None;
 	Newline;
 	Space;
+	SpaceOrNewline;
 }

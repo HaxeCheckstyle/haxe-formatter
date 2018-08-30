@@ -1,0 +1,36 @@
+{}
+
+---
+
+
+class Main {
+	function main(params:TextDocumentPositionParams, token:CancellationToken, resolve:Definition->Void, reject:ResponseError<NoData>->Void,
+			doc:TextDocument, offset:Int) {
+		context.callDisplay("@position", args, doc.content, token, function(r) {
+			switch (r) {
+				case DResult(data):
+					for (pos in positions) {
+						var location = HaxePosition.parse(pos, doc, null, context
+							.displayOffsetConverter); // no cache because this right now only returns one position
+					}
+			}
+		});
+	}
+}
+
+---
+
+class Main {
+	function main(params:TextDocumentPositionParams, token:CancellationToken, resolve:Definition->Void, reject:ResponseError<NoData>->Void,
+			doc:TextDocument, offset:Int) {
+		context.callDisplay("@position", args, doc.content, token, function(r) {
+			switch (r) {
+				case DResult(data):
+					for (pos in positions) {
+						var location = HaxePosition.parse(pos, doc, null, context
+							.displayOffsetConverter); // no cache because this right now only returns one position
+					}
+			}
+		});
+	}
+}

@@ -3,3 +3,7 @@ buildJS.hxml
 buildNeko.hxml
 --next
 buildSchema.hxml
+
+--next
+
+-cmd neko run --default-config resources/default-hxformat.json

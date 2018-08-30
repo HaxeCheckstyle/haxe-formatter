@@ -138,9 +138,7 @@ class MarkEmptyLines {
 					continue;
 			}
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
-			if (block != null) {
-				parsedCode.tokenList.emptyLinesAfter(block, typeConfig.beginType);
-			}
+			markBeginAndEndType(parsedCode, block, typeConfig.beginType, typeConfig.endType);
 
 			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
 			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
@@ -156,6 +154,19 @@ class MarkEmptyLines {
 				prevTokenType = currTokenType;
 			}
 		}
+	}
+
+	static function markBeginAndEndType(parsedCode:ParsedCode, brOpen:TokenTree, beginType:Int, endType:Int) {
+		if (brOpen == null) {
+			return;
+		}
+		parsedCode.tokenList.emptyLinesAfter(brOpen, beginType);
+
+		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+		if (brClose == null) {
+			return;
+		}
+		parsedCode.tokenList.emptyLinesBefore(brClose, endType);
 	}
 
 	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
@@ -250,7 +261,8 @@ class MarkEmptyLines {
 		if (block == null) {
 			return;
 		}
-		parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
+		markBeginAndEndType(parsedCode, block, config.beginType, config.endType);
+
 		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
 		var fields:Array<TokenTree> = block.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
 
@@ -323,9 +335,7 @@ class MarkEmptyLines {
 
 	static function markEnumAbstracts(token:TokenTree, parsedCode:ParsedCode, config:EnumAbstractFieldsEmptyLinesConfig) {
 		var block:TokenTree = token.access().firstChild().firstOf(BrOpen).token;
-		if (block != null) {
-			parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
-		}
+		markBeginAndEndType(parsedCode, block, config.beginType, config.endType);
 
 		var functions:Array<TokenTree> = token.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
 
@@ -410,7 +420,7 @@ class MarkEmptyLines {
 	}
 
 	static function markEnumFields(block:TokenTree, parsedCode:ParsedCode, config:TypedefFieldsEmptyLinesConfig) {
-		parsedCode.tokenList.emptyLinesAfter(block, config.beginType);
+		markBeginAndEndType(parsedCode, block, config.beginType, config.endType);
 		if ((block.children == null) || (block.children.length <= 0)) {
 			return;
 		}
@@ -553,7 +563,7 @@ class MarkEmptyLines {
 		});
 		for (sharp in sharps) {
 			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(sharp);
-			if ((prev != null) && (prev.whitespaceAfter != Newline)) {
+			if ((prev != null) && (prev.whitespaceAfter != Newline) && (prev.whitespaceAfter != SpaceOrNewline)) {
 				continue;
 			}
 			switch (sharp.tok) {

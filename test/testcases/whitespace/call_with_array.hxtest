@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	function main () {
+		token.filter([Kwd(KwdElse)], FIRST)[0];
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		token.filter([Kwd(KwdElse)], FIRST)[0];
+	}
+}

@@ -1,0 +1,11 @@
+{}
+
+
+---
+
+abstract SymbolStack(Array<{level:SymbolLevel, symbol:DocumentSymbol}>) {
+}
+
+---
+
+abstract SymbolStack(Array<{level:SymbolLevel, symbol:DocumentSymbol}>) {}

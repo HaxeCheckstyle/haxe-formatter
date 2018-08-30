@@ -18,6 +18,11 @@ typedef IndentationConfig = {
 		if `character` is set to "tab", formatter uses `tabWidth` to calculate absolute line length
 	**/
 	@:default(4) @:optional var tabWidth:Int;
+
+	/**
+		adds trailing whitespace to empty lines by copying indentation from preceeding line
+	**/
+	@:default(false) @:optional var trailingWhitespace:Bool;
 }
 
 @:enum

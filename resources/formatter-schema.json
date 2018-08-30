@@ -113,6 +113,11 @@
 					"description": "if `character` is set to \"tab\", formatter uses `tabWidth` to calculate absolute line length",
 					"type": "integer",
 					"propertyOrder": 2
+				},
+				"trailingWhitespace": {
+					"description": "adds trailing whitespace to empty lines by copying indentation from preceeding line",
+					"type": "boolean",
+					"propertyOrder": 3
 				}
 			},
 			"type": "object"
@@ -121,20 +126,26 @@
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
 					"type": "integer",
 					"propertyOrder": 0
 				},
 				"betweenVars": {
 					"type": "integer",
-					"propertyOrder": 1
+					"propertyOrder": 2
 				},
 				"betweenFunctions": {
 					"type": "integer",
-					"propertyOrder": 3
+					"propertyOrder": 4
 				},
 				"afterVars": {
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer",
+					"propertyOrder": 1
 				}
 			},
 			"type": "object"
@@ -170,10 +181,16 @@
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
 					"type": "integer",
 					"propertyOrder": 0
 				},
 				"betweenFields": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
 					"type": "integer",
 					"propertyOrder": 1
 				}
@@ -378,44 +395,50 @@
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
 					"type": "integer",
 					"propertyOrder": 0
 				},
 				"afterStaticFunctions": {
 					"type": "integer",
-					"propertyOrder": 6
+					"propertyOrder": 7
 				},
 				"betweenStaticFunctions": {
 					"type": "integer",
-					"propertyOrder": 7
+					"propertyOrder": 8
 				},
 				"betweenVars": {
 					"type": "integer",
-					"propertyOrder": 4
+					"propertyOrder": 5
 				},
 				"afterStaticVars": {
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
 				},
 				"betweenFunctions": {
 					"type": "integer",
-					"propertyOrder": 9
+					"propertyOrder": 10
 				},
 				"afterVars": {
 					"type": "integer",
-					"propertyOrder": 5
+					"propertyOrder": 6
 				},
 				"afterPrivateFunctions": {
 					"type": "integer",
-					"propertyOrder": 8
+					"propertyOrder": 9
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer",
+					"propertyOrder": 1
 				},
 				"afterPrivateVars": {
 					"type": "integer",
-					"propertyOrder": 3
+					"propertyOrder": 4
 				},
 				"betweenStaticVars": {
 					"type": "integer",
-					"propertyOrder": 1
+					"propertyOrder": 2
 				}
 			},
 			"type": "object"
@@ -454,20 +477,26 @@
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
 					"type": "integer",
 					"propertyOrder": 0
 				},
 				"betweenVars": {
 					"type": "integer",
-					"propertyOrder": 1
+					"propertyOrder": 2
 				},
 				"betweenFunctions": {
 					"type": "integer",
-					"propertyOrder": 3
+					"propertyOrder": 4
 				},
 				"afterVars": {
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer",
+					"propertyOrder": 1
 				}
 			},
 			"type": "object"

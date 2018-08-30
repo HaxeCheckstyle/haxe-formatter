@@ -30,7 +30,6 @@ class TokenList {
 			tokens[index] = {
 				token: child,
 				whitespaceAfter: None,
-				whitespaceAfterWithoutNL: None,
 				emptyLinesAfter: 0,
 				wrapAfter: false,
 				text: null,
@@ -113,47 +112,64 @@ class TokenList {
 		}
 		switch (where) {
 			case None:
-				info.whitespaceAfter = None;
-				if (prev != null) {
-					prev.whitespaceAfter = None;
-				}
+				applyWhitespace(info, None);
+				applyWhitespace(prev, None);
 			case NoneAfter:
-				info.whitespaceAfter = None;
+				applyWhitespace(info, None);
 			case OnlyAfter:
-				if (prev != null) {
-					prev.whitespaceAfter = None;
-				}
-				info.whitespaceAfter = Space;
+				applyWhitespace(prev, None);
+				applyWhitespace(info, Space);
 			case Before:
-				if (prev != null) {
-					prev.whitespaceAfter = Space;
-				}
+				applyWhitespace(prev, Space);
 			case NoneBefore:
-				if (prev != null) {
-					prev.whitespaceAfter = None;
-				}
+				applyWhitespace(prev, None);
 			case OnlyBefore:
-				if (prev != null) {
-					prev.whitespaceAfter = Space;
-				}
-				info.whitespaceAfter = None;
+				applyWhitespace(prev, Space);
+				applyWhitespace(info, None);
 			case After:
-				info.whitespaceAfter = Space;
+				applyWhitespace(info, Space);
 			case Around:
-				info.whitespaceAfter = Space;
-				if (prev != null) {
-					prev.whitespaceAfter = Space;
-				}
-		}
-		if (prev != null && prev.whitespaceAfter != Newline) {
-			prev.whitespaceAfterWithoutNL = prev.whitespaceAfter;
-		}
-		if (info.whitespaceAfter != Newline) {
-			info.whitespaceAfterWithoutNL = info.whitespaceAfter;
+				applyWhitespace(info, Space);
+				applyWhitespace(prev, Space);
 		}
 		#if debugLog
 		logAction(pos, token, '$where');
 		#end
+	}
+
+	function applyWhitespace(info:TokenInfo, policy:WhitespaceAfterType) {
+		if (info == null) {
+			return;
+		}
+		switch (info.whitespaceAfter) {
+			case None:
+				info.whitespaceAfter = policy;
+			case Newline:
+				switch (policy) {
+					case None:
+					case Newline:
+					case Space:
+						info.whitespaceAfter = SpaceOrNewline;
+					case SpaceOrNewline:
+				}
+			case Space:
+				switch (policy) {
+					case None:
+						info.whitespaceAfter = None;
+					case Newline:
+						info.whitespaceAfter = SpaceOrNewline;
+					case Space:
+					case SpaceOrNewline:
+				}
+			case SpaceOrNewline:
+				switch (policy) {
+					case None:
+						info.whitespaceAfter = Newline;
+					case Newline:
+					case Space:
+					case SpaceOrNewline:
+				}
+		}
 	}
 
 	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {
@@ -164,10 +180,21 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
-		#if debugLog
-		logAction(pos, token, "NewLine");
-		#end
-		info.whitespaceAfter = Newline;
+
+		switch (info.whitespaceAfter) {
+			case None:
+				#if debugLog
+				logAction(pos, token, "NewLine");
+				#end
+				info.whitespaceAfter = Newline;
+			case Newline:
+			case Space:
+				#if debugLog
+				logAction(pos, token, "SpaceOrNewline");
+				#end
+				info.whitespaceAfter = SpaceOrNewline;
+			case SpaceOrNewline:
+		}
 	}
 
 	public function lineEndBefore(token:TokenTree, ?pos:PosInfos) {
@@ -175,10 +202,20 @@ class TokenList {
 		if (info == null) {
 			return;
 		}
-		#if debugLog
-		logAction(pos, token, "NewLine");
-		#end
-		info.whitespaceAfter = Newline;
+		switch (info.whitespaceAfter) {
+			case None:
+				#if debugLog
+				logAction(pos, token, "NewLine");
+				#end
+				info.whitespaceAfter = Newline;
+			case Newline:
+			case Space:
+				#if debugLog
+				logAction(pos, token, "SpaceOrNewline");
+				#end
+				info.whitespaceAfter = SpaceOrNewline;
+			case SpaceOrNewline:
+		}
 	}
 
 	function needsLineBreak(token:TokenTree):Bool {
@@ -205,10 +242,20 @@ class TokenList {
 			info.whitespaceAfter = Newline;
 			return;
 		}
-		#if debugLog
-		logAction(pos, token, "Space");
-		#end
-		info.whitespaceAfter = Space; // info.whitespaceAfterWithoutNL;
+		switch (info.whitespaceAfter) {
+			case None:
+				return;
+			case Newline:
+				#if debugLog
+				logAction(pos, token, "None");
+				#end
+				info.whitespaceAfter = None;
+			case Space, SpaceOrNewline:
+				#if debugLog
+				logAction(pos, token, "Space");
+				#end
+				info.whitespaceAfter = Space;
+		}
 	}
 
 	public function noLineEndBefore(token:TokenTree, ?pos:PosInfos) {
@@ -220,10 +267,20 @@ class TokenList {
 			info.whitespaceAfter = Newline;
 			return;
 		}
-		#if debugLog
-		logAction(pos, token, "Space");
-		#end
-		info.whitespaceAfter = Space; // info.whitespaceAfterWithoutNL;
+		switch (info.whitespaceAfter) {
+			case None:
+				return;
+			case Newline:
+				#if debugLog
+				logAction(pos, token, "None");
+				#end
+				info.whitespaceAfter = None;
+			case Space, SpaceOrNewline:
+				#if debugLog
+				logAction(pos, token, "Space");
+				#end
+				info.whitespaceAfter = Space;
+		}
 	}
 
 	public function emptyLinesAfter(token:TokenTree, count:Int, ?pos:PosInfos) {
@@ -324,10 +381,17 @@ class TokenList {
 					continue;
 				default:
 			}
-			if ((nestLevel <= 0) && (info.whitespaceAfter == Newline)) {
-				info.whitespaceAfter = info.whitespaceAfterWithoutNL;
+			if (nestLevel <= 0) {
+				switch (info.whitespaceAfter) {
+					case None:
+					case Space:
+					case Newline:
+						info.whitespaceAfter = None;
+					case SpaceOrNewline:
+						info.whitespaceAfter = Space;
+				}
 				#if debugLog
-				logAction(pos, info.token, 'whitespaceAfter: ${info.whitespaceAfterWithoutNL}');
+				logAction(pos, info.token, 'whitespaceAfter: ${info.whitespaceAfter}');
 				#end
 			}
 		}
@@ -384,7 +448,7 @@ class TokenList {
 			if (currTok == null) {
 				continue;
 			}
-			if (currTok.whitespaceAfter == Newline) {
+			if ((currTok.whitespaceAfter == Newline) || (currTok.whitespaceAfter == SpaceOrNewline)) {
 				return false;
 			}
 		}
@@ -435,7 +499,7 @@ class TokenList {
 			if (info == null) {
 				continue;
 			}
-			if (info.whitespaceAfter == Newline) {
+			if ((info.whitespaceAfter == Newline) || (info.whitespaceAfter == SpaceOrNewline)) {
 				start += 2;
 				break;
 			}
@@ -452,7 +516,7 @@ class TokenList {
 			length += info.text.length;
 			switch (info.whitespaceAfter) {
 				case None:
-				case Newline:
+				case Newline, SpaceOrNewline:
 					break;
 				case Space:
 					length += 1;
@@ -480,7 +544,7 @@ class TokenList {
 			}
 			switch (info.whitespaceAfter) {
 				case None:
-				case Newline:
+				case Newline, SpaceOrNewline:
 					break;
 				case Space:
 					length += 1;
@@ -495,7 +559,7 @@ class TokenList {
 		if (info == null) {
 			return false;
 		}
-		return info.whitespaceAfter == Newline;
+		return (info.whitespaceAfter == Newline || info.whitespaceAfter == SpaceOrNewline);
 	}
 
 	public function isNewLineAfter(token:TokenTree):Bool {
@@ -503,7 +567,7 @@ class TokenList {
 		if (info == null) {
 			return false;
 		}
-		return info.whitespaceAfter == Newline;
+		return (info.whitespaceAfter == Newline || info.whitespaceAfter == SpaceOrNewline);
 	}
 
 	public function isSameLineBetween(tokenStart:TokenTree, tokenEnd:TokenTree, exclude:Bool):Bool {
@@ -520,7 +584,7 @@ class TokenList {
 			if (info == null) {
 				continue;
 			}
-			if (info.whitespaceAfter == Newline) {
+			if ((info.whitespaceAfter == Newline) || (info.whitespaceAfter == SpaceOrNewline)) {
 				return false;
 			}
 		}
