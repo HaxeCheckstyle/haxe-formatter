@@ -39,6 +39,8 @@ class MarkWrapping {
 			}
 			return GO_DEEPER;
 		});
+
+		markMethodChaining(parsedCode, indenter, config);
 	}
 
 	static function wrapTypeParameter(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:Config) {
@@ -90,8 +92,10 @@ class MarkWrapping {
 		switch (rule.type) {
 			case OnePerLine:
 				wrapChildOneLineEach(token, close, parsedCode, indenter, rule.additionalIndent);
-			case OnePerLineKeep:
+			case OnePerLineAfterFirst:
 				wrapChildOneLineEach(token, close, parsedCode, indenter, rule.additionalIndent, true);
+			case Keep:
+				keep(token, close, parsedCode, indenter, rule.additionalIndent);
 			case EqualNumber:
 			case FillLine:
 				wrapFillLine(token, close, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
@@ -174,8 +178,10 @@ class MarkWrapping {
 		switch (rule.type) {
 			case OnePerLine:
 				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent);
-			case OnePerLineKeep:
+			case OnePerLineAfterFirst:
 				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent, true);
+			case Keep:
+				keep(token, brClose, parsedCode, indenter, rule.additionalIndent);
 			case EqualNumber:
 			case FillLine:
 				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
@@ -234,8 +240,10 @@ class MarkWrapping {
 		switch (rule.type) {
 			case OnePerLine:
 				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent);
-			case OnePerLineKeep:
+			case OnePerLineAfterFirst:
 				wrapChildOneLineEach(token, brClose, parsedCode, indenter, rule.additionalIndent, true);
+			case Keep:
+				keep(token, brClose, parsedCode, indenter, rule.additionalIndent);
 			case EqualNumber:
 			case FillLine:
 				wrapFillLine(token, brClose, parsedCode, indenter, config.wrapping.maxLineLength, rule.additionalIndent);
@@ -361,8 +369,10 @@ class MarkWrapping {
 		switch (rule.type) {
 			case OnePerLine:
 				wrapChildOneLineEach(token, bkClose, parsedCode, indenter, rule.additionalIndent);
-			case OnePerLineKeep:
+			case OnePerLineAfterFirst:
 				wrapChildOneLineEach(token, bkClose, parsedCode, indenter, rule.additionalIndent, true);
+			case Keep:
+				keep(token, bkClose, parsedCode, indenter, rule.additionalIndent);
 			case EqualNumber:
 			case FillLine:
 				wrapArrayWithMany(token, bkClose, parsedCode, indenter, config.wrapping.maxLineLength);
@@ -409,6 +419,29 @@ class MarkWrapping {
 						parsedCode.tokenList.noLineEndAfter(lastChild);
 					default:
 				}
+			}
+		}
+		parsedCode.tokenList.noLineEndBefore(close);
+	}
+
+	public static function keep(open:TokenTree, close:TokenTree, parsedCode:ParsedCode, indenter:Indenter, addIndent:Int) {
+		parsedCode.tokenList.noWrappingBetween(open, close);
+		for (child in open.children) {
+			switch (child.tok) {
+				case PClose, BrClose, BkClose:
+					break;
+				case Binop(OpGt):
+					continue;
+				case Semicolon, Comma:
+					continue;
+				default:
+			}
+			if (parsedCode.isOriginalNewlineBefore(child)) {
+				parsedCode.tokenList.lineEndBefore(child);
+				parsedCode.tokenList.additionalIndent(child, addIndent);
+			} else {
+				parsedCode.tokenList.noLineEndBefore(child);
+				parsedCode.tokenList.wrapBefore(child, false);
 			}
 		}
 		parsedCode.tokenList.noLineEndBefore(close);
@@ -611,18 +644,20 @@ class MarkWrapping {
 		}
 		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
 		var rule:WrapRule = determineWrapType(config.wrapping.functionSignature, itemCount, maxLength, totalLength, lineLength);
-		var addIdent:Int = rule.additionalIndent;
+		var addIndent:Int = rule.additionalIndent;
 		if (emptyBody) {
-			addIdent = 0;
+			addIndent = 0;
 		}
 		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIdent);
-			case OnePerLineKeep:
-				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIdent, true);
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIndent);
+			case OnePerLineAfterFirst:
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIndent, true);
+			case Keep:
+				keep(token, pClose, parsedCode, indenter, addIndent);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength, addIdent);
+				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength, addIndent);
 			case NoWrap:
 				parsedCode.tokenList.noWrappingBetween(token, pClose);
 		}
@@ -708,5 +743,115 @@ class MarkWrapping {
 			}
 		}
 		return result;
+	}
+
+	static function markMethodChaining(parsedCode:ParsedCode, indenter:Indenter, config:Config) {
+		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Dot:
+					parsedCode.tokenList.wrapBefore(token, true);
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					if (prev == null) {
+						return GO_DEEPER;
+					}
+					switch (prev.token.tok) {
+						case PClose:
+							return FOUND_SKIP_SUBTREE;
+						default:
+					}
+
+				default:
+			}
+			return GO_DEEPER;
+		});
+		for (chainStart in chainStarts) {
+			markSingleMethodChain(chainStart, parsedCode, indenter, config);
+		}
+	}
+
+	static function markSingleMethodChain(chainStart:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:Config) {
+		var chainedCalls:Array<TokenTree> = chainStart.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Dot:
+					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					if (prev == null) {
+						return GO_DEEPER;
+					}
+					switch (prev.token.tok) {
+						case PClose:
+							return FOUND_GO_DEEPER;
+						default:
+					}
+				default:
+			}
+			return GO_DEEPER;
+		});
+
+		var firstMethodCall:TokenTree = chainStart.access().parent().isCIdent().parent().is(Dot).token;
+		if (firstMethodCall != null) {
+			chainedCalls.unshift(firstMethodCall);
+			chainStart = firstMethodCall;
+		}
+
+		var maxLength:Int = 0;
+		var totalLength:Int = 0;
+		var prevChainElement:TokenTree = chainStart;
+		for (index in 0...chainedCalls.length) {
+			var chainElement:TokenTree = chainedCalls[index];
+			var length:Int = parsedCode.tokenList.calcLengthBetween(prevChainElement, chainElement);
+			prevChainElement = chainElement;
+			if (length > maxLength) {
+				maxLength = length;
+			}
+			totalLength += length;
+		}
+		var itemCount:Int = chainedCalls.length;
+		var lineLength:Int = calcLineLength(chainStart, parsedCode, indenter);
+		var rule:WrapRule = determineWrapType(config.wrapping.methodChain, itemCount, maxLength, totalLength, lineLength);
+		var addIndent:Int = rule.additionalIndent;
+		if (addIndent == null) {
+			addIndent = 0;
+		}
+		switch (rule.type) {
+			case OnePerLine:
+				for (index in 0...chainedCalls.length) {
+					var element:TokenTree = chainedCalls[index];
+					parsedCode.tokenList.lineEndBefore(element);
+					if (index == 0) {
+						parsedCode.tokenList.additionalIndent(element, addIndent + 1);
+					} else {
+						parsedCode.tokenList.additionalIndent(element, addIndent);
+					}
+				}
+			case OnePerLineAfterFirst:
+				parsedCode.tokenList.noLineEndBefore(chainStart);
+				for (index in 1...chainedCalls.length) {
+					var element:TokenTree = chainedCalls[index];
+					parsedCode.tokenList.lineEndBefore(element);
+					parsedCode.tokenList.additionalIndent(element, addIndent);
+				}
+			case NoWrap:
+				for (element in chainedCalls) {
+					parsedCode.tokenList.noLineEndBefore(element);
+					parsedCode.tokenList.wrapBefore(element, false);
+				}
+			case Keep:
+				for (index in 0...chainedCalls.length) {
+					var element:TokenTree = chainedCalls[index];
+					if (parsedCode.isOriginalNewlineBefore(element)) {
+						parsedCode.tokenList.lineEndBefore(element);
+						if (index == 0) {
+							parsedCode.tokenList.additionalIndent(element, addIndent + 1);
+						} else {
+							parsedCode.tokenList.additionalIndent(element, addIndent);
+						}
+					} else {
+						parsedCode.tokenList.noLineEndBefore(element);
+						parsedCode.tokenList.wrapBefore(element, false);
+					}
+				}
+			case EqualNumber:
+			case FillLine:
+		}
 	}
 }

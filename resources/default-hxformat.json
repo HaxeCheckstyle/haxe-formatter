@@ -256,6 +256,35 @@
 			}
 		],
 		"maxLineLength": 160,
+		"methodChain": [
+			{
+				"conditions": [
+					{
+						"cond": "itemCount <= n",
+						"value": 3
+					}
+				],
+				"type": "noWrap"
+			},
+			{
+				"conditions": [
+					{
+						"cond": "totalItemLength <= n",
+						"value": 80
+					}
+				],
+				"type": "noWrap"
+			},
+			{
+				"conditions": [
+					{
+						"cond": "itemCount >= n",
+						"value": 4
+					}
+				],
+				"type": "onePerLineAfterFirst"
+			}
+		],
 		"objectLiteral": [
 			{
 				"conditions": [

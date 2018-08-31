@@ -2,11 +2,11 @@
 	"wrapping": {
 		"functionSignature": [{
 				"conditions": [{"cond": "itemCount >= n", "value": 7}],
-				"type": "onePerLineKeep"
+				"type": "onePerLineAfterFirst"
 			},
 			{
 				"conditions": [{"cond": "itemCount >= n", "value": 140}],
-				"type": "onePerLineKeep"
+				"type": "onePerLineAfterFirst"
 			}]
 	}
 }

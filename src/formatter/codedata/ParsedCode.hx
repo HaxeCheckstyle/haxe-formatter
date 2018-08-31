@@ -139,6 +139,17 @@ class ParsedCode {
 		return code.sub(off, off2 - off).toString();
 	}
 
+	public function isOriginalNewlineBefore(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		var prev:TokenInfo = tokenList.getPreviousToken(token);
+		if (prev == null) {
+			return false;
+		}
+		return !isOriginalSameLine(prev.token, token);
+	}
+
 	public function isOriginalSameLine(first:TokenTree, second:TokenTree):Bool {
 		var startLine:Int = getLinePos(first.pos.min).line;
 		var endLine:Int = getLinePos(second.pos.min).line;

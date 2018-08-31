@@ -10,6 +10,7 @@
 - Added `emptyLines.typedefEmptyLines.endType` to output empty lines before end of typedefs [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 - Added `indentation.trailingWhitespace` to output trailing whitespace in empty lines [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 - Added `--default-config` CLI option to generate a default "hxformat.json" [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
+- Added `wrapping.methodChaining` to handle wrapping of method chains [#229](https://github.com/HaxeCheckstyle/haxe-formatter/issues/229)
 - Changed `whitespace.closingBracePolicy` to `after` [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 - Changed `whitespace.typeExtensionPolicy` to `after` [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 - Changed `whitespace.semicolonPolicy` to `onlyAfter` [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)

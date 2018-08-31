@@ -1,0 +1,39 @@
+{
+	"wrapping": {
+		"methodChain": [
+			{
+				"conditions": [{"cond": "ItemCountLargerThan", "value": 0}],
+				"type": "keep"
+			}
+		]
+	}
+}
+
+---
+
+class Main {
+    private static function applyVariant (standard : Standard) : Void
+    {
+        standard
+			.variant (Uni (RAL7016, RAL7016)).variant (Uni (RAL9006, RAL9006))
+            .variant (Uni (Holzoptik, RAL7016)).variant (OddEven (RAL7016, RAL9006, RAL7016))
+            .variant (OffsetArray (1, [RAL9006, RAL9006, RAL9006], RAL7016, RAL7016))
+			.variant (OffsetArray (1, [RAL7016, RAL7016, RAL7016], RAL9006, RAL9006)).variant (OddEven (RAL7016, Holzoptik, RAL7016))
+            .variant (OffsetArray (1, [Holzoptik, Holzoptik, Holzoptik], RAL7016, RAL7016))
+            .variant (OffsetArray (1, [RAL7016, RAL7016, RAL7016], Holzoptik, RAL7016));
+    }
+}
+
+---
+
+class Main {
+	private static function applyVariant(standard:Standard):Void {
+		standard
+			.variant(Uni(RAL7016, RAL7016)).variant(Uni(RAL9006, RAL9006))
+			.variant(Uni(Holzoptik, RAL7016)).variant(OddEven(RAL7016, RAL9006, RAL7016))
+			.variant(OffsetArray(1, [RAL9006, RAL9006, RAL9006], RAL7016, RAL7016))
+			.variant(OffsetArray(1, [RAL7016, RAL7016, RAL7016], RAL9006, RAL9006)).variant(OddEven(RAL7016, Holzoptik, RAL7016))
+			.variant(OffsetArray(1, [Holzoptik, Holzoptik, Holzoptik], RAL7016, RAL7016))
+			.variant(OffsetArray(1, [RAL7016, RAL7016, RAL7016], Holzoptik, RAL7016));
+	}
+}

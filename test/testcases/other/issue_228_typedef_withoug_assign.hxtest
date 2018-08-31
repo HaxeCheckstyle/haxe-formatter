@@ -1,0 +1,13 @@
+{}
+
+---
+
+typedef Testtype {  // <-   "=" assignment is forgotten!
+    something: String
+}
+
+---
+
+typedef Testtype { // <-   "=" assignment is forgotten!
+	something:String
+}
