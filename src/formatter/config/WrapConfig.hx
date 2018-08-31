@@ -131,6 +131,26 @@ typedef WrapConfig = {
 	])
 	@:optional
 	var anonType:Array<WrapRule>;
+
+	/**
+		method chaining wrapping rules
+	**/
+	@:default([
+		{
+			conditions: [{cond: ItemCountLessThan, value: 3}],
+			type: NoWrap
+		},
+		{
+			conditions: [{cond: TotalItemLengthLessThan, value: 80}],
+			type: NoWrap
+		},
+		{
+			conditions: [{cond: ItemCountLargerThan, value: 4}],
+			type: OnePerLineAfterFirst
+		}
+	])
+	@:optional
+	var methodChain:Array<WrapRule>;
 }
 
 typedef WrapRule = {
@@ -142,10 +162,11 @@ typedef WrapRule = {
 @:enum
 abstract WrappingType(String) {
 	var OnePerLine = "onePerLine";
-	var OnePerLineKeep = "onePerLineKeep";
+	var OnePerLineAfterFirst = "onePerLineAfterFirst";
 	var EqualNumber = "equalNumber";
 	var FillLine = "fillLine";
 	var NoWrap = "noWrap";
+	var Keep = "keep";
 }
 
 typedef WrapCondition = {

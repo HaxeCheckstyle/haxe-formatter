@@ -219,10 +219,11 @@
 					"type": "string",
 					"enum": [
 						"onePerLine",
-						"onePerLineKeep",
+						"onePerLineAfterFirst",
 						"equalNumber",
 						"fillLine",
-						"noWrap"
+						"noWrap",
+						"keep"
 					],
 					"propertyOrder": 1
 				}
@@ -524,6 +525,14 @@
 					},
 					"type": "array",
 					"propertyOrder": 11
+				},
+				"methodChain": {
+					"description": "method chaining wrapping rules",
+					"items": {
+						"$ref": "#/definitions/WrapRule"
+					},
+					"type": "array",
+					"propertyOrder": 12
 				},
 				"arrayWrap": {
 					"description": "function signature wrapping rules",

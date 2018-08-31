@@ -483,6 +483,30 @@ class TokenList {
 		return length;
 	}
 
+	public function calcLengthBetween(tokenStart:TokenTree, tokenEnd:TokenTree):Int {
+		if ((tokenStart == null) || (tokenEnd == null)) {
+			return 0;
+		}
+		if ((tokenStart.index < 0) || (tokenEnd.index < 0)) {
+			return 0;
+		}
+		var length:Int = 0;
+		for (index in tokenStart.index...tokenEnd.index) {
+			var current:TokenInfo = tokens[index];
+			if (current == null) {
+				continue;
+			}
+			if (current.text == null) {
+				current.text = '${current.token}';
+			}
+			length += current.text.length;
+			if (current.whitespaceAfter == Space) {
+				length++;
+			}
+		}
+		return length;
+	}
+
 	public function calcLineLength(token:TokenTree):Int {
 		if (token == null) {
 			return 0;
