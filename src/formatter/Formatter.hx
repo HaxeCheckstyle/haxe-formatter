@@ -29,6 +29,15 @@ class Formatter {
 	public function formatFile(file:ParseFile, ?tokenData:TokenData):Result {
 		try {
 			var config:Config = loadConfig(file.name);
+			return formatFileWithConfig(file, config, tokenData);
+		} catch (e:Any) {
+			var callstack = CallStack.toString(CallStack.exceptionStack());
+			return Failure(e + "\n" + callstack + "\n\n");
+		}
+	}
+
+	public function formatFileWithConfig(file:ParseFile, config:Config, ?tokenData:TokenData):Result {
+		try {
 			if (config.disableFormatting) {
 				return Disabled;
 			}
