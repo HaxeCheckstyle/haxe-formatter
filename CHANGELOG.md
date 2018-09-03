@@ -2,7 +2,7 @@
 
 ## version 1.1.0 (2018-09-04)
 
-- **Breakin Change** added a default wrap type for wrapping rules
+- **Breakin Change** added a default wrap type for wrapping rules [#230](https://github.com/HaxeCheckstyle/haxe-formatter/issues/230)
 - Added `Keep` to SameLinePolicy [#226](https://github.com/HaxeCheckstyle/haxe-formatter/issues/226)
 - Added `emptyLines.classEmptyLines.endType` to output empty lines before end of classes [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 - Added `emptyLines.abstractEmptyLines.endType` to output empty lines before end of abstracts [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
