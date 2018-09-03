@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.0.0",
-	"releasenote": "Initial release.",
+	"version": "1.1.0",
+	"releasenote": "added method chain wrapping, refactored whitespace and newline handling - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"

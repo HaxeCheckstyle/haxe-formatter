@@ -1,11 +1,13 @@
 {
 	"wrapping": {
-		"functionSignature": [
-			{
-				"conditions": [{"cond": "itemCount >= n", "value": 0}],
-				"type": "keep"
-			}
-		]
+		"functionSignature": {
+			"rules": [
+				{
+					"conditions": [{"cond": "itemCount >= n", "value": 0}],
+					"type": "keep"
+				}
+			]
+		}
 	}
 }
 

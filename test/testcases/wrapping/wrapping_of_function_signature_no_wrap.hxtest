@@ -1,6 +1,9 @@
 {
 	"wrapping": {
-		"functionSignature": []
+		"functionSignature": {
+			"defaultWrap": "noWrap",
+			"rules": []
+		}
 	}
 }
 

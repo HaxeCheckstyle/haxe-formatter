@@ -1,11 +1,13 @@
 {
 	"wrapping": {
-		"methodChain": [
-			{
-				"conditions": [{"cond": "ItemCountLargerThan", "value": 0}],
-				"type": "onePerLineAfterFirst"
-			}
-		]
+		"methodChain": {
+			"rules": [
+				{
+					"conditions": [{"cond": "ItemCountLargerThan", "value": 0}],
+					"type": "onePerLineAfterFirst"
+				}
+			]
+		}
 	}
 }
 

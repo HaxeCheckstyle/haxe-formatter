@@ -301,6 +301,7 @@ class MarkWrapping {
 			case PARAMETER:
 				wrapFunctionSignature(token, parsedCode, indenter, config);
 			case CALL:
+				// wrapCallParameter(token, parsedCode, indenter, config);
 				parsedCode.tokenList.wrapBefore(token, true);
 				if (token.children != null) {
 					if (parsedCode.tokenList.isSameLineBetween(token, pClose, true)) {
@@ -663,15 +664,66 @@ class MarkWrapping {
 		}
 	}
 
+	static function wrapCallParameter(token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:Config) {
+		var pClose:TokenTree = token.access().firstOf(PClose).token;
+		if ((token.children == null) || (token.children.length <= 0)) {
+			return;
+		}
+		var maxLength:Int = 0;
+		var totalLength:Int = 0;
+		var atLength:Int = 0;
+		var itemCount:Int = 0;
+		for (child in token.children) {
+			if (child.is(At)) {
+				atLength += parsedCode.tokenList.calcLength(child);
+				continue;
+			}
+			if (child.is(PClose)) {
+				break;
+			}
+			var length:Int = parsedCode.tokenList.calcLength(child);
+			totalLength += length;
+			if (length > maxLength) {
+				maxLength = length;
+			}
+			itemCount++;
+		}
+		var lineLength:Int = calcLineLength(token, parsedCode, indenter);
+		var rule:WrapRule = determineWrapType(config.wrapping.callParameter, itemCount, maxLength, totalLength, lineLength);
+		var addIndent:Int = rule.additionalIndent;
+		switch (rule.type) {
+			case OnePerLine:
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIndent);
+			case OnePerLineAfterFirst:
+				wrapChildOneLineEach(token, pClose, parsedCode, indenter, addIndent, true);
+			case Keep:
+				keep(token, pClose, parsedCode, indenter, addIndent);
+			case EqualNumber:
+			case FillLine:
+				wrapFillLine(token, pClose, parsedCode, indenter, config.wrapping.maxLineLength, addIndent);
+			case NoWrap:
+				parsedCode.tokenList.noWrappingBetween(token, pClose);
+		}
+	}
+
 	static function hasEmptyFunctionBody(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
+		var last:TokenTree = token.getLastChild();
+		switch (last.tok) {
+			case Semicolon:
+				return true;
+			default:
+		}
 		var body:TokenTree = token.nextSibling;
 		if (body == null) {
-			return false;
+			return true;
 		}
 		if (body.is(DblDot)) {
+			body = body.nextSibling;
+		}
+		while (body != null && body.is(At)) {
 			body = body.nextSibling;
 		}
 		if (body == null) {
@@ -691,16 +743,16 @@ class MarkWrapping {
 		}
 	}
 
-	static function determineWrapType(config:Array<WrapRule>, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
-		for (rule in config) {
+	static function determineWrapType(config:WrapRules, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
+		for (rule in config.rules) {
 			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength)) {
 				return rule;
 			}
 		}
 		return {
 			conditions: [],
-			type: NoWrap,
-			additionalIndent: 0
+			type: config.defaultWrap,
+			additionalIndent: config.defaultAdditionalIndent
 		};
 	}
 
