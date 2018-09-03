@@ -1,15 +1,19 @@
 {
 	"wrapping": {
-		"functionSignature": [
-			{
-				"conditions": [{"cond": "itemCount >= n", "value": 7}],
-				"type": "fillline"
-			},
-			{
-				"conditions": [{"cond": "lineLength >= n", "value": 80}],
-				"type": "fillline"
-			}
-		]
+		"functionSignature": {
+			"rules": [
+				{
+					"conditions": [{"cond": "itemCount >= n", "value": 7}],
+					"type": "fillLine",
+					"additionalIndent": 1
+				},
+				{
+					"conditions": [{"cond": "lineLength >= n", "value": 80}],
+					"type": "fillLine",
+					"additionalIndent": 1
+				}
+			]
+		}
 	}
 }
 
@@ -17,6 +21,12 @@
 
 class Main {
 	function onWorkspaceSymbols (params:WorkspaceSymbolParams, token:CancellationToken, resolve:Array<SymbolInformation>->Void, reject:ResponseError<NoData>->Void) { doSomething(); }
+	function onWorkspaceSymbols (params1:Int, params2:Int, params3:Int, params4:Int, params5:Int, params6:Int) { doSomething(); }
+	function onWorkspaceSymbols (params1:Int, params2:Int, params3:Int, params4:Int, params5:Int, params6:Int, params7:Int) { doSomething(); }
+	function onWorkspaceSymbols (params1:Int, params2:Int, params3:Int, params4:Int, params5:Int, params6:Int, params7:Int, params8:Int, params9:Int, params10:Int) { doSomething(); }
+	function onWorkspaceSymbols (verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int) { doSomething(); }
+	function onWorkspaceSymbols (verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int, verylongparams7:Int) { doSomething(); }
+	function onWorkspaceSymbols (verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int, verylongparams7:Int, verylongparams8:Int, verylongparams9:Int, verylongparams10:Int) { doSomething(); }
 }
 
 class Main {
@@ -32,12 +42,35 @@ class Main {
 ---
 
 class Main {
-	function onWorkspaceSymbols(
-		params:WorkspaceSymbolParams,
-		token:CancellationToken,
-		resolve:Array<SymbolInformation>->Void,
-		reject:ResponseError<NoData>->Void
-	) {
+	function onWorkspaceSymbols(params:WorkspaceSymbolParams, token:CancellationToken, resolve:Array<SymbolInformation>->Void,
+			reject:ResponseError<NoData>->Void) {
+		doSomething();
+	}
+
+	function onWorkspaceSymbols(params1:Int, params2:Int, params3:Int, params4:Int, params5:Int, params6:Int) {
+		doSomething();
+	}
+
+	function onWorkspaceSymbols(params1:Int, params2:Int, params3:Int, params4:Int, params5:Int, params6:Int, params7:Int) {
+		doSomething();
+	}
+
+	function onWorkspaceSymbols(params1:Int, params2:Int, params3:Int, params4:Int, params5:Int, params6:Int, params7:Int, params8:Int, params9:Int,
+			params10:Int) {
+		doSomething();
+	}
+
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int) {
+		doSomething();
+	}
+
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int,
+			verylongparams6:Int, verylongparams7:Int) {
+		doSomething();
+	}
+
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int,
+			verylongparams6:Int, verylongparams7:Int, verylongparams8:Int, verylongparams9:Int, verylongparams10:Int) {
 		doSomething();
 	}
 }
@@ -48,10 +81,7 @@ class Main {
 }
 
 class Main {
-	static inline function prepareOutput(
-		originalLines:Array<String>,
-		outputLines:Array<String>
-	):String {
+	static inline function prepareOutput(originalLines:Array<String>, outputLines:Array<String>):String {
 		return "original file\n-----------------------------------\n" + originalLines.join("\n") + "\n-----------------------------------\n\n" + outputLines
 			.join("\n");
 	}

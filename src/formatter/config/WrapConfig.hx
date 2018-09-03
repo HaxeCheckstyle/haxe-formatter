@@ -35,122 +35,169 @@ typedef WrapConfig = {
 	/**
 		function signature wrapping rules
 	**/
-	@:default([
-		{
-			conditions: [{cond: TotalItemLengthLessThan, value: 80}],
-			type: NoWrap
-		},
-		{
-			conditions: [{cond: ItemCountLargerThan, value: 10}],
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: TotalItemLengthLessThan, value: 80}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 10}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: OnePerLine
+			}
+		]
+	})
+	@:optional
+	var arrayWrap:WrapRules;
+
+	/**
+		function signature wrapping rules
+	**/
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [{
+			conditions: [{cond: AnyItemLengthLargerThan, value: 50}],
 			type: FillLine
-		},
-		{
-			conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
-			type: OnePerLine
-		},
-		{
-			conditions: [{cond: ItemCountLargerThan, value: 4}],
-			type: OnePerLine
-		}
-	])
+		}]
+	})
 	@:optional
-	var arrayWrap:Array<WrapRule>;
+	var typeParameter:WrapRules;
 
 	/**
 		function signature wrapping rules
 	**/
-	@:default([{
-		conditions: [{cond: AnyItemLengthLargerThan, value: 50}],
-		type: FillLine
-	}])
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 7}],
+				type: FillLine,
+				additionalIndent: 1
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 140}],
+				type: FillLine,
+				additionalIndent: 1
+			}
+		]
+	})
 	@:optional
-	var typeParameter:Array<WrapRule>;
+	var functionSignature:WrapRules;
 
 	/**
 		function signature wrapping rules
 	**/
-	@:default([
-		{
-			conditions: [{cond: ItemCountLargerThan, value: 7}],
-			type: FillLine,
-			additionalIndent: 1
-		},
-		{
-			conditions: [{cond: LineLengthLargerThan, value: 140}],
-			type: FillLine,
-			additionalIndent: 1
-		}
-	])
+	@:default({
+		defaultWrap: FillLine,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 7}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 100}],
+				type: OnePerLineAfterFirst
+			},
+			{
+				conditions: [{cond: AnyItemLengthLargerThan, value: 60}],
+				type: OnePerLineAfterFirst
+			}
+		]
+	})
 	@:optional
-	var functionSignature:Array<WrapRule>;
+	var callParameter:WrapRules;
 
 	/**
 		object literal wrapping rules
 	**/
-	@:default([
-		{
-			conditions: [{cond: ItemCountLessThan, value: 3}],
-			type: NoWrap
-		},
-		{
-			conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
-			type: OnePerLine
-		},
-		{
-			conditions: [{cond: TotalItemLengthLargerThan, value: 60}],
-			type: OnePerLine
-		},
-		{
-			conditions: [{cond: ItemCountLargerThan, value: 4}],
-			type: OnePerLine
-		}
-	])
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLessThan, value: 3}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 60}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: OnePerLine
+			}
+		]
+	})
 	@:optional
-	var objectLiteral:Array<WrapRule>;
+	var objectLiteral:WrapRules;
 
 	/**
 		anon types wrapping rules
 	**/
-	@:default([
-		{
-			conditions: [{cond: ItemCountLessThan, value: 3}],
-			type: NoWrap
-		},
-		{
-			conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
-			type: OnePerLine
-		},
-		{
-			conditions: [{cond: TotalItemLengthLargerThan, value: 60}],
-			type: OnePerLine
-		},
-		{
-			conditions: [{cond: ItemCountLargerThan, value: 4}],
-			type: OnePerLine
-		}
-	])
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLessThan, value: 3}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 60}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: OnePerLine
+			}
+		]
+	})
 	@:optional
-	var anonType:Array<WrapRule>;
+	var anonType:WrapRules;
 
 	/**
 		method chaining wrapping rules
 	**/
-	@:default([
-		{
-			conditions: [{cond: ItemCountLessThan, value: 3}],
-			type: NoWrap
-		},
-		{
-			conditions: [{cond: TotalItemLengthLessThan, value: 80}],
-			type: NoWrap
-		},
-		{
-			conditions: [{cond: ItemCountLargerThan, value: 4}],
-			type: OnePerLineAfterFirst
-		}
-	])
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLessThan, value: 3}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: TotalItemLengthLessThan, value: 80}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: OnePerLineAfterFirst
+			}
+		]
+	})
 	@:optional
-	var methodChain:Array<WrapRule>;
+	var methodChain:WrapRules;
+}
+
+typedef WrapRules = {
+	@:default([]) @:optional var rules:Array<WrapRule>;
+	@:default(NoWrap) @:optional var defaultWrap:WrappingType;
+	@:default(0) @:optional var defaultAdditionalIndent:Int;
 }
 
 typedef WrapRule = {

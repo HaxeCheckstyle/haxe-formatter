@@ -122,6 +122,35 @@
 			},
 			"type": "object"
 		},
+		"WrapRules": {
+			"additionalProperties": false,
+			"properties": {
+				"defaultWrap": {
+					"type": "string",
+					"enum": [
+						"onePerLine",
+						"onePerLineAfterFirst",
+						"equalNumber",
+						"fillLine",
+						"noWrap",
+						"keep"
+					],
+					"propertyOrder": 1
+				},
+				"defaultAdditionalIndent": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"rules": {
+					"items": {
+						"$ref": "#/definitions/WrapRule"
+					},
+					"type": "array",
+					"propertyOrder": 0
+				}
+			},
+			"type": "object"
+		},
 		"EnumAbstractFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -512,40 +541,33 @@
 				},
 				"functionSignature": {
 					"description": "function signature wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
+					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 9
 				},
 				"anonType": {
 					"description": "anon types wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
-					"propertyOrder": 11
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 12
 				},
 				"methodChain": {
 					"description": "method chaining wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
-					"propertyOrder": 12
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 13
 				},
 				"arrayWrap": {
 					"description": "function signature wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
+					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 7
 				},
 				"maxLineLength": {
 					"description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
 					"type": "integer",
 					"propertyOrder": 0
+				},
+				"callParameter": {
+					"description": "function signature wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 10
 				},
 				"wrapAfterOpeningBrace": {
 					"description": "should wrapping happen after opening braces `{`",
@@ -564,19 +586,13 @@
 				},
 				"typeParameter": {
 					"description": "function signature wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
+					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 8
 				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
-					"propertyOrder": 10
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 11
 				},
 				"wrapAfterPlus": {
 					"type": "boolean",

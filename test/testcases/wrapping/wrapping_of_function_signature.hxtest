@@ -12,6 +12,29 @@ class Main {
 	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int) { trace("foo"); }
 	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int) { trace("foo"); }
 	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>) { trace("foo"); }
+
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig);
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int);
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int);
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>);
+
+	@:overload(function(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig))
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig);
+	@:overload(function(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int))
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int);
+	@:overload(function(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int))
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int);
+	@:overload(function(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>))
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>);
+
+	@:overload(function(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig):String)
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig):String;
+	@:overload(function(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int):String)
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int):String;
+	@:overload(function(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int):String)
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int, verylongparam7:Int):String;
+	@:overload(function(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>):String)
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>, verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>, verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>):String;
 }
 
 ---
@@ -50,4 +73,61 @@ class Main {
 			verylongparam12:Array<Null<Int>>, verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>) {
 		trace("foo");
 	}
+
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig);
+
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int);
+
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int,
+		verylongparam7:Int);
+
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>,
+		verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>,
+		verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>,
+		verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>);
+
+	@:overload(function(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType,
+		config:ClassFieldsEmptyLinesConfig))
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig);
+
+	@:overload(function(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int))
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int);
+
+	@:overload(function(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int,
+		verylongparam7:Int))
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int,
+		verylongparam7:Int);
+
+	@:overload(function(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>,
+		verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>,
+		verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>,
+		verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>))
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>,
+		verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>,
+		verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>,
+		verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>);
+
+	@:overload(function(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType,
+		config:ClassFieldsEmptyLinesConfig):String)
+	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+		currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig):String;
+
+	@:overload(function(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int):String)
+	function main(param1:Int, param2:Int, param3:Int, param4:Int, param5:Int, param6:Int, param7:Int):String;
+
+	@:overload(function(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int,
+		verylongparam7:Int):String)
+	function main(verylongparam1:Int, verylongparam2:Int, verylongparam3:Int, verylongparam4:Null<Int>, verylongparam5:Int, verylongparam6:Int,
+		verylongparam7:Int):String;
+
+	@:overload(function(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>,
+		verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>,
+		verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>,
+		verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>):String)
+	function aLotOfParameter(verylongparam1:Array<Null<Int>>, verylongparam2:Array<Null<Int>>, verylongparam3:Array<Null<Int>>, verylongparam4:Array<Null<Int>>,
+		verylongparam5:Array<Null<Int>>, verylongparam6:Array<Null<Int>>, verylongparam7:Array<Null<Int>>, verylongparam8:Array<Null<Int>>,
+		verylongparam9:Array<Null<Int>>, verylongparam10:Array<Null<Int>>, verylongparam11:Array<Null<Int>>, verylongparam12:Array<Null<Int>>,
+		verylongparam13:Array<Null<Int>>, verylongparam14:Array<Null<Int>>):String;
 }

@@ -1,6 +1,7 @@
 {
 	"wrapping": {
-		"functionSignature": [{
+		"functionSignature": {
+			"rules": [{
 				"conditions": [{"cond": "itemCount >= n", "value": 7}],
 				"type": "onePerLineAfterFirst"
 			},
@@ -8,6 +9,7 @@
 				"conditions": [{"cond": "itemCount >= n", "value": 140}],
 				"type": "onePerLineAfterFirst"
 			}]
+		}
 	}
 }
 

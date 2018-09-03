@@ -9,6 +9,6 @@ typedef Middleware = {
 ---
 
 typedef Middleware = {
-	?provideCompletionItem:(document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken,
-			next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>,
+	?provideCompletionItem:(document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken, next:ProvideCompletionItemsSignature) ->
+		ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>,
 }
