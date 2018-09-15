@@ -26,7 +26,3 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
-
-matrix:
-  allow_failures:
-    - haxe: development
