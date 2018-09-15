@@ -1,8 +1,10 @@
 ## dev branch / next version (1.x.x)
 
-- Fixed version number reported on CLI
-- Fixed handling of macro blocks
-- Changed default rules for function signature
+- Added support for key-value iterators, fixes [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
+- Fixed version number reported on CLI [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Fixed handling of macro blocks, fixes [#215](https://github.com/HaxeCheckstyle/haxe-formatter/issues/215) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Fixed unstable formatting after typedefs without semicolon, fixes [#216](https://github.com/HaxeCheckstyle/haxe-formatter/issues/216) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Changed default rules for function signature, see  [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
 
 ## version 1.1.0 (2018-09-04)
 
