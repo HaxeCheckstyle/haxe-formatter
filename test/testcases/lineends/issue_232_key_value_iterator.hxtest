@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		for (key=>value in map) {
+			trace(key, value);
+		}
+
+		for (index=> value in array) {
+			trace(key, value);
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		for (key => value in map) {
+			trace(key, value);
+		}
+
+		for (index => value in array) {
+			trace(key, value);
+		}
+	}
+}

@@ -1,5 +1,11 @@
 ## dev branch / next version (1.x.x)
 
+- Added support for key-value iterators, fixes [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
+- Fixed version number reported on CLI [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Fixed handling of macro blocks, fixes [#215](https://github.com/HaxeCheckstyle/haxe-formatter/issues/215) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Fixed unstable formatting after typedefs without semicolon, fixes [#216](https://github.com/HaxeCheckstyle/haxe-formatter/issues/216) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Changed default rules for function signature, see  [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
+
 ## version 1.1.0 (2018-09-04)
 
 - **Breakin Change** added a default wrap type for wrapping rules [#230](https://github.com/HaxeCheckstyle/haxe-formatter/issues/230)
@@ -21,6 +27,7 @@
 - Fixed indentation of prefix unary, fixes [#221](https://github.com/HaxeCheckstyle/haxe-formatter/issues/221) ([#224](https://github.com/HaxeCheckstyle/haxe-formatter/issues/224))
 - Fixed whitespace after macro reification, fixes [#218](https://github.com/HaxeCheckstyle/haxe-formatter/issues/218) + [#219](https://github.com/HaxeCheckstyle/haxe-formatter/issues/219) ([#225](https://github.com/HaxeCheckstyle/haxe-formatter/issues/225))
 - Fixed type check on numbers, fixes [#217](https://github.com/HaxeCheckstyle/haxe-formatter/issues/217) ([#225](https://github.com/HaxeCheckstyle/haxe-formatter/issues/225))
+- Fixed typedefs without assign, fixes [#228](https://github.com/HaxeCheckstyle/haxe-formatter/issues/228) ([#229](https://github.com/HaxeCheckstyle/haxe-formatter/issues/229))
 - Refactored Space and Newline handling of MarkWhitespace [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 
 ## version 1.0.0 (2018-08-20)

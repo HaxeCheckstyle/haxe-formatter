@@ -19,6 +19,7 @@ module.exports = function(grunt) {
                 src: [
 					"src/**",
 					"run.n", "run.js",
+					"resources/default-hxformat.json",
 					"resources/formatter-schema.json",
                     "haxelib.json", "README.md", "CHANGELOG.md", "LICENSE.md"
                 ],

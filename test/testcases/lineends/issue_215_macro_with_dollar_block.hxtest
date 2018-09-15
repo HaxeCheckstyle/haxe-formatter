@@ -1,0 +1,24 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		macro { $e0; ${loop(el)}};
+		macro {
+			$e0;
+			${loop(el)}};
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		macro {$e0; ${loop(el)}};
+		macro {
+			$e0;
+			${loop(el)}
+		};
+	}
+}

@@ -32,6 +32,8 @@ class MarkSameLine {
 					markCase(token, parsedCode, configSameLine);
 				case Kwd(KwdFunction):
 					markFunction(token, parsedCode, configSameLine);
+				case Kwd(KwdMacro):
+					markMacro(token, parsedCode, configSameLine);
 				default:
 			}
 			return GO_DEEPER;
@@ -603,5 +605,18 @@ class MarkSameLine {
 			return;
 		}
 		applySameLinePolicy(whileTok, parsedCode, configSameLine.doWhile);
+	}
+
+	static function markMacro(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+		var brOpen:TokenInfo = parsedCode.tokenList.getNextToken(token);
+		if ((brOpen == null) || (!brOpen.token.is(BrOpen))) {
+			return;
+		}
+		var brClose:TokenTree = brOpen.token.access().firstOf(BrClose).token;
+		if (parsedCode.isOriginalSameLine(brOpen.token, brClose)) {
+			parsedCode.tokenList.noLineEndAfter(brOpen.token);
+			parsedCode.tokenList.noLineEndBefore(brClose);
+			parsedCode.tokenList.noWrappingBetween(brOpen.token, brClose);
+		}
 	}
 }
