@@ -3,6 +3,7 @@
 -lib hxparse
 -lib json2object
 -lib hxargs
+-lib compiletime
 
 -cp src
 

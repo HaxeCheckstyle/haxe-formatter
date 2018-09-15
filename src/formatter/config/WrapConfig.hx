@@ -84,7 +84,7 @@ typedef WrapConfig = {
 				additionalIndent: 1
 			},
 			{
-				conditions: [{cond: LineLengthLargerThan, value: 140}],
+				conditions: [{cond: TotalItemLengthLargerThan, value: 100}],
 				type: FillLine,
 				additionalIndent: 1
 			}

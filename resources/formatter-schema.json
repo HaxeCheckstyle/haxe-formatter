@@ -1258,5 +1258,5 @@
 		}
 	},
 	"$ref": "#/definitions/FormatterConfig",
-	"id": "https://raw.githubusercontent.com/HaxeCheckstyle/tokentree-formatter/master/resources/formatter-schema.json"
+	"id": "https://raw.githubusercontent.com/HaxeCheckstyle/haxe-formatter/master/resources/formatter-schema.json"
 }

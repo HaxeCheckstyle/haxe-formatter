@@ -287,8 +287,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "lineLength >= n",
-							"value": 140
+							"cond": "totalItemLength >= n",
+							"value": 100
 						}
 					],
 					"type": "fillLine",

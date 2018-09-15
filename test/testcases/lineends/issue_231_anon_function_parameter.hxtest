@@ -1,0 +1,42 @@
+{
+    "wrapping": {
+        "methodChain": {
+            "defaultWrap": "keep",
+            "rules": []
+        }
+    }
+}
+
+---
+
+class Main  {
+	function main() {
+		owner.addEntity(new Entity()
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap(function(e) {
+				trace("yes");
+		})));
+		owner.addEntity(new Entity()
+				.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+				.addComponent(new PointerTap(function(e:Any) {
+				trace("yes");
+			})));
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		owner.addEntity(new Entity()
+				.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+				.addComponent(new PointerTap(function(e) {
+				trace("yes");
+			})));
+		owner.addEntity(new Entity()
+				.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+				.addComponent(new PointerTap(function(e:Any) {
+				trace("yes");
+			})));
+	}
+}

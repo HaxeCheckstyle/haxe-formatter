@@ -1,13 +1,6 @@
 #if macro
 import haxe.DynamicAccess;
 import haxe.macro.Expr;
-
-using StringTools;
-
-typedef CheckName = {
-	var name:String;
-	var path:String;
-}
 #end
 
 class FormatterSchemaGenerator {

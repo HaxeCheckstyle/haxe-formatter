@@ -8,9 +8,6 @@ import formatter.Formatter.Result;
 import formatter.config.FormatterConfig;
 
 class Cli {
-	// TODO: use a macro to read this from haxelib.json
-	static inline var VERSION = "1.0.0";
-
 	static function main() {
 		new Cli();
 	}
@@ -65,7 +62,9 @@ class Cli {
 		]);
 
 		function printHelp() {
-			Sys.println('Haxe Formatter $VERSION');
+			// somehow picks up haxelib.json of hxargs?! - so we use a little trick to make it find ours
+			var pack = CompileTime.parseJsonFile("src/formatter/../../haxelib.json");
+			Sys.println('Haxe Formatter ${pack.version}');
 			Sys.println(argHandler.getDoc());
 		}
 
