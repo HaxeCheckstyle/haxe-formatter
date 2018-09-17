@@ -26,7 +26,7 @@ class Cli {
 			var process = new sys.io.Process("node", ["-v"]);
 			var nodeExists = process.exitCode() == 0;
 			process.close();
-			if (nodeExists) {
+			if (nodeExists && FileSystem.exists("run.js")) {
 				var exitCode = Sys.command("node", ["run.js"].concat(args));
 				Sys.exit(exitCode);
 			}
