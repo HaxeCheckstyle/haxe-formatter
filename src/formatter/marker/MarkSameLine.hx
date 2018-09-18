@@ -478,8 +478,12 @@ class MarkSameLine {
 	static function applySameLinePolicy(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
 		switch (policy) {
 			case Keep:
-				var parent:TokenTree = token.parent;
-				if (parsedCode.isOriginalSameLine(parent, token)) {
+				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				if (prev == null) {
+					applySameLinePolicy(token, parsedCode, Next);
+					return;
+				}
+				if (parsedCode.isOriginalSameLine(prev.token, token)) {
 					applySameLinePolicy(token, parsedCode, Same);
 				} else {
 					applySameLinePolicy(token, parsedCode, Next);

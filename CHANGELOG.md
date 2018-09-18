@@ -4,6 +4,8 @@
 - Fixed version number reported on CLI [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
 - Fixed handling of macro blocks, fixes [#215](https://github.com/HaxeCheckstyle/haxe-formatter/issues/215) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
 - Fixed unstable formatting after typedefs without semicolon, fixes [#216](https://github.com/HaxeCheckstyle/haxe-formatter/issues/216) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
+- Fixed CLI version checks for existence of `run.js` before invoking node [#234](https://github.com/HaxeCheckstyle/haxe-formatter/issues/234)
+- Fixed `keep` option of `sameLine.ifElse`, fixes [#235](https://github.com/HaxeCheckstyle/haxe-formatter/issues/235) ([#236](https://github.com/HaxeCheckstyle/haxe-formatter/issues/236))
 - Changed default rules for function signature, see  [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
 
 ## version 1.1.0 (2018-09-04)

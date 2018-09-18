@@ -1,0 +1,40 @@
+{
+	"sameLine": {
+		"elseBody": "keep",
+		"ifElse": "keep"
+	}
+}
+
+---
+
+class Main {
+
+	static function main():Void {
+		if (true) {
+			trace(1);
+		} else trace(2);
+
+		if (true) {
+			trace(1);
+		} else {
+			trace(2);
+		}
+	}
+
+}
+
+---
+
+class Main {
+	static function main():Void {
+		if (true) {
+			trace(1);
+		} else trace(2);
+
+		if (true) {
+			trace(1);
+		} else {
+			trace(2);
+		}
+	}
+}
