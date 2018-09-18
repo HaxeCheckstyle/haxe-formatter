@@ -860,7 +860,7 @@ class MarkWrapping {
 		var itemCount:Int = chainedCalls.length;
 		var lineLength:Int = calcLineLength(chainStart, parsedCode, indenter);
 		var rule:WrapRule = determineWrapType(config.wrapping.methodChain, itemCount, maxLength, totalLength, lineLength);
-		var addIndent:Int = rule.additionalIndent;
+		var addIndent:Null<Int> = rule.additionalIndent;
 		if (addIndent == null) {
 			addIndent = 0;
 		}
