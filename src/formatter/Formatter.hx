@@ -51,18 +51,25 @@ class Formatter {
 			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
 
-			MarkTokenText.markTokenText(parsedCode, indenter, config);
-			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
-			MarkLineEnds.markLineEnds(parsedCode, config.lineEnds);
-			MarkSameLine.markSameLine(parsedCode, config.sameLine, config.whitespace);
-			MarkWrapping.markWrapping(parsedCode, indenter, config);
-			MarkEmptyLines.markEmptyLines(parsedCode, config.emptyLines);
+			var markTokenText:MarkTokenText = new MarkTokenText(config, parsedCode, indenter);
+			var markWhitespace:MarkWhitespace = new MarkWhitespace(config, parsedCode, indenter);
+			var markLineEnds:MarkLineEnds = new MarkLineEnds(config, parsedCode, indenter);
+			var markSameLine:MarkSameLine = new MarkSameLine(config, parsedCode, indenter);
+			var markWrapping:MarkWrapping = new MarkWrapping(config, parsedCode, indenter);
+			var markEmptyLines:MarkEmptyLines = new MarkEmptyLines(config, parsedCode, indenter);
 
-			MarkTokenText.finalRun(parsedCode, indenter, config.indentation);
+			markTokenText.run();
+			markWhitespace.run();
+			markLineEnds.run();
+			markSameLine.run();
+			markWrapping.run();
+			markEmptyLines.run();
+
+			markTokenText.finalRun(null);
 
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			lines.applyWrapping(config.wrapping);
-			MarkEmptyLines.finalRun(lines, config.emptyLines);
+			markEmptyLines.finalRun(lines);
 
 			return Success(lines.print(parsedCode.lineSeparator));
 		} catch (e:Any) {

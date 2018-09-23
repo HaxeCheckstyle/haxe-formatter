@@ -1,0 +1,151 @@
+{
+	"sameLine": {
+		"elseBody": "keep",
+		"forBody": "keep",
+		"ifBody": "keep",
+		"ifElse": "keep",
+		"comprehensionFor": "keep"
+	},
+	"whitespace": {
+		"compressSuccessiveParenthesis": false
+	},
+	"wrapping": {
+		"anonType": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"arrayWrap": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"callParameter": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"functionSignature": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"methodChain": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"objectLiteral": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"typeParameter": {
+			"defaultWrap": "keep",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		var layers:Array<Array<Array<Int>>> = [
+			for (l in 0...length) [
+				for (iy in 0...height) [
+					for (ix in 0...width) 0
+				]
+			]
+		];
+		var arr = [
+			0,
+			0, 0, //test comment
+			0, 0,
+			0,
+		];
+		var obj = {
+			foo: 5,
+			layers: [
+				[
+					[1, 1, 1],
+					[1, 1, 1]
+				]
+			],
+			bar: [],
+		};
+		g.drawImage(
+			tileset.img,
+			ix * tileSize,
+			iy * tileSize,
+			tileSize, tileSize
+		);
+		return TPath(
+			{name: moduleName, sub: name, pack: pack}
+		);
+		return !(
+			a.y + a.h <= b.y || a.y >= b.y + b.h ||
+			a.x + a.w <= b.x || a.x >= b.x + b.w
+		);
+	}
+
+	public static inline function matrix(
+		scaleX = 1.0, skewX = 0.0,
+		moveX = 0.0, skewY = 0.0,
+		scaleY = 1.0, moveY = 0.0
+	):FastMatrix3 {
+		return new FastMatrix3(
+			scaleX, skewX, moveX,
+			skewY, scaleY, moveY,
+			0, 0, 1
+		);
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		var layers:Array<Array<Array<Int>>> = [
+			for (l in 0...length) [
+				for (iy in 0...height) [
+					for (ix in 0...width) 0
+				]
+			]
+		];
+		var arr = [
+			0,
+			0, 0, // test comment
+			0, 0,
+			0,
+		];
+		var obj = {
+			foo: 5,
+			layers: [
+				[
+					[1, 1, 1],
+					[1, 1, 1]
+				]
+			],
+			bar: [],
+		};
+		g.drawImage(
+			tileset.img,
+			ix * tileSize,
+			iy * tileSize,
+			tileSize, tileSize
+		);
+		return TPath(
+			{name: moduleName, sub: name, pack: pack}
+		);
+		return !(
+			a.y + a.h <= b.y || a.y >= b.y + b.h || a.x + a.w <= b.x || a.x >= b.x + b.w
+		);
+	}
+
+	public static inline function matrix(
+		scaleX = 1.0, skewX = 0.0,
+		moveX = 0.0, skewY = 0.0,
+		scaleY = 1.0, moveY = 0.0
+	):FastMatrix3 {
+		return new FastMatrix3(
+			scaleX, skewX, moveX,
+			skewY, scaleY, moveY,
+			0, 0, 1
+		);
+	}
+}

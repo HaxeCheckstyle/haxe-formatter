@@ -33,7 +33,8 @@ typedef WrapConfig = {
 	@:default(true) @:optional var wrapAfterOpeningBracket:Bool;
 
 	/**
-		function signature wrapping rules
+		array wrapping rules
+		does not affect array comprehension, use "sameLine.comprehensionFor"
 	**/
 	@:default({
 		defaultWrap: NoWrap,
@@ -60,20 +61,26 @@ typedef WrapConfig = {
 	var arrayWrap:WrapRules;
 
 	/**
-		function signature wrapping rules
+		type parameter wrapping rules
 	**/
 	@:default({
 		defaultWrap: NoWrap,
-		rules: [{
-			conditions: [{cond: AnyItemLengthLargerThan, value: 50}],
-			type: FillLine
-		}]
+		rules: [
+			{
+				conditions: [{cond: AnyItemLengthLargerThan, value: 50}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 70}],
+				type: FillLine
+			}
+		]
 	})
 	@:optional
 	var typeParameter:WrapRules;
 
 	/**
-		function signature wrapping rules
+		named function signature wrapping rules
 	**/
 	@:default({
 		defaultWrap: NoWrap,
@@ -85,6 +92,11 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: TotalItemLengthLargerThan, value: 100}],
+				type: FillLine,
+				additionalIndent: 1
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 160}],
 				type: FillLine,
 				additionalIndent: 1
 			}
@@ -94,21 +106,42 @@ typedef WrapConfig = {
 	var functionSignature:WrapRules;
 
 	/**
-		function signature wrapping rules
+		anon function signature wrapping rules
 	**/
 	@:default({
-		defaultWrap: FillLine,
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 7}],
+				type: FillLine,
+				additionalIndent: 1
+			},
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 80}],
+				type: FillLine,
+				additionalIndent: 1
+			}
+		]
+	})
+	@:optional
+	var anonFunctionSignature:WrapRules;
+
+	/**
+		call parameter wrapping rules
+	**/
+	@:default({
+		defaultWrap: NoWrap,
 		rules: [
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 7}],
 				type: FillLine
 			},
 			{
-				conditions: [{cond: TotalItemLengthLargerThan, value: 100}],
+				conditions: [{cond: TotalItemLengthLargerThan, value: 130}],
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: AnyItemLengthLargerThan, value: 60}],
+				conditions: [{cond: AnyItemLengthLargerThan, value: 80}],
 				type: OnePerLineAfterFirst
 			}
 		]
@@ -195,14 +228,38 @@ typedef WrapConfig = {
 }
 
 typedef WrapRules = {
+	/**
+		list of wrapping rules
+		wrapping uses only the first rule whose conditions evaluates to true
+	**/
 	@:default([]) @:optional var rules:Array<WrapRule>;
+
+	/**
+		default wrapping type when no rule applies
+	**/
 	@:default(NoWrap) @:optional var defaultWrap:WrappingType;
+
+	/**
+		adds indentation to all wrapped lines when applying defaultWrap
+	**/
 	@:default(0) @:optional var defaultAdditionalIndent:Int;
 }
 
 typedef WrapRule = {
+	/**
+		list of conditions
+		wrapping selects a rule if all of its conditions evaluate to true
+	**/
 	var conditions:Array<WrapCondition>;
+
+	/**
+		wrapping type
+	**/
 	var type:WrappingType;
+
+	/**
+		adds indentation to all wrapped lines
+	**/
 	@:default(0) @:optional var additionalIndent:Int;
 }
 

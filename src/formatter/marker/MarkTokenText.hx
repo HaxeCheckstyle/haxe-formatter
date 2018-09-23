@@ -11,35 +11,35 @@ import formatter.codedata.ParseFile;
 import formatter.codedata.ParsedCode;
 import formatter.codedata.TokenData;
 
-class MarkTokenText {
-	public static function markTokenText(parsedCode:ParsedCode, indenter:Indenter, config:Config) {
+class MarkTokenText extends MarkerBase {
+	override public function run() {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Const(CString(text)):
-					parsedCode.tokenList.tokenText(token, printStringToken(token, parsedCode, config));
+					tokenText(token, printStringToken(token));
 				case Const(CRegexp(_, _)):
-					parsedCode.tokenList.tokenText(token, printEregToken(token, parsedCode));
+					tokenText(token, printEregToken(token));
 				case CommentLine(text):
-					parsedCode.tokenList.tokenText(token, printCommentLine(text));
+					tokenText(token, printCommentLine(text));
 				default:
-					parsedCode.tokenList.tokenText(token, token.toString());
+					tokenText(token, token.toString());
 			}
 			return GO_DEEPER;
 		});
 	}
 
-	public static function finalRun(parsedCode:ParsedCode, indenter:Indenter, config:IndentationConfig) {
+	override public function finalRun(lines:CodeLines) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Comment(text):
-					parsedCode.tokenList.tokenText(token, printComment(text, token, parsedCode, indenter, config));
+					tokenText(token, printComment(text, token));
 				default:
 			}
 			return GO_DEEPER;
 		});
 	}
 
-	public static function printStringToken(token:TokenTree, parsedCode:ParsedCode, config:Config):String {
+	public function printStringToken(token:TokenTree):String {
 		var text:String = parsedCode.getString(token.pos.min, token.pos.max);
 		if (!config.whitespace.formatStringInterpolation) {
 			return text;
@@ -57,7 +57,7 @@ class MarkTokenText {
 				if (fragment.indexOf("{") >= 0) {
 					continue;
 				}
-				var formatted:String = formatFragment(fragment, config);
+				var formatted:String = formatFragment(fragment);
 				start += formatted.length - fragment.length;
 				text = text.substr(0, index + 2) + formatted + text.substr(indexEnd);
 			}
@@ -65,7 +65,7 @@ class MarkTokenText {
 		return text;
 	}
 
-	static function isDollarEscaped(text:String, index:Int):Bool {
+	function isDollarEscaped(text:String, index:Int):Bool {
 		var escaped:Bool = false;
 		while (--index >= 0) {
 			if (text.fastCodeAt(index) != "$".code) {
@@ -76,7 +76,7 @@ class MarkTokenText {
 		return escaped;
 	}
 
-	static function formatFragment(fragment:String, config:Config):String {
+	function formatFragment(fragment:String):String {
 		try {
 			var file:ParseFile = {
 				name: "string interpolation",
@@ -95,13 +95,17 @@ class MarkTokenText {
 				tokens: tokens,
 				tokenTree: root
 			};
-			var parsedCode:ParsedCode = new ParsedCode(file, tokenData);
-			var indenter = new Indenter(config.indentation);
-			indenter.setParsedCode(parsedCode);
-			MarkTokenText.markTokenText(parsedCode, indenter, config);
-			MarkWhitespace.markWhitespace(parsedCode, config.whitespace);
-			var lines:CodeLines = new CodeLines(parsedCode, indenter);
-			var formatted:String = lines.print(parsedCode.lineSeparator);
+			var interpolParsedCode:ParsedCode = new ParsedCode(file, tokenData);
+			var interpolIndenter = new Indenter(config.indentation);
+			interpolIndenter.setParsedCode(interpolParsedCode);
+
+			var markTokenText:MarkTokenText = new MarkTokenText(config, interpolParsedCode, interpolIndenter);
+			var markWhitespace:MarkWhitespace = new MarkWhitespace(config, interpolParsedCode, interpolIndenter);
+			markTokenText.run();
+			markWhitespace.run();
+
+			var lines:CodeLines = new CodeLines(interpolParsedCode, interpolIndenter);
+			var formatted:String = lines.print(interpolParsedCode.lineSeparator);
 			return formatted.trim();
 		} catch (e:Any) {
 			// ignore any errors
@@ -109,7 +113,7 @@ class MarkTokenText {
 		return fragment;
 	}
 
-	static function makeTokens(fragment:ByteData, name:String):Array<Token> {
+	function makeTokens(fragment:ByteData, name:String):Array<Token> {
 		var tokens:Array<Token> = [];
 		try {
 			var lexer = new HaxeLexer(fragment, name);
@@ -125,11 +129,11 @@ class MarkTokenText {
 		return tokens;
 	}
 
-	public static function printEregToken(token:TokenTree, parsedCode:ParsedCode):String {
+	public function printEregToken(token:TokenTree):String {
 		return parsedCode.getString(token.pos.min, token.pos.max);
 	}
 
-	public static function printComment(text:String, token:TokenTree, parsedCode:ParsedCode, indenter:Indenter, config:IndentationConfig):String {
+	public function printComment(text:String, token:TokenTree):String {
 		var lines:Array<String> = text.split(parsedCode.lineSeparator);
 		var indent:Int = indenter.calcIndent(token);
 
@@ -143,7 +147,7 @@ class MarkTokenText {
 
 		var linesNew:Array<String> = [];
 		for (line in lines) {
-			linesNew.push(convertLeadingIndent(line, config));
+			linesNew.push(convertLeadingIndent(line));
 		}
 		lines = removeCommentPrefix(linesNew);
 
@@ -190,7 +194,7 @@ class MarkTokenText {
 		return text + "*/";
 	}
 
-	static function removeCommentPrefix(lines:Array<String>):Array<String> {
+	function removeCommentPrefix(lines:Array<String>):Array<String> {
 		var prefixReg:EReg = ~/^(\s*)/;
 		var prefix:String = null;
 		var linesNew:Array<String> = [];
@@ -232,15 +236,15 @@ class MarkTokenText {
 		return lines;
 	}
 
-	static function convertLeadingIndent(line:String, config:IndentationConfig):String {
-		var spaceIndent:String = "".lpad(" ", config.tabWidth);
-		var oneIndent:String = config.character;
+	function convertLeadingIndent(line:String):String {
+		var spaceIndent:String = "".lpad(" ", config.indentation.tabWidth);
+		var oneIndent:String = config.indentation.character;
 		var whitespaceReg:EReg = ~/^\s+/;
 		if (!whitespaceReg.match(line)) {
 			return line;
 		}
 		var match:String = whitespaceReg.matched(0);
-		if (config.character == "\t") {
+		if (config.indentation.character == "\t") {
 			var newPrefix:String = match.replace(spaceIndent, oneIndent);
 			line = newPrefix + line.substr(match.length);
 		} else {
@@ -250,7 +254,7 @@ class MarkTokenText {
 		return line;
 	}
 
-	public static function printCommentLine(text:String):String {
+	public function printCommentLine(text:String):String {
 		if (~/^[\/\*\-\s]+/.match(text)) {
 			return "//" + text.rtrim();
 		}
