@@ -9,12 +9,12 @@
 - Fixed unstable formatting after typedefs without semicolon, fixes [#216](https://github.com/HaxeCheckstyle/haxe-formatter/issues/216) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
 - Fixed CLI version checks for existence of `run.js` before invoking node [#234](https://github.com/HaxeCheckstyle/haxe-formatter/issues/234)
 - Fixed `keep` option of `sameLine.ifElse`, fixes [#235](https://github.com/HaxeCheckstyle/haxe-formatter/issues/235) ([#236](https://github.com/HaxeCheckstyle/haxe-formatter/issues/236))
-- Fixed wrapping in middle of function call, fixes [#180](https://github.com/HaxeCheckstyle/haxe-formatter/issues/180)
-- Fixed wrapping function signature with long type hint, fixes [#189](https://github.com/HaxeCheckstyle/haxe-formatter/issues/189)
-- Fixed indentation with comment line, fixes [#237](https://github.com/HaxeCheckstyle/haxe-formatter/issues/237)
-- Fixed wrapping option keep, fixes [#238](https://github.com/HaxeCheckstyle/haxe-formatter/issues/238)
+- Fixed wrapping in middle of function call, fixes [#180](https://github.com/HaxeCheckstyle/haxe-formatter/issues/180) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
+- Fixed wrapping function signature with long type hint, fixes [#189](https://github.com/HaxeCheckstyle/haxe-formatter/issues/189) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
+- Fixed indentation with comment line, fixes [#237](https://github.com/HaxeCheckstyle/haxe-formatter/issues/237) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
+- Fixed wrapping option keep, fixes [#238](https://github.com/HaxeCheckstyle/haxe-formatter/issues/238) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
 - Changed default rules for function signature, see [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
-- Refactored marker classes to use a common base class
+- Refactored marker classes to use a common base class [#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239)
 
 ## version 1.1.0 (2018-09-04)
 
