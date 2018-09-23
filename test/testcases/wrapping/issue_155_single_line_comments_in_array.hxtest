@@ -15,10 +15,8 @@ class Main
 
 class Main {
 	public static inline function hex2rgb(hex:Int):Array<Int> {
-		return [
-			hex >> 16 & 0xFF, // R
+		return [hex >> 16 & 0xFF, // R
 			hex >> 8 & 0xFF, // G
-			hex & 0xFF
-		]; // B
+			hex & 0xFF]; // B
 	}
 }

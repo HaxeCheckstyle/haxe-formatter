@@ -1,0 +1,30 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([
+			Sharp(SHARP_IF),
+			Sharp(SHARP_ELSE),
+			Sharp(SHARP_ELSE_IF),
+			Sharp(SHARP_END),
+			Sharp("error")
+		],
+			ALL);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([
+			Sharp(SHARP_IF),
+			Sharp(SHARP_ELSE),
+			Sharp(SHARP_ELSE_IF),
+			Sharp(SHARP_END),
+			Sharp("error")
+		], ALL);
+	}
+}

@@ -1,0 +1,18 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s) trace("err: " + s));
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s)
+			trace("err: " + s));
+	}
+}

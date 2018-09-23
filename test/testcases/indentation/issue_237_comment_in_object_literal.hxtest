@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	static function main():Void {
+		func({ // comment
+			foo: 1
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		func({ // comment
+			foo: 1
+		});
+	}
+}

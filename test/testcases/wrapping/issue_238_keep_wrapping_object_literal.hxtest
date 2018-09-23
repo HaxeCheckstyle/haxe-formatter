@@ -1,0 +1,46 @@
+{
+	"wrapping": {
+		"arrayWrap": {
+			"defaultWrap": "keep",
+			"rules": []
+		},
+		"objectLiteral": {
+			"defaultWrap": "keep",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		var obj = {
+			foo: 5,
+			layers: [
+				[
+					[1, 1, 1],
+					[1, 1, 1]
+				]
+			],
+			bar: [],
+		};
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		var obj = {
+			foo: 5,
+			layers: [
+				[
+					[1, 1, 1],
+					[1, 1, 1]
+				]
+			],
+			bar: [],
+		};
+	}
+}

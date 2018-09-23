@@ -8,7 +8,7 @@
 					"additionalIndent": 1
 				},
 				{
-					"conditions": [{"cond": "lineLength >= n", "value": 80}],
+					"conditions": [{"cond": "lineLength >= n", "value": 160}],
 					"type": "fillLine",
 					"additionalIndent": 1
 				}

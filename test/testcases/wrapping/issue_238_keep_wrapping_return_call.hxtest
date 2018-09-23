@@ -1,0 +1,32 @@
+{
+	"wrapping": {
+		"callParameter": {
+			"defaultWrap": "keep",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		return new FastMatrix3(
+			scaleX, skewX, moveX,
+			skewY, scaleY, moveY,
+			0, 0, 1
+		);
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		return new FastMatrix3(
+			scaleX, skewX, moveX,
+			skewY, scaleY, moveY,
+			0, 0, 1
+		);
+	}
+}

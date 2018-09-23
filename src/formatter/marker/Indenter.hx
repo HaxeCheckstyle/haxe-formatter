@@ -34,7 +34,7 @@ class Indenter {
 		if (config.character == "\t") {
 			return indent * config.tabWidth;
 		}
-		return indent;
+		return indent * config.character.length;
 	}
 
 	public function calcIndent(token:TokenTree):Int {
@@ -105,7 +105,18 @@ class Indenter {
 						}
 					default:
 				}
-			case BrClose, BkClose, PClose:
+			case BrClose, BkClose:
+				var current:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+				if ((current.whitespaceAfter != Newline) && (current.whitespaceAfter != SpaceOrNewline) && (next != null)) {
+					switch (next.token.tok) {
+						case BrClose, BkClose, PClose:
+							return findEffectiveParent(next.token);
+						default:
+					}
+				}
+				return findEffectiveParent(token.parent);
+			case PClose:
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdIf):
 				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);

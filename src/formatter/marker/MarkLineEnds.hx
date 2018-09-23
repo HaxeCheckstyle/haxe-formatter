@@ -2,28 +2,28 @@ package formatter.marker;
 
 import formatter.config.LineEndConfig;
 
-class MarkLineEnds {
+class MarkLineEnds extends MarkerBase {
 	public static inline var SHARP_IF:String = "if";
 	public static inline var SHARP_ELSE_IF:String = "elseif";
 	public static inline var SHARP_ELSE:String = "else";
 	public static inline var SHARP_END:String = "end";
 	public static inline var SHARP_ERROR:String = "error";
 
-	public static function markLineEnds(parsedCode:ParsedCode, config:LineEndConfig) {
+	override public function run() {
 		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], ALL);
 		for (token in semicolonTokens) {
-			parsedCode.tokenList.lineEndAfter(token);
+			lineEndAfter(token);
 		}
 
-		markBrOpenClose(parsedCode, config);
-		markAt(parsedCode, config);
-		markDblDot(parsedCode, config);
-		markSharp(parsedCode, config);
-		markComments(parsedCode, config);
-		markStructureExtension(parsedCode, config);
+		markBrOpenClose();
+		markAt();
+		markDblDot();
+		markSharp();
+		markComments();
+		markStructureExtension();
 	}
 
-	static function markComments(parsedCode:ParsedCode, config:LineEndConfig) {
+	function markComments() {
 		var commentTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(_):
@@ -37,41 +37,41 @@ class MarkLineEnds {
 		for (token in commentTokens) {
 			switch (token.tok) {
 				case CommentLine(_):
-					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					var prev:TokenInfo = getPreviousToken(token);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
-							parsedCode.tokenList.noLineEndBefore(token);
+							noLineEndBefore(token);
 						}
 					}
-					parsedCode.tokenList.lineEndAfter(token);
+					lineEndAfter(token);
 				case Comment(_):
-					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+					var prev:TokenInfo = getPreviousToken(token);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
 							if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
-								parsedCode.tokenList.lineEndAfter(token);
+								lineEndAfter(token);
 							}
-							parsedCode.tokenList.noLineEndBefore(token);
+							noLineEndBefore(token);
 						}
 					}
 					var commentLine:LinePos = parsedCode.getLinePos(token.pos.min);
 					var prefix:String = parsedCode.getString(parsedCode.linesIdx[commentLine.line].l, token.pos.min);
 					if (~/^\s*$/.match(prefix)) {
-						parsedCode.tokenList.lineEndAfter(token);
+						lineEndAfter(token);
 						continue;
 					}
-					var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+					var info:TokenInfo = getTokenInfo(token);
 					if (info == null) {
-						parsedCode.tokenList.whitespace(token, Around);
+						whitespace(token, Around);
 					} else {
-						parsedCode.tokenList.whitespace(token, Around);
+						whitespace(token, Around);
 					}
 				default:
 			}
 		}
 	}
 
-	static function markBrOpenClose(parsedCode:ParsedCode, config:LineEndConfig) {
+	function markBrOpenClose() {
 		var brTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case BrOpen:
@@ -86,73 +86,72 @@ class MarkLineEnds {
 			if (brClose == null) {
 				continue;
 			}
-			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(brOpen);
+			var prev:TokenInfo = getPreviousToken(brOpen);
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case Dollar(name):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
-							parsedCode.tokenList.noLineEndAfter(brOpen);
-							parsedCode.tokenList.noLineEndBefore(brClose);
-							parsedCode.tokenList.whitespace(brOpen, None);
-							parsedCode.tokenList.whitespace(brClose, None);
-							var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+							noLineEndAfter(brOpen);
+							noLineEndBefore(brClose);
+							whitespace(brOpen, None);
+							whitespace(brClose, None);
+							var next:TokenInfo = getNextToken(brClose);
 							if (next != null) {
 								switch (next.token.tok) {
 									case DblDot:
-										parsedCode.tokenList.whitespace(brClose, After);
+										whitespace(brClose, After);
 									default:
 								}
 							}
 							continue;
 						}
 						if (name.length <= 1) {
-							parsedCode.tokenList.whitespace(brOpen, NoneBefore);
+							whitespace(brOpen, NoneBefore);
 						}
 					default:
 				}
 			}
-			var next:TokenInfo = parsedCode.tokenList.getNextToken(brOpen);
+			var next:TokenInfo = getNextToken(brOpen);
 			var isEmpty:Bool = false;
-			if ((next != null) && next.token.is(BrClose) && (config.emptyCurly == NoBreak)) {
+			if ((next != null) && next.token.is(BrClose) && (config.lineEnds.emptyCurly == NoBreak)) {
 				isEmpty = true;
 			}
 			if (!isEmpty) {
-				switch (config.leftCurly) {
+				switch (config.lineEnds.leftCurly) {
 					case None:
 					case Before:
-						beforeLeftCurly(brOpen, parsedCode);
+						beforeLeftCurly(brOpen);
 					case After:
-						parsedCode.tokenList.lineEndAfter(brOpen);
+						lineEndAfter(brOpen);
 					case Both:
-						beforeLeftCurly(brOpen, parsedCode);
-						parsedCode.tokenList.lineEndAfter(brOpen);
+						beforeLeftCurly(brOpen);
+						lineEndAfter(brOpen);
 				}
 			}
 
 			var preventBefore:Bool = false;
-			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(brClose);
 			if (isEmpty) {
 				preventBefore = true;
 			}
-			switch (config.rightCurly) {
+			switch (config.lineEnds.rightCurly) {
 				case None:
 				case Before:
 					if (!preventBefore) {
-						beforeRightCurly(brClose, parsedCode);
+						beforeRightCurly(brClose);
 					}
 				case After:
-					afterRightCurly(brClose, parsedCode);
+					afterRightCurly(brClose);
 				case Both:
 					if (!preventBefore) {
-						beforeRightCurly(brClose, parsedCode);
+						beforeRightCurly(brClose);
 					}
-					afterRightCurly(brClose, parsedCode);
+					afterRightCurly(brClose);
 			}
 		}
 	}
 
-	static function beforeLeftCurly(token:TokenTree, parsedCode:ParsedCode) {
-		var prevToken:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+	function beforeLeftCurly(token:TokenTree) {
+		var prevToken:TokenInfo = getPreviousToken(token);
 		if (prevToken == null) {
 			return;
 		}
@@ -169,8 +168,8 @@ class MarkLineEnds {
 		}
 	}
 
-	static function beforeRightCurly(token:TokenTree, parsedCode:ParsedCode) {
-		var prevToken:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+	function beforeRightCurly(token:TokenTree) {
+		var prevToken:TokenInfo = getPreviousToken(token);
 		if (prevToken == null) {
 			return;
 		}
@@ -184,15 +183,15 @@ class MarkLineEnds {
 		}
 	}
 
-	static function afterRightCurly(token:TokenTree, parsedCode:ParsedCode) {
+	function afterRightCurly(token:TokenTree) {
 		var next:Int = token.index + 1;
 		if (parsedCode.tokenList.tokens.length <= next) {
-			parsedCode.tokenList.lineEndAfter(token);
+			lineEndAfter(token);
 			return;
 		}
-		var nextToken:TokenInfo = parsedCode.tokenList.getTokenAt(next);
+		var nextToken:TokenInfo = getTokenAt(next);
 		if (nextToken == null) {
-			parsedCode.tokenList.lineEndAfter(token);
+			lineEndAfter(token);
 			return;
 		}
 		switch (nextToken.token.tok) {
@@ -203,20 +202,20 @@ class MarkLineEnds {
 			case Arrow:
 			case Binop(OpAssign):
 			default:
-				parsedCode.tokenList.lineEndAfter(token);
+				lineEndAfter(token);
 		}
 	}
 
-	static function markAt(parsedCode:ParsedCode, config:LineEndConfig) {
+	function markAt() {
 		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], ALL);
 		for (token in atTokens) {
-			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token, config);
+			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token);
 			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
 			if (metadataPolicy == After) {
-				parsedCode.tokenList.lineEndAfter(lastChild);
+				lineEndAfter(lastChild);
 				continue;
 			}
 			if ((token.previousSibling != null) && (token.previousSibling.is(At))) {
@@ -236,79 +235,79 @@ class MarkLineEnds {
 				}
 				switch (metadataPolicy) {
 					case None:
-						var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+						var next:TokenInfo = getNextToken(lastChild);
 						if ((next != null) && (!parsedCode.isOriginalSameLine(lastChild, next.token))) {
-							parsedCode.tokenList.lineEndAfter(lastChild);
+							lineEndAfter(lastChild);
 							continue;
 						}
-						parsedCode.tokenList.whitespace(lastChild, After);
+						whitespace(lastChild, After);
 					case After:
-						parsedCode.tokenList.lineEndAfter(lastChild);
+						lineEndAfter(lastChild);
 					case AfterLast:
-						var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+						var next:TokenInfo = getNextToken(lastChild);
 						if ((next != null) && (!parsedCode.isOriginalSameLine(lastChild, next.token))) {
-							parsedCode.tokenList.lineEndAfter(lastChild);
+							lineEndAfter(lastChild);
 							continue;
 						}
-						parsedCode.tokenList.whitespace(lastChild, After);
+						whitespace(lastChild, After);
 					case ForceAfterLast:
-						parsedCode.tokenList.whitespace(lastChild, After);
+						whitespace(lastChild, After);
 				}
 			}
 			if ((metadataPolicy == AfterLast) || (metadataPolicy == ForceAfterLast)) {
-				parsedCode.tokenList.lineEndAfter(lastChild);
+				lineEndAfter(lastChild);
 			}
 		}
 	}
 
-	static function determineMetadataPolicy(token:TokenTree, config:LineEndConfig):AtLineEndPolicy {
+	function determineMetadataPolicy(token:TokenTree):AtLineEndPolicy {
 		if (token == null) {
-			return config.metadataOther;
+			return config.lineEnds.metadataOther;
 		}
 		var parent:TokenTree = token.parent;
 		if ((parent == null) || (parent.tok == null)) {
-			return config.metadataType;
+			return config.lineEnds.metadataType;
 		}
 		switch (parent.tok) {
 			case Const(CIdent(_)), Kwd(KwdNew), Dollar(_):
 				switch (parent.parent.tok) {
 					case Kwd(KwdVar):
-						return config.metadataVar;
+						return config.lineEnds.metadataVar;
 					case Kwd(KwdFunction):
-						return config.metadataFunction;
+						return config.lineEnds.metadataFunction;
 					case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
-						return config.metadataType;
+						return config.lineEnds.metadataType;
 					default:
-						return config.metadataOther;
+						return config.lineEnds.metadataOther;
 				}
 			case Kwd(KwdFunction):
-				return config.metadataFunction;
+				return config.lineEnds.metadataFunction;
 			case Sharp(_):
 				return After;
 			default:
-				return config.metadataOther;
+				return config.lineEnds.metadataOther;
 		}
 	}
 
-	static function markDblDot(parsedCode:ParsedCode, config:LineEndConfig) {
+	function markDblDot() {
 		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
 		for (token in dblDotTokens) {
 			if (!token.parent.is(Kwd(KwdCase)) && !token.parent.is(Kwd(KwdDefault))) {
 				continue;
 			}
 
-			if (config.caseColon != None) {
-				parsedCode.tokenList.lineEndAfter(token);
+			if (config.lineEnds.caseColon != None) {
+				lineEndAfter(token);
 			}
 			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
-			parsedCode.tokenList.lineEndAfter(lastChild);
+			lineEndAfter(lastChild);
 		}
 	}
 
-	static function markSharp(parsedCode:ParsedCode, config:LineEndConfig) {
+	function markSharp() {
 		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([
 			Sharp(SHARP_IF),
 			Sharp(SHARP_ELSE),
@@ -323,64 +322,64 @@ class MarkLineEnds {
 					if (lastChild == null) {
 						continue;
 					}
-					if (config.sharp == None) {
-						parsedCode.tokenList.whitespace(lastChild, After);
+					if (config.lineEnds.sharp == None) {
+						whitespace(lastChild, After);
 						continue;
 					}
-					if (isInlineSharp(token, parsedCode)) {
-						if (token.is(Sharp(SHARP_IF)) && isOnlyWhitespaceBeforeToken(token, parsedCode)) {
+					if (isInlineSharp(token)) {
+						if (token.is(Sharp(SHARP_IF)) && isOnlyWhitespaceBeforeToken(token)) {
 							continue;
 						}
-						var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+						var prev:TokenInfo = getPreviousToken(token);
 						if (prev == null) {
-							parsedCode.tokenList.noLineEndBefore(token);
+							noLineEndBefore(token);
 						} else {
 							switch (prev.token.tok) {
 								case POpen, BrOpen, BkOpen, Dot, DblDot:
-									parsedCode.tokenList.whitespace(token, NoneBefore);
+									whitespace(token, NoneBefore);
 								default:
-									parsedCode.tokenList.noLineEndBefore(token);
+									noLineEndBefore(token);
 							}
 						}
 						continue;
 					}
-					parsedCode.tokenList.lineEndBefore(token);
-					parsedCode.tokenList.lineEndAfter(lastChild);
+					lineEndBefore(token);
+					lineEndAfter(lastChild);
 				case Sharp(SHARP_ELSE):
-					if (isInlineSharp(token, parsedCode)) {
-						parsedCode.tokenList.noLineEndBefore(token);
+					if (isInlineSharp(token)) {
+						noLineEndBefore(token);
 						continue;
 					}
-					parsedCode.tokenList.lineEndBefore(token);
-					parsedCode.tokenList.lineEndAfter(token);
+					lineEndBefore(token);
+					lineEndAfter(token);
 				case Sharp(SHARP_END):
-					if (isInlineSharp(token, parsedCode)) {
-						parsedCode.tokenList.noLineEndBefore(token);
-						var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+					if (isInlineSharp(token)) {
+						noLineEndBefore(token);
+						var next:TokenInfo = getNextToken(token);
 						if ((next != null) && next.token.is(Semicolon)) {
-							parsedCode.tokenList.whitespace(token, NoneAfter);
+							whitespace(token, NoneAfter);
 							continue;
 						}
-						if (!isOnlyWhitespaceAfterToken(token, parsedCode)) {
+						if (!isOnlyWhitespaceAfterToken(token)) {
 							continue;
 						}
 					} else {
-						parsedCode.tokenList.lineEndBefore(token);
+						lineEndBefore(token);
 					}
-					parsedCode.tokenList.lineEndAfter(token);
+					lineEndAfter(token);
 				case Sharp("error"):
 					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token.getFirstChild());
 					if (lastChild == null) {
 						lastChild = token;
 					}
-					parsedCode.tokenList.lineEndAfter(lastChild);
+					lineEndAfter(lastChild);
 				default:
-					parsedCode.tokenList.lineEndAfter(token);
+					lineEndAfter(token);
 			}
 		}
 	}
 
-	static function isInlineSharp(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function isInlineSharp(token:TokenTree):Bool {
 		switch (token.tok) {
 			case Sharp(SHARP_IF):
 				var sharpEnd:TokenTree = token.getLastChild();
@@ -400,19 +399,19 @@ class MarkLineEnds {
 					default:
 						return false;
 				}
-				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				var prev:TokenInfo = getPreviousToken(token);
 				if ((prev != null) && prev.token.is(Semicolon)) {
 					return false;
 				}
-				if (!isOnlyWhitespaceAfterToken(sharpEnd, parsedCode)) {
+				if (!isOnlyWhitespaceAfterToken(sharpEnd)) {
 					return true;
 				}
-				if (!isOnlyWhitespaceBeforeToken(token, parsedCode)) {
+				if (!isOnlyWhitespaceBeforeToken(token)) {
 					return true;
 				}
-				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				var prev:TokenInfo = getPreviousToken(token);
 				if (prev == null) {
-					return !isOnlyWhitespaceBeforeToken(token, parsedCode);
+					return !isOnlyWhitespaceBeforeToken(token);
 				}
 				if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
 					return false;
@@ -428,29 +427,29 @@ class MarkLineEnds {
 						return true;
 				}
 			case Sharp(SHARP_ELSE):
-				return isInlineSharp(token.parent, parsedCode);
+				return isInlineSharp(token.parent);
 			case Sharp(SHARP_ELSE_IF):
-				return isInlineSharp(token.parent, parsedCode);
+				return isInlineSharp(token.parent);
 			case Sharp(SHARP_END):
-				return isInlineSharp(token.parent, parsedCode);
+				return isInlineSharp(token.parent);
 			default:
 				return false;
 		}
 	}
 
-	static function isOnlyWhitespaceBeforeToken(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function isOnlyWhitespaceBeforeToken(token:TokenTree):Bool {
 		var tokenLine:LinePos = parsedCode.getLinePos(token.pos.min);
 		var prefix:String = parsedCode.getString(parsedCode.linesIdx[tokenLine.line].l, token.pos.min);
 		return (~/^\s*$/.match(prefix));
 	}
 
-	static function isOnlyWhitespaceAfterToken(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function isOnlyWhitespaceAfterToken(token:TokenTree):Bool {
 		var tokenLine:LinePos = parsedCode.getLinePos(token.pos.max);
 		var prefix:String = parsedCode.getString(token.pos.max, parsedCode.linesIdx[tokenLine.line].r);
 		return (~/^\s*$/.match(prefix));
 	}
 
-	static function findTypedefBrOpen(token:TokenTree):TokenTree {
+	function findTypedefBrOpen(token:TokenTree):TokenTree {
 		var assign:TokenTree = token.access().firstChild().isCIdent().firstOf(Binop(OpAssign)).token;
 		if (assign == null) {
 			return null;
@@ -458,10 +457,10 @@ class MarkLineEnds {
 		return assign.access().firstOf(BrOpen).token;
 	}
 
-	static function markStructureExtension(parsedCode:ParsedCode, config:LineEndConfig) {
+	function markStructureExtension() {
 		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
 		for (token in typedefTokens) {
-			markAfterTypedef(token, parsedCode);
+			markAfterTypedef(token);
 			var brOpen:TokenTree = findTypedefBrOpen(token);
 			if (brOpen == null) {
 				continue;
@@ -476,20 +475,20 @@ class MarkLineEnds {
 					if (lastChild == null) {
 						continue;
 					}
-					var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+					var next:TokenInfo = getNextToken(lastChild);
 					if (next == null) {
 						continue;
 					}
 					if (lastChild.is(BrClose)) {
 						switch (next.token.tok) {
 							case Arrow:
-								parsedCode.tokenList.whitespace(lastChild, None);
+								whitespace(lastChild, None);
 								continue;
 							case Binop(OpAnd):
-								parsedCode.tokenList.noLineEndAfter(lastChild);
+								noLineEndAfter(lastChild);
 								continue;
 							case Semicolon:
-								parsedCode.tokenList.whitespace(lastChild, NoneAfter);
+								whitespace(lastChild, NoneAfter);
 								continue;
 							default:
 						}
@@ -497,7 +496,7 @@ class MarkLineEnds {
 					if (next.token.is(BrOpen)) {
 						continue;
 					}
-					parsedCode.tokenList.lineEndAfter(lastChild);
+					lineEndAfter(lastChild);
 				}
 			}
 
@@ -508,17 +507,17 @@ class MarkLineEnds {
 						if (lastChild == null) {
 							continue;
 						}
-						parsedCode.tokenList.lineEndAfter(lastChild);
+						lineEndAfter(lastChild);
 					case BrClose:
-						var next:TokenInfo = parsedCode.tokenList.getNextToken(child);
+						var next:TokenInfo = getNextToken(child);
 						if (next == null) {
 							continue;
 						}
 						if (next.token.is(Binop(OpAnd))) {
-							parsedCode.tokenList.noLineEndAfter(child);
+							noLineEndAfter(child);
 						}
 						if (next.token.is(Binop(OpGt))) {
-							parsedCode.tokenList.whitespace(child, NoneAfter);
+							whitespace(child, NoneAfter);
 						}
 					default:
 				}
@@ -526,16 +525,16 @@ class MarkLineEnds {
 		}
 	}
 
-	static function markAfterTypedef(token:TokenTree, parsedCode:ParsedCode) {
+	function markAfterTypedef(token:TokenTree) {
 		var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 		if (lastChild == null) {
 			return;
 		}
-		var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+		var next:TokenInfo = getNextToken(lastChild);
 		if ((next != null) && next.token.is(Semicolon)) {
-			parsedCode.tokenList.whitespace(lastChild, NoneAfter);
+			whitespace(lastChild, NoneAfter);
 			return;
 		}
-		parsedCode.tokenList.lineEndAfter(lastChild);
+		lineEndAfter(lastChild);
 	}
 }

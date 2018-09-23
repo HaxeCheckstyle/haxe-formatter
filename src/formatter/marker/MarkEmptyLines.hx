@@ -5,43 +5,45 @@ import formatter.codedata.CodeLine;
 import formatter.codedata.CodeLines;
 import formatter.config.EmptyLinesConfig;
 
-class MarkEmptyLines {
-	public static function markEmptyLines(parsedCode:ParsedCode, config:EmptyLinesConfig) {
-		keepExistingEmptyLines(parsedCode);
+class MarkEmptyLines extends MarkerBase {
+	public static inline var FINAL:String = "final";
+
+	override public function run() {
+		keepExistingEmptyLines();
 
 		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], ALL);
 		for (pack in packs) {
-			parsedCode.tokenList.tokens[pack.index].emptyLinesAfter = config.afterPackage;
+			emptyLinesAfter(pack, config.emptyLines.afterPackage);
 		}
 
-		if (config.betweenTypes > 0) {
-			betweenTypes(parsedCode, config.betweenTypes);
+		if (config.emptyLines.betweenTypes > 0) {
+			betweenTypes();
 		}
 
-		markImports(parsedCode, config);
-		markClassesAndAbstracts(parsedCode, config);
-		markInterfaces(parsedCode, config);
-		markEnums(parsedCode, config);
-		markTypedefs(parsedCode, config);
-		markSharp(parsedCode, config.conditionalsEmptyLines);
-		if (config.beforeDocCommentEmptyLines != Ignore) {
-			markComments(parsedCode, config);
+		markImports();
+		markClassesAndAbstracts();
+		markInterfaces();
+		markEnums();
+		markTypedefs();
+		markSharp();
+		if (config.emptyLines.beforeDocCommentEmptyLines != Ignore) {
+			markComments();
 		}
-		if (config.beforeRightCurly == Remove) {
-			markRightCurly(parsedCode);
+		if (config.emptyLines.beforeRightCurly == Remove) {
+			markRightCurly();
 		}
-		if (config.afterLeftCurly == Remove) {
-			markLeftCurly(parsedCode);
+		if (config.emptyLines.afterLeftCurly == Remove) {
+			markLeftCurly();
 		}
-		if (config.afterReturn == Remove) {
-			markReturn(parsedCode);
+		if (config.emptyLines.afterReturn == Remove) {
+			markReturn();
 		}
-		if ((config.beforeBlocks == Remove) || (config.afterBlocks == Remove)) {
-			markAroundBlocks(parsedCode, config);
+		if ((config.emptyLines.beforeBlocks == Remove) || (config.emptyLines.afterBlocks == Remove)) {
+			markAroundBlocks();
 		}
 	}
 
-	public static function finalRun(codeLines:CodeLines, config:EmptyLinesConfig) {
+	override public function finalRun(codeLines:CodeLines) {
 		if (codeLines.lines.length <= 0) {
 			return;
 		}
@@ -49,18 +51,18 @@ class MarkEmptyLines {
 			if (line.verbatim) {
 				continue;
 			}
-			if (line.emptyLinesAfter > config.maxAnywhereInFile) {
-				line.emptyLinesAfter = config.maxAnywhereInFile;
+			if (line.emptyLinesAfter > config.emptyLines.maxAnywhereInFile) {
+				line.emptyLinesAfter = config.emptyLines.maxAnywhereInFile;
 			}
 		}
 		var lastLine:CodeLine = codeLines.lines[codeLines.lines.length - 1];
 		if (lastLine.verbatim) {
 			return;
 		}
-		lastLine.emptyLinesAfter = config.finalNewline ? 1 : 0;
+		lastLine.emptyLinesAfter = config.emptyLines.finalNewline ? 1 : 0;
 	}
 
-	static function markImports(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markImports() {
 		var imports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdImport), Kwd(KwdUsing)], ALL);
 		if (imports.length <= 0) {
 			return;
@@ -71,9 +73,9 @@ class MarkEmptyLines {
 			switch (lastImport.nextSibling.tok) {
 				case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
 				case Sharp(MarkLineEnds.SHARP_END):
-					parsedCode.tokenList.emptyLinesAfterSubTree(lastImport.nextSibling, config.afterImportsUsing);
+					emptyLinesAfterSubTree(lastImport.nextSibling, config.emptyLines.afterImportsUsing);
 				default:
-					parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.afterImportsUsing);
+					emptyLinesAfterSubTree(lastImport, config.emptyLines.afterImportsUsing);
 			}
 		}
 		lastImport = null;
@@ -102,14 +104,14 @@ class MarkEmptyLines {
 				continue;
 			}
 			if (newIsImport != isImport) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(lastImport, config.beforeUsing);
+				emptyLinesAfterSubTree(lastImport, config.emptyLines.beforeUsing);
 			}
 			isImport = newIsImport;
 			lastImport = effectiveToken;
 		}
 	}
 
-	static function markClassesAndAbstracts(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markClassesAndAbstracts() {
 		var classes:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdClass), Kwd(KwdAbstract):
@@ -121,26 +123,26 @@ class MarkEmptyLines {
 
 		for (c in classes) {
 			if (TokenTreeCheckUtils.isTypeEnumAbstract(c)) {
-				markEnumAbstracts(c, parsedCode, config.enumAbstractEmptyLines);
+				markEnumAbstracts(c);
 				continue;
 			}
 			var typeConfig:ClassFieldsEmptyLinesConfig = null;
 			switch (c.tok) {
 				case Kwd(KwdClass):
-					typeConfig = config.classEmptyLines;
+					typeConfig = config.emptyLines.classEmptyLines;
 					if (c.access().firstChild().firstOf(Kwd(KwdExtern)).exists()) {
-						markExternClass(c, parsedCode, config.externClassEmptyLines);
+						markExternClass(c, config.emptyLines.externClassEmptyLines);
 						continue;
 					}
 				case Kwd(KwdAbstract):
-					typeConfig = config.abstractEmptyLines;
+					typeConfig = config.emptyLines.abstractEmptyLines;
 				default:
 					continue;
 			}
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
-			markBeginAndEndType(parsedCode, block, typeConfig.beginType, typeConfig.endType);
+			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
-			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
+			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
 			var functions:Array<TokenTree> = c.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
@@ -149,28 +151,28 @@ class MarkEmptyLines {
 			for (func in functions) {
 				currToken = func;
 				currTokenType = FieldUtils.getFieldType(func, PRIVATE);
-				markClassFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, typeConfig);
+				markClassFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType, typeConfig);
 				prevToken = currToken;
 				prevTokenType = currTokenType;
 			}
 		}
 	}
 
-	static function markBeginAndEndType(parsedCode:ParsedCode, brOpen:TokenTree, beginType:Int, endType:Int) {
+	function markBeginAndEndType(brOpen:TokenTree, beginType:Int, endType:Int) {
 		if (brOpen == null) {
 			return;
 		}
-		parsedCode.tokenList.emptyLinesAfter(brOpen, beginType);
+		emptyLinesAfter(brOpen, beginType);
 
 		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
 		if (brClose == null) {
 			return;
 		}
-		parsedCode.tokenList.emptyLinesBefore(brClose, endType);
+		emptyLinesBefore(brClose, endType);
 	}
 
-	static function markClassFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-			currTokenType:TokenFieldType, config:ClassFieldsEmptyLinesConfig) {
+	function markClassFieldEmptyLines(prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType,
+			conf:ClassFieldsEmptyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -218,52 +220,52 @@ class MarkEmptyLines {
 		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
+			emptyLinesAfterSubTree(prevToken, conf.afterVars);
 			return;
 		}
 		if (prevVar) {
 			// only vars
 			if (prevStatic != currStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterStaticVars);
+				emptyLinesAfterSubTree(prevToken, conf.afterStaticVars);
 				return;
 			}
 			if (prevStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenStaticVars);
+				emptyLinesAfterSubTree(prevToken, conf.betweenStaticVars);
 				return;
 			}
 			if (prevPrivate != currPrivate) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterPrivateVars);
+				emptyLinesAfterSubTree(prevToken, conf.afterPrivateVars);
 				return;
 			}
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
+			emptyLinesAfterSubTree(prevToken, conf.betweenVars);
 			return;
 		} else {
 			// only functions
 			if (prevStatic != currStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterStaticFunctions);
+				emptyLinesAfterSubTree(prevToken, conf.afterStaticFunctions);
 				return;
 			}
 			if (prevStatic) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenStaticFunctions);
+				emptyLinesAfterSubTree(prevToken, conf.betweenStaticFunctions);
 				return;
 			}
 			if (prevPrivate != currPrivate) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterPrivateFunctions);
+				emptyLinesAfterSubTree(prevToken, conf.afterPrivateFunctions);
 				return;
 			}
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
+			emptyLinesAfterSubTree(prevToken, conf.betweenFunctions);
 			return;
 		}
 	}
 
-	static function markExternClass(c:TokenTree, parsedCode:ParsedCode, config:InterfaceFieldsEmptyLinesConfig) {
+	function markExternClass(c:TokenTree, conf:InterfaceFieldsEmptyLinesConfig) {
 		var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 		if (block == null) {
 			return;
 		}
-		markBeginAndEndType(parsedCode, block, config.beginType, config.endType);
+		markBeginAndEndType(block, conf.beginType, conf.endType);
 
-		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent("final")); #end
+		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
 		var fields:Array<TokenTree> = block.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
 
 		var prevToken:TokenTree = null;
@@ -273,21 +275,21 @@ class MarkEmptyLines {
 		for (field in fields) {
 			currToken = field;
 			currTokenType = FieldUtils.getFieldType(field, PUBLIC);
-			markInterfaceEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+			markInterfaceEmptyLines(prevToken, prevTokenType, currToken, currTokenType, conf);
 			prevToken = currToken;
 			prevTokenType = currTokenType;
 		}
 	}
 
-	static function markInterfaces(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markInterfaces() {
 		var interfaces:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdInterface)], ALL);
 		for (i in interfaces) {
-			markExternClass(i, parsedCode, config.interfaceEmptyLines);
+			markExternClass(i, config.emptyLines.interfaceEmptyLines);
 		}
 	}
 
-	static function markInterfaceEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-			currTokenType:TokenFieldType, config:InterfaceFieldsEmptyLinesConfig) {
+	function markInterfaceEmptyLines(prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType,
+			conf:InterfaceFieldsEmptyLinesConfig) {
 		if (prevToken == null) {
 			return;
 		}
@@ -319,23 +321,23 @@ class MarkEmptyLines {
 		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
+			emptyLinesAfterSubTree(prevToken, conf.afterVars);
 			return;
 		}
 		if (prevVar) {
 			// only vars
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
+			emptyLinesAfterSubTree(prevToken, conf.betweenVars);
 			return;
 		} else {
 			// only functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
+			emptyLinesAfterSubTree(prevToken, conf.betweenFunctions);
 			return;
 		}
 	}
 
-	static function markEnumAbstracts(token:TokenTree, parsedCode:ParsedCode, config:EnumAbstractFieldsEmptyLinesConfig) {
+	function markEnumAbstracts(token:TokenTree) {
 		var block:TokenTree = token.access().firstChild().firstOf(BrOpen).token;
-		markBeginAndEndType(parsedCode, block, config.beginType, config.endType);
+		markBeginAndEndType(block, config.emptyLines.enumAbstractEmptyLines.beginType, config.emptyLines.enumAbstractEmptyLines.endType);
 
 		var functions:Array<TokenTree> = token.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
 
@@ -346,14 +348,13 @@ class MarkEmptyLines {
 		for (func in functions) {
 			currToken = func;
 			currTokenType = FieldUtils.getFieldType(func, PUBLIC);
-			markEnumAbstractFieldEmptyLines(parsedCode, prevToken, prevTokenType, currToken, currTokenType, config);
+			markEnumAbstractFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType);
 			prevToken = currToken;
 			prevTokenType = currTokenType;
 		}
 	}
 
-	static function markEnumAbstractFieldEmptyLines(parsedCode:ParsedCode, prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
-			currTokenType:TokenFieldType, config:EnumAbstractFieldsEmptyLinesConfig) {
+	function markEnumAbstractFieldEmptyLines(prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType) {
 		if (prevToken == null) {
 			return;
 		}
@@ -385,21 +386,21 @@ class MarkEmptyLines {
 		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.afterVars);
+			emptyLinesAfterSubTree(prevToken, config.emptyLines.enumAbstractEmptyLines.afterVars);
 			return;
 		}
 		if (prevVar) {
 			// only vars
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenVars);
+			emptyLinesAfterSubTree(prevToken, config.emptyLines.enumAbstractEmptyLines.betweenVars);
 			return;
 		} else {
 			// only functions
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFunctions);
+			emptyLinesAfterSubTree(prevToken, config.emptyLines.enumAbstractEmptyLines.betweenFunctions);
 			return;
 		}
 	}
 
-	static function markEnums(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markEnums() {
 		var enums:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdEnum)], ALL);
 		for (e in enums) {
 			if (e.parent.tok != null) {
@@ -415,12 +416,12 @@ class MarkEmptyLines {
 			if (block == null) {
 				continue;
 			}
-			markEnumFields(block, parsedCode, config.enumEmptyLines);
+			markEnumFields(block, config.emptyLines.enumEmptyLines);
 		}
 	}
 
-	static function markEnumFields(block:TokenTree, parsedCode:ParsedCode, config:TypedefFieldsEmptyLinesConfig) {
-		markBeginAndEndType(parsedCode, block, config.beginType, config.endType);
+	function markEnumFields(block:TokenTree, config:TypedefFieldsEmptyLinesConfig) {
+		markBeginAndEndType(block, config.beginType, config.endType);
 		if ((block.children == null) || (block.children.length <= 0)) {
 			return;
 		}
@@ -437,23 +438,23 @@ class MarkEmptyLines {
 				prevToken = child;
 				continue;
 			}
-			parsedCode.tokenList.emptyLinesAfterSubTree(prevToken, config.betweenFields);
+			emptyLinesAfterSubTree(prevToken, config.betweenFields);
 			prevToken = child;
 		}
 	}
 
-	static function markTypedefs(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markTypedefs() {
 		var typedefs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
 		for (t in typedefs) {
 			var block:TokenTree = t.access().firstChild().firstOf(Binop(OpAssign)).firstOf(BrOpen).token;
 			if (block == null) {
 				continue;
 			}
-			markEnumFields(block, parsedCode, config.typedefEmptyLines);
+			markEnumFields(block, config.emptyLines.typedefEmptyLines);
 		}
 	}
 
-	static function skipSharpFields(prevToken:TokenTree):TokenTree {
+	function skipSharpFields(prevToken:TokenTree):TokenTree {
 		var next:TokenTree = prevToken.nextSibling;
 		if (next == null) {
 			return prevToken;
@@ -470,14 +471,14 @@ class MarkEmptyLines {
 		return prevToken;
 	}
 
-	static function betweenTypes(parsedCode:ParsedCode, count:Int) {
+	function betweenTypes() {
 		var types:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
 					FOUND_SKIP_SUBTREE;
 				case Kwd(KwdVar), Kwd(KwdFunction):
 					FOUND_SKIP_SUBTREE;
-				case Const(CIdent("final")):
+				case Const(CIdent(FINAL)):
 					FOUND_SKIP_SUBTREE;
 				#if (haxe_ver >= 4.0)
 				case Kwd(KwdFinal):
@@ -514,45 +515,45 @@ class MarkEmptyLines {
 				sibling = type.nextSibling;
 			}
 			if (!skip) {
-				parsedCode.tokenList.emptyLinesAfterSubTree(type, count);
+				emptyLinesAfterSubTree(type, config.emptyLines.betweenTypes);
 			}
 		}
 	}
 
-	static function markLeftCurly(parsedCode:ParsedCode) {
+	function markLeftCurly() {
 		var brOpens:Array<TokenTree> = parsedCode.root.filter([BrOpen], ALL);
 		for (br in brOpens) {
-			parsedCode.tokenList.emptyLinesAfter(br, 0);
+			emptyLinesAfter(br, 0);
 		}
 	}
 
-	static function markRightCurly(parsedCode:ParsedCode) {
+	function markRightCurly() {
 		var brCloses:Array<TokenTree> = parsedCode.root.filter([BrClose], ALL);
 		for (br in brCloses) {
-			parsedCode.tokenList.emptyLinesBefore(br, 0);
+			emptyLinesBefore(br, 0);
 		}
 	}
 
-	static function markReturn(parsedCode:ParsedCode) {
+	function markReturn() {
 		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], ALL);
 		for (ret in returns) {
 			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(ret);
 			if (lastChild == null) {
 				continue;
 			}
-			var next:TokenInfo = parsedCode.tokenList.getNextToken(lastChild);
+			var next:TokenInfo = getNextToken(lastChild);
 			if (next == null) {
 				continue;
 			}
 			switch (next.token.tok) {
 				case BrClose:
-					parsedCode.tokenList.emptyLinesAfterSubTree(ret, 0);
+					emptyLinesAfterSubTree(ret, 0);
 				default:
 			}
 		}
 	}
 
-	static function markSharp(parsedCode:ParsedCode, config:ConditionalEmptyLinesConfig) {
+	function markSharp() {
 		var sharps:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Sharp(_):
@@ -562,30 +563,30 @@ class MarkEmptyLines {
 			}
 		});
 		for (sharp in sharps) {
-			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(sharp);
+			var prev:TokenInfo = getPreviousToken(sharp);
 			if ((prev != null) && (prev.whitespaceAfter != Newline) && (prev.whitespaceAfter != SpaceOrNewline)) {
 				continue;
 			}
 			switch (sharp.tok) {
 				case Sharp(MarkLineEnds.SHARP_IF):
-					parsedCode.tokenList.emptyLinesAfterSubTree(sharp.getFirstChild(), config.afterIf);
+					emptyLinesAfterSubTree(sharp.getFirstChild(), config.emptyLines.conditionalsEmptyLines.afterIf);
 				case Sharp(MarkLineEnds.SHARP_ELSE_IF):
-					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeElse);
-					parsedCode.tokenList.emptyLinesAfterSubTree(sharp.getFirstChild(), config.afterIf);
+					emptyLinesBefore(sharp, config.emptyLines.conditionalsEmptyLines.beforeElse);
+					emptyLinesAfterSubTree(sharp.getFirstChild(), config.emptyLines.conditionalsEmptyLines.afterIf);
 				case Sharp(MarkLineEnds.SHARP_ELSE):
-					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeElse);
-					parsedCode.tokenList.emptyLinesAfter(sharp, config.afterElse);
+					emptyLinesBefore(sharp, config.emptyLines.conditionalsEmptyLines.beforeElse);
+					emptyLinesAfter(sharp, config.emptyLines.conditionalsEmptyLines.afterElse);
 				case Sharp(MarkLineEnds.SHARP_END):
-					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeEnd);
+					emptyLinesBefore(sharp, config.emptyLines.conditionalsEmptyLines.beforeEnd);
 				case Sharp(MarkLineEnds.SHARP_ERROR):
-					parsedCode.tokenList.emptyLinesBefore(sharp, config.beforeError);
-					parsedCode.tokenList.emptyLinesAfterSubTree(sharp, config.afterError);
+					emptyLinesBefore(sharp, config.emptyLines.conditionalsEmptyLines.beforeError);
+					emptyLinesAfterSubTree(sharp, config.emptyLines.conditionalsEmptyLines.afterError);
 				default:
 			}
 		}
 	}
 
-	static function markComments(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markComments() {
 		var comments:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(text):
@@ -637,69 +638,69 @@ class MarkEmptyLines {
 			if (!found) {
 				continue;
 			}
-			switch (config.beforeDocCommentEmptyLines) {
+			switch (config.emptyLines.beforeDocCommentEmptyLines) {
 				case Ignore:
 				case None:
-					parsedCode.tokenList.emptyLinesBefore(comment, 0);
+					emptyLinesBefore(comment, 0);
 				case One:
-					parsedCode.tokenList.emptyLinesBefore(comment, 1);
+					emptyLinesBefore(comment, 1);
 			}
 		}
 	}
 
-	static function markAroundBlocks(parsedCode:ParsedCode, config:EmptyLinesConfig) {
+	function markAroundBlocks() {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdIf):
-					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 					var block:TokenTree = token.access().firstOf(Kwd(KwdElse)).previousSibling().token;
 					if (block != null) {
-						removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+						removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 					}
 				case Kwd(KwdElse):
-					removeEmptyLinesAroundBlock(token.getFirstChild(), parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdCase), Kwd(KwdDefault):
 					var block:TokenTree = token.access().firstOf(DblDot).firstChild().token;
-					removeEmptyLinesAroundBlock(block, parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(block, config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdFunction):
 				case Kwd(KwdFor):
-					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdDo):
-					removeEmptyLinesAroundBlock(token.getFirstChild(), parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
 					var block:TokenTree = token.access().lastChild().previousSibling().token;
-					removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+					removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 				case Kwd(KwdWhile):
 					if ((token.parent == null) || (!token.parent.is(Kwd(KwdDo)))) {
-						removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 					}
 				case Kwd(KwdTry):
-					removeEmptyLinesAroundBlock(token.getFirstChild(), parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
 					var block:TokenTree = token.access().lastChild().previousSibling().token;
-					removeEmptyLinesAroundBlock(block, parsedCode, Keep, config.afterBlocks);
+					removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 				case Kwd(KwdCatch):
-					removeEmptyLinesAroundBlock(token.children[1], parsedCode, config.beforeBlocks, Keep);
+					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 				default:
 			}
 			return GO_DEEPER;
 		});
 	}
 
-	static function removeEmptyLinesAroundBlock(block:TokenTree, parsedCode:ParsedCode, before:KeepEmptyLinesPolicy, after:KeepEmptyLinesPolicy) {
+	function removeEmptyLinesAroundBlock(block:TokenTree, before:KeepEmptyLinesPolicy, after:KeepEmptyLinesPolicy) {
 		if (block == null) {
 			return;
 		}
 		if (before == Remove) {
-			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(block);
+			var prev:TokenInfo = getPreviousToken(block);
 			if (prev != null) {
-				parsedCode.tokenList.emptyLinesAfter(prev.token, 0);
+				emptyLinesAfter(prev.token, 0);
 			}
 		}
 		if (after == Remove) {
-			parsedCode.tokenList.emptyLinesAfterSubTree(block, 0);
+			emptyLinesAfterSubTree(block, 0);
 		}
 	}
 
-	static function keepExistingEmptyLines(parsedCode:ParsedCode) {
+	function keepExistingEmptyLines() {
 		var funcs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdFunction)], ALL);
 		for (func in funcs) {
 			var block:TokenTree = func.access().firstChild().is(BrOpen).token;
@@ -718,7 +719,7 @@ class MarkEmptyLines {
 					continue;
 				}
 				var idx:LineIds = parsedCode.linesIdx[emptyLine];
-				var tokenInf:TokenInfo = parsedCode.tokenList.findTokenAtOffset(idx.l);
+				var tokenInf:TokenInfo = findTokenAtOffset(idx.l);
 				if (tokenInf == null) {
 					continue;
 				}

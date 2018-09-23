@@ -1,0 +1,29 @@
+{
+	"wrapping": {
+		"functionSignature": {
+			"defaultWrap": "keep",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	public static inline function matrix(
+		scaleX = 1.0, skewX = 0.0,
+		moveX = 0.0, skewY = 0.0,
+		scaleY = 1.0, moveY = 0.0
+	):FastMatrix3 {
+	}
+}
+
+---
+
+class Main {
+	public static inline function matrix(
+		scaleX = 1.0, skewX = 0.0,
+		moveX = 0.0, skewY = 0.0,
+		scaleY = 1.0, moveY = 0.0
+	):FastMatrix3 {}
+}

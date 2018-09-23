@@ -1,0 +1,43 @@
+{
+	"sameLine": {
+		"forBody": "keep",
+		"comprehensionFor": "keep"
+	},
+	"whitespace": {
+		"compressSuccessiveParenthesis": false
+	},
+	"wrapping": {
+		"arrayWrap": {
+			"defaultWrap": "keep",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		var layers:Array<Array<Array<Int>>> = [
+			for (l in 0...length) [
+				for (iy in 0...height) [
+					for (ix in 0...width) 0
+				]
+			]
+		];
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		var layers:Array<Array<Array<Int>>> = [
+			for (l in 0...length) [
+				for (iy in 0...height) [
+					for (ix in 0...width) 0
+				]
+			]
+		];
+	}
+}

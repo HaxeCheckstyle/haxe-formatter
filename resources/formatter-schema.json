@@ -126,6 +126,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"defaultWrap": {
+					"description": "default wrapping type when no rule applies",
 					"type": "string",
 					"enum": [
 						"onePerLine",
@@ -138,10 +139,12 @@
 					"propertyOrder": 1
 				},
 				"defaultAdditionalIndent": {
+					"description": "adds indentation to all wrapped lines when applying defaultWrap",
 					"type": "integer",
 					"propertyOrder": 2
 				},
 				"rules": {
+					"description": "list of wrapping rules\n\t\twrapping uses only the first rule whose conditions evaluates to true",
 					"items": {
 						"$ref": "#/definitions/WrapRule"
 					},
@@ -234,6 +237,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"conditions": {
+					"description": "list of conditions\n\t\twrapping selects a rule if all of its conditions evaluate to true",
 					"items": {
 						"$ref": "#/definitions/WrapCondition"
 					},
@@ -241,10 +245,12 @@
 					"propertyOrder": 0
 				},
 				"additionalIndent": {
+					"description": "adds indentation to all wrapped lines",
 					"type": "integer",
 					"propertyOrder": 2
 				},
 				"type": {
+					"description": "wrapping type",
 					"type": "string",
 					"enum": [
 						"onePerLine",
@@ -540,22 +546,22 @@
 					"propertyOrder": 1
 				},
 				"functionSignature": {
-					"description": "function signature wrapping rules",
+					"description": "named function signature wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 9
 				},
 				"anonType": {
 					"description": "anon types wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 12
+					"propertyOrder": 13
 				},
 				"methodChain": {
 					"description": "method chaining wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 13
+					"propertyOrder": 14
 				},
 				"arrayWrap": {
-					"description": "function signature wrapping rules",
+					"description": "array wrapping rules\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 7
 				},
@@ -565,9 +571,9 @@
 					"propertyOrder": 0
 				},
 				"callParameter": {
-					"description": "function signature wrapping rules",
+					"description": "call parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 10
+					"propertyOrder": 11
 				},
 				"wrapAfterOpeningBrace": {
 					"description": "should wrapping happen after opening braces `{`",
@@ -579,20 +585,25 @@
 					"type": "boolean",
 					"propertyOrder": 2
 				},
+				"anonFunctionSignature": {
+					"description": "anon function signature wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 10
+				},
 				"wrapAfterOpeningBracket": {
 					"description": "should wrapping happen after opening brackets `[`",
 					"type": "boolean",
 					"propertyOrder": 6
 				},
 				"typeParameter": {
-					"description": "function signature wrapping rules",
+					"description": "type parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 8
 				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 11
+					"propertyOrder": 12
 				},
 				"wrapAfterPlus": {
 					"type": "boolean",
@@ -610,6 +621,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"openingParenPolicy": {
+					"description": "\"(\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -638,6 +650,7 @@
 					"propertyOrder": 18
 				},
 				"typeParamClosePolicy": {
+					"description": "\">\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -666,6 +679,7 @@
 					"propertyOrder": 14
 				},
 				"closingBracePolicy": {
+					"description": "\"}\" except object literals",
 					"type": "string",
 					"enum": [
 						"none",
@@ -680,6 +694,7 @@
 					"propertyOrder": 5
 				},
 				"closingParenPolicy": {
+					"description": "\")\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -736,6 +751,7 @@
 					"propertyOrder": 17
 				},
 				"typeParamOpenPolicy": {
+					"description": "\"<\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -750,6 +766,7 @@
 					"propertyOrder": 8
 				},
 				"openingBracketPolicy": {
+					"description": "\"[\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -764,6 +781,7 @@
 					"propertyOrder": 2
 				},
 				"closingBracketPolicy": {
+					"description": "\"]\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -778,11 +796,12 @@
 					"propertyOrder": 3
 				},
 				"compressSuccessiveParenthesis": {
-					"description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
+					"description": "should formatter compress spaces for successive parenthesis `( [ {` vs. `([{`",
 					"type": "boolean",
 					"propertyOrder": 32
 				},
 				"objectOpeningBracePolicy": {
+					"description": "\"{\" in object literal",
 					"type": "string",
 					"enum": [
 						"none",
@@ -811,6 +830,7 @@
 					"propertyOrder": 30
 				},
 				"openingBracePolicy": {
+					"description": "\"{\" except object literals",
 					"type": "string",
 					"enum": [
 						"none",
@@ -909,6 +929,7 @@
 					"propertyOrder": 13
 				},
 				"objectClosingBracePolicy": {
+					"description": "\"}\" in object literal",
 					"type": "string",
 					"enum": [
 						"none",
@@ -951,6 +972,7 @@
 					"propertyOrder": 24
 				},
 				"formatStringInterpolation": {
+					"description": "should formatter try to format string interpolation expressions (e.g. '${x+3}' -> '${x + 3}')\n\t\tonly applies spaces, no newlines or wrapping",
 					"type": "boolean",
 					"propertyOrder": 33
 				},

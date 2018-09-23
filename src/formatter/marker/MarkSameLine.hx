@@ -3,44 +3,44 @@ package formatter.marker;
 import formatter.config.SameLineConfig;
 import formatter.config.WhitespaceConfig;
 
-class MarkSameLine {
-	public static function markSameLine(parsedCode:ParsedCode, configSameLine:SameLineConfig, configWhitespace:WhitespaceConfig) {
-		markDollarSameLine(parsedCode, configSameLine, configWhitespace);
+class MarkSameLine extends MarkerBase {
+	override public function run() {
+		markDollarSameLine();
 
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdIf):
-					markIf(token, parsedCode, configSameLine);
+					markIf(token);
 				case Kwd(KwdElse):
-					markElse(token, parsedCode, configSameLine);
+					markElse(token);
 				case Kwd(KwdFor):
-					markFor(token, parsedCode, configSameLine);
+					markFor(token);
 				case Kwd(KwdWhile):
 					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
 						return GO_DEEPER;
 					}
-					markWhile(token, parsedCode, configSameLine);
+					markWhile(token);
 				case Kwd(KwdDo):
-					markDoWhile(token, parsedCode, configSameLine);
+					markDoWhile(token);
 				case Kwd(KwdTry):
-					markTry(token, parsedCode, configSameLine);
+					markTry(token);
 				case Kwd(KwdCatch):
-					markCatch(token, parsedCode, configSameLine);
+					markCatch(token);
 				case Kwd(KwdCase):
-					markCase(token, parsedCode, configSameLine);
+					markCase(token);
 				case Kwd(KwdDefault):
-					markCase(token, parsedCode, configSameLine);
+					markCase(token);
 				case Kwd(KwdFunction):
-					markFunction(token, parsedCode, configSameLine);
+					markFunction(token);
 				case Kwd(KwdMacro):
-					markMacro(token, parsedCode, configSameLine);
+					markMacro(token);
 				default:
 			}
 			return GO_DEEPER;
 		});
 	}
 
-	static function isExpression(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function isExpression(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -52,7 +52,7 @@ class MarkSameLine {
 			case Kwd(KwdReturn):
 				return true;
 			case Kwd(KwdUntyped):
-				return isExpression(parent, parsedCode);
+				return isExpression(parent);
 			case Kwd(KwdFor), Kwd(KwdWhile):
 				if (parent.parent.is(BkOpen)) {
 					return true;
@@ -65,7 +65,7 @@ class MarkSameLine {
 					return true;
 				}
 			case Kwd(KwdElse):
-				return shouldElseBeSameLine(parent, parsedCode);
+				return shouldElseBeSameLine(parent);
 			case DblDot:
 				return isReturnExpression(parent);
 			default:
@@ -73,7 +73,7 @@ class MarkSameLine {
 		return false;
 	}
 
-	static function isReturnExpression(token:TokenTree):Bool {
+	function isReturnExpression(token:TokenTree):Bool {
 		var parent:TokenTree = token;
 		while (parent.parent.tok != null) {
 			parent = parent.parent;
@@ -108,7 +108,7 @@ class MarkSameLine {
 		return false;
 	}
 
-	static function shouldIfBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function shouldIfBeSameLine(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -122,87 +122,87 @@ class MarkSameLine {
 		if (!parsedCode.isOriginalSameLine(token, body)) {
 			return false;
 		}
-		return isExpression(token, parsedCode);
+		return isExpression(token);
 	}
 
-	static function shouldElseBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function shouldElseBeSameLine(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdElse))) {
 			return false;
 		}
-		return shouldIfBeSameLine(token.parent, parsedCode);
+		return shouldIfBeSameLine(token.parent);
 	}
 
-	static function shouldTryBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function shouldTryBeSameLine(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdTry))) {
 			return false;
 		}
-		return isExpression(token, parsedCode);
+		return isExpression(token);
 	}
 
-	static function shouldCatchBeSameLine(token:TokenTree, parsedCode:ParsedCode):Bool {
+	function shouldCatchBeSameLine(token:TokenTree):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdCatch))) {
 			return false;
 		}
-		return shouldTryBeSameLine(token.parent, parsedCode);
+		return shouldTryBeSameLine(token.parent);
 	}
 
-	static function markIf(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldIfBeSameLine(token, parsedCode) && configSameLine.expressionIf == Same) {
-			markBodyAfterPOpen(token, parsedCode, Same, configSameLine.expressionIfWithBlocks);
+	function markIf(token:TokenTree) {
+		if (shouldIfBeSameLine(token) && config.sameLine.expressionIf == Same) {
+			markBodyAfterPOpen(token, Same, config.sameLine.expressionIfWithBlocks);
 			return;
 		}
-		markBodyAfterPOpen(token, parsedCode, configSameLine.ifBody, false);
-		var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+		markBodyAfterPOpen(token, config.sameLine.ifBody, false);
+		var prev:TokenInfo = getPreviousToken(token);
 		if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
-			applySameLinePolicy(token, parsedCode, configSameLine.elseIf);
+			applySameLinePolicy(token, config.sameLine.elseIf);
 		}
 	}
 
-	static function markElse(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldElseBeSameLine(token, parsedCode) && configSameLine.expressionIf == Same) {
-			markBody(token, parsedCode, Same, configSameLine.expressionIfWithBlocks);
-			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+	function markElse(token:TokenTree) {
+		if (shouldElseBeSameLine(token) && config.sameLine.expressionIf == Same) {
+			markBody(token, Same, config.sameLine.expressionIfWithBlocks);
+			var prev:TokenInfo = getPreviousToken(token);
 			if (prev == null) {
 				return;
 			}
 			if (prev.token.is(BrClose)) {
-				applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+				applySameLinePolicyChained(token, config.sameLine.ifBody, config.sameLine.ifElse);
 			}
 			return;
 		}
 
-		markBody(token, parsedCode, configSameLine.elseBody, false);
-		applySameLinePolicyChained(token, parsedCode, configSameLine.ifBody, configSameLine.ifElse);
+		markBody(token, config.sameLine.elseBody, false);
+		applySameLinePolicyChained(token, config.sameLine.ifBody, config.sameLine.ifElse);
 	}
 
-	static function markTry(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldTryBeSameLine(token, parsedCode) && configSameLine.expressionTry == Same) {
-			markBody(token, parsedCode, Same, false);
+	function markTry(token:TokenTree) {
+		if (shouldTryBeSameLine(token) && config.sameLine.expressionTry == Same) {
+			markBody(token, Same, false);
 			return;
 		}
-		markBody(token, parsedCode, configSameLine.tryBody, false);
+		markBody(token, config.sameLine.tryBody, false);
 	}
 
-	static function markCatch(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		if (shouldCatchBeSameLine(token, parsedCode) && configSameLine.expressionTry == Same) {
-			markBodyAfterPOpen(token, parsedCode, Same, false);
-			applySameLinePolicy(token, parsedCode, configSameLine.tryCatch);
+	function markCatch(token:TokenTree) {
+		if (shouldCatchBeSameLine(token) && config.sameLine.expressionTry == Same) {
+			markBodyAfterPOpen(token, Same, false);
+			applySameLinePolicy(token, config.sameLine.tryCatch);
 			return;
 		}
-		markBodyAfterPOpen(token, parsedCode, configSameLine.catchBody, false);
-		applySameLinePolicyChained(token, parsedCode, configSameLine.tryBody, configSameLine.tryCatch);
+		markBodyAfterPOpen(token, config.sameLine.catchBody, false);
+		applySameLinePolicyChained(token, config.sameLine.tryBody, config.sameLine.tryCatch);
 	}
 
-	static function markCase(token:TokenTree, parsedCode:ParsedCode, config:SameLineConfig) {
+	function markCase(token:TokenTree) {
 		if (token == null) {
 			return;
 		}
@@ -210,11 +210,11 @@ class MarkSameLine {
 		if (dblDot == null) {
 			return;
 		}
-		if (checkExpressionCase(token, dblDot, parsedCode, config)) {
-			parsedCode.tokenList.noLineEndAfter(dblDot);
+		if (checkExpressionCase(token, dblDot)) {
+			noLineEndAfter(dblDot);
 			return;
 		}
-		if (config.caseBody != Same) {
+		if (config.sameLine.caseBody != Same) {
 			return;
 		}
 		if ((dblDot.children == null) || (dblDot.children.length > 1)) {
@@ -225,11 +225,11 @@ class MarkSameLine {
 		if (parsedCode.linesBetweenOriginal(first, last) > 2) {
 			return;
 		}
-		parsedCode.tokenList.noLineEndAfter(dblDot);
+		noLineEndAfter(dblDot);
 	}
 
-	static function checkExpressionCase(token:TokenTree, dblDot:TokenTree, parsedCode:ParsedCode, config:SameLineConfig):Bool {
-		if (config.expressionCase != Same) {
+	function checkExpressionCase(token:TokenTree, dblDot:TokenTree):Bool {
+		if (config.sameLine.expressionCase != Same) {
 			return false;
 		}
 		if (!isReturnExpression(token)) {
@@ -242,7 +242,7 @@ class MarkSameLine {
 			var second:TokenTree = dblDot.children[1];
 			switch (second.tok) {
 				case CommentLine(_):
-					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(second);
+					var prev:TokenInfo = getPreviousToken(second);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(dblDot, prev.token)) {
 							return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);
@@ -259,7 +259,7 @@ class MarkSameLine {
 		return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);
 	}
 
-	static function markFor(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+	function markFor(token:TokenTree) {
 		if (token == null) {
 			return;
 		}
@@ -269,36 +269,23 @@ class MarkSameLine {
 		}
 		switch (parent.tok) {
 			case BkOpen:
-				if (configSameLine.comprehensionFor == Same) {
-					var bkClose:TokenTree = parent.getLastChild();
-					var origSame:Bool = false;
-					if (bkClose != null) {
-						origSame = parsedCode.isOriginalSameLine(parent, bkClose);
-					}
-					if (origSame) {
-						parsedCode.tokenList.whitespace(token, NoneBefore);
-						markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
-						parsedCode.tokenList.whitespace(bkClose, NoneBefore);
-						return;
-					} else {
-						parsedCode.tokenList.lineEndAfter(parent);
-					}
-				}
+				markArrayComprehension(token, parent);
+				return;
 			case Kwd(KwdMacro):
 				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
 					return;
 				}
 				if (parsedCode.isOriginalSameLine(token, lastToken)) {
-					markBodyAfterPOpen(token, parsedCode, Same, false);
+					markBodyAfterPOpen(token, Same, false);
 					return;
 				}
 			default:
 		}
-		markBodyAfterPOpen(token, parsedCode, configSameLine.forBody, false);
+		markBodyAfterPOpen(token, config.sameLine.forBody, false);
 	}
 
-	static function markWhile(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+	function markWhile(token:TokenTree) {
 		if (token == null) {
 			return;
 		}
@@ -308,27 +295,43 @@ class MarkSameLine {
 		}
 		switch (parent.tok) {
 			case BkOpen:
-				if (configSameLine.comprehensionFor == Same) {
-					var bkClose:TokenTree = parent.getLastChild();
-					var origSame:Bool = false;
-					if (bkClose != null) {
-						origSame = parsedCode.isOriginalSameLine(parent, bkClose);
-					}
-					if (origSame) {
-						parsedCode.tokenList.whitespace(token, NoneBefore);
-						markBodyAfterPOpen(token, parsedCode, configSameLine.comprehensionFor, false);
-						parsedCode.tokenList.whitespace(bkClose, NoneBefore);
-						return;
-					} else {
-						parsedCode.tokenList.lineEndAfter(parent);
-					}
-				}
+				markArrayComprehension(token, parent);
+				return;
 			default:
 		}
-		markBodyAfterPOpen(token, parsedCode, configSameLine.whileBody, false);
+		markBodyAfterPOpen(token, config.sameLine.whileBody, false);
 	}
 
-	static function getBodyAfterCondition(token:TokenTree):TokenTree {
+	function markArrayComprehension(token:TokenTree, bkOpen:TokenTree) {
+		var bkClose:TokenTree = bkOpen.access().firstOf(BkClose).token;
+		switch (config.sameLine.comprehensionFor) {
+			case Keep:
+				if (parsedCode.isOriginalNewlineBefore(token)) {
+					lineEndBefore(token);
+				}
+				markBodyAfterPOpen(token, config.sameLine.comprehensionFor, false);
+				if ((bkClose != null) && (parsedCode.isOriginalNewlineBefore(bkClose))) {
+					lineEndBefore(bkClose);
+				}
+			case Same:
+				var origSame:Bool = false;
+				if (bkClose != null) {
+					origSame = parsedCode.isOriginalSameLine(bkOpen, bkClose);
+				}
+				if (origSame) {
+					whitespace(token, NoneBefore);
+					markBodyAfterPOpen(token, config.sameLine.comprehensionFor, false);
+					whitespace(bkClose, NoneBefore);
+				} else {
+					lineEndAfter(bkOpen);
+					markBodyAfterPOpen(token, config.sameLine.forBody, false);
+				}
+			case Next:
+				// do nothing
+		}
+	}
+
+	function getBodyAfterCondition(token:TokenTree):TokenTree {
 		var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
 		if (body != null) {
 			return body;
@@ -351,7 +354,7 @@ class MarkSameLine {
 		return null;
 	}
 
-	static function markBodyAfterPOpen(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy, includeBrOpen:Bool) {
+	function markBodyAfterPOpen(token:TokenTree, policy:SameLinePolicy, includeBrOpen:Bool) {
 		var body:TokenTree = getBodyAfterCondition(token);
 		while (body != null) {
 			switch (body.tok) {
@@ -360,21 +363,21 @@ class MarkSameLine {
 					switch (type) {
 						case BLOCK:
 							if (includeBrOpen) {
-								markBlockBody(body, parsedCode, policy);
+								markBlockBody(body, policy);
 							}
 							return;
 						case TYPEDEFDECL:
 						case OBJECTDECL:
-							applySameLinePolicy(body, parsedCode, policy);
+							applySameLinePolicy(body, policy);
 						case ANONTYPE:
 						case UNKNOWN:
 					}
 					body = body.nextSibling;
 				case CommentLine(_):
-					var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(body);
+					var prev:TokenInfo = getPreviousToken(body);
 					if (prev != null) {
 						if (!parsedCode.isOriginalSameLine(body, prev.token)) {
-							applySameLinePolicy(body, parsedCode, policy);
+							applySameLinePolicy(body, policy);
 							return;
 						}
 					}
@@ -387,10 +390,10 @@ class MarkSameLine {
 			return;
 		}
 
-		applySameLinePolicy(body, parsedCode, policy);
+		applySameLinePolicy(body, policy);
 	}
 
-	static function markBody(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy, includeBrOpen:Bool) {
+	function markBody(token:TokenTree, policy:SameLinePolicy, includeBrOpen:Bool) {
 		var body:TokenTree = token.access().firstChild().token;
 		if (body == null) {
 			return;
@@ -400,21 +403,21 @@ class MarkSameLine {
 			switch (type) {
 				case BLOCK:
 					if (includeBrOpen) {
-						markBlockBody(body, parsedCode, policy);
+						markBlockBody(body, policy);
 					}
 					return;
 				case TYPEDEFDECL:
 				case OBJECTDECL:
-					applySameLinePolicy(body, parsedCode, policy);
+					applySameLinePolicy(body, policy);
 				case ANONTYPE:
 				case UNKNOWN:
 			}
 			return;
 		}
-		applySameLinePolicy(body, parsedCode, policy);
+		applySameLinePolicy(body, policy);
 	}
 
-	static function markBlockBody(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
+	function markBlockBody(token:TokenTree, policy:SameLinePolicy) {
 		if (token == null) {
 			return;
 		}
@@ -435,20 +438,20 @@ class MarkSameLine {
 				return;
 			}
 		}
-		parsedCode.tokenList.noLineEndAfter(token);
+		noLineEndAfter(token);
 		for (child in token.children) {
 			switch (child.tok) {
 				case BrClose:
-					var next:TokenInfo = parsedCode.tokenList.getNextToken(child);
+					var next:TokenInfo = getNextToken(child);
 					switch (next.token.tok) {
 						case Kwd(KwdElse):
-							parsedCode.tokenList.noLineEndAfter(child);
+							noLineEndAfter(child);
 						case Kwd(KwdCatch):
-							parsedCode.tokenList.noLineEndAfter(child);
+							noLineEndAfter(child);
 						case Semicolon:
-							parsedCode.tokenList.whitespace(child, NoneAfter);
+							whitespace(child, NoneAfter);
 						case Comma:
-							parsedCode.tokenList.whitespace(child, NoneAfter);
+							whitespace(child, NoneAfter);
 						default:
 					}
 					return;
@@ -457,14 +460,14 @@ class MarkSameLine {
 					if (lastToken == null) {
 						return;
 					}
-					parsedCode.tokenList.noLineEndAfter(lastToken);
+					noLineEndAfter(lastToken);
 			}
 		}
 	}
 
-	static function applySameLinePolicyChained(token:TokenTree, parsedCode:ParsedCode, previousBlockPolicy:SameLinePolicy, policy:SameLinePolicy) {
+	function applySameLinePolicyChained(token:TokenTree, previousBlockPolicy:SameLinePolicy, policy:SameLinePolicy) {
 		if (policy == Same) {
-			var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+			var prev:TokenInfo = getPreviousToken(token);
 			if (prev == null) {
 				policy = Next;
 			}
@@ -472,55 +475,50 @@ class MarkSameLine {
 				policy = Next;
 			}
 		}
-		applySameLinePolicy(token, parsedCode, policy);
+		applySameLinePolicy(token, policy);
 	}
 
-	static function applySameLinePolicy(token:TokenTree, parsedCode:ParsedCode, policy:SameLinePolicy) {
+	function applySameLinePolicy(token:TokenTree, policy:SameLinePolicy) {
 		switch (policy) {
 			case Keep:
-				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-				if (prev == null) {
-					applySameLinePolicy(token, parsedCode, Next);
-					return;
-				}
-				if (parsedCode.isOriginalSameLine(prev.token, token)) {
-					applySameLinePolicy(token, parsedCode, Same);
+				if (parsedCode.isOriginalNewlineBefore(token)) {
+					applySameLinePolicy(token, Next);
 				} else {
-					applySameLinePolicy(token, parsedCode, Next);
+					applySameLinePolicy(token, Same);
 				}
 			case Same:
-				parsedCode.tokenList.wrapBefore(token, true);
-				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				wrapBefore(token, true);
+				var prev:TokenInfo = getPreviousToken(token);
 				if (prev == null) {
-					parsedCode.tokenList.noLineEndBefore(token);
+					noLineEndBefore(token);
 				} else {
 					switch (prev.token.tok) {
 						case POpen, Dot:
-							parsedCode.tokenList.whitespace(token, NoneBefore);
+							whitespace(token, NoneBefore);
 						default:
-							parsedCode.tokenList.noLineEndBefore(token);
+							noLineEndBefore(token);
 					}
 				}
 				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
 					return;
 				}
-				var next:TokenInfo = parsedCode.tokenList.getNextToken(lastToken);
+				var next:TokenInfo = getNextToken(lastToken);
 				if (next == null) {
 					return;
 				}
 				switch (next.token.tok) {
 					case Kwd(KwdElse):
-						parsedCode.tokenList.noLineEndAfter(lastToken);
+						noLineEndAfter(lastToken);
 					default:
 				}
 				return;
 			case Next:
-				parsedCode.tokenList.lineEndBefore(token);
+				lineEndBefore(token);
 		}
 	}
 
-	static function markDollarSameLine(parsedCode:ParsedCode, config:SameLineConfig, configWhitespace:WhitespaceConfig) {
+	function markDollarSameLine() {
 		var tokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Dollar(_):
@@ -538,38 +536,38 @@ class MarkSameLine {
 			if (!parsedCode.isOriginalSameLine(brOpen, brClose)) {
 				continue;
 			}
-			parsedCode.tokenList.whitespace(brOpen, None);
-			var next:TokenInfo = parsedCode.tokenList.getNextToken(brClose);
+			whitespace(brOpen, None);
+			var next:TokenInfo = getNextToken(brClose);
 			if (next != null) {
 				switch (next.token.tok) {
 					case BrClose:
 					case POpen, PClose, BkOpen, BkClose:
-						parsedCode.tokenList.whitespace(brClose, None);
+						whitespace(brClose, None);
 					case DblDot:
 					case Comma, Semicolon, Dot:
-						parsedCode.tokenList.whitespace(brClose, None);
+						whitespace(brClose, None);
 					default:
-						parsedCode.tokenList.whitespace(brClose, OnlyAfter);
+						whitespace(brClose, OnlyAfter);
 				}
 			} else {
-				parsedCode.tokenList.noLineEndAfter(brClose);
+				noLineEndAfter(brClose);
 			}
-			parsedCode.tokenList.wrapBefore(brOpen, false);
-			parsedCode.tokenList.wrapAfter(brOpen, false);
-			parsedCode.tokenList.wrapBefore(brClose, false);
-			parsedCode.tokenList.wrapAfter(brClose, false);
+			wrapBefore(brOpen, false);
+			wrapAfter(brOpen, false);
+			wrapBefore(brClose, false);
+			wrapAfter(brClose, false);
 		}
 	}
 
-	static function markFunction(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
+	function markFunction(token:TokenTree) {
 		var body:TokenTree = token.access().firstChild().isCIdent().token;
 		if (body == null) {
 			body = token.access().firstChild().is(Kwd(KwdNew)).token;
 		}
-		var policy:SameLinePolicy = configSameLine.functionBody;
+		var policy:SameLinePolicy = config.sameLine.functionBody;
 		if (body == null) {
 			body = token;
-			policy = configSameLine.anonFunctionBody;
+			policy = config.sameLine.anonFunctionBody;
 		}
 		if ((body == null) || (body.children == null)) {
 			return;
@@ -599,28 +597,28 @@ class MarkSameLine {
 				return;
 			default:
 		}
-		applySameLinePolicy(body, parsedCode, policy);
+		applySameLinePolicy(body, policy);
 	}
 
-	static function markDoWhile(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		markBody(token, parsedCode, configSameLine.doWhileBody, false);
+	function markDoWhile(token:TokenTree) {
+		markBody(token, config.sameLine.doWhileBody, false);
 		var whileTok:TokenTree = token.access().firstOf(Kwd(KwdWhile)).token;
 		if (whileTok == null) {
 			return;
 		}
-		applySameLinePolicy(whileTok, parsedCode, configSameLine.doWhile);
+		applySameLinePolicy(whileTok, config.sameLine.doWhile);
 	}
 
-	static function markMacro(token:TokenTree, parsedCode:ParsedCode, configSameLine:SameLineConfig) {
-		var brOpen:TokenInfo = parsedCode.tokenList.getNextToken(token);
+	function markMacro(token:TokenTree) {
+		var brOpen:TokenInfo = getNextToken(token);
 		if ((brOpen == null) || (!brOpen.token.is(BrOpen))) {
 			return;
 		}
 		var brClose:TokenTree = brOpen.token.access().firstOf(BrClose).token;
 		if (parsedCode.isOriginalSameLine(brOpen.token, brClose)) {
-			parsedCode.tokenList.noLineEndAfter(brOpen.token);
-			parsedCode.tokenList.noLineEndBefore(brClose);
-			parsedCode.tokenList.noWrappingBetween(brOpen.token, brClose);
+			noLineEndAfter(brOpen.token);
+			noLineEndBefore(brClose);
+			noWrappingBetween(brOpen.token, brClose);
 		}
 	}
 }
