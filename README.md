@@ -70,6 +70,19 @@ When creating your custom `hxformat.json` file, you only need to provide setting
 - use `excludes` inside your `hxformat.json` to specify a number of regexes, that will exclude any filename from formatting matching any one of these regexes
 - use `// @formatter:off` and `// @formatter:on` comments inside your code to turn off formatting for parts of your code, it's line based and includes lines containing `// @formatter:off` and `// @formatter:on`.
 
+### How to start using formatter in your projects
+
+Switching from manually formatted source code to an automated formatter workflow can be a lot of work. The following steps should help you get started:
+
+1. make sure you have an unmodified checkout / clone of your project (assuming you are using a VCS)
+2. run formatter on your source folder(s) - if you already have a `hxformat.json` formatter will use it, otherwise it will use built-in defaults.
+3. use your IDE's diff view, or some other diff viewer to look at the changes formatter made - chances are you don't like what you see, at least for some parts
+4. open `hxformat.json` and add / change configuration settings for formatting choices you did not like - we recommend using VSCode, since it has a JSON schema for `hxformat.json` files providing completion support (including (incomplete) documentation for configuration options)
+5. goto step 1 and rerun formatter until you are happy with the resulting changelist or run out of options to try - you can rerun formatter on already formatted code, but some options might work better on unmodified sources (e.g. using `keep` in wrapping rules will try to conserve your original line breaks, but it will not recreate them after a previous formatter run removed them)
+
+Depending on the size of your project your initial changelist is going to be large and quite possibly contains every source file.
+When you have a `hxformat.json` file that works for you, you can enable formatting in [VSCode](https://github.com/vshaxe/vshaxe/wiki/Formatting) or add an external programm / command that simply calls `haxelib run formatter -s <filename>` (or `node <path_to_formatter>/run.js -s <filename>`) when saving or pressing a hotkey.
+
 ## Todo
 
 - improve wrapping
