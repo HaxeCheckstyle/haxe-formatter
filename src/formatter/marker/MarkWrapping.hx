@@ -61,7 +61,8 @@ class MarkWrapping extends MarkerBase {
 					if ((info.whitespaceAfter != Newline) && (info.whitespaceAfter != SpaceOrNewline)) {
 						whitespace(close, After);
 					}
-				case Semicolon, Dot, POpen:
+				case POpen:
+				case Semicolon, Dot:
 					whitespace(close, NoneAfter);
 				case Binop(OpGt):
 					whitespace(close, NoneAfter);

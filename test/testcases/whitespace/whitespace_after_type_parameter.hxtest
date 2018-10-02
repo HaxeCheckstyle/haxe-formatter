@@ -1,0 +1,19 @@
+{
+	"whitespace": {
+		"openingParenPolicy": "before"
+	}
+}
+
+
+---
+
+
+class Main {
+	static function main<T>():Array<T> {}
+}
+
+---
+
+class Main {
+	static function main<T> ():Array<T> {}
+}

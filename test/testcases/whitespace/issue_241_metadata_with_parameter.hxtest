@@ -1,0 +1,22 @@
+{}
+
+
+---
+
+
+class Main {
+	@:overload(function())
+	static function main() {
+		trace(@:privateAccess (X).object);
+	}
+}
+
+
+---
+
+class Main {
+	@:overload(function())
+	static function main() {
+		trace(@:privateAccess (X).object);
+	}
+}

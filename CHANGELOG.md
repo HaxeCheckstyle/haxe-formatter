@@ -13,6 +13,7 @@
 - Fixed wrapping function signature with long type hint, fixes [#189](https://github.com/HaxeCheckstyle/haxe-formatter/issues/189) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
 - Fixed indentation with comment line, fixes [#237](https://github.com/HaxeCheckstyle/haxe-formatter/issues/237) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
 - Fixed wrapping option keep, fixes [#238](https://github.com/HaxeCheckstyle/haxe-formatter/issues/238) ([#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239))
+- Fixed handling of metadata parameter, fixes [#241](https://github.com/HaxeCheckstyle/haxe-formatter/issues/241) ([#242](https://github.com/HaxeCheckstyle/haxe-formatter/issues/242))
 - Changed default rules for function signature, see [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
 - Refactored marker classes to use a common base class [#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239)
 
