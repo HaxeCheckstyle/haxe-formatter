@@ -49,7 +49,8 @@ class Indenter {
 			default:
 		}
 		#if debugIndent
-		log(token, "------");
+		logIndentStart();
+		log(token, "start");
 		#end
 		token = findEffectiveParent(token);
 		#if debugIndent
@@ -66,6 +67,7 @@ class Indenter {
 		if (token.tok == null) {
 			return token.getFirstChild();
 		}
+
 		switch (token.tok) {
 			case BrOpen:
 				var parent:TokenTree = token.parent;
@@ -106,15 +108,6 @@ class Indenter {
 					default:
 				}
 			case BrClose, BkClose:
-				var current:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
-				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
-				if ((current.whitespaceAfter != Newline) && (current.whitespaceAfter != SpaceOrNewline) && (next != null)) {
-					switch (next.token.tok) {
-						case BrClose, BkClose, PClose:
-							return findEffectiveParent(next.token);
-						default:
-					}
-				}
 				return findEffectiveParent(token.parent);
 			case PClose:
 				return findEffectiveParent(token.parent);
@@ -169,28 +162,103 @@ class Indenter {
 		return token;
 	}
 
-	function setupCalcFromCandidates(token:TokenTree, prevToken:TokenTree, indentingTokensCandidates:Array<TokenTree>):Array<TokenTree> {
-		var indentingTokens:Array<TokenTree> = [];
-		if (!isIndentingToken(token)) {
-			if (!parsedCode.tokenList.isSameLine(prevToken, token)) {
-				indentingTokens.push(prevToken);
+	function countLineBreaks(indentingTokensCandidates:Array<TokenTree>):Int {
+		var count:Int = 0;
+		var prevToken:TokenTree = null;
+		var currentToken:TokenTree = null;
+		var mustIndent:Bool;
+		var lastIndentingToken:TokenTree = null;
+		for (token in indentingTokensCandidates) {
+			prevToken = currentToken;
+			if (prevToken == null) {
+				prevToken = token;
 			}
-			return indentingTokens;
-		}
-		if (prevToken.is(POpen) && token.is(BrOpen)) {
-			var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
-			if ((info.whitespaceAfter != Newline) && (info.whitespaceAfter != SpaceOrNewline)) {
-				indentingTokens.push(prevToken);
+			currentToken = token;
+			#if debugIndent
+			log(token, '"$prevToken" -> "$currentToken"');
+			#end
+			mustIndent = false;
+			switch (prevToken.tok) {
+				case Kwd(KwdElse):
+					if (currentToken.is(Kwd(KwdIf))) {
+						continue;
+					}
+				case Kwd(KwdCatch):
+					if (currentToken.is(Kwd(KwdTry))) {
+						continue;
+					}
+				case Kwd(KwdFunction):
+					if (currentToken.is(POpen)) {
+						mustIndent = true;
+						continue;
+					}
+				case Dot:
+					switch (currentToken.tok) {
+						case POpen, BrOpen:
+							mustIndent = true;
+						case Dot:
+							if ((prevToken.pos.min == currentToken.pos.min) && parsedCode.tokenList.isNewLineBefore(currentToken)) {
+								// first dot & has a newline
+							} else {
+								continue;
+							}
+						case Binop(OpAssign):
+						case Kwd(KwdReturn), Kwd(KwdUntyped), Kwd(KwdNew):
+							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
+								continue;
+							}
+						default:
+							if (parsedCode.tokenList.isNewLineBefore(prevToken)) {
+								#if debugIndent
+								log(token, 'adds "$prevToken"');
+								#end
+								count++;
+								continue;
+							}
+					}
+				case BrOpen:
+					switch (currentToken.tok) {
+						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch):
+							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
+							switch (type) {
+								case OBJECTDECL:
+								default:
+									continue;
+							}
+						case POpen:
+							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
+								continue;
+							}
+						case Binop(OpAssign):
+							if (currentToken.access().parent().parent().is(Kwd(KwdTypedef)).exists()) {
+								continue;
+							}
+						default:
+					}
+				case DblDot:
+					switch (currentToken.tok) {
+						case Kwd(KwdCase), Kwd(KwdDefault):
+							if ((lastIndentingToken != null) && (lastIndentingToken.pos.min == prevToken.pos.min)) {
+								continue;
+							}
+							mustIndent = true;
+						default:
+					}
+				default:
 			}
-			return indentingTokens;
+			if (!mustIndent && parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
+				continue;
+			}
+			if (!isIndentingToken(currentToken)) {
+				continue;
+			}
+			#if debugIndent
+			log(token, 'adds "$currentToken"');
+			#end
+			lastIndentingToken = currentToken;
+			count++;
 		}
-		if (!parsedCode.tokenList.isSameLine(prevToken, token)) {
-			indentingTokens.push(prevToken);
-			return indentingTokens;
-		}
-		indentingTokensCandidates.unshift(prevToken);
-		prevToken = token;
-		return indentingTokens;
+		return count;
 	}
 
 	function calcFromCandidates(token:TokenTree):Int {
@@ -201,91 +269,22 @@ class Indenter {
 		if (indentingTokensCandidates.length <= 0) {
 			return 0;
 		}
-		var prevToken:TokenTree = indentingTokensCandidates.shift();
-		var indentingTokens:Array<TokenTree> = setupCalcFromCandidates(token, prevToken, indentingTokensCandidates);
-
-		while (indentingTokensCandidates.length > 0) {
-			var currentToken:TokenTree = indentingTokensCandidates.shift();
-			switch (prevToken.tok) {
-				case Kwd(KwdElse):
-					if (currentToken.is(Kwd(KwdIf))) {
-						prevToken = currentToken;
-						continue;
-					}
-				case Kwd(KwdCatch):
-					if (currentToken.is(Kwd(KwdTry))) {
-						prevToken = currentToken;
-						continue;
-					}
-				case Kwd(KwdFunction):
-					if (currentToken.is(POpen)) {
-						prevToken = currentToken;
-						continue;
-					}
-				case Dot:
-					switch (currentToken.tok) {
-						case Dot:
-							prevToken = currentToken;
-							continue;
-						default:
-					}
-				case BrOpen:
-					switch (currentToken.tok) {
-						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch):
-							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
-							switch (type) {
-								case OBJECTDECL:
-								default:
-									prevToken = currentToken;
-									continue;
-							}
-						case POpen:
-							var child:TokenTree = currentToken.getFirstChild();
-							if (child.index != prevToken.index) {
-								return calcFromCandidates(child) + indentingTokens.length;
-							}
-							prevToken = currentToken;
-							continue;
-						case Binop(OpAssign):
-							if (currentToken.access().parent().parent().is(Kwd(KwdTypedef)).exists()) {
-								prevToken = currentToken;
-								continue;
-							}
-						default:
-					}
-				case DblDot:
-					switch (currentToken.tok) {
-						case Kwd(KwdCase), Kwd(KwdDefault):
-							prevToken = currentToken;
-							continue;
-						default:
-					}
-				default:
-			}
-			if (!mustIndent(currentToken, prevToken)) {
-				prevToken = currentToken;
-				continue;
-			}
-			indentingTokens.push(currentToken);
-			prevToken = currentToken;
-		}
+		var count:Int = countLineBreaks(indentingTokensCandidates);
 		#if debugIndent
-		log(token, "final: " + indentingTokens);
+		log(token, "final indent: " + count);
 		#end
-		return indentingTokens.length;
-	}
-
-	function mustIndent(currentToken:TokenTree, prevToken:TokenTree):Bool {
-		switch (currentToken.tok) {
-			case DblDot:
-				return true;
-			default:
-		}
-		return !parsedCode.tokenList.isSameLine(prevToken, currentToken);
+		return count;
 	}
 
 	function findIndentingCandidates(token:TokenTree):Array<TokenTree> {
 		var indentingTokensCandidates:Array<TokenTree> = [];
+		var lastIndentingToken:TokenTree = null;
+		switch (token.tok) {
+			case Dot:
+				lastIndentingToken = token;
+			default:
+		}
+		indentingTokensCandidates.push(token);
 		var parent:TokenTree = token;
 		while ((parent.parent != null) && (parent.parent.tok != null)) {
 			parent = parent.parent;
@@ -293,7 +292,18 @@ class Indenter {
 				continue;
 			}
 			if (isIndentingToken(parent)) {
+				if (lastIndentingToken != null) {
+					if (lastIndentingToken.is(Dot) && parent.is(Dot)) {
+						continue;
+					}
+				}
 				indentingTokensCandidates.push(parent);
+				lastIndentingToken = parent;
+			} else {
+				if (parsedCode.tokenList.isNewLineBefore(parent)) {
+					indentingTokensCandidates.push(parent);
+					lastIndentingToken = parent;
+				}
 			}
 		}
 		return indentingTokensCandidates;
@@ -328,13 +338,9 @@ class Indenter {
 				if (config.conditionalPolicy == AlignedIncrease) {
 					return true;
 				}
-			case Kwd(KwdIf):
+			case Kwd(KwdIf), Kwd(KwdElse):
 				return true;
-			case Kwd(KwdElse):
-				return true;
-			case Kwd(KwdFor):
-				return true;
-			case Kwd(KwdDo):
+			case Kwd(KwdFor), Kwd(KwdDo):
 				return true;
 			case Kwd(KwdWhile):
 				var parent:TokenTree = token.parent;
@@ -342,19 +348,20 @@ class Indenter {
 					return false;
 				}
 				return true;
-			case Kwd(KwdTry):
-				return true;
-			case Kwd(KwdCatch):
+			case Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdThrow):
 				return true;
 			case Kwd(KwdFunction):
 				return true;
-			case Kwd(KwdReturn):
+			case Kwd(KwdReturn), Kwd(KwdUntyped):
 				return true;
-			case Kwd(KwdUntyped):
-				return true;
+			case Kwd(KwdNew):
+				switch (token.parent.tok) {
+					case Kwd(KwdFunction):
+						return false;
+					default:
+						return true;
+				}
 			case Kwd(KwdSwitch), Kwd(KwdCase), Kwd(KwdDefault):
-				return true;
-			case Kwd(KwdThrow):
 				return true;
 			default:
 		}
@@ -362,8 +369,15 @@ class Indenter {
 	}
 
 	#if debugIndent
+	function logIndentStart() {
+		var file:FileOutput = File.append("hxformat.log", false);
+		file.writeString("\n".lpad("-", 202));
+		file.close();
+	}
+
 	function log(token:TokenTree, what:String, ?pos:PosInfos) {
-		var text:String = '`${token}` - $what - ${pos.fileName}:${pos.lineNumber}';
+		var tokenText:String = '`$token` (${token.pos.min})';
+		var text:String = '${tokenText.rpad(" ", 50)} ${what.rpad(" ", 90)}';
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString(text + "\n");
 		file.close();

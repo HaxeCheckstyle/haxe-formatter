@@ -744,8 +744,9 @@ class TokenList {
 
 	function logAction(callerPos:PosInfos, token:TokenTree, what:String, ?pos:PosInfos) {
 		var func:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName}';
-		var operation:String = '[${pos.methodName} ($what)]';
-		var tokPos:String = ' on `${token}` (${token.pos})';
+		var operation:String = '${pos.methodName.rpad(" ", 25)} $what';
+		var tok:String = '`${token}`';
+		var tokPos:String = '${tok.rpad(" ", 30)} (${token.pos})';
 
 		var text:String = func.rpad(" ", 75) + operation.rpad(" ", 70) + tokPos;
 		var file:FileOutput = File.append("hxformat.log", false);

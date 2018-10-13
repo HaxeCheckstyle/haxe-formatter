@@ -1,0 +1,20 @@
+{}
+
+---
+
+
+class Main {
+    static function main() {
+       dbConfig.saveKonfiguration (AngebotsAnfrage, code, data, csvData, anrede, "" /* name */ , "" /* firma */ , "" /* strasse */ , plz, ort, land, ""
+                /* telefon */, "" /* email */ , infoMail, "" /* bemerkung */);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		dbConfig.saveKonfiguration(AngebotsAnfrage, code, data, csvData, anrede, "" /* name */, "" /* firma */, "" /* strasse */, plz, ort, land, ""
+			/* telefon */, "" /* email */, infoMail, "" /* bemerkung */);
+	}
+}

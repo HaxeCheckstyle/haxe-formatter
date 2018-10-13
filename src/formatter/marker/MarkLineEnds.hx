@@ -60,12 +60,6 @@ class MarkLineEnds extends MarkerBase {
 						lineEndAfter(token);
 						continue;
 					}
-					var info:TokenInfo = getTokenInfo(token);
-					if (info == null) {
-						whitespace(token, Around);
-					} else {
-						whitespace(token, Around);
-					}
 				default:
 			}
 		}
