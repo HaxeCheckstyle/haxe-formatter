@@ -1,0 +1,23 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+    }
+}
+
+---
+
+class Main {
+	public function new() {
+		super();
+	}
+}
+
+---
+
+class Main
+{
+	public function new()
+	{
+		super();
+	}
+}

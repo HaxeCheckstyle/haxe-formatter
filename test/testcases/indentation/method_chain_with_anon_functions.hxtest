@@ -1,0 +1,59 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"wrapping": {
+		"methodChain": {
+			"rules": [
+				{
+					"conditions": [{"cond": "anyItemLength >= n", "value": 25}],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [{"cond": "itemCount >= n", "value": 4}],
+					"type": "onePerLine"
+				}
+			]
+		}
+	}
+}
+
+
+---
+
+class Main {
+	public function main(){
+        untyped jQuery
+                .ajax (options)
+                .done (function (data)
+            {
+                onKonfigurationSaved (data);
+            })
+                .fail (function (request, status)
+            {
+                Log.warn ("Speichern fehlgeschlagen: " + status);
+                fire (new UserNotificationEvent (UserNotificationEvent.CONFIG_SERVER_FAILURE));
+            });
+	}
+}
+
+---
+
+class Main
+{
+	public function main()
+	{
+		untyped jQuery
+			.ajax(options)
+			.done(function(data)
+			{
+				onKonfigurationSaved(data);
+			})
+			.fail(function(request, status)
+			{
+				Log.warn("Speichern fehlgeschlagen: " + status);
+				fire(new UserNotificationEvent(UserNotificationEvent.CONFIG_SERVER_FAILURE));
+			});
+	}
+}

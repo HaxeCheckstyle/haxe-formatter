@@ -16,6 +16,9 @@
 - Fixed handling of metadata parameter, fixes [#241](https://github.com/HaxeCheckstyle/haxe-formatter/issues/241) ([#242](https://github.com/HaxeCheckstyle/haxe-formatter/issues/242))
 - Changed default rules for function signature, see [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
 - Refactored marker classes to use a common base class [#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239)
+- Refactored whitespace policy add/remove handling
+- Refactored indentation logic
+- Removed changing whitespace around comments during line end marking
 
 ## version 1.1.0 (2018-09-04)
 

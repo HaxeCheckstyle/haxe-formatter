@@ -1,0 +1,54 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"wrapping": {
+		"methodChain": {
+			"rules": [
+				{
+					"conditions": [{"cond": "anyItemLength >= n", "value": 25}],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [{"cond": "itemCount >= n", "value": 4}],
+					"type": "onePerLine"
+				}
+			]
+		}
+	}
+}
+
+
+---
+
+class Main {
+	public function main(){
+	bildLink = new Tag ("img")
+					.src (Url.parse ('${baseUrl}images/${elem.getImage ()}.png'))
+					.alt ('${Translator.dualTrans ("image")} ${desc}') // .width (100)
+			.height (66);
+	bildLink = new Tag ("img")
+					.src (Url.parse ('${baseUrl}images/${elem.getImage ()}.png'))
+					.alt ('${Translator.dualTrans ("image")} ${desc}')
+			.height (66);
+
+	}
+}
+
+---
+
+class Main
+{
+	public function main()
+	{
+		bildLink = new Tag("img")
+			.src(Url.parse('${baseUrl}images/${elem.getImage()}.png'))
+			.alt('${Translator.dualTrans("image")} ${desc}') // .width (100)
+			.height(66);
+		bildLink = new Tag("img")
+			.src(Url.parse('${baseUrl}images/${elem.getImage()}.png'))
+			.alt('${Translator.dualTrans("image")} ${desc}')
+			.height(66);
+	}
+}

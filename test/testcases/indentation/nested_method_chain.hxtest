@@ -1,0 +1,45 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"wrapping": {
+		"methodChain": {
+			"rules": [
+				{
+					"conditions": [{"cond": "anyItemLength >= n", "value": 25}],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [{"cond": "itemCount >= n", "value": 4}],
+					"type": "onePerLine"
+				}
+			]
+		}
+	}
+}
+
+
+---
+
+class Main {
+	public function main(){
+		ul.addChild (new Tag ("li")
+			.addChild (Tag.imgTag (Url.parse ("images.png"), "16", "", null)
+			.addClass ("innerClass"))
+			.addClass ("outerClass"));
+	}
+}
+
+---
+
+class Main
+{
+	public function main()
+	{
+		ul.addChild(new Tag("li")
+			.addChild(Tag.imgTag(Url.parse("images.png"), "16", "", null)
+				.addClass("innerClass"))
+			.addClass("outerClass"));
+	}
+}

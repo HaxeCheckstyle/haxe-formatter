@@ -926,11 +926,7 @@ class MarkWrapping extends MarkerBase {
 				for (index in 0...chainedCalls.length) {
 					var element:TokenTree = chainedCalls[index];
 					lineEndBefore(element);
-					if (index == 0) {
-						additionalIndent(element, addIndent + 1);
-					} else {
-						additionalIndent(element, addIndent);
-					}
+					additionalIndent(element, addIndent);
 				}
 			case OnePerLineAfterFirst:
 				noLineEndBefore(chainStart);
@@ -949,11 +945,7 @@ class MarkWrapping extends MarkerBase {
 					var element:TokenTree = chainedCalls[index];
 					if (parsedCode.isOriginalNewlineBefore(element)) {
 						lineEndBefore(element);
-						if (index == 0) {
-							additionalIndent(element, addIndent + 1);
-						} else {
-							additionalIndent(element, addIndent);
-						}
+						additionalIndent(element, addIndent);
 					} else {
 						noLineEndBefore(element);
 						wrapBefore(element, false);
