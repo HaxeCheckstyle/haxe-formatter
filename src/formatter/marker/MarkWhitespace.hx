@@ -29,11 +29,11 @@ class MarkWhitespace extends MarkerBase {
 					}
 				case Binop(OpSub):
 					if (TokenTreeCheckUtils.filterOpSub(token)) {
-						var policy:WhitespacePolicy = WhitespacePolicy.remove(config.whitespace.binopPolicy, After);
+						var policy:WhitespacePolicy = config.whitespace.binopPolicy.remove(After);
 						var prev:TokenInfo = getPreviousToken(token);
 						switch (prev.token.tok) {
 							case POpen:
-								policy = WhitespacePolicy.remove(policy, Before);
+								policy = policy.remove(Before);
 							default:
 						}
 						whitespace(token, policy);
@@ -98,7 +98,7 @@ class MarkWhitespace extends MarkerBase {
 				case CommentLine(_):
 					whitespace(token, Before);
 				case Comment(_):
-					whitespace(token, Around);
+					markComment(token);
 				default:
 			}
 			return GO_DEEPER;
@@ -116,11 +116,11 @@ class MarkWhitespace extends MarkerBase {
 			if (next != null) {
 				switch (next.token.tok) {
 					case Kwd(_):
-						policy = WhitespacePolicy.add(policy, After);
+						policy = policy.add(After);
 					case Comma, Semicolon:
-						policy = WhitespacePolicy.remove(policy, After);
+						policy = policy.remove(After);
 					case Binop(OpGt), PClose, BrClose:
-						policy = WhitespacePolicy.remove(policy, After);
+						policy = policy.remove(After);
 					default:
 				}
 			}
@@ -146,16 +146,16 @@ class MarkWhitespace extends MarkerBase {
 		if (next != null) {
 			switch (next.token.tok) {
 				case Dot, Comma, DblDot, Semicolon:
-					policy = WhitespacePolicy.remove(policy, After);
+					policy = policy.remove(After);
 				case Binop(OpGt):
 					if (token.is(BrClose)) {
-						policy = WhitespacePolicy.remove(policy, After);
+						policy = policy.remove(After);
 					}
 				case Binop(OpArrow):
-					policy = WhitespacePolicy.add(policy, After);
+					policy = policy.add(After);
 				case Kwd(_):
 					if (closing) {
-						policy = WhitespacePolicy.add(policy, After);
+						policy = policy.add(After);
 					}
 				default:
 			}
@@ -171,19 +171,19 @@ class MarkWhitespace extends MarkerBase {
 					if ((selfInfo.whitespaceAfter == Newline) || (selfInfo.whitespaceAfter == SpaceOrNewline)) {
 						return;
 					}
-					policy = WhitespacePolicy.remove(policy, After);
+					policy = policy.remove(After);
 				case POpen, PClose, BrOpen, BkOpen, BkClose:
 					if (token.is(PClose)) {
 						switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
 							case CONDITION:
-								policy = WhitespacePolicy.add(policy, After);
+								policy = policy.add(After);
 							case PARAMETER:
-								policy = WhitespacePolicy.add(policy, After);
+								policy = policy.add(After);
 							default:
-								policy = WhitespacePolicy.remove(policy, After);
+								policy = policy.remove(After);
 						}
 					} else {
-						policy = WhitespacePolicy.remove(policy, After);
+						policy = policy.remove(After);
 					}
 				default:
 			}
@@ -192,7 +192,7 @@ class MarkWhitespace extends MarkerBase {
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case POpen, BrOpen, BkOpen:
-					policy = WhitespacePolicy.remove(policy, Before);
+					policy = policy.remove(Before);
 				case Binop(OpLt):
 					if (token.is(BrOpen)) {
 						return;
@@ -333,7 +333,7 @@ class MarkWhitespace extends MarkerBase {
 		if (next != null) {
 			switch (next.token.tok) {
 				case BrClose:
-					policy = WhitespacePolicy.remove(policy, After);
+					policy = policy.remove(After);
 				default:
 			}
 		}
@@ -357,7 +357,7 @@ class MarkWhitespace extends MarkerBase {
 		var type:POpenType = TokenTreeCheckUtils.getPOpenType(token);
 		switch (type) {
 			case AT:
-				policy = WhitespacePolicy.remove(policy, Before);
+				policy = policy.remove(Before);
 			case PARAMETER:
 			case CALL:
 			case FORLOOP:
@@ -369,10 +369,10 @@ class MarkWhitespace extends MarkerBase {
 						case Dot:
 						case DblDot:
 						case Unop(_):
-							policy = WhitespacePolicy.remove(policy, Before);
+							policy = policy.remove(Before);
 							break;
 						case At:
-							policy = WhitespacePolicy.remove(policy, Before);
+							policy = policy.remove(Before);
 							break;
 						default:
 							break;
@@ -381,5 +381,21 @@ class MarkWhitespace extends MarkerBase {
 				}
 		}
 		successiveParenthesis(token, false, policy, config.whitespace.compressSuccessiveParenthesis);
+	}
+
+	function markComment(token:TokenTree) {
+		var policy:WhitespacePolicy = Around;
+		var next:TokenInfo = getNextToken(token);
+		if (next == null) {
+			whitespace(token, policy);
+			return;
+		}
+		switch (next.token.tok) {
+			case Comma:
+				policy.remove(After);
+			default:
+		}
+
+		whitespace(token, policy);
 	}
 }

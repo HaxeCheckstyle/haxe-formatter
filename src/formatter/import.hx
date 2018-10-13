@@ -12,3 +12,4 @@ import formatter.codedata.TokenInfo;
 
 using StringTools;
 using tokentree.TokenTreeAccessHelper;
+using formatter.config.WhitespacePolicy;
