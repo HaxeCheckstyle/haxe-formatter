@@ -28,6 +28,7 @@ class Main {
 			.addChild (Tag.imgTag (Url.parse ("images.png"), "16", "", null)
 			.addClass ("innerClass"))
 			.addClass ("outerClass"));
+        form.addElement (new SelectElement ("type").addOption (new Option (transHtml ("Image"), "Image")).addOption (new Option (transHtml ("PDF"), "PDF")).addOption (new Option (transHtml ("Other"), "Media")));
 	}
 }
 
@@ -41,5 +42,9 @@ class Main
 			.addChild(Tag.imgTag(Url.parse("images.png"), "16", "", null)
 				.addClass("innerClass"))
 			.addClass("outerClass"));
+		form.addElement(new SelectElement("type")
+			.addOption(new Option(transHtml("Image"), "Image"))
+			.addOption(new Option(transHtml("PDF"), "PDF"))
+			.addOption(new Option(transHtml("Other"), "Media")));
 	}
 }

@@ -413,7 +413,9 @@ class TokenList {
 				case Kwd(KwdFunction), Kwd(KwdMacro):
 					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(info.token);
 					if (lastChild != null) {
-						index = lastChild.index;
+						if (lastChild.index > index) {
+							index = lastChild.index;
+						}
 						continue;
 					}
 				default:

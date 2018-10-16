@@ -1,0 +1,26 @@
+{}
+
+---
+
+
+class Main {
+	public function main(){
+        profiles.get (className)
+            .get (methodName)
+            .elapsedTime += t - profiles.get (className)
+            .get (methodName)
+            .startTime;
+	}
+}
+
+---
+
+class Main {
+	public function main() {
+		profiles.get(className)
+			.get(methodName)
+			.elapsedTime += t - profiles.get(className)
+				.get(methodName)
+				.startTime;
+	}
+}

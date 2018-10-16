@@ -62,6 +62,7 @@ class MarkWrapping extends MarkerBase {
 						whitespace(close, After);
 					}
 				case POpen:
+					wrapAfter(close, true);
 				case Semicolon, Dot:
 					whitespace(close, NoneAfter);
 				case Binop(OpGt):
