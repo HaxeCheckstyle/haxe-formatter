@@ -2,8 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added indentation support for `Binop(OpAssignOp(_))`
-- Fixed endless loop during wrapping of `#if (macro)`
+- Added indentation support for `Binop(OpAssignOp(_))` [#245](https://github.com/HaxeCheckstyle/haxe-formatter/issues/245)
+- Fixed endless loop during wrapping of `#if (macro)` [#245](https://github.com/HaxeCheckstyle/haxe-formatter/issues/245)
 
 ## version 1.1.1 (2018-10-13)
 
