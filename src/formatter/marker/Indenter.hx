@@ -100,7 +100,7 @@ class Indenter {
 						if (parent.parent.is(Kwd(KwdFunction))) {
 							return findEffectiveParent(parent.parent);
 						}
-					case Binop(OpAssign):
+					case Binop(OpAssign), Binop(OpAssignOp(_)):
 						var access:TokenTreeAccessHelper = parent.access().parent().parent().is(Kwd(KwdTypedef));
 						if (access.exists()) {
 							return access.token;
@@ -202,7 +202,7 @@ class Indenter {
 							} else {
 								continue;
 							}
-						case Binop(OpAssign):
+						case Binop(OpAssign), Binop(OpAssignOp(_)):
 						case Kwd(KwdReturn), Kwd(KwdUntyped), Kwd(KwdNew):
 							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								continue;
@@ -229,7 +229,7 @@ class Indenter {
 							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								continue;
 							}
-						case Binop(OpAssign):
+						case Binop(OpAssign), Binop(OpAssignOp(_)):
 							if (currentToken.access().parent().parent().is(Kwd(KwdTypedef)).exists()) {
 								continue;
 							}
@@ -316,7 +316,7 @@ class Indenter {
 		switch (token.tok) {
 			case BrOpen, BkOpen, POpen, Dot:
 				return true;
-			case Binop(OpAssign):
+			case Binop(OpAssign), Binop(OpAssignOp(_)):
 				return true;
 			case Binop(OpLt):
 				return TokenTreeCheckUtils.isTypeParameter(token);

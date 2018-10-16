@@ -2,6 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added indentation support for `Binop(OpAssignOp(_))`
+- Fixed endless loop during wrapping of `#if (macro)`
+
 ## version 1.1.1 (2018-10-13)
 
 - Added support for key-value iterators, fixes [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
