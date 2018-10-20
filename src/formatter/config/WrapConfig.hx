@@ -138,11 +138,11 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: TotalItemLengthLargerThan, value: 130}],
-				type: OnePerLineAfterFirst
+				type: FillLine
 			},
 			{
 				conditions: [{cond: AnyItemLengthLargerThan, value: 80}],
-				type: OnePerLineAfterFirst
+				type: FillLine
 			}
 		]
 	})

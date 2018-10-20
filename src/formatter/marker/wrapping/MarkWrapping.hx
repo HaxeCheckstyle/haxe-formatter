@@ -1,32 +1,58 @@
-package formatter.marker;
+package formatter.marker.wrapping;
 
 import formatter.config.Config;
 import formatter.config.WrapConfig;
 
-class MarkWrapping extends MarkerBase {
+class MarkWrapping extends MarkWrappingBase {
 	override public function run() {
-		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+		var wrappableTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Dot:
 					if (config.wrapping.wrapBeforeDot) {
-						wrapBefore(token, true);
+						return FOUND_GO_DEEPER;
 					}
 				case BrOpen:
 					if (config.wrapping.wrapAfterOpeningBrace) {
-						markBrWrapping(token);
+						return FOUND_GO_DEEPER;
 					}
 				case BkOpen:
 					if (config.wrapping.wrapAfterOpeningBracket) {
-						arrayWrapping(token);
+						return FOUND_GO_DEEPER;
 					}
 				case POpen:
 					if (config.wrapping.wrapAfterOpeningParenthesis) {
-						markPWrapping(token);
+						return FOUND_GO_DEEPER;
 					}
 				case Binop(OpAdd):
 					if (config.wrapping.wrapAfterPlus) {
-						wrapAfter(token, true);
+						return FOUND_GO_DEEPER;
 					}
+				case Binop(OpLt):
+					if (TokenTreeCheckUtils.isTypeParameter(token)) {
+						return FOUND_GO_DEEPER;
+					}
+				case Binop(OpArrow), Arrow:
+					return FOUND_GO_DEEPER;
+				case CommentLine(_):
+					return FOUND_GO_DEEPER;
+				default:
+			}
+			return GO_DEEPER;
+		});
+
+		wrappableTokens.reverse();
+		for (token in wrappableTokens) {
+			switch (token.tok) {
+				case Dot:
+					wrapBefore(token, true);
+				case BrOpen:
+					markBrWrapping(token);
+				case BkOpen:
+					arrayWrapping(token);
+				case POpen:
+					markPWrapping(token);
+				case Binop(OpAdd):
+					wrapAfter(token, true);
 				case Binop(OpLt):
 					if (TokenTreeCheckUtils.isTypeParameter(token)) {
 						wrapTypeParameter(token);
@@ -37,8 +63,7 @@ class MarkWrapping extends MarkerBase {
 					wrapBefore(token, false);
 				default:
 			}
-			return GO_DEEPER;
-		});
+		}
 
 		markMethodChaining();
 	}
@@ -366,227 +391,6 @@ class MarkWrapping extends MarkerBase {
 		}
 	}
 
-	public function noWrap(open:TokenTree, close:TokenTree) {
-		var colon:TokenTree = open.access().is(BrOpen).parent().is(DblDot).token;
-		if (colon != null) {
-			var type:ColonType = TokenTreeCheckUtils.getColonType(colon);
-			switch (type) {
-				case SWITCH_CASE:
-				case TYPE_HINT:
-				case TYPE_CHECK:
-				case TERNARY:
-				case OBJECT_LITERAL:
-					noLineEndBefore(open);
-				case AT:
-				case UNKNOWN:
-			}
-		}
-		noWrappingBetween(open, close);
-		for (child in open.children) {
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					break;
-				case Binop(OpGt):
-					continue;
-				case Semicolon, Comma:
-					continue;
-				default:
-			}
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-			if (lastChild == null) {
-				continue;
-			} else {
-				switch (lastChild.tok) {
-					case Comma, Semicolon:
-						noLineEndAfter(lastChild);
-					default:
-				}
-			}
-		}
-		noLineEndBefore(close);
-	}
-
-	public function keep(open:TokenTree, close:TokenTree, addIndent:Int) {
-		noWrappingBetween(open, close);
-		for (child in open.children) {
-			var last:Bool = false;
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					last = true;
-				case Binop(OpGt):
-					continue;
-				case Semicolon, Comma:
-					continue;
-				default:
-			}
-			if (parsedCode.isOriginalNewlineBefore(child)) {
-				lineEndBefore(child);
-				additionalIndent(child, addIndent);
-			} else {
-				noLineEndBefore(child);
-				wrapBefore(child, false);
-			}
-			if (last) {
-				break;
-			}
-		}
-	}
-
-	public function wrapChildOneLineEach(open:TokenTree, close:TokenTree, addIndent:Int = 0, keepFirst:Bool = false) {
-		if (!keepFirst) {
-			lineEndAfter(open);
-		}
-		for (child in open.children) {
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					if (keepFirst) {
-						noLineEndBefore(child);
-					}
-					return;
-				case Binop(OpGt):
-					if (keepFirst) {
-						noLineEndBefore(child);
-					}
-					return;
-				case Sharp(_):
-					wrapChildOneLineEachSharp(child, addIndent, keepFirst);
-				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(child);
-					if (prev != null) {
-						if (parsedCode.isOriginalSameLine(child, prev.token)) {
-							noLineEndBefore(child);
-						}
-					}
-					lineEndAfter(child);
-					additionalIndent(child, addIndent);
-					continue;
-				default:
-					additionalIndent(child, addIndent);
-			}
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-			if (lastChild == null) {
-				lineEndAfter(child);
-			} else {
-				lineEndAfter(lastChild);
-			}
-		}
-	}
-
-	public function wrapChildOneLineEachSharp(sharp:TokenTree, addIndent:Int = 0, keepFirst:Bool = false) {
-		var children:Array<TokenTree> = sharp.children;
-		var skipFirst:Bool = false;
-		lineEndBefore(sharp);
-		switch (sharp.tok) {
-			case Sharp(MarkLineEnds.SHARP_IF):
-				lineEndAfter(TokenTreeCheckUtils.getLastToken(sharp.getFirstChild()));
-				skipFirst = true;
-			case Sharp(MarkLineEnds.SHARP_ELSE_IF):
-				lineEndAfter(TokenTreeCheckUtils.getLastToken(sharp.getFirstChild()));
-				skipFirst = true;
-			case Sharp(MarkLineEnds.SHARP_ELSE):
-				lineEndAfter(sharp);
-			case Sharp(MarkLineEnds.SHARP_END):
-				lineEndAfter(sharp);
-				return;
-			default:
-		}
-		for (child in children) {
-			if (skipFirst) {
-				skipFirst = false;
-				continue;
-			}
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					if (keepFirst) {
-						whitespace(child, NoneBefore);
-					}
-					return;
-				case Binop(OpGt):
-					if (keepFirst) {
-						whitespace(child, NoneBefore);
-					}
-					return;
-				case Sharp(_):
-					wrapChildOneLineEachSharp(child, addIndent, keepFirst);
-				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(child);
-					if (prev != null) {
-						if (parsedCode.isOriginalSameLine(child, prev.token)) {
-							noLineEndBefore(child);
-						}
-					}
-					lineEndAfter(child);
-					additionalIndent(child, addIndent);
-					continue;
-				default:
-					additionalIndent(child, addIndent);
-			}
-		}
-	}
-
-	public function wrapFillLine(open:TokenTree, close:TokenTree, maxLineLength:Int, addIndent:Int = 0, useTrailing:Bool = false) {
-		noWrappingBetween(open, close);
-		var indent:Int = indenter.calcIndent(open);
-		var lineLength:Int = calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent + addIndent);
-		var first:Bool = true;
-		for (child in open.children) {
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					whitespace(child, NoneBefore);
-					if (useTrailing) {
-						var trailing:Int = calcLineLengthAfter(child);
-						if (trailing + lineLength > maxLineLength) {
-							var prev:TokenTree = child.previousSibling;
-							if (prev == null) {
-								return;
-							}
-							lineEndBefore(prev);
-							additionalIndent(prev, addIndent);
-						}
-					}
-
-					return;
-				case Binop(OpGt):
-					whitespace(child, NoneBefore);
-					return;
-				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(child);
-					if (prev != null) {
-						if (parsedCode.isOriginalSameLine(child, prev.token)) {
-							noLineEndBefore(child);
-						}
-					}
-					lineEndAfter(child);
-					additionalIndent(child, addIndent);
-					continue;
-				case Kwd(KwdFunction):
-					continue;
-				case BrOpen:
-					continue;
-				default:
-					additionalIndent(child, addIndent);
-			}
-			var tokenLength:Int = calcLength(child);
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-			if (lastChild == null) {
-				lastChild = child;
-			}
-			lineLength += tokenLength;
-			if (lineLength > maxLineLength) {
-				lineEndBefore(child);
-				noLineEndAfter(lastChild);
-				indent = indenter.calcIndent(child);
-				lineLength = tokenLength + indenter.calcAbsoluteIndent(indent);
-			} else {
-				noLineEndAfter(lastChild);
-			}
-			if (first) {
-				first = false;
-				noLineEndBefore(child);
-			}
-		}
-	}
-
 	function wrapArrayWithMany(bkOpen:TokenTree, bkClose:TokenTree, maxLineLength:Int) {
 		noWrappingBetween(bkOpen, bkClose);
 		lineEndAfter(bkOpen);
@@ -632,44 +436,13 @@ class MarkWrapping extends MarkerBase {
 			default:
 		}
 		var emptyBody:Bool = hasEmptyFunctionBody(token);
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var atLength:Int = 0;
-		var itemCount:Int = 0;
-		for (child in token.children) {
-			if (child.is(At)) {
-				atLength += calcLength(child);
-				continue;
-			}
-			if (child.is(PClose)) {
-				break;
-			}
-			var length:Int = calcLength(child);
-			totalLength += length;
-			if (length > maxLength) {
-				maxLength = length;
-			}
-			itemCount++;
-		}
-		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(rules, itemCount, maxLength, totalLength, lineLength);
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		var rule:WrapRule = determineWrapType2(rules, token, items);
 		var addIndent:Int = rule.additionalIndent;
 		if (emptyBody) {
 			addIndent = 0;
 		}
-		switch (rule.type) {
-			case OnePerLine:
-				wrapChildOneLineEach(token, pClose, addIndent);
-			case OnePerLineAfterFirst:
-				wrapChildOneLineEach(token, pClose, addIndent, true);
-			case Keep:
-				keep(token, pClose, addIndent);
-			case EqualNumber:
-			case FillLine:
-				wrapFillLine(token, pClose, config.wrapping.maxLineLength, addIndent, true);
-			case NoWrap:
-				noWrappingBetween(token, pClose);
-		}
+		applyRule(rule, token, pClose, items, addIndent, true);
 	}
 
 	function wrapParensExpression(token:TokenTree) {
@@ -677,41 +450,9 @@ class MarkWrapping extends MarkerBase {
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var atLength:Int = 0;
-		var itemCount:Int = 0;
-		for (child in token.children) {
-			if (child.is(At)) {
-				atLength += calcLength(child);
-				continue;
-			}
-			if (child.is(PClose)) {
-				break;
-			}
-			var length:Int = calcLength(child);
-			totalLength += length;
-			if (length > maxLength) {
-				maxLength = length;
-			}
-			itemCount++;
-		}
-		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(config.wrapping.callParameter, itemCount, maxLength, totalLength, lineLength);
-		var addIndent:Int = rule.additionalIndent;
-		switch (rule.type) {
-			case OnePerLine:
-				wrapChildOneLineEach(token, pClose, addIndent);
-			case OnePerLineAfterFirst:
-				wrapChildOneLineEach(token, pClose, addIndent, true);
-			case Keep:
-				keep(token, pClose, addIndent);
-			case EqualNumber:
-			case FillLine:
-				wrapFillLine(token, pClose, config.wrapping.maxLineLength, addIndent);
-			case NoWrap:
-				noWrappingBetween(token, pClose);
-		}
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		var rule:WrapRule = determineWrapType2(config.wrapping.callParameter, token, items);
+		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
 	}
 
 	function wrapCallParameter(token:TokenTree) {
@@ -719,140 +460,9 @@ class MarkWrapping extends MarkerBase {
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var atLength:Int = 0;
-		var itemCount:Int = 0;
-		for (child in token.children) {
-			var length:Int = 0;
-			switch (child.tok) {
-				case At:
-					atLength += calcLength(child);
-					continue;
-				case PClose:
-					break;
-				case BkOpen:
-					arrayWrapping(child);
-					length = calcLengthUntilNewline(child);
-				case BrOpen:
-					length = calcLengthUntilNewline(child);
-				case Kwd(KwdFunction), Kwd(KwdMacro):
-					length = calcLengthUntilNewline(child);
-				default:
-					length = calcLength(child);
-			}
-			totalLength += length;
-			if (length > maxLength) {
-				maxLength = length;
-			}
-			itemCount++;
-		}
-		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(config.wrapping.callParameter, itemCount, maxLength, totalLength, lineLength);
-		var addIndent:Int = rule.additionalIndent;
-		switch (rule.type) {
-			case OnePerLine:
-				wrapChildOneLineEach(token, pClose, addIndent);
-			case OnePerLineAfterFirst:
-				wrapChildOneLineEach(token, pClose, addIndent, true);
-			case Keep:
-				keep(token, pClose, addIndent);
-			case EqualNumber:
-			case FillLine:
-				wrapFillLine(token, pClose, config.wrapping.maxLineLength, addIndent);
-			case NoWrap:
-				noWrappingBetween(token, pClose);
-		}
-	}
-
-	function hasEmptyFunctionBody(token:TokenTree):Bool {
-		if (token == null) {
-			return false;
-		}
-		var last:TokenTree = token.getLastChild();
-		switch (last.tok) {
-			case Semicolon:
-				return true;
-			default:
-		}
-		var body:TokenTree = token.nextSibling;
-		if (body == null) {
-			return true;
-		}
-		if (body.is(DblDot)) {
-			body = body.nextSibling;
-		}
-		while (body != null && body.is(At)) {
-			body = body.nextSibling;
-		}
-		if (body == null) {
-			return true;
-		}
-		switch (body.tok) {
-			case Semicolon:
-				return true;
-			case BrOpen:
-				var brClose:TokenTree = body.getFirstChild();
-				if (brClose == null) {
-					return false;
-				}
-				return brClose.is(BrClose);
-			default:
-				return false;
-		}
-	}
-
-	function determineWrapType(rules:WrapRules, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
-		for (rule in rules.rules) {
-			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength)) {
-				return rule;
-			}
-		}
-		return {
-			conditions: [],
-			type: rules.defaultWrap,
-			additionalIndent: rules.defaultAdditionalIndent
-		};
-	}
-
-	function matchesRule(rule:WrapRule, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):Bool {
-		for (cond in rule.conditions) {
-			switch (cond.cond) {
-				case ItemCountLargerThan:
-					if (itemCount < cond.value) {
-						return false;
-					}
-				case ItemCountLessThan:
-					if (itemCount > cond.value) {
-						return false;
-					}
-				case AnyItemLengthLargerThan:
-					if (maxItemLength < cond.value) {
-						return false;
-					}
-				case AnyItemLengthLessThan:
-					if (maxItemLength > cond.value) {
-						return false;
-					}
-				case TotalItemLengthLargerThan:
-					if (totalItemLength < cond.value) {
-						return false;
-					}
-				case TotalItemLengthLessThan:
-					if (totalItemLength > cond.value) {
-						return false;
-					}
-				case LineLengthLargerThan:
-					if (lineLength < cond.value) {
-						return false;
-					}
-				case LineLengthLessThan:
-					if (lineLength > cond.value) {
-						return false;
-					}
-			}
-		}
-		return true;
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		var rule:WrapRule = determineWrapType2(config.wrapping.callParameter, token, items);
+		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
 	}
 
 	function markMethodChaining() {

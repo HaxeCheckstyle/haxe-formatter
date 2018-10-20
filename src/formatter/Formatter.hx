@@ -9,7 +9,7 @@ import formatter.marker.MarkLineEnds;
 import formatter.marker.MarkTokenText;
 import formatter.marker.MarkWhitespace;
 import formatter.marker.Indenter;
-import formatter.marker.MarkWrapping;
+import formatter.marker.wrapping.MarkWrapping;
 import formatter.marker.MarkSameLine;
 import formatter.codedata.CodeLines;
 import formatter.codedata.ParseFile;

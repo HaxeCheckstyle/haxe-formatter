@@ -21,8 +21,8 @@ class Main {
 ---
 
 class Main {
-	function main(params:TextDocumentPositionParams, token:CancellationToken, resolve:Definition->Void, reject:ResponseError<NoData>->Void,
-			doc:TextDocument, offset:Int) {
+	function main(params:TextDocumentPositionParams, token:CancellationToken, resolve:Definition->Void, reject:ResponseError<NoData>->Void, doc:TextDocument,
+			offset:Int) {
 		context.callDisplay("@position", args, doc.content, token, function(r) {
 			switch (r) {
 				case DResult(data):
