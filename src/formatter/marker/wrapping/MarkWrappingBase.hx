@@ -88,15 +88,18 @@ class MarkWrappingBase extends MarkerBase {
 		if (items.length <= 0) {
 			return;
 		}
-		if (!keepFirst) {
-			lineEndAfter(open);
-		}
 		for (item in items) {
 			additionalIndent(item.first, addIndent);
-			lineEndAfter(item.last);
+			lineEndBefore(item.first);
 		}
 		if (keepFirst) {
-			noLineEndAfter(items[items.length - 1].last);
+			noLineEndAfter(open);
+			var lastToken:TokenTree = items[items.length - 1].last;
+			switch (lastToken.tok) {
+				case Semicolon:
+				default:
+					noLineEndAfter(items[items.length - 1].last);
+			}
 		}
 	}
 

@@ -1,6 +1,5 @@
 package formatter.marker.wrapping;
 
-import formatter.config.Config;
 import formatter.config.WrapConfig;
 
 class MarkWrapping extends MarkWrappingBase {
@@ -513,57 +512,43 @@ class MarkWrapping extends MarkWrappingBase {
 			chainStart = firstMethodCall;
 		}
 
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var prevChainElement:TokenTree = chainStart;
+		var items:Array<WrappableItem> = [];
+		var chainEnd:TokenTree = TokenTreeCheckUtils.getLastToken(chainStart);
+		var info:TokenInfo = getPreviousToken(chainStart);
+		var chainOpen:TokenTree = chainStart.parent;
+		if (info != null) {
+			chainOpen = info.token;
+		}
+
 		for (index in 0...chainedCalls.length) {
-			var chainElement:TokenTree = chainedCalls[index];
-			var length:Int = calcLengthBetween(prevChainElement, chainElement);
-			prevChainElement = chainElement;
-			if (length > maxLength) {
-				maxLength = length;
+			var child:TokenTree = chainedCalls[index];
+			var endToken:TokenTree = chainEnd;
+			if (index + 1 < chainedCalls.length) {
+				var next:TokenTree = chainedCalls[index + 1];
+				info = getPreviousToken(next);
+				if (info != null) {
+					endToken = info.token;
+				}
 			}
-			totalLength += length;
+			var sameLine:Bool = isSameLineBetween(child, endToken, false);
+			var firstLineLength:Int = 0;
+			var lastLineLength:Int = 0;
+			if (sameLine) {
+				firstLineLength = calcLengthBetween(child, endToken);
+			} else {
+				firstLineLength = calcLengthUntilNewline(child);
+				lastLineLength = calcLineLengthBefore(endToken) + calcTokenLength(endToken);
+			}
+			var item:WrappableItem = {
+				first: child,
+				last: endToken,
+				multiline: !sameLine,
+				firstLineLength: firstLineLength,
+				lastLineLength: lastLineLength
+			}
+			items.push(item);
 		}
-		var itemCount:Int = chainedCalls.length;
-		var lineLength:Int = calcLineLength(chainStart);
-		var rule:WrapRule = determineWrapType(config.wrapping.methodChain, itemCount, maxLength, totalLength, lineLength);
-		var addIndent:Null<Int> = rule.additionalIndent;
-		if (addIndent == null) {
-			addIndent = 0;
-		}
-		switch (rule.type) {
-			case OnePerLine:
-				for (index in 0...chainedCalls.length) {
-					var element:TokenTree = chainedCalls[index];
-					lineEndBefore(element);
-					additionalIndent(element, addIndent);
-				}
-			case OnePerLineAfterFirst:
-				noLineEndBefore(chainStart);
-				for (index in 1...chainedCalls.length) {
-					var element:TokenTree = chainedCalls[index];
-					lineEndBefore(element);
-					additionalIndent(element, addIndent);
-				}
-			case NoWrap:
-				for (element in chainedCalls) {
-					noLineEndBefore(element);
-					wrapBefore(element, false);
-				}
-			case Keep:
-				for (index in 0...chainedCalls.length) {
-					var element:TokenTree = chainedCalls[index];
-					if (parsedCode.isOriginalNewlineBefore(element)) {
-						lineEndBefore(element);
-						additionalIndent(element, addIndent);
-					} else {
-						noLineEndBefore(element);
-						wrapBefore(element, false);
-					}
-				}
-			case EqualNumber:
-			case FillLine:
-		}
+		var rule:WrapRule = determineWrapType2(config.wrapping.methodChain, chainOpen, items);
+		applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
 	}
 }
