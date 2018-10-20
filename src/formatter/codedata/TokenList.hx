@@ -700,6 +700,27 @@ class TokenList {
 		return length;
 	}
 
+	public function calcTokenLength(token:TokenTree):Int {
+		if (token == null) {
+			return 0;
+		}
+		if (token.index < 0) {
+			return 0;
+		}
+		var info:TokenInfo = tokens[token.index];
+		if (info == null) {
+			return 0;
+		}
+		var length:Int = info.text.length;
+		switch (info.whitespaceAfter) {
+			case None:
+			case Newline, SpaceOrNewline:
+			case Space:
+				length++;
+		}
+		return length;
+	}
+
 	public function isNewLineBefore(token:TokenTree):Bool {
 		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {

@@ -60,17 +60,18 @@ class Main {
 		doSomething();
 	}
 
-	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int) {
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int,
+			verylongparams6:Int) {
 		doSomething();
 	}
 
-	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int,
-			verylongparams6:Int, verylongparams7:Int) {
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int,
+			verylongparams7:Int) {
 		doSomething();
 	}
 
-	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int,
-			verylongparams6:Int, verylongparams7:Int, verylongparams8:Int, verylongparams9:Int, verylongparams10:Int) {
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int,
+			verylongparams7:Int, verylongparams8:Int, verylongparams9:Int, verylongparams10:Int) {
 		doSomething();
 	}
 }

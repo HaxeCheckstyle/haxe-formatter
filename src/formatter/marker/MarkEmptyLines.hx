@@ -354,7 +354,8 @@ class MarkEmptyLines extends MarkerBase {
 		}
 	}
 
-	function markEnumAbstractFieldEmptyLines(prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree, currTokenType:TokenFieldType) {
+	function markEnumAbstractFieldEmptyLines(prevToken:TokenTree, prevTokenType:TokenFieldType, currToken:TokenTree,
+			currTokenType:TokenFieldType) {
 		if (prevToken == null) {
 			return;
 		}

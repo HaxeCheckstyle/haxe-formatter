@@ -2,6 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
+- Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
+
 ## version 1.1.2 (2018-10-17)
 
 - Added indentation support for `Binop(OpAssignOp(_))` [#245](https://github.com/HaxeCheckstyle/haxe-formatter/issues/245)

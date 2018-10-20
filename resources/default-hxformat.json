@@ -283,7 +283,7 @@
 							"value": 130
 						}
 					],
-					"type": "onePerLineAfterFirst"
+					"type": "fillLine"
 				},
 				{
 					"conditions": [
@@ -292,7 +292,7 @@
 							"value": 80
 						}
 					],
-					"type": "onePerLineAfterFirst"
+					"type": "fillLine"
 				}
 			]
 		},
@@ -356,8 +356,21 @@
 				{
 					"conditions": [
 						{
+							"cond": "anyItemLength >= n",
+							"value": 30
+						},
+						{
 							"cond": "itemCount >= n",
 							"value": 4
+						}
+					],
+					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "itemCount >= n",
+							"value": 7
 						}
 					],
 					"type": "onePerLineAfterFirst"

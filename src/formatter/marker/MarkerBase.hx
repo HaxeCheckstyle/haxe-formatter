@@ -121,6 +121,10 @@ class MarkerBase {
 		return parsedCode.tokenList.calcLineLengthAfter(token);
 	}
 
+	public function calcTokenLength(token:TokenTree):Int {
+		return parsedCode.tokenList.calcTokenLength(token);
+	}
+
 	public function isNewLineBefore(token:TokenTree):Bool {
 		return parsedCode.tokenList.isNewLineBefore(token);
 	}
