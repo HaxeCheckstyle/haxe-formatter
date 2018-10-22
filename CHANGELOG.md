@@ -2,10 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added `wrapping.opBoolChain` for wrapping `||` and `&&` chains
-- Fixed wrapping of function call, fixes [#169](https://github.com/HaxeCheckstyle/haxe-formatter/issues/169)
-- Fixed conditional handling in multi-line object literals, fixes [#182](https://github.com/HaxeCheckstyle/haxe-formatter/issues/182) and [#211](https://github.com/HaxeCheckstyle/haxe-formatter/issues/211)
-- Fixed indentation and wrapping of OpBool chain, fixes [#187](https://github.com/HaxeCheckstyle/haxe-formatter/issues/187)
+- Added `wrapping.opBoolChain` for wrapping `||` and `&&` chains [#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248)
+- Fixed wrapping of function call, fixes [#169](https://github.com/HaxeCheckstyle/haxe-formatter/issues/169) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
+- Fixed conditional handling in multi-line object literals, fixes [#182](https://github.com/HaxeCheckstyle/haxe-formatter/issues/182) and [#211](https://github.com/HaxeCheckstyle/haxe-formatter/issues/211) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
+- Fixed indentation and wrapping of OpBool chain, fixes [#187](https://github.com/HaxeCheckstyle/haxe-formatter/issues/187) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 - Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 
