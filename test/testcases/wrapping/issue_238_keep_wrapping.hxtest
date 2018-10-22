@@ -132,9 +132,10 @@ class Main {
 		return TPath(
 			{name: moduleName, sub: name, pack: pack}
 		);
-		return !(
-			a.y + a.h <= b.y || a.y >= b.y + b.h || a.x + a.w <= b.x || a.x >= b.x + b.w
-		);
+		return !(a.y + a.h <= b.y ||
+			a.y >= b.y + b.h ||
+			a.x + a.w <= b.x ||
+			a.x >= b.x + b.w);
 	}
 
 	public static inline function matrix(

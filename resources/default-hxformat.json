@@ -418,6 +418,38 @@
 				}
 			]
 		},
+		"opBoolChain": {
+			"defaultWrap": "noWrap",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "itemCount <= n",
+							"value": 3
+						}
+					],
+					"type": "noWrap"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "totalItemLength <= n",
+							"value": 60
+						}
+					],
+					"type": "noWrap"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "itemCount >= n",
+							"value": 4
+						}
+					],
+					"type": "onePerLineAfterFirst"
+				}
+			]
+		},
 		"typeParameter": {
 			"defaultWrap": "noWrap",
 			"rules": [

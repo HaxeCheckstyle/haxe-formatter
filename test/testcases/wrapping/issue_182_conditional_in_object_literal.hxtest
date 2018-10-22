@@ -1,0 +1,58 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		return resolve({
+			capabilities: {
+				codeActionProvider: true,
+				#if debug documentFormattingProvider: true, #end
+				codeLensProvider: {
+					resolveProvider: true
+				}
+			}
+		});
+	}
+	public static function main() {
+		return resolve({
+			capabilities: {
+				codeActionProvider: true,
+				documentFormattingProvider: #if debug true #else false #end,
+				codeLensProvider: {
+					resolveProvider: true
+				}
+			}
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return resolve({
+			capabilities: {
+				codeActionProvider: true,
+				#if debug
+				documentFormattingProvider: true,
+				#end
+				codeLensProvider: {
+					resolveProvider: true
+				}
+			}
+		});
+	}
+
+	public static function main() {
+		return resolve({
+			capabilities: {
+				codeActionProvider: true,
+				documentFormattingProvider: #if debug true #else false #end,
+				codeLensProvider: {
+					resolveProvider: true
+				}
+			}
+		});
+	}
+}

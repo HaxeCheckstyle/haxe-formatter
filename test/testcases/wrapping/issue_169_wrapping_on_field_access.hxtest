@@ -1,0 +1,20 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		return compare(k1.code, k2.code, compare(start1.line, start2.line, compare(start1.character, start2.character, compare(end1.line, end2.line, compare(end1
+			.character, end2.character, 0)))));
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return compare(k1.code, k2.code,
+			compare(start1.line, start2.line,
+				compare(start1.character, start2.character, compare(end1.line, end2.line, compare(end1.character, end2.character, 0)))));
+	}
+}

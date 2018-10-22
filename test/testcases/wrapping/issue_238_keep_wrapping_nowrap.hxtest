@@ -34,6 +34,10 @@
 			"defaultWrap": "noWrap",
 			"rules": []
 		},
+		"opBoolChain": {
+			"defaultWrap": "noWrap",
+			"rules": []
+		},
 		"typeParameter": {
 			"defaultWrap": "noWrap",
 			"rules": []

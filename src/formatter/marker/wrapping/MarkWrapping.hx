@@ -65,6 +65,7 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 
 		markMethodChaining();
+		markOpBoolChaining();
 	}
 
 	function wrapTypeParameter(token:TokenTree) {
@@ -335,7 +336,6 @@ class MarkWrapping extends MarkWrappingBase {
 				}
 			case FORLOOP:
 			case EXPRESSION:
-				wrapParensExpression(token);
 		}
 	}
 
@@ -444,16 +444,6 @@ class MarkWrapping extends MarkWrappingBase {
 		applyRule(rule, token, pClose, items, addIndent, true);
 	}
 
-	function wrapParensExpression(token:TokenTree) {
-		var pClose:TokenTree = token.access().firstOf(PClose).token;
-		if ((token.children == null) || (token.children.length <= 0)) {
-			return;
-		}
-		var items:Array<WrappableItem> = makeWrappableItems(token);
-		var rule:WrapRule = determineWrapType2(config.wrapping.callParameter, token, items);
-		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
-	}
-
 	function wrapCallParameter(token:TokenTree) {
 		var pClose:TokenTree = token.access().firstOf(PClose).token;
 		if ((token.children == null) || (token.children.length <= 0)) {
@@ -549,6 +539,99 @@ class MarkWrapping extends MarkWrappingBase {
 			items.push(item);
 		}
 		var rule:WrapRule = determineWrapType2(config.wrapping.methodChain, chainOpen, items);
+		applyRule(rule, chainOpen, null, items, rule.additionalIndent, false);
+	}
+
+	function markOpBoolChaining() {
+		var chainEnds:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Binop(OpBoolAnd), Binop(OpBoolOr):
+					switch (token.parent.tok) {
+						case Binop(OpBoolAnd), Binop(OpBoolOr):
+						default:
+							return GO_DEEPER;
+					}
+					var last:TokenTree = token.getLastChild();
+					if (last == null) {
+						return GO_DEEPER;
+					}
+					switch (last.tok) {
+						case Binop(OpBoolAnd), Binop(OpBoolOr):
+							return GO_DEEPER;
+						default:
+							return FOUND_GO_DEEPER;
+					}
+				default:
+			}
+			return GO_DEEPER;
+		});
+		for (lastOpBool in chainEnds) {
+			markSingleOpBoolChain(lastOpBool);
+		}
+	}
+
+	function markSingleOpBoolChain(lastOpBool:TokenTree) {
+		var next:TokenInfo = getNextToken(lastOpBool);
+		if (next == null) {
+			return;
+		}
+		var itemStart:TokenTree = next.token;
+		var itemEnd:TokenTree = TokenTreeCheckUtils.getLastToken(lastOpBool);
+		var chainEnd:TokenTree = itemEnd;
+		switch (itemEnd.tok) {
+			case Semicolon, Comma:
+			default:
+				next = getNextToken(itemEnd);
+				if (next != null) {
+					chainEnd = next.token;
+				}
+		}
+		var items:Array<WrappableItem> = [];
+		items.unshift(makeOpBoolItem(itemStart, itemEnd));
+		itemStart = lastOpBool;
+		var parent:TokenTree = lastOpBool;
+		var chainOpen:TokenTree = null;
+		var done:Bool = false;
+		while (!done) {
+			parent = parent.parent;
+			switch (parent.tok) {
+				case Binop(OpBoolAnd), Binop(OpBoolOr):
+					next = getNextToken(parent);
+					if (next == null) {
+						continue;
+					}
+					itemEnd = itemStart;
+					itemStart = next.token;
+					items.unshift(makeOpBoolItem(itemStart, itemEnd));
+					itemStart = parent;
+				default:
+					done = true;
+					chainOpen = parent.parent;
+					itemEnd = itemStart;
+					itemStart = parent;
+					items.unshift(makeOpBoolItem(itemStart, itemEnd));
+			}
+		}
+		var rule:WrapRule = determineWrapType2(config.wrapping.opBoolChain, chainOpen, items);
 		applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
+	}
+
+	function makeOpBoolItem(start:TokenTree, end:TokenTree):WrappableItem {
+		var sameLine:Bool = isSameLineBetween(start, end, false);
+		var firstLineLength:Int = 0;
+		var lastLineLength:Int = 0;
+		if (sameLine) {
+			firstLineLength = calcLengthBetween(start, end) + calcTokenLength(end);
+		} else {
+			firstLineLength = calcLengthUntilNewline(start);
+			lastLineLength = calcLineLengthBefore(end) + calcTokenLength(end);
+		}
+		return {
+			first: start,
+			last: end,
+			multiline: !sameLine,
+			firstLineLength: firstLineLength,
+			lastLineLength: lastLineLength
+		}
 	}
 }

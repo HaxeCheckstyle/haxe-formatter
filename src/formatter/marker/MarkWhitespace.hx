@@ -71,7 +71,7 @@ class MarkWhitespace extends MarkerBase {
 						whitespace(token, NoneAfter);
 					}
 				case Sharp(_):
-					whitespace(token, Around);
+					markSharp(token);
 				case Semicolon:
 					markSemicolon(token);
 				case Const(CIdent(MarkEmptyLines.FINAL)):
@@ -338,6 +338,38 @@ class MarkWhitespace extends MarkerBase {
 			}
 		}
 		whitespace(token, policy);
+	}
+
+	function markSharp(token:TokenTree) {
+		switch (token.tok) {
+			case Sharp(MarkLineEnds.SHARP_IF):
+				whitespace(token, After);
+			case Sharp(MarkLineEnds.SHARP_ELSE_IF):
+				whitespace(token, Around);
+			case Sharp(MarkLineEnds.SHARP_ELSE):
+				whitespace(token, Around);
+			case Sharp(MarkLineEnds.SHARP_END):
+				var prev:TokenInfo = getPreviousToken(token);
+				if (prev != null) {
+					switch (prev.token.tok) {
+						case POpen, BrOpen, BkOpen:
+						default:
+							whitespace(token, Before);
+					}
+				}
+				var next:TokenInfo = getNextToken(token);
+				if (next != null) {
+					switch (next.token.tok) {
+						case Comma, Semicolon:
+						case Const(_), Kwd(_), POpen, BrOpen, BkOpen:
+							whitespace(token, After);
+						default:
+					}
+				}
+			case Sharp("error"):
+				whitespace(token, After);
+			default:
+		}
 	}
 
 	function markArrow(token:TokenTree) {

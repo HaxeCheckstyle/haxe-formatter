@@ -2,6 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added `wrapping.opBoolChain` for wrapping `||` and `&&` chains [#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248)
+- Fixed wrapping of function calls, fixes [#169](https://github.com/HaxeCheckstyle/haxe-formatter/issues/169) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
+- Fixed conditional handling in multi-line object literals, fixes [#182](https://github.com/HaxeCheckstyle/haxe-formatter/issues/182) and [#211](https://github.com/HaxeCheckstyle/haxe-formatter/issues/211) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
+- Fixed indentation and wrapping of OpBool chain, fixes [#187](https://github.com/HaxeCheckstyle/haxe-formatter/issues/187) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 - Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 
@@ -13,7 +17,7 @@
 ## version 1.1.1 (2018-10-13)
 
 - Added support for key-value iterators, fixes [#232](https://github.com/HaxeCheckstyle/haxe-formatter/issues/232) ([#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233))
-- Added `wrapping.anonFunctionSignature`
+- Added `wrapping.anonFunctionSignature` [#239](https://github.com/HaxeCheckstyle/haxe-formatter/issues/239)
 - Fixed version number reported on CLI [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
 - Fixed handling of macro blocks, fixes [#215](https://github.com/HaxeCheckstyle/haxe-formatter/issues/215) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)
 - Fixed unstable formatting after typedefs without semicolon, fixes [#216](https://github.com/HaxeCheckstyle/haxe-formatter/issues/216) [#233](https://github.com/HaxeCheckstyle/haxe-formatter/issues/233)

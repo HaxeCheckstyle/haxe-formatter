@@ -324,17 +324,7 @@ class MarkLineEnds extends MarkerBase {
 						if (token.is(Sharp(SHARP_IF)) && isOnlyWhitespaceBeforeToken(token)) {
 							continue;
 						}
-						var prev:TokenInfo = getPreviousToken(token);
-						if (prev == null) {
-							noLineEndBefore(token);
-						} else {
-							switch (prev.token.tok) {
-								case POpen, BrOpen, BkOpen, Dot, DblDot:
-									whitespace(token, NoneBefore);
-								default:
-									noLineEndBefore(token);
-							}
-						}
+						noLineEndBefore(token);
 						continue;
 					}
 					lineEndBefore(token);
@@ -350,9 +340,12 @@ class MarkLineEnds extends MarkerBase {
 					if (isInlineSharp(token)) {
 						noLineEndBefore(token);
 						var next:TokenInfo = getNextToken(token);
-						if ((next != null) && next.token.is(Semicolon)) {
-							whitespace(token, NoneAfter);
-							continue;
+						if (next != null) {
+							switch (next.token.tok) {
+								case Comma, Semicolon:
+									continue;
+								default:
+							}
 						}
 						if (!isOnlyWhitespaceAfterToken(token)) {
 							continue;
@@ -382,7 +375,7 @@ class MarkLineEnds extends MarkerBase {
 				}
 				switch (sharpEnd.tok) {
 					case Sharp(SHARP_END):
-					case Semicolon:
+					case Comma, Semicolon:
 						sharpEnd = sharpEnd.previousSibling;
 						if (sharpEnd == null) {
 							return false;

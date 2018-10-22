@@ -1,0 +1,44 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		var data = {
+			log: null,
+			#if flash
+			queue: new haxe.TimerQueue(),
+			#end
+		};
+	}
+	public static function main() {
+		foo({
+			log: null,
+			#if flash
+			queue: new haxe.TimerQueue(),
+			#end
+		});
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var data = {
+			log: null,
+			#if flash
+			queue: new haxe.TimerQueue(),
+			#end
+		};
+	}
+
+	public static function main() {
+		foo({
+			log: null,
+			#if flash
+			queue: new haxe.TimerQueue(),
+			#end
+		});
+	}
+}

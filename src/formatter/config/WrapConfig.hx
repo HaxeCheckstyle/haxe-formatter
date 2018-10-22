@@ -232,6 +232,29 @@ typedef WrapConfig = {
 	})
 	@:optional
 	var methodChain:WrapRules;
+
+	/**
+		OpBool chain wrapping rules
+	**/
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLessThan, value: 3}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: TotalItemLengthLessThan, value: 60}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: OnePerLineAfterFirst
+			}
+		]
+	})
+	@:optional
+	var opBoolChain:WrapRules;
 }
 
 typedef WrapRules = {
