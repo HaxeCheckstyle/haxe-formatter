@@ -540,6 +540,11 @@
 		"WrapConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"opBoolChain": {
+					"description": "OpBool chain wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 15
+				},
 				"wrapAfterComma": {
 					"description": "should wrapping happen after comma",
 					"type": "boolean",
