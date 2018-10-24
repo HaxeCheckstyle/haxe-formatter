@@ -31,7 +31,7 @@ class CodeLines {
 			switch (tokenInfo.token.tok) {
 				case CommentLine(formatterOff):
 					line = null;
-					index = skipFormatterOff(parsedCode, index);
+					index = skipFormatterOff(index);
 					continue;
 				default:
 			}
@@ -47,7 +47,7 @@ class CodeLines {
 		}
 	}
 
-	function skipFormatterOff(parsedCode:ParsedCode, index:Int):Int {
+	function skipFormatterOff(index:Int):Int {
 		var startInfo:TokenInfo = parsedCode.tokenList.getTokenAt(index++);
 		var startLine:Int = parsedCode.getLinePos(startInfo.token.pos.min).line;
 
@@ -59,17 +59,17 @@ class CodeLines {
 			switch (tokenInfo.token.tok) {
 				case CommentLine(formatterOn):
 					var endLine:Int = parsedCode.getLinePos(tokenInfo.token.pos.max).line;
-					copyVerbatim(parsedCode, startLine, endLine);
+					copyVerbatim(startLine, endLine);
 					return index;
 				default:
 			}
 		}
 		var endLine:Int = parsedCode.lines.length - 1;
-		copyVerbatim(parsedCode, startLine, endLine);
+		copyVerbatim(startLine, endLine);
 		return index;
 	}
 
-	function copyVerbatim(parsedCode:ParsedCode, startLine:Int, endLine:Int) {
+	function copyVerbatim(startLine:Int, endLine:Int) {
 		var startOffs:Int = parsedCode.linesIdx[startLine].l;
 		var endOffs:Int = parsedCode.linesIdx[endLine].r;
 		var content:String = parsedCode.getString(startOffs, endOffs);

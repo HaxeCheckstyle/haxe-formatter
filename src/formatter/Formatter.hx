@@ -47,6 +47,7 @@ class Formatter {
 
 			tokentree.TokenStream.MODE = RELAXED;
 			var parsedCode = new ParsedCode(file, tokenData);
+			FormatStats.addOrigLines(parsedCode.lines.length);
 
 			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
@@ -71,7 +72,9 @@ class Formatter {
 			lines.applyWrapping(config.wrapping);
 			markEmptyLines.finalRun(lines);
 
-			return Success(lines.print(parsedCode.lineSeparator));
+			var formatted:String = lines.print(parsedCode.lineSeparator);
+			FormatStats.addFormattedLines(formatted.split(parsedCode.lineSeparator).length);
+			return Success(formatted);
 		} catch (e:Any) {
 			var callstack = CallStack.toString(CallStack.exceptionStack());
 			return Failure(e + "\n" + callstack + "\n\n");
