@@ -108,7 +108,7 @@
 		"doWhileBody": "next",
 		"elseBody": "next",
 		"elseIf": "same",
-		"expressionCase": "same",
+		"expressionCase": "keep",
 		"expressionIf": "same",
 		"expressionIfWithBlocks": false,
 		"expressionTry": "same",

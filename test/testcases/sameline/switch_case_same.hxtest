@@ -1,0 +1,84 @@
+{
+    "sameLine": {
+        "caseBody": "same",
+		"expressionCase": "same"
+    }
+}
+
+
+---
+
+class Main {
+   static function codeToType(code:String,forCpp:Bool) : String
+   {
+      if (code=="c" && !forCpp)
+         throw "const char * type only supported in cpp mode";
+
+      switch(code)
+      {
+         case "b" : return "Bool";
+         case "i" : return "Int";
+         case "d" : return "Float";
+         case "s" : return "String";
+         case "f" : return forCpp ? "cpp.Float32" : "Float";
+         case "o" : return forCpp ? "cpp.Object" : "Dynamic";
+         case "v" :
+		 	return forCpp ? "cpp.Void" : "Dynamic";
+         case "c" : return "cpp.ConstCharStar";
+         default:
+			throw "Unknown signature type :" + code;
+      }
+
+      return switch(code)
+      {
+         case "b" : return "Bool";
+         case "i" : return "Int";
+         case "d" : return "Float";
+         case "s" : return "String";
+         case "f" : return forCpp ? "cpp.Float32" : "Float";
+         case "o" :
+		 	return forCpp ? "cpp.Object" : "Dynamic";
+         case "v" :
+		 	return forCpp ? "cpp.Void" : "Dynamic";
+         case "c" :
+		 	return "cpp.ConstCharStar";
+         default:
+            throw "Unknown signature type :" + code;
+      }
+   }
+}
+
+
+
+---
+
+class Main {
+	static function codeToType(code:String, forCpp:Bool):String {
+		if (code == "c" && !forCpp)
+			throw "const char * type only supported in cpp mode";
+
+		switch (code) {
+			case "b": return "Bool";
+			case "i": return "Int";
+			case "d": return "Float";
+			case "s": return "String";
+			case "f": return forCpp ? "cpp.Float32" : "Float";
+			case "o": return forCpp ? "cpp.Object" : "Dynamic";
+			case "v": return forCpp ? "cpp.Void" : "Dynamic";
+			case "c": return "cpp.ConstCharStar";
+			default: throw "Unknown signature type :" + code;
+		}
+
+		return switch (code) {
+			case "b": return "Bool";
+			case "i": return "Int";
+			case "d": return "Float";
+			case "s": return "String";
+			case "f": return forCpp ? "cpp.Float32" : "Float";
+			case "o": return forCpp ? "cpp.Object" : "Dynamic";
+			case "v": return forCpp ? "cpp.Void" : "Dynamic";
+			case "c": return "cpp.ConstCharStar";
+			default: throw "Unknown signature type :" + code;
+		}
+	}
+}

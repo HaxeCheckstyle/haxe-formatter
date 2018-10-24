@@ -1,0 +1,41 @@
+{
+	"sameLine": {
+		"expressionCase": "keep"
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return switch (foo) {
+			case bar: "hello world"; // test
+			case bar:
+				"hello world"; // test
+			case bar:
+				"hello world";
+				// test
+			case bar:
+				// test
+				"hello world";
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return switch (foo) {
+			case bar: "hello world"; // test
+			case bar:
+				"hello world"; // test
+			case bar:
+				"hello world";
+			// test
+			case bar:
+				// test
+				"hello world";
+		}
+	}
+}
