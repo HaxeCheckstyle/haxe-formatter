@@ -104,7 +104,7 @@ typedef SameLineConfig = {
 	**/
 	@:default(Same) @:optional var tryCatch:SameLinePolicy;
 	@:default(Next) @:optional var caseBody:SameLinePolicy;
-	@:default(Same) @:optional var expressionCase:SameLinePolicy;
+	@:default(Keep) @:optional var expressionCase:SameLinePolicy;
 	@:default(Same) @:optional var expressionTry:SameLinePolicy;
 
 	/**

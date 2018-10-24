@@ -210,15 +210,22 @@ class MarkSameLine extends MarkerBase {
 		if (dblDot == null) {
 			return;
 		}
-		if (checkExpressionCase(token, dblDot)) {
-			noLineEndAfter(dblDot);
+		if (isReturnExpression(token)) {
+			markExpressionCase(token, dblDot);
 			return;
 		}
-		if (config.sameLine.caseBody != Same) {
-			return;
-		}
+
 		if ((dblDot.children == null) || (dblDot.children.length > 1)) {
 			return;
+		}
+		switch (config.sameLine.caseBody) {
+			case Same:
+			case Keep:
+				if (!parsedCode.isOriginalSameLine(dblDot, dblDot.getFirstChild())) {
+					return;
+				}
+			case Next:
+				return;
 		}
 		var first:TokenTree = dblDot.getFirstChild();
 		var last:TokenTree = TokenTreeCheckUtils.getLastToken(first);
@@ -228,15 +235,19 @@ class MarkSameLine extends MarkerBase {
 		noLineEndAfter(dblDot);
 	}
 
-	function checkExpressionCase(token:TokenTree, dblDot:TokenTree):Bool {
-		if (config.sameLine.expressionCase != Same) {
-			return false;
-		}
-		if (!isReturnExpression(token)) {
-			return false;
-		}
+	function markExpressionCase(token:TokenTree, dblDot:TokenTree) {
 		if (dblDot.children == null) {
-			return false;
+			return;
+		}
+
+		switch (config.sameLine.expressionCase) {
+			case Same:
+			case Keep:
+				if (!parsedCode.isOriginalSameLine(dblDot, dblDot.getFirstChild())) {
+					return;
+				}
+			case Next:
+				return;
 		}
 		if (dblDot.children.length == 2) {
 			var second:TokenTree = dblDot.children[1];
@@ -244,19 +255,18 @@ class MarkSameLine extends MarkerBase {
 				case CommentLine(_):
 					var prev:TokenInfo = getPreviousToken(second);
 					if (prev != null) {
-						if (parsedCode.isOriginalSameLine(dblDot, prev.token)) {
-							return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);
+						if (!parsedCode.isOriginalSameLine(dblDot, prev.token)) {
+							return;
 						}
-						return false;
 					}
 				default:
-					return false;
+					return;
 			}
 		}
-		if (dblDot.children.length != 1) {
-			return false;
+		if (dblDot.children.length > 2) {
+			return;
 		}
-		return parsedCode.isOriginalSameLine(dblDot, dblDot.children[0]);
+		noLineEndAfter(dblDot);
 	}
 
 	function markFor(token:TokenTree) {

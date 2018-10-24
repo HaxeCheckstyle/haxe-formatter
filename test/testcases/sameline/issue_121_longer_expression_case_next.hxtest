@@ -1,6 +1,6 @@
 {
 	"sameLine": {
-		"expressionCase": "same"
+		"expressionCase": "next"
 	}
 }
 
@@ -29,12 +29,14 @@ class Main {
 class Main {
 	public static function prepareSignature(type:String):String {
 		return switch (parseDisplayType(type)) {
-			case DTFunction(args, ret): printFunctionSignature(args, ret, {
+			case DTFunction(args, ret):
+				printFunctionSignature(args, ret, {
 					argumentTypeHints: true,
 					returnTypeHint: Always,
 					useArrowSyntax: false
 				});
-			case DTFunction(args, ret): printFunctionSignature(args, ret, {
+			case DTFunction(args, ret):
+				printFunctionSignature(args, ret, {
 					argumentTypeHints: true,
 					returnTypeHint: Always,
 					useArrowSyntax: false
