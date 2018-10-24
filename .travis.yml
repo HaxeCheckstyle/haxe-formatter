@@ -23,6 +23,8 @@ script:
   - haxe buildSchema.hxml
   - node run.js -s . --check
   - neko run.n -s . --check
+  - rm run.js
+  - neko run.n -s . --check
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"

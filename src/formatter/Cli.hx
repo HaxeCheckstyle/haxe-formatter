@@ -12,7 +12,6 @@ class Cli {
 		new Cli();
 	}
 
-	var files:Int = 0;
 	var verbose:Bool = false;
 	var mode:Mode = Format;
 	var exitCode:Int = 0;
@@ -83,13 +82,32 @@ class Cli {
 		var startTime = Date.now().getTime();
 		run(paths);
 
-		var duration = Date.now().getTime() - startTime;
-		Sys.println("");
+		printStats(Date.now().getTime() - startTime);
+		Sys.exit(exitCode);
+	}
+
+	function printStats(duration:Float) {
 		var seconds = duration / 1000;
 		var action = if (mode == Format) "Formatted" else "Checked";
-		Sys.println('$action $files files in $seconds s.');
 
-		Sys.exit(exitCode);
+		Sys.println("");
+		var fileNumber:String;
+		if (FormatStats.successFiles != FormatStats.totalFiles) {
+			fileNumber = '${FormatStats.successFiles}/${FormatStats.totalFiles}';
+		} else {
+			fileNumber = '${FormatStats.successFiles}';
+		}
+		Sys.println('$action ${fileNumber} files in $seconds s.');
+		if (FormatStats.failedFiles > 0) {
+			Sys.println('Format failed on ${FormatStats.failedFiles} files');
+		}
+		if (FormatStats.disabledFiles > 0) {
+			Sys.println('Number of disabled files: ${FormatStats.disabledFiles}');
+		}
+		Sys.println("-------------------------");
+		Sys.println('Input lines:  ${FormatStats.totalLinesOrig}');
+		Sys.println('Output lines: ${FormatStats.totalLinesFormatted}');
+		Sys.println("-------------------------");
 	}
 
 	function generateDefaultConfig(path) {
@@ -124,7 +142,7 @@ class Cli {
 			var result:Result = new Formatter().formatFile({name: path, content: content});
 			switch (result) {
 				case Success(formattedCode):
-					files++;
+					FormatStats.incSuccess();
 					switch (mode) {
 						case Format:
 							File.saveContent(path, formattedCode);
@@ -148,9 +166,11 @@ class Cli {
 							}
 					}
 				case Failure(errorMessage):
+					FormatStats.incFailed();
 					Sys.println('Failed to format $path: $errorMessage');
 					exitCode = 1;
 				case Disabled:
+					FormatStats.incDisabled();
 			}
 		}
 	}

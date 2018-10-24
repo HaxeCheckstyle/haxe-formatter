@@ -184,14 +184,6 @@ class ParsedCode {
 		lineSeparator = "\n";
 	}
 
-	#if false
-	function makeLines() {
-		var code:Bytes = file.content;
-		var textCode:String = code.toString();
-		lines = textCode.split(lineSeparator);
-	}
-	#end
-
 	function makeLines() {
 		var code:Bytes = file.content;
 		var textCode:String = code.toString();

@@ -17,8 +17,9 @@ class TestMain {
 		runner.completionHandler = completionHandler;
 		#if (neko || cpp || hl)
 		EntryPoint.addThread(function() {
-			while (true)
+			while (true) {
 				Sys.sleep(1.0);
+			}
 		});
 		#end
 		runner.run(suites);
