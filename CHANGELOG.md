@@ -4,12 +4,12 @@
 
 - Added `wrapping.opBoolChain` for wrapping `||` and `&&` chains [#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248)
 - Added line count statistic for CLI [#249](https://github.com/HaxeCheckstyle/haxe-formatter/issues/249)
-- Added `alignedDecrease` option for `indentation.conditionalPolicy`, fixes [#252](https://github.com/HaxeCheckstyle/haxe-formatter/issues/252)
+- Added `alignedDecrease` option for `indentation.conditionalPolicy`, fixes [#252](https://github.com/HaxeCheckstyle/haxe-formatter/issues/252) ([#253](https://github.com/HaxeCheckstyle/haxe-formatter/issues/253))
 - Fixed wrapping of function calls, fixes [#169](https://github.com/HaxeCheckstyle/haxe-formatter/issues/169) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed conditional handling in multi-line object literals, fixes [#182](https://github.com/HaxeCheckstyle/haxe-formatter/issues/182) and [#211](https://github.com/HaxeCheckstyle/haxe-formatter/issues/211) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed indentation and wrapping of OpBool chain, fixes [#187](https://github.com/HaxeCheckstyle/haxe-formatter/issues/187) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed sameline options for `sameLine.caseBody` and `sameLine.expressionCase` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
-- Fixed conditional indentation with `indentation.conditionalPolicy` set to `alignedIncrease`
+- Fixed conditional indentation with `indentation.conditionalPolicy` set to `alignedIncrease` [#253](https://github.com/HaxeCheckstyle/haxe-formatter/issues/253)
 - Changed `sameLine.expressionCase` to `keep` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
 - Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 - Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
