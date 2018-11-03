@@ -1,0 +1,76 @@
+{
+	"indentation": {
+		"conditionalPolicy": "alignedIncrease"
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+	#if (cpp)
+	cpp_doSomething("");
+	#else
+	doSomething("");
+	#end
+	trace("a == b" + #if (debug) "[DBG]" #else "" #end);
+	}
+
+	#if (cpp)
+	static function cpp_doSomething(s) {
+	}
+	#else
+	static function doSomething(s) {
+	}
+	#end
+
+	static function main() {
+	#if (cpp)
+	cpp_doSomething("");
+	#else
+	#if php
+	#if php7
+	doSomethingPHP7("");
+	#else
+	doSomethingPHP("");
+	#end
+	#else
+	doSomething("");
+	#end
+	#end
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		#if (cpp)
+			cpp_doSomething("");
+		#else
+			doSomething("");
+		#end
+		trace("a == b" + #if (debug) "[DBG]" #else "" #end);
+	}
+
+	#if (cpp)
+		static function cpp_doSomething(s) {}
+	#else
+		static function doSomething(s) {}
+	#end
+	static function main() {
+		#if (cpp)
+			cpp_doSomething("");
+		#else
+			#if php
+				#if php7
+					doSomethingPHP7("");
+				#else
+					doSomethingPHP("");
+				#end
+			#else
+				doSomething("");
+			#end
+		#end
+	}
+}

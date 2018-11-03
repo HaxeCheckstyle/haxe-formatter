@@ -30,4 +30,5 @@ abstract ConditionalIndentationPolicy(String) {
 	var FixedZero = "fixedZero";
 	var Aligned = "aligned";
 	var AlignedIncrease = "alignedIncrease";
+	var AlignedDecrease = "alignedDecrease";
 }
