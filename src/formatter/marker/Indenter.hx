@@ -157,6 +157,9 @@ class Indenter {
 					default:
 						return token;
 				}
+			case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF), Sharp(MarkLineEnds.SHARP_END):
+				return findEffectiveParent(token.parent);
+
 			default:
 		}
 		return token;
@@ -270,10 +273,30 @@ class Indenter {
 			return 0;
 		}
 		var count:Int = countLineBreaks(indentingTokensCandidates);
+		if (hasConditional(indentingTokensCandidates)) {
+			switch (config.conditionalPolicy) {
+				case AlignedDecrease:
+					count--;
+				case AlignedIncrease:
+				case FixedZero:
+				case Aligned:
+			}
+		}
 		#if debugIndent
 		log(token, "final indent: " + count);
 		#end
 		return count;
+	}
+
+	function hasConditional(tokens:Array<TokenTree>):Bool {
+		for (token in tokens) {
+			switch (token.tok) {
+				case Sharp("if"):
+					return true;
+				default:
+			}
+		}
+		return false;
 	}
 
 	function findIndentingCandidates(token:TokenTree):Array<TokenTree> {
@@ -334,9 +357,14 @@ class Indenter {
 					case Newline, SpaceOrNewline:
 						return true;
 				}
-			case Sharp(_):
-				if (config.conditionalPolicy == AlignedIncrease) {
-					return true;
+			case Sharp(MarkLineEnds.SHARP_IF):
+				switch (config.conditionalPolicy) {
+					case AlignedIncrease, AlignedDecrease:
+						return true;
+					case Aligned:
+						return false;
+					case FixedZero:
+						return false;
 				}
 			case Kwd(KwdIf), Kwd(KwdElse):
 				return true;

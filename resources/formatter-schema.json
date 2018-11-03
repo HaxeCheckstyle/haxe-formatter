@@ -105,7 +105,8 @@
 					"enum": [
 						"fixedZero",
 						"aligned",
-						"alignedIncrease"
+						"alignedIncrease",
+						"alignedDecrease"
 					],
 					"propertyOrder": 0
 				},
