@@ -1,0 +1,76 @@
+{
+	"sameLine": {
+		"caseBody": "same",
+		"expressionCase": "same"
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch true
+		{
+			case true: trace("true");
+			case true:
+				trace("true");
+			case true: trace("true"); trace("true");
+			case false: trace("false");
+			case false:
+				trace("false");
+			case false: trace("false"); trace("false");
+		}
+
+		// But:
+
+		var xxx = switch true
+		{
+			case true: 10;
+			case true:
+				10;
+			case true:
+				trace("true");
+				10;
+			case false: 20;
+			case false:
+				20;
+			case false:
+				trace("false");
+				20;
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch true {
+			case true: trace("true");
+			case true: trace("true");
+			case true:
+				trace("true");
+				trace("true");
+			case false: trace("false");
+			case false: trace("false");
+			case false:
+				trace("false");
+				trace("false");
+		}
+
+		// But:
+
+		var xxx = switch true {
+			case true: 10;
+			case true: 10;
+			case true:
+				trace("true");
+				10;
+			case false: 20;
+			case false: 20;
+			case false:
+				trace("false");
+				20;
+		}
+	}
+}
