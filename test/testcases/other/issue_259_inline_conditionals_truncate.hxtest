@@ -1,0 +1,29 @@
+{}
+
+---
+
+interface IPerson {
+  function getName():String;
+}
+
+interface IPet #if (extends_iperson) extends IPerson #end {
+
+#if (!extends_iperson)
+  function getName():String;
+#end
+
+  function getPetType():String;
+}
+
+---
+
+interface IPerson {
+	function getName():String;
+}
+
+interface IPet #if (extends_iperson) extends IPerson #end {
+	#if (!extends_iperson)
+	function getName():String;
+	#end
+	function getPetType():String;
+}

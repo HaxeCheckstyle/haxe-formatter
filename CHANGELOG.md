@@ -10,6 +10,7 @@
 - Fixed indentation and wrapping of OpBool chain, fixes [#187](https://github.com/HaxeCheckstyle/haxe-formatter/issues/187) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed sameline options for `sameLine.caseBody` and `sameLine.expressionCase` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
 - Fixed conditional indentation with `indentation.conditionalPolicy` set to `alignedIncrease` [#253](https://github.com/HaxeCheckstyle/haxe-formatter/issues/253)
+- Fixed truncation of interface conditionals extends, fixes [#259](https://github.com/HaxeCheckstyle/haxe-formatter/issues/259) ([#260](https://github.com/HaxeCheckstyle/haxe-formatter/issues/260))
 - Changed `sameLine.expressionCase` to `keep` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
 - Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 - Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)

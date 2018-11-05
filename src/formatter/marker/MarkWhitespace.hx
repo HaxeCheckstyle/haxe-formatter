@@ -344,6 +344,14 @@ class MarkWhitespace extends MarkerBase {
 		switch (token.tok) {
 			case Sharp(MarkLineEnds.SHARP_IF):
 				whitespace(token, After);
+				var prev:TokenInfo = getPreviousToken(token);
+				if (prev != null) {
+					switch (prev.token.tok) {
+						case Const(_), Kwd(_):
+							whitespace(token, Before);
+						default:
+					}
+				}
 			case Sharp(MarkLineEnds.SHARP_ELSE_IF):
 				whitespace(token, Around);
 			case Sharp(MarkLineEnds.SHARP_ELSE):
