@@ -70,7 +70,7 @@ class Cli {
 		try {
 			argHandler.parse(args);
 		} catch (e:Any) {
-			Sys.println(e + "\n");
+			Sys.stderr().writeString(e + "\n");
 			printHelp();
 			Sys.exit(1);
 		}
@@ -167,7 +167,7 @@ class Cli {
 					}
 				case Failure(errorMessage):
 					FormatStats.incFailed();
-					Sys.println('Failed to format $path: $errorMessage');
+					Sys.stderr().writeString('Failed to format $path: $errorMessage');
 					exitCode = 1;
 				case Disabled:
 					FormatStats.incDisabled();

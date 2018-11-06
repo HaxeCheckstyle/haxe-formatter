@@ -4,8 +4,6 @@ import haxeparser.HaxeLexer;
 import tokentree.TokenStreamProgress;
 import tokentree.walk.WalkStatement;
 import tokentree.TokenStream;
-import formatter.config.Config;
-import formatter.config.IndentationConfig;
 import formatter.codedata.CodeLines;
 import formatter.codedata.ParseFile;
 import formatter.codedata.ParsedCode;
@@ -58,7 +56,7 @@ class MarkTokenText extends MarkerBase {
 					continue;
 				}
 				var formatted:String = formatFragment(fragment);
-				start += formatted.length - fragment.length;
+				start += formatted.length;
 				text = text.substr(0, index + 2) + formatted + text.substr(indexEnd);
 			}
 		}
