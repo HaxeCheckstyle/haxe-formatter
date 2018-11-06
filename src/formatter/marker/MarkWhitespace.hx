@@ -213,6 +213,8 @@ class MarkWhitespace extends MarkerBase {
 					prev.whitespaceAfter = Space;
 				case Const(_):
 					prev.whitespaceAfter = Space;
+				case At:
+					return;
 				default:
 			}
 		}

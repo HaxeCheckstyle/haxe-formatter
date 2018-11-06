@@ -8,6 +8,9 @@ class MarkSameLine extends MarkerBase {
 		markDollarSameLine();
 
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			if ((token.parent != null) && (token.parent.is(At))) {
+				return GO_DEEPER;
+			}
 			switch (token.tok) {
 				case Kwd(KwdIf):
 					markIf(token);
