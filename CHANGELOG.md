@@ -11,9 +11,9 @@
 - Fixed sameline options for `sameLine.caseBody` and `sameLine.expressionCase` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
 - Fixed conditional indentation with `indentation.conditionalPolicy` set to `alignedIncrease` [#253](https://github.com/HaxeCheckstyle/haxe-formatter/issues/253)
 - Fixed truncation of interface conditionals extends, fixes [#259](https://github.com/HaxeCheckstyle/haxe-formatter/issues/259) ([#260](https://github.com/HaxeCheckstyle/haxe-formatter/issues/260))
-- Fixed multiline string interpolation, fixes #261, fixes #203 ([#264](https://github.com/HaxeCheckstyle/haxe-formatter/issues/264))
-- Fixed send error messages to stderr, fixes #262
-- Fixed metadata whitespace, fixes #263
+- Fixed multiline string interpolation, fixes [#261](https://github.com/HaxeCheckstyle/haxe-formatter/issues/261), fixes [#203](https://github.com/HaxeCheckstyle/haxe-formatter/issues/203) ([#264](https://github.com/HaxeCheckstyle/haxe-formatter/issues/264) + [#265](https://github.com/HaxeCheckstyle/haxe-formatter/issues/265))
+- Fixed send error messages to stderr, fixes [#262](https://github.com/HaxeCheckstyle/haxe-formatter/issues/262) ([#265](https://github.com/HaxeCheckstyle/haxe-formatter/issues/265))
+- Fixed metadata whitespace, fixes [#263](https://github.com/HaxeCheckstyle/haxe-formatter/issues/263) ([#265](https://github.com/HaxeCheckstyle/haxe-formatter/issues/265))
 - Changed `sameLine.expressionCase` to `keep` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
 - Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 - Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
