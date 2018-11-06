@@ -1,0 +1,227 @@
+{}
+
+---
+
+package memberapplet.feature.privatesession.view;
+
+import coconut.ui.View;
+import memberapplet.feature.languageprovider.LanguageTranslations;
+import com.utils.HxxUtil;
+import com.utils.TranslationUtil;
+import js.html.InputElement;
+import memberapplet.constant.performer.CCategory;
+import memberapplet.feature.privatesession.request.PrivateSessionRequest.PrivateSessionRequestReason;
+import memberapplet.feature.bioinfo.service.vo.BioInfoVO;
+import memberapplet.feature.window.Closeable;
+
+using com.utils.StringUtil;
+
+class StartPrivateView extends View implements Closeable
+{
+	@:attribute var performerId:String;
+	@:attribute var requestSource:PrivateSessionRequestReason;
+	@:attribute var languages:String;
+	@:attribute var privatePrice:Float;
+	@:attribute var twoWayAudioPrice:Float;
+	@:attribute var bonusCredits:Float;
+	@:attribute var balance:Float;
+	@:attribute var bioInfoVO:BioInfoVO;
+	@:attribute var isTwoWayAudioAvailable:Bool;
+	@:attribute var setTwoWayAudioDesired:SetTwoWayAudioDesired;
+	@:attribute var startPrePrivateIfPossible:StartPrePrivateIfPossible;
+	@:attribute var isTwoWayAudioDesired:Bool;
+
+	function render()
+	{
+		var isNonNude = bioInfoVO != null && bioInfoVO.nonNudeCategory != null && bioInfoVO.nonNudeCategory.length > 0;
+		var isHotFlirt = bioInfoVO != null && bioInfoVO.category != null && bioInfoVO.category.indexOf(CCategory.HOT_FLIRT) != -1;
+
+		return @hxx'
+			<div class="dialog_private_start">
+				<div class="fill_parent">
+					<if {requestSource == PrivateSessionRequestReason.SCHEDULED_SHOW_END}>
+						<h3 class="dialog_header">${L.SCHEDULE_SHOW_ENDED}</h3>
+					<else>
+						<h3 class="dialog_header">${L.LOGPRIVATE_LAUNCH_PRIVATE.interpolate({performerid: performerId})}</h3>
+					</if>
+					<a class="close_dialog js_close_dialog" {...HxxUtil.action(close)}><i class="mc_icon mc_icon--close"></i></a>
+					<div class="mc_dialog__content">
+						<if {requestSource == PrivateSessionRequestReason.SCHEDULED_SHOW_END}>
+							<div class="mc_dialog__entry--l">${L.VIP_LET_HAVE_MORE_FUN}</div>
+						</if>
+						<div class="mc_dialog__entry--l mc_text--stronger">
+							${L.LOGPRIVATE_CREDIT_MIN.interpolate({
+								credit: Std.string(privatePrice),
+								credits_name: TranslationUtil.getCreditNameText(privatePrice)
+							})}
+						</div>
+						<div class="${isTwoWayAudioAvailable || isHotFlirt || isNonNude ? 'mc_dialog__entry--l' : 'mc_dialog__entry'}">
+							<button class="mc_button mc_button--primary" {...HxxUtil.action(startPrePrivateIfPossible)}>${L.LOGPRIVATE_START_PRIVATE}</button>
+						</div>
+						<if {isTwoWayAudioAvailable}>
+							<div class="mc_dialog__entry">
+								<div class="mc_checkbox_wrapper">
+									<input type="checkbox" class="mc_cb__input" id="mc_js_twa_checkbox" onclick={actionSetTwoWayAudioDesired(event, setTwoWayAudioDesired)} checked=${isTwoWayAudioDesired}/>
+									<label htmlFor="mc_js_twa_checkbox" class="mc_cb__label">
+										<i class="mc_icon mc_icon--tick"></i>
+									</label>
+									<label htmlFor="mc_js_twa_checkbox" class="mc_button_next_text mc_checkbox_show_label">
+										${L.LOGPRIVATE_CREDIT_TWOWAY.interpolate({
+											credit: Std.string(twoWayAudioPrice),
+											credits_name: TranslationUtil.getCreditNameText(twoWayAudioPrice)
+})}
+									</label>
+									<div class="mc_icon mc_icon--info mc_tooltip_icon">
+										<span class="mc_tooltip_text">${L.TWO_WAY_DIALOG_INFO.interpolate({performerid: performerId, language: languages})}</span>
+									</div>
+								</div>
+							</div>
+						</if>
+						<if {isHotFlirt}>
+							<div class="mc_dialog__entry mc_text--stronger">
+								<span class="mc_text mc_text--with_logo">${L.LOGPRIVATE_HOT_FLIRT}</span>
+								<div class="mc_icon mc_icon--info mc_tooltip_icon">
+									<span class="mc_tooltip_text">${L.LOGPRIVATE_HOT_FLIRT_INFO}</span>
+								</div>
+							</div>
+						<else if {isNonNude}>
+							<div class="mc_dialog__entry mc_text--stronger mc_text--s">
+								<label>${L.LOGPRIVATE_NONNUDE}</label>
+							</div>
+						</if>
+					</div>
+					<div class="dialog_separator"></div>
+					<div class="mc_dialog__content">
+						<div class="mc_dialog__entry">
+							<p>
+								<raw content=${L.LOGPRIVATE_CREDIT_LEFT.interpolate({
+												credit: "<span class='mc_text--stronger'>"+Std.string(balance)+"</span>",
+												credits_name: TranslationUtil.getCreditNameText(balance)
+})}/>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>';
+	}
+
+	function actionSetTwoWayAudioDesired(e, setTwoWayAudioDesired)
+	{
+		setTwoWayAudioDesired(cast(e.currentTarget, InputElement).checked);
+	}
+}
+
+typedef StartPrePrivateIfPossible = Void->Void;
+typedef SetTwoWayAudioDesired = Bool->Void;
+
+---
+
+package memberapplet.feature.privatesession.view;
+
+import coconut.ui.View;
+import memberapplet.feature.languageprovider.LanguageTranslations;
+import com.utils.HxxUtil;
+import com.utils.TranslationUtil;
+import js.html.InputElement;
+import memberapplet.constant.performer.CCategory;
+import memberapplet.feature.privatesession.request.PrivateSessionRequest.PrivateSessionRequestReason;
+import memberapplet.feature.bioinfo.service.vo.BioInfoVO;
+import memberapplet.feature.window.Closeable;
+
+using com.utils.StringUtil;
+
+class StartPrivateView extends View implements Closeable {
+	@:attribute var performerId:String;
+	@:attribute var requestSource:PrivateSessionRequestReason;
+	@:attribute var languages:String;
+	@:attribute var privatePrice:Float;
+	@:attribute var twoWayAudioPrice:Float;
+	@:attribute var bonusCredits:Float;
+	@:attribute var balance:Float;
+	@:attribute var bioInfoVO:BioInfoVO;
+	@:attribute var isTwoWayAudioAvailable:Bool;
+	@:attribute var setTwoWayAudioDesired:SetTwoWayAudioDesired;
+	@:attribute var startPrePrivateIfPossible:StartPrePrivateIfPossible;
+	@:attribute var isTwoWayAudioDesired:Bool;
+
+	function render() {
+		var isNonNude = bioInfoVO != null && bioInfoVO.nonNudeCategory != null && bioInfoVO.nonNudeCategory.length > 0;
+		var isHotFlirt = bioInfoVO != null && bioInfoVO.category != null && bioInfoVO.category.indexOf(CCategory.HOT_FLIRT) != -1;
+
+		return @hxx '
+			<div class="dialog_private_start">
+				<div class="fill_parent">
+					<if {requestSource == PrivateSessionRequestReason.SCHEDULED_SHOW_END}>
+						<h3 class="dialog_header">${L.SCHEDULE_SHOW_ENDED}</h3>
+					<else>
+						<h3 class="dialog_header">${L.LOGPRIVATE_LAUNCH_PRIVATE.interpolate({performerid: performerId})}</h3>
+					</if>
+					<a class="close_dialog js_close_dialog" {...HxxUtil.action(close)}><i class="mc_icon mc_icon--close"></i></a>
+					<div class="mc_dialog__content">
+						<if {requestSource == PrivateSessionRequestReason.SCHEDULED_SHOW_END}>
+							<div class="mc_dialog__entry--l">${L.VIP_LET_HAVE_MORE_FUN}</div>
+						</if>
+						<div class="mc_dialog__entry--l mc_text--stronger">
+							${L.LOGPRIVATE_CREDIT_MIN.interpolate({
+								credit: Std.string(privatePrice),
+								credits_name: TranslationUtil.getCreditNameText(privatePrice)
+							})}
+						</div>
+						<div class="${isTwoWayAudioAvailable || isHotFlirt || isNonNude ? 'mc_dialog__entry--l' : 'mc_dialog__entry'}">
+							<button class="mc_button mc_button--primary" {...HxxUtil.action(startPrePrivateIfPossible)}>${L.LOGPRIVATE_START_PRIVATE}</button>
+						</div>
+						<if {isTwoWayAudioAvailable}>
+							<div class="mc_dialog__entry">
+								<div class="mc_checkbox_wrapper">
+									<input type="checkbox" class="mc_cb__input" id="mc_js_twa_checkbox" onclick={actionSetTwoWayAudioDesired(event, setTwoWayAudioDesired)} checked=${isTwoWayAudioDesired}/>
+									<label htmlFor="mc_js_twa_checkbox" class="mc_cb__label">
+										<i class="mc_icon mc_icon--tick"></i>
+									</label>
+									<label htmlFor="mc_js_twa_checkbox" class="mc_button_next_text mc_checkbox_show_label">
+										${L.LOGPRIVATE_CREDIT_TWOWAY.interpolate({
+											credit: Std.string(twoWayAudioPrice),
+											credits_name: TranslationUtil.getCreditNameText(twoWayAudioPrice)
+})}
+									</label>
+									<div class="mc_icon mc_icon--info mc_tooltip_icon">
+										<span class="mc_tooltip_text">${L.TWO_WAY_DIALOG_INFO.interpolate({performerid: performerId, language: languages})}</span>
+									</div>
+								</div>
+							</div>
+						</if>
+						<if {isHotFlirt}>
+							<div class="mc_dialog__entry mc_text--stronger">
+								<span class="mc_text mc_text--with_logo">${L.LOGPRIVATE_HOT_FLIRT}</span>
+								<div class="mc_icon mc_icon--info mc_tooltip_icon">
+									<span class="mc_tooltip_text">${L.LOGPRIVATE_HOT_FLIRT_INFO}</span>
+								</div>
+							</div>
+						<else if {isNonNude}>
+							<div class="mc_dialog__entry mc_text--stronger mc_text--s">
+								<label>${L.LOGPRIVATE_NONNUDE}</label>
+							</div>
+						</if>
+					</div>
+					<div class="dialog_separator"></div>
+					<div class="mc_dialog__content">
+						<div class="mc_dialog__entry">
+							<p>
+								<raw content=${L.LOGPRIVATE_CREDIT_LEFT.interpolate({
+												credit: "<span class='mc_text--stronger'>"+Std.string(balance)+"</span>",
+												credits_name: TranslationUtil.getCreditNameText(balance)
+})}/>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>';
+	}
+
+	function actionSetTwoWayAudioDesired(e, setTwoWayAudioDesired) {
+		setTwoWayAudioDesired(cast(e.currentTarget, InputElement).checked);
+	}
+}
+
+typedef StartPrePrivateIfPossible = Void->Void;
+
+typedef SetTwoWayAudioDesired = Bool->Void;
