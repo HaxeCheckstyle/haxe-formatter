@@ -17,9 +17,7 @@ class Main {
 class Main {
 	public static function main() {
 		trace('
-			${
-				"foo"
-			}
+			${"foo"}
 		');
 	}
 }
