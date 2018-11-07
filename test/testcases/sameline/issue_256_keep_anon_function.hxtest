@@ -1,0 +1,121 @@
+{
+    "emptyLines": {
+    },
+    "lineEnds": {
+        "leftCurly": "both"
+    },
+    "sameLine": {
+        "anonFunctionBody": "keep",
+        "ifBody": "same",
+        "ifElse": "next",
+        "elseBody": "same",
+        "elseIf": "same",
+        "caseBody": "keep",
+        "doWhile": "same",
+        "doWhileBody": "same",
+        "whileBody": "same",
+        "forBody": "same",
+        "tryBody": "same",
+        "catchBody": "same",
+        "functionBody": "keep"
+
+    },
+    "wrapping": {
+        "callParameter": {
+            "defaultWrap": "keep",
+            "rules": [
+                {
+                    "conditions": [
+                        {
+                            "cond": "totalItemLength >= n",
+                            "value": 120
+                        }
+                    ],
+                    "type": "onePerLine"
+                }
+            ]
+        }
+    }
+}
+
+---
+
+package com.utils;
+
+import tink.state.Observable;
+
+using tink.CoreApi;
+
+class ObservableUtil
+{
+	/**
+	 * Takes an Observable and returns a Signal that is triggered every time the observable changes.
+	 */
+	static public function toSignal<T>(o:Observable<T>, ?options:BindingOptions<T>):Signal<T>
+		return Signal.generate(function (yield)
+		{
+			var first = true;
+			o.bind(options, function (value)
+				if (first) first = false;
+				else yield(value)
+			);
+		});
+
+	/**
+	 * Takes an Observable and a value and returns a Promise<Noise>.
+	 * If the observable's value is equal to the specified value, the promise is triggered with a Success immediately.
+	 * Otherwise, waits for the observable's value to change, and triggers the promise with Success or Failure if the value becomes respectively the expected one or not.
+	 */
+	static public function waitFor<T>(o:Observable<T>, value:T):Promise<Noise>
+		return switch Observable.untracked(o.measure)
+		{
+			case _.value == value => true:
+				Noise;
+			case m:
+				m.becameInvalid.next(
+					function (_) return
+						if (o.value == value) Noise;
+						else new Error('expected $value but got ${o.value}')
+				);
+		}
+}
+
+---
+
+package com.utils;
+
+import tink.state.Observable;
+
+using tink.CoreApi;
+
+class ObservableUtil
+{
+	/**
+	 * Takes an Observable and returns a Signal that is triggered every time the observable changes.
+	 */
+	static public function toSignal<T>(o:Observable<T>, ?options:BindingOptions<T>):Signal<T>
+		return Signal.generate(function(yield)
+		{
+			var first = true;
+			o.bind(options, function(value)
+				if (first) first = false;
+				else yield(value)
+			);
+		});
+
+	/**
+	 * Takes an Observable and a value and returns a Promise<Noise>.
+	 * If the observable's value is equal to the specified value, the promise is triggered with a Success immediately.
+	 * Otherwise, waits for the observable's value to change, and triggers the promise with Success or Failure if the value becomes respectively the expected one or not.
+	 */
+	static public function waitFor<T>(o:Observable<T>, value:T):Promise<Noise>
+		return switch Observable.untracked(o.measure)
+		{
+			case _.value == value => true:
+				Noise;
+			case m:
+				m.becameInvalid.next(
+					function(_) return if (o.value == value) Noise; else new Error('expected $value but got ${o.value}')
+				);
+		}
+}

@@ -122,6 +122,14 @@ typedef SameLineConfig = {
 		* keep = keep same / next line from source
 	**/
 	@:default(Same) @:optional var anonFunctionBody:SameLinePolicy;
+
+	/**
+		same line policy for return values
+		* same = place function and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
+	@:default(Same) @:optional var returnBody:SameLinePolicy;
 }
 
 @:enum

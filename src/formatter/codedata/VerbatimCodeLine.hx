@@ -12,7 +12,7 @@ class VerbatimCodeLine extends CodeLine {
 		verbatim = true;
 	}
 
-	override public function addToken(tokenInfo:TokenInfo) {}
+	override public function addToken(tokenInfo:TokenInfo, lineSeparator:String) {}
 
 	override public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
 		return [this];

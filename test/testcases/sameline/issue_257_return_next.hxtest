@@ -1,0 +1,64 @@
+{
+    "sameLine": {
+		"ifBody": "same",
+        "ifElse": "next",
+        "elseBody": "same",
+        "elseIf": "same",
+        "expressionIf": "keep",
+        "returnBody": "next"
+    }
+}
+
+---
+
+package com.utils;
+
+import languageprovider.LanguageTranslations.L;
+
+class TimeUtil
+{
+	public static function decorateRemainingTime(remainingTime:Float):String
+	{
+		var remainingMilliseconds:Float = remainingTime;
+		var remainingMinutes:Int = Math.floor(remainingMilliseconds / 1000 / 60);
+		var remainingHours:Int = Math.floor(remainingMinutes / 60);
+		var remainingDays:Int = Math.floor(remainingHours / 24);
+
+		return 1;
+
+		return "---------------------------------------------------------------------------------------------------------------------------------------------------------";
+
+		return
+			if (remainingDays > 0) '${Std.string(remainingDays)} ${remainingDays == 1 ? L.DAY : L.DAYS}'
+			else if (remainingHours > 0) '${Std.string(remainingHours)} ${remainingHours == 1 ? L.HOUR : L.HOURS}'
+			else if (remainingMinutes > 0) '${Std.string(remainingMinutes)} ${remainingMinutes == 1 ? L.MINUTE : L.MINUTES}'
+			else L.LESS_THAN_A_MINUTE;
+	}
+}
+
+---
+
+package com.utils;
+
+import languageprovider.LanguageTranslations.L;
+
+class TimeUtil {
+	public static function decorateRemainingTime(remainingTime:Float):String {
+		var remainingMilliseconds:Float = remainingTime;
+		var remainingMinutes:Int = Math.floor(remainingMilliseconds / 1000 / 60);
+		var remainingHours:Int = Math.floor(remainingMinutes / 60);
+		var remainingDays:Int = Math.floor(remainingHours / 24);
+
+		return
+			1;
+
+		return
+			"---------------------------------------------------------------------------------------------------------------------------------------------------------";
+
+		return
+			if (remainingDays > 0) '${Std.string(remainingDays)} ${remainingDays == 1 ? L.DAY : L.DAYS}'
+			else if (remainingHours > 0) '${Std.string(remainingHours)} ${remainingHours == 1 ? L.HOUR : L.HOURS}'
+			else if (remainingMinutes > 0) '${Std.string(remainingMinutes)} ${remainingMinutes == 1 ? L.MINUTE : L.MINUTES}'
+			else L.LESS_THAN_A_MINUTE;
+	}
+}

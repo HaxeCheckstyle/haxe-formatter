@@ -39,7 +39,7 @@ class CodeLines {
 				line = new CodeLine(indenter.calcIndent(tokenInfo.token) + tokenInfo.additionalIndent);
 				lines.push(line);
 			}
-			line.addToken(tokenInfo);
+			line.addToken(tokenInfo, parsedCode.lineSeparator);
 			if ((tokenInfo.whitespaceAfter == Newline) || (tokenInfo.whitespaceAfter == SpaceOrNewline)) {
 				line = null;
 			}
