@@ -143,6 +143,9 @@ class Indenter {
 				}
 				switch (parent.tok) {
 					case POpen:
+						if (parsedCode.tokenList.isNewLineBefore(token)) {
+							return token;
+						}
 						return findEffectiveParent(token.parent);
 					default:
 				}
@@ -191,8 +194,7 @@ class Indenter {
 						continue;
 					}
 				case Kwd(KwdFunction):
-					if (currentToken.is(POpen)) {
-						mustIndent = true;
+					if (currentToken.is(POpen) && !parsedCode.tokenList.isNewLineAfter(currentToken)) {
 						continue;
 					}
 				case Dot:
@@ -221,10 +223,14 @@ class Indenter {
 					}
 				case BrOpen:
 					switch (currentToken.tok) {
-						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch):
+						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch), Kwd(KwdReturn):
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
 								case OBJECTDECL:
+									var brClose:TokenTree = prevToken.access().firstOf(BrClose).token;
+									if ((brClose != null) && (!parsedCode.tokenList.isSameLine(prevToken, brClose)) && !config.indentObjectLiteral) {
+										continue;
+									}
 								default:
 									continue;
 							}

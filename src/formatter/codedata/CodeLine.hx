@@ -18,12 +18,19 @@ class CodeLine {
 		verbatim = false;
 	}
 
-	public function addToken(tokenInfo:TokenInfo) {
+	public function addToken(tokenInfo:TokenInfo, lineSeparator:String) {
 		if (tokenInfo.emptyLinesAfter > emptyLinesAfter) {
 			emptyLinesAfter = tokenInfo.emptyLinesAfter;
 		}
 		if (currentPart == null) {
-			currentPart = {firstToken: tokenInfo.token, lastToken: tokenInfo.token, text: ""};
+			currentPart = {
+				firstToken: tokenInfo.token,
+				lastToken: tokenInfo.token,
+				text: "",
+				multiLine: false,
+				firstLineLength: -1,
+				lastLineLength: -1
+			};
 			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;
@@ -41,12 +48,30 @@ class CodeLine {
 		var lineLength:Int = indenter.calcAbsoluteIndent(indent);
 		for (index in 0...parts.length) {
 			var part:CodePart = parts[index];
+			calcLineLengths(part, parsedCode.lineSeparator);
+			if (part.multiLine) {
+				if (lineLength + part.firstLineLength > config.maxLineLength) {
+					return wrappedAt(index, config, parsedCode, indenter);
+				}
+			}
 			lineLength += part.text.length;
 			if (lineLength > config.maxLineLength) {
 				return wrappedAt(index, config, parsedCode, indenter);
 			}
 		}
 		return [this];
+	}
+
+	function calcLineLengths(part:CodePart, lineSeparator:String) {
+		var lines:Array<String> = part.text.split(lineSeparator);
+		part.multiLine = (lines.length > 1);
+		if (part.multiLine) {
+			part.firstLineLength = lines[0].length;
+			part.lastLineLength = lines[lines.length - 1].length;
+		} else {
+			part.firstLineLength = part.text.length;
+			part.lastLineLength = part.text.length;
+		}
 	}
 
 	function wrappedAt(index:Int, config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
@@ -65,7 +90,7 @@ class CodeLine {
 		var lastPart:CodePart = part;
 		while (parts.length > 0) {
 			var p:CodePart = parts.shift();
-			if (lineLength + p.text.length > config.maxLineLength) {
+			if (lineLength + p.firstLineLength > config.maxLineLength) {
 				parsedCode.tokenList.lineEndAfter(lastPart.lastToken);
 				var info:TokenInfo = parsedCode.tokenList.getTokenAt(p.firstToken.index);
 				var additionalIndent:Int = 0;
@@ -105,4 +130,7 @@ typedef CodePart = {
 	var firstToken:TokenTree;
 	var lastToken:TokenTree;
 	var text:String;
+	var multiLine:Bool;
+	var firstLineLength:Int;
+	var lastLineLength:Int;
 }

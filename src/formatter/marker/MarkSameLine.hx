@@ -37,6 +37,8 @@ class MarkSameLine extends MarkerBase {
 					markFunction(token);
 				case Kwd(KwdMacro):
 					markMacro(token);
+				case Kwd(KwdReturn):
+					markReturn(token);
 				default:
 			}
 			return GO_DEEPER;
@@ -633,5 +635,9 @@ class MarkSameLine extends MarkerBase {
 			noLineEndBefore(brClose);
 			noWrappingBetween(brOpen.token, brClose);
 		}
+	}
+
+	function markReturn(token:TokenTree) {
+		markBody(token, config.sameLine.returnBody, false);
 	}
 }

@@ -94,6 +94,10 @@
 		"IndentationConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"indentObjectLiteral": {
+					"type": "boolean",
+					"propertyOrder": 4
+				},
 				"character": {
 					"description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
 					"type": "string",
@@ -1250,6 +1254,16 @@
 						"keep"
 					],
 					"propertyOrder": 9
+				},
+				"returnBody": {
+					"description": "same line policy for return values\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
+					"type": "string",
+					"enum": [
+						"same",
+						"next",
+						"keep"
+					],
+					"propertyOrder": 19
 				},
 				"anonFunctionBody": {
 					"description": "same line policy for non block body of anon \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",

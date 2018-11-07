@@ -85,6 +85,7 @@
 	"indentation": {
 		"character": "tab",
 		"conditionalPolicy": "aligned",
+		"indentObjectLiteral": true,
 		"tabWidth": 4,
 		"trailingWhitespace": false
 	},
@@ -116,6 +117,7 @@
 		"functionBody": "next",
 		"ifBody": "next",
 		"ifElse": "same",
+		"returnBody": "same",
 		"tryBody": "next",
 		"tryCatch": "same",
 		"whileBody": "next"
