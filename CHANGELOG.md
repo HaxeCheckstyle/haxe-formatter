@@ -8,7 +8,7 @@
 - Added `alignedDecrease` option for `indentation.conditionalPolicy`, fixes [#252](https://github.com/HaxeCheckstyle/haxe-formatter/issues/252) ([#253](https://github.com/HaxeCheckstyle/haxe-formatter/issues/253))
 - Added `indentation.indentObjectLiteral` to control indent of object literals, fixes [#258](https://github.com/HaxeCheckstyle/haxe-formatter/issues/258) ([#266](https://github.com/HaxeCheckstyle/haxe-formatter/issues/266))
 - Added `sameLine.returnBody` option, fixes [#257](https://github.com/HaxeCheckstyle/haxe-formatter/issues/257) ([#266](https://github.com/HaxeCheckstyle/haxe-formatter/issues/266))
-- Added `emptyLines.importAndUsing` for more control over empty lines between imports [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267)
+- Added `emptyLines.importAndUsing` for more control over empty lines between imports [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267) +  [#268](https://github.com/HaxeCheckstyle/haxe-formatter/issues/268)
 - Added `emptyLines.beforePackage` to add empty lines before package declaration [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267)
 - Fixed wrapping of function calls, fixes [#169](https://github.com/HaxeCheckstyle/haxe-formatter/issues/169) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed conditional handling in multi-line object literals, fixes [#182](https://github.com/HaxeCheckstyle/haxe-formatter/issues/182) and [#211](https://github.com/HaxeCheckstyle/haxe-formatter/issues/211) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))

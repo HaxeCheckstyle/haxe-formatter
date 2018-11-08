@@ -177,6 +177,10 @@ typedef ImportsEmptyLinesConfig = {
 
 @:enum abstract BetweenImportsEmptyLinesLevel(String) {
 	var All = "all";
-	var TopLevelPackage = "topLevelPackage";
+	var FirstLevelPackage = "firstLevelPackage";
+	var SecondLevelPackage = "secondLevelPackage";
+	var ThirdLevelPackage = "thirdLevelPackage";
+	var FourthLevelPackage = "fourthLevelPackage";
+	var FifthLevelPackage = "fifthLevelPackage";
 	var FullPackage = "fullPackage";
 }
