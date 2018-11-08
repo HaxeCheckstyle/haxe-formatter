@@ -104,8 +104,24 @@ class MarkEmptyLines extends MarkerBase {
 				switch (config.emptyLines.importAndUsing.betweenImportsLevel) {
 					case All:
 						emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
-					case TopLevelPackage:
-						if (prevInfo.topLevelPackage != newInfo.topLevelPackage) {
+					case FirstLevelPackage:
+						if (prevInfo.firstLevelPackage != newInfo.firstLevelPackage) {
+							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+						}
+					case SecondLevelPackage:
+						if (prevInfo.secondLevelPackage != newInfo.secondLevelPackage) {
+							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+						}
+					case ThirdLevelPackage:
+						if (prevInfo.thirdLevelPackage != newInfo.thirdLevelPackage) {
+							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+						}
+					case FourthLevelPackage:
+						if (prevInfo.fourthLevelPackage != newInfo.fourthLevelPackage) {
+							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+						}
+					case FifthLevelPackage:
+						if (prevInfo.fifthLevelPackage != newInfo.fifthLevelPackage) {
 							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
 						}
 					case FullPackage:
@@ -124,7 +140,11 @@ class MarkEmptyLines extends MarkerBase {
 		var info:ImportPackageInfo = {
 			token: token,
 			isImport: false,
-			topLevelPackage: "",
+			firstLevelPackage: "",
+			secondLevelPackage: "",
+			thirdLevelPackage: "",
+			fourthLevelPackage: "",
+			fifthLevelPackage: "",
 			fullPackage: "",
 			moduleName: ""
 		};
@@ -157,7 +177,27 @@ class MarkEmptyLines extends MarkerBase {
 		info.moduleName = parts.pop();
 		info.fullPackage = parts.join(".");
 		if (parts.length > 0) {
-			info.topLevelPackage = parts[0];
+			info.firstLevelPackage = parts[0];
+		}
+		if (parts.length > 1) {
+			info.secondLevelPackage = parts.slice(0, 2).join(".");
+		} else {
+			info.secondLevelPackage = info.firstLevelPackage;
+		}
+		if (parts.length > 2) {
+			info.thirdLevelPackage = parts.slice(0, 3).join(".");
+		} else {
+			info.thirdLevelPackage = info.secondLevelPackage;
+		}
+		if (parts.length > 3) {
+			info.fourthLevelPackage = parts.slice(0, 4).join(".");
+		} else {
+			info.fourthLevelPackage = info.thirdLevelPackage;
+		}
+		if (parts.length > 4) {
+			info.fifthLevelPackage = parts.slice(0, 5).join(".");
+		} else {
+			info.fifthLevelPackage = info.fourthLevelPackage;
 		}
 		return info;
 	}
@@ -784,7 +824,11 @@ class MarkEmptyLines extends MarkerBase {
 typedef ImportPackageInfo = {
 	var token:TokenTree;
 	var isImport:Bool;
-	var topLevelPackage:String;
+	var firstLevelPackage:String;
+	var secondLevelPackage:String;
+	var thirdLevelPackage:String;
+	var fourthLevelPackage:String;
+	var fifthLevelPackage:String;
 	var fullPackage:String;
 	var moduleName:String;
 }

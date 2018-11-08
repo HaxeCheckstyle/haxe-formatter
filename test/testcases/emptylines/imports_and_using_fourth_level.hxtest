@@ -1,7 +1,7 @@
 {
 	"emptyLines" : {
 		"importAndUsing": {
-			"betweenImportsLevel": "fullPackage",
+			"betweenImportsLevel": "fourthLevelPackage",
 			"betweenImports": 1
 		}
 	}
@@ -48,7 +48,6 @@ import sys.FileSystem;
 import String;
 #end
 
-
 ---
 
 package formatter.marker;
@@ -68,7 +67,6 @@ import formatter.config.EmptyLinesConfig;
 
 import formatter.marker.wrapping.marker.warpping.WrapBase;
 import formatter.marker.wrapping.marker.warpping.WrapDefault;
-
 import formatter.marker.wrapping.marker.indentation.Indenter;
 
 import tokentree.utils.FieldUtils;

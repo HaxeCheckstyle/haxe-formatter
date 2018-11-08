@@ -172,7 +172,11 @@
 					"type": "string",
 					"enum": [
 						"all",
-						"topLevelPackage",
+						"firstLevelPackage",
+						"secondLevelPackage",
+						"thirdLevelPackage",
+						"fourthLevelPackage",
+						"fifthLevelPackage",
 						"fullPackage"
 					],
 					"propertyOrder": 1

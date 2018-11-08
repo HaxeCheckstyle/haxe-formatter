@@ -1,7 +1,7 @@
 {
 	"emptyLines" : {
 		"importAndUsing": {
-			"betweenImportsLevel": "fullPackage",
+			"betweenImportsLevel": "fifthLevelPackage",
 			"betweenImports": 1
 		}
 	}
@@ -47,7 +47,6 @@ import sys.FileSystem;
 #if !php
 import String;
 #end
-
 
 ---
 

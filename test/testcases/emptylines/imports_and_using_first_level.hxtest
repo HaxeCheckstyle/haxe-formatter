@@ -1,7 +1,7 @@
 {
 	"emptyLines" : {
 		"importAndUsing": {
-			"betweenImportsLevel": "fullPackage",
+			"betweenImportsLevel": "firstLevelPackage",
 			"betweenImports": 1
 		}
 	}
@@ -48,27 +48,21 @@ import sys.FileSystem;
 import String;
 #end
 
-
 ---
 
 package formatter.marker;
 
 import haxe.Int64;
 import haxe.Json;
-
 import haxe.macro.Expr;
 import haxe.macro.ExprTools;
 
 import formatter.codedata.CodeLine;
 import formatter.codedata.CodeLines;
-
 import formatter.codedata.data.Data;
-
 import formatter.config.EmptyLinesConfig;
-
 import formatter.marker.wrapping.marker.warpping.WrapBase;
 import formatter.marker.wrapping.marker.warpping.WrapDefault;
-
 import formatter.marker.wrapping.marker.indentation.Indenter;
 
 import tokentree.utils.FieldUtils;
@@ -78,9 +72,7 @@ using haxe.Json;
 
 using formatter.codedata.CodeLine;
 using formatter.codedata.CodeLines;
-
 using formatter.codedata.data.Data;
-
 using formatter.config.EmptyLinesConfig;
 
 using tokentree.utils.FieldUtils;
