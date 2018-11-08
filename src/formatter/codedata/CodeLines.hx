@@ -90,6 +90,10 @@ class CodeLines {
 	}
 
 	public function print(lineSeparator:String):String {
-		return lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator);
+		var prefix:String = "";
+		if (parsedCode.tokenList.leadingEmptyLInes > 0) {
+			prefix = "".lpad(lineSeparator, lineSeparator.length * parsedCode.tokenList.leadingEmptyLInes);
+		}
+		return prefix + lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator);
 	}
 }

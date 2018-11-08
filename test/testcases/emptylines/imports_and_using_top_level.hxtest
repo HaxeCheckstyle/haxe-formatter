@@ -1,0 +1,92 @@
+{
+	"emptyLines" : {
+		"importAndUsing": {
+			"betweenImportsLevel": "topLevelPackage",
+			"betweenImports": 1
+		}
+	}
+}
+
+---
+
+package formatter.marker;
+
+import haxe.Int64;
+import haxe.Json;
+import haxe.macro.Expr;
+import haxe.macro.ExprTools;
+import formatter.codedata.CodeLine;
+import formatter.codedata.CodeLines;
+import formatter.codedata.data.Data;
+import formatter.config.EmptyLinesConfig;
+import tokentree.utils.FieldUtils;
+using haxe.Int64;
+using haxe.Json;
+using formatter.codedata.CodeLine;
+using formatter.codedata.CodeLines;
+using formatter.codedata.data.Data;
+using formatter.config.EmptyLinesConfig;
+using tokentree.utils.FieldUtils;
+#if php
+import php.Lib;
+import php.Web;
+#else
+import sys.Lib;
+#end
+import sys.FileSystem;
+#if !php
+import sys.Lib;
+#else
+import php.Lib;
+import php.Web;
+#end
+import sys.FileSystem;
+#if !php
+import String;
+#end
+
+---
+
+package formatter.marker;
+
+import haxe.Int64;
+import haxe.Json;
+import haxe.macro.Expr;
+import haxe.macro.ExprTools;
+
+import formatter.codedata.CodeLine;
+import formatter.codedata.CodeLines;
+import formatter.codedata.data.Data;
+import formatter.config.EmptyLinesConfig;
+
+import tokentree.utils.FieldUtils;
+
+using haxe.Int64;
+using haxe.Json;
+
+using formatter.codedata.CodeLine;
+using formatter.codedata.CodeLines;
+using formatter.codedata.data.Data;
+using formatter.config.EmptyLinesConfig;
+
+using tokentree.utils.FieldUtils;
+
+#if php
+import php.Lib;
+import php.Web;
+#else
+import sys.Lib;
+#end
+import sys.FileSystem;
+#if !php
+import sys.Lib;
+#else
+import php.Lib;
+import php.Web;
+#end
+
+import sys.FileSystem;
+
+#if !php
+import String;
+#end

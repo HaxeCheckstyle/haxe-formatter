@@ -15,14 +15,13 @@
 			"endType": 0
 		},
 		"afterBlocks": "remove",
-		"afterImportsUsing": 1,
 		"afterLeftCurly": "remove",
 		"afterPackage": 1,
 		"afterReturn": "remove",
 		"beforeBlocks": "remove",
 		"beforeDocCommentEmptyLines": "one",
+		"beforePackage": 0,
 		"beforeRightCurly": "remove",
-		"beforeUsing": 1,
 		"betweenTypes": 1,
 		"classEmptyLines": {
 			"afterPrivateFunctions": 1,
@@ -65,6 +64,12 @@
 			"endType": 0
 		},
 		"finalNewline": true,
+		"importAndUsing": {
+			"beforeType": 1,
+			"beforeUsing": 1,
+			"betweenImports": 0,
+			"betweenImportsLevel": "all"
+		},
 		"interfaceEmptyLines": {
 			"afterVars": 0,
 			"beginType": 0,

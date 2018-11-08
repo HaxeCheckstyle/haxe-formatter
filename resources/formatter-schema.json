@@ -159,6 +159,37 @@
 			},
 			"type": "object"
 		},
+		"ImportsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"betweenImports": {
+					"description": "empty lines between two consecutive import/using lines using betweenImportsLevel",
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"betweenImportsLevel": {
+					"description": "restrict betweenImports setting to a specific level\n\t\t\"all\" - apply betweenImports to all imports/using entries\n\t\t\"topLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names\n\t\t\"packages\" - group imports/using entries using full packages; no empty lines for identical package names",
+					"type": "string",
+					"enum": [
+						"all",
+						"topLevelPackage",
+						"fullPackage"
+					],
+					"propertyOrder": 1
+				},
+				"beforeUsing": {
+					"description": "empty lines between import and using lines",
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"beforeType": {
+					"description": "empty lines after import and using section",
+					"type": "integer",
+					"propertyOrder": 3
+				}
+			},
+			"type": "object"
+		},
 		"EnumAbstractFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -344,14 +375,19 @@
 					"propertyOrder": 8
 				},
 				"afterPackage": {
-					"description": "empty lines after package",
+					"description": "empty lines after package declaration",
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
 				},
 				"finalNewline": {
 					"description": "adds a final newline",
 					"type": "boolean",
 					"propertyOrder": 0
+				},
+				"importAndUsing": {
+					"description": "empty lines for package, import and using section",
+					"$ref": "#/definitions/ImportsEmptyLinesConfig",
+					"propertyOrder": 4
 				},
 				"beforeBlocks": {
 					"type": "string",
@@ -386,10 +422,6 @@
 					"type": "integer",
 					"propertyOrder": 5
 				},
-				"beforeUsing": {
-					"type": "integer",
-					"propertyOrder": 3
-				},
 				"maxAnywhereInFile": {
 					"description": "maximum consecutive empty lines anywhere in file - runs last, all empty lines policies are limited to \"maxAnywhereInFile\"",
 					"type": "integer",
@@ -407,9 +439,10 @@
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
 					"propertyOrder": 14
 				},
-				"afterImportsUsing": {
+				"beforePackage": {
+					"description": "empty lines before package declaration",
 					"type": "integer",
-					"propertyOrder": 4
+					"propertyOrder": 2
 				},
 				"classEmptyLines": {
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",

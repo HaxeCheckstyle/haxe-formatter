@@ -10,9 +10,11 @@ import formatter.config.Config;
 
 class TokenList {
 	public var tokens:Array<TokenInfo>;
+	public var leadingEmptyLInes:Int;
 
 	public function new() {
 		tokens = [];
+		leadingEmptyLInes = 0;
 		#if debugLog
 		logFileStart();
 		#end
@@ -310,6 +312,13 @@ class TokenList {
 	}
 
 	public function emptyLinesBefore(token:TokenTree, count:Int, ?pos:PosInfos) {
+		if (token.index <= 0) {
+			#if debugLog
+			logAction(pos, token, '$leadingEmptyLInes -> $count');
+			#end
+			leadingEmptyLInes = count;
+			return;
+		}
 		var info:TokenInfo = getPreviousToken(token);
 		if (info == null) {
 			return;
