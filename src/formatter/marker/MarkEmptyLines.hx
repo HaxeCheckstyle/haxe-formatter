@@ -12,7 +12,9 @@ class MarkEmptyLines extends MarkerBase {
 		keepExistingEmptyLines();
 
 		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], ALL);
+		packs.reverse();
 		for (pack in packs) {
+			emptyLinesBefore(pack, config.emptyLines.beforePackage);
 			emptyLinesAfter(pack, config.emptyLines.afterPackage);
 		}
 
@@ -73,42 +75,91 @@ class MarkEmptyLines extends MarkerBase {
 			switch (lastImport.nextSibling.tok) {
 				case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
 				case Sharp(MarkLineEnds.SHARP_END):
-					emptyLinesAfterSubTree(lastImport.nextSibling, config.emptyLines.afterImportsUsing);
+					emptyLinesAfterSubTree(lastImport.nextSibling, config.emptyLines.importAndUsing.beforeType);
 				default:
-					emptyLinesAfterSubTree(lastImport, config.emptyLines.afterImportsUsing);
+					emptyLinesAfterSubTree(lastImport, config.emptyLines.importAndUsing.beforeType);
 			}
 		}
+
 		lastImport = null;
-		var isImport:Bool = true;
+		var prevInfo:ImportPackageInfo = null;
 		for (token in imports) {
-			var newIsImport:Bool;
-			var effectiveToken:TokenTree = token;
-			switch (token.tok) {
-				case Kwd(KwdImport):
-					newIsImport = true;
-				case Kwd(KwdUsing):
-					newIsImport = false;
-				default:
-					continue;
-			}
-			if (token.nextSibling != null) {
-				switch (token.nextSibling.tok) {
+			var newInfo:ImportPackageInfo = getImportInfo(token);
+
+			var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
+			var next:TokenInfo = getNextToken(lastToken);
+			if (next != null) {
+				switch (next.token.tok) {
 					case Sharp(MarkLineEnds.SHARP_END):
-						effectiveToken = token.nextSibling;
+						newInfo.token = next.token;
 					default:
 				}
 			}
-			if (lastImport == null) {
-				lastImport = effectiveToken;
-				isImport = newIsImport;
+			if (prevInfo == null) {
+				prevInfo = newInfo;
 				continue;
 			}
-			if (newIsImport != isImport) {
-				emptyLinesAfterSubTree(lastImport, config.emptyLines.beforeUsing);
+
+			if (prevInfo.isImport == newInfo.isImport) {
+				switch (config.emptyLines.importAndUsing.betweenImportsLevel) {
+					case All:
+						emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+					case TopLevelPackage:
+						if (prevInfo.topLevelPackage != newInfo.topLevelPackage) {
+							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+						}
+					case FullPackage:
+						if (prevInfo.fullPackage != newInfo.fullPackage) {
+							emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.betweenImports);
+						}
+				}
+			} else {
+				emptyLinesAfterSubTree(prevInfo.token, config.emptyLines.importAndUsing.beforeUsing);
 			}
-			isImport = newIsImport;
-			lastImport = effectiveToken;
+			prevInfo = newInfo;
 		}
+	}
+
+	function getImportInfo(token:TokenTree):ImportPackageInfo {
+		var info:ImportPackageInfo = {
+			token: token,
+			isImport: false,
+			topLevelPackage: "",
+			fullPackage: "",
+			moduleName: ""
+		};
+		switch (token.tok) {
+			case Kwd(KwdImport):
+				info.isImport = true;
+			case Kwd(KwdUsing):
+				info.isImport = false;
+			default:
+		}
+		var parts:Array<String> = [];
+		token = token.getFirstChild();
+		while (true) {
+			switch (token.tok) {
+				case Const(CIdent(text)):
+					parts.push(text);
+				case Kwd(_):
+					parts.push('$token');
+				default:
+			}
+			token = token.getFirstChild();
+			if ((token == null) || (!token.is(Dot))) {
+				break;
+			}
+			token = token.getFirstChild();
+			if (token == null) {
+				break;
+			}
+		}
+		info.moduleName = parts.pop();
+		info.fullPackage = parts.join(".");
+		if (parts.length > 0) {
+			info.topLevelPackage = parts[0];
+		}
+		return info;
 	}
 
 	function markClassesAndAbstracts() {
@@ -728,4 +779,12 @@ class MarkEmptyLines extends MarkerBase {
 			}
 		}
 	}
+}
+
+typedef ImportPackageInfo = {
+	var token:TokenTree;
+	var isImport:Bool;
+	var topLevelPackage:String;
+	var fullPackage:String;
+	var moduleName:String;
 }

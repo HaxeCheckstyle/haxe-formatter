@@ -1,0 +1,17 @@
+{
+	"emptyLines" : {
+		"beforePackage": 0,
+		"afterPackage": 0
+	}
+}
+
+---
+
+package formatter.marker;
+
+import haxe.Int64;
+
+---
+
+package formatter.marker;
+import haxe.Int64;

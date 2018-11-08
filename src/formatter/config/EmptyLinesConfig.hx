@@ -12,11 +12,19 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var maxAnywhereInFile:Int;
 
 	/**
-		empty lines after package
+		empty lines before package declaration
+	**/
+	@:default(0) @:optional var beforePackage:Int;
+
+	/**
+		empty lines after package declaration
 	**/
 	@:default(1) @:optional var afterPackage:Int;
-	@:default(1) @:optional var beforeUsing:Int;
-	@:default(1) @:optional var afterImportsUsing:Int;
+
+	/**
+		empty lines for package, import and using section
+	**/
+	@:default(auto) @:optional var importAndUsing:ImportsEmptyLinesConfig;
 
 	/**
 		empty lines between types
@@ -140,4 +148,35 @@ abstract CommentEmptyLinesPolicy(String) {
 	var Ignore = "ignore";
 	var None = "none";
 	var One = "one";
+}
+
+typedef ImportsEmptyLinesConfig = {
+	/**
+		empty lines between two consecutive import/using lines using betweenImportsLevel
+	**/
+	@:default(0) @:optional var betweenImports:Int;
+
+	/**
+		restrict betweenImports setting to a specific level
+		"all" - apply betweenImports to all imports/using entries
+		"topLevelPackage" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names
+		"packages" - group imports/using entries using full packages; no empty lines for identical package names
+	**/
+	@:default(All) @:optional var betweenImportsLevel:BetweenImportsEmptyLinesLevel;
+
+	/**
+		empty lines between import and using lines
+	**/
+	@:default(1) @:optional var beforeUsing:Int;
+
+	/**
+		empty lines after import and using section
+	**/
+	@:default(1) @:optional var beforeType:Int;
+}
+
+@:enum abstract BetweenImportsEmptyLinesLevel(String) {
+	var All = "all";
+	var TopLevelPackage = "topLevelPackage";
+	var FullPackage = "fullPackage";
 }
