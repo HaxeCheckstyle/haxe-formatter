@@ -32,6 +32,11 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var betweenTypes:Int;
 
 	/**
+		empty lines between two single line types
+	**/
+	@:default(0) @:optional var betweenSingleLineTypes:Int;
+
+	/**
 		Remove or keep empty lines above "}"
 	**/
 	@:default(Remove) @:optional var beforeRightCurly:KeepEmptyLinesPolicy;

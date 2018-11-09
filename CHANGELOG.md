@@ -10,6 +10,7 @@
 - Added `sameLine.returnBody` option, fixes [#257](https://github.com/HaxeCheckstyle/haxe-formatter/issues/257) ([#266](https://github.com/HaxeCheckstyle/haxe-formatter/issues/266))
 - Added `emptyLines.importAndUsing` for more control over empty lines between imports [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267) +  [#268](https://github.com/HaxeCheckstyle/haxe-formatter/issues/268)
 - Added `emptyLines.beforePackage` to add empty lines before package declaration [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267)
+- Added `emptyLines.betweenSingleLineTypes` for empty lines between single line types, fixes [#255](https://github.com/HaxeCheckstyle/haxe-formatter/issues/255) ([#269](https://github.com/HaxeCheckstyle/haxe-formatter/issues/269))
 - Fixed wrapping of function calls, fixes [#169](https://github.com/HaxeCheckstyle/haxe-formatter/issues/169) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed conditional handling in multi-line object literals, fixes [#182](https://github.com/HaxeCheckstyle/haxe-formatter/issues/182) and [#211](https://github.com/HaxeCheckstyle/haxe-formatter/issues/211) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))
 - Fixed indentation and wrapping of OpBool chain, fixes [#187](https://github.com/HaxeCheckstyle/haxe-formatter/issues/187) ([#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248))

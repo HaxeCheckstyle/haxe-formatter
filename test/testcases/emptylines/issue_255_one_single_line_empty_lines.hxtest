@@ -1,0 +1,31 @@
+{
+	"emptyLines": {
+		"betweenSingleLineTypes": 1,
+		"betweenTypes": 0
+	}
+}
+
+---
+
+typedef Point2D = {x: Int, y:Int}
+typedef Point3D = {x: Int, y:Int, z:Int}
+
+class A {
+    ...
+}
+
+class B {
+    ...
+}
+
+---
+
+typedef Point2D = {x:Int, y:Int}
+
+typedef Point3D = {x:Int, y:Int, z:Int}
+class A {
+	...
+}
+class B {
+	...
+}

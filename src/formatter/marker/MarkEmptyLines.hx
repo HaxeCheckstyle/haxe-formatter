@@ -18,9 +18,7 @@ class MarkEmptyLines extends MarkerBase {
 			emptyLinesAfter(pack, config.emptyLines.afterPackage);
 		}
 
-		if (config.emptyLines.betweenTypes > 0) {
-			betweenTypes();
-		}
+		betweenTypes();
 
 		markImports();
 		markClassesAndAbstracts();
@@ -564,6 +562,10 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function betweenTypes() {
+		if ((config.emptyLines.betweenTypes <= 0) && (config.emptyLines.betweenSingleLineTypes <= 0)) {
+			return;
+		}
+
 		var types:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
@@ -583,33 +585,52 @@ class MarkEmptyLines extends MarkerBase {
 		if (types.length <= 1) {
 			return;
 		}
+		var prevTypeInfo:TypeEmptyLinesInfo = null;
 		for (type in types) {
-			if (type.nextSibling == null) {
+			var newTypeInfo:TypeEmptyLinesInfo = getTypeInfo(type);
+			if (prevTypeInfo == null) {
+				prevTypeInfo = newTypeInfo;
 				continue;
 			}
-			var sibling:TokenTree = type.nextSibling;
-			var skip:Bool = false;
-			while (sibling != null) {
-				switch (sibling.tok) {
-					case Sharp(MarkLineEnds.SHARP_IF):
-						break;
+			var next:TokenInfo = getNextToken(prevTypeInfo.token);
+			if (next != null) {
+				switch (next.token.tok) {
 					case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
-						skip = true;
-						break;
-					case Sharp(MarkLineEnds.SHARP_END):
-					case Comment(_), CommentLine(_):
-						break;
-					case Kwd(_):
-						break;
+						prevTypeInfo = newTypeInfo;
+						continue;
 					default:
 				}
-				type = sibling;
-				sibling = type.nextSibling;
 			}
-			if (!skip) {
-				emptyLinesAfterSubTree(type, config.emptyLines.betweenTypes);
+			var emptyLines:Int = config.emptyLines.betweenTypes;
+			if (prevTypeInfo.oneLine && newTypeInfo.oneLine) {
+				emptyLines = config.emptyLines.betweenSingleLineTypes;
+			}
+			emptyLinesAfterSubTree(prevTypeInfo.token, emptyLines);
+			prevTypeInfo = newTypeInfo;
+		}
+	}
+
+	function getTypeInfo(token:TokenTree):TypeEmptyLinesInfo {
+		var info:TypeEmptyLinesInfo = {
+			token: TokenTreeCheckUtils.getLastToken(token),
+			oneLine: false
+		};
+		if (isSameLine(token, info.token)) {
+			info.oneLine = true;
+		}
+		while (true) {
+			var next:TokenInfo = getNextToken(info.token);
+			if (next == null) {
+				break;
+			}
+			switch (next.token.tok) {
+				case Sharp(MarkLineEnds.SHARP_END):
+					info.token = next.token;
+				default:
+					break;
 			}
 		}
+		return info;
 	}
 
 	function markLeftCurly() {
@@ -831,4 +852,9 @@ typedef ImportPackageInfo = {
 	var fifthLevelPackage:String;
 	var fullPackage:String;
 	var moduleName:String;
+}
+
+typedef TypeEmptyLinesInfo = {
+	var token:TokenTree;
+	var oneLine:Bool;
 }
