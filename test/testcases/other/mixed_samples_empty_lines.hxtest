@@ -1,4 +1,8 @@
-{}
+{
+	"emptyLines":{
+		"betweenSingleLineTypes": 1
+	}
+}
 
 ---
 
@@ -47,6 +51,7 @@ import sys.io.File;
 #end
 
 class Properties {}
+
 class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
 
 class Main {

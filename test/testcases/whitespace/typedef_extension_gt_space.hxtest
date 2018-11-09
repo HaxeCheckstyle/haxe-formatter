@@ -13,7 +13,6 @@ typedef Bar = {
 ---
 
 typedef Foo = {};
-
 typedef Foo = {}
 
 typedef Bar = {

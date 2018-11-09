@@ -22,6 +22,7 @@
 		"beforeDocCommentEmptyLines": "one",
 		"beforePackage": 0,
 		"beforeRightCurly": "remove",
+		"betweenSingleLineTypes": 0,
 		"betweenTypes": 1,
 		"classEmptyLines": {
 			"afterPrivateFunctions": 1,

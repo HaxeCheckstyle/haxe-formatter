@@ -223,5 +223,4 @@ class StartPrivateView extends View implements Closeable {
 }
 
 typedef StartPrePrivateIfPossible = Void->Void;
-
 typedef SetTwoWayAudioDesired = Bool->Void;
