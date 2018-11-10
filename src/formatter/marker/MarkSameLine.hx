@@ -56,6 +56,8 @@ class MarkSameLine extends MarkerBase {
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
 				return true;
+			case Arrow:
+				return true;
 			case Kwd(KwdUntyped):
 				return isExpression(parent);
 			case Kwd(KwdFor), Kwd(KwdWhile):
@@ -83,7 +85,11 @@ class MarkSameLine extends MarkerBase {
 		while (parent.parent.tok != null) {
 			parent = parent.parent;
 			switch (parent.tok) {
+				case Binop(_):
+					return true;
 				case Kwd(KwdReturn):
+					return true;
+				case Arrow:
 					return true;
 				case Kwd(KwdFunction):
 					return false;
@@ -93,10 +99,6 @@ class MarkSameLine extends MarkerBase {
 					return true;
 				case BkOpen:
 					return false;
-				case Arrow:
-					return false;
-				case Binop(OpAssign):
-					return true;
 				case BrOpen:
 					var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
 					switch (type) {

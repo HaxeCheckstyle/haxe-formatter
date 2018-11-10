@@ -1,0 +1,26 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		directionIndex += switch (instruction.turn) {
+			case Left: -1;
+			case Right:	1;
+		}
+		directionIndex += if (instruction.turn == Left) -1 else 1;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		directionIndex += switch (instruction.turn) {
+			case Left: -1;
+			case Right: 1;
+		}
+		directionIndex += if (instruction.turn == Left) -1 else 1;
+	}
+}
