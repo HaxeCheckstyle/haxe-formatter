@@ -1,0 +1,59 @@
+{
+	"emptyLines": {
+		"beforeDocCommentEmptyLines": "ignore"
+	}
+}
+
+---
+
+class Main {
+	/**
+	 *
+	 */
+	public var volumeHandler:Float->Void;
+
+	#if FLX_KEYBOARD
+	/**
+	 *
+	 */
+	public var volumeUpKeys:Array<FlxKey> = [PLUS, NUMPADPLUS];
+	#end
+	/**
+	 *
+	 */
+	public static var volumeHandler:Float->Void;
+
+	#if FLX_KEYBOARD
+	/**
+	 *
+	 */
+	public var volumeUpKeys:Array<FlxKey> = [PLUS, NUMPADPLUS];
+	#end
+}
+
+---
+
+class Main {
+	/**
+	 *
+	 */
+	public var volumeHandler:Float->Void;
+	#if FLX_KEYBOARD
+	/**
+	 *
+	 */
+	public var volumeUpKeys:Array<FlxKey> = [PLUS, NUMPADPLUS];
+	#end
+
+	/**
+	 *
+	 */
+	public static var volumeHandler:Float->Void;
+
+	#if FLX_KEYBOARD
+	/**
+	 *
+	 */
+	public var volumeUpKeys:Array<FlxKey> = [PLUS, NUMPADPLUS];
+	#end
+}
