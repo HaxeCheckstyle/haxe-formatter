@@ -21,6 +21,7 @@
 - Fixed send error messages to stderr, fixes [#262](https://github.com/HaxeCheckstyle/haxe-formatter/issues/262) ([#265](https://github.com/HaxeCheckstyle/haxe-formatter/issues/265))
 - Fixed metadata whitespace, fixes [#263](https://github.com/HaxeCheckstyle/haxe-formatter/issues/263) ([#265](https://github.com/HaxeCheckstyle/haxe-formatter/issues/265))
 - Fixed indentation of wrapped anon function, fixes [#256](https://github.com/HaxeCheckstyle/haxe-formatter/issues/256) ([#266](https://github.com/HaxeCheckstyle/haxe-formatter/issues/266))
+- Fixed empty lines of doc comments inside conditionals, fixes [#188](https://github.com/HaxeCheckstyle/haxe-formatter/issues/188)
 - Changed `sameLine.expressionCase` to `keep` [#250](https://github.com/HaxeCheckstyle/haxe-formatter/issues/250)
 - Refactored call and parameter wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)
 - Refactored method chain wrapping [#247](https://github.com/HaxeCheckstyle/haxe-formatter/issues/247)

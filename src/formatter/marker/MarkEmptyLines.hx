@@ -709,16 +709,21 @@ class MarkEmptyLines extends MarkerBase {
 			}
 		});
 		for (comment in comments) {
-			if (comment.previousSibling == null) {
-				continue;
-			}
-			if ((comment.parent != null) && (comment.parent.tok != null)) {
-				switch (comment.parent.tok) {
-					case Sharp(_):
-						if (comment.parent.getFirstChild() == comment.previousSibling) {
-							continue;
-						}
-					default:
+			var effectiveToken:TokenTree = null;
+			effectiveToken = comment;
+			if (comment.previousSibling != null) {
+				if ((comment.parent != null) && (comment.parent.tok != null)) {
+					switch (comment.parent.tok) {
+						case Sharp(_):
+							if (comment.parent.getFirstChild() == comment.previousSibling) {
+								effectiveToken = comment.parent;
+							}
+						default:
+					}
+				}
+			} else {
+				if ((comment.parent == null) || (comment.parent.tok == null)) {
+					continue;
 				}
 			}
 			if (comment.nextSibling == null) {
@@ -754,9 +759,9 @@ class MarkEmptyLines extends MarkerBase {
 			switch (config.emptyLines.beforeDocCommentEmptyLines) {
 				case Ignore:
 				case None:
-					emptyLinesBefore(comment, 0);
+					emptyLinesBefore(effectiveToken, 0);
 				case One:
-					emptyLinesBefore(comment, 1);
+					emptyLinesBefore(effectiveToken, 1);
 			}
 		}
 	}
