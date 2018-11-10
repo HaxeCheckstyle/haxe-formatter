@@ -1,0 +1,21 @@
+{}
+
+
+---
+
+
+class Main {
+	public static function main() {
+		var f = (a:Int, b:Int) -> 0;
+		foo((a:Int, b:Int) -> 0);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var f = (a:Int, b:Int) -> 0;
+		foo((a:Int, b:Int) -> 0);
+	}
+}
