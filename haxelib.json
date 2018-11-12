@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.1.2",
-	"releasenote": "fixed an endless loop when using #if (macro) - see CHANGELOG for details.",
+	"version": "1.2.0",
+	"releasenote": "reworked indentation and empty lines options - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"

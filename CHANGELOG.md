@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.2.0 (2018-11-12)
+
 - **Breakin Change** replaced `emptyLines.beforeUsing` and `emptyLines.afterImportsUsing` settings with `emptyLines.importAndUsing` [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267)
 - Added `wrapping.opBoolChain` for wrapping `||` and `&&` chains [#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248)
 - Added line count statistic for CLI [#249](https://github.com/HaxeCheckstyle/haxe-formatter/issues/249)
