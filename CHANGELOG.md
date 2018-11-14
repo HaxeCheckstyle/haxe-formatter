@@ -2,9 +2,11 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed properties in anon types
+
 ## version 1.2.0 (2018-11-12)
 
-- **Breakin Change** replaced `emptyLines.beforeUsing` and `emptyLines.afterImportsUsing` settings with `emptyLines.importAndUsing` [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267)
+- **Breaking Change** replaced `emptyLines.beforeUsing` and `emptyLines.afterImportsUsing` settings with `emptyLines.importAndUsing` [#267](https://github.com/HaxeCheckstyle/haxe-formatter/issues/267)
 - Added `wrapping.opBoolChain` for wrapping `||` and `&&` chains [#248](https://github.com/HaxeCheckstyle/haxe-formatter/issues/248)
 - Added line count statistic for CLI [#249](https://github.com/HaxeCheckstyle/haxe-formatter/issues/249)
 - Added `alignedDecrease` option for `indentation.conditionalPolicy`, fixes [#252](https://github.com/HaxeCheckstyle/haxe-formatter/issues/252) ([#253](https://github.com/HaxeCheckstyle/haxe-formatter/issues/253))
@@ -57,7 +59,7 @@
 
 ## version 1.1.0 (2018-09-04)
 
-- **Breakin Change** added a default wrap type for wrapping rules [#230](https://github.com/HaxeCheckstyle/haxe-formatter/issues/230)
+- **Breaking Change** added a default wrap type for wrapping rules [#230](https://github.com/HaxeCheckstyle/haxe-formatter/issues/230)
 - Added `Keep` to SameLinePolicy [#226](https://github.com/HaxeCheckstyle/haxe-formatter/issues/226)
 - Added `emptyLines.classEmptyLines.endType` to output empty lines before end of classes [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)
 - Added `emptyLines.abstractEmptyLines.endType` to output empty lines before end of abstracts [#227](https://github.com/HaxeCheckstyle/haxe-formatter/issues/227)

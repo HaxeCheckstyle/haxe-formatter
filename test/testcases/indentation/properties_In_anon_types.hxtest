@@ -1,0 +1,24 @@
+{}
+
+---
+
+class Main
+{
+	var storage:{
+		var language(default, never):State<String>;
+		var collapsed(default, never):State<Bool>;
+		var height(default, never):State<Float>;
+		var fontSize(default, never):State<Int>;
+	};
+}
+
+---
+
+class Main {
+	var storage:{
+		var language(default, never):State<String>;
+		var collapsed(default, never):State<Bool>;
+		var height(default, never):State<Float>;
+		var fontSize(default, never):State<Int>;
+	};
+}

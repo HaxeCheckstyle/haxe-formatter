@@ -214,22 +214,15 @@ class Chat implements plumbum.Scope implements IChat {
 		var imagePath:String;
 		var smileys:Value<List<Smiley>>;
 		var storage:{
-			var language
-			(default, never):State<String>;
-			var collapsed
-			(default, never):State<Bool>;
-			var height
-			(default, never):State<Float>;
-			var fontSize
-			(default, never):State<Int>;
+			var language(default, never):State<String>;
+			var collapsed(default, never):State<Bool>;
+			var height(default, never):State<Float>;
+			var fontSize(default, never):State<Int>;
 		}
 		var inputPolicies:{
-			var guest
-			(default, never):InputPolicy;
-			var freeChat
-			(default, never):InputPolicy;
-			var privateShow
-			(default, never):InputPolicy;
+			var guest(default, never):InputPolicy;
+			var freeChat(default, never):InputPolicy;
+			var privateShow(default, never):InputPolicy;
 		}
 	};
 	var model:ChatModel = new ChatModel(tink.Anon.merge(storage, dependencies, restrictInput = restrictInput, allSmileys = smileys));
