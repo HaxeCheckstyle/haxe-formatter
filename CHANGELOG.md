@@ -2,7 +2,7 @@
 
 ## dev branch / next version (1.x.x)
 
-- Fixed properties in anon types
+- Fixed properties in anon types [#276](https://github.com/HaxeCheckstyle/haxe-formatter/issues/276)
 
 ## version 1.2.0 (2018-11-12)
 
