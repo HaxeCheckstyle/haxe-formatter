@@ -9,6 +9,9 @@
 
 typedef Point2D = {x: Int, y:Int}
 typedef Point3D = {x: Int, y:Int, z:Int}
+@meta("Point3D") typedef Point3D = {x: Int, y:Int, z:Int}
+@meta("Point3D")
+typedef Point3D = {x: Int, y:Int, z:Int}
 
 class A {
     ...
@@ -21,6 +24,10 @@ class B {
 ---
 
 typedef Point2D = {x:Int, y:Int}
+typedef Point3D = {x:Int, y:Int, z:Int}
+@meta("Point3D") typedef Point3D = {x:Int, y:Int, z:Int}
+
+@meta("Point3D")
 typedef Point3D = {x:Int, y:Int, z:Int}
 
 class A {

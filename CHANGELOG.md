@@ -3,6 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Fixed properties in anon types [#276](https://github.com/HaxeCheckstyle/haxe-formatter/issues/276)
+- Fixed empty lines between single line types with meta
 
 ## version 1.2.0 (2018-11-12)
 
