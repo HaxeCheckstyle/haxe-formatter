@@ -34,8 +34,8 @@ class CodeLine {
 			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;
-		if (tokenInfo.whitespaceAfter == Space) {
-			currentPart.text += tokenInfo.text + " ";
+		if ((tokenInfo.whitespaceAfter == Space) && (tokenInfo.spacesAfter > 0)) {
+			currentPart.text += tokenInfo.text + "".lpad(" ", tokenInfo.spacesAfter);
 		} else {
 			currentPart.text += tokenInfo.text;
 		}

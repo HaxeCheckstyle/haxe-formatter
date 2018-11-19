@@ -83,7 +83,7 @@ class MarkWrapping extends MarkWrappingBase {
 			switch (next.token.tok) {
 				case BrOpen:
 					var info:TokenInfo = getTokenInfo(close);
-					if ((info.whitespaceAfter != Newline) && (info.whitespaceAfter != SpaceOrNewline)) {
+					if (info.whitespaceAfter != Newline) {
 						whitespace(close, After);
 					}
 				case POpen:
@@ -220,10 +220,8 @@ class MarkWrapping extends MarkWrappingBase {
 				}
 				switch (prev.whitespaceAfter) {
 					case None:
-					case Newline:
-						prev.whitespaceAfter = None;
 					case Space:
-					case SpaceOrNewline:
+					case Newline:
 						prev.whitespaceAfter = Space;
 				}
 		}

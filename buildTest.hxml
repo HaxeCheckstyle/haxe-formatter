@@ -12,7 +12,8 @@
 
 # -D debugLog
 # -D debugIndent
+# -D detailed_coverage
 -D unittest
 -x TestMain
 
---macro mcover.MCover.coverage(['formatter'], ['src'], [])
+--macro mcover.MCover.coverage(['formatter'], ['src'], ['formatter.Cli'])

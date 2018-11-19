@@ -13,6 +13,10 @@ class TestMain {
 	public function new() {
 		var suites:Array<Class<massive.munit.TestSuite>> = [TestSuite];
 		var client:MCoverPrintClient = new MCoverPrintClient();
+		#if detailed_coverage
+		client.includeClassAndPackageBreakdowns = true;
+		client.includeMissingBlocks = true;
+		#end
 		var runner:TestRunner = new TestRunner(client);
 		runner.completionHandler = completionHandler;
 		#if (neko || cpp || hl)

@@ -1,0 +1,14 @@
+{
+	"excludes": [".*"]
+}
+
+---
+
+class Main {
+	function main () {
+		doSomething();
+	}
+}
+
+---
+

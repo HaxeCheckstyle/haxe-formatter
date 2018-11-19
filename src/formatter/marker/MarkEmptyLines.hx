@@ -683,7 +683,7 @@ class MarkEmptyLines extends MarkerBase {
 		});
 		for (sharp in sharps) {
 			var prev:TokenInfo = getPreviousToken(sharp);
-			if ((prev != null) && (prev.whitespaceAfter != Newline) && (prev.whitespaceAfter != SpaceOrNewline)) {
+			if ((prev != null) && (prev.whitespaceAfter != Newline)) {
 				continue;
 			}
 			switch (sharp.tok) {

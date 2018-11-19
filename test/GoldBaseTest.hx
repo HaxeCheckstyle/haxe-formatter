@@ -7,26 +7,31 @@ import formatter.codedata.ParseFile;
 import formatter.Formatter.Result;
 
 class GoldBaseTest {
-	function goldCheck(unformatted:String, goldCode:String, lineSeparator:String, ?config:String, ?pos:PosInfos) {
-		var file:ParseFile = {name: "Test.hx", content: Bytes.ofString(unformatted), lineSeparator: lineSeparator};
+	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?config:String, ?pos:PosInfos) {
+		var file:ParseFile = {name: fileName + ".hxtest", content: Bytes.ofString(unformatted), lineSeparator: lineSeparator};
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var result:Result = formatter.formatFile(file);
-		handleResult(result, goldCode, pos);
+		handleResult(fileName, result, goldCode, pos);
 
 		// second run to make sure result is stable
 		switch (result) {
 			case Success(formattedCode):
 				file = {name: "Test.hx", content: Bytes.ofString(formattedCode)};
 				result = formatter.formatFile(file);
-				handleResult(result, goldCode, pos);
+				handleResult(fileName, result, goldCode, pos);
 			case Failure(errorMessage):
 			case Disabled:
 		}
 	}
 
-	function handleResult(result:Result, goldCode:String, ?pos:PosInfos) {
+	function handleResult(fileName:String, result:Result, goldCode:String, ?pos:PosInfos) {
+		var isDisabled:Bool = fileName.startsWith("disabled_");
+
 		switch (result) {
 			case Success(formattedCode):
+				if (isDisabled) {
+					Assert.fail("testcase should be disabled!");
+				}
 				if (goldCode != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
 				}
@@ -34,6 +39,9 @@ class GoldBaseTest {
 			case Failure(errorMessage):
 				Assert.fail(errorMessage, pos);
 			case Disabled:
+				if (isDisabled) {
+					return;
+				}
 				Assert.fail("Formatting is disabled", pos);
 		}
 	}
@@ -50,7 +58,7 @@ class GoldBaseTest {
 		var template:Template = new Template(template);
 		var unformattedFull:String = template.execute({code: unformatted});
 		var formattedFull:String = template.execute({code: gold});
-		goldCheck(unformattedFull, formattedFull, config, pos);
+		goldCheck("Test", unformattedFull, formattedFull, config, pos);
 	}
 }
 

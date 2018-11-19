@@ -1,0 +1,14 @@
+{
+	"disableFormatting": true
+}
+
+---
+
+class Main {
+	function main () {
+		doSomething();
+	}
+}
+
+---
+
