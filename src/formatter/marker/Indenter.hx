@@ -113,7 +113,7 @@ class Indenter {
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdIf):
 				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
-				if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
+				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
 				var parent:TokenTree = token.parent;
@@ -360,7 +360,7 @@ class Indenter {
 				switch (info.whitespaceAfter) {
 					case None, Space:
 						return false;
-					case Newline, SpaceOrNewline:
+					case Newline:
 						return true;
 				}
 			case Sharp(MarkLineEnds.SHARP_IF):

@@ -91,7 +91,7 @@ class MarkWhitespace extends MarkerBase {
 						whitespace(token, Around);
 					}
 					fixConstAfterConst(token);
-				case Const(CIdent(_)):
+				case Const(_):
 					fixConstAfterConst(token);
 				case Arrow:
 					markArrow(token);
@@ -168,7 +168,7 @@ class MarkWhitespace extends MarkerBase {
 			switch (next.token.tok) {
 				case BrClose:
 					var selfInfo:TokenInfo = getTokenInfo(token);
-					if ((selfInfo.whitespaceAfter == Newline) || (selfInfo.whitespaceAfter == SpaceOrNewline)) {
+					if (selfInfo.whitespaceAfter == Newline) {
 						return;
 					}
 					policy = policy.remove(After);

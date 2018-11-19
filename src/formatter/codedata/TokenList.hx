@@ -36,6 +36,7 @@ class TokenList {
 			tokens[index] = {
 				token: child,
 				whitespaceAfter: None,
+				spacesAfter: 0,
 				emptyLinesAfter: 0,
 				wrapAfter: false,
 				text: null,
@@ -153,35 +154,87 @@ class TokenList {
 		switch (info.whitespaceAfter) {
 			case None:
 				info.whitespaceAfter = policy;
-			case Newline:
 				switch (policy) {
 					case None:
-					case Newline:
+						info.spacesAfter = 0;
 					case Space:
-						info.whitespaceAfter = SpaceOrNewline;
-					case SpaceOrNewline:
+						shouldHaveOneSpaceAfter(info);
+					case Newline:
 				}
 			case Space:
 				switch (policy) {
 					case None:
 						info.whitespaceAfter = None;
-					case Newline:
-						info.whitespaceAfter = SpaceOrNewline;
+						info.spacesAfter = 0;
 					case Space:
-					case SpaceOrNewline:
+						shouldHaveOneSpaceAfter(info);
+					case Newline:
+						info.whitespaceAfter = policy;
 				}
-			case SpaceOrNewline:
+			case Newline:
 				switch (policy) {
 					case None:
-						info.whitespaceAfter = Newline;
-					case Newline:
+						if (info.spacesAfter > 0) {
+							info.whitespaceAfter = Space;
+						} else {
+							info.whitespaceAfter = None;
+							info.spacesAfter = 0;
+						}
 					case Space:
-					case SpaceOrNewline:
+						info.whitespaceAfter = policy;
+						shouldHaveOneSpaceAfter(info);
+					case Newline:
 				}
 		}
 		#if debugLog
 		logAction(pos, info.token, '$oldWhitespaceafter -> ${info.whitespaceAfter}');
 		#end
+	}
+
+	function shouldHaveOneSpaceAfter(info:TokenInfo) {
+		if (info == null) {
+			return;
+		}
+		if (info.spacesAfter <= 0) {
+			info.spacesAfter = 1;
+		}
+	}
+
+	public function spacesAfter(token:TokenTree, count:Int, ?pos:PosInfos) {
+		if (token.index < 0) {
+			return;
+		}
+		var info:TokenInfo = tokens[token.index];
+		if (info == null) {
+			return;
+		}
+		#if debugLog
+		logAction(pos, token, '${info.spacesAfter} -> $count');
+		#end
+		info.spacesAfter = count;
+		if ((info.whitespaceAfter == None) && (count > 0)) {
+			#if debugLog
+			logAction(pos, info.token, '${info.whitespaceAfter} -> Space');
+			#end
+			info.whitespaceAfter = Space;
+		}
+	}
+
+	public function spacesBefore(token:TokenTree, count:Int, ?pos:PosInfos) {
+		var info:TokenInfo = getPreviousToken(token);
+		if (info == null) {
+			return;
+		}
+		#if debugLog
+		logAction(pos, token, '${info.spacesAfter} -> $count');
+		#end
+		info.spacesAfter = count;
+		if ((info.whitespaceAfter == None) && (count > 0)) {
+			#if debugLog
+			logAction(pos, info.token, '${info.whitespaceAfter} -> Space');
+			#end
+			info.whitespaceAfter = Space;
+		}
 	}
 
 	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {
@@ -202,10 +255,9 @@ class TokenList {
 			case Newline:
 			case Space:
 				#if debugLog
-				logAction(pos, token, "Space -> SpaceOrNewline");
+				logAction(pos, token, "Space -> Newline");
 				#end
-				info.whitespaceAfter = SpaceOrNewline;
-			case SpaceOrNewline:
+				info.whitespaceAfter = Newline;
 		}
 	}
 
@@ -225,8 +277,7 @@ class TokenList {
 				#if debugLog
 				logAction(pos, token, "Space -> SpaceOrNewline");
 				#end
-				info.whitespaceAfter = SpaceOrNewline;
-			case SpaceOrNewline:
+				info.whitespaceAfter = Newline;
 		}
 	}
 
@@ -257,17 +308,20 @@ class TokenList {
 		switch (info.whitespaceAfter) {
 			case None:
 				return;
-			case Newline:
-				#if debugLog
-				logAction(pos, token, "Newline -> None");
-				#end
-				info.whitespaceAfter = None;
 			case Space:
-			case SpaceOrNewline:
-				#if debugLog
-				logAction(pos, token, "SpaceOrNewline -> Space");
-				#end
-				info.whitespaceAfter = Space;
+			case Newline:
+				if (info.spacesAfter <= 0) {
+					#if debugLog
+					logAction(pos, token, "Newline -> Space");
+					#end
+					info.whitespaceAfter = None;
+				} else {
+					#if debugLog
+					logAction(pos, token, "Newline -> Space");
+					#end
+					info.whitespaceAfter = Space;
+					shouldHaveOneSpaceAfter(info);
+				}
 		}
 	}
 
@@ -283,17 +337,20 @@ class TokenList {
 		switch (info.whitespaceAfter) {
 			case None:
 				return;
-			case Newline:
-				#if debugLog
-				logAction(pos, token, "Newline -> None");
-				#end
-				info.whitespaceAfter = None;
 			case Space:
-			case SpaceOrNewline:
-				#if debugLog
-				logAction(pos, token, "SpaceOrNewline -> Space");
-				#end
-				info.whitespaceAfter = Space;
+			case Newline:
+				if (info.spacesAfter <= 0) {
+					#if debugLog
+					logAction(pos, token, "Newline -> Space");
+					#end
+					info.whitespaceAfter = None;
+				} else {
+					#if debugLog
+					logAction(pos, token, "Newline -> Space");
+					#end
+					info.whitespaceAfter = Space;
+					shouldHaveOneSpaceAfter(info);
+				}
 		}
 	}
 
@@ -454,9 +511,12 @@ class TokenList {
 				case None:
 				case Space:
 				case Newline:
-					info.whitespaceAfter = None;
-				case SpaceOrNewline:
-					info.whitespaceAfter = Space;
+					if (info.spacesAfter <= 0) {
+						info.whitespaceAfter = None;
+					} else {
+						info.whitespaceAfter = Space;
+						shouldHaveOneSpaceAfter(info);
+					}
 			}
 			#if debugLog
 			logAction(pos, info.token, '$oldWhitespaceAfter -> ${info.whitespaceAfter}');
@@ -515,7 +575,7 @@ class TokenList {
 			if (currTok == null) {
 				continue;
 			}
-			if ((currTok.whitespaceAfter == Newline) || (currTok.whitespaceAfter == SpaceOrNewline)) {
+			if (currTok.whitespaceAfter == Newline) {
 				return false;
 			}
 		}
@@ -572,12 +632,12 @@ class TokenList {
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return length;
 		}
-		if ((current.whitespaceAfter == Newline) || (current.whitespaceAfter == SpaceOrNewline)) {
+		if (current.whitespaceAfter == Newline) {
 			return length;
 		}
 		for (child in token.children) {
 			var current:TokenInfo = tokens[child.index];
-			if ((current != null) && ((current.whitespaceAfter == Newline) || (current.whitespaceAfter == SpaceOrNewline))) {
+			if ((current != null) && (current.whitespaceAfter == Newline)) {
 				break;
 			}
 			length += calcLengthUntilNewline(child);
@@ -625,7 +685,7 @@ class TokenList {
 			if (info == null) {
 				continue;
 			}
-			if ((info.whitespaceAfter == Newline) || (info.whitespaceAfter == SpaceOrNewline)) {
+			if (info.whitespaceAfter == Newline) {
 				start += 2;
 				break;
 			}
@@ -642,10 +702,10 @@ class TokenList {
 			length += info.text.length;
 			switch (info.whitespaceAfter) {
 				case None:
-				case Newline, SpaceOrNewline:
-					break;
 				case Space:
-					length += 1;
+					length += info.spacesAfter;
+				case Newline:
+					break;
 			}
 		}
 		return length;
@@ -670,10 +730,10 @@ class TokenList {
 			}
 			switch (info.whitespaceAfter) {
 				case None:
-				case Newline, SpaceOrNewline:
-					break;
 				case Space:
-					length += 1;
+					length += info.spacesAfter;
+				case Newline:
+					break;
 			}
 			length += info.text.length;
 		}
@@ -699,10 +759,10 @@ class TokenList {
 			}
 			switch (info.whitespaceAfter) {
 				case None:
-				case Newline, SpaceOrNewline:
-					break;
 				case Space:
-					length += 1;
+					length += info.spacesAfter;
+				case Newline:
+					break;
 			}
 			length += info.text.length;
 		}
@@ -723,9 +783,9 @@ class TokenList {
 		var length:Int = info.text.length;
 		switch (info.whitespaceAfter) {
 			case None:
-			case Newline, SpaceOrNewline:
 			case Space:
-				length++;
+				length += info.spacesAfter;
+			case Newline:
 		}
 		return length;
 	}
@@ -735,7 +795,7 @@ class TokenList {
 		if (info == null) {
 			return false;
 		}
-		return (info.whitespaceAfter == Newline || info.whitespaceAfter == SpaceOrNewline);
+		return (info.whitespaceAfter == Newline);
 	}
 
 	public function isNewLineAfter(token:TokenTree):Bool {
@@ -743,7 +803,7 @@ class TokenList {
 		if (info == null) {
 			return false;
 		}
-		return (info.whitespaceAfter == Newline || info.whitespaceAfter == SpaceOrNewline);
+		return (info.whitespaceAfter == Newline);
 	}
 
 	public function isSameLineBetween(tokenStart:TokenTree, tokenEnd:TokenTree, exclude:Bool):Bool {
@@ -760,7 +820,7 @@ class TokenList {
 			if (info == null) {
 				continue;
 			}
-			if ((info.whitespaceAfter == Newline) || (info.whitespaceAfter == SpaceOrNewline)) {
+			if (info.whitespaceAfter == Newline) {
 				return false;
 			}
 		}

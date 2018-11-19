@@ -9,6 +9,7 @@ class Foo {
 			case foo if (switch(bar) { case _: false; }): doSomething();
 			case foo if (true): doSomething();
 			case foo2: doSomething();
+				x >>>= 10;
 		}
 		}
 		}
@@ -24,6 +25,7 @@ class Foo {
 			case foo if (switch(bar) { case _: false; }): doSomething();
 			case foo if (true): doSomething();
 			case foo2: doSomething();
+				x >>>= 10;
 		}
 		}
 		}

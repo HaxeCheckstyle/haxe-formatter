@@ -48,7 +48,7 @@ class MarkLineEnds extends MarkerBase {
 					var prev:TokenInfo = getPreviousToken(token);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
-							if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
+							if (prev.whitespaceAfter == Newline) {
 								lineEndAfter(token);
 							}
 							noLineEndBefore(token);
@@ -88,7 +88,7 @@ class MarkLineEnds extends MarkerBase {
 							noLineEndAfter(brOpen);
 							noLineEndBefore(brClose);
 							whitespace(brOpen, None);
-							whitespace(brClose, None);
+							whitespace(brClose, NoneBefore);
 							var next:TokenInfo = getNextToken(brClose);
 							if (next != null) {
 								switch (next.token.tok) {
@@ -154,10 +154,9 @@ class MarkLineEnds extends MarkerBase {
 				switch (prevToken.whitespaceAfter) {
 					case None:
 						prevToken.whitespaceAfter = Newline;
-					case Newline:
 					case Space:
-						prevToken.whitespaceAfter = SpaceOrNewline;
-					case SpaceOrNewline:
+						prevToken.whitespaceAfter = Newline;
+					case Newline:
 				}
 		}
 	}
@@ -170,10 +169,9 @@ class MarkLineEnds extends MarkerBase {
 		switch (prevToken.whitespaceAfter) {
 			case None:
 				prevToken.whitespaceAfter = Newline;
-			case Newline:
 			case Space:
-				prevToken.whitespaceAfter = SpaceOrNewline;
-			case SpaceOrNewline:
+				prevToken.whitespaceAfter = Newline;
+			case Newline:
 		}
 	}
 
@@ -400,7 +398,7 @@ class MarkLineEnds extends MarkerBase {
 				if (prev == null) {
 					return !isOnlyWhitespaceBeforeToken(token);
 				}
-				if ((prev.whitespaceAfter == Newline) || (prev.whitespaceAfter == SpaceOrNewline)) {
+				if (prev.whitespaceAfter == Newline) {
 					return false;
 				}
 				switch (prev.token.tok) {

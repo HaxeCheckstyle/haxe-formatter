@@ -203,14 +203,13 @@ class MarkTokenText extends MarkerBase {
 		}
 		for (index in 1...endIndex) {
 			var line:String = lines[index];
-			if (prefixReg.match(line)) {
-				var linePrefix:String = prefixReg.matched(1);
-				if (linePrefix.length <= 0) {
-					continue;
-				}
-				if ((prefix == null) || (prefix.length > linePrefix.length)) {
-					prefix = linePrefix;
-				}
+			prefixReg.match(line);
+			var linePrefix:String = prefixReg.matched(1);
+			if (linePrefix.length <= 0) {
+				continue;
+			}
+			if ((prefix == null) || (prefix.length > linePrefix.length)) {
+				prefix = linePrefix;
 			}
 		}
 		if (prefix != null) {

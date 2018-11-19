@@ -41,6 +41,14 @@ class MarkerBase {
 		parsedCode.tokenList.whitespace(token, where, pos);
 	}
 
+	public function spacesAfter(token:TokenTree, count:Int, ?pos:PosInfos) {
+		parsedCode.tokenList.spacesAfter(token, count, pos);
+	}
+
+	public function spacesBefore(token:TokenTree, count:Int, ?pos:PosInfos) {
+		parsedCode.tokenList.spacesBefore(token, count, pos);
+	}
+
 	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {
 		parsedCode.tokenList.lineEndAfter(token, pos);
 	}

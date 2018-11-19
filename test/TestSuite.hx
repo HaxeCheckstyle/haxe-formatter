@@ -7,10 +7,12 @@ class TestSuite extends massive.munit.TestSuite {
 		var singleRun:TestSingleRun = new TestSingleRun();
 		if (!singleRun.isSingleRun()) {
 			add(SelfTest);
+			add(FormatStatsTest);
 		}
 
 		var tests = CompileTime.getAllClasses(GoldBaseTest);
-		for (testClass in tests)
+		for (testClass in tests) {
 			add(testClass);
+		}
 	}
 }
