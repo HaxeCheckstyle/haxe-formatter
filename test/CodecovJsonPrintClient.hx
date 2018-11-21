@@ -82,8 +82,12 @@ class CodecovJsonPrintClient implements CoverageReportClient {
 					maxLineNumber = addLineCov(line, lineCov, "1", maxLineNumber);
 				}
 			} else {
+				var coverage:String = "\"1/2\"";
+				if (branch.totalCount <= 0) {
+					coverage = "0";
+				}
 				for (line in branch.lines) {
-					maxLineNumber = addLineCov(line, lineCov, "\"1/2\"", maxLineNumber);
+					maxLineNumber = addLineCov(line, lineCov, coverage, maxLineNumber);
 				}
 			}
 		}
