@@ -83,7 +83,7 @@ class LcovPrintClient implements CoverageReportClient {
 				}
 			} else {
 				for (line in branch.lines) {
-					text.add(makeLine("BRDA", '$line,${method.id},${branch.id},-'));
+					text.add(makeLine("BRDA", '$line,${method.id},${branch.id},0'));
 					maxLineNumber = addLineCov(line, lineCov, branch.totalCount, maxLineNumber);
 				}
 			}
