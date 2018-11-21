@@ -8,8 +8,11 @@ class TestMain {
 	public function new() {
 		var suites:Array<Class<massive.munit.TestSuite>> = [TestSuite];
 		var client:MCoverPrintClient = new MCoverPrintClient();
+		#if codecov_json
+		MCoverage.getLogger().addClient(new CodecovJsonPrintClient());
+		#else
 		MCoverage.getLogger().addClient(new LcovPrintClient("Formatter Unittests"));
-		// MCoverage.getLogger().addClient(new CodecovJsonPrintClient());
+		#end
 
 		#if detailed_coverage
 		client.includeClassAndPackageBreakdowns = true;

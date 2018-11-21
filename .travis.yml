@@ -19,7 +19,7 @@ install:
 
 script:
   - haxe buildAll.hxml
-  - haxe buildTest.hxml
+  - haxe buildTest.hxml -D codecov_json
   - haxe buildSchema.hxml
   - node run.js -s . --check
   - neko run.n -s . --check
