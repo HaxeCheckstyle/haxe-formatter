@@ -17,10 +17,6 @@ class MarkerBase {
 		this.indenter = indenter;
 	}
 
-	public function run() {}
-
-	public function finalRun(lines:CodeLines) {}
-
 	function getNextToken(token:TokenTree):TokenInfo {
 		return parsedCode.tokenList.getNextToken(token);
 	}

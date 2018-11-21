@@ -3,7 +3,7 @@ package formatter.marker.wrapping;
 import formatter.config.WrapConfig;
 
 class MarkWrapping extends MarkWrappingBase {
-	override public function run() {
+	public function run() {
 		var wrappableTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Dot:

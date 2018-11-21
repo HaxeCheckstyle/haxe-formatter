@@ -301,17 +301,11 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	override function calcLineLength(token:TokenTree):Int {
-		if (token == null) {
-			return 0;
-		}
 		var indent:Int = indenter.calcIndent(token);
 		return super.calcLineLength(token) + indenter.calcAbsoluteIndent(indent);
 	}
 
 	function hasEmptyFunctionBody(token:TokenTree):Bool {
-		if (token == null) {
-			return false;
-		}
 		var last:TokenTree = token.getLastChild();
 		switch (last.tok) {
 			case Semicolon:

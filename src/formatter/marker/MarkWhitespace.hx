@@ -4,7 +4,7 @@ import formatter.config.WhitespaceConfig;
 import formatter.config.WhitespacePolicy;
 
 class MarkWhitespace extends MarkerBase {
-	override public function run() {
+	public function run() {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Binop(OpLt):

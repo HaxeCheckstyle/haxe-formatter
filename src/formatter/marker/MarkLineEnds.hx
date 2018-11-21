@@ -9,7 +9,7 @@ class MarkLineEnds extends MarkerBase {
 	public static inline var SHARP_END:String = "end";
 	public static inline var SHARP_ERROR:String = "error";
 
-	override public function run() {
+	public function run() {
 		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], ALL);
 		for (token in semicolonTokens) {
 			lineEndAfter(token);

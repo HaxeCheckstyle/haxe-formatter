@@ -4,7 +4,7 @@ import formatter.config.SameLineConfig;
 import formatter.config.WhitespaceConfig;
 
 class MarkSameLine extends MarkerBase {
-	override public function run() {
+	public function run() {
 		markDollarSameLine();
 
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
