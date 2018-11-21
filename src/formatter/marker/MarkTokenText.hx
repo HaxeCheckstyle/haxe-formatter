@@ -10,7 +10,7 @@ import formatter.codedata.ParsedCode;
 import formatter.codedata.TokenData;
 
 class MarkTokenText extends MarkerBase {
-	override public function run() {
+	public function run() {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Const(CString(text)):
@@ -26,7 +26,7 @@ class MarkTokenText extends MarkerBase {
 		});
 	}
 
-	override public function finalRun(lines:CodeLines) {
+	public function finalRun(lines:CodeLines) {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Comment(text):

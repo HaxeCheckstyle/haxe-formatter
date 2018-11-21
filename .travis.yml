@@ -10,7 +10,7 @@ install:
   - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
   - haxelib git hxargs https://github.com/Simn/hxargs --never
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
-  - haxelib git mcover https://github.com/massiveinteractive/mcover master src
+  - haxelib git mcover https://github.com/AlexHaxe/mcover add_lcov_printclient src
   - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
   - haxelib install json2object
   - haxelib install mlib
@@ -19,7 +19,7 @@ install:
 
 script:
   - haxe buildAll.hxml
-  - haxe buildTest.hxml
+  - haxe buildTest.hxml -D codecov_json
   - haxe buildSchema.hxml
   - node run.js -s . --check
   - neko run.n -s . --check

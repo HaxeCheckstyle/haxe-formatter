@@ -8,7 +8,7 @@ import formatter.config.EmptyLinesConfig;
 class MarkEmptyLines extends MarkerBase {
 	public static inline var FINAL:String = "final";
 
-	override public function run() {
+	public function run() {
 		keepExistingEmptyLines();
 
 		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], ALL);
@@ -43,7 +43,7 @@ class MarkEmptyLines extends MarkerBase {
 		}
 	}
 
-	override public function finalRun(codeLines:CodeLines) {
+	public function finalRun(codeLines:CodeLines) {
 		if (codeLines.lines.length <= 0) {
 			return;
 		}
