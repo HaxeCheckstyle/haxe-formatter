@@ -2,6 +2,11 @@ import haxe.EntryPoint;
 import sys.io.File;
 import massive.munit.TestRunner;
 import mcover.coverage.munit.client.MCoverPrintClient;
+#if codecov_json
+import mcover.coverage.client.CodecovJsonPrintClient;
+#else
+import mcover.coverage.client.LcovPrintClient;
+#end
 import mcover.coverage.MCoverage;
 
 class TestMain {
