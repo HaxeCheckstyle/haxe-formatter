@@ -9,7 +9,7 @@ class TestMain {
 		var suites:Array<Class<massive.munit.TestSuite>> = [TestSuite];
 		var client:MCoverPrintClient = new MCoverPrintClient();
 		MCoverage.getLogger().addClient(new LcovPrintClient("Formatter Unittests"));
-		MCoverage.getLogger().addClient(new CodecovJsonPrintClient());
+		// MCoverage.getLogger().addClient(new CodecovJsonPrintClient());
 
 		#if detailed_coverage
 		client.includeClassAndPackageBreakdowns = true;
