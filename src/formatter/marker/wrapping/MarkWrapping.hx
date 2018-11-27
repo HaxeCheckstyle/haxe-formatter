@@ -7,29 +7,17 @@ class MarkWrapping extends MarkWrappingBase {
 		var wrappableTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Dot:
-					if (config.wrapping.wrapBeforeDot) {
-						return FOUND_GO_DEEPER;
-					}
+					return FOUND_GO_DEEPER;
 				case BrOpen:
-					if (config.wrapping.wrapAfterOpeningBrace) {
-						return FOUND_GO_DEEPER;
-					}
+					return FOUND_GO_DEEPER;
 				case BkOpen:
-					if (config.wrapping.wrapAfterOpeningBracket) {
-						return FOUND_GO_DEEPER;
-					}
+					return FOUND_GO_DEEPER;
 				case POpen:
-					if (config.wrapping.wrapAfterOpeningParenthesis) {
-						return FOUND_GO_DEEPER;
-					}
+					return FOUND_GO_DEEPER;
 				case Binop(OpAdd):
-					if (config.wrapping.wrapAfterPlus) {
-						return FOUND_GO_DEEPER;
-					}
+					return FOUND_GO_DEEPER;
 				case Binop(OpLt):
-					if (TokenTreeCheckUtils.isTypeParameter(token)) {
-						return FOUND_GO_DEEPER;
-					}
+					return FOUND_GO_DEEPER;
 				case Binop(OpArrow), Arrow:
 					return FOUND_GO_DEEPER;
 				case CommentLine(_):
