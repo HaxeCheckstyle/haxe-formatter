@@ -1,3 +1,5 @@
+package formatter;
+
 import massive.munit.Assert;
 import formatter.FormatStats;
 

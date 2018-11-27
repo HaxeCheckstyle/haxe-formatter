@@ -480,12 +480,6 @@
 					"type": "fillLine"
 				}
 			]
-		},
-		"wrapAfterComma": true,
-		"wrapAfterOpeningBrace": true,
-		"wrapAfterOpeningBracket": true,
-		"wrapAfterOpeningParenthesis": true,
-		"wrapAfterPlus": true,
-		"wrapBeforeDot": true
+		}
 	}
 }

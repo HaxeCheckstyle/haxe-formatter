@@ -11,6 +11,6 @@
 		"test"
 	],
 	"coverage-gutters.showLineCoverage": true,
-	"coverage-gutters.showRulerCoverage": true,
+	"coverage-gutters.showRulerCoverage": false,
 	"coverage-gutters.partialHighlightDark": "rgba(120, 120, 120, 0.75)"
 }
