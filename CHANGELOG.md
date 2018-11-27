@@ -6,7 +6,7 @@
 - Fixed empty lines between single line types with meta [#277](https://github.com/HaxeCheckstyle/haxe-formatter/issues/277)
 - Refactored whitespace handling (space + newline) [#278](https://github.com/HaxeCheckstyle/haxe-formatter/issues/278)
 - Refactored coverage report generation [#279](https://github.com/HaxeCheckstyle/haxe-formatter/issues/279)
-- Removed superfluous wrapping settings
+- Removed superfluous wrapping settings [#280](https://github.com/HaxeCheckstyle/haxe-formatter/issues/280)
 
 ## version 1.2.0 (2018-11-12)
 
