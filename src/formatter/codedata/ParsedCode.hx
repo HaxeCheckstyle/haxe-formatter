@@ -50,8 +50,7 @@ class ParsedCode {
 			var info:TokenInfo = tokenList.tokens[index];
 			if (info == null) {
 				if (skipCount <= 0) {
-					var token:Token = tokens[index];
-					throw 'missing token "${token}" [$index] detected!';
+					throw 'missing token "${tokens[index]}" [$index] detected!';
 				}
 				skipCount--;
 				continue;
