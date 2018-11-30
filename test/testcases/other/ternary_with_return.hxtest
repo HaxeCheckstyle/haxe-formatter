@@ -1,0 +1,28 @@
+{}
+
+---
+
+class FlxActionDigital extends FlxAction
+{
+	private function get_x():Float
+	{
+		(_x != null) ? return _x : return 0;
+	}
+
+	private function get_y():Float
+	{
+		(_y != null) ? return _y : return 0;
+	}
+}
+
+---
+
+class FlxActionDigital extends FlxAction {
+	private function get_x():Float {
+		(_x != null) ? return _x : return 0;
+	}
+
+	private function get_y():Float {
+		(_y != null) ? return _y : return 0;
+	}
+}
