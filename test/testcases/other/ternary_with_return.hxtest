@@ -1,0 +1,60 @@
+{}
+
+---
+
+class FlxActionDigital extends FlxAction
+{
+	private function get_x():Float
+	{
+		(_x != null) ? _x : 0;
+		(_x != null) ? return _x : return 0;
+		(_x != null) ? return _x : return 0x80;
+		(_x != null) ? return -_x : return -0;
+		(_x != null) ? return -_x : return -0x80;
+
+		_x >= (_x != null) ? _x : 1;
+		_x >> (_x != null) ? _x : 1;
+		_x >>> (_x != null) ? _x : 1;
+		_x >>= (_x != null) ? _x : 1;
+		_x >>>= (_x != null) ? _x : 1;
+		_x >= (_x != null) ? -_x : -1;
+		_x >> (_x != null) ? -_x : -1;
+		_x >>> (_x != null) ? -_x : -1;
+		_x >>= (_x != null) ? -_x : -1;
+		_x >>>= (_x != null) ? -_x : -1;
+	}
+
+	private function get_y():Float
+	{
+		(_y != null) ? return _y : return 0.1;
+		(_y != null) ? return _y : return -0.1;
+	}
+}
+
+---
+
+class FlxActionDigital extends FlxAction {
+	private function get_x():Float {
+		(_x != null) ? _x : 0;
+		(_x != null) ? return _x : return 0;
+		(_x != null) ? return _x : return 0x80;
+		(_x != null) ? return -_x : return -0;
+		(_x != null) ? return -_x : return -0x80;
+
+		_x >= (_x != null) ? _x : 1;
+		_x >> (_x != null) ? _x : 1;
+		_x >>> (_x != null) ? _x : 1;
+		_x >>= (_x != null) ? _x : 1;
+		_x >>>= (_x != null) ? _x : 1;
+		_x >= (_x != null) ? -_x : -1;
+		_x >> (_x != null) ? -_x : -1;
+		_x >>> (_x != null) ? -_x : -1;
+		_x >>= (_x != null) ? -_x : -1;
+		_x >>>= (_x != null) ? -_x : -1;
+	}
+
+	private function get_y():Float {
+		(_y != null) ? return _y : return 0.1;
+		(_y != null) ? return _y : return -0.1;
+	}
+}

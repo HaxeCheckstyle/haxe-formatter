@@ -2,6 +2,7 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added check to prevent tokentree parser issues from deleting code [#281](https://github.com/HaxeCheckstyle/haxe-formatter/issues/281)
 - Fixed properties in anon types [#276](https://github.com/HaxeCheckstyle/haxe-formatter/issues/276)
 - Fixed empty lines between single line types with meta [#277](https://github.com/HaxeCheckstyle/haxe-formatter/issues/277)
 - Refactored whitespace handling (space + newline) [#278](https://github.com/HaxeCheckstyle/haxe-formatter/issues/278)

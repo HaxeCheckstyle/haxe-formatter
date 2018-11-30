@@ -34,8 +34,50 @@ class ParsedCode {
 				root = tokenData.tokenTree;
 				makeTokenList();
 			}
+			// sanity check: tokens vs tokenlist
+			checkTokens();
 		} catch (e:Any) {
-			throw 'failed to create parser context $e';
+			throw 'failed to create parser context: $e';
+		}
+	}
+
+	function checkTokens() {
+		if (tokens.length != tokenList.tokens.length) {
+			throw "token count mismatch";
+		}
+		var skipCount:Int = 0;
+		for (index in 0...tokens.length) {
+			var info:TokenInfo = tokenList.tokens[index];
+			if (info == null) {
+				if (skipCount <= 0) {
+					throw 'missing token "${tokens[index]}" [$index] detected!';
+				}
+				skipCount--;
+				continue;
+			}
+			var token:TokenTree = info.token;
+			switch (token.tok) {
+				case Binop(OpAssignOp(OpUShr)):
+					skipCount = 3;
+				case Binop(OpUShr):
+					skipCount = 2;
+				case Binop(OpAssignOp(OpShr)):
+					skipCount = 2;
+				case Binop(OpShr):
+					skipCount = 1;
+				case Binop(OpGte):
+					skipCount = 1;
+				case Const(CInt(v)):
+					if (v.startsWith("-")) {
+						skipCount = 1;
+					}
+				case Const(CFloat(v)):
+					if (v.startsWith("-")) {
+						skipCount = 1;
+					}
+				default:
+					skipCount = 0;
+			}
 		}
 	}
 
