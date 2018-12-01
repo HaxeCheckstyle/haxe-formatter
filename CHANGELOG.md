@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- **Breaking Change** replaced `whitespace.openingParenPolicy` and `whitespace.closingParenPolicy` settings with `whitespace.parenConfig` [#282](https://github.com/HaxeCheckstyle/haxe-formatter/issues/282)
+- **Breaking Change** replaced `whitespace.openingBracePolicy` `whitespace.closingBracePolicy`, `whitespace.objectOpeningBracePolicy` and `whitespace.objectClosingBracePolicy` settings with `whitespace.bracesConfig` [#282](https://github.com/HaxeCheckstyle/haxe-formatter/issues/282)
 - Added check to prevent tokentree parser issues from deleting code [#281](https://github.com/HaxeCheckstyle/haxe-formatter/issues/281)
 - Fixed properties in anon types [#276](https://github.com/HaxeCheckstyle/haxe-formatter/issues/276)
 - Fixed empty lines between single line types with meta [#277](https://github.com/HaxeCheckstyle/haxe-formatter/issues/277)

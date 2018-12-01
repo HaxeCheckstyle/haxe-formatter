@@ -1,0 +1,25 @@
+{
+	"whitespace": {
+		"parenConfig": {
+			"anonFuncParamParens": {
+				"openingPolicy": "before"
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+function loadAndTrace() {
+    load().handle(function (res) trace(res));
+}
+}
+
+---
+
+class Main {
+	function loadAndTrace() {
+		load().handle(function (res) trace(res));
+	}
+}

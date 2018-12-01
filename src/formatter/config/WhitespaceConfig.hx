@@ -2,14 +2,14 @@ package formatter.config;
 
 typedef WhitespaceConfig = {
 	/**
-		"("
+		"(" + ")"
 	**/
-	@:default(NoneAfter) @:optional var openingParenPolicy:WhitespacePolicy;
+	@:default(auto) @:optional var parenConfig:ParenWhitespaceConfig;
 
 	/**
-		")"
+		"{" + "}"
 	**/
-	@:default(OnlyAfter) @:optional var closingParenPolicy:WhitespacePolicy;
+	@:default(auto) @:optional var bracesConfig:BracesWhitespaceConfig;
 
 	/**
 		"["
@@ -20,26 +20,6 @@ typedef WhitespaceConfig = {
 		"]"
 	**/
 	@:default(None) @:optional var closingBracketPolicy:WhitespacePolicy;
-
-	/**
-		"{" except object literals
-	**/
-	@:default(Before) @:optional var openingBracePolicy:WhitespacePolicy;
-
-	/**
-		"}" except object literals
-	**/
-	@:default(After) @:optional var closingBracePolicy:WhitespacePolicy;
-
-	/**
-		"{" in object literal
-	**/
-	@:default(OnlyBefore) @:optional var objectOpeningBracePolicy:WhitespacePolicy;
-
-	/**
-		"}" in object literal
-	**/
-	@:default(OnlyAfter) @:optional var objectClosingBracePolicy:WhitespacePolicy;
 
 	/**
 		"<"
@@ -83,4 +63,85 @@ typedef WhitespaceConfig = {
 		only applies spaces, no newlines or wrapping
 	**/
 	@:default(true) @:optional var formatStringInterpolation:Bool;
+}
+
+typedef ParenWhitespaceConfig = {
+	/**
+		parens used for metadata
+	**/
+	@:default(auto) @:optional var metadataParens:OpenClosePolicy;
+
+	/**
+		parens used for function parameters
+	**/
+	@:default(auto) @:optional var funcParamParens:OpenClosePolicy;
+
+	/**
+		parens used for anon function parameters
+	**/
+	@:default(auto) @:optional var anonFuncParamParens:OpenClosePolicy;
+
+	/**
+		parens used for calls
+	**/
+	@:default(auto) @:optional var callParens:OpenClosePolicy;
+
+	/**
+		parens used for conditions
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var conditionParens:OpenClosePolicy;
+
+	/**
+		parens used for for loops
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var forLoopParens:OpenClosePolicy;
+
+	/**
+		parens used for expressions
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var expressionParens:OpenClosePolicy;
+}
+
+typedef BracesWhitespaceConfig = {
+	/**
+		braces for blocks
+	**/
+	@:default({openingPolicy: Before, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var blockBraces:OpenClosePolicy;
+
+	/**
+		braces for typdefs
+	**/
+	@:default({openingPolicy: Before, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var typedefBraces:OpenClosePolicy;
+
+	/**
+		braces for anon types
+	**/
+	@:default({openingPolicy: Before, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var anonTypeBraces:OpenClosePolicy;
+
+	/**
+		braces for object literals
+	**/
+	@:default({openingPolicy: Before, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var objectLiteralBraces:OpenClosePolicy;
+
+	/**
+		unknown braces
+	**/
+	@:default({openingPolicy: Before, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var unknownBraces:OpenClosePolicy;
+}
+
+typedef OpenClosePolicy = {
+	/**
+		"("
+	**/
+	@:default(None) @:optional var openingPolicy:WhitespacePolicy;
+
+	/**
+		")"
+	**/
+	@:default(OnlyAfter) @:optional var closingPolicy:WhitespacePolicy;
+
+	/**
+		"()" or "( )" - if `openingPolicy` contains `After` or `closingPolicy` contains `Before`
+	**/
+	@:default(true) @:optional var removeInnerWhenEmpty:Bool;
 }

@@ -55,11 +55,11 @@ class MarkWhitespace extends MarkerBase {
 				case POpen:
 					markPOpen(token);
 				case PClose:
-					successiveParenthesis(token, true, config.whitespace.closingParenPolicy, config.whitespace.compressSuccessiveParenthesis);
+					markPClose(token);
 				case BrOpen:
-					successiveParenthesis(token, false, config.whitespace.openingBracePolicy, config.whitespace.compressSuccessiveParenthesis);
+					markBrOpen(token);
 				case BrClose:
-					successiveParenthesis(token, true, config.whitespace.closingBracePolicy, config.whitespace.compressSuccessiveParenthesis);
+					markBrClose(token);
 				case BkOpen:
 					successiveParenthesis(token, false, config.whitespace.openingBracketPolicy, config.whitespace.compressSuccessiveParenthesis);
 				case BkClose:
@@ -164,42 +164,41 @@ class MarkWhitespace extends MarkerBase {
 			whitespace(token, policy);
 			return;
 		}
-		if (next != null) {
-			switch (next.token.tok) {
-				case BrClose:
-					var selfInfo:TokenInfo = getTokenInfo(token);
-					if (selfInfo.whitespaceAfter == Newline) {
-						return;
-					}
-					policy = policy.remove(After);
-				case POpen, PClose, BrOpen, BkOpen, BkClose:
-					if (token.is(PClose)) {
-						switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
-							case CONDITION:
-								policy = policy.add(After);
-							case PARAMETER:
-								policy = policy.add(After);
-							default:
-								policy = policy.remove(After);
-						}
-					} else {
+		if (closing) {
+			if (next != null) {
+				switch (next.token.tok) {
+					case BrClose:
 						policy = policy.remove(After);
-					}
-				default:
+					case POpen, PClose, BrOpen, BkOpen, BkClose:
+						if (token.is(PClose)) {
+							switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
+								case CONDITION:
+									policy = policy.add(After);
+								case PARAMETER:
+									policy = policy.add(After);
+								default:
+									policy = policy.remove(After);
+							}
+						} else {
+							policy = policy.remove(After);
+						}
+					default:
+				}
 			}
-		}
-		var prev:TokenInfo = getPreviousToken(token);
-		if (prev != null) {
-			switch (prev.token.tok) {
-				case POpen, BrOpen, BkOpen:
-					policy = policy.remove(Before);
-				case Binop(OpLt):
-					if (token.is(BrOpen)) {
+		} else {
+			var prev:TokenInfo = getPreviousToken(token);
+			if (prev != null) {
+				switch (prev.token.tok) {
+					case POpen, BrOpen, BkOpen:
+						policy = policy.remove(Before);
+					case Binop(OpLt):
+						if (token.is(BrOpen)) {
+							return;
+						}
+					case DblDot, Arrow:
 						return;
-					}
-				case DblDot, Arrow:
-					return;
-				default:
+					default:
+				}
 			}
 		}
 		whitespace(token, policy);
@@ -394,35 +393,122 @@ class MarkWhitespace extends MarkerBase {
 		}
 	}
 
-	function markPOpen(token:TokenTree) {
-		var policy:WhitespacePolicy = config.whitespace.openingParenPolicy;
+	function determinePOpenPolicy(token:TokenTree):OpenClosePolicy {
 		var type:POpenType = TokenTreeCheckUtils.getPOpenType(token);
 		switch (type) {
 			case AT:
-				policy = policy.remove(Before);
+				config.whitespace.parenConfig.metadataParens.openingPolicy = config.whitespace.parenConfig.metadataParens.openingPolicy.remove(Before);
+				return config.whitespace.parenConfig.metadataParens;
 			case PARAMETER:
-			case CALL:
-			case FORLOOP:
-			case CONDITION, EXPRESSION:
-				var parent:TokenTree = token.parent;
-				while ((parent != null) && (parent.tok != null)) {
-					switch (parent.tok) {
-						case Const(CIdent(_)):
-						case Dot:
-						case DblDot:
-						case Unop(_):
-							policy = policy.remove(Before);
-							break;
-						case At:
-							policy = policy.remove(Before);
-							break;
-						default:
-							break;
-					}
-					parent = parent.parent;
+				switch (token.parent.tok) {
+					case Const(CIdent(_)), Kwd(KwdNew):
+						return config.whitespace.parenConfig.funcParamParens;
+					default:
+						return config.whitespace.parenConfig.anonFuncParamParens;
 				}
+			case CALL:
+				return config.whitespace.parenConfig.callParens;
+			case CONDITION:
+				return config.whitespace.parenConfig.conditionParens;
+			case FORLOOP:
+				return config.whitespace.parenConfig.forLoopParens;
+			case EXPRESSION:
+				return config.whitespace.parenConfig.expressionParens;
+		}
+		return config.whitespace.parenConfig.expressionParens;
+	}
+
+	function markPOpen(token:TokenTree) {
+		var openClosePolicy:OpenClosePolicy = determinePOpenPolicy(token);
+		var policy:WhitespacePolicy = openClosePolicy.openingPolicy;
+		var prev:TokenInfo = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case Unop(_):
+					policy = policy.remove(Before);
+				case Binop(_), Comment(_):
+					if (prev.spacesAfter > 0) {
+						policy = policy.add(Before);
+					}
+				default:
+			}
+		}
+		if (openClosePolicy.removeInnerWhenEmpty) {
+			var next:TokenInfo = getNextToken(token);
+			if (next != null) {
+				switch (next.token.tok) {
+					case PClose:
+						policy = policy.remove(After);
+					default:
+				}
+			}
 		}
 		successiveParenthesis(token, false, policy, config.whitespace.compressSuccessiveParenthesis);
+	}
+
+	function markPClose(token:TokenTree) {
+		var openClosePolicy:OpenClosePolicy = determinePOpenPolicy(token.parent);
+		var policy:WhitespacePolicy = openClosePolicy.closingPolicy;
+		if (openClosePolicy.removeInnerWhenEmpty) {
+			var prev:TokenInfo = getPreviousToken(token);
+			if (prev != null) {
+				switch (prev.token.tok) {
+					case POpen:
+						policy = policy.remove(Before);
+					default:
+				}
+			}
+		}
+		successiveParenthesis(token, true, policy, config.whitespace.compressSuccessiveParenthesis);
+	}
+
+	function determineBrOpenPolicy(token:TokenTree):OpenClosePolicy {
+		var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
+		switch (type) {
+			case BLOCK:
+				return config.whitespace.bracesConfig.blockBraces;
+			case TYPEDEFDECL:
+				return config.whitespace.bracesConfig.typedefBraces;
+			case OBJECTDECL:
+				return config.whitespace.bracesConfig.objectLiteralBraces;
+			case ANONTYPE:
+				return config.whitespace.bracesConfig.anonTypeBraces;
+			case UNKNOWN:
+				return config.whitespace.bracesConfig.unknownBraces;
+		}
+		return config.whitespace.bracesConfig.unknownBraces;
+	}
+
+	function markBrOpen(token:TokenTree) {
+		var openClosePolicy:OpenClosePolicy = determineBrOpenPolicy(token);
+		var policy:WhitespacePolicy = openClosePolicy.openingPolicy;
+		if (openClosePolicy.removeInnerWhenEmpty) {
+			var next:TokenInfo = getNextToken(token);
+			if (next != null) {
+				switch (next.token.tok) {
+					case BrClose:
+						policy = policy.remove(After);
+					default:
+				}
+			}
+		}
+		successiveParenthesis(token, false, policy, config.whitespace.compressSuccessiveParenthesis);
+	}
+
+	function markBrClose(token:TokenTree) {
+		var openClosePolicy:OpenClosePolicy = determineBrOpenPolicy(token.parent);
+		var policy:WhitespacePolicy = openClosePolicy.closingPolicy;
+		if (openClosePolicy.removeInnerWhenEmpty) {
+			var prev:TokenInfo = getPreviousToken(token);
+			if (prev != null) {
+				switch (prev.token.tok) {
+					case BrOpen:
+						policy = policy.remove(Before);
+					default:
+				}
+			}
+		}
+		successiveParenthesis(token, true, policy, config.whitespace.compressSuccessiveParenthesis);
 	}
 
 	function markComment(token:TokenTree) {

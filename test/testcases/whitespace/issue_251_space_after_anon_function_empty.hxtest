@@ -1,0 +1,27 @@
+{
+	"whitespace": {
+		"parenConfig": {
+			"anonFuncParamParens": {
+				"openingPolicy": "around",
+				"closingPolicy": "around",
+				"removeInnerWhenEmpty": false
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+function loadAndTrace() {
+    load().handle(function () trace(res));
+}
+}
+
+---
+
+class Main {
+	function loadAndTrace() {
+		load().handle(function ( ) trace(res));
+	}
+}

@@ -3,9 +3,30 @@
 		"metadataType": "after"
 	},
 	"whitespace": {
-		"openingParenPolicy": "before"
+		"parenConfig": {
+			"metadataParens": {
+				"openingPolicy": "before"
+			},
+			"funcParamParens": {
+				"openingPolicy": "before"
+			},
+			"anonFuncParamParens": {
+				"openingPolicy": "before"
+			},
+			"callParens": {
+				"openingPolicy": "before"
+			},
+			"conditionParens": {
+				"openingPolicy": "before"
+			},
+			"forLoopParens": {
+				"openingPolicy": "before"
+			},
+			"expressionParens": {
+				"openingPolicy": "before"
+			}
+		}
 	}
-
 }
 
 ---

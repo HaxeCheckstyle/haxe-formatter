@@ -131,11 +131,36 @@
 	"whitespace": {
 		"arrowFunctionsPolicy": "around",
 		"binopPolicy": "around",
+		"bracesConfig": {
+			"anonTypeBraces": {
+				"openingPolicy": "before",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"blockBraces": {
+				"openingPolicy": "before",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"objectLiteralBraces": {
+				"openingPolicy": "before",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"typedefBraces": {
+				"openingPolicy": "before",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"unknownBraces": {
+				"openingPolicy": "before",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			}
+		},
 		"caseColonPolicy": "onlyAfter",
 		"catchPolicy": "after",
-		"closingBracePolicy": "after",
 		"closingBracketPolicy": "none",
-		"closingParenPolicy": "onlyAfter",
 		"colonPolicy": "none",
 		"commaPolicy": "onlyAfter",
 		"compressSuccessiveParenthesis": true,
@@ -147,12 +172,45 @@
 		"functionTypeHaxe4Policy": "around",
 		"ifPolicy": "after",
 		"intervalPolicy": "none",
-		"objectClosingBracePolicy": "onlyAfter",
 		"objectFieldColonPolicy": "after",
-		"objectOpeningBracePolicy": "onlyBefore",
-		"openingBracePolicy": "before",
 		"openingBracketPolicy": "noneAfter",
-		"openingParenPolicy": "noneAfter",
+		"parenConfig": {
+			"anonFuncParamParens": {
+				"closingPolicy": "onlyAfter",
+				"openingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"callParens": {
+				"closingPolicy": "onlyAfter",
+				"openingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"conditionParens": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"expressionParens": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"forLoopParens": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "onlyAfter",
+				"removeInnerWhenEmpty": true
+			},
+			"funcParamParens": {
+				"closingPolicy": "onlyAfter",
+				"openingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"metadataParens": {
+				"closingPolicy": "onlyAfter",
+				"openingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			}
+		},
 		"semicolonPolicy": "onlyAfter",
 		"switchPolicy": "after",
 		"ternaryPolicy": "around",

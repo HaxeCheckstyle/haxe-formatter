@@ -1,6 +1,16 @@
 {
 	"whitespace": {
-		"openingParenPolicy": "before"
+		"parenConfig": {
+			"anonFuncParamParens": {
+				"openingPolicy": "before"
+			},
+			"funcParamParens": {
+				"openingPolicy": "before"
+			},
+			"callParens": {
+				"openingPolicy": "before"
+			}
+		}
 	}
 }
 
