@@ -10,8 +10,12 @@
 	"whitespace": {
 		"colonPolicy": "around",
 		"typeHintColonPolicy": "around",
-		"openingParenPolicy": "before",
-		"openingBracketPolicy": "before"
+		"openingBracketPolicy": "before",
+		"parenConfig": {
+			"funcParamParens": {
+				"openingPolicy": "before"
+			}
+		}
 	},
 	"sameLine": {
 		"catchBody": "next",

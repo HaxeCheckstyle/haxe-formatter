@@ -1,10 +1,17 @@
 {
-  "whitespace": {
-    "colonPolicy": "around",
-    "typeHintColonPolicy": "around",
-    "openingParenPolicy": "before",
-    "openingBracketPolicy": "before"
-  }
+	"whitespace": {
+		"colonPolicy": "around",
+		"typeHintColonPolicy": "around",
+		"parenConfig": {
+			"funcParamParens": {
+				"openingPolicy": "before"
+			},
+			"callParens": {
+				"openingPolicy": "before"
+			}
+		},
+		"openingBracketPolicy": "before"
+	}
 }
 
 
