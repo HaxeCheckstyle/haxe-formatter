@@ -20,18 +20,9 @@ class TestSuite extends massive.munit.TestSuite {
 			add(FormatStatsTest);
 		}
 
-		add(EmptyLinesTestCases);
-		add(IndentationTestCases);
-		add(LineEndsTestCases);
-		add(MissingTestCases);
-		add(Other);
-		add(SameLineTestCases);
-		add(WhitespaceTestCases);
-		add(WrappingTestCases);
-		// CompileTime.getAllClasses uses Context.onMacroContextReused which was removed from Haxe 4 (see https://github.com/HaxeFoundation/haxe/issues/5746)
-		// var tests = CompileTime.getAllClasses(GoldBaseTest);
-		// for (testClass in tests) {
-		// 	add(testClass);
-		// }
+		var tests = CompileTime.getAllClasses(GoldBaseTest);
+		for (testClass in tests) {
+			add(testClass);
+		}
 	}
 }
