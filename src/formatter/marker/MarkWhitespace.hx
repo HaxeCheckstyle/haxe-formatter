@@ -176,6 +176,8 @@ class MarkWhitespace extends MarkerBase {
 									policy = policy.add(After);
 								case PARAMETER:
 									policy = policy.add(After);
+								case FORLOOP:
+									policy = policy.add(After);
 								default:
 									policy = policy.remove(After);
 							}

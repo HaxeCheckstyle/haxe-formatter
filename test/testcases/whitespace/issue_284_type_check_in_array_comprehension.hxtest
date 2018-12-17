@@ -1,0 +1,18 @@
+{}
+
+
+---
+
+class Main {
+	public static function main() {
+		[for (i in 0...1) ("" : String).length];
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		[for (i in 0...1) ("" : String).length];
+	}
+}
