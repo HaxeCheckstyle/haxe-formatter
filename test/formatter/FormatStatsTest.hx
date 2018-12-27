@@ -3,7 +3,7 @@ package formatter;
 import massive.munit.Assert;
 import formatter.FormatStats;
 
-class FormatStatsTest {
+class FormatStatsTest implements ITestClass {
 	@Before
 	public function setup() {
 		FormatStats.reset();

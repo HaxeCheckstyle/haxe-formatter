@@ -7,7 +7,7 @@ import formatter.codedata.ParseFile;
 import sys.io.File;
 import sys.FileSystem;
 
-class SelfTest {
+class SelfTest implements ITestClass {
 	@Test
 	public function testSelfSrc() {
 		var files:Array<String> = collectAllFileNames("src");
