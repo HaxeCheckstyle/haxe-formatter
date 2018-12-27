@@ -17,8 +17,9 @@ log/
 target/
 callgrind.*
 debug/
-lcov/
+lcov.info
 lcovtest
+.unittest/**
 
 coverage.json
 deprecated/
