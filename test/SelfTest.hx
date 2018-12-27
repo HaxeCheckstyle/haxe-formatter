@@ -1,3 +1,4 @@
+import haxe.PosInfos;
 import haxe.io.Bytes;
 import haxe.io.Path;
 import massive.munit.Assert;
@@ -31,7 +32,7 @@ class SelfTest {
 		}
 	}
 
-	function checkFile(fileName:String) {
+	function checkFile(fileName:String, ?pos:PosInfos) {
 		var code:String = File.getContent(fileName);
 		var file:ParseFile = {name: fileName, content: Bytes.ofString(code)};
 		var formatter:Formatter = new Formatter();
@@ -41,7 +42,7 @@ class SelfTest {
 				if (code != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$code\n---\n$formattedCode');
 				}
-				Assert.areEqual(code, formattedCode, 'Format failed for $fileName');
+				Assert.areEqual(code, formattedCode, 'Format failed for $fileName', pos);
 			case Failure(errorMessage):
 				Assert.fail(errorMessage);
 			case Disabled:

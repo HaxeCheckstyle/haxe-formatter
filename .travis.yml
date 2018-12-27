@@ -10,9 +10,10 @@ install:
   - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
   - haxelib git hxargs https://github.com/Simn/hxargs --never
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
-  - haxelib git mcover https://github.com/AlexHaxe/mcover add_lcov_printclient src
+  - haxelib git mcover https://github.com/massiveinteractive/mcover src
   - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
   - haxelib git compiletime https://github.com/andyli/compiletime haxe4 src
+  - haxelib git haxe-test-adapter https://github.com/AlexHaxe/haxe-test-adapter
   - haxelib install json2object
   - haxelib install mlib
   - haxelib install mconsole

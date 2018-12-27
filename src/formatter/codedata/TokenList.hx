@@ -9,6 +9,8 @@ import formatter.config.WhitespacePolicy;
 import formatter.config.Config;
 
 class TokenList {
+	static inline var NEWLINE_TO_SPACE:String = "Newline -> Space";
+
 	public var tokens:Array<TokenInfo>;
 	public var leadingEmptyLInes:Int;
 
@@ -312,12 +314,12 @@ class TokenList {
 			case Newline:
 				if (info.spacesAfter <= 0) {
 					#if debugLog
-					logAction(pos, token, "Newline -> Space");
+					logAction(pos, token, NEWLINE_TO_SPACE);
 					#end
 					info.whitespaceAfter = None;
 				} else {
 					#if debugLog
-					logAction(pos, token, "Newline -> Space");
+					logAction(pos, token, NEWLINE_TO_SPACE);
 					#end
 					info.whitespaceAfter = Space;
 					shouldHaveOneSpaceAfter(info);
@@ -341,12 +343,12 @@ class TokenList {
 			case Newline:
 				if (info.spacesAfter <= 0) {
 					#if debugLog
-					logAction(pos, token, "Newline -> Space");
+					logAction(pos, token, NEWLINE_TO_SPACE);
 					#end
 					info.whitespaceAfter = None;
 				} else {
 					#if debugLog
-					logAction(pos, token, "Newline -> Space");
+					logAction(pos, token, NEWLINE_TO_SPACE);
 					#end
 					info.whitespaceAfter = Space;
 					shouldHaveOneSpaceAfter(info);

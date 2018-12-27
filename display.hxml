@@ -10,3 +10,4 @@
 -lib mcover
 -lib munit
 -lib compiletime
+-lib haxe-test-adapter
