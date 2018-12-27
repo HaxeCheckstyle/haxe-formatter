@@ -4,8 +4,8 @@ import formatter.config.WrapConfig;
 import formatter.marker.Indenter;
 
 class CodeLines {
-	static inline var formatterOff:String = " @formatter:off";
-	static inline var formatterOn:String = " @formatter:on";
+	static inline var FORMATTER_OFF:String = " @formatter:off";
+	static inline var FORMATTER_ON:String = " @formatter:on";
 
 	var indenter:Indenter;
 	var parsedCode:ParsedCode;
@@ -29,7 +29,7 @@ class CodeLines {
 				continue;
 			}
 			switch (tokenInfo.token.tok) {
-				case CommentLine(formatterOff):
+				case CommentLine(FORMATTER_OFF):
 					line = null;
 					index = skipFormatterOff(index);
 					continue;
@@ -57,7 +57,7 @@ class CodeLines {
 				continue;
 			}
 			switch (tokenInfo.token.tok) {
-				case CommentLine(formatterOn):
+				case CommentLine(FORMATTER_ON):
 					var endLine:Int = parsedCode.getLinePos(tokenInfo.token.pos.max).line;
 					copyVerbatim(startLine, endLine);
 					return index;

@@ -2,6 +2,7 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added haxe-test-adapter [#286](https://github.com/HaxeCheckstyle/haxe-formatter/issues/286)
 - Fixed whitespace of type check in array comprehension, fixes [#284](https://github.com/HaxeCheckstyle/haxe-formatter/issues/284) ([#285](https://github.com/HaxeCheckstyle/haxe-formatter/issues/285))
 
 ## version 1.3.0 (2018-12-05)
