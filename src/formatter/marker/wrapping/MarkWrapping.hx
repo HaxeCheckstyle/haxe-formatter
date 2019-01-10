@@ -54,6 +54,7 @@ class MarkWrapping extends MarkWrappingBase {
 
 		markMethodChaining();
 		markOpBoolChaining();
+		markImplementsExtendsChaining();
 	}
 
 	function wrapTypeParameter(token:TokenTree) {
@@ -506,23 +507,7 @@ class MarkWrapping extends MarkWrappingBase {
 					endToken = info.token;
 				}
 			}
-			var sameLine:Bool = isSameLineBetween(child, endToken, false);
-			var firstLineLength:Int = 0;
-			var lastLineLength:Int = 0;
-			if (sameLine) {
-				firstLineLength = calcLengthBetween(child, endToken);
-			} else {
-				firstLineLength = calcLengthUntilNewline(child);
-				lastLineLength = calcLineLengthBefore(endToken) + calcTokenLength(endToken);
-			}
-			var item:WrappableItem = {
-				first: child,
-				last: endToken,
-				multiline: !sameLine,
-				firstLineLength: firstLineLength,
-				lastLineLength: lastLineLength
-			}
-			items.push(item);
+			items.push(makeWrappableItem(child, endToken));
 		}
 		var rule:WrapRule = determineWrapType2(config.wrapping.methodChain, chainOpen, items);
 		applyRule(rule, chainOpen, null, items, rule.additionalIndent, false);
@@ -573,7 +558,7 @@ class MarkWrapping extends MarkWrappingBase {
 				}
 		}
 		var items:Array<WrappableItem> = [];
-		items.unshift(makeOpBoolItem(itemStart, itemEnd));
+		items.unshift(makeWrappableItem(itemStart, itemEnd));
 		itemStart = lastOpBool;
 		var parent:TokenTree = lastOpBool;
 		var chainOpen:TokenTree = null;
@@ -588,21 +573,21 @@ class MarkWrapping extends MarkWrappingBase {
 					}
 					itemEnd = itemStart;
 					itemStart = next.token;
-					items.unshift(makeOpBoolItem(itemStart, itemEnd));
+					items.unshift(makeWrappableItem(itemStart, itemEnd));
 					itemStart = parent;
 				default:
 					done = true;
 					chainOpen = parent.parent;
 					itemEnd = itemStart;
 					itemStart = parent;
-					items.unshift(makeOpBoolItem(itemStart, itemEnd));
+					items.unshift(makeWrappableItem(itemStart, itemEnd));
 			}
 		}
 		var rule:WrapRule = determineWrapType2(config.wrapping.opBoolChain, chainOpen, items);
 		applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
 	}
 
-	function makeOpBoolItem(start:TokenTree, end:TokenTree):WrappableItem {
+	function makeWrappableItem(start:TokenTree, end:TokenTree):WrappableItem {
 		var sameLine:Bool = isSameLineBetween(start, end, false);
 		var firstLineLength:Int = 0;
 		var lastLineLength:Int = 0;
@@ -618,6 +603,47 @@ class MarkWrapping extends MarkWrappingBase {
 			multiline: !sameLine,
 			firstLineLength: firstLineLength,
 			lastLineLength: lastLineLength
+		}
+	}
+
+	function markImplementsExtendsChaining() {
+		var classesAndInterfaces:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Kwd(KwdInterface), Kwd(KwdClass):
+					return FOUND_SKIP_SUBTREE;
+				case Kwd(KwdAbstract), Kwd(KwdEnum), Kwd(KwdTypedef):
+					return SKIP_SUBTREE;
+				default:
+					return GO_DEEPER;
+			}
+		});
+		for (type in classesAndInterfaces) {
+			var items:Array<WrappableItem> = [];
+			var impls:Array<TokenTree> = type.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+				switch (token.tok) {
+					case Kwd(KwdExtends), Kwd(KwdImplements):
+						return FOUND_SKIP_SUBTREE;
+					case Kwd(KwdFunction), Kwd(KwdVar):
+						return SKIP_SUBTREE;
+					default:
+						return GO_DEEPER;
+				}
+			});
+			for (impl in impls) {
+				var endToken:TokenTree = TokenTreeCheckUtils.getLastToken(impl);
+				items.push(makeWrappableItem(impl, endToken));
+			}
+			if (items.length <= 0) {
+				continue;
+			}
+			var chainOpen:TokenTree = items[0].first;
+			var prev:TokenInfo = getPreviousToken(items[0].first);
+			if (prev != null) {
+				chainOpen = prev.token;
+			}
+			var chainEnd:TokenTree = items[items.length - 1].last;
+			var rule:WrapRule = determineWrapType2(config.wrapping.implementsExtends, chainOpen, items);
+			applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
 		}
 	}
 }

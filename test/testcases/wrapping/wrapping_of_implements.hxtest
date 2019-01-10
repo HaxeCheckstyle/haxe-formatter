@@ -1,0 +1,24 @@
+{}
+
+---
+
+class Form extends Base implements IForm implements IForm1 implements IForm2 implements IForm3 implements IForm4 {}
+class Form extends LongBaseClass implements ILongFormInterface implements ILongFormInterface1 implements ILongFormInterface2 implements ILongFormInterface3 implements ILongFormInterface4 {}
+interface IForm implements IForm implements IForm1 implements IForm2 implements IForm3 implements IForm4 {}
+interface IForm implements ILongFormInterface implements ILongFormInterface1 implements ILongFormInterface2 implements ILongFormInterface3 implements ILongFormInterface4 {}
+class LongerName extends LongBaseClass implements ILongFormInterface implements ILongFormInterface1 implements ILongFormInterface2 implements ILongFormInterface3 {}
+
+---
+
+class Form extends Base implements IForm implements IForm1 implements IForm2 implements IForm3 implements IForm4 {}
+
+class Form extends LongBaseClass implements ILongFormInterface implements ILongFormInterface1 implements ILongFormInterface2 implements ILongFormInterface3
+		implements ILongFormInterface4 {}
+
+interface IForm implements IForm implements IForm1 implements IForm2 implements IForm3 implements IForm4 {}
+
+interface IForm implements ILongFormInterface implements ILongFormInterface1 implements ILongFormInterface2 implements ILongFormInterface3
+		implements ILongFormInterface4 {}
+
+class LongerName extends LongBaseClass implements ILongFormInterface implements ILongFormInterface1 implements ILongFormInterface2
+		implements ILongFormInterface3 {}

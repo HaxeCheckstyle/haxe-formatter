@@ -397,6 +397,31 @@
 				}
 			]
 		},
+		"implementsExtends": {
+			"defaultWrap": "noWrap",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "lineLength >= n",
+							"value": 140
+						}
+					],
+					"type": "fillLine",
+					"additionalIndent": 2
+				},
+				{
+					"conditions": [
+						{
+							"cond": "itemCount >= n",
+							"value": 4
+						}
+					],
+					"type": "fillLine",
+					"additionalIndent": 2
+				}
+			]
+		},
 		"maxLineLength": 160,
 		"methodChain": {
 			"defaultWrap": "noWrap",

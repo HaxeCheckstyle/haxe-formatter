@@ -202,7 +202,7 @@ class MarkWrappingBase extends MarkerBase {
 			return;
 		}
 		var indent:Int = indenter.calcIndent(open);
-		var lineLength:Int = calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent);
+		var lineLength:Int = calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent) + calcTokenLength(open);
 		var first:Bool = true;
 		for (item in items) {
 			var tokenLength:Int = item.firstLineLength;
