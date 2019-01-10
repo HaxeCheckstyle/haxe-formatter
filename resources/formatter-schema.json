@@ -735,6 +735,11 @@
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 5
 				},
+				"implementsExtends": {
+					"description": "implements / extends chain wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 10
+				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
 					"$ref": "#/definitions/WrapRules",
