@@ -6,7 +6,7 @@ import massive.munit.Assert;
 import formatter.codedata.ParseFile;
 import formatter.Formatter.Result;
 
-class GoldBaseTest implements ITestClass {
+class GoldBaseTest {
 	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?config:String, ?pos:PosInfos) {
 		var file:ParseFile = {name: fileName + ".hxtest", content: Bytes.ofString(unformatted), lineSeparator: lineSeparator};
 		var formatter:GoldFormatter = new GoldFormatter(config);
