@@ -384,10 +384,6 @@ class MarkLineEnds extends MarkerBase {
 					default:
 						return false;
 				}
-				var prev:TokenInfo = getPreviousToken(token);
-				if ((prev != null) && prev.token.is(Semicolon)) {
-					return false;
-				}
 				if (!isOnlyWhitespaceAfterToken(sharpEnd)) {
 					return true;
 				}

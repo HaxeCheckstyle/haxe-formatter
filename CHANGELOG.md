@@ -5,6 +5,7 @@
 - Added haxe-test-adapter [#286](https://github.com/HaxeCheckstyle/haxe-formatter/issues/286) + [#287](https://github.com/HaxeCheckstyle/haxe-formatter/issues/287) + [#289](https://github.com/HaxeCheckstyle/haxe-formatter/issues/289)
 - Added `wrapping.implementsExtends` [#288](https://github.com/HaxeCheckstyle/haxe-formatter/issues/288)
 - Fixed whitespace of type check in array comprehension, fixes [#284](https://github.com/HaxeCheckstyle/haxe-formatter/issues/284) ([#285](https://github.com/HaxeCheckstyle/haxe-formatter/issues/285))
+- Fixed conditional modifier handling, fixes [#291](https://github.com/HaxeCheckstyle/haxe-formatter/issues/291)
 
 ## version 1.3.0 (2018-12-05)
 

@@ -1,0 +1,30 @@
+{
+}
+
+---
+
+class Xml {
+	var nodeName:String = "";
+
+	#if !cppia inline #end function get_nodeName() {
+		return nodeName;
+	}
+
+	#if !cppia inline #end function set_nodeName(v) {
+		return this.nodeName = v;
+	}
+}
+
+---
+
+class Xml {
+	var nodeName:String = "";
+
+	#if !cppia inline #end function get_nodeName() {
+		return nodeName;
+	}
+
+	#if !cppia inline #end function set_nodeName(v) {
+		return this.nodeName = v;
+	}
+}
