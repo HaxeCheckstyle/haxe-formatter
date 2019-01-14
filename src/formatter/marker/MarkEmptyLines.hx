@@ -27,8 +27,10 @@ class MarkEmptyLines extends MarkerBase {
 		markTypedefs();
 		markSharp();
 		if (config.emptyLines.beforeDocCommentEmptyLines != Ignore) {
-			markComments();
+			markDocComments();
 		}
+		markMultilineComments();
+		markFileHeader();
 		if (config.emptyLines.beforeRightCurly == Remove) {
 			markRightCurly();
 		}
@@ -705,7 +707,7 @@ class MarkEmptyLines extends MarkerBase {
 		}
 	}
 
-	function markComments() {
+	function markDocComments() {
 		var comments:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(text):
@@ -768,6 +770,32 @@ class MarkEmptyLines extends MarkerBase {
 					emptyLinesBefore(effectiveToken, 0);
 				case One:
 					emptyLinesBefore(effectiveToken, 1);
+			}
+		}
+	}
+
+	function markMultilineComments() {
+		var comments:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Comment(text):
+					FOUND_SKIP_SUBTREE;
+				default:
+					GO_DEEPER;
+			}
+		});
+		for (comment in comments) {
+			var sibling:TokenTree = comment.nextSibling;
+			if (sibling == null) {
+				continue;
+			}
+			if (!isNewLineAfter(comment)) {
+				continue;
+			}
+			switch (sibling.tok) {
+				case Comment(s):
+					emptyLinesAfter(comment, config.emptyLines.betweenMultilineComments);
+				default:
+					continue;
 			}
 		}
 	}
@@ -849,6 +877,19 @@ class MarkEmptyLines extends MarkerBase {
 				}
 				tokenInf.emptyLinesAfter++;
 			}
+		}
+	}
+
+	function markFileHeader() {
+		var info:TokenInfo = getTokenAt(0);
+
+		if (info == null) {
+			return;
+		}
+		switch (info.token.tok) {
+			case Comment(s):
+				info.emptyLinesAfter = config.emptyLines.afterFileHeaderComment;
+			default:
 		}
 	}
 }

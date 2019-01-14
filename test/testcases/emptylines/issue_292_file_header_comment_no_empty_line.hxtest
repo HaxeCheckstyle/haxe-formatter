@@ -1,0 +1,25 @@
+{
+	"emptyLines": {
+		"afterFileHeaderComment": 0
+	}
+}
+
+---
+
+/*
+ * Copyright 2018 - etc.
+ */
+/**
+	Xml implementation.
+**/
+class Main {}
+
+---
+
+/*
+ * Copyright 2018 - etc.
+ */
+/**
+	Xml implementation.
+**/
+class Main {}

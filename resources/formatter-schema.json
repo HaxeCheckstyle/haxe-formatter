@@ -465,6 +465,11 @@
 					"type": "integer",
 					"propertyOrder": 3
 				},
+				"betweenMultilineComments": {
+					"description": "Adds empty lines between two consecutive multiline comments",
+					"type": "integer",
+					"propertyOrder": 22
+				},
 				"finalNewline": {
 					"description": "adds a final newline",
 					"type": "boolean",
@@ -552,6 +557,11 @@
 				"interfaceEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
 					"propertyOrder": 16
+				},
+				"afterFileHeaderComment": {
+					"description": "Adds empty lines when file starts with a multiline comment",
+					"type": "integer",
+					"propertyOrder": 21
 				}
 			},
 			"type": "object"

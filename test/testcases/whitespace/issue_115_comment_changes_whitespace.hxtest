@@ -2,6 +2,8 @@
 
 ---
 
+package;
+
 /* enum abstract PackageContentKind(Int) {
 	var Module;
 	var Package;
@@ -33,6 +35,8 @@
 */
 
 ---
+
+package;
 
 /* enum abstract PackageContentKind(Int) {
 	var Module;

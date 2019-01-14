@@ -67,6 +67,16 @@ typedef EmptyLinesConfig = {
 		"ignore" respects empty lines set via "betweenVars", "betweenFunctions", etc.
 	**/
 	@:default(One) @:optional var beforeDocCommentEmptyLines:CommentEmptyLinesPolicy;
+
+	/**
+		Adds empty lines when file starts with a multiline comment
+	**/
+	@:default(1) @:optional var afterFileHeaderComment:Int;
+
+	/**
+		Adds empty lines between two consecutive multiline comments
+	**/
+	@:default(0) @:optional var betweenMultilineComments:Int;
 }
 
 typedef ConditionalEmptyLinesConfig = {

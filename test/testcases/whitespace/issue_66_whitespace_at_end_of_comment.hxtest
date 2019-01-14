@@ -2,10 +2,13 @@
 
 ---
 
+package;
 /** Test */
 class Main {}
 
 ---
+
+package;
 
 /** Test */
 class Main {}
