@@ -1,0 +1,26 @@
+{
+	"indentation": {
+		"character": "    "
+	},
+	"whitespace" : {
+		"bracesConfig": {
+			"anonTypeBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "around",
+				"removeInnerWhenEmpty": false
+			}
+		}
+	}
+}
+
+---
+
+interface Test {
+    public function peer():{ host:Host };
+}
+
+---
+
+interface Test {
+    public function peer():{ host:Host };
+}

@@ -1,0 +1,114 @@
+{
+	"emptyLines": {
+		"maxAnywhereInFile": 2,
+		"afterLeftCurly": "keep"
+	},
+	"indentation": {
+		"character": "    "
+	},
+	"whitespace" : {
+		"bracesConfig": {
+			"blockBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "around",
+				"removeInnerWhenEmpty": false
+			},
+			"anonTypeBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "around",
+				"removeInnerWhenEmpty": false
+			},
+			"objectLiteralBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "around",
+				"removeInnerWhenEmpty": false
+			}
+		},
+		"classEmptyLines": {
+			"beginType": 1
+		}
+	}
+}
+
+---
+
+class UInt {
+
+    /** empty line at type beginning & keep grouped functions/vars declarations */
+    @:commutative @:op(A + B) private static function addI(lhs:UInt, rhs:Int):UInt;
+    @:commutative @:op(A + B) private static function addF(lhs:UInt, rhs:Float):Float;
+    @:op(A + B) private static function add(lhs:UInt, rhs:UInt):UInt;
+
+    @:commutative @:op(A * B) private static function mulI(lhs:UInt, rhs:Int):UInt;
+    @:commutative @:op(A * B) private static function mulF(lhs:UInt, rhs:Float):Float;
+    @:op(A * B) private static function mul(lhs:UInt, rhs:UInt):UInt;
+
+    var children:Array<Xml>;
+    var attributeMap:Map<String, String>;
+
+
+    // keep empty lines above
+    // space in { }
+    public function new() { }
+
+    // leading/trailing space in anon type
+    public function peer():{ host:Host, port:Int } {
+        var info = socket.peer();
+        var host:Host = Type.createEmptyInstance(Host);
+        host.init(info.ip);
+
+
+        // keep empty lines above
+        return { host: host, port: info.port };
+    }
+
+    // space in catch { }
+    public function request() {
+        try
+            sock.close()
+        catch(e:Dynamic) { };
+    }
+}
+
+---
+
+class UInt {
+
+    /** empty line at type beginning & keep grouped functions/vars declarations */
+    @:commutative @:op(A + B) private static function addI(lhs:UInt, rhs:Int):UInt;
+
+    @:commutative @:op(A + B) private static function addF(lhs:UInt, rhs:Float):Float;
+
+    @:op(A + B) private static function add(lhs:UInt, rhs:UInt):UInt;
+
+    @:commutative @:op(A * B) private static function mulI(lhs:UInt, rhs:Int):UInt;
+
+    @:commutative @:op(A * B) private static function mulF(lhs:UInt, rhs:Float):Float;
+
+    @:op(A * B) private static function mul(lhs:UInt, rhs:UInt):UInt;
+
+    var children:Array<Xml>;
+    var attributeMap:Map<String, String>;
+
+    // keep empty lines above
+    // space in { }
+    public function new() { }
+
+    // leading/trailing space in anon type
+    public function peer():{ host:Host, port:Int } {
+        var info = socket.peer();
+        var host:Host = Type.createEmptyInstance(Host);
+        host.init(info.ip);
+
+
+        // keep empty lines above
+        return { host: host, port: info.port };
+    }
+
+    // space in catch { }
+    public function request() {
+        try
+            sock.close()
+        catch (e:Dynamic) { };
+    }
+}
