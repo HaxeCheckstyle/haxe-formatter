@@ -7,7 +7,7 @@
 - Added `emptylines.afterFileHeaderComment`and `emptylines.betweenMultilineComments` fixes [#292](https://github.com/HaxeCheckstyle/haxe-formatter/issues/292) ([#296](https://github.com/HaxeCheckstyle/haxe-formatter/issues/296))
 - Fixed whitespace of type check in array comprehension, fixes [#284](https://github.com/HaxeCheckstyle/haxe-formatter/issues/284) ([#285](https://github.com/HaxeCheckstyle/haxe-formatter/issues/285))
 - Fixed conditional modifier handling, fixes [#291](https://github.com/HaxeCheckstyle/haxe-formatter/issues/291) ([#293](https://github.com/HaxeCheckstyle/haxe-formatter/issues/293))
-- Fixed whitespace after left curly in anon type hints
+- Fixed whitespace after left curly in anon type hints [#297](https://github.com/HaxeCheckstyle/haxe-formatter/issues/297)
 
 ## version 1.3.0 (2018-12-05)
 
