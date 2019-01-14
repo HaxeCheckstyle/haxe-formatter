@@ -2,6 +2,8 @@
 
 ---
 
+package;
+
 /**
 
 	```
@@ -33,6 +35,8 @@ class Test {
 
 
 ---
+
+package;
 
 /**
 

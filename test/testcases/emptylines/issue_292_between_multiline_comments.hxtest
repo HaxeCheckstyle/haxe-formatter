@@ -1,13 +1,11 @@
 {
-	"indentation": {
-		"character": "    "
-	}
 }
 
 ---
 
-package;
-
+/*
+ * Copyright 2018 - etc.
+ */
 /* enum abstract PackageContentKind(Int) {
 	var Module;
 	var Package;
@@ -37,32 +35,36 @@ package;
     var Module;
     var Package;
 */
+class Main {}
 
 ---
 
-package;
+/*
+ * Copyright 2018 - etc.
+ */
 
 /* enum abstract PackageContentKind(Int) {
-    var Module;
-    var Package;
+	var Module;
+	var Package;
 }*/
 /* enum abstract PackageContentKind(Int) {
-    var Module;
-    var Package;
+	var Module;
+	var Package;
 }*/
 /* enum abstract PackageContentKind(Int) {
-    var Module;
-    var Package;
+	var Module;
+	var Package;
  */
 /* enum abstract PackageContentKind(Int) {
-    var Module;
-    var Package;
+	var Module;
+	var Package;
  */
 /* enum abstract PackageContentKind(Int) {
-    var Module;
-    var Package;
+	var Module;
+	var Package;
  */
 /* enum abstract PackageContentKind(Int) {
-    var Module;
-    var Package;
+	var Module;
+	var Package;
  */
+class Main {}

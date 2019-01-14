@@ -15,6 +15,7 @@
 			"endType": 0
 		},
 		"afterBlocks": "remove",
+		"afterFileHeaderComment": 1,
 		"afterLeftCurly": "remove",
 		"afterPackage": 1,
 		"afterReturn": "remove",
@@ -22,6 +23,7 @@
 		"beforeDocCommentEmptyLines": "one",
 		"beforePackage": 0,
 		"beforeRightCurly": "remove",
+		"betweenMultilineComments": 0,
 		"betweenSingleLineTypes": 0,
 		"betweenTypes": 1,
 		"classEmptyLines": {
