@@ -197,7 +197,15 @@ class MarkWhitespace extends MarkerBase {
 						if (token.is(BrOpen)) {
 							return;
 						}
-					case DblDot, Arrow:
+					case DblDot:
+						switch (prev.whitespaceAfter) {
+							case None:
+								policy = policy.remove(Before);
+							case Space:
+								policy = policy.add(Before);
+							case Newline:
+						}
+					case Arrow:
 						return;
 					default:
 				}
