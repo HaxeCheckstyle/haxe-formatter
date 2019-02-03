@@ -45,7 +45,7 @@ class MarkSameLine extends MarkerBase {
 		});
 	}
 
-	function isExpression(token:TokenTree):Bool {
+	function isExpression(token:Null<TokenTree>):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -77,6 +77,7 @@ class MarkSameLine extends MarkerBase {
 				return isReturnExpression(parent);
 			default:
 		}
+
 		return false;
 	}
 
@@ -115,34 +116,36 @@ class MarkSameLine extends MarkerBase {
 		return false;
 	}
 
-	function shouldIfBeSameLine(token:TokenTree):Bool {
+	function shouldIfBeSameLine(token:Null<TokenTree>):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdIf))) {
 			return false;
 		}
-		var body:TokenTree = getBodyAfterCondition(token);
+		var body:Null<TokenTree> = getBodyAfterCondition(token);
 		if (body == null) {
 			return false;
 		}
 		if (!parsedCode.isOriginalSameLine(token, body)) {
 			return false;
 		}
+
 		return isExpression(token);
 	}
 
-	function shouldElseBeSameLine(token:TokenTree):Bool {
+	function shouldElseBeSameLine(token:Null<TokenTree>):Bool {
 		if (token == null) {
 			return false;
 		}
 		if (!token.is(Kwd(KwdElse))) {
 			return false;
 		}
+
 		return shouldIfBeSameLine(token.parent);
 	}
 
-	function shouldTryBeSameLine(token:TokenTree):Bool {
+	function shouldTryBeSameLine(token:Null<TokenTree>):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -152,7 +155,7 @@ class MarkSameLine extends MarkerBase {
 		return isExpression(token);
 	}
 
-	function shouldCatchBeSameLine(token:TokenTree):Bool {
+	function shouldCatchBeSameLine(token:Null<TokenTree>):Bool {
 		if (token == null) {
 			return false;
 		}
@@ -163,28 +166,52 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markIf(token:TokenTree) {
-		if (shouldIfBeSameLine(token) && config.sameLine.expressionIf == Same) {
-			markBodyAfterPOpen(token, Same, config.sameLine.expressionIfWithBlocks);
-			return;
+		if (shouldIfBeSameLine(token)) {
+			switch (config.sameLine.expressionIf) {
+				case Same:
+					markBodyAfterPOpen(token, Same, config.sameLine.expressionIfWithBlocks);
+					return;
+				case Keep:
+					markBodyAfterPOpen(token, Keep, config.sameLine.expressionIfWithBlocks);
+					return;
+				case Next:
+			}
 		}
 		markBodyAfterPOpen(token, config.sameLine.ifBody, false);
-		var prev:TokenInfo = getPreviousToken(token);
+		var prev:Null<TokenInfo> = getPreviousToken(token);
 		if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
 			applySameLinePolicy(token, config.sameLine.elseIf);
 		}
 	}
 
 	function markElse(token:TokenTree) {
-		if (shouldElseBeSameLine(token) && config.sameLine.expressionIf == Same) {
-			markBody(token, Same, config.sameLine.expressionIfWithBlocks);
-			var prev:TokenInfo = getPreviousToken(token);
-			if (prev == null) {
-				return;
+		if (shouldElseBeSameLine(token)) {
+			switch (config.sameLine.expressionIf) {
+				case Same:
+					markBody(token, Same, config.sameLine.expressionIfWithBlocks);
+					var prev:Null<TokenInfo> = getPreviousToken(token);
+					if (prev == null) {
+						return;
+					}
+					if (prev.token.is(BrClose)) {
+						applySameLinePolicyChained(token, config.sameLine.ifBody, config.sameLine.ifElse);
+					}
+					return;
+				case Keep:
+					markBody(token, Keep, config.sameLine.expressionIfWithBlocks);
+					if (parsedCode.isOriginalNewlineBefore(token)) {
+						lineEndBefore(token);
+					}
+					var prev:Null<TokenInfo> = getPreviousToken(token);
+					if (prev == null) {
+						return;
+					}
+					if (prev.token.is(BrClose)) {
+						applySameLinePolicyChained(token, Keep, Keep);
+					}
+					return;
+				case Next:
 			}
-			if (prev.token.is(BrClose)) {
-				applySameLinePolicyChained(token, config.sameLine.ifBody, config.sameLine.ifElse);
-			}
-			return;
 		}
 
 		markBody(token, config.sameLine.elseBody, false);
@@ -234,8 +261,8 @@ class MarkSameLine extends MarkerBase {
 			case Next:
 				return;
 		}
-		var first:TokenTree = dblDot.getFirstChild();
-		var last:TokenTree = TokenTreeCheckUtils.getLastToken(first);
+		var first:Null<TokenTree> = dblDot.getFirstChild();
+		var last:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(first);
 		if (parsedCode.linesBetweenOriginal(first, last) > 2) {
 			return;
 		}
@@ -257,10 +284,10 @@ class MarkSameLine extends MarkerBase {
 				return;
 		}
 		if (dblDot.children.length == 2) {
-			var second:TokenTree = dblDot.children[1];
+			var second:Null<TokenTree> = dblDot.children[1];
 			switch (second.tok) {
 				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(second);
+					var prev:Null<TokenInfo> = getPreviousToken(second);
 					if (prev != null) {
 						if (!parsedCode.isOriginalSameLine(dblDot, prev.token)) {
 							return;
@@ -280,7 +307,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return;
 		}
-		var parent:TokenTree = token.parent;
+		var parent:Null<TokenTree> = token.parent;
 		if ((parent == null) || (parent.tok == null)) {
 			return;
 		}
@@ -289,7 +316,7 @@ class MarkSameLine extends MarkerBase {
 				markArrayComprehension(token, parent);
 				return;
 			case Kwd(KwdMacro):
-				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
+				var lastToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
 					return;
 				}
@@ -306,7 +333,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return;
 		}
-		var parent:TokenTree = token.parent;
+		var parent:Null<TokenTree> = token.parent;
 		if ((parent == null) || (parent.tok == null)) {
 			return;
 		}
@@ -320,7 +347,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markArrayComprehension(token:TokenTree, bkOpen:TokenTree) {
-		var bkClose:TokenTree = bkOpen.access().firstOf(BkClose).token;
+		var bkClose:Null<TokenTree> = bkOpen.access().firstOf(BkClose).token;
 		switch (config.sameLine.comprehensionFor) {
 			case Keep:
 				if (parsedCode.isOriginalNewlineBefore(token)) {
@@ -348,8 +375,8 @@ class MarkSameLine extends MarkerBase {
 		}
 	}
 
-	function getBodyAfterCondition(token:TokenTree):TokenTree {
-		var body:TokenTree = token.access().firstOf(POpen).nextSibling().token;
+	function getBodyAfterCondition(token:TokenTree):Null<TokenTree> {
+		var body:Null<TokenTree> = token.access().firstOf(POpen).nextSibling().token;
 		if (body != null) {
 			return body;
 		}
@@ -372,7 +399,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markBodyAfterPOpen(token:TokenTree, policy:SameLinePolicy, includeBrOpen:Bool) {
-		var body:TokenTree = getBodyAfterCondition(token);
+		var body:Null<TokenTree> = getBodyAfterCondition(token);
 		while (body != null) {
 			switch (body.tok) {
 				case BrOpen:
@@ -391,7 +418,7 @@ class MarkSameLine extends MarkerBase {
 					}
 					body = body.nextSibling;
 				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(body);
+					var prev:Null<TokenInfo> = getPreviousToken(body);
 					if (prev != null) {
 						if (!parsedCode.isOriginalSameLine(body, prev.token)) {
 							applySameLinePolicy(body, policy);
@@ -411,7 +438,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markBody(token:TokenTree, policy:SameLinePolicy, includeBrOpen:Bool) {
-		var body:TokenTree = token.access().firstChild().token;
+		var body:Null<TokenTree> = token.access().firstChild().token;
 		if (body == null) {
 			return;
 		}
@@ -445,7 +472,7 @@ class MarkSameLine extends MarkerBase {
 			return;
 		}
 
-		var lastChild:TokenTree = token.getLastChild();
+		var lastChild:Null<TokenTree> = token.getLastChild();
 		if (lastChild.is(Semicolon)) {
 			if (token.children.length > 3) {
 				return;
@@ -459,7 +486,7 @@ class MarkSameLine extends MarkerBase {
 		for (child in token.children) {
 			switch (child.tok) {
 				case BrClose:
-					var next:TokenInfo = getNextToken(child);
+					var next:Null<TokenInfo> = getNextToken(child);
 					switch (next.token.tok) {
 						case Kwd(KwdElse):
 							noLineEndAfter(child);
@@ -484,7 +511,7 @@ class MarkSameLine extends MarkerBase {
 
 	function applySameLinePolicyChained(token:TokenTree, previousBlockPolicy:SameLinePolicy, policy:SameLinePolicy) {
 		if (policy == Same) {
-			var prev:TokenInfo = getPreviousToken(token);
+			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev == null) {
 				policy = Next;
 			}
@@ -505,7 +532,7 @@ class MarkSameLine extends MarkerBase {
 				}
 			case Same:
 				wrapBefore(token, true);
-				var prev:TokenInfo = getPreviousToken(token);
+				var prev:Null<TokenInfo> = getPreviousToken(token);
 				if (prev == null) {
 					noLineEndBefore(token);
 				} else {
@@ -516,11 +543,11 @@ class MarkSameLine extends MarkerBase {
 							noLineEndBefore(token);
 					}
 				}
-				var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(token);
+				var lastToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
 					return;
 				}
-				var next:TokenInfo = getNextToken(lastToken);
+				var next:Null<TokenInfo> = getNextToken(lastToken);
 				if (next == null) {
 					return;
 				}
@@ -545,7 +572,7 @@ class MarkSameLine extends MarkerBase {
 			}
 		});
 		for (token in tokens) {
-			var brOpen:TokenTree = token.access().firstChild().is(BrOpen).token;
+			var brOpen:Null<TokenTree> = token.access().firstChild().is(BrOpen).token;
 			if (brOpen == null) {
 				continue;
 			}
@@ -554,7 +581,7 @@ class MarkSameLine extends MarkerBase {
 				continue;
 			}
 			whitespace(brOpen, None);
-			var next:TokenInfo = getNextToken(brClose);
+			var next:Null<TokenInfo> = getNextToken(brClose);
 			if (next != null) {
 				switch (next.token.tok) {
 					case BrClose:
@@ -577,7 +604,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markFunction(token:TokenTree) {
-		var body:TokenTree = token.access().firstChild().isCIdent().token;
+		var body:Null<TokenTree> = token.access().firstChild().isCIdent().token;
 		if (body == null) {
 			body = token.access().firstChild().is(Kwd(KwdNew)).token;
 		}
@@ -619,7 +646,7 @@ class MarkSameLine extends MarkerBase {
 
 	function markDoWhile(token:TokenTree) {
 		markBody(token, config.sameLine.doWhileBody, false);
-		var whileTok:TokenTree = token.access().firstOf(Kwd(KwdWhile)).token;
+		var whileTok:Null<TokenTree> = token.access().firstOf(Kwd(KwdWhile)).token;
 		if (whileTok == null) {
 			return;
 		}
@@ -627,7 +654,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markMacro(token:TokenTree) {
-		var brOpen:TokenInfo = getNextToken(token);
+		var brOpen:Null<TokenInfo> = getNextToken(token);
 		if ((brOpen == null) || (!brOpen.token.is(BrOpen))) {
 			return;
 		}

@@ -1,0 +1,38 @@
+{
+}
+
+---
+
+@:jsonParse(function() return null)
+class Car {
+	var speed:Int;
+}
+
+@:jsonParse(function(json) return new Car(json.speed, json.make))
+class Car {
+	public var speed(default, null):Int;
+	public var make(default, null):String;
+
+	public function new(speed:Int, make:String) {
+		this.speed = speed;
+		this.make = make;
+	}
+}
+
+---
+
+@:jsonParse(function() return null)
+class Car {
+	var speed:Int;
+}
+
+@:jsonParse(function(json) return new Car(json.speed, json.make))
+class Car {
+	public var speed(default, null):Int;
+	public var make(default, null):String;
+
+	public function new(speed:Int, make:String) {
+		this.speed = speed;
+		this.make = make;
+	}
+}

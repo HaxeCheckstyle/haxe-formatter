@@ -4,7 +4,9 @@
 -lib json2object
 -lib hxargs
 -lib compiletime
+-lib safety
 
 -cp src
 
 -main formatter.Cli
+# --macro nullSafety('formatter')

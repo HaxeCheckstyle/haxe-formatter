@@ -5,7 +5,7 @@ import formatter.marker.Indenter;
 
 class CodeLine {
 	var parts:Array<CodePart>;
-	var currentPart:CodePart;
+	var currentPart:Null<CodePart>;
 
 	public var indent:Int;
 	public var emptyLinesAfter:Int;
@@ -31,7 +31,7 @@ class CodeLine {
 				firstLineLength: -1,
 				lastLineLength: -1
 			};
-			parts.push(currentPart);
+			parts.push(currentPart.unsafe());
 		}
 		currentPart.lastToken = tokenInfo.token;
 		if ((tokenInfo.whitespaceAfter == Space) && (tokenInfo.spacesAfter > 0)) {

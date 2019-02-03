@@ -37,7 +37,7 @@ class MarkLineEnds extends MarkerBase {
 		for (token in commentTokens) {
 			switch (token.tok) {
 				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(token);
+					var prev:Null<TokenInfo> = getPreviousToken(token);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
 							noLineEndBefore(token);
@@ -45,7 +45,7 @@ class MarkLineEnds extends MarkerBase {
 					}
 					lineEndAfter(token);
 				case Comment(_):
-					var prev:TokenInfo = getPreviousToken(token);
+					var prev:Null<TokenInfo> = getPreviousToken(token);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
 							if (prev.whitespaceAfter == Newline) {
@@ -76,11 +76,11 @@ class MarkLineEnds extends MarkerBase {
 		});
 
 		for (brOpen in brTokens) {
-			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			var brClose:Null<TokenTree> = brOpen.access().firstOf(BrClose).token;
 			if (brClose == null) {
 				continue;
 			}
-			var prev:TokenInfo = getPreviousToken(brOpen);
+			var prev:Null<TokenInfo> = getPreviousToken(brOpen);
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case Dollar(name):
@@ -105,7 +105,7 @@ class MarkLineEnds extends MarkerBase {
 					default:
 				}
 			}
-			var next:TokenInfo = getNextToken(brOpen);
+			var next:Null<TokenInfo> = getNextToken(brOpen);
 			var isEmpty:Bool = false;
 			if ((next != null) && next.token.is(BrClose) && (config.lineEnds.emptyCurly == NoBreak)) {
 				isEmpty = true;
@@ -145,7 +145,7 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function beforeLeftCurly(token:TokenTree) {
-		var prevToken:TokenInfo = getPreviousToken(token);
+		var prevToken:Null<TokenInfo> = getPreviousToken(token);
 		if (prevToken == null) {
 			return;
 		}
@@ -162,7 +162,7 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function beforeRightCurly(token:TokenTree) {
-		var prevToken:TokenInfo = getPreviousToken(token);
+		var prevToken:Null<TokenInfo> = getPreviousToken(token);
 		if (prevToken == null) {
 			return;
 		}
@@ -181,7 +181,7 @@ class MarkLineEnds extends MarkerBase {
 			lineEndAfter(token);
 			return;
 		}
-		var nextToken:TokenInfo = getTokenAt(next);
+		var nextToken:Null<TokenInfo> = getTokenAt(next);
 		if (nextToken == null) {
 			lineEndAfter(token);
 			return;
@@ -202,7 +202,7 @@ class MarkLineEnds extends MarkerBase {
 		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], ALL);
 		for (token in atTokens) {
 			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token);
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
+			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
@@ -214,7 +214,7 @@ class MarkLineEnds extends MarkerBase {
 				// only look at first metadata
 				continue;
 			}
-			var next:TokenTree = token.nextSibling;
+			var next:Null<TokenTree> = token.nextSibling;
 			var metadata:Array<TokenTree> = [token];
 			while ((next != null) && (next.is(At))) {
 				metadata.push(next);
@@ -227,7 +227,7 @@ class MarkLineEnds extends MarkerBase {
 				}
 				switch (metadataPolicy) {
 					case None:
-						var next:TokenInfo = getNextToken(lastChild);
+						var next:Null<TokenInfo> = getNextToken(lastChild);
 						if ((next != null) && (!parsedCode.isOriginalSameLine(lastChild, next.token))) {
 							lineEndAfter(lastChild);
 							continue;
@@ -236,7 +236,7 @@ class MarkLineEnds extends MarkerBase {
 					case After:
 						lineEndAfter(lastChild);
 					case AfterLast:
-						var next:TokenInfo = getNextToken(lastChild);
+						var next:Null<TokenInfo> = getNextToken(lastChild);
 						if ((next != null) && (!parsedCode.isOriginalSameLine(lastChild, next.token))) {
 							lineEndAfter(lastChild);
 							continue;
@@ -291,7 +291,7 @@ class MarkLineEnds extends MarkerBase {
 			if (config.lineEnds.caseColon != None) {
 				lineEndAfter(token);
 			}
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token);
+			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
@@ -337,7 +337,7 @@ class MarkLineEnds extends MarkerBase {
 				case Sharp(SHARP_END):
 					if (isInlineSharp(token)) {
 						noLineEndBefore(token);
-						var next:TokenInfo = getNextToken(token);
+						var next:Null<TokenInfo> = getNextToken(token);
 						if (next != null) {
 							switch (next.token.tok) {
 								case Comma, Semicolon:
@@ -390,7 +390,7 @@ class MarkLineEnds extends MarkerBase {
 				if (!isOnlyWhitespaceBeforeToken(token)) {
 					return true;
 				}
-				var prev:TokenInfo = getPreviousToken(token);
+				var prev:Null<TokenInfo> = getPreviousToken(token);
 				if (prev == null) {
 					return !isOnlyWhitespaceBeforeToken(token);
 				}
@@ -430,8 +430,8 @@ class MarkLineEnds extends MarkerBase {
 		return (~/^\s*$/.match(prefix));
 	}
 
-	function findTypedefBrOpen(token:TokenTree):TokenTree {
-		var assign:TokenTree = token.access().firstChild().isCIdent().firstOf(Binop(OpAssign)).token;
+	function findTypedefBrOpen(token:TokenTree):Null<TokenTree> {
+		var assign:Null<TokenTree> = token.access().firstChild().isCIdent().firstOf(Binop(OpAssign)).token;
 		if (assign == null) {
 			return null;
 		}
@@ -442,21 +442,21 @@ class MarkLineEnds extends MarkerBase {
 		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
 		for (token in typedefTokens) {
 			markAfterTypedef(token);
-			var brOpen:TokenTree = findTypedefBrOpen(token);
+			var brOpen:Null<TokenTree> = findTypedefBrOpen(token);
 			if (brOpen == null) {
 				continue;
 			}
 			if ((brOpen.children == null) || (brOpen.children.length <= 0)) {
 				continue;
 			}
-			var assignParent:TokenTree = brOpen.parent;
+			var assignParent:Null<TokenTree> = brOpen.parent;
 			if (assignParent.children.length > 1) {
 				for (child in assignParent.children) {
 					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 					if (lastChild == null) {
 						continue;
 					}
-					var next:TokenInfo = getNextToken(lastChild);
+					var next:Null<TokenInfo> = getNextToken(lastChild);
 					if (next == null) {
 						continue;
 					}
@@ -490,7 +490,7 @@ class MarkLineEnds extends MarkerBase {
 						}
 						lineEndAfter(lastChild);
 					case BrClose:
-						var next:TokenInfo = getNextToken(child);
+						var next:Null<TokenInfo> = getNextToken(child);
 						if (next == null) {
 							continue;
 						}
@@ -511,7 +511,7 @@ class MarkLineEnds extends MarkerBase {
 		if (lastChild == null) {
 			return;
 		}
-		var next:TokenInfo = getNextToken(lastChild);
+		var next:Null<TokenInfo> = getNextToken(lastChild);
 		if ((next != null) && next.token.is(Semicolon)) {
 			whitespace(lastChild, NoneAfter);
 			return;

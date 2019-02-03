@@ -6,6 +6,7 @@ typedef IndentationConfig = {
 		"fixedZero" = all conditional statements should start in column 1
 		"aligned" = conditional statements share indentation of surrounding code
 		"alignedIncrease" = same as "aligned" but will increase indent by +1 for enclosed code
+		"alignedDecrease" = same as "aligned" but will decrease indent by -1 for enclosed code
 	**/
 	@:default(Aligned) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
 

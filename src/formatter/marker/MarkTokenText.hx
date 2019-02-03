@@ -26,7 +26,7 @@ class MarkTokenText extends MarkerBase {
 		});
 	}
 
-	public function finalRun(lines:CodeLines) {
+	public function finalRun() {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Comment(text):
@@ -194,7 +194,7 @@ class MarkTokenText extends MarkerBase {
 
 	function removeCommentPrefix(lines:Array<String>):Array<String> {
 		var prefixReg:EReg = ~/^(\s*)/;
-		var prefix:String = null;
+		var prefix:Null<String> = null;
 		var linesNew:Array<String> = [];
 		var endIndex:Int = lines.length - 1;
 		var lastLine:String = lines[lines.length - 1];

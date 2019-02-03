@@ -28,25 +28,18 @@ class Config {
 	}
 
 	public function readConfigFromString(jsonContent:String, fileName:String) {
-		try {
-			var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
-			var data:FormatterConfig = parser.fromJson(jsonContent, fileName);
-			emptyLines = data.emptyLines;
-			indentation = data.indentation;
-			lineEnds = data.lineEnds;
-			sameLine = data.sameLine;
-			whitespace = data.whitespace;
-			wrapping = data.wrapping;
-			disableFormatting = data.disableFormatting;
-			excludes = [];
-			for (exclude in data.excludes) {
-				excludes.push(new EReg(exclude, ""));
-			}
-		} catch (e:Any) {
-			// disable formatting rather than using an incorrect format
-			disableFormatting = true;
-			trace(e);
-			Sys.println(CallStack.toString(CallStack.callStack()));
+		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
+		var data:FormatterConfig = parser.fromJson(jsonContent, fileName);
+		emptyLines = data.emptyLines;
+		indentation = data.indentation;
+		lineEnds = data.lineEnds;
+		sameLine = data.sameLine;
+		whitespace = data.whitespace;
+		wrapping = data.wrapping;
+		disableFormatting = data.disableFormatting;
+		excludes = [];
+		for (exclude in data.excludes) {
+			excludes.push(new EReg(exclude, ""));
 		}
 	}
 

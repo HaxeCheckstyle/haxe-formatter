@@ -31,8 +31,12 @@ class Formatter {
 			var config:Config = loadConfig(file.name);
 			return formatFileWithConfig(file, config, tokenData);
 		} catch (e:Any) {
+			#if debug
 			var callstack = CallStack.toString(CallStack.exceptionStack());
 			return Failure(e + "\n" + callstack + "\n\n");
+			#else
+			return Failure(e);
+			#end
 		}
 	}
 
@@ -66,7 +70,7 @@ class Formatter {
 			markWrapping.run();
 			markEmptyLines.run();
 
-			markTokenText.finalRun(null);
+			markTokenText.finalRun();
 
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			lines.applyWrapping(config.wrapping);
@@ -83,7 +87,7 @@ class Formatter {
 
 	function loadConfig(fileName:String):Config {
 		var config:Config = new Config();
-		var configFileName:String = determineFormatterConfig(fileName);
+		var configFileName:Null<String> = determineFormatterConfig(fileName);
 		if (configFileName == null) {
 			return config;
 		}

@@ -33,7 +33,9 @@ class Cli {
 		#end
 
 		if (Sys.getEnv("HAXELIB_RUN") == "1") {
-			Sys.setCwd(args.pop());
+			if (args.length > 0) {
+				Sys.setCwd(args.pop().unsafe());
+			}
 		}
 
 		var paths = [];
@@ -167,7 +169,7 @@ class Cli {
 					}
 				case Failure(errorMessage):
 					FormatStats.incFailed();
-					Sys.stderr().writeString('Failed to format $path: $errorMessage');
+					Sys.stderr().writeString('Failed to format $path: $errorMessage\n');
 					exitCode = 1;
 				case Disabled:
 					FormatStats.incDisabled();

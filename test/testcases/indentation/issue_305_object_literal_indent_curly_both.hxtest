@@ -1,0 +1,37 @@
+{
+	"indentation": {
+		"indentObjectLiteral": true
+	},
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+}
+
+---
+
+class Main {
+	public function new (){
+		var mockFunc:Function =
+		{
+			expr: macro [],
+			ret: ret.toComplexType(),
+			args: arg.map(function (a) return ((
+				{name: a.name, type: a.t.toComplexType()}):FunctionArg))
+		}
+	}
+}
+
+---
+
+class Main
+{
+	public function new()
+	{
+		var mockFunc:Function =
+			{
+				expr: macro [],
+				ret: ret.toComplexType(),
+				args: arg.map(function(a) return (({name: a.name, type: a.t.toComplexType()}):FunctionArg))
+			}
+	}
+}

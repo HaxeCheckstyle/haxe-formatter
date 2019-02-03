@@ -11,7 +11,7 @@ import formatter.config.Config;
 class TokenList {
 	static inline var NEWLINE_TO_SPACE:String = "Newline -> Space";
 
-	public var tokens:Array<TokenInfo>;
+	public var tokens:Array<Null<TokenInfo>>;
 	public var leadingEmptyLInes:Int;
 
 	public function new() {
@@ -54,7 +54,7 @@ class TokenList {
 		}
 	}
 
-	public function getTokenAt(index:Int):TokenInfo {
+	public function getTokenAt(index:Int):Null<TokenInfo> {
 		if (tokens.length <= index) {
 			return null;
 		}
@@ -64,11 +64,11 @@ class TokenList {
 		return tokens[index];
 	}
 
-	public function getPreviousToken(token:TokenTree):TokenInfo {
+	public function getPreviousToken(token:TokenTree):Null<TokenInfo> {
 		if ((token == null) || (token.index <= 0)) {
 			return null;
 		}
-		var prevToken:TokenInfo = null;
+		var prevToken:Null<TokenInfo> = null;
 		var prevIndex:Int = token.index - 1;
 		if (prevIndex >= tokens.length) {
 			return null;
@@ -82,11 +82,11 @@ class TokenList {
 		return prevToken;
 	}
 
-	public function getNextToken(token:TokenTree):TokenInfo {
+	public function getNextToken(token:TokenTree):Null<TokenInfo> {
 		if ((token == null) || (token.index <= 0)) {
 			return null;
 		}
-		var nextToken:TokenInfo = null;
+		var nextToken:Null<TokenInfo> = null;
 		var nextIndex:Int = token.index + 1;
 		if (nextIndex >= tokens.length) {
 			return null;
@@ -104,11 +104,11 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
-		var prev:TokenInfo = null;
+		var prev:Null<TokenInfo> = null;
 		var prevIndex:Int = token.index - 1;
 		while (prev == null) {
 			if (prevIndex < 0) {
@@ -146,7 +146,7 @@ class TokenList {
 		}
 	}
 
-	function applyWhitespace(info:TokenInfo, policy:WhitespaceAfterType, ?pos:PosInfos) {
+	function applyWhitespace(info:Null<TokenInfo>, policy:WhitespaceAfterType, ?pos:PosInfos) {
 		if (info == null) {
 			return;
 		}
@@ -206,7 +206,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -223,7 +223,7 @@ class TokenList {
 	}
 
 	public function spacesBefore(token:TokenTree, count:Int, ?pos:PosInfos) {
-		var info:TokenInfo = getPreviousToken(token);
+		var info:Null<TokenInfo> = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
@@ -243,7 +243,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -264,7 +264,7 @@ class TokenList {
 	}
 
 	public function lineEndBefore(token:TokenTree, ?pos:PosInfos) {
-		var info:TokenInfo = getPreviousToken(token);
+		var info:Null<TokenInfo> = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
@@ -299,7 +299,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -328,7 +328,7 @@ class TokenList {
 	}
 
 	public function noLineEndBefore(token:TokenTree, ?pos:PosInfos) {
-		var info:TokenInfo = getPreviousToken(token);
+		var info:Null<TokenInfo> = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
@@ -360,7 +360,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -378,7 +378,7 @@ class TokenList {
 			leadingEmptyLInes = count;
 			return;
 		}
-		var info:TokenInfo = getPreviousToken(token);
+		var info:Null<TokenInfo> = getPreviousToken(token);
 		if (info == null) {
 			return;
 		}
@@ -393,7 +393,7 @@ class TokenList {
 		if (lastToken == null) {
 			return;
 		}
-		var info:TokenInfo = tokens[lastToken.index];
+		var info:Null<TokenInfo> = tokens[lastToken.index];
 		if (info == null) {
 			return;
 		}
@@ -407,7 +407,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -418,7 +418,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -429,7 +429,7 @@ class TokenList {
 	}
 
 	public function wrapBefore(token:TokenTree, wrap:Bool, ?pos:PosInfos) {
-		var prev:TokenInfo = getPreviousToken(token);
+		var prev:Null<TokenInfo> = getPreviousToken(token);
 		if (prev == null) {
 			return;
 		}
@@ -446,8 +446,8 @@ class TokenList {
 		var index = tokenStart.index;
 		while (index < tokenEnd.index) {
 			var first:Bool = index == tokenStart.index;
-			var info:TokenInfo = tokens[index++];
-			var next:TokenInfo = tokens[index];
+			var info:Null<TokenInfo> = tokens[index++];
+			var next:Null<TokenInfo> = tokens[index];
 			if (info == null) {
 				continue;
 			}
@@ -533,7 +533,7 @@ class TokenList {
 		if (token.index < 0) {
 			return;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
@@ -543,8 +543,8 @@ class TokenList {
 		info.additionalIndent = indent;
 	}
 
-	public function findTokenAtOffset(offset:Int):TokenInfo {
-		var lastInfo:TokenInfo = null;
+	public function findTokenAtOffset(offset:Int):Null<TokenInfo> {
+		var lastInfo:Null<TokenInfo> = null;
 
 		for (info in tokens) {
 			if (info == null) {
@@ -573,7 +573,7 @@ class TokenList {
 			endIndex = first.index;
 		}
 		while (startIndex < endIndex) {
-			var currTok:TokenInfo = tokens[startIndex++];
+			var currTok:Null<TokenInfo> = tokens[startIndex++];
 			if (currTok == null) {
 				continue;
 			}
@@ -591,7 +591,7 @@ class TokenList {
 		if (token.index < 0) {
 			return 0;
 		}
-		var current:TokenInfo = tokens[token.index];
+		var current:Null<TokenInfo> = tokens[token.index];
 		if (current == null) {
 			return 0;
 		}
@@ -619,7 +619,7 @@ class TokenList {
 		if (token.index < 0) {
 			return 0;
 		}
-		var current:TokenInfo = tokens[token.index];
+		var current:Null<TokenInfo> = tokens[token.index];
 		if (current == null) {
 			return 0;
 		}
@@ -638,7 +638,7 @@ class TokenList {
 			return length;
 		}
 		for (child in token.children) {
-			var current:TokenInfo = tokens[child.index];
+			var current:Null<TokenInfo> = tokens[child.index];
 			if ((current != null) && (current.whitespaceAfter == Newline)) {
 				break;
 			}
@@ -656,7 +656,7 @@ class TokenList {
 		}
 		var length:Int = 0;
 		for (index in tokenStart.index...tokenEnd.index) {
-			var current:TokenInfo = tokens[index];
+			var current:Null<TokenInfo> = tokens[index];
 			if (current == null) {
 				continue;
 			}
@@ -683,7 +683,7 @@ class TokenList {
 			if (start < 0) {
 				break;
 			}
-			var info:TokenInfo = tokens[start--];
+			var info:Null<TokenInfo> = tokens[start--];
 			if (info == null) {
 				continue;
 			}
@@ -697,7 +697,7 @@ class TokenList {
 			if (start >= tokens.length) {
 				break;
 			}
-			var info:TokenInfo = tokens[start++];
+			var info:Null<TokenInfo> = tokens[start++];
 			if (info == null) {
 				continue;
 			}
@@ -726,7 +726,7 @@ class TokenList {
 			if (start < 0) {
 				break;
 			}
-			var info:TokenInfo = tokens[start--];
+			var info:Null<TokenInfo> = tokens[start--];
 			if (info == null) {
 				continue;
 			}
@@ -755,7 +755,7 @@ class TokenList {
 			if (start >= tokens.length) {
 				break;
 			}
-			var info:TokenInfo = tokens[start++];
+			var info:Null<TokenInfo> = tokens[start++];
 			if (info == null) {
 				continue;
 			}
@@ -778,7 +778,7 @@ class TokenList {
 		if (token.index < 0) {
 			return 0;
 		}
-		var info:TokenInfo = tokens[token.index];
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return 0;
 		}
@@ -793,7 +793,7 @@ class TokenList {
 	}
 
 	public function isNewLineBefore(token:TokenTree):Bool {
-		var info:TokenInfo = getPreviousToken(token);
+		var info:Null<TokenInfo> = getPreviousToken(token);
 		if (info == null) {
 			return false;
 		}
@@ -801,7 +801,7 @@ class TokenList {
 	}
 
 	public function isNewLineAfter(token:TokenTree):Bool {
-		var info:TokenInfo = getTokenAt(token.index);
+		var info:Null<TokenInfo> = getTokenAt(token.index);
 		if (info == null) {
 			return false;
 		}
@@ -818,7 +818,7 @@ class TokenList {
 			start++;
 		}
 		for (index in start...end) {
-			var info:TokenInfo = tokens[index];
+			var info:Null<TokenInfo> = tokens[index];
 			if (info == null) {
 				continue;
 			}

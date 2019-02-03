@@ -1,0 +1,48 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+}
+
+---
+
+typedef Point2D = {
+	x:Int,
+	y:Int
+	};
+typedef Point3D = {x:Int, y:Int, z:Int};
+
+class A {
+	var a:{x:Int, y:Int, z:Int};
+	var a:{
+		x:Int,
+		y:Int,
+		z:Int
+	};
+}
+
+---
+
+typedef Point2D =
+{
+	x:Int,
+	y:Int
+};
+
+typedef Point3D =
+{
+	x:Int,
+	y:Int,
+	z:Int
+};
+
+class A
+{
+	var a:{x:Int, y:Int, z:Int};
+	var a:
+		{
+			x:Int,
+			y:Int,
+			z:Int
+		};
+}
