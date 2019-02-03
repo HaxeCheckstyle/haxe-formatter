@@ -534,7 +534,10 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	function applyRule(rule:WrapRule, open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int, useTrailing:Bool) {
-		var location:WrappingLocation = rule.location.or(AfterLast);
+		var location:WrappingLocation = AfterLast;
+		if (rule.location != null) {
+			location = rule.location;
+		}
 		switch (rule.type) {
 			case OnePerLine:
 				wrapChildOneLineEach2(open, close, items, addIndent, location);

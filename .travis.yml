@@ -17,7 +17,6 @@ install:
   - haxelib install json2object
   - haxelib install mlib
   - haxelib install mconsole
-  - haxelib install safety
 
 script:
   - haxe buildAll.hxml

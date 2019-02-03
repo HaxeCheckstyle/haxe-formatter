@@ -34,7 +34,7 @@ class Cli {
 
 		if (Sys.getEnv("HAXELIB_RUN") == "1") {
 			if (args.length > 0) {
-				Sys.setCwd(args.pop().unsafe());
+				Sys.setCwd(args.pop());
 			}
 		}
 

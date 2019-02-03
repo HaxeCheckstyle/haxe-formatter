@@ -9,7 +9,7 @@
 -lib mcover
 -lib munit
 -lib compiletime
--lib safety
+# -lib safety
 -lib haxe-test-adapter
 
 # -D debugLog

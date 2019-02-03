@@ -31,7 +31,7 @@ class CodeLine {
 				firstLineLength: -1,
 				lastLineLength: -1
 			};
-			parts.push(currentPart.unsafe());
+			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;
 		if ((tokenInfo.whitespaceAfter == Space) && (tokenInfo.spacesAfter > 0)) {

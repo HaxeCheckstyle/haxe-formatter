@@ -3,7 +3,7 @@
 -lib hxparse
 -lib json2object
 -lib hxargs
--lib safety
+# -lib safety
 
 -cp src
 -cp schema
