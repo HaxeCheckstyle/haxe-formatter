@@ -5,7 +5,7 @@ import formatter.marker.Indenter;
 
 class CodeLine {
 	var parts:Array<CodePart>;
-	var currentPart:CodePart;
+	var currentPart:Null<CodePart>;
 
 	public var indent:Int;
 	public var emptyLinesAfter:Int;

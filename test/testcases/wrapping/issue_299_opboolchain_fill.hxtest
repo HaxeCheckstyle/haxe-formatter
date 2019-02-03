@@ -1,0 +1,44 @@
+{
+	"wrapping": {
+		"maxLineLength": 160,
+		"opBoolChain": {
+			"defaultWrap": "fillLine",
+			"defaultLocation": "beforeLast"
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return INSECURE_PORT == 10
+			&& SECURE_PORT == 20
+			&& INSECURE_PORT == 10
+			&& SECURE_PORT == 20
+			&& INSECURE_PORT == 10
+			&& SECURE_PORT == 20
+			&& INSECURE_PORT == 10
+			&& SECURE_PORT == 20;
+		return
+		INSECURE_PORT == 10
+			&& SECURE_PORT == 20
+			&& INSECURE_PORT == 10
+			&& SECURE_PORT == 20
+			&& INSECURE_PORT == 10
+			&& SECURE_PORT == 20
+			&& INSECURE_PORT == 10
+			&& SECURE_PORT == 20;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return INSECURE_PORT == 10 && SECURE_PORT == 20 && INSECURE_PORT == 10 && SECURE_PORT == 20 && INSECURE_PORT == 10 && SECURE_PORT == 20
+			&& INSECURE_PORT == 10 && SECURE_PORT == 20;
+		return INSECURE_PORT == 10 && SECURE_PORT == 20 && INSECURE_PORT == 10 && SECURE_PORT == 20 && INSECURE_PORT == 10 && SECURE_PORT == 20
+			&& INSECURE_PORT == 10 && SECURE_PORT == 20;
+	}
+}

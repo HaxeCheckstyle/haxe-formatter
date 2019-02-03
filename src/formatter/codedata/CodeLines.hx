@@ -20,7 +20,7 @@ class CodeLines {
 	}
 
 	function buildLines() {
-		var line:CodeLine = null;
+		var line:Null<CodeLine> = null;
 		var index:Int = 0;
 		while (index < parsedCode.tokenList.tokens.length) {
 			var tokenInfo:TokenInfo = parsedCode.tokenList.getTokenAt(index);

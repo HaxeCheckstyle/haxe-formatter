@@ -17,19 +17,19 @@ class MarkerBase {
 		this.indenter = indenter;
 	}
 
-	function getNextToken(token:TokenTree):TokenInfo {
+	function getNextToken(token:TokenTree):Null<TokenInfo> {
 		return parsedCode.tokenList.getNextToken(token);
 	}
 
-	function getPreviousToken(token:TokenTree):TokenInfo {
+	function getPreviousToken(token:TokenTree):Null<TokenInfo> {
 		return parsedCode.tokenList.getPreviousToken(token);
 	}
 
-	function getTokenInfo(token:TokenTree):TokenInfo {
+	function getTokenInfo(token:TokenTree):Null<TokenInfo> {
 		return parsedCode.tokenList.getTokenAt(token.index);
 	}
 
-	function getTokenAt(index:Int):TokenInfo {
+	function getTokenAt(index:Int):Null<TokenInfo> {
 		return parsedCode.tokenList.getTokenAt(index);
 	}
 
@@ -93,7 +93,7 @@ class MarkerBase {
 		parsedCode.tokenList.additionalIndent(token, indent, pos);
 	}
 
-	public function findTokenAtOffset(offset:Int):TokenInfo {
+	public function findTokenAtOffset(offset:Int):Null<TokenInfo> {
 		return parsedCode.tokenList.findTokenAtOffset(offset);
 	}
 

@@ -4,7 +4,7 @@ import formatter.config.WrapConfig;
 
 class MarkWrappingBase extends MarkerBase {
 	public function noWrap(open:TokenTree, close:TokenTree) {
-		var colon:TokenTree = open.access().is(BrOpen).parent().is(DblDot).token;
+		var colon:Null<TokenTree> = open.access().is(BrOpen).parent().is(DblDot).token;
 		if (colon != null) {
 			var type:ColonType = TokenTreeCheckUtils.getColonType(colon);
 			switch (type) {
@@ -29,7 +29,7 @@ class MarkWrappingBase extends MarkerBase {
 					continue;
 				default:
 			}
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
 			if (lastChild == null) {
 				continue;
 			} else {
@@ -43,9 +43,20 @@ class MarkWrappingBase extends MarkerBase {
 		noLineEndBefore(close);
 	}
 
-	public function keep2(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int) {
+	public function keep2(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int, location:WrappingLocation) {
 		noWrappingBetween(open, close);
-		var tokens:Array<TokenTree> = [for (item in items) item.first];
+		var tokens:Array<TokenTree> = [];
+		switch (location) {
+			case BeforeLast:
+				tokens = [for (item in items) item.last];
+				tokens.pop();
+				if (items.length > 0) {
+					tokens.unshift(items[0].first);
+				}
+			case AfterLast:
+				tokens = [for (item in items) item.first];
+		}
+
 		tokens.push(close);
 		for (token in tokens) {
 			if (parsedCode.isOriginalNewlineBefore(token)) {
@@ -84,13 +95,27 @@ class MarkWrappingBase extends MarkerBase {
 		}
 	}
 
-	public function wrapChildOneLineEach2(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int = 0, keepFirst:Bool = false) {
+	public function wrapChildOneLineEach2(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int = 0, location:WrappingLocation,
+			keepFirst:Bool = false) {
 		if (items.length <= 0) {
 			return;
 		}
-		for (item in items) {
-			additionalIndent(item.first, addIndent);
-			lineEndBefore(item.first);
+		switch (location) {
+			case BeforeLast:
+				var item:WrappableItem = items[0];
+				additionalIndent(item.first, addIndent);
+				lineEndBefore(item.first);
+				item = items.pop();
+				for (item in items) {
+					additionalIndent(item.last, addIndent);
+					lineEndBefore(item.last);
+				}
+				items.push(item);
+			case AfterLast:
+				for (item in items) {
+					additionalIndent(item.first, addIndent);
+					lineEndBefore(item.first);
+				}
 		}
 		if (keepFirst) {
 			noLineEndAfter(open);
@@ -122,7 +147,7 @@ class MarkWrappingBase extends MarkerBase {
 				case Sharp(_):
 					wrapChildOneLineEachSharp(child, addIndent, keepFirst);
 				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(child);
+					var prev:Null<TokenInfo> = getPreviousToken(child);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(child, prev.token)) {
 							noLineEndBefore(child);
@@ -134,7 +159,7 @@ class MarkWrappingBase extends MarkerBase {
 				default:
 					additionalIndent(child, addIndent);
 			}
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
 			if (lastChild == null) {
 				lineEndAfter(child);
 			} else {
@@ -180,7 +205,7 @@ class MarkWrappingBase extends MarkerBase {
 				case Sharp(_):
 					wrapChildOneLineEachSharp(child, addIndent, keepFirst);
 				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(child);
+					var prev:Null<TokenInfo> = getPreviousToken(child);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(child, prev.token)) {
 							noLineEndBefore(child);
@@ -195,7 +220,7 @@ class MarkWrappingBase extends MarkerBase {
 		}
 	}
 
-	public function wrapFillLine2(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
+	public function wrapFillLine2AfterLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
 			useTrailing:Bool = false) {
 		noWrappingBetween(open, close);
 		if (items.length <= 0) {
@@ -237,6 +262,60 @@ class MarkWrappingBase extends MarkerBase {
 		wrapAfter(open, false);
 	}
 
+	public function wrapFillLine2BeforeLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
+			useTrailing:Bool = false) {
+		noWrappingBetween(open, close);
+		if (items.length <= 0) {
+			return;
+		}
+		var indent:Int = indenter.calcIndent(open);
+		var lineLength:Int = calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent) + calcTokenLength(open);
+		var first:Bool = true;
+		for (item in items) {
+			var tokenLength:Int = item.firstLineLength;
+			if (!first && (lineLength + tokenLength >= maxLineLength)) {
+				lineLength = indenter.calcAbsoluteIndent(indent + 1 + addIndent);
+				var prev:TokenInfo = getPreviousToken(item.first);
+				if (prev != null) {
+					lineEndBefore(prev.token);
+					additionalIndent(prev.token, addIndent);
+					lineLength += prev.text.length;
+				}
+				if (item.multiline) {
+					lineLength += item.lastLineLength;
+				} else {
+					lineLength += item.firstLineLength;
+				}
+				continue;
+			} else {
+				if (first) {
+					noLineEndBefore(item.first);
+				} else {
+					var prev:TokenInfo = getPreviousToken(item.first);
+					if (prev != null) {
+						noLineEndBefore(prev.token);
+					}
+				}
+				lineLength += tokenLength;
+				first = false;
+				if (item.multiline) {
+					lineLength = indenter.calcAbsoluteIndent(indent + 1 + addIndent) + item.lastLineLength;
+				}
+			}
+		}
+		if (useTrailing) {
+			var lastItem:WrappableItem = items[items.length - 1];
+			var lengthAfter:Int = calcLineLengthAfter(lastItem.last);
+			var prev:TokenInfo = getPreviousToken(lastItem.first);
+			if ((prev != null) && (lineLength + lengthAfter >= maxLineLength)) {
+				lineEndBefore(prev.token);
+				additionalIndent(prev.token, addIndent);
+			}
+		}
+		noLineEndAfter(open);
+		wrapAfter(open, false);
+	}
+
 	public function wrapFillLine(open:TokenTree, close:TokenTree, maxLineLength:Int, addIndent:Int = 0, useTrailing:Bool = false) {
 		noWrappingBetween(open, close);
 		var indent:Int = indenter.calcIndent(open);
@@ -263,7 +342,7 @@ class MarkWrappingBase extends MarkerBase {
 					whitespace(child, NoneBefore);
 					return;
 				case CommentLine(_):
-					var prev:TokenInfo = getPreviousToken(child);
+					var prev:Null<TokenInfo> = getPreviousToken(child);
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(child, prev.token)) {
 							noLineEndBefore(child);
@@ -280,7 +359,7 @@ class MarkWrappingBase extends MarkerBase {
 					additionalIndent(child, addIndent);
 			}
 			var tokenLength:Int = calcLength(child);
-			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
 			if (lastChild == null) {
 				lastChild = child;
 			}
@@ -306,7 +385,7 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	function hasEmptyFunctionBody(token:TokenTree):Bool {
-		var last:TokenTree = token.getLastChild();
+		var last:Null<TokenTree> = token.getLastChild();
 		switch (last.tok) {
 			case Semicolon:
 				return true;
@@ -329,7 +408,7 @@ class MarkWrappingBase extends MarkerBase {
 			case Semicolon:
 				return true;
 			case BrOpen:
-				var brClose:TokenTree = body.getFirstChild();
+				var brClose:Null<TokenTree> = body.getFirstChild();
 				if (brClose == null) {
 					return false;
 				}
@@ -347,7 +426,7 @@ class MarkWrappingBase extends MarkerBase {
 					return items;
 				default:
 			}
-			var endToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+			var endToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
 			var sameLine:Bool = isSameLineBetween(child, endToken, false);
 			var firstLineLength:Int = calcLengthUntilNewline(child);
 			var lastLineLength:Int = 0;
@@ -371,6 +450,7 @@ class MarkWrappingBase extends MarkerBase {
 			return {
 				conditions: [],
 				type: rules.defaultWrap,
+				location: rules.defaultLocation,
 				additionalIndent: rules.defaultAdditionalIndent
 			};
 		}
@@ -394,6 +474,7 @@ class MarkWrappingBase extends MarkerBase {
 		return {
 			conditions: [],
 			type: rules.defaultWrap,
+			location: rules.defaultLocation,
 			additionalIndent: rules.defaultAdditionalIndent
 		};
 	}
@@ -407,6 +488,7 @@ class MarkWrappingBase extends MarkerBase {
 		return {
 			conditions: [],
 			type: rules.defaultWrap,
+			location: rules.defaultLocation,
 			additionalIndent: rules.defaultAdditionalIndent
 		};
 	}
@@ -452,16 +534,25 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	function applyRule(rule:WrapRule, open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int, useTrailing:Bool) {
+		var location:WrappingLocation = AfterLast;
+		if (rule.location != null) {
+			location = rule.location;
+		}
 		switch (rule.type) {
 			case OnePerLine:
-				wrapChildOneLineEach2(open, close, items, addIndent);
+				wrapChildOneLineEach2(open, close, items, addIndent, location);
 			case OnePerLineAfterFirst:
-				wrapChildOneLineEach2(open, close, items, addIndent, true);
+				wrapChildOneLineEach2(open, close, items, addIndent, location, true);
 			case Keep:
-				keep2(open, close, items, addIndent);
+				keep2(open, close, items, addIndent, location);
 			case EqualNumber:
 			case FillLine:
-				wrapFillLine2(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
+				switch (location) {
+					case AfterLast:
+						wrapFillLine2AfterLast(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
+					case BeforeLast:
+						wrapFillLine2BeforeLast(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
+				}
 			case NoWrap:
 				noWrappingBetween(open, close);
 		}

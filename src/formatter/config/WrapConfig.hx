@@ -265,6 +265,11 @@ typedef WrapRules = {
 	@:default(NoWrap) @:optional var defaultWrap:WrappingType;
 
 	/**
+		default wrapping location before / after last token
+	**/
+	@:default(AfterLast) @:optional var defaultLocation:WrappingLocation;
+
+	/**
 		adds indentation to all wrapped lines when applying defaultWrap
 	**/
 	@:default(0) @:optional var defaultAdditionalIndent:Int;
@@ -283,6 +288,11 @@ typedef WrapRule = {
 	var type:WrappingType;
 
 	/**
+		default wrapping location before / after last token
+	**/
+	@:default(AfterLast) @:optional var location:WrappingLocation;
+
+	/**
 		adds indentation to all wrapped lines
 	**/
 	@:default(0) @:optional var additionalIndent:Int;
@@ -296,6 +306,12 @@ abstract WrappingType(String) {
 	var FillLine = "fillLine";
 	var NoWrap = "noWrap";
 	var Keep = "keep";
+}
+
+@:enum
+abstract WrappingLocation(String) {
+	var BeforeLast = "beforeLast";
+	var AfterLast = "afterLast";
 }
 
 typedef WrapCondition = {

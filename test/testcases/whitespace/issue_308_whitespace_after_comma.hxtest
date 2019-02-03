@@ -1,0 +1,18 @@
+{}
+
+
+---
+
+class Main {
+	public static function main() {
+		foo(a, (b, c) -> d);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		foo(a, (b, c) -> d);
+	}
+}

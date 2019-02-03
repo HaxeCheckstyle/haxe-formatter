@@ -77,16 +77,16 @@ class MarkWhitespace extends MarkerBase {
 				case Const(CIdent(MarkEmptyLines.FINAL)):
 					whitespace(token, After);
 				case Const(CIdent("is")):
-					var parent:TokenTree = token.access().parent().is(POpen).token;
+					var parent:Null<TokenTree> = token.access().parent().is(POpen).token;
 					if (parent != null) {
-						var prev:TokenInfo = getPreviousToken(parent);
+						var prev:Null<TokenInfo> = getPreviousToken(parent);
 						if ((prev != null) && (prev.token.is(POpen))) {
 							whitespace(token, Around);
 						}
 					}
 					fixConstAfterConst(token);
 				case Const(CIdent("from")), Const(CIdent("to")):
-					var parent:TokenTree = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
+					var parent:Null<TokenTree> = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
 					if (parent != null) {
 						whitespace(token, Around);
 					}
@@ -112,7 +112,7 @@ class MarkWhitespace extends MarkerBase {
 		}
 		if (TokenTreeCheckUtils.isTypeParameter(token)) {
 			var policy:WhitespacePolicy = config.whitespace.typeParamClosePolicy;
-			var next:TokenInfo = getNextToken(token);
+			var next:Null<TokenInfo> = getNextToken(token);
 			if (next != null) {
 				switch (next.token.tok) {
 					case Kwd(_):
@@ -131,7 +131,7 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function fixConstAfterConst(token:TokenTree) {
-		var next:TokenInfo = getNextToken(token);
+		var next:Null<TokenInfo> = getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
 				case Const(_), Kwd(_):
@@ -142,7 +142,7 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	public function successiveParenthesis(token:TokenTree, closing:Bool, policy:WhitespacePolicy, compress:Bool) {
-		var next:TokenInfo = getNextToken(token);
+		var next:Null<TokenInfo> = getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
 				case Dot, Comma, DblDot, Semicolon:
@@ -188,7 +188,7 @@ class MarkWhitespace extends MarkerBase {
 				}
 			}
 		} else {
-			var prev:TokenInfo = getPreviousToken(token);
+			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case POpen, BrOpen, BkOpen:
@@ -207,6 +207,12 @@ class MarkWhitespace extends MarkerBase {
 						}
 					case Arrow:
 						return;
+					case Comma:
+						switch (config.whitespace.commaPolicy) {
+							case After, OnlyAfter, Around:
+								policy = policy.add(Before);
+							default:
+						}
 					default:
 				}
 			}
@@ -215,7 +221,7 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function markKeyword(token:TokenTree) {
-		var prev:TokenInfo = getPreviousToken(token);
+		var prev:Null<TokenInfo> = getPreviousToken(token);
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case PClose:
@@ -229,7 +235,7 @@ class MarkWhitespace extends MarkerBase {
 		}
 		switch (token.tok) {
 			case Kwd(KwdNull), Kwd(KwdTrue), Kwd(KwdFalse), Kwd(KwdThis), Kwd(KwdDefault), Kwd(KwdContinue):
-				var next:TokenInfo = getNextToken(token);
+				var next:Null<TokenInfo> = getNextToken(token);
 				if (next != null) {
 					switch (next.token.tok) {
 						case Kwd(_):
@@ -267,7 +273,7 @@ class MarkWhitespace extends MarkerBase {
 			case Kwd(KwdUntyped):
 				whitespace(token, After);
 			case Kwd(_):
-				var next:TokenInfo = getNextToken(token);
+				var next:Null<TokenInfo> = getNextToken(token);
 				if (next != null) {
 					switch (next.token.tok) {
 						case POpen:
@@ -283,7 +289,7 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function markUnop(token:TokenTree) {
-		var next:TokenInfo = getNextToken(token);
+		var next:Null<TokenInfo> = getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
 				case Comma, Semicolon:
@@ -293,7 +299,7 @@ class MarkWhitespace extends MarkerBase {
 				default:
 			}
 		}
-		var prev:TokenInfo = getPreviousToken(token);
+		var prev:Null<TokenInfo> = getPreviousToken(token);
 		if (prev == null) {
 			return;
 		}
@@ -305,7 +311,7 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function markDollar(token:TokenTree) {
-		var next:TokenInfo = getNextToken(token);
+		var next:Null<TokenInfo> = getNextToken(token);
 		if (next == null) {
 			return;
 		}
@@ -339,7 +345,7 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function markSemicolon(token:TokenTree) {
-		var next:TokenInfo = getNextToken(token);
+		var next:Null<TokenInfo> = getNextToken(token);
 		var policy:WhitespacePolicy = config.whitespace.semicolonPolicy;
 		if (next != null) {
 			switch (next.token.tok) {
@@ -355,7 +361,7 @@ class MarkWhitespace extends MarkerBase {
 		switch (token.tok) {
 			case Sharp(MarkLineEnds.SHARP_IF):
 				whitespace(token, After);
-				var prev:TokenInfo = getPreviousToken(token);
+				var prev:Null<TokenInfo> = getPreviousToken(token);
 				if (prev != null) {
 					switch (prev.token.tok) {
 						case Const(_), Kwd(_):
@@ -368,7 +374,7 @@ class MarkWhitespace extends MarkerBase {
 			case Sharp(MarkLineEnds.SHARP_ELSE):
 				whitespace(token, Around);
 			case Sharp(MarkLineEnds.SHARP_END):
-				var prev:TokenInfo = getPreviousToken(token);
+				var prev:Null<TokenInfo> = getPreviousToken(token);
 				if (prev != null) {
 					switch (prev.token.tok) {
 						case POpen, BrOpen, BkOpen:
@@ -376,7 +382,7 @@ class MarkWhitespace extends MarkerBase {
 							whitespace(token, Before);
 					}
 				}
-				var next:TokenInfo = getNextToken(token);
+				var next:Null<TokenInfo> = getNextToken(token);
 				if (next != null) {
 					switch (next.token.tok) {
 						case Comma, Semicolon:
@@ -431,7 +437,7 @@ class MarkWhitespace extends MarkerBase {
 	function markPOpen(token:TokenTree) {
 		var openClosePolicy:OpenClosePolicy = determinePOpenPolicy(token);
 		var policy:WhitespacePolicy = openClosePolicy.openingPolicy;
-		var prev:TokenInfo = getPreviousToken(token);
+		var prev:Null<TokenInfo> = getPreviousToken(token);
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case Unop(_):
@@ -444,7 +450,7 @@ class MarkWhitespace extends MarkerBase {
 			}
 		}
 		if (openClosePolicy.removeInnerWhenEmpty) {
-			var next:TokenInfo = getNextToken(token);
+			var next:Null<TokenInfo> = getNextToken(token);
 			if (next != null) {
 				switch (next.token.tok) {
 					case PClose:
@@ -460,7 +466,7 @@ class MarkWhitespace extends MarkerBase {
 		var openClosePolicy:OpenClosePolicy = determinePOpenPolicy(token.parent);
 		var policy:WhitespacePolicy = openClosePolicy.closingPolicy;
 		if (openClosePolicy.removeInnerWhenEmpty) {
-			var prev:TokenInfo = getPreviousToken(token);
+			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case POpen:
@@ -493,7 +499,7 @@ class MarkWhitespace extends MarkerBase {
 		var openClosePolicy:OpenClosePolicy = determineBrOpenPolicy(token);
 		var policy:WhitespacePolicy = openClosePolicy.openingPolicy;
 		if (openClosePolicy.removeInnerWhenEmpty) {
-			var next:TokenInfo = getNextToken(token);
+			var next:Null<TokenInfo> = getNextToken(token);
 			if (next != null) {
 				switch (next.token.tok) {
 					case BrClose:
@@ -509,7 +515,7 @@ class MarkWhitespace extends MarkerBase {
 		var openClosePolicy:OpenClosePolicy = determineBrOpenPolicy(token.parent);
 		var policy:WhitespacePolicy = openClosePolicy.closingPolicy;
 		if (openClosePolicy.removeInnerWhenEmpty) {
-			var prev:TokenInfo = getPreviousToken(token);
+			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case BrOpen:
@@ -523,7 +529,7 @@ class MarkWhitespace extends MarkerBase {
 
 	function markComment(token:TokenTree) {
 		var policy:WhitespacePolicy = Around;
-		var next:TokenInfo = getNextToken(token);
+		var next:Null<TokenInfo> = getNextToken(token);
 		if (next == null) {
 			whitespace(token, policy);
 			return;

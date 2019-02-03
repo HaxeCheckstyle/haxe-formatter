@@ -9,7 +9,7 @@ import formatter.config.IndentationConfig;
 
 class Indenter {
 	var config:IndentationConfig;
-	var parsedCode:ParsedCode;
+	var parsedCode:Null<ParsedCode>;
 
 	public function new(config:IndentationConfig) {
 		this.config = config;
@@ -112,7 +112,7 @@ class Indenter {
 			case PClose:
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdIf):
-				var prev:TokenInfo = parsedCode.tokenList.getPreviousToken(token);
+				var prev:Null<TokenInfo> = parsedCode.tokenList.getPreviousToken(token);
 				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
@@ -150,7 +150,7 @@ class Indenter {
 					default:
 				}
 			case CommentLine(_):
-				var next:TokenInfo = parsedCode.tokenList.getNextToken(token);
+				var next:Null<TokenInfo> = parsedCode.tokenList.getNextToken(token);
 				if (next == null) {
 					return token;
 				}
@@ -170,10 +170,10 @@ class Indenter {
 
 	function countLineBreaks(indentingTokensCandidates:Array<TokenTree>):Int {
 		var count:Int = 0;
-		var prevToken:TokenTree = null;
-		var currentToken:TokenTree = null;
+		var prevToken:Null<TokenTree> = null;
+		var currentToken:Null<TokenTree> = null;
 		var mustIndent:Bool;
-		var lastIndentingToken:TokenTree = null;
+		var lastIndentingToken:Null<TokenTree> = null;
 		for (token in indentingTokensCandidates) {
 			prevToken = currentToken;
 			if (prevToken == null) {
@@ -242,6 +242,16 @@ class Indenter {
 							if (currentToken.access().parent().parent().is(Kwd(KwdTypedef)).exists()) {
 								continue;
 							}
+							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
+							switch (type) {
+								case OBJECTDECL:
+									var brClose:TokenTree = prevToken.access().firstOf(BrClose).token;
+									if ((brClose != null) && (!parsedCode.tokenList.isSameLine(prevToken, brClose)) && !config.indentObjectLiteral) {
+										continue;
+									}
+								default:
+									// continue;
+							}
 						default:
 					}
 				case DblDot:
@@ -307,14 +317,14 @@ class Indenter {
 
 	function findIndentingCandidates(token:TokenTree):Array<TokenTree> {
 		var indentingTokensCandidates:Array<TokenTree> = [];
-		var lastIndentingToken:TokenTree = null;
+		var lastIndentingToken:Null<TokenTree> = null;
 		switch (token.tok) {
 			case Dot:
 				lastIndentingToken = token;
 			default:
 		}
 		indentingTokensCandidates.push(token);
-		var parent:TokenTree = token;
+		var parent:Null<TokenTree> = token;
 		while ((parent.parent != null) && (parent.parent.tok != null)) {
 			parent = parent.parent;
 			if (parent.pos.min > token.pos.min) {
@@ -353,7 +363,7 @@ class Indenter {
 				if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
 					return true;
 				}
-				var info:TokenInfo = parsedCode.tokenList.getTokenAt(token.index);
+				var info:Null<TokenInfo> = parsedCode.tokenList.getTokenAt(token.index);
 				if (info == null) {
 					return false;
 				}

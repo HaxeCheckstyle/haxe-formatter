@@ -1,0 +1,38 @@
+{
+  "indentation": {
+    "conditionalPolicy": "alignedIncrease"
+  }
+}
+
+---
+
+#if cs
+#error 'should be indented if using indentation.conditionalPolicy = "alignedDecrease"'
+#end
+class Main {
+#if cs
+#error 'should be indented if using indentation.conditionalPolicy = "alignedDecrease"'
+#end
+	public function new (){
+		#if cs
+#error 'should be indented if using indentation.conditionalPolicy = "alignedDecrease"'
+#end
+
+	}
+}
+
+---
+
+#if cs
+	#error 'should be indented if using indentation.conditionalPolicy = "alignedDecrease"'
+#end
+class Main {
+	#if cs
+		#error 'should be indented if using indentation.conditionalPolicy = "alignedDecrease"'
+	#end
+	public function new() {
+		#if cs
+			#error 'should be indented if using indentation.conditionalPolicy = "alignedDecrease"'
+		#end
+	}
+}

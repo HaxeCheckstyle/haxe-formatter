@@ -1,0 +1,24 @@
+{
+	"sameLine": {
+		"expressionIf": "next"
+	}
+}
+
+---
+
+class Main {
+	public function new (){
+		var a = if (true) 10;	else 20;
+	}
+}
+
+---
+
+class Main {
+	public function new() {
+		var a = if (true)
+			10;
+		else
+			20;
+	}
+}
