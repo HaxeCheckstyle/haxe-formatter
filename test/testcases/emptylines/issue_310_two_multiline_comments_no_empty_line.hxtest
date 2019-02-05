@@ -1,0 +1,58 @@
+{
+	"emptyLines": {
+		"afterFileHeaderComment": 0,
+		"betweenMultilineComments": 1
+	}
+}
+
+---
+
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+interface IMarker {
+	/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+
+}
+
+---
+
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+interface IMarker {
+	/*
+	 * Copyright (C)2005-2018 Haxe Foundation
+	 *
+	 * etc
+	 */
+
+	/*
+	 * Copyright (C)2005-2018 Haxe Foundation
+	 *
+	 * etc
+	 */
+}
