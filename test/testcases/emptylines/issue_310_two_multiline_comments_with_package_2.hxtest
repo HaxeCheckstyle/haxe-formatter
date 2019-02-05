@@ -1,0 +1,40 @@
+{
+	"emptyLines": {
+		"afterFileHeaderComment": 1,
+		"betweenMultilineComments": 1
+	}
+}
+
+---
+
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+
+using Safety;
+ /*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+interface IMarker {
+}
+
+---
+
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+
+using Safety;
+
+/*
+ * Copyright (C)2005-2018 Haxe Foundation
+ *
+ * etc
+ */
+interface IMarker {}

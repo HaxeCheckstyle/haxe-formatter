@@ -901,12 +901,21 @@ class MarkEmptyLines extends MarkerBase {
 
 	function markFileHeader() {
 		var info:Null<TokenInfo> = getTokenAt(0);
+		var info2:Null<TokenInfo> = getTokenAt(1);
+		var packagesAndImports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage), Kwd(KwdImport), Kwd(KwdUsing)], ALL);
 
 		if (info == null) {
 			return;
 		}
 		switch (info.token.tok) {
 			case Comment(s):
+				if (packagesAndImports.length == 0) {
+					switch (info2.token.tok) {
+						case Comment(s):
+						default:
+							return;
+					}
+				}
 				info.emptyLinesAfter = config.emptyLines.afterFileHeaderComment;
 			default:
 		}
