@@ -558,6 +558,13 @@ class MarkSameLine extends MarkerBase {
 				}
 				return;
 			case Next:
+				switch (token.tok) {
+					case CommentLine(s):
+						if (!parsedCode.isOriginalNewlineBefore(token)) {
+							return;
+						}
+					default:
+				}
 				lineEndBefore(token);
 		}
 	}
