@@ -8,7 +8,7 @@ about: Create a testcase to help us improve formatter
 A clear and concise description of what the bug is.
 
 **Input file**
-```
+```haxe
 class Main {
 	static function main() {
 		doSomething("");
@@ -17,7 +17,7 @@ class Main {
 ```
 
 **Broken output**
-```
+```haxe
 class Main {
 static function main() {
 doSomething("");
@@ -26,7 +26,7 @@ doSomething("");
 ```
 
 **Expected output**
-```
+```haxe
 class Main {
 	static function main() {
 		doSomething("");
@@ -35,7 +35,7 @@ class Main {
 ```
 
 **Optional: hxformat.json**<br/>
-```
+```json
 {
 }
 ```
