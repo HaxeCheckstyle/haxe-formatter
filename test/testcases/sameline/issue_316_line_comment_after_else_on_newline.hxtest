@@ -25,7 +25,8 @@ class Main {
 	public static function main() {
 		if (foo) {
 			bar;
-		} else // comment
+		} else
+			// comment
 		{
 			bar;
 		}
