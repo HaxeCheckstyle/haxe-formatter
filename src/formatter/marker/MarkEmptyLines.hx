@@ -71,11 +71,13 @@ class MarkEmptyLines extends MarkerBase {
 		}
 
 		var lastImport:TokenTree = imports[imports.length - 1];
-		if (lastImport.nextSibling != null) {
-			switch (lastImport.nextSibling.tok) {
+		var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(lastImport);
+		var afterImport:TokenInfo = getNextToken(lastChild);
+		if (afterImport != null) {
+			switch (afterImport.token.tok) {
 				case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
 				case Sharp(MarkLineEnds.SHARP_END):
-					emptyLinesAfterSubTree(lastImport.nextSibling, config.emptyLines.importAndUsing.beforeType);
+					emptyLinesAfterSubTree(afterImport.token, config.emptyLines.importAndUsing.beforeType);
 				default:
 					emptyLinesAfterSubTree(lastImport, config.emptyLines.importAndUsing.beforeType);
 			}

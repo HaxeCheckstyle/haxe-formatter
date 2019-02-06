@@ -1,0 +1,22 @@
+{
+}
+
+---
+
+#if foo
+import Foo;
+#else
+import Bar;
+#end
+
+class FooBar {}
+
+---
+
+#if foo
+import Foo;
+#else
+import Bar;
+#end
+
+class FooBar {}

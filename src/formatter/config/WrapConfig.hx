@@ -218,7 +218,7 @@ typedef WrapConfig = {
 				type: NoWrap
 			},
 			{
-				conditions: [{cond: TotalItemLengthLessThan, value: 60}],
+				conditions: [{cond: TotalItemLengthLessThan, value: 120}],
 				type: NoWrap
 			},
 			{

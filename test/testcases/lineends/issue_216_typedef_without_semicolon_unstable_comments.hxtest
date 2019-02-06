@@ -15,7 +15,9 @@ typedef Bar = Float
 
 ---
 
-typedef Foo = Int /** Docs for Bar **/
+typedef Foo = Int
+
+/** Docs for Bar **/
 typedef Bar = Float
 typedef Foo = Int;
 

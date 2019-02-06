@@ -1,0 +1,23 @@
+{}
+
+---
+
+#if java
+#error "please implement"
+#end
+
+class Main
+{
+	public function new()
+	{
+	}
+}
+
+---
+
+#if java
+#error "please implement"
+#end
+class Main {
+	public function new() {}
+}
