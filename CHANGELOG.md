@@ -19,7 +19,7 @@
 - Fixed detection of file header vs. type doc comments, fixes [#316](https://github.com/HaxeCheckstyle/haxe-formatter/issues/316) ([#318](https://github.com/HaxeCheckstyle/haxe-formatter/issues/318))
 - Fixed multiline comments after typedefs without semicolon, fixes [#322](https://github.com/HaxeCheckstyle/haxe-formatter/issues/321) ([#323](https://github.com/HaxeCheckstyle/haxe-formatter/issues/323))
 - Fixed empty line between conditional imports and types, fixes [#322](https://github.com/HaxeCheckstyle/haxe-formatter/issues/322) ([#323](https://github.com/HaxeCheckstyle/haxe-formatter/issues/323))
-- Changed default rules for `wrapping.opBoolChain`, fixes [#313](https://github.com/HaxeCheckstyle/haxe-formatter/issues/313) ()
+- Changed default rules for `wrapping.opBoolChain`, fixes [#313](https://github.com/HaxeCheckstyle/haxe-formatter/issues/313) ([#324](https://github.com/HaxeCheckstyle/haxe-formatter/issues/324))
 - Refactored to add some null safety (incomplete) [#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309)
 - Removed stacktrace from output with invalid `hxformat.json` files, fixes [#300](https://github.com/HaxeCheckstyle/haxe-formatter/issues/300) ([#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309))
 
