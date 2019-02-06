@@ -25,8 +25,7 @@ class Main {
 			resize(nBuckets + 2); // clear 'eleted' elements
 		if (nBuckets > (size << 1)) // clear 'eleted' elements
 			resize(nBuckets - 1); // clear "deleted" elements
-		else
-			// clear 'eleted' elements
+		else // clear 'eleted' elements
 			resize(nBuckets + 2); // clear 'eleted' elements
 	}
 }
