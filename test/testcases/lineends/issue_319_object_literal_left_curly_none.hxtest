@@ -1,0 +1,33 @@
+{
+	"lineEnds": {
+		"leftCurly": "none"
+	}
+}
+
+---
+
+class Main
+{
+	public static function main()
+	{
+		drawStyle = {smoothing: false};
+		FlxTween.num(sprite.alpha, 0, Duration, {onComplete: OnComplete}, alphaTween.bind(sprite));
+		drawStyle = {smoothing: false, smoothing: false, smoothing: false, smoothing: false, smoothing: false, smoothing: false, smoothing: false};
+	}
+}
+
+---
+
+class Main {public static function main() {drawStyle = {smoothing: false};
+	FlxTween.num(sprite.alpha, 0, Duration, {onComplete: OnComplete}, alphaTween.bind(sprite));
+	drawStyle = {
+		smoothing: false,
+		smoothing: false,
+		smoothing: false,
+		smoothing: false,
+		smoothing: false,
+		smoothing: false,
+		smoothing: false
+	};
+}
+}
