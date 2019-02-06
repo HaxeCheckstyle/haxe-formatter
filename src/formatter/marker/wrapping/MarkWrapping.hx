@@ -282,7 +282,7 @@ class MarkWrapping extends MarkWrappingBase {
 						case Kwd(_):
 							noLineEndBefore(token);
 							whitespace(token, Before);
-						case POpen:
+						case POpen, Binop(_), Comma:
 							noLineEndBefore(token);
 						default:
 					}
