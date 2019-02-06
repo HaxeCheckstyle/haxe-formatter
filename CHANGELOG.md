@@ -17,8 +17,8 @@
 - Fixed missing space before `(`, fixes [#308](https://github.com/HaxeCheckstyle/haxe-formatter/issues/308) ([#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309))
 - Fixed detection of file header vs. type doc comments, fixes [#292](https://github.com/HaxeCheckstyle/haxe-formatter/issues/292) ([#312](https://github.com/HaxeCheckstyle/haxe-formatter/issues/312))
 - Fixed detection of file header vs. type doc comments, fixes [#316](https://github.com/HaxeCheckstyle/haxe-formatter/issues/316) ([#318](https://github.com/HaxeCheckstyle/haxe-formatter/issues/318))
-- Fixed multiline comments after typedefs without semicolon, fixes [#322](https://github.com/HaxeCheckstyle/haxe-formatter/issues/321) ()
-- Fixed empty line between conditional imports and types, fixes [#322](https://github.com/HaxeCheckstyle/haxe-formatter/issues/322) ()
+- Fixed multiline comments after typedefs without semicolon, fixes [#322](https://github.com/HaxeCheckstyle/haxe-formatter/issues/321) ([#323](https://github.com/HaxeCheckstyle/haxe-formatter/issues/323))
+- Fixed empty line between conditional imports and types, fixes [#322](https://github.com/HaxeCheckstyle/haxe-formatter/issues/322) ([#323](https://github.com/HaxeCheckstyle/haxe-formatter/issues/323))
 - Refactored to add some null safety (incomplete) [#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309)
 - Removed stacktrace from output with invalid `hxformat.json` files, fixes [#300](https://github.com/HaxeCheckstyle/haxe-formatter/issues/300) ([#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309))
 
