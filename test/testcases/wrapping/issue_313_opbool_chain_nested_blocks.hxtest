@@ -1,0 +1,47 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		{
+			{
+				{
+					{
+						if (diagnostic.message.indexOf("has no effect") != -1 || diagnostic.message == "Unused import/using" || diagnostic.message == "Unused variable") {
+							diagnostic.tags = [Unnecessary];
+						}
+						if (diagnostic.message.indexOf() != -1 || diagnostic.message == "" || diagnostic.message == "" || diagnostic.message == "" || diagnostic.message == "") {
+							diagnostic.tags = [Unnecessary];
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		{
+			{
+				{
+					{
+						if (diagnostic.message.indexOf("has no effect") != -1
+							|| diagnostic.message == "Unused import/using"
+							|| diagnostic.message == "Unused variable") {
+							diagnostic.tags = [Unnecessary];
+						}
+						if (diagnostic.message.indexOf() != -1 || diagnostic.message == "" || diagnostic.message == "" || diagnostic.message == ""
+							|| diagnostic.message == "") {
+							diagnostic.tags = [Unnecessary];
+						}
+					}
+				}
+			}
+		}
+	}
+}
