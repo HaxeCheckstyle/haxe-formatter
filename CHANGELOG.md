@@ -16,7 +16,7 @@
 - Fixed empty line after metadata with function, fixes [#307](https://github.com/HaxeCheckstyle/haxe-formatter/issues/307) ([#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309))
 - Fixed missing space before `(`, fixes [#308](https://github.com/HaxeCheckstyle/haxe-formatter/issues/308) ([#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309))
 - Fixed detection of file header vs. type doc comments, fixes [#292](https://github.com/HaxeCheckstyle/haxe-formatter/issues/292) ([#312](https://github.com/HaxeCheckstyle/haxe-formatter/issues/312))
-- Fixed detection of file header vs. type doc comments, fixes [#316](https://github.com/HaxeCheckstyle/haxe-formatter/issues/316) ()
+- Fixed detection of file header vs. type doc comments, fixes [#316](https://github.com/HaxeCheckstyle/haxe-formatter/issues/316) ([#318](https://github.com/HaxeCheckstyle/haxe-formatter/issues/318))
 - Refactored to add some null safety (incomplete) [#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309)
 - Removed stacktrace from output with invalid `hxformat.json` files, fixes [#300](https://github.com/HaxeCheckstyle/haxe-formatter/issues/300) ([#309](https://github.com/HaxeCheckstyle/haxe-formatter/issues/309))
 
