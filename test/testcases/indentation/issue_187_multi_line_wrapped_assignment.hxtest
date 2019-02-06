@@ -27,10 +27,7 @@ class Main {
 
 class Main {
 	public static function main() {
-		return !(a.y + b.h <= c.y ||
-			d.y >= e.y + f.h ||
-			g.x + h.w <= i.x ||
-			j.x >= k.x + l.w);
+		return !(a.y + b.h <= c.y || d.y >= e.y + f.h || g.x + h.w <= i.x || j.x >= k.x + l.w);
 
 		dirty = dirty ||
 			(Tilemap.x != _prevTilemapX) ||

@@ -1,0 +1,19 @@
+ {}
+
+---
+
+typedef Bar = String
+
+/**
+	docs
+**/
+class Foo {}
+
+---
+
+typedef Bar = String
+
+/**
+	docs
+**/
+class Foo {}
