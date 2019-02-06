@@ -517,6 +517,30 @@
 				{
 					"conditions": [
 						{
+							"cond": "lineLength >= n",
+							"value": 140
+						},
+						{
+							"cond": "anyItemLength >= n",
+							"value": 40
+						}
+					],
+					"location": "beforeLast",
+					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "lineLength >= n",
+							"value": 140
+						}
+					],
+					"location": "beforeLast",
+					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
 							"cond": "itemCount <= n",
 							"value": 3
 						}
@@ -527,7 +551,7 @@
 					"conditions": [
 						{
 							"cond": "totalItemLength <= n",
-							"value": 60
+							"value": 120
 						}
 					],
 					"type": "noWrap"
@@ -539,6 +563,7 @@
 							"value": 4
 						}
 					],
+					"location": "beforeLast",
 					"type": "onePerLineAfterFirst"
 				}
 			]

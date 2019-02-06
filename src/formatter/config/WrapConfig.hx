@@ -214,6 +214,19 @@ typedef WrapConfig = {
 		defaultWrap: NoWrap,
 		rules: [
 			{
+				conditions: [
+					{cond: LineLengthLargerThan, value: 140},
+					{cond: AnyItemLengthLargerThan, value: 40}
+				],
+				location: BeforeLast,
+				type: OnePerLineAfterFirst
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 140}],
+				location: BeforeLast,
+				type: FillLine
+			},
+			{
 				conditions: [{cond: ItemCountLessThan, value: 3}],
 				type: NoWrap
 			},
@@ -223,6 +236,7 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				location: BeforeLast,
 				type: OnePerLineAfterFirst
 			}
 		]

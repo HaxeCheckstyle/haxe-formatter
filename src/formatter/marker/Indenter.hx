@@ -228,7 +228,9 @@ class Indenter {
 							switch (type) {
 								case OBJECTDECL:
 									var brClose:TokenTree = prevToken.access().firstOf(BrClose).token;
-									if ((brClose != null) && (!parsedCode.tokenList.isSameLine(prevToken, brClose)) && !config.indentObjectLiteral) {
+									if ((brClose != null)
+										&& (!parsedCode.tokenList.isSameLine(prevToken, brClose))
+										&& !config.indentObjectLiteral) {
 										continue;
 									}
 								default:
@@ -246,7 +248,9 @@ class Indenter {
 							switch (type) {
 								case OBJECTDECL:
 									var brClose:TokenTree = prevToken.access().firstOf(BrClose).token;
-									if ((brClose != null) && (!parsedCode.tokenList.isSameLine(prevToken, brClose)) && !config.indentObjectLiteral) {
+									if ((brClose != null)
+										&& (!parsedCode.tokenList.isSameLine(prevToken, brClose))
+										&& !config.indentObjectLiteral) {
 										continue;
 									}
 								default:
