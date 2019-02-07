@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.4.0 (2019-02-07)
+
 - Added haxe-test-adapter [#286](https://github.com/HaxeCheckstyle/haxe-formatter/issues/286) + [#287](https://github.com/HaxeCheckstyle/haxe-formatter/issues/287) + [#289](https://github.com/HaxeCheckstyle/haxe-formatter/issues/289)
 - Added `wrapping.implementsExtends` [#288](https://github.com/HaxeCheckstyle/haxe-formatter/issues/288)
 - Added `emptylines.afterFileHeaderComment`and `emptylines.betweenMultilineComments` fixes [#292](https://github.com/HaxeCheckstyle/haxe-formatter/issues/292) ([#296](https://github.com/HaxeCheckstyle/haxe-formatter/issues/296))
