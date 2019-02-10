@@ -8,7 +8,6 @@ import mcover.coverage.client.CodecovJsonPrintClient;
 import mcover.coverage.client.LcovPrintClient;
 #end
 import mcover.coverage.MCoverage;
-import unittesthelper.munit.TestAdapterRunner;
 
 class TestMain {
 	public function new() {
@@ -24,7 +23,7 @@ class TestMain {
 		client.includeClassAndPackageBreakdowns = true;
 		client.includeMissingBlocks = true;
 		#end
-		var runner:TestRunner = new TestAdapterRunner(client);
+		var runner = new TestRunner(client);
 		runner.completionHandler = completionHandler;
 		#if (neko || cpp || hl)
 		EntryPoint.addThread(function() {
