@@ -13,7 +13,7 @@ install:
   - haxelib git mcover https://github.com/massiveinteractive/mcover master src
   - haxelib git munit https://github.com/AlexHaxe/MassiveUnit add_test_filter src
   - haxelib git compiletime https://github.com/andyli/compiletime haxe4 src
-  - haxelib git haxe-test-adapter https://github.com/vshaxe/haxe-test-adapter
+  - haxelib git test-adapter https://github.com/vshaxe/haxe-test-adapter master test-adapter
   - haxelib install json2object
   - haxelib install mlib
   - haxelib install mconsole
