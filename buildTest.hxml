@@ -10,7 +10,7 @@
 -lib munit
 -lib compiletime
 # -lib safety
--lib haxe-test-adapter
+-lib test-adapter
 
 # -D debugLog
 # -D debugIndent
