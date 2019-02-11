@@ -10,6 +10,12 @@
 		"schema",
 		"test"
 	],
+	"haxeTestExplorer.testCommand": [
+		"${haxe}",
+		"buildTest.hxml",
+		"-lib",
+		"test-adapter"
+	],
 	"coverage-gutters.showLineCoverage": true,
 	"coverage-gutters.showRulerCoverage": false,
 	"coverage-gutters.partialHighlightDark": "rgba(120, 120, 120, 0.75)"
