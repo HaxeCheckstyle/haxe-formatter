@@ -2,6 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed type parameter constraint with structure type fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337)
+- Fixed wrapping of OpBool chains with null
+
 ## version 1.4.0 (2019-02-07)
 
 - Added haxe-test-adapter [#286](https://github.com/HaxeCheckstyle/haxe-formatter/issues/286) + [#287](https://github.com/HaxeCheckstyle/haxe-formatter/issues/287) + [#289](https://github.com/HaxeCheckstyle/haxe-formatter/issues/289)
