@@ -1,0 +1,14 @@
+{}
+
+
+---
+
+class Main {
+	function foo<T:{bar:T}>() {}
+}
+
+---
+
+class Main {
+	function foo<T:{bar:T}>() {}
+}

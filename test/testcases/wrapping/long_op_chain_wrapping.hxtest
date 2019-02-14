@@ -1,0 +1,44 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& sourceRect.x == 0
+			&& sourceRect.y == 0
+			&& destPoint.x == 0
+			&& destPoint.y == 0
+			&& alphaImage == null && alphaPoint == null && mergeAlpha == false && image.format == sourceImage.format)
+		{
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& sourceRect.x == 0
+			&& sourceRect.y == 0
+			&& destPoint.x == 0
+			&& destPoint.y == 0
+			&& alphaImage == null
+			&& alphaPoint == null
+			&& mergeAlpha == false
+			&& image.format == sourceImage.format) {
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+	}
+}
