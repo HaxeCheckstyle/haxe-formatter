@@ -1,0 +1,11 @@
+ {}
+
+---
+
+typedef TypeParams = Array<String>; // no constraints
+typedef Foo = Bar
+
+---
+
+typedef TypeParams = Array<String>; // no constraints
+typedef Foo = Bar
