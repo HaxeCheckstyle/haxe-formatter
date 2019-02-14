@@ -512,9 +512,17 @@ class MarkLineEnds extends MarkerBase {
 			return;
 		}
 		var next:Null<TokenInfo> = getNextToken(lastChild);
-		if ((next != null) && next.token.is(Semicolon)) {
-			whitespace(lastChild, NoneAfter);
-			return;
+		if (next != null) {
+			switch (next.token.tok) {
+				case Semicolon:
+					whitespace(lastChild, NoneAfter);
+					return;
+				case CommentLine(_):
+					if (!parsedCode.isOriginalNewlineBefore(next.token)) {
+						return;
+					}
+				default:
+			}
 		}
 		lineEndAfter(lastChild);
 	}
