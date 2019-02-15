@@ -1,0 +1,17 @@
+ {}
+
+---
+
+class Main {
+	public static function main() {
+		return (meta == null || meta.obj == null) ? {} : meta.obj;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return (meta == null || meta.obj == null) ? {} : meta.obj;
+	}
+}

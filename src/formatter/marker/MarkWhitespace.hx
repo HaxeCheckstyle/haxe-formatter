@@ -305,6 +305,11 @@ class MarkWhitespace extends MarkerBase {
 		}
 		switch (prev.token.tok) {
 			case Const(CIdent(_)):
+				switch (token.tok) {
+					case Unop(OpNot), Unop(OpNeg), Unop(OpNegBits):
+						return;
+					default:
+				}
 				whitespace(token, After);
 			default:
 		}
@@ -367,6 +372,13 @@ class MarkWhitespace extends MarkerBase {
 						case Const(_), Kwd(_):
 							whitespace(token, Before);
 						default:
+					}
+				}
+				var next:Null<TokenInfo> = getNextToken(token);
+				if (next != null) {
+					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(token.getFirstChild());
+					if (lastChild != null) {
+						whitespace(lastChild, After);
 					}
 				}
 			case Sharp(MarkLineEnds.SHARP_ELSE_IF):

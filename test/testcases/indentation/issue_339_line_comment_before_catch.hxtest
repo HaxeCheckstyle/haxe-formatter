@@ -1,0 +1,91 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		try {
+			foo;
+		}		// catch
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		// catch
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		// catch
+		catch (e:String) {}
+		// catch
+		catch (e:Int) {}
+		// catch
+		catch (e:Any) {}
+
+
+		try {
+			foo;
+		}		/* catch */
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		/* catch */
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		/* catch */
+		catch (e:String) {}
+		/* catch */
+		catch (e:Int) {}
+		/* catch */
+		catch (e:Any) {}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		try {
+			foo;
+		} // catch
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		// catch
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		// catch
+		catch (e:String) {}
+		// catch
+		catch (e:Int) {}
+		// catch
+		catch (e:Any) {}
+
+		try {
+			foo;
+		} /* catch */
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		/* catch */
+		catch (e:Any) {}
+		try {
+			foo;
+		}
+		/* catch */
+		catch (e:String) {}
+		/* catch */
+		catch (e:Int) {}
+		/* catch */
+		catch (e:Any) {}
+	}
+}

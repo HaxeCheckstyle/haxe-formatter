@@ -6,6 +6,10 @@
 - Fixed wrapping of OpBool chains with null
 - Fixed line comments after typedefs, fixes [#331](https://github.com/HaxeCheckstyle/haxe-formatter/issues/331)
 - Fixed line comments after #end, fixes [#344](https://github.com/HaxeCheckstyle/haxe-formatter/issues/344)
+- Fixed comments before catch, fixes [#339](https://github.com/HaxeCheckstyle/haxe-formatter/issues/339)
+- Fixed ternary with object literal, fixes [#330](https://github.com/HaxeCheckstyle/haxe-formatter/issues/330)
+- Fixed optional function parameters in conditionals, fixes [#345](https://github.com/HaxeCheckstyle/haxe-formatter/issues/345)
+- Fixed whitespace for ternary and unary operators, fixes [#348](https://github.com/HaxeCheckstyle/haxe-formatter/issues/348)
 
 ## version 1.4.0 (2019-02-07)
 

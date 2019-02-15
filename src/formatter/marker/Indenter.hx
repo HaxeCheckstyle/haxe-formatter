@@ -149,13 +149,15 @@ class Indenter {
 						return findEffectiveParent(token.parent);
 					default:
 				}
-			case CommentLine(_):
+			case CommentLine(_), Comment(_):
 				var next:Null<TokenInfo> = parsedCode.tokenList.getNextToken(token);
 				if (next == null) {
 					return token;
 				}
 				switch (next.token.tok) {
 					case Kwd(KwdElse):
+						return findEffectiveParent(next.token);
+					case Kwd(KwdCatch):
 						return findEffectiveParent(next.token);
 					default:
 						return token;

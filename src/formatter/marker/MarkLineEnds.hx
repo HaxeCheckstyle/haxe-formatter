@@ -123,10 +123,17 @@ class MarkLineEnds extends MarkerBase {
 				}
 			}
 
-			var preventBefore:Bool = false;
-			if (isEmpty) {
-				preventBefore = true;
+			var preventBefore:Bool = isEmpty;
+			var preventAfter:Bool = false;
+			next = getNextToken(brClose);
+			if (next != null) {
+				switch (next.token.tok) {
+					case DblDot:
+						preventAfter = true;
+					default:
+				}
 			}
+
 			switch (config.lineEnds.rightCurly) {
 				case None:
 				case Before:
@@ -134,12 +141,16 @@ class MarkLineEnds extends MarkerBase {
 						beforeRightCurly(brClose);
 					}
 				case After:
-					afterRightCurly(brClose);
+					if (!preventAfter) {
+						afterRightCurly(brClose);
+					}
 				case Both:
 					if (!preventBefore) {
 						beforeRightCurly(brClose);
 					}
-					afterRightCurly(brClose);
+					if (!preventAfter) {
+						afterRightCurly(brClose);
+					}
 			}
 		}
 	}

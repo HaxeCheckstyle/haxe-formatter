@@ -1,0 +1,14 @@
+{}
+
+
+---
+
+class Main {
+	static function foo(#if openfl ?vector:openfl.Vector<Int> #end) {}
+}
+
+---
+
+class Main {
+	static function foo(#if openfl ?vector:openfl.Vector<Int> #end) {}
+}

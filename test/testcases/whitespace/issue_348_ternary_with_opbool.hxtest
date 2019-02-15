@@ -1,0 +1,22 @@
+{
+}
+
+
+---
+
+
+class Main {
+	public static function main() {
+		var event = new KeyboardEvent(type, true, true, charCode, keyCode, keyLocation,
+                __macKeyboard ? modifier.ctrlKey || modifier.metaKey:modifier.ctrlKey, modifier.altKey, modifier.shiftKey, modifier.ctrlKey, modifier.metaKey);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		var event = new KeyboardEvent(type, true, true, charCode, keyCode, keyLocation,
+			__macKeyboard ? modifier.ctrlKey || modifier.metaKey : modifier.ctrlKey, modifier.altKey, modifier.shiftKey, modifier.ctrlKey, modifier.metaKey);
+	}
+}
