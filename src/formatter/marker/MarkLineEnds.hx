@@ -345,7 +345,7 @@ class MarkLineEnds extends MarkerBase {
 								default:
 							}
 						}
-						if (!isOnlyWhitespaceAfterToken(token)) {
+						if (!isOnlyWhitespaceAfterToken(token, true)) {
 							continue;
 						}
 					} else {
@@ -384,7 +384,7 @@ class MarkLineEnds extends MarkerBase {
 					default:
 						return false;
 				}
-				if (!isOnlyWhitespaceAfterToken(sharpEnd)) {
+				if (!isOnlyWhitespaceAfterToken(sharpEnd, true)) {
 					return true;
 				}
 				if (!isOnlyWhitespaceBeforeToken(token)) {
@@ -424,10 +424,14 @@ class MarkLineEnds extends MarkerBase {
 		return (~/^\s*$/.match(prefix));
 	}
 
-	function isOnlyWhitespaceAfterToken(token:TokenTree):Bool {
+	function isOnlyWhitespaceAfterToken(token:TokenTree, allowLineComments:Bool):Bool {
 		var tokenLine:LinePos = parsedCode.getLinePos(token.pos.max);
 		var prefix:String = parsedCode.getString(token.pos.max, parsedCode.linesIdx[tokenLine.line].r);
-		return (~/^\s*$/.match(prefix));
+		if (allowLineComments) {
+			return (~/^\s*(|\/\/.*)$/.match(prefix));
+		} else {
+			return (~/^\s*$/.match(prefix));
+		}
 	}
 
 	function findTypedefBrOpen(token:TokenTree):Null<TokenTree> {
