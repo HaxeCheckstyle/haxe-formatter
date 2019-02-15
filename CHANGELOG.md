@@ -2,14 +2,14 @@
 
 ## dev branch / next version (1.x.x)
 
-- Fixed type parameter constraint with structure type, fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337)
-- Fixed wrapping of OpBool chains with null
-- Fixed line comments after typedefs, fixes [#331](https://github.com/HaxeCheckstyle/haxe-formatter/issues/331)
-- Fixed line comments after #end, fixes [#344](https://github.com/HaxeCheckstyle/haxe-formatter/issues/344)
-- Fixed comments before catch, fixes [#339](https://github.com/HaxeCheckstyle/haxe-formatter/issues/339)
-- Fixed ternary with object literal, fixes [#330](https://github.com/HaxeCheckstyle/haxe-formatter/issues/330)
-- Fixed optional function parameters in conditionals, fixes [#345](https://github.com/HaxeCheckstyle/haxe-formatter/issues/345)
-- Fixed whitespace for ternary and unary operators, fixes [#348](https://github.com/HaxeCheckstyle/haxe-formatter/issues/348)
+- Fixed type parameter constraint with structure type, fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed wrapping of OpBool chains with null ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed line comments after typedefs, fixes [#331](https://github.com/HaxeCheckstyle/haxe-formatter/issues/331) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed line comments after #end, fixes [#344](https://github.com/HaxeCheckstyle/haxe-formatter/issues/344) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed comments before catch, fixes [#339](https://github.com/HaxeCheckstyle/haxe-formatter/issues/339) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed ternary with object literal, fixes [#330](https://github.com/HaxeCheckstyle/haxe-formatter/issues/330) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed optional function parameters in conditionals, fixes [#345](https://github.com/HaxeCheckstyle/haxe-formatter/issues/345) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed whitespace for ternary and unary operators, fixes [#348](https://github.com/HaxeCheckstyle/haxe-formatter/issues/348) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 
 ## version 1.4.0 (2019-02-07)
 
