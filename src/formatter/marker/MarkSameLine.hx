@@ -376,9 +376,16 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function getBodyAfterCondition(token:TokenTree):Null<TokenTree> {
-		var body:Null<TokenTree> = token.access().firstOf(POpen).nextSibling().token;
-		if (body != null) {
-			return body;
+		var pClose:Null<TokenTree> = token.access().firstOf(POpen).firstOf(PClose).token;
+		if (pClose != null) {
+			var next:TokenInfo = getNextToken(pClose);
+			if (next != null) {
+				switch (next.token.tok) {
+					case DblDot:
+					default:
+						return next.token;
+				}
+			}
 		}
 		if (token.children == null) {
 			return null;

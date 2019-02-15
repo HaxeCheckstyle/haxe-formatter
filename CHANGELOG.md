@@ -10,6 +10,9 @@
 - Fixed ternary with object literal, fixes [#330](https://github.com/HaxeCheckstyle/haxe-formatter/issues/330) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed optional function parameters in conditionals, fixes [#345](https://github.com/HaxeCheckstyle/haxe-formatter/issues/345) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed whitespace for ternary and unary operators, fixes [#348](https://github.com/HaxeCheckstyle/haxe-formatter/issues/348) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
+- Fixed if body starting with metadata, fixes [#333](https://github.com/HaxeCheckstyle/haxe-formatter/issues/333)
+- Fixed else body starting with POpen, fixes [#329](https://github.com/HaxeCheckstyle/haxe-formatter/issues/329)
+- Fixed missing space after conditional, fixes [#327](https://github.com/HaxeCheckstyle/haxe-formatter/issues/327) +  [#335](https://github.com/HaxeCheckstyle/haxe-formatter/issues/335)
 
 ## version 1.4.0 (2019-02-07)
 
