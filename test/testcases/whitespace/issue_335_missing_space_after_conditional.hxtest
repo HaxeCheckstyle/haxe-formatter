@@ -1,0 +1,18 @@
+{}
+
+
+---
+
+class Main {
+	public static function main() {
+		add(#if (php || as3) (v ? 'true' : 'false') #else v #end);
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		add(#if (php || as3) (v ? 'true' : 'false') #else v #end);
+	}
+}

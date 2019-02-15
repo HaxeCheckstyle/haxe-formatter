@@ -1,0 +1,19 @@
+ {}
+
+---
+
+class Main {
+	public static function main() {
+		if (prev == null)
+			@:privateAccess MainLoop.pending = next;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (prev == null)
+			@:privateAccess MainLoop.pending = next;
+	}
+}
