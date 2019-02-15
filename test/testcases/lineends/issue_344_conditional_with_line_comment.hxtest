@@ -1,0 +1,26 @@
+{
+}
+
+---
+
+#if js
+class JS {
+	var foo:Int;
+}
+#else
+class NotJS {
+	var foo:Int;
+}
+#end // js
+
+---
+
+#if js
+class JS {
+	var foo:Int;
+}
+#else
+class NotJS {
+	var foo:Int;
+}
+#end // js
