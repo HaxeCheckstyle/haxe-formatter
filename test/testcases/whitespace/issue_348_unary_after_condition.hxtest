@@ -1,0 +1,19 @@
+{}
+
+
+---
+
+class Main {
+	function test () {
+		if (#if openfl_power_of_two! image.powerOfTwo || #end (!image.premultiplied && image.transparent))
+		{}
+	}
+}
+
+---
+
+class Main {
+	function test() {
+		if (#if openfl_power_of_two !image.powerOfTwo || #end (!image.premultiplied && image.transparent)) {}
+	}
+}
