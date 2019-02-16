@@ -1,0 +1,22 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		context.subscriptions.push(Vscode.commands.registerCommand("hellohaxe.sayHello", function() {
+				Vscode.window.showInformationMessage("Hello from Haxe!");
+			}));
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		context.subscriptions.push(Vscode.commands.registerCommand("hellohaxe.sayHello", function() {
+			Vscode.window.showInformationMessage("Hello from Haxe!");
+		}));
+	}
+}
