@@ -109,6 +109,8 @@ class Indenter {
 				}
 			case BrClose, BkClose:
 				return findEffectiveParent(token.parent);
+			case Arrow:
+				return findEffectiveParent(token.parent);
 			case PClose:
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdIf):
@@ -199,9 +201,32 @@ class Indenter {
 					if (currentToken.is(POpen) && !parsedCode.tokenList.isNewLineAfter(currentToken)) {
 						continue;
 					}
+				case Kwd(KwdSwitch):
+					switch (currentToken.tok) {
+						case POpen:
+							var type:POpenType = TokenTreeCheckUtils.getPOpenType(currentToken);
+							switch (type) {
+								case AT:
+								case PARAMETER:
+									mustIndent = true;
+								case CALL:
+								case CONDITION:
+									mustIndent = true;
+								case FORLOOP:
+								case EXPRESSION:
+							}
+						default:
+					}
+				case Arrow:
+					if (currentToken.is(POpen)) {
+						continue;
+					}
 				case Dot:
 					switch (currentToken.tok) {
 						case POpen, BrOpen:
+							if (parsedCode.tokenList.isSameLine(currentToken, prevToken)) {
+								continue;
+							}
 							mustIndent = true;
 						case Dot:
 							if ((prevToken.pos.min == currentToken.pos.min) && parsedCode.tokenList.isNewLineBefore(currentToken)) {
@@ -362,6 +387,8 @@ class Indenter {
 			case BrOpen, BkOpen, POpen, Dot:
 				return true;
 			case Binop(OpAssign), Binop(OpAssignOp(_)):
+				return true;
+			case Arrow:
 				return true;
 			case Binop(OpLt):
 				return TokenTreeCheckUtils.isTypeParameter(token);

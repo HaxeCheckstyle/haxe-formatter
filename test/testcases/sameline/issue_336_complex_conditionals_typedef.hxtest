@@ -1,0 +1,39 @@
+{
+}
+
+---
+
+private typedef VectorData<T> = #if flash10
+	flash.Vector<T>
+#elseif neko
+	neko.NativeArray<T>
+#elseif cs
+	cs.NativeArray<T>
+#elseif java
+	java.NativeArray<T>
+#elseif lua
+    lua.Table<Int,T>
+#elseif eval
+    eval.Vector<T>
+#else
+	Array<T>
+#end
+
+---
+
+private typedef VectorData<T> =
+	#if flash10
+	flash.Vector<T>
+	#elseif neko
+	neko.NativeArray<T>
+	#elseif cs
+	cs.NativeArray<T>
+	#elseif java
+	java.NativeArray<T>
+	#elseif lua
+	lua.Table<Int, T>
+	#elseif eval
+	eval.Vector<T>
+	#else
+	Array<T>
+	#end

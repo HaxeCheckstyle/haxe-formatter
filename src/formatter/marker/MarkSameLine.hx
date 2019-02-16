@@ -424,6 +424,8 @@ class MarkSameLine extends MarkerBase {
 						case UNKNOWN:
 					}
 					body = body.nextSibling;
+				case Sharp(MarkLineEnds.SHARP_ELSE_IF), Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_END):
+					return;
 				case CommentLine(_):
 					var prev:Null<TokenInfo> = getPreviousToken(body);
 					if (prev != null) {

@@ -1,0 +1,40 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+		animatedSprite.frames = FlxAtlasFrames.fromLibGdx(sourceSprite.pixels, '
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+');
+	}
+}

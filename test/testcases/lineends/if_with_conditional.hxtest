@@ -1,0 +1,41 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"sameLine": {
+		"ifBody": "same",
+		"ifElse": "next",
+		"doWhile": "next",
+		"tryBody": "next",
+		"tryCatch": "next"
+	}
+}
+
+---
+
+class Font
+{
+	public function new()
+	{
+		#if js if (ascender == untyped __js__("undefined")) #end ascender = 0;
+		#if js
+		if (descender)
+		#end
+		descender = 0;
+	}
+}
+
+---
+
+class Font
+{
+	public function new()
+	{
+		#if js if (ascender == untyped __js__("undefined")) #end ascender = 0;
+		#if js
+		if (descender)
+		#end
+		descender = 0;
+	}
+}

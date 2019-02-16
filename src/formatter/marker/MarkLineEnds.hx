@@ -384,6 +384,9 @@ class MarkLineEnds extends MarkerBase {
 				}
 				switch (sharpEnd.tok) {
 					case Sharp(SHARP_END):
+						if (parsedCode.linesBetweenOriginal(token, sharpEnd) > 5) {
+							return false;
+						}
 					case Comma, Semicolon:
 						sharpEnd = sharpEnd.previousSibling;
 						if (sharpEnd == null) {
@@ -414,6 +417,11 @@ class MarkLineEnds extends MarkerBase {
 					case BrClose:
 						return false;
 					case Comment(_), CommentLine(_):
+						return false;
+					case PClose:
+						if (parsedCode.isOriginalSameLine(prev.token, token)) {
+							return true;
+						}
 						return false;
 					default:
 						return true;

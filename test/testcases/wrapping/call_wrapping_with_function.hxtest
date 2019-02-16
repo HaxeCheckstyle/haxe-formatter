@@ -101,11 +101,11 @@ class Main {
 		context.callHaxeMethod(DisplayMethods.GotoTypeDefinition, {file: doc.fsPath, contents: doc.content, offset: doc.offsetAt(params.position)}, token,
 			locations -> {
 				resolve(locations.map(location -> {
-						{
-							uri: location.file.toUri(),
-							range: location.range
-						}
-					}));
+					{
+						uri: location.file.toUri(),
+						range: location.range
+					}
+				}));
 				return null;
 			}, error -> reject(ResponseError.internalError(error)));
 	}

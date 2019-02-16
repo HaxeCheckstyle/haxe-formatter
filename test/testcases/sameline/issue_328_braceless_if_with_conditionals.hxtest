@@ -1,0 +1,28 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (bufsize == null)
+			#if php
+			bufsize = 8192;
+			#else
+			bufsize = (1 << 14);
+			#end
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		if (bufsize == null)
+			#if php
+			bufsize = 8192;
+			#else
+			bufsize = (1 << 14);
+			#end
+	}
+}
