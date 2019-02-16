@@ -1,0 +1,22 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		(untyped foo).bar = function() {
+			trace();
+		}
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		(untyped foo).bar = function() {
+			trace();
+		}
+	}
+}

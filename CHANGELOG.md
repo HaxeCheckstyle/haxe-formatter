@@ -16,6 +16,8 @@
 - Fixed braceless if body with conditionals, fixes [#328](https://github.com/HaxeCheckstyle/haxe-formatter/issues/328) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
 - Fixed complex conditional typedef, fixes [#336](https://github.com/HaxeCheckstyle/haxe-formatter/issues/336) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
 - Fixed parameter wrapping with multiline string, fixes [#320](https://github.com/HaxeCheckstyle/haxe-formatter/issues/320) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
+- Fixed indentation of untyped assignment, fixes [#326](https://github.com/HaxeCheckstyle/haxe-formatter/issues/326) ([#352](https://github.com/HaxeCheckstyle/haxe-formatter/issues/352))
+- Fixed indentation of anon function call, fixes [#315](https://github.com/HaxeCheckstyle/haxe-formatter/issues/315) ([#352](https://github.com/HaxeCheckstyle/haxe-formatter/issues/352))
 
 ## version 1.4.0 (2019-02-07)
 
