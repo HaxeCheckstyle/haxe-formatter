@@ -13,9 +13,9 @@
 - Fixed if body starting with metadata, fixes [#333](https://github.com/HaxeCheckstyle/haxe-formatter/issues/333) ([#350](https://github.com/HaxeCheckstyle/haxe-formatter/issues/350))
 - Fixed else body starting with POpen, fixes [#329](https://github.com/HaxeCheckstyle/haxe-formatter/issues/329) ([#350](https://github.com/HaxeCheckstyle/haxe-formatter/issues/350))
 - Fixed missing space after conditional, fixes [#327](https://github.com/HaxeCheckstyle/haxe-formatter/issues/327) + [#335](https://github.com/HaxeCheckstyle/haxe-formatter/issues/335) ([#350](https://github.com/HaxeCheckstyle/haxe-formatter/issues/350))
-- Fixed braceless if body with conditionals, fixes [#328](https://github.com/HaxeCheckstyle/haxe-formatter/issues/328)
-- Fixed complex conditional typedef, fixes [#336](https://github.com/HaxeCheckstyle/haxe-formatter/issues/336)
-- Fixed parameter wrapping with multiline string, fixes [#320](https://github.com/HaxeCheckstyle/haxe-formatter/issues/320)
+- Fixed braceless if body with conditionals, fixes [#328](https://github.com/HaxeCheckstyle/haxe-formatter/issues/328) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
+- Fixed complex conditional typedef, fixes [#336](https://github.com/HaxeCheckstyle/haxe-formatter/issues/336) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
+- Fixed parameter wrapping with multiline string, fixes [#320](https://github.com/HaxeCheckstyle/haxe-formatter/issues/320) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
 
 ## version 1.4.0 (2019-02-07)
 
