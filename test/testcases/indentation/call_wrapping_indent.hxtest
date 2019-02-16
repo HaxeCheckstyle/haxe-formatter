@@ -1,0 +1,69 @@
+
+{
+	"indentation": {
+		"character": "    ",
+		"conditionalPolicy": "fixedZero"
+	},
+	"lineEnds": {
+		"leftCurly": "both"
+    },
+	"whitespace": {
+		"colonPolicy": "around",
+		"typeHintColonPolicy": "around",
+		"openingParenPolicy": "before",
+		"openingBracketPolicy": "before"
+	},
+	"sameLine": {
+		"catchBody": "next",
+		"tryCatch": "next",
+		"tryBody": "next",
+		"elseIf": "next",
+		"whileBody": "next",
+		"ifBody": "next",
+		"elseBody": "next",
+		"forBody": "next",
+		"ifElse": "next"
+	}
+}
+
+---
+
+class Main
+{
+    private function addCacheHeader(response : IResponse, media : IMedia) : Void
+    {
+        if (media.canCache())
+        {
+            response.addHeader("Expires", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S") + " GMT");
+        }
+        settingsDialog.addEvent(Form.ONCLICK, Event.wysiwygCreateLink(id, false,
+                {
+                    typeID: typeID,
+                    titleID: titleID,
+                    urlID: urlID,
+                    actionID: actionID,
+                    targetID: targetID
+                }));
+	}
+}
+
+---
+
+class Main
+{
+    private function addCacheHeader(response : IResponse, media : IMedia) : Void
+    {
+        if (media.canCache())
+        {
+            response.addHeader("Expires", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S") + " GMT");
+        }
+        settingsDialog.addEvent(Form.ONCLICK, Event.wysiwygCreateLink(id, false,
+            {
+                typeID: typeID,
+                titleID: titleID,
+                urlID: urlID,
+                actionID: actionID,
+                targetID: targetID
+            }));
+    }
+}

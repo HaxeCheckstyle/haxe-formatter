@@ -18,8 +18,8 @@ class Foo {
 	function foo() {
 		switch (bar) {
 			case foo if (switch (bar) {
-				case _: false;
-			}):
+					case _: false;
+				}):
 				doSomething();
 			case foo if (true):
 				doSomething();

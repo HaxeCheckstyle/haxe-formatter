@@ -623,12 +623,18 @@ class TokenList {
 		if (current == null) {
 			return 0;
 		}
+		if (current.text == null) {
+			current.text = '${current.token}';
+		}
+		if (current.text.indexOf("\r") >= 0) {
+			return current.text.indexOf("\r");
+		}
+		if (current.text.indexOf("\n") >= 0) {
+			return current.text.indexOf("\n");
+		}
 		var spaceAdd:Int = 0;
 		if (current.whitespaceAfter == Space) {
 			spaceAdd = 1;
-		}
-		if (current.text == null) {
-			current.text = '${current.token}';
 		}
 		var length:Int = current.text.length + spaceAdd;
 		if ((token.children == null) || (token.children.length <= 0)) {
