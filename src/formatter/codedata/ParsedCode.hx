@@ -96,17 +96,10 @@ class ParsedCode {
 		if (file.content == null) {
 			return;
 		}
-		if (file.content.get(0) != 0xEF) {
-			return;
+		if ((file.content.get(0) == 0xEF) && (file.content.get(1) == 0xBB) && (file.content.get(2) == 0xBF)) {
+			var withBOM:Bytes = file.content;
+			file.content = withBOM.sub(3, file.content.length - 3);
 		}
-		if (file.content.get(1) != 0xBB) {
-			return;
-		}
-		if (file.content.get(2) != 0xBF) {
-			return;
-		}
-		var withBOM:Bytes = file.content;
-		file.content = withBOM.sub(3, file.content.length - 3);
 	}
 
 	function makeTokenList() {

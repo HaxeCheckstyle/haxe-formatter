@@ -55,10 +55,7 @@ class TokenList {
 	}
 
 	public function getTokenAt(index:Int):Null<TokenInfo> {
-		if (tokens.length <= index) {
-			return null;
-		}
-		if (index < 0) {
+		if ((index < 0) || (index >= tokens.length)) {
 			return null;
 		}
 		return tokens[index];
@@ -527,10 +524,7 @@ class TokenList {
 	}
 
 	public function additionalIndent(token:TokenTree, indent:Null<Int>, ?pos:PosInfos) {
-		if (indent == null) {
-			return;
-		}
-		if (token.index < 0) {
+		if ((indent == null) || (token == null) || (token.index < 0)) {
 			return;
 		}
 		var info:Null<TokenInfo> = tokens[token.index];
@@ -585,10 +579,7 @@ class TokenList {
 	}
 
 	public function calcLength(token:TokenTree):Int {
-		if (token == null) {
-			return 0;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
 		var current:Null<TokenInfo> = tokens[token.index];
@@ -613,10 +604,7 @@ class TokenList {
 	}
 
 	public function calcLengthUntilNewline(token:TokenTree, stop:Null<TokenTree>):Int {
-		if (token == null) {
-			return 0;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
 		var current:Null<TokenInfo> = tokens[token.index];
@@ -683,10 +671,7 @@ class TokenList {
 	}
 
 	public function calcLineLength(token:TokenTree):Int {
-		if (token == null) {
-			return 0;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
 		var start:Int = token.index - 1;
@@ -725,10 +710,7 @@ class TokenList {
 	}
 
 	public function calcLineLengthBefore(token:TokenTree):Int {
-		if (token == null) {
-			return 0;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
 		var start:Int = token.index - 1;
@@ -754,10 +736,7 @@ class TokenList {
 	}
 
 	public function calcLineLengthAfter(token:TokenTree):Int {
-		if (token == null) {
-			return 0;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
 		var start:Int = token.index;
@@ -783,10 +762,7 @@ class TokenList {
 	}
 
 	public function calcTokenLength(token:TokenTree):Int {
-		if (token == null) {
-			return 0;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
 		var info:Null<TokenInfo> = tokens[token.index];
@@ -836,10 +812,7 @@ class TokenList {
 			if (info.whitespaceAfter == Newline) {
 				return false;
 			}
-			if (info.text.indexOf("\r") >= 0) {
-				return false;
-			}
-			if (info.text.indexOf("\n") >= 0) {
+			if ((info.text.indexOf("\r") >= 0) || (info.text.indexOf("\n") >= 0)) {
 				return false;
 			}
 		}
@@ -847,10 +820,7 @@ class TokenList {
 	}
 
 	public function findLineStartToken(token:Null<TokenTree>):Null<TokenTree> {
-		if (token == null) {
-			return null;
-		}
-		if (token.index < 0) {
+		if ((token == null) || (token.index < 0)) {
 			return null;
 		}
 		var start:Int = token.index - 1;
