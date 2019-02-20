@@ -294,6 +294,10 @@ class Indenter {
 							mustIndent = true;
 						default:
 					}
+				case Const(CIdent("from")), Const(CIdent("to")):
+					if (isAbstractFromTo(token) && parsedCode.tokenList.isNewLineBefore(prevToken)) {
+						mustIndent = true;
+					}
 				default:
 			}
 			if (!mustIndent && parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
@@ -440,9 +444,33 @@ class Indenter {
 				}
 			case Kwd(KwdSwitch), Kwd(KwdCase), Kwd(KwdDefault):
 				return true;
+			case Const(CIdent("from")), Const(CIdent("to")):
+				return isAbstractFromTo(token);
 			default:
 		}
 		return false;
+	}
+
+	function isAbstractFromTo(token:TokenTree):Bool {
+		var parent:Null<TokenTree> = token.parent;
+		if ((parent == null) || (parent.tok == null)) {
+			return false;
+		}
+		switch (parent.tok) {
+			case Const(CIdent(_)):
+			default:
+				return false;
+		}
+		parent = parent.parent;
+		if ((parent == null) || (parent.tok == null)) {
+			return false;
+		}
+		switch (parent.tok) {
+			case Kwd(KwdAbstract):
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	#if debugIndent

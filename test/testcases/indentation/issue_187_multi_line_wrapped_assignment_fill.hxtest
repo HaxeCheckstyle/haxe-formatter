@@ -27,6 +27,10 @@ class Main {
 		dirty = dirty || (Tilemap.x != _prevTilemapX) ||
 			((Tilemap.y != _prevTilemapY) || (Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX)) &&
 			(Tilemap.scale.x != _prevTilemapScaleX);
+
+		dirty = dirty || (Tilemap.x != _prevTilemapX) ||
+			(Tilemap.scale.x != _prevTilemapScaleX) &&
+			((Tilemap.y != _prevTilemapY) || (Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX));
 	}
 }
 
@@ -45,6 +49,10 @@ class Main {
 			(Tilemap.scale.x != _prevTilemapScaleX);
 
 		dirty = dirty || (Tilemap.x != _prevTilemapX) || ((Tilemap.y != _prevTilemapY) || (Tilemap.scale.x != _prevTilemapScaleX) ||
-			(Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX)) && (Tilemap.scale.x != _prevTilemapScaleX);
+			(Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX)) &&
+			(Tilemap.scale.x != _prevTilemapScaleX);
+
+		dirty = dirty || (Tilemap.x != _prevTilemapX) || (Tilemap.scale.x != _prevTilemapScaleX) && ((Tilemap.y != _prevTilemapY) ||
+			(Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX) || (Tilemap.scale.x != _prevTilemapScaleX));
 	}
 }

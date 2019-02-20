@@ -11,16 +11,16 @@ install:
   - haxelib git hxargs https://github.com/Simn/hxargs --never
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
   - haxelib git mcover https://github.com/massiveinteractive/mcover master src
-  - haxelib git munit https://github.com/AlexHaxe/MassiveUnit add_test_filter src
+  - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
   - haxelib git compiletime https://github.com/andyli/compiletime haxe4 src
-  - haxelib git test-adapter https://github.com/vshaxe/haxe-test-adapter master test-adapter
   - haxelib install json2object
   - haxelib install mlib
   - haxelib install mconsole
+  - haxelib install test-adapter
 
 script:
   - haxe buildAll.hxml
-  - haxe buildTest.hxml -D codecov_json
+  - haxe test.hxml -D codecov_json
   - haxe buildSchema.hxml
   - node run.js -s . --check
   - neko run.n -s . --check

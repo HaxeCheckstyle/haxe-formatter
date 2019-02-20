@@ -2,6 +2,10 @@
 		"opBoolChain" : {
 			"defaultWrap": "onePerLine",
 			"rules": []
+		},
+		"opAddSubChain": {
+			"defaultWrap": "keep",
+			"rules": []
 		}
 	}
 }
@@ -57,7 +61,8 @@ class Main {
 		dirty =
 			dirty ||
 			(Tilemap.x != _prevTilemapX) ||
-			((Tilemap.y != _prevTilemapY) || (Tilemap.scale.x != _prevTilemapScaleX)) &&
+			((Tilemap.y != _prevTilemapY) ||
+				(Tilemap.scale.x != _prevTilemapScaleX)) &&
 			(Tilemap.scale.x != _prevTilemapScaleX);
 
 		dirty =

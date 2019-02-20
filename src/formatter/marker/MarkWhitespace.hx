@@ -89,6 +89,7 @@ class MarkWhitespace extends MarkerBase {
 					var parent:Null<TokenTree> = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
 					if (parent != null) {
 						whitespace(token, Around);
+						wrapBefore(token, true);
 					}
 					fixConstAfterConst(token);
 				case Const(_):

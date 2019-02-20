@@ -19,6 +19,73 @@ class Main {
 			image.buffer.data.set(sourceImage.buffer.data);
 		}
 
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceRect.x == 0
+			|| sourceRect.y == 0
+			|| destPoint.x == 0
+			|| destPoint.y == 0)
+			&& alphaImage == null && alphaPoint == null && mergeAlpha == false && image.format == sourceImage.format)
+		{
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		// inner OpBool chain item length < 40 so fillLine instead of one per line
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceImage.sourceRect.x == 0
+			|| sourceImage.sourceRect.y == 0
+			|| sourceImage.sourceRect.z == 0
+			|| destImage.destPoint.x == 0
+			|| destImage.destPoint.y == 0
+			|| destImage.destPoint.z == 0)
+			&& alphaImage == null && alphaPoint == null && mergeAlpha == false && image.format == sourceImage.format)
+		{
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceImage.sourceRect.v == 0
+			|| sourceImage.sourceRect.w == 0
+			|| sourceImage.sourceRect.x == 0
+			|| sourceImage.sourceRect.y == 0
+			|| sourceImage.sourceRect.z == 0
+			|| destImage.destPoint.v == 0
+			|| destImage.destPoint.w == 0
+			|| destImage.destPoint.x == 0
+			|| destImage.destPoint.y == 0
+			|| destImage.destPoint.z == 0)
+			&& alphaImage == null && alphaPoint == null && mergeAlpha == false && image.format == sourceImage.format)
+		{
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		// inner OpBool chain item length > 40 so one per line
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceImage.sourceRect.v == 123456789
+			|| sourceImage.sourceRect.w == 0
+			|| sourceImage.sourceRect.x == 0
+			|| sourceImage.sourceRect.y == 0
+			|| sourceImage.sourceRect.z == 0
+			|| destImage.destPoint.v == 0
+			|| destImage.destPoint.w == 0
+			|| destImage.destPoint.x == 0
+			|| destImage.destPoint.y == 0
+			|| destImage.destPoint.z == 0)
+			&& alphaImage == null && alphaPoint == null && mergeAlpha == false && image.format == sourceImage.format)
+		{
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
 	}
 }
 
@@ -34,6 +101,68 @@ class Main {
 			&& sourceRect.y == 0
 			&& destPoint.x == 0
 			&& destPoint.y == 0
+			&& alphaImage == null
+			&& alphaPoint == null
+			&& mergeAlpha == false
+			&& image.format == sourceImage.format) {
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceRect.x == 0 || sourceRect.y == 0 || destPoint.x == 0 || destPoint.y == 0)
+			&& alphaImage == null
+			&& alphaPoint == null
+			&& mergeAlpha == false
+			&& image.format == sourceImage.format) {
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		// inner OpBool chain item length < 40 so fillLine instead of one per line
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceImage.sourceRect.x == 0 || sourceImage.sourceRect.y == 0 || sourceImage.sourceRect.z == 0 || destImage.destPoint.x == 0
+				|| destImage.destPoint.y == 0 || destImage.destPoint.z == 0)
+			&& alphaImage == null
+			&& alphaPoint == null
+			&& mergeAlpha == false
+			&& image.format == sourceImage.format) {
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceImage.sourceRect.v == 0 || sourceImage.sourceRect.w == 0 || sourceImage.sourceRect.x == 0 || sourceImage.sourceRect.y == 0
+				|| sourceImage.sourceRect.z == 0 || destImage.destPoint.v == 0 || destImage.destPoint.w == 0 || destImage.destPoint.x == 0
+				|| destImage.destPoint.y == 0 || destImage.destPoint.z == 0)
+			&& alphaImage == null
+			&& alphaPoint == null
+			&& mergeAlpha == false
+			&& image.format == sourceImage.format) {
+			image.buffer.data.set(sourceImage.buffer.data);
+		}
+
+		// inner OpBool chain item length > 40 so one per line
+		if (image.width == sourceImage.width
+			&& image.height == sourceImage.height
+			&& sourceRect.width == sourceImage.width
+			&& sourceRect.height == sourceImage.height
+			&& (sourceImage.sourceRect.v == 123456789
+				|| sourceImage.sourceRect.w == 0
+				|| sourceImage.sourceRect.x == 0
+				|| sourceImage.sourceRect.y == 0
+				|| sourceImage.sourceRect.z == 0
+				|| destImage.destPoint.v == 0
+				|| destImage.destPoint.w == 0
+				|| destImage.destPoint.x == 0
+				|| destImage.destPoint.y == 0
+				|| destImage.destPoint.z == 0)
 			&& alphaImage == null
 			&& alphaPoint == null
 			&& mergeAlpha == false

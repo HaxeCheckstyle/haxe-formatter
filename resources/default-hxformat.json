@@ -348,7 +348,7 @@
 					"conditions": [
 						{
 							"cond": "totalItemLength >= n",
-							"value": 130
+							"value": 140
 						}
 					],
 					"type": "fillLine"
@@ -425,9 +425,41 @@
 			]
 		},
 		"maxLineLength": 160,
+		"metadataCallParameter": {
+			"defaultWrap": "noWrap",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "totalItemLength >= n",
+							"value": 140
+						}
+					],
+					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "lineLength >= n",
+							"value": 160
+						}
+					],
+					"type": "fillLine"
+				}
+			]
+		},
 		"methodChain": {
 			"defaultWrap": "noWrap",
 			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "totalItemLength >= n",
+							"value": 140
+						}
+					],
+					"type": "fillLine"
+				},
 				{
 					"conditions": [
 						{
@@ -508,6 +540,63 @@
 						}
 					],
 					"type": "onePerLine"
+				}
+			]
+		},
+		"opAddSubChain": {
+			"defaultWrap": "noWrap",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "lineLength >= n",
+							"value": 140
+						},
+						{
+							"cond": "anyItemLength >= n",
+							"value": 60
+						}
+					],
+					"location": "beforeLast",
+					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "lineLength >= n",
+							"value": 140
+						}
+					],
+					"location": "beforeLast",
+					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "itemCount <= n",
+							"value": 3
+						}
+					],
+					"type": "noWrap"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "totalItemLength <= n",
+							"value": 120
+						}
+					],
+					"type": "noWrap"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "itemCount >= n",
+							"value": 4
+						}
+					],
+					"location": "beforeLast",
+					"type": "onePerLineAfterFirst"
 				}
 			]
 		},
