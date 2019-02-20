@@ -2,8 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added `wrapping.opAddSubChain`
-- Added `wrapping.metadataCallParameter`
+- Added `wrapping.opAddSubChain` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
+- Added `wrapping.metadataCallParameter` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Fixed type parameter constraint with structure type, fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed wrapping of OpBool chains with null ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed line comments after typedefs, fixes [#331](https://github.com/HaxeCheckstyle/haxe-formatter/issues/331) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
@@ -20,8 +20,8 @@
 - Fixed parameter wrapping with multiline string, fixes [#320](https://github.com/HaxeCheckstyle/haxe-formatter/issues/320) ([#351](https://github.com/HaxeCheckstyle/haxe-formatter/issues/351))
 - Fixed indentation of untyped assignment, fixes [#326](https://github.com/HaxeCheckstyle/haxe-formatter/issues/326) ([#352](https://github.com/HaxeCheckstyle/haxe-formatter/issues/352))
 - Fixed indentation of anon function call, fixes [#315](https://github.com/HaxeCheckstyle/haxe-formatter/issues/315) ([#352](https://github.com/HaxeCheckstyle/haxe-formatter/issues/352))
-- Fixed `keep` wrapping option to respect both `beforeLast` and `afterLast` wrapping location
-- Fixed abstract with comments, fixes [#363](https://github.com/HaxeCheckstyle/haxe-formatter/issues/363), fixes [#364](https://github.com/HaxeCheckstyle/haxe-formatter/issues/364)
+- Fixed `keep` wrapping option to respect both `beforeLast` and `afterLast` wrapping location ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
+- Fixed abstract with comments, fixes [#363](https://github.com/HaxeCheckstyle/haxe-formatter/issues/363), fixes [#364](https://github.com/HaxeCheckstyle/haxe-formatter/issues/364) ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 
 ## version 1.4.0 (2019-02-07)
 
