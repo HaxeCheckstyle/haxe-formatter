@@ -731,7 +731,7 @@
 				"opBoolChain": {
 					"description": "OpBool chain wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 9
+					"propertyOrder": 10
 				},
 				"functionSignature": {
 					"description": "named function signature wrapping rules",
@@ -741,12 +741,12 @@
 				"anonType": {
 					"description": "anon types wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 7
+					"propertyOrder": 8
 				},
 				"methodChain": {
 					"description": "method chaining wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 8
+					"propertyOrder": 9
 				},
 				"arrayWrap": {
 					"description": "array wrapping rules\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
@@ -766,7 +766,7 @@
 				"implementsExtends": {
 					"description": "implements / extends chain wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 10
+					"propertyOrder": 11
 				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
@@ -781,10 +781,15 @@
 				"opAddSubChain": {
 					"description": "chain wrapping rules for OpAdd / OpSub",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 11
+					"propertyOrder": 12
 				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 7
+				},
+				"metadataCallParameter": {
+					"description": "metadata call parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 6
 				}

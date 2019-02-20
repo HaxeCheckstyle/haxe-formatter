@@ -67,6 +67,7 @@ class Main {
 			image.buffer.data.set(sourceImage.buffer.data);
 		}
 
+		// inner OpBool chain item length > 40 so one per line
 		if (image.width == sourceImage.width
 			&& image.height == sourceImage.height
 			&& sourceRect.width == sourceImage.width
@@ -147,6 +148,7 @@ class Main {
 			image.buffer.data.set(sourceImage.buffer.data);
 		}
 
+		// inner OpBool chain item length > 40 so one per line
 		if (image.width == sourceImage.width
 			&& image.height == sourceImage.height
 			&& sourceRect.width == sourceImage.width

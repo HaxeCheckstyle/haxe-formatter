@@ -124,6 +124,25 @@ typedef WrapConfig = {
 	var callParameter:WrapRules;
 
 	/**
+		metadata call parameter wrapping rules
+	**/
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 140}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				type: FillLine
+			}
+		]
+	})
+	@:optional
+	var metadataCallParameter:WrapRules;
+
+	/**
 		object literal wrapping rules
 	**/
 	@:default({

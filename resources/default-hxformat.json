@@ -425,6 +425,29 @@
 			]
 		},
 		"maxLineLength": 160,
+		"metadataCallParameter": {
+			"defaultWrap": "noWrap",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "totalItemLength >= n",
+							"value": 140
+						}
+					],
+					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "lineLength >= n",
+							"value": 160
+						}
+					],
+					"type": "fillLine"
+				}
+			]
+		},
 		"methodChain": {
 			"defaultWrap": "noWrap",
 			"rules": [

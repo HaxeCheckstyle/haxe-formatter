@@ -295,27 +295,7 @@ class MarkWrapping extends MarkWrappingBase {
 		var pClose:Null<TokenTree> = token.access().firstOf(PClose).token;
 		switch (TokenTreeCheckUtils.getPOpenType(token)) {
 			case AT:
-				if (token.children != null) {
-					if (isSameLineBetween(token, pClose, true)) {
-						noWrappingBetween(token, pClose);
-					} else {
-						wrapAfter(token, true);
-						if (pClose != null) {
-							wrapBefore(pClose, false);
-						}
-						for (child in token.children) {
-							if (child.is(PClose)) {
-								continue;
-							}
-							var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-							if (lastChild == null) {
-								wrapAfter(lastChild, true);
-							} else {
-								wrapAfter(lastChild, true);
-							}
-						}
-					}
-				}
+				wrapMetadataCallParameter(token);
 			case PARAMETER:
 				wrapFunctionSignature(token);
 			case CALL:
@@ -441,6 +421,16 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		var items:Array<WrappableItem> = makeWrappableItems(token);
 		var rule:WrapRule = determineWrapType2(config.wrapping.callParameter, token, items);
+		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
+	}
+
+	function wrapMetadataCallParameter(token:TokenTree) {
+		var pClose:TokenTree = token.access().firstOf(PClose).token;
+		if ((token.children == null) || (token.children.length <= 0)) {
+			return;
+		}
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		var rule:WrapRule = determineWrapType2(config.wrapping.metadataCallParameter, token, items);
 		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
 	}
 
