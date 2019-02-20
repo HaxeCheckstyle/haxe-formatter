@@ -64,5 +64,5 @@ class Main {
 
 abstract AbstractInt(Int) {
 	@:op(A + B)
-    public static function addInt (a : Int, b : Int) : AbstractInt;
+	public static function addInt(a:Int, b:Int):AbstractInt;
 }
