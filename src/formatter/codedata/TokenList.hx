@@ -612,7 +612,7 @@ class TokenList {
 		return length;
 	}
 
-	public function calcLengthUntilNewline(token:TokenTree):Int {
+	public function calcLengthUntilNewline(token:TokenTree, stop:Null<TokenTree>):Int {
 		if (token == null) {
 			return 0;
 		}
@@ -644,11 +644,16 @@ class TokenList {
 			return length;
 		}
 		for (child in token.children) {
+			if (stop != null) {
+				if (child.index > stop.index) {
+					break;
+				}
+			}
 			var current:Null<TokenInfo> = tokens[child.index];
 			if ((current != null) && (current.whitespaceAfter == Newline)) {
 				break;
 			}
-			length += calcLengthUntilNewline(child);
+			length += calcLengthUntilNewline(child, stop);
 		}
 		return length;
 	}
@@ -831,8 +836,41 @@ class TokenList {
 			if (info.whitespaceAfter == Newline) {
 				return false;
 			}
+			if (info.text.indexOf("\r") >= 0) {
+				return false;
+			}
+			if (info.text.indexOf("\n") >= 0) {
+				return false;
+			}
 		}
 		return true;
+	}
+
+	public function findLineStartToken(token:Null<TokenTree>):Null<TokenTree> {
+		if (token == null) {
+			return null;
+		}
+		if (token.index < 0) {
+			return null;
+		}
+		var start:Int = token.index - 1;
+		while (true) {
+			if (start < 0) {
+				return tokens[0].token;
+			}
+			var info:Null<TokenInfo> = tokens[start--];
+			if (info == null) {
+				continue;
+			}
+			switch (info.whitespaceAfter) {
+				case None:
+				case Space:
+				case Newline:
+					return token;
+			}
+			token = info.token;
+		}
+		return null;
 	}
 
 	#if debugLog
@@ -848,7 +886,7 @@ class TokenList {
 		var tok:String = '`${token}`';
 		var tokPos:String = '${tok.rpad(" ", 30)} (${token.pos})';
 
-		var text:String = func.rpad(" ", 75) + operation.rpad(" ", 70) + tokPos;
+		var text:String = func.rpad(" ", 80) + operation.rpad(" ", 70) + tokPos;
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString(text + "\n");
 		file.close();

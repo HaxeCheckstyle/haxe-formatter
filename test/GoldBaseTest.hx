@@ -8,7 +8,11 @@ import formatter.Formatter.Result;
 
 class GoldBaseTest {
 	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?config:String, ?pos:PosInfos) {
-		var file:ParseFile = {name: fileName + ".hxtest", content: Bytes.ofString(unformatted), lineSeparator: lineSeparator};
+		var file:ParseFile = {
+			name: fileName + ".hxtest",
+			content: Bytes.ofString(unformatted),
+			lineSeparator: lineSeparator
+		};
 		var formatter:GoldFormatter = new GoldFormatter(config);
 		var result:Result = formatter.formatFile(file);
 		handleResult(fileName, result, goldCode, pos);

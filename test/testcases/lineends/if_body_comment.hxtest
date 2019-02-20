@@ -1,0 +1,39 @@
+{
+}
+
+---
+
+class Main{
+	function main(){
+		for (token in indentingTokensCandidates) {
+			switch (prevToken.tok) {
+				case Kwd(KwdElse):
+					switch (currentToken.tok) {
+						case Dot:
+							if ((prevToken.pos.min == currentToken.pos.min)
+							&& parsedCode.tokenList.isNewLineBefore(currentToken)) {
+								// first dot & has a newline
+							}
+					}
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		for (token in indentingTokensCandidates) {
+			switch (prevToken.tok) {
+				case Kwd(KwdElse):
+					switch (currentToken.tok) {
+						case Dot:
+							if ((prevToken.pos.min == currentToken.pos.min) && parsedCode.tokenList.isNewLineBefore(currentToken)) {
+								// first dot & has a newline
+							}
+					}
+			}
+		}
+	}
+}

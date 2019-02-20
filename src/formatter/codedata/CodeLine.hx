@@ -103,7 +103,11 @@ class CodeLine {
 				lines.push(line);
 			}
 			line.parts.push(p);
-			lineLength += p.text.length;
+			if (p.lastLineLength <= 0) {
+				lineLength += p.firstLineLength;
+			} else {
+				lineLength += p.lastLineLength;
+			}
 			lastPart = p;
 		}
 		line.emptyLinesAfter = emptyLinesAfter;

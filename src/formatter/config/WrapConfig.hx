@@ -111,7 +111,7 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: TotalItemLengthLargerThan, value: 130}],
+				conditions: [{cond: TotalItemLengthLargerThan, value: 140}],
 				type: FillLine
 			},
 			{
@@ -183,6 +183,10 @@ typedef WrapConfig = {
 	@:default({
 		defaultWrap: NoWrap,
 		rules: [
+			{
+				conditions: [{cond: TotalItemLengthLargerThan, value: 140}],
+				type: FillLine
+			},
 			{
 				conditions: [{cond: ItemCountLessThan, value: 3}],
 				type: NoWrap
@@ -264,6 +268,43 @@ typedef WrapConfig = {
 	})
 	@:optional
 	var implementsExtends:WrapRules;
+
+	/**
+		chain wrapping rules for OpAdd / OpSub
+	**/
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [
+					{cond: LineLengthLargerThan, value: 140},
+					{cond: AnyItemLengthLargerThan, value: 60}
+				],
+				location: BeforeLast,
+				type: OnePerLineAfterFirst
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 140}],
+				location: BeforeLast,
+				type: FillLine
+			},
+			{
+				conditions: [{cond: ItemCountLessThan, value: 3}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: TotalItemLengthLessThan, value: 120}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				location: BeforeLast,
+				type: OnePerLineAfterFirst
+			}
+		]
+	})
+	@:optional
+	var opAddSubChain:WrapRules;
 }
 
 typedef WrapRules = {

@@ -1,0 +1,11 @@
+{
+}
+
+---
+
+abstract Thenable<T>(ThenableStruct<T>) from ThenableStruct<T> {}  // abstract wrapping prevents compiler hanging, see https://github.com/HaxeFoundation/haxe/issues/5785
+
+---
+
+abstract Thenable<T>(ThenableStruct<T>)
+	from ThenableStruct<T> {} // abstract wrapping prevents compiler hanging, see https://github.com/HaxeFoundation/haxe/issues/5785

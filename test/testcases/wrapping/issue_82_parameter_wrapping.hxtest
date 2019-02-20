@@ -60,8 +60,7 @@ class Main {
 		doSomething();
 	}
 
-	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int,
-			verylongparams6:Int) {
+	function onWorkspaceSymbols(verylongparams1:Int, verylongparams2:Int, verylongparams3:Int, verylongparams4:Int, verylongparams5:Int, verylongparams6:Int) {
 		doSomething();
 	}
 
@@ -83,7 +82,7 @@ class Main {
 
 class Main {
 	static inline function prepareOutput(originalLines:Array<String>, outputLines:Array<String>):String {
-		return "original file\n-----------------------------------\n" + originalLines.join("\n") + "\n-----------------------------------\n\n" + outputLines
-			.join("\n");
+		return "original file\n-----------------------------------\n" + originalLines.join("\n") + "\n-----------------------------------\n\n"
+			+ outputLines.join("\n");
 	}
 }

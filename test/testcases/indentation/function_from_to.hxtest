@@ -1,0 +1,41 @@
+{
+  "lineEnds": {
+    "leftCurly": "both",
+    "rightCurly": "both"
+  }
+}
+
+
+---
+
+class Main {
+    public function from (value : Float) : RangeSliderElement
+    {
+        m_sliderOptions.from = value;
+        return this;
+    }
+
+    public function to (value : Float) : RangeSliderElement
+    {
+        m_sliderOptions.to = value;
+        return this;
+    }
+
+}
+
+---
+
+class Main
+{
+	public function from(value:Float):RangeSliderElement
+	{
+		m_sliderOptions.from = value;
+		return this;
+	}
+
+	public function to(value:Float):RangeSliderElement
+	{
+		m_sliderOptions.to = value;
+		return this;
+	}
+}

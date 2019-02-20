@@ -15,6 +15,7 @@
 # -D debugLog
 # -D debugIndent
 # -D detailed_coverage
+# -D debugWrapping
 -D unittest
 -x TestMain
 

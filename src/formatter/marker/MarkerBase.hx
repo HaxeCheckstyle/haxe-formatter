@@ -105,8 +105,8 @@ class MarkerBase {
 		return parsedCode.tokenList.calcLength(token);
 	}
 
-	public function calcLengthUntilNewline(token:TokenTree):Int {
-		return parsedCode.tokenList.calcLengthUntilNewline(token);
+	public function calcLengthUntilNewline(token:TokenTree, stop:Null<TokenTree>):Int {
+		return parsedCode.tokenList.calcLengthUntilNewline(token, stop);
 	}
 
 	public function calcLengthBetween(tokenStart:TokenTree, tokenEnd:TokenTree):Int {
@@ -139,5 +139,9 @@ class MarkerBase {
 
 	public function isSameLineBetween(tokenStart:TokenTree, tokenEnd:TokenTree, exclude:Bool):Bool {
 		return parsedCode.tokenList.isSameLineBetween(tokenStart, tokenEnd, exclude);
+	}
+
+	public function findLineStartToken(token:Null<TokenTree>):Null<TokenTree> {
+		return parsedCode.tokenList.findLineStartToken(token);
 	}
 }

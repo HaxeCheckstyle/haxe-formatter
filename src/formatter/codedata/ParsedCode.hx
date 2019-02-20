@@ -158,7 +158,10 @@ class ParsedCode {
 			var matchLeft:Bool = linesIdx[center].l <= off;
 			var matchRight:Bool = linesIdx[center].r >= off;
 			if (matchLeft && matchRight) {
-				return {line: center, ofs: off - linesIdx[center].l};
+				return {
+					line: center,
+					ofs: off - linesIdx[center].l
+				};
 			}
 			if (matchLeft) {
 				lowerBound = center + 1;

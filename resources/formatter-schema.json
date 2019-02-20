@@ -778,6 +778,11 @@
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 2
 				},
+				"opAddSubChain": {
+					"description": "chain wrapping rules for OpAdd / OpSub",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 11
+				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
 					"$ref": "#/definitions/WrapRules",
