@@ -587,6 +587,20 @@ class MarkWrapping extends MarkWrappingBase {
 		var prev:Null<TokenInfo> = getPreviousToken(findOpAddItemStart(itemContainer));
 		var chainStart:TokenTree = findOpAddItemStart(itemContainer);
 		var chainEnd:Null<TokenTree> = itemContainer.getLastChild();
+		switch (chainStart.tok) {
+			case POpen:
+				var type:POpenType = TokenTreeCheckUtils.getPOpenType(chainStart);
+				switch (type) {
+					case AT:
+						return;
+					case PARAMETER:
+					case CALL:
+					case CONDITION:
+					case FORLOOP:
+					case EXPRESSION:
+				}
+			default:
+		}
 
 		if (chainEnd != null) {
 			chainEnd = TokenTreeCheckUtils.getLastToken(chainEnd);

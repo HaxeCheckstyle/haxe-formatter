@@ -19,6 +19,11 @@ class Main {
 	}
 }
 
+abstract AbstractInt(Int) {
+	@:op(A + B)
+    public static function addInt (a : Int, b : Int) : AbstractInt;
+}
+
 ---
 
 class Main {
@@ -55,4 +60,9 @@ class Main {
 					this[2] * this[7]
 					- this[6] * this[3]));
 	}
+}
+
+abstract AbstractInt(Int) {
+	@:op(A + B)
+    public static function addInt (a : Int, b : Int) : AbstractInt;
 }

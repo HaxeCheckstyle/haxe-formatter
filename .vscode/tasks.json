@@ -11,7 +11,7 @@
 		},
 		{
 			"type": "hxml",
-			"file": "buildTest.hxml",
+			"file": "test.hxml",
 			"group": {
 				"kind": "test",
 				"isDefault": true
