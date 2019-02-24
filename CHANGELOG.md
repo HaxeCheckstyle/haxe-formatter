@@ -22,6 +22,7 @@
 - Fixed indentation of anon function call, fixes [#315](https://github.com/HaxeCheckstyle/haxe-formatter/issues/315) ([#352](https://github.com/HaxeCheckstyle/haxe-formatter/issues/352))
 - Fixed `keep` wrapping option to respect both `beforeLast` and `afterLast` wrapping location ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Fixed abstract with comments, fixes [#363](https://github.com/HaxeCheckstyle/haxe-formatter/issues/363), fixes [#364](https://github.com/HaxeCheckstyle/haxe-formatter/issues/364) ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
+- Fixed handling of `@:using`, `@:import` and `@:package`, fixes [#378](https://github.com/HaxeCheckstyle/haxe-formatter/issues/378)
 
 ## version 1.4.0 (2019-02-07)
 

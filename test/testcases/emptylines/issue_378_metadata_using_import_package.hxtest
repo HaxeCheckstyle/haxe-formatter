@@ -1,0 +1,36 @@
+{
+}
+
+---
+
+@:using(Tools)
+class Foo {}
+
+@:using
+class Foo {}
+
+@:package
+class Foo {}
+
+@:import
+class Foo {
+	@:private var foo;
+}
+
+
+
+---
+
+@:using(Tools)
+class Foo {}
+
+@:using
+class Foo {}
+
+@:package
+class Foo {}
+
+@:import
+class Foo {
+	@:private var foo;
+}
