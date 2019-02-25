@@ -14,6 +14,9 @@ class MarkEmptyLines extends MarkerBase {
 		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], ALL);
 		packs.reverse();
 		for (pack in packs) {
+			if (TokenTreeCheckUtils.isMetadata(pack)) {
+				continue;
+			}
 			emptyLinesBefore(pack, config.emptyLines.beforePackage);
 			emptyLinesAfter(pack, config.emptyLines.afterPackage);
 		}
@@ -65,7 +68,18 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markImports() {
-		var imports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdImport), Kwd(KwdUsing)], ALL);
+		var imports:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Kwd(KwdImport), Kwd(KwdUsing):
+					if (TokenTreeCheckUtils.isMetadata(token)) {
+						return SKIP_SUBTREE;
+					} else {
+						return FOUND_SKIP_SUBTREE;
+					}
+				default:
+					return GO_DEEPER;
+			}
+		});
 		if (imports.length <= 0) {
 			return;
 		}
