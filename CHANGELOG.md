@@ -23,6 +23,7 @@
 - Fixed `keep` wrapping option to respect both `beforeLast` and `afterLast` wrapping location ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Fixed abstract with comments, fixes [#363](https://github.com/HaxeCheckstyle/haxe-formatter/issues/363), fixes [#364](https://github.com/HaxeCheckstyle/haxe-formatter/issues/364) ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Fixed handling of `@:using`, `@:import` and `@:package`, fixes [#378](https://github.com/HaxeCheckstyle/haxe-formatter/issues/378) ([#379](https://github.com/HaxeCheckstyle/haxe-formatter/issues/379))
+- Fixed null pointer exception when handling incomplete metadata, fixes [#380](https://github.com/HaxeCheckstyle/haxe-formatter/issues/380)
 
 ## version 1.4.0 (2019-02-07)
 

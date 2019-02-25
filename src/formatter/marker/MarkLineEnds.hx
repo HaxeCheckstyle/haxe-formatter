@@ -273,6 +273,9 @@ class MarkLineEnds extends MarkerBase {
 		}
 		switch (parent.tok) {
 			case Const(CIdent(_)), Kwd(KwdNew), Dollar(_):
+				if ((parent.parent == null) || (parent.parent.tok == null)) {
+					return config.lineEnds.metadataOther;
+				}
 				switch (parent.parent.tok) {
 					case Kwd(KwdVar):
 						return config.lineEnds.metadataVar;

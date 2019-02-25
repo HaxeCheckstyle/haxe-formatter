@@ -1,0 +1,43 @@
+{}
+
+---
+
+@
+class Main {
+	static function main() {
+	}
+}
+
+@
+class Test {}
+
+@
+class Main {
+	@
+	static function main() {
+	}
+}
+
+@
+class Main {
+	@
+	function main() {
+		@
+		super();
+	}
+}
+
+---
+
+@class Main {
+	static function main() {}
+}
+@class Test {}
+@class Main {
+	@static function main() {}
+}
+@class Main {
+	@function main() {
+@super() ;
+	}
+}
