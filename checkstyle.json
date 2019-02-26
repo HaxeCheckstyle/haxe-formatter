@@ -27,9 +27,6 @@
 			"type": "DefaultComesLast"
 		},
 		{
-			"type": "DocCommentStyle"
-		},
-		{
 			"type": "Dynamic"
 		},
 		{
