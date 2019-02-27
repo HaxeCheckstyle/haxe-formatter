@@ -25,6 +25,7 @@ class MarkEmptyLines extends MarkerBase {
 
 		markImports();
 		markClassesAndAbstracts();
+		markMacroClasses();
 		markInterfaces();
 		markEnums();
 		markTypedefs();
@@ -246,6 +247,45 @@ class MarkEmptyLines extends MarkerBase {
 				default:
 					continue;
 			}
+			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
+			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
+
+			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
+			var functions:Array<TokenTree> = findClassAndAbstractFields(c);
+			var prevToken:TokenTree = null;
+			var prevTokenType:TokenFieldType = null;
+			var currToken:TokenTree = null;
+			var currTokenType:TokenFieldType = null;
+			for (func in functions) {
+				currToken = func;
+				currTokenType = FieldUtils.getFieldType(func, PRIVATE);
+				markClassFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType, typeConfig);
+				prevToken = currToken;
+				prevTokenType = currTokenType;
+			}
+		}
+	}
+
+	function markMacroClasses() {
+		var classes:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Kwd(KwdClass):
+					if ((token.parent == null) || (token.parent.tok == null)) {
+						return GO_DEEPER;
+					}
+					switch (token.parent.tok) {
+						case Kwd(KwdMacro):
+							return FOUND_SKIP_SUBTREE;
+						default:
+							return GO_DEEPER;
+					}
+				default:
+					return GO_DEEPER;
+			}
+		});
+
+		for (c in classes) {
+			var typeConfig:ClassFieldsEmptyLinesConfig = config.emptyLines.macroClassEmptyLines;
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 

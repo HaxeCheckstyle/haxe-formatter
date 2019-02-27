@@ -1,0 +1,36 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		macro class {
+			var foo:Int;
+			function bar() {
+				trace("bar");
+			}
+			function foobar() {
+				trace("foobar");
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		macro class {
+			var foo:Int;
+
+			function bar() {
+				trace("bar");
+			}
+
+			function foobar() {
+				trace("foobar");
+			}
+		}
+	}
+}

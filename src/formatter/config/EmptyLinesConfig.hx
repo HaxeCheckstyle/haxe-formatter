@@ -54,6 +54,7 @@ typedef EmptyLinesConfig = {
 	@:default(Remove) @:optional var afterBlocks:KeepEmptyLinesPolicy;
 	@:default(auto) @:optional var enumAbstractEmptyLines:EnumAbstractFieldsEmptyLinesConfig;
 	@:default(auto) @:optional var classEmptyLines:ClassFieldsEmptyLinesConfig;
+	@:default(auto) @:optional var macroClassEmptyLines:ClassFieldsEmptyLinesConfig;
 	@:default(auto) @:optional var externClassEmptyLines:InterfaceFieldsEmptyLinesConfig;
 	@:default(auto) @:optional var abstractEmptyLines:ClassFieldsEmptyLinesConfig;
 	@:default(auto) @:optional var interfaceEmptyLines:InterfaceFieldsEmptyLinesConfig;

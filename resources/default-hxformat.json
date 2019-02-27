@@ -80,6 +80,19 @@
 			"betweenVars": 0,
 			"endType": 0
 		},
+		"macroClassEmptyLines": {
+			"afterPrivateFunctions": 1,
+			"afterPrivateVars": 1,
+			"afterStaticFunctions": 1,
+			"afterStaticVars": 1,
+			"afterVars": 1,
+			"beginType": 0,
+			"betweenFunctions": 1,
+			"betweenStaticFunctions": 1,
+			"betweenStaticVars": 0,
+			"betweenVars": 0,
+			"endType": 0
+		},
 		"maxAnywhereInFile": 1,
 		"typedefEmptyLines": {
 			"beginType": 0,
