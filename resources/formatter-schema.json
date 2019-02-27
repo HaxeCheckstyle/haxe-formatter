@@ -483,10 +483,14 @@
 					"type": "integer",
 					"propertyOrder": 3
 				},
+				"macroClassEmptyLines": {
+					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
+					"propertyOrder": 14
+				},
 				"betweenMultilineComments": {
 					"description": "Adds empty lines between two consecutive multiline comments",
 					"type": "integer",
-					"propertyOrder": 22
+					"propertyOrder": 23
 				},
 				"finalNewline": {
 					"description": "adds a final newline",
@@ -513,7 +517,7 @@
 				},
 				"conditionalsEmptyLines": {
 					"$ref": "#/definitions/ConditionalEmptyLinesConfig",
-					"propertyOrder": 19
+					"propertyOrder": 20
 				},
 				"afterBlocks": {
 					"type": "string",
@@ -525,11 +529,11 @@
 				},
 				"enumEmptyLines": {
 					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
-					"propertyOrder": 17
+					"propertyOrder": 18
 				},
 				"externClassEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
-					"propertyOrder": 14
+					"propertyOrder": 15
 				},
 				"betweenTypes": {
 					"description": "empty lines between types",
@@ -543,7 +547,7 @@
 				},
 				"typedefEmptyLines": {
 					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
-					"propertyOrder": 18
+					"propertyOrder": 19
 				},
 				"enumAbstractEmptyLines": {
 					"$ref": "#/definitions/EnumAbstractFieldsEmptyLinesConfig",
@@ -551,7 +555,7 @@
 				},
 				"abstractEmptyLines": {
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
-					"propertyOrder": 15
+					"propertyOrder": 16
 				},
 				"beforePackage": {
 					"description": "empty lines before package declaration",
@@ -570,16 +574,16 @@
 						"none",
 						"one"
 					],
-					"propertyOrder": 20
+					"propertyOrder": 21
 				},
 				"interfaceEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
-					"propertyOrder": 16
+					"propertyOrder": 17
 				},
 				"afterFileHeaderComment": {
 					"description": "Adds empty lines when file starts with a multiline comment",
 					"type": "integer",
-					"propertyOrder": 21
+					"propertyOrder": 22
 				}
 			},
 			"type": "object"
