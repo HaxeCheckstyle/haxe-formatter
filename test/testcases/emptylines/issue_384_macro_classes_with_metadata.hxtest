@@ -1,0 +1,36 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		macro class {
+			var foo:Int;
+
+			@Test
+
+			function foobar() {}
+
+
+			@Test
+			function foobar() {}
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		macro class {
+			var foo:Int;
+
+			@Test
+			function foobar() {}
+
+			@Test
+			function foobar() {}
+		}
+	}
+}

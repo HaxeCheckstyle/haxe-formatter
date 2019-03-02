@@ -26,6 +26,7 @@
 - Fixed handling of `@:using`, `@:import` and `@:package`, fixes [#378](https://github.com/HaxeCheckstyle/haxe-formatter/issues/378) ([#379](https://github.com/HaxeCheckstyle/haxe-formatter/issues/379))
 - Fixed null pointer exception when handling incomplete metadata, fixes [#380](https://github.com/HaxeCheckstyle/haxe-formatter/issues/380) ([#381](https://github.com/HaxeCheckstyle/haxe-formatter/issues/381))
 - Fixed left curly placement for anon types as return values, fixes [#358](https://github.com/HaxeCheckstyle/haxe-formatter/issues/358), fixes [#369](https://github.com/HaxeCheckstyle/haxe-formatter/issues/369)
+- Fixed empty lines after metadata in macro classes, fixes [#384](https://github.com/HaxeCheckstyle/haxe-formatter/issues/384)
 
 ## version 1.4.0 (2019-02-07)
 

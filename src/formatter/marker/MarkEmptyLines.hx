@@ -950,6 +950,9 @@ class MarkEmptyLines extends MarkerBase {
 				if (tokenInf == null) {
 					continue;
 				}
+				if (TokenTreeCheckUtils.isMetadata(tokenInf.token)) {
+					continue;
+				}
 				tokenInf.emptyLinesAfter++;
 			}
 		}
