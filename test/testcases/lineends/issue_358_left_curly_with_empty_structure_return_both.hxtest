@@ -1,0 +1,24 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	}
+}
+
+---
+
+class Main {
+	function correctObjectTypes(row:{}):{} {
+		trace("foo");
+	}
+}
+
+---
+
+class Main
+{
+	function correctObjectTypes(row:{}):{}
+	{
+		trace("foo");
+	}
+}

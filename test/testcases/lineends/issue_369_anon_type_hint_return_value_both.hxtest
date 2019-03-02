@@ -1,0 +1,33 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"whitespace": {
+		"bracesConfig": {
+			"anonTypeBraces": {
+				"openingPolicy": "after",
+				"closingPolicy": "before"
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	private static function normalizeUVT(uvt:Vector<Float>, skipT:Bool = false):{ max:Float, uvt:Vector<Float> }
+	{
+		....
+	}
+}
+
+---
+
+class Main
+{
+	private static function normalizeUVT(uvt:Vector<Float>, skipT:Bool = false):{ max:Float, uvt:Vector<Float> }
+	{
+		....
+	}
+}
