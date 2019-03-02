@@ -204,6 +204,16 @@ class MarkLineEnds extends MarkerBase {
 			case Semicolon:
 			case Arrow:
 			case Binop(OpAssign):
+			case BrOpen:
+				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(nextToken.token);
+				switch (type) {
+					case BLOCK:
+					case TYPEDEFDECL:
+					case OBJECTDECL:
+						lineEndAfter(token);
+					case ANONTYPE:
+					case UNKNOWN:
+				}
 			default:
 				lineEndAfter(token);
 		}

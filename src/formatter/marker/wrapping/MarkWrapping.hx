@@ -159,7 +159,11 @@ class MarkWrapping extends MarkWrappingBase {
 		if (next != null) {
 			switch (next.token.tok) {
 				case BrOpen:
-					noLineEndAfter(brClose);
+					switch (config.lineEnds.leftCurly) {
+						case None, After:
+							noLineEndAfter(brClose);
+						case Before, Both:
+					}
 				case Binop(OpGt):
 					noLineEndAfter(brClose);
 					whitespace(brClose, NoneAfter);
