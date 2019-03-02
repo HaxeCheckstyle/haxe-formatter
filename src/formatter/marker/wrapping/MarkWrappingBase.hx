@@ -131,7 +131,19 @@ class MarkWrappingBase extends MarkerBase {
 			switch (lastToken.tok) {
 				case Semicolon:
 				default:
-					noLineEndAfter(lastToken);
+					var next:TokenInfo = getNextToken(lastToken);
+					if (next == null) {
+						noLineEndAfter(lastToken);
+						return;
+					}
+					switch (next.token.tok) {
+						case Kwd(KwdThis), Kwd(KwdNull), Kwd(KwdNew):
+							noLineEndAfter(lastToken);
+						case Kwd(_):
+						case Semicolon:
+						default:
+							noLineEndAfter(lastToken);
+					}
 			}
 		}
 	}
