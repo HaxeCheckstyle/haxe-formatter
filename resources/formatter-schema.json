@@ -1131,6 +1131,11 @@
 					],
 					"propertyOrder": 12
 				},
+				"addLineCommentSpace": {
+					"description": "ensure a space after '//'",
+					"type": "boolean",
+					"propertyOrder": 30
+				},
 				"catchPolicy": {
 					"type": "string",
 					"enum": [

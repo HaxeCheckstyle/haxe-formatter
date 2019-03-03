@@ -146,6 +146,7 @@
 		"whileBody": "next"
 	},
 	"whitespace": {
+		"addLineCommentSpace": true,
 		"arrowFunctionsPolicy": "around",
 		"binopPolicy": "around",
 		"bracesConfig": {

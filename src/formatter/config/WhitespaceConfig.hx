@@ -63,6 +63,11 @@ typedef WhitespaceConfig = {
 		only applies spaces, no newlines or wrapping
 	**/
 	@:default(true) @:optional var formatStringInterpolation:Bool;
+
+	/**
+		ensure a space after '//'
+	**/
+	@:default(true) @:optional var addLineCommentSpace:Bool;
 }
 
 typedef ParenWhitespaceConfig = {
