@@ -32,6 +32,16 @@ typedef EmptyLinesConfig = {
 	@:default(1) @:optional var betweenTypes:Int;
 
 	/**
+		empty lines for line comments between types
+	**/
+	@:default(1) @:optional var lineCommentsBetweenTypes:Int;
+
+	/**
+		empty lines for line comments between functions
+	**/
+	@:default(1) @:optional var lineCommentsBetweenFunctions:Int;
+
+	/**
 		empty lines between two single line types
 	**/
 	@:default(0) @:optional var betweenSingleLineTypes:Int;

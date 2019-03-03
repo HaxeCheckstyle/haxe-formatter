@@ -380,6 +380,11 @@ class MarkEmptyLines extends MarkerBase {
 			case UNKNOWN:
 				return;
 		}
+
+		if (!currVar) {
+			markLineCommentsBefore(currToken, config.emptyLines.lineCommentsBetweenFunctions);
+			markLineCommentsAfter(currToken, config.emptyLines.lineCommentsBetweenFunctions);
+		}
 		prevToken = skipSharpFields(prevToken);
 		if (prevToken == null) {
 			return;
@@ -421,6 +426,47 @@ class MarkEmptyLines extends MarkerBase {
 			}
 			emptyLinesAfterSubTree(prevToken, conf.betweenFunctions);
 			return;
+		}
+	}
+
+	function markLineCommentsBefore(token:TokenTree, count:Int) {
+		if (count <= 0) {
+			return;
+		}
+		if (token.previousSibling == null) {
+			return;
+		}
+		var prev:Null<TokenTree> = token.previousSibling;
+		while (prev != null) {
+			switch (prev.tok) {
+				case Comment(_):
+				case CommentLine(_):
+					var prevInfo:Null<TokenInfo> = getPreviousToken(prev);
+					if ((prevInfo == null) || (prevInfo.whitespaceAfter == Newline)) {
+						emptyLinesAfter(prev, count);
+					}
+					return;
+				default:
+					return;
+			}
+			prev = prev.previousSibling;
+		}
+	}
+
+	function markLineCommentsAfter(token:TokenTree, count:Int) {
+		if (count <= 0) {
+			return;
+		}
+		if (token.nextSibling == null) {
+			return;
+		}
+		var next:Null<TokenTree> = token.nextSibling;
+		switch (next.tok) {
+			case CommentLine(_):
+				if (isNewLineBefore(next)) {
+					emptyLinesBefore(next, count);
+				}
+			default:
 		}
 	}
 
@@ -665,11 +711,13 @@ class MarkEmptyLines extends MarkerBase {
 		var prevTypeInfo:Null<TypeEmptyLinesInfo> = null;
 		for (type in types) {
 			var newTypeInfo:TypeEmptyLinesInfo = getTypeInfo(type);
+			markLineCommentsBefore(type, config.emptyLines.lineCommentsBetweenTypes);
+			markLineCommentsAfter(type, config.emptyLines.lineCommentsBetweenTypes);
 			if (prevTypeInfo == null) {
 				prevTypeInfo = newTypeInfo;
 				continue;
 			}
-			var next:Null<TokenInfo> = getNextToken(prevTypeInfo.token);
+			var next:Null<TokenInfo> = getNextToken(prevTypeInfo.lastToken);
 			if (next != null) {
 				switch (next.token.tok) {
 					case Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_ELSE_IF):
@@ -682,33 +730,35 @@ class MarkEmptyLines extends MarkerBase {
 			if (prevTypeInfo.oneLine && newTypeInfo.oneLine) {
 				emptyLines = config.emptyLines.betweenSingleLineTypes;
 			}
-			emptyLinesAfterSubTree(prevTypeInfo.token, emptyLines);
+			emptyLinesAfterSubTree(prevTypeInfo.lastToken, emptyLines);
+			markLineCommentsAfter(prevTypeInfo.typeToken, config.emptyLines.lineCommentsBetweenTypes);
 			prevTypeInfo = newTypeInfo;
 		}
 	}
 
 	function getTypeInfo(token:TokenTree):TypeEmptyLinesInfo {
 		var info:TypeEmptyLinesInfo = {
-			token: TokenTreeCheckUtils.getLastToken(token),
+			lastToken: TokenTreeCheckUtils.getLastToken(token),
+			typeToken: token,
 			oneLine: false
 		};
-		if (isSameLine(token, info.token)) {
+		if (isSameLine(token, info.lastToken)) {
 			info.oneLine = true;
 		}
 		var atToken:Null<TokenTree> = token.access().firstChild().isCIdent().firstOf(At).token;
 		if (atToken != null) {
-			if (!isSameLine(atToken, info.token)) {
+			if (!isSameLine(atToken, info.lastToken)) {
 				info.oneLine = false;
 			}
 		}
 		while (true) {
-			var next:Null<TokenInfo> = getNextToken(info.token);
+			var next:Null<TokenInfo> = getNextToken(info.lastToken);
 			if (next == null) {
 				break;
 			}
 			switch (next.token.tok) {
 				case Sharp(MarkLineEnds.SHARP_END):
-					info.token = next.token;
+					info.lastToken = next.token;
 				default:
 					break;
 			}
@@ -994,6 +1044,7 @@ typedef ImportPackageInfo = {
 }
 
 typedef TypeEmptyLinesInfo = {
-	var token:TokenTree;
+	var lastToken:TokenTree;
+	var typeToken:TokenTree;
 	var oneLine:Bool;
 }

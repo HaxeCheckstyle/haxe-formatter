@@ -1,0 +1,41 @@
+{
+}
+
+---
+
+// class Main {
+class Main {}
+
+// class Main {
+typedef Main = String;
+// class Main {
+
+class Main {}
+
+// class Main {
+// }
+typedef Main = String;
+// class Main {
+// }
+
+---
+
+// class Main {
+
+class Main {}
+
+// class Main {
+
+typedef Main = String;
+
+// class Main {
+
+class Main {}
+
+// class Main {
+// }
+
+typedef Main = String;
+
+// class Main {
+// }
