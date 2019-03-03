@@ -5,6 +5,7 @@
 - Added `wrapping.opAddSubChain` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `wrapping.metadataCallParameter` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `emptyLines.macroClassEmptyLines`, fixes [#377](https://github.com/HaxeCheckstyle/haxe-formatter/issues/377) ([#383](https://github.com/HaxeCheckstyle/haxe-formatter/issues/383))
+- Added `emptyLines.lineCommentsBetweenTypes` and `emptyLines.lineCommentsBetweenTypes` to separate line comments from types and functions ([#387](https://github.com/HaxeCheckstyle/haxe-formatter/issues/387))
 - Fixed type parameter constraint with structure type, fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed wrapping of OpBool chains with null ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed line comments after typedefs, fixes [#331](https://github.com/HaxeCheckstyle/haxe-formatter/issues/331) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))

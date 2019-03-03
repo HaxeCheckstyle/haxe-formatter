@@ -10,6 +10,7 @@ typedef ExtendedFieldsCB = Array<ObjectDeclField>->String->Position->DynamicAcce
 #end
 
 // adapted from https://github.com/nadako/haxe-type-to-json-schema
+
 class JsonSchemaGenerator {
 	#if (haxe_ver >= 4.0)
 	static inline var SCHEMA_KEY:String = "$schema";
