@@ -255,6 +255,9 @@ class MarkTokenText extends MarkerBase {
 		if (~/^[\/\*\-\s]+/.match(text)) {
 			return "//" + text.rtrim();
 		}
-		return "// " + text.trim();
+		if (config.whitespace.addLineCommentSpace) {
+			return "// " + text.trim();
+		}
+		return "//" + text.trim();
 	}
 }
