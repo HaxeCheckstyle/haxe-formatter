@@ -2,10 +2,12 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.5.0 (2019-03-04)
+
 - Added `wrapping.opAddSubChain` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `wrapping.metadataCallParameter` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `emptyLines.macroClassEmptyLines`, fixes [#377](https://github.com/HaxeCheckstyle/haxe-formatter/issues/377) ([#383](https://github.com/HaxeCheckstyle/haxe-formatter/issues/383))
-- Added `emptyLines.lineCommentsBetweenTypes` and `emptyLines.lineCommentsBetweenTypes` to separate line comments from types and functions ([#387](https://github.com/HaxeCheckstyle/haxe-formatter/issues/387))
+- Added `emptyLines.lineCommentsBetweenTypes` and `emptyLines.lineCommentsBetweenTypes` to separate line comments from types and functions ([#387](https://github.com/HaxeCheckstyle/haxe-formatter/issues/387) + [#389](https://github.com/HaxeCheckstyle/haxe-formatter/issues/389))
 - Added `whitespace.addLineCommentSpace` to ensure a space after `//` ([#388](https://github.com/HaxeCheckstyle/haxe-formatter/issues/388))
 - Fixed type parameter constraint with structure type, fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed wrapping of OpBool chains with null ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))

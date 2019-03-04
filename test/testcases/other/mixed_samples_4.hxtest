@@ -2,8 +2,8 @@
 	"emptyLines": {
 		"maxAnywhereInFile": 2,
 		"afterLeftCurly": "keep",
-		"lineCommentsBetweenFunctions" : "none",
-		"lineCommentsBetweenTypes" : "none"
+		"lineCommentsBetweenFunctions" : "one",
+		"lineCommentsBetweenTypes" : "one"
 	},
 	"indentation": {
 		"character": "    "
@@ -108,13 +108,16 @@ class UInt {
 
     // keep empty lines above
     // space in { }
+
     public function new() { }
 
     // keep empty lines above
     // space in { }
+
     public function new() { }
 
     // leading/trailing space in anon type
+
     public function peer():{ host:Host, port:Int } {
         var info = socket.peer();
         var host:Host = Type.createEmptyInstance(Host);
@@ -126,6 +129,7 @@ class UInt {
     }
 
     // space in catch { }
+
     public function request() {
         try
             sock.close()
@@ -133,6 +137,7 @@ class UInt {
     }
 
     // space in catch { }
+
     public function request() {
         try
             sock.close()

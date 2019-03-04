@@ -80,8 +80,8 @@
 			"betweenVars": 0,
 			"endType": 0
 		},
-		"lineCommentsBetweenFunctions": 1,
-		"lineCommentsBetweenTypes": 1,
+		"lineCommentsBetweenFunctions": "keep",
+		"lineCommentsBetweenTypes": "keep",
 		"macroClassEmptyLines": {
 			"afterPrivateFunctions": 1,
 			"afterPrivateVars": 1,

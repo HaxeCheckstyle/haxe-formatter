@@ -51,6 +51,11 @@ class UInt {
     // space in { }
     public function new() { }
 
+    // keep empty lines above
+    // space in { }
+
+    public function new() { }
+
     // leading/trailing space in anon type
     public function peer():{ host:Host, port:Int } {
         var info = socket.peer();
@@ -68,7 +73,18 @@ class UInt {
             sock.close()
         catch(e:Dynamic) { };
     }
+
+
+    // space in catch { }
+
+    public function request() {
+        try
+            sock.close()
+        catch(e:Dynamic) { };
+    }
 }
+
+
 
 ---
 
@@ -92,11 +108,14 @@ class UInt {
 
     // keep empty lines above
     // space in { }
+    public function new() { }
+
+    // keep empty lines above
+    // space in { }
 
     public function new() { }
 
     // leading/trailing space in anon type
-
     public function peer():{ host:Host, port:Int } {
         var info = socket.peer();
         var host:Host = Type.createEmptyInstance(Host);
@@ -105,6 +124,13 @@ class UInt {
 
         // keep empty lines above
         return { host: host, port: info.port };
+    }
+
+    // space in catch { }
+    public function request() {
+        try
+            sock.close()
+        catch (e:Dynamic) { };
     }
 
     // space in catch { }

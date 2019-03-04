@@ -1,6 +1,6 @@
 {
 	"emptyLines" : {
-		"lineCommentsBetweenFunctions" : 0
+		"lineCommentsBetweenFunctions" : "none"
 	}
 }
 
@@ -39,6 +39,7 @@ class Main {
 
 	**/
 	static function main() {}
+
 	// static function main() {
 	// }
 }

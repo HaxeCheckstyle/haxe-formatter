@@ -383,7 +383,7 @@ class MarkEmptyLines extends MarkerBase {
 
 		if (!currVar) {
 			markLineCommentsBefore(currToken, config.emptyLines.lineCommentsBetweenFunctions);
-			markLineCommentsAfter(currToken, config.emptyLines.lineCommentsBetweenFunctions);
+			markLineCommentsAfter(currToken, 1);
 		}
 		prevToken = skipSharpFields(prevToken);
 		if (prevToken == null) {
@@ -429,8 +429,8 @@ class MarkEmptyLines extends MarkerBase {
 		}
 	}
 
-	function markLineCommentsBefore(token:TokenTree, count:Int) {
-		if (count <= 0) {
+	function markLineCommentsBefore(token:TokenTree, policy:LineCommentEmptyLinePolicy) {
+		if (policy == None) {
 			return;
 		}
 		if (token.previousSibling == null) {
@@ -443,7 +443,15 @@ class MarkEmptyLines extends MarkerBase {
 				case CommentLine(_):
 					var prevInfo:Null<TokenInfo> = getPreviousToken(prev);
 					if ((prevInfo == null) || (prevInfo.whitespaceAfter == Newline)) {
-						emptyLinesAfter(prev, count);
+						switch (policy) {
+							case Keep:
+								if (parsedCode.linesBetweenOriginal(prev, token) > 1) {
+									emptyLinesAfter(prev, 1);
+								}
+							case One:
+								emptyLinesAfter(prev, 1);
+							case None:
+						}
 					}
 					return;
 				default:
@@ -712,7 +720,7 @@ class MarkEmptyLines extends MarkerBase {
 		for (type in types) {
 			var newTypeInfo:TypeEmptyLinesInfo = getTypeInfo(type);
 			markLineCommentsBefore(type, config.emptyLines.lineCommentsBetweenTypes);
-			markLineCommentsAfter(type, config.emptyLines.lineCommentsBetweenTypes);
+			markLineCommentsAfter(type, 1);
 			if (prevTypeInfo == null) {
 				prevTypeInfo = newTypeInfo;
 				continue;
@@ -731,7 +739,7 @@ class MarkEmptyLines extends MarkerBase {
 				emptyLines = config.emptyLines.betweenSingleLineTypes;
 			}
 			emptyLinesAfterSubTree(prevTypeInfo.lastToken, emptyLines);
-			markLineCommentsAfter(prevTypeInfo.typeToken, config.emptyLines.lineCommentsBetweenTypes);
+			markLineCommentsAfter(prevTypeInfo.typeToken, 1);
 			prevTypeInfo = newTypeInfo;
 		}
 	}

@@ -1,6 +1,6 @@
 {
 	"emptyLines" : {
-		"lineCommentsBetweenTypes" : 0
+		"lineCommentsBetweenTypes" : "none"
 	}
 }
 
@@ -21,8 +21,10 @@ typedef Main = String;
 // class Main {
 // }
 class Main {}
+
 // class Main {
 // }
 typedef Main = String;
+
 // class Main {
 // }

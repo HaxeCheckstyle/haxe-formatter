@@ -34,12 +34,12 @@ typedef EmptyLinesConfig = {
 	/**
 		empty lines for line comments between types
 	**/
-	@:default(1) @:optional var lineCommentsBetweenTypes:Int;
+	@:default(Keep) @:optional var lineCommentsBetweenTypes:LineCommentEmptyLinePolicy;
 
 	/**
 		empty lines for line comments between functions
 	**/
-	@:default(1) @:optional var lineCommentsBetweenFunctions:Int;
+	@:default(Keep) @:optional var lineCommentsBetweenFunctions:LineCommentEmptyLinePolicy;
 
 	/**
 		empty lines between two single line types
@@ -209,4 +209,10 @@ typedef ImportsEmptyLinesConfig = {
 	var FourthLevelPackage = "fourthLevelPackage";
 	var FifthLevelPackage = "fifthLevelPackage";
 	var FullPackage = "fullPackage";
+}
+
+@:enum abstract LineCommentEmptyLinePolicy(String) {
+	var Keep = "keep";
+	var One = "one";
+	var None = "none";
 }
