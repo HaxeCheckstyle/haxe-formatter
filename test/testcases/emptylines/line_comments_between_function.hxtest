@@ -20,7 +20,45 @@ class Main {
 	// }
 }
 
+class Main {
+	var foo;
+	// static function main() {
+	// }
+
+	static function main() {
+	}
+	// static function main() {
+	// }
+	/**
+
+	**/
+	static function main() {
+	}
+
+	// static function main() {
+	// }
+}
+
 ---
+
+class Main {
+	var foo;
+
+	// static function main() {
+	// }
+	static function main() {}
+
+	// static function main() {
+	// }
+
+	/**
+
+	**/
+	static function main() {}
+
+	// static function main() {
+	// }
+}
 
 class Main {
 	var foo;

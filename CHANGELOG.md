@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.5.0 (2019-03-04)
+
 - Added `wrapping.opAddSubChain` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `wrapping.metadataCallParameter` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `emptyLines.macroClassEmptyLines`, fixes [#377](https://github.com/HaxeCheckstyle/haxe-formatter/issues/377) ([#383](https://github.com/HaxeCheckstyle/haxe-formatter/issues/383))

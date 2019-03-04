@@ -40,7 +40,7 @@ function haxeOptions() {
             hxml: "buildAll.hxml"
 		},
 		test: {
-			hxml: "buildTest.hxml"
+			hxml: "test.hxml"
 		}
     };
 }

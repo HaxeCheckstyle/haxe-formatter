@@ -555,7 +555,12 @@
 				},
 				"lineCommentsBetweenTypes": {
 					"description": "empty lines for line comments between types",
-					"type": "integer",
+					"type": "string",
+					"enum": [
+						"keep",
+						"one",
+						"none"
+					],
 					"propertyOrder": 6
 				},
 				"abstractEmptyLines": {
@@ -592,7 +597,12 @@
 				},
 				"lineCommentsBetweenFunctions": {
 					"description": "empty lines for line comments between functions",
-					"type": "integer",
+					"type": "string",
+					"enum": [
+						"keep",
+						"one",
+						"none"
+					],
 					"propertyOrder": 7
 				}
 			},
