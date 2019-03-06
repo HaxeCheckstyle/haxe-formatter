@@ -1,0 +1,11 @@
+{}
+
+---
+
+class Main {
+	var foo = "bar"
+
+---
+
+class Main {
+	var foo = "bar"
