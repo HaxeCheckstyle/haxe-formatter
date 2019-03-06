@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.5.0",
-	"releasenote": "Added wrapping for +/- chains and metadata parameter, added empty line options for macro classes, etc. - see CHANGELOG for details.",
+	"version": "1.5.1",
+	"releasenote": "Fixed vanishing string literals at end of file - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
