@@ -4,7 +4,7 @@
 
 ## version 1.5.1 (2019-03-06)
 
-- Fixed vanishing string literals at end of file
+- Fixed vanishing string literals at end of file ([#391](https://github.com/HaxeCheckstyle/haxe-formatter/issues/391))
 
 ## version 1.5.0 (2019-03-04)
 
