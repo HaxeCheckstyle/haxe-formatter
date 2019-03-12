@@ -3,7 +3,7 @@ package formatter.config;
 typedef FormatterConfig = {
 	/**
 		turns off formatting for all files in current folder and subfolders
-		unless subfolder contains a "hxformat.json"
+		unless subfolder contains a `hxformat.json`
 	**/
 	@:default(false) @:optional var disableFormatting:Bool;
 	@:default(auto) @:optional var emptyLines:EmptyLinesConfig;
@@ -15,7 +15,7 @@ typedef FormatterConfig = {
 
 	/**
 		regular expressions matching files to exclude from formatting
-		default ist to exclude any ".haxelib" folder
+		default is to exclude any `.haxelib` and `.git` folder
 	**/
-	@:default(["\\.haxelib"]) @:optional var excludes:Array<String>;
+	@:default(["\\.haxelib", "\\.git"]) @:optional var excludes:Array<String>;
 }
