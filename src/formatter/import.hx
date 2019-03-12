@@ -1,5 +1,6 @@
 package formatter;
 
+#if tokentree
 import byte.ByteData;
 import haxe.io.Bytes;
 import haxe.macro.Expr;
@@ -13,3 +14,4 @@ import formatter.codedata.TokenInfo;
 using StringTools;
 using tokentree.TokenTreeAccessHelper;
 using formatter.config.WhitespacePolicy;
+#end

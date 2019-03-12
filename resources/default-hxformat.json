@@ -103,7 +103,8 @@
 		}
 	},
 	"excludes": [
-		"\\.haxelib"
+		"\\.haxelib",
+		"\\.git"
 	],
 	"indentation": {
 		"character": "tab",
