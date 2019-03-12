@@ -433,7 +433,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"disableFormatting": {
-					"description": "* turns off formatting for all files in current folder and subfolders\r\n\t * unless subfolder contains a \"hxformat.json\"",
+					"description": "turns off formatting for all files in current folder and subfolders\r\n\t\tunless subfolder contains a \"hxformat.json\"",
 					"type": "boolean"
 				},
 				"excludes": {
