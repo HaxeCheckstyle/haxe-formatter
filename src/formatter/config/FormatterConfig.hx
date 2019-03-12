@@ -2,9 +2,9 @@ package formatter.config;
 
 typedef FormatterConfig = {
 	/**
-		turns off formatting for all files in current folder and subfolders
-		unless subfolder contains a "hxformat.json"
-	**/
+	 * turns off formatting for all files in current folder and subfolders
+	 * unless subfolder contains a "hxformat.json"
+	 */
 	@:default(false) @:optional var disableFormatting:Bool;
 	@:default(auto) @:optional var emptyLines:EmptyLinesConfig;
 	@:default(auto) @:optional var indentation:IndentationConfig;
