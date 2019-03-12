@@ -1,0 +1,999 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"definitions": {
+		"formatter.config.WhitespaceConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"ternaryPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"typeParamClosePolicy": {
+					"description": "\">\"",
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"caseColonPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"intervalPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"commaPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"typeCheckColonPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"typeParamOpenPolicy": {
+					"description": "\"<\"",
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"openingBracketPolicy": {
+					"description": "\"[\"",
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"closingBracketPolicy": {
+					"description": "\"]\"",
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"bracesConfig": {
+					"description": "\"{\" + \"}\"",
+					"$ref": "#/definitions/formatter.config.BracesWhitespaceConfig"
+				},
+				"compressSuccessiveParenthesis": {
+					"description": "should formatter compress spaces for successive parenthesis `( [ {` vs. `([{`",
+					"type": "boolean"
+				},
+				"functionTypeHaxe3Policy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"arrowFunctionsPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"doPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"semicolonPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"forPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"parenConfig": {
+					"description": "\"(\" + \")\"",
+					"$ref": "#/definitions/formatter.config.ParenWhitespaceConfig"
+				},
+				"objectFieldColonPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"colonPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"dotPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"switchPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"formatStringInterpolation": {
+					"description": "should formatter try to format string interpolation expressions (e.g. '${x+3}' -> '${x + 3}')\r\n\t\tonly applies spaces, no newlines or wrapping",
+					"type": "boolean"
+				},
+				"typeExtensionPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"whilePolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"typeHintColonPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"addLineCommentSpace": {
+					"description": "ensure a space after '//'",
+					"type": "boolean"
+				},
+				"catchPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"binopPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"ifPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"functionTypeHaxe4Policy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"tryPolicy": {
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.WrappingLocation": {
+			"anyOf": [
+				{
+					"const": "beforeLast"
+				},
+				{
+					"const": "afterLast"
+				}
+			]
+		},
+		"formatter.config.InterfaceFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
+					"type": "integer"
+				},
+				"betweenVars": {
+					"type": "integer"
+				},
+				"betweenFunctions": {
+					"type": "integer"
+				},
+				"afterVars": {
+					"type": "integer"
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.ConditionalEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"afterElse": {
+					"type": "integer"
+				},
+				"afterIf": {
+					"type": "integer"
+				},
+				"beforeElse": {
+					"type": "integer"
+				},
+				"beforeEnd": {
+					"type": "integer"
+				},
+				"beforeError": {
+					"type": "integer"
+				},
+				"afterError": {
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.SharpLineEndPolicy": {
+			"anyOf": [
+				{
+					"const": "none"
+				},
+				{
+					"const": "after"
+				}
+			]
+		},
+		"formatter.config.WrapCondition": {
+			"required": [
+				"cond"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"cond": {
+					"$ref": "#/definitions/formatter.config.WrapConditionType"
+				},
+				"value": {
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.EmptyCurlyPolicy": {
+			"anyOf": [
+				{
+					"const": "noBreak"
+				},
+				{
+					"const": "break"
+				}
+			]
+		},
+		"formatter.config.KeepEmptyLinesPolicy": {
+			"anyOf": [
+				{
+					"const": "keep"
+				},
+				{
+					"const": "remove"
+				}
+			]
+		},
+		"formatter.config.CaseColonLineEndPolicy": {
+			"anyOf": [
+				{
+					"const": "none"
+				},
+				{
+					"const": "after"
+				}
+			]
+		},
+		"formatter.config.WrapConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"opBoolChain": {
+					"description": "OpBool chain wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"functionSignature": {
+					"description": "named function signature wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"anonType": {
+					"description": "anon types wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"methodChain": {
+					"description": "method chaining wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"arrayWrap": {
+					"description": "array wrapping rules\r\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"maxLineLength": {
+					"description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
+					"type": "integer"
+				},
+				"callParameter": {
+					"description": "call parameter wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"implementsExtends": {
+					"description": "implements / extends chain wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"anonFunctionSignature": {
+					"description": "anon function signature wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"typeParameter": {
+					"description": "type parameter wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"opAddSubChain": {
+					"description": "chain wrapping rules for OpAdd / OpSub",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"objectLiteral": {
+					"description": "object literal wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"metadataCallParameter": {
+					"description": "metadata call parameter wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.ConditionalIndentationPolicy": {
+			"anyOf": [
+				{
+					"const": "fixedZero"
+				},
+				{
+					"const": "aligned"
+				},
+				{
+					"const": "alignedIncrease"
+				},
+				{
+					"const": "alignedDecrease"
+				}
+			]
+		},
+		"formatter.config.ImportsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"betweenImports": {
+					"description": "empty lines between two consecutive import/using lines using betweenImportsLevel",
+					"type": "integer"
+				},
+				"betweenImportsLevel": {
+					"description": "restrict betweenImports setting to a specific level\r\n\t\t\"all\" - apply betweenImports to all imports/using entries\r\n\t\t\"topLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names\r\n\t\t\"packages\" - group imports/using entries using full packages; no empty lines for identical package names",
+					"$ref": "#/definitions/formatter.config.BetweenImportsEmptyLinesLevel"
+				},
+				"beforeUsing": {
+					"description": "empty lines between import and using lines",
+					"type": "integer"
+				},
+				"beforeType": {
+					"description": "empty lines after import and using section",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.SameLinePolicy": {
+			"anyOf": [
+				{
+					"const": "same"
+				},
+				{
+					"const": "next"
+				},
+				{
+					"const": "keep"
+				}
+			]
+		},
+		"formatter.config.LeftCurlyLineEndPolicy": {
+			"anyOf": [
+				{
+					"const": "none"
+				},
+				{
+					"const": "after"
+				},
+				{
+					"const": "before"
+				},
+				{
+					"const": "both"
+				}
+			]
+		},
+		"formatter.config.ClassFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
+					"type": "integer"
+				},
+				"afterStaticFunctions": {
+					"type": "integer"
+				},
+				"betweenStaticFunctions": {
+					"type": "integer"
+				},
+				"betweenVars": {
+					"type": "integer"
+				},
+				"afterStaticVars": {
+					"type": "integer"
+				},
+				"betweenFunctions": {
+					"type": "integer"
+				},
+				"afterVars": {
+					"type": "integer"
+				},
+				"afterPrivateFunctions": {
+					"type": "integer"
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer"
+				},
+				"afterPrivateVars": {
+					"type": "integer"
+				},
+				"betweenStaticVars": {
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.RightCurlyLineEndPolicy": {
+			"anyOf": [
+				{
+					"const": "none"
+				},
+				{
+					"const": "before"
+				},
+				{
+					"const": "after"
+				},
+				{
+					"const": "both"
+				}
+			]
+		},
+		"formatter.config.CommentEmptyLinesPolicy": {
+			"anyOf": [
+				{
+					"const": "ignore"
+				},
+				{
+					"const": "none"
+				},
+				{
+					"const": "one"
+				}
+			]
+		},
+		"formatter.config.LineCommentEmptyLinePolicy": {
+			"anyOf": [
+				{
+					"const": "keep"
+				},
+				{
+					"const": "one"
+				},
+				{
+					"const": "none"
+				}
+			]
+		},
+		"formatter.config.FormatterConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"disableFormatting": {
+					"description": "turns off formatting for all files in current folder and subfolders\r\n\t\tunless subfolder contains a \"hxformat.json\"",
+					"type": "boolean"
+				},
+				"excludes": {
+					"description": "regular expressions matching files to exclude from formatting\r\n\t\tdefault ist to exclude any \".haxelib\" folder",
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				},
+				"indentation": {
+					"$ref": "#/definitions/formatter.config.IndentationConfig"
+				},
+				"emptyLines": {
+					"$ref": "#/definitions/formatter.config.EmptyLinesConfig"
+				},
+				"lineEnds": {
+					"$ref": "#/definitions/formatter.config.LineEndConfig"
+				},
+				"sameLine": {
+					"$ref": "#/definitions/formatter.config.SameLineConfig"
+				},
+				"wrapping": {
+					"$ref": "#/definitions/formatter.config.WrapConfig"
+				},
+				"whitespace": {
+					"$ref": "#/definitions/formatter.config.WhitespaceConfig"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.WrapConditionType": {
+			"anyOf": [
+				{
+					"const": "itemCount >= n"
+				},
+				{
+					"const": "itemCount <= n"
+				},
+				{
+					"const": "anyItemLength >= n"
+				},
+				{
+					"const": "anyItemLength <= n"
+				},
+				{
+					"const": "totalItemLength >= n"
+				},
+				{
+					"const": "totalItemLength <= n"
+				},
+				{
+					"const": "lineLength >= n"
+				},
+				{
+					"const": "lineLength <= n"
+				}
+			]
+		},
+		"formatter.config.LineEndConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"metadataVar": {
+					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
+				},
+				"metadataFunction": {
+					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
+				},
+				"rightCurly": {
+					"$ref": "#/definitions/formatter.config.RightCurlyLineEndPolicy"
+				},
+				"caseColon": {
+					"$ref": "#/definitions/formatter.config.CaseColonLineEndPolicy"
+				},
+				"metadataType": {
+					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
+				},
+				"sharp": {
+					"$ref": "#/definitions/formatter.config.SharpLineEndPolicy"
+				},
+				"emptyCurly": {
+					"$ref": "#/definitions/formatter.config.EmptyCurlyPolicy"
+				},
+				"leftCurly": {
+					"$ref": "#/definitions/formatter.config.LeftCurlyLineEndPolicy"
+				},
+				"metadataOther": {
+					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.SameLineConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"tryBody": {
+					"description": "same line policy for non block body of \"try\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"comprehensionFor": {
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"ifElse": {
+					"description": "same line policy for \"else\" part of \"if…else\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"expressionCase": {
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"expressionTry": {
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"doWhile": {
+					"description": "same line policy for \"while\" part in \"do…while\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"expressionIfWithBlocks": {
+					"description": "will place if with one expression in a block in one line (requires \"expressionIf\" = \"same\")\r\n\t\tvar foo = if (bar) { \"\"; } else { \"\"; };",
+					"type": "boolean"
+				},
+				"catchBody": {
+					"description": "same line policy for non block body of \"catch\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"elseIf": {
+					"description": "same line policy for \"if\" part of \"else if\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"functionBody": {
+					"description": "same line policy for non block body of \"function\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"expressionIf": {
+					"description": "same line policy for non block body of \"if\" in a value place / as expression\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"ifBody": {
+					"description": "same line policy for non block body of \"if\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"caseBody": {
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"elseBody": {
+					"description": "same line policy for non block body of \"else\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"tryCatch": {
+					"description": "same line policy for \"catch\" part of \"try…catch\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"doWhileBody": {
+					"description": "same line policy for non block body of \"do…while\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"returnBody": {
+					"description": "same line policy for return values\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"anonFunctionBody": {
+					"description": "same line policy for non block body of anon \"function\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"forBody": {
+					"description": "same line policy for non block body of \"for\"\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
+				"whileBody": {
+					"description": "same line policy for non block body of \"while\" (not \"do…while\")\r\n\t\t* same = place function and body on same line\r\n\t\t* next = place body on next line\r\n\t\t* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.EmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beforeRightCurly": {
+					"description": "Remove or keep empty lines above \"}\"",
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy"
+				},
+				"afterLeftCurly": {
+					"description": "Remove or keep empty lines below \"{\"",
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy"
+				},
+				"afterReturn": {
+					"description": "Remove or keep empty lines below \"return\"",
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy"
+				},
+				"afterPackage": {
+					"description": "empty lines after package declaration",
+					"type": "integer"
+				},
+				"macroClassEmptyLines": {
+					"$ref": "#/definitions/formatter.config.ClassFieldsEmptyLinesConfig"
+				},
+				"betweenMultilineComments": {
+					"description": "Adds empty lines between two consecutive multiline comments",
+					"type": "integer"
+				},
+				"finalNewline": {
+					"description": "adds a final newline",
+					"type": "boolean"
+				},
+				"importAndUsing": {
+					"description": "empty lines for package, import and using section",
+					"$ref": "#/definitions/formatter.config.ImportsEmptyLinesConfig"
+				},
+				"beforeBlocks": {
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy"
+				},
+				"betweenSingleLineTypes": {
+					"description": "empty lines between two single line types",
+					"type": "integer"
+				},
+				"conditionalsEmptyLines": {
+					"$ref": "#/definitions/formatter.config.ConditionalEmptyLinesConfig"
+				},
+				"afterBlocks": {
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy"
+				},
+				"enumEmptyLines": {
+					"$ref": "#/definitions/formatter.config.TypedefFieldsEmptyLinesConfig"
+				},
+				"externClassEmptyLines": {
+					"$ref": "#/definitions/formatter.config.InterfaceFieldsEmptyLinesConfig"
+				},
+				"betweenTypes": {
+					"description": "empty lines between types",
+					"type": "integer"
+				},
+				"maxAnywhereInFile": {
+					"description": "maximum consecutive empty lines anywhere in file - runs last, all empty lines policies are limited to \"maxAnywhereInFile\"",
+					"type": "integer"
+				},
+				"typedefEmptyLines": {
+					"$ref": "#/definitions/formatter.config.TypedefFieldsEmptyLinesConfig"
+				},
+				"enumAbstractEmptyLines": {
+					"$ref": "#/definitions/formatter.config.EnumAbstractFieldsEmptyLinesConfig"
+				},
+				"lineCommentsBetweenTypes": {
+					"description": "empty lines for line comments between types",
+					"$ref": "#/definitions/formatter.config.LineCommentEmptyLinePolicy"
+				},
+				"abstractEmptyLines": {
+					"$ref": "#/definitions/formatter.config.ClassFieldsEmptyLinesConfig"
+				},
+				"beforePackage": {
+					"description": "empty lines before package declaration",
+					"type": "integer"
+				},
+				"classEmptyLines": {
+					"$ref": "#/definitions/formatter.config.ClassFieldsEmptyLinesConfig"
+				},
+				"beforeDocCommentEmptyLines": {
+					"description": "\"one\" adds one empty line above doc comments\r\n\t\t\"none\" removes all empty lines above doc comments\r\n\t\t\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
+				},
+				"interfaceEmptyLines": {
+					"$ref": "#/definitions/formatter.config.InterfaceFieldsEmptyLinesConfig"
+				},
+				"afterFileHeaderComment": {
+					"description": "Adds empty lines when file starts with a multiline comment",
+					"type": "integer"
+				},
+				"lineCommentsBetweenFunctions": {
+					"description": "empty lines for line comments between functions",
+					"$ref": "#/definitions/formatter.config.LineCommentEmptyLinePolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.BetweenImportsEmptyLinesLevel": {
+			"anyOf": [
+				{
+					"const": "all"
+				},
+				{
+					"const": "firstLevelPackage"
+				},
+				{
+					"const": "secondLevelPackage"
+				},
+				{
+					"const": "thirdLevelPackage"
+				},
+				{
+					"const": "fourthLevelPackage"
+				},
+				{
+					"const": "fifthLevelPackage"
+				},
+				{
+					"const": "fullPackage"
+				}
+			]
+		},
+		"formatter.config.EnumAbstractFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
+					"type": "integer"
+				},
+				"betweenVars": {
+					"type": "integer"
+				},
+				"betweenFunctions": {
+					"type": "integer"
+				},
+				"afterVars": {
+					"type": "integer"
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.WrappingType": {
+			"anyOf": [
+				{
+					"const": "onePerLine"
+				},
+				{
+					"const": "onePerLineAfterFirst"
+				},
+				{
+					"const": "equalNumber"
+				},
+				{
+					"const": "fillLine"
+				},
+				{
+					"const": "noWrap"
+				},
+				{
+					"const": "keep"
+				}
+			]
+		},
+		"formatter.config.ParenWhitespaceConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"metadataParens": {
+					"description": "parens used for metadata",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"callParens": {
+					"description": "parens used for calls",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"forLoopParens": {
+					"description": "parens used for for loops",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"anonFuncParamParens": {
+					"description": "parens used for anon function parameters",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"conditionParens": {
+					"description": "parens used for conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"expressionParens": {
+					"description": "parens used for expressions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"funcParamParens": {
+					"description": "parens used for function parameters",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.IndentationConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"indentObjectLiteral": {
+					"type": "boolean"
+				},
+				"character": {
+					"description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
+					"type": "string"
+				},
+				"conditionalPolicy": {
+					"description": "only applies to non inlined conditionals\r\n\t\t\"fixedZero\" = all conditional statements should start in column 1\r\n\t\t\"aligned\" = conditional statements share indentation of surrounding code\r\n\t\t\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code\r\n\t\t\"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
+					"$ref": "#/definitions/formatter.config.ConditionalIndentationPolicy"
+				},
+				"tabWidth": {
+					"description": "if `character` is set to \"tab\", formatter uses `tabWidth` to calculate absolute line length",
+					"type": "integer"
+				},
+				"trailingWhitespace": {
+					"description": "adds trailing whitespace to empty lines by copying indentation from preceeding line",
+					"type": "boolean"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.BracesWhitespaceConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"objectLiteralBraces": {
+					"description": "braces for object literals",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"unknownBraces": {
+					"description": "unknown braces",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"blockBraces": {
+					"description": "braces for blocks",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"typedefBraces": {
+					"description": "braces for typdefs",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"anonTypeBraces": {
+					"description": "braces for anon types",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.WrapRule": {
+			"required": [
+				"conditions",
+				"type"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"conditions": {
+					"description": "list of conditions\r\n\t\twrapping selects a rule if all of its conditions evaluate to true",
+					"items": {
+						"$ref": "#/definitions/formatter.config.WrapCondition"
+					},
+					"type": "array"
+				},
+				"additionalIndent": {
+					"description": "adds indentation to all wrapped lines",
+					"type": "integer"
+				},
+				"location": {
+					"description": "default wrapping location before / after last token",
+					"$ref": "#/definitions/formatter.config.WrappingLocation"
+				},
+				"type": {
+					"description": "wrapping type",
+					"$ref": "#/definitions/formatter.config.WrappingType"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.OpenClosePolicy": {
+			"additionalProperties": false,
+			"properties": {
+				"closingPolicy": {
+					"description": "\")\"",
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"removeInnerWhenEmpty": {
+					"description": "\"()\" or \"( )\" - if `openingPolicy` contains `After` or `closingPolicy` contains `Before`",
+					"type": "boolean"
+				},
+				"openingPolicy": {
+					"description": "\"(\"",
+					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.WrapRules": {
+			"additionalProperties": false,
+			"properties": {
+				"defaultWrap": {
+					"description": "default wrapping type when no rule applies",
+					"$ref": "#/definitions/formatter.config.WrappingType"
+				},
+				"defaultLocation": {
+					"description": "default wrapping location before / after last token",
+					"$ref": "#/definitions/formatter.config.WrappingLocation"
+				},
+				"defaultAdditionalIndent": {
+					"description": "adds indentation to all wrapped lines when applying defaultWrap",
+					"type": "integer"
+				},
+				"rules": {
+					"description": "list of wrapping rules\r\n\t\twrapping uses only the first rule whose conditions evaluates to true",
+					"items": {
+						"$ref": "#/definitions/formatter.config.WrapRule"
+					},
+					"type": "array"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.TypedefFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
+					"type": "integer"
+				},
+				"betweenFields": {
+					"type": "integer"
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"formatter.config.AtLineEndPolicy": {
+			"anyOf": [
+				{
+					"const": "none"
+				},
+				{
+					"const": "after"
+				},
+				{
+					"const": "afterLast"
+				},
+				{
+					"const": "forceAfterLast"
+				}
+			]
+		},
+		"formatter.config.WhitespacePolicy": {
+			"anyOf": [
+				{
+					"const": "none"
+				},
+				{
+					"const": "before"
+				},
+				{
+					"const": "noneBefore"
+				},
+				{
+					"const": "onlyBefore"
+				},
+				{
+					"const": "after"
+				},
+				{
+					"const": "onlyAfter"
+				},
+				{
+					"const": "noneAfter"
+				},
+				{
+					"const": "around"
+				}
+			]
+		}
+	},
+	"$ref": "#/definitions/formatter.config.FormatterConfig"
+}

@@ -1,11 +1,12 @@
 import haxe.Json;
-import haxe.io.Path;
 import sys.io.File;
+import formatter.config.FormatterConfig;
+import json2object.utils.JsonSchemaWriter;
 
 class SchemaGenerator {
-	public static function main() {
-		var config = FormatterSchemaGenerator.generate("formatter.config.FormatterConfig",
-			"https://raw.githubusercontent.com/HaxeCheckstyle/haxe-formatter/master/resources/formatter-schema.json");
-		File.saveContent(Path.join(["resources", "formatter-schema.json"]), Json.stringify(config, "\t"));
+	static function main() {
+		var schema = new JsonSchemaWriter<FormatterConfig>().schema;
+		schema = Json.stringify(Json.parse(schema), "\t");
+		File.saveContent("resources/hxformat-schema.json", schema);
 	}
 }
