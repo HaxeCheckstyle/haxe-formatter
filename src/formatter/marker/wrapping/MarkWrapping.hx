@@ -22,6 +22,9 @@ class MarkWrapping extends MarkWrappingBase {
 					return FOUND_GO_DEEPER;
 				case CommentLine(_):
 					return FOUND_GO_DEEPER;
+				case Comma:
+					wrapAfter(token, true);
+					return GO_DEEPER;
 				default:
 			}
 			return GO_DEEPER;

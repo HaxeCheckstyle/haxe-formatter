@@ -38,6 +38,6 @@ class Main {
 }
 @class Main {
 	@function main() {
-@super() ;
+@super();
 	}
 }

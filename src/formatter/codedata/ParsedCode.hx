@@ -2,11 +2,13 @@ package formatter.codedata;
 
 import haxeparser.HaxeLexer;
 import tokentree.TokenTreeBuilder;
+import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 class ParsedCode {
 	static inline var BAD_OFFSET:String = "Bad offset";
 
-	public var file(default, null):ParseFile;
+	private var file(default, null):ParseFile;
+
 	public var tokens(default, null):Array<Token>;
 	public var linesIdx(default, null):Array<LineIds>;
 	public var lines(default, null):Array<String>;
@@ -15,23 +17,26 @@ class ParsedCode {
 	public var tokenList(default, null):TokenList;
 	public var emptyLines(default, null):Array<Int>;
 
-	public function new(file:ParseFile, ?tokenData:TokenData) {
-		this.file = file;
+	public function new(inputData:FormatterInputData) {
+		file = {
+			name: inputData.fileName,
+			content: inputData.content
+		};
 		try {
 			removeBOM();
-			if (file.lineSeparator == null) {
+			if (inputData.lineSeparator == null) {
 				detectLineSeparator();
 			} else {
-				lineSeparator = file.lineSeparator;
+				lineSeparator = inputData.lineSeparator;
 			}
 			makeLines();
 			makePosIndices();
-			if (tokenData == null) {
+			if (inputData.tokenList == null) {
 				makeTokens();
-				getTokenTree();
+				getTokenTree(inputData.entryPoint);
 			} else {
-				tokens = tokenData.tokens;
-				root = tokenData.tokenTree;
+				tokens = inputData.tokenList;
+				root = inputData.tokenTree;
 				makeTokenList();
 			}
 			// sanity check: tokens vs tokenlist
@@ -81,12 +86,12 @@ class ParsedCode {
 		}
 	}
 
-	public function getTokenTree():TokenTree {
+	public function getTokenTree(entryPoint:TokenTreeEntryPoint = TYPE_LEVEL):TokenTree {
 		if (tokens == null) {
 			return null;
 		}
 		if (root == null) {
-			root = TokenTreeBuilder.buildTokenTree(tokens, ByteData.ofBytes(file.content));
+			root = TokenTreeBuilder.buildTokenTree(tokens, ByteData.ofBytes(file.content), entryPoint);
 			makeTokenList();
 		}
 		return root;

@@ -11,7 +11,7 @@ typedef IndentationConfig = {
 	@:default(Aligned) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
 
 	/**
-		use "tab" or "<amount of spaces per indent in spaces>" to define which character to use
+		use "tab", " ", "  ", "   ", "    ", etc. to define which character to use
 	**/
 	@:default("tab") @:optional var character:String;
 
