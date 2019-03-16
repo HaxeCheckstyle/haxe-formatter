@@ -1,10 +1,12 @@
 package formatter.marker;
 
+import haxe.zip.Entry;
 import haxeparser.HaxeLexer;
 import tokentree.TokenStreamProgress;
 import tokentree.walk.WalkStatement;
 import tokentree.TokenStream;
 import formatter.codedata.CodeLines;
+import formatter.codedata.FormatterInputData;
 import formatter.codedata.ParseFile;
 import formatter.codedata.ParsedCode;
 import formatter.codedata.TokenData;
@@ -76,11 +78,8 @@ class MarkTokenText extends MarkerBase {
 
 	function formatFragment(fragment:String):String {
 		try {
-			var file:ParseFile = {
-				name: "string interpolation",
-				content: cast ByteData.ofString(fragment)
-			};
-			var tokens:Array<Token> = makeTokens(ByteData.ofString(fragment), file.name);
+			var fileName:String = "string interpolation";
+			var tokens:Array<Token> = makeTokens(ByteData.ofString(fragment), fileName);
 			var stream:TokenStream = new TokenStream(tokens, ByteData.ofString(fragment));
 			var root:TokenTree = new TokenTree(null, "", null, -1);
 			var progress:TokenStreamProgress = new TokenStreamProgress(stream);
@@ -89,11 +88,16 @@ class MarkTokenText extends MarkerBase {
 					WalkStatement.walkStatement(stream, root);
 				}
 			}
-			var tokenData:TokenData = {
-				tokens: tokens,
-				tokenTree: root
+
+			var inputData:FormatterInputData = {
+				fileName: fileName,
+				content: cast ByteData.ofString(fragment),
+				tokenList: tokens,
+				tokenTree: root,
+				config: config,
+				entryPoint: EXPRESSION_LEVEL
 			};
-			var interpolParsedCode:ParsedCode = new ParsedCode(file, tokenData);
+			var interpolParsedCode:ParsedCode = new ParsedCode(inputData);
 			var interpolIndenter = new Indenter(config.indentation);
 			interpolIndenter.setParsedCode(interpolParsedCode);
 

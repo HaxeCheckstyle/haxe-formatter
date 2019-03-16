@@ -5,13 +5,18 @@
 ## version 1.5.1 (2019-03-06)
 
 - Fixed vanishing string literals at end of file ([#391](https://github.com/HaxeCheckstyle/haxe-formatter/issues/391))
+- Fixed specifiying an entry point for tokentree, fixes [#393](https://github.com/HaxeCheckstyle/haxe-formatter/issues/393)
+- Changed default value for `excludes` to include `.git` folders ([#399](https://github.com/HaxeCheckstyle/haxe-formatter/issues/399))
+- Changed using comma as an indicator for simple wrapping
+- Changed formatter api
+- Replaced custom schema generator with json2objects ([#398](https://github.com/HaxeCheckstyle/haxe-formatter/issues/398))
 
 ## version 1.5.0 (2019-03-04)
 
 - Added `wrapping.opAddSubChain` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `wrapping.metadataCallParameter` ([#370](https://github.com/HaxeCheckstyle/haxe-formatter/issues/370))
 - Added `emptyLines.macroClassEmptyLines`, fixes [#377](https://github.com/HaxeCheckstyle/haxe-formatter/issues/377) ([#383](https://github.com/HaxeCheckstyle/haxe-formatter/issues/383))
-- Added `emptyLines.lineCommentsBetweenTypes` and `emptyLines.lineCommentsBetweenTypes` to separate line comments from types and functions ([#387](https://github.com/HaxeCheckstyle/haxe-formatter/issues/387) + [#389](https://github.com/HaxeCheckstyle/haxe-formatter/issues/389))
+- Added `emptyLines.lineCommentsBetweenTypes` and `emptyLines.lineCommentsBetweenFunctions` to separate line comments from types and functions ([#387](https://github.com/HaxeCheckstyle/haxe-formatter/issues/387) + [#389](https://github.com/HaxeCheckstyle/haxe-formatter/issues/389))
 - Added `whitespace.addLineCommentSpace` to ensure a space after `//` ([#388](https://github.com/HaxeCheckstyle/haxe-formatter/issues/388))
 - Fixed type parameter constraint with structure type, fixes [#337](https://github.com/HaxeCheckstyle/haxe-formatter/issues/337) ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))
 - Fixed wrapping of OpBool chains with null ([#349](https://github.com/HaxeCheckstyle/haxe-formatter/issues/349))

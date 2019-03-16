@@ -75,7 +75,7 @@
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
 				},
 				"formatStringInterpolation": {
-					"description": "should formatter try to format string interpolation expressions (e.g. '${x+3}' -> '${x + 3}') only applies spaces, no newlines or wrapping\n",
+					"description": "should formatter try to format string interpolation expressions (e.g. '${x+3}' -> '${x + 3}')\n\t\tonly applies spaces, no newlines or wrapping",
 					"type": "boolean"
 				},
 				"typeExtensionPolicy": {
@@ -241,7 +241,7 @@
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
 				"arrayWrap": {
-					"description": "array wrapping rules does not affect array comprehension, use \"sameLine.comprehensionFor\"\n",
+					"description": "array wrapping rules\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
 				"maxLineLength": {
@@ -303,7 +303,7 @@
 					"type": "integer"
 				},
 				"betweenImportsLevel": {
-					"description": "restrict betweenImports setting to a specific level \"all\" - apply betweenImports to all imports/using entries\n\"topLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names \"packages\" - group imports/using entries using full packages; no empty lines for identical package names\n",
+					"description": "restrict betweenImports setting to a specific level\n\t\t\"all\" - apply betweenImports to all imports/using entries\n\t\t\"topLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names\n\t\t\"packages\" - group imports/using entries using full packages; no empty lines for identical package names",
 					"$ref": "#/definitions/formatter.config.BetweenImportsEmptyLinesLevel"
 				},
 				"beforeUsing": {
@@ -433,11 +433,11 @@
 			"additionalProperties": false,
 			"properties": {
 				"disableFormatting": {
-					"description": "turns off formatting for all files in current folder and subfolders unless subfolder contains a `hxformat.json`\n",
+					"description": "turns off formatting for all files in current folder and subfolders\n\t\tunless subfolder contains a `hxformat.json`",
 					"type": "boolean"
 				},
 				"excludes": {
-					"description": "regular expressions matching files to exclude from formatting default is to exclude any `.haxelib` and `.git` folder\n",
+					"description": "regular expressions matching files to exclude from formatting\n\t\tdefault is to exclude any `.haxelib` and `.git` folder",
 					"items": {
 						"type": "string"
 					},
@@ -529,14 +529,14 @@
 			"additionalProperties": false,
 			"properties": {
 				"tryBody": {
-					"description": "same line policy for non block body of \"try\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"try\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"comprehensionFor": {
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"ifElse": {
-					"description": "same line policy for \"else\" part of \"if…else\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"else\" part of \"if…else\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"expressionCase": {
@@ -546,62 +546,62 @@
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"doWhile": {
-					"description": "same line policy for \"while\" part in \"do…while\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"while\" part in \"do…while\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"expressionIfWithBlocks": {
-					"description": "will place if with one expression in a block in one line (requires \"expressionIf\" = \"same\") var foo = if (bar) { \"\"; } else { \"\"; };\n",
+					"description": "will place if with one expression in a block in one line (requires \"expressionIf\" = \"same\")\n\t\tvar foo = if (bar) { \"\"; } else { \"\"; };",
 					"type": "boolean"
 				},
 				"catchBody": {
-					"description": "same line policy for non block body of \"catch\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"catch\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"elseIf": {
-					"description": "same line policy for \"if\" part of \"else if\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"if\" part of \"else if\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"functionBody": {
-					"description": "same line policy for non block body of \"function\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"expressionIf": {
-					"description": "same line policy for non block body of \"if\" in a value place / as expression * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"if\" in a value place / as expression\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"ifBody": {
-					"description": "same line policy for non block body of \"if\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"if\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"caseBody": {
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"elseBody": {
-					"description": "same line policy for non block body of \"else\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"else\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"tryCatch": {
-					"description": "same line policy for \"catch\" part of \"try…catch\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"catch\" part of \"try…catch\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"doWhileBody": {
-					"description": "same line policy for non block body of \"do…while\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"do…while\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"returnBody": {
-					"description": "same line policy for return values * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for return values\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"anonFunctionBody": {
-					"description": "same line policy for non block body of anon \"function\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of anon \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"forBody": {
-					"description": "same line policy for non block body of \"for\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"for\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"whileBody": {
-					"description": "same line policy for non block body of \"while\" (not \"do…while\") * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"while\" (not \"do…while\")\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				}
 			},
@@ -689,7 +689,7 @@
 					"$ref": "#/definitions/formatter.config.ClassFieldsEmptyLinesConfig"
 				},
 				"beforeDocCommentEmptyLines": {
-					"description": "\"one\" adds one empty line above doc comments \"none\" removes all empty lines above doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"description": "\"one\" adds one empty line above doc comments\n\t\t\"none\" removes all empty lines above doc comments\n\t\t\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
 					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
 				},
 				"interfaceEmptyLines": {
@@ -817,11 +817,11 @@
 					"type": "boolean"
 				},
 				"character": {
-					"description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
+					"description": "use \"tab\", \" \", \"  \", \"   \", \"    \", etc. to define which character to use",
 					"type": "string"
 				},
 				"conditionalPolicy": {
-					"description": "only applies to non inlined conditionals \"fixedZero\" = all conditional statements should start in column 1\n\"aligned\" = conditional statements share indentation of surrounding code \"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code\n\"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
+					"description": "only applies to non inlined conditionals\n\t\t\"fixedZero\" = all conditional statements should start in column 1\n\t\t\"aligned\" = conditional statements share indentation of surrounding code\n\t\t\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code\n\t\t\"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
 					"$ref": "#/definitions/formatter.config.ConditionalIndentationPolicy"
 				},
 				"tabWidth": {
@@ -869,7 +869,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"conditions": {
-					"description": "list of conditions wrapping selects a rule if all of its conditions evaluate to true\n",
+					"description": "list of conditions\n\t\twrapping selects a rule if all of its conditions evaluate to true",
 					"items": {
 						"$ref": "#/definitions/formatter.config.WrapCondition"
 					},
@@ -924,7 +924,7 @@
 					"type": "integer"
 				},
 				"rules": {
-					"description": "list of wrapping rules wrapping uses only the first rule whose conditions evaluates to true\n",
+					"description": "list of wrapping rules\n\t\twrapping uses only the first rule whose conditions evaluates to true",
 					"items": {
 						"$ref": "#/definitions/formatter.config.WrapRule"
 					},

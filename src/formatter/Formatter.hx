@@ -1,5 +1,6 @@
 package formatter;
 
+import sys.io.File;
 import sys.FileSystem;
 import haxe.CallStack;
 import haxe.io.Path;
@@ -12,8 +13,10 @@ import formatter.marker.Indenter;
 import formatter.marker.wrapping.MarkWrapping;
 import formatter.marker.MarkSameLine;
 import formatter.codedata.CodeLines;
+import formatter.codedata.FormatterInputData;
 import formatter.codedata.ParseFile;
 import formatter.codedata.TokenData;
+import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 enum Result {
 	Success(formattedCode:String);
@@ -29,7 +32,19 @@ class Formatter {
 	public function formatFile(file:ParseFile, ?tokenData:TokenData):Result {
 		try {
 			var config:Config = loadConfig(file.name);
-			return formatFileWithConfig(file, config, tokenData);
+
+			var inputData:FormatterInputData = {
+				fileName: file.name,
+				content: file.content,
+				config: config,
+				lineSeparator: file.lineSeparator,
+				entryPoint: TYPE_LEVEL
+			};
+			if (tokenData != null) {
+				inputData.tokenList = tokenData.tokens;
+				inputData.tokenTree = tokenData.tokenTree;
+			}
+			return formatInputData(inputData);
 		} catch (e:Any) {
 			#if debug
 			var callstack = CallStack.toString(CallStack.exceptionStack());
@@ -40,17 +55,18 @@ class Formatter {
 		}
 	}
 
-	public function formatFileWithConfig(file:ParseFile, config:Config, ?tokenData:TokenData):Result {
+	function formatInputData(inputData:FormatterInputData):Result {
 		try {
+			var config:Config = inputData.config;
 			if (config.disableFormatting) {
 				return Disabled;
 			}
-			if (config.isExcluded(file.name)) {
+			if (config.isExcluded(inputData.fileName)) {
 				return Disabled;
 			}
 
 			tokentree.TokenStream.MODE = RELAXED;
-			var parsedCode = new ParsedCode(file, tokenData);
+			var parsedCode = new ParsedCode(inputData);
 			FormatStats.addOrigLines(parsedCode.lines.length);
 
 			var indenter = new Indenter(config.indentation);
@@ -85,6 +101,59 @@ class Formatter {
 		}
 	}
 
+	public function formatInput(input:FormatterInput, config:Config):Result {
+		var inputData:FormatterInputData;
+		switch (input) {
+			case FileInput(fileName, config, lineSeparator, entryPoint):
+				if (!FileSystem.exists(fileName)) {
+					Sys.println('Skipping \'$fileName\' (path does not exist)');
+					return Failure('File "$fileName" not found');
+				}
+				var content:Bytes = File.getBytes(fileName);
+				inputData = {
+					fileName: fileName,
+					content: content,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
+			case Code(code, fileName, config, lineSeparator, entryPoint):
+				var content:Bytes = Bytes.ofString(code);
+				inputData = {
+					fileName: fileName,
+					content: content,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
+			case Tokens(tokenList, tokenTree, code, fileName, config, lineSeparator, entryPoint):
+				var content:Bytes = Bytes.ofString(code);
+				inputData = {
+					fileName: fileName,
+					content: content,
+					tokenList: tokenList,
+					tokenTree: tokenTree,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
+		}
+		return Failure("implement me");
+	}
+
+	public function loadConfigFromFileLocation(fileName:String):Null<Config> {
+		var configFileName:Null<String> = determineFormatterConfig(fileName);
+		if (configFileName == null) {
+			return null;
+		}
+		var config:Config = new Config();
+		config.readConfig(configFileName);
+		return config;
+	}
+
 	function loadConfig(fileName:String):Config {
 		var config:Config = new Config();
 		var configFileName:Null<String> = determineFormatterConfig(fileName);
@@ -107,4 +176,10 @@ class Formatter {
 		}
 		return null;
 	}
+}
+
+enum FormatterInput {
+	FileInput(fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
+	Code(code:String, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
+	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:String, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
 }
