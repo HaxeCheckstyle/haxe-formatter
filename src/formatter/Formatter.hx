@@ -155,12 +155,10 @@ class Formatter {
 	}
 
 	function loadConfig(fileName:String):Config {
-		var config:Config = new Config();
-		var configFileName:Null<String> = determineFormatterConfig(fileName);
-		if (configFileName == null) {
-			return config;
+		var config:Null<Config> = loadConfigFromFileLocation(fileName);
+		if (config == null) {
+			return new Config();
 		}
-		config.readConfig(configFileName);
 		return config;
 	}
 
