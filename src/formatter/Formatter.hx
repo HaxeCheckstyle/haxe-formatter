@@ -76,7 +76,7 @@ class Formatter {
 
 		If there is no `hxformat.json`, `null` is returned.
 	**/
-	public static function loadConfig(path:String):Config {
+	public static function loadConfig(path:String):Null<Config> {
 		var configFileName:Null<String> = determineConfig(path);
 		if (configFileName == null) {
 			return null;
