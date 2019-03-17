@@ -34,9 +34,7 @@ class SelfTest {
 
 	function checkFile(fileName:String, ?pos:PosInfos) {
 		var code:String = File.getContent(fileName);
-		var file:ParseFile = {name: fileName, content: Bytes.ofString(code)};
-		var formatter:Formatter = new Formatter();
-		var result = formatter.formatFile(file);
+		var result = Formatter.format(Code(code), Formatter.loadConfig(fileName));
 		switch (result) {
 			case Success(formattedCode):
 				if (code != formattedCode) {

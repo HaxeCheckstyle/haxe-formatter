@@ -144,8 +144,9 @@ class Cli {
 				var action = if (mode == Format) "Formatting" else "Checking";
 				Sys.println('$action $path');
 			}
-			var content:Bytes = File.getBytes(path);
-			var result:Result = new Formatter().formatFile({name: path, content: content});
+			var content:String = File.getContent(path);
+			var config = Formatter.loadConfig(path);
+			var result:Result = Formatter.format(Code(content), config);
 			switch (result) {
 				case Success(formattedCode):
 					FormatStats.incSuccess();
@@ -158,7 +159,7 @@ class Cli {
 								exitCode = 1;
 							}
 						case CheckStability:
-							var secondResult = new Formatter().formatFile({name: path, content: Bytes.ofString(formattedCode)});
+							var secondResult = Formatter.format(Code(formattedCode), config);
 							function unstable() {
 								Sys.println('Unstable formatting in $path');
 								exitCode = 1;

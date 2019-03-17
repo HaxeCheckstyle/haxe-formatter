@@ -14,8 +14,6 @@ import formatter.marker.wrapping.MarkWrapping;
 import formatter.marker.MarkSameLine;
 import formatter.codedata.CodeLines;
 import formatter.codedata.FormatterInputData;
-import formatter.codedata.ParseFile;
-import formatter.codedata.TokenData;
 import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 enum Result {
@@ -27,9 +25,10 @@ enum Result {
 class Formatter {
 	static inline var FORMATTER_JSON:String = "hxformat.json";
 
-	public function new() {}
-
-	public function formatInput(input:FormatterInput, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint):Result {
+	public static function format(input:FormatterInput, ?config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint):Result {
+		if (config == null) {
+			config = new Config();
+		}
 		var inputData:FormatterInputData;
 		switch (input) {
 			case FileInput(fileName):
@@ -71,43 +70,23 @@ class Formatter {
 		return Failure("implement me");
 	}
 
-	public function formatFile(file:ParseFile, ?tokenData:TokenData):Result {
-		try {
-			var config:Config = loadConfig(file.name);
+	/**
+		Determines the config to be used for a particular `path` (either a directory or a file),
+		based on the `hxformat.json` that is closest to it.
 
-			var inputData:FormatterInputData = {
-				fileName: file.name,
-				content: file.content,
-				config: config,
-				lineSeparator: file.lineSeparator,
-				entryPoint: TYPE_LEVEL
-			};
-			if (tokenData != null) {
-				inputData.tokenList = tokenData.tokens;
-				inputData.tokenTree = tokenData.tokenTree;
-			}
-			return formatInputData(inputData);
-		} catch (e:Any) {
-			#if debug
-			var callstack = CallStack.toString(CallStack.exceptionStack());
-			return Failure(e + "\n" + callstack + "\n\n");
-			#else
-			return Failure(e);
-			#end
-		}
-	}
-
-	public function loadConfigFromFileLocation(fileName:String):Null<Config> {
-		var configFileName:Null<String> = determineFormatterConfig(fileName);
+		If there is no `hxformat.json`, `null` is returned.
+	**/
+	public static function loadConfig(path:String):Null<Config> {
+		var configFileName:Null<String> = determineConfig(path);
 		if (configFileName == null) {
 			return null;
 		}
-		var config:Config = new Config();
+		var config = new Config();
 		config.readConfig(configFileName);
 		return config;
 	}
 
-	function formatInputData(inputData:FormatterInputData):Result {
+	static function formatInputData(inputData:FormatterInputData):Result {
 		try {
 			var config:Config = inputData.config;
 			if (config.disableFormatting) {
@@ -124,12 +103,12 @@ class Formatter {
 			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
 
-			var markTokenText:MarkTokenText = new MarkTokenText(config, parsedCode, indenter);
-			var markWhitespace:MarkWhitespace = new MarkWhitespace(config, parsedCode, indenter);
-			var markLineEnds:MarkLineEnds = new MarkLineEnds(config, parsedCode, indenter);
-			var markSameLine:MarkSameLine = new MarkSameLine(config, parsedCode, indenter);
-			var markWrapping:MarkWrapping = new MarkWrapping(config, parsedCode, indenter);
-			var markEmptyLines:MarkEmptyLines = new MarkEmptyLines(config, parsedCode, indenter);
+			var markTokenText = new MarkTokenText(config, parsedCode, indenter);
+			var markWhitespace = new MarkWhitespace(config, parsedCode, indenter);
+			var markLineEnds = new MarkLineEnds(config, parsedCode, indenter);
+			var markSameLine = new MarkSameLine(config, parsedCode, indenter);
+			var markWrapping = new MarkWrapping(config, parsedCode, indenter);
+			var markEmptyLines = new MarkEmptyLines(config, parsedCode, indenter);
 
 			markTokenText.run();
 			markWhitespace.run();
@@ -153,15 +132,7 @@ class Formatter {
 		}
 	}
 
-	function loadConfig(fileName:String):Config {
-		var config:Null<Config> = loadConfigFromFileLocation(fileName);
-		if (config == null) {
-			return new Config();
-		}
-		return config;
-	}
-
-	function determineFormatterConfig(fileName:String):Null<String> {
+	static function determineConfig(fileName:String):Null<String> {
 		var path:String = FileSystem.absolutePath(fileName);
 		if (!FileSystem.isDirectory(path)) {
 			path = Path.directory(path);
