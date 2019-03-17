@@ -46,10 +46,10 @@ class Formatter {
 					entryPoint: entryPoint
 				};
 				return formatInputData(inputData);
-			case Code(code, fileName):
+			case Code(code):
 				var content:Bytes = Bytes.ofString(code);
 				inputData = {
-					fileName: fileName,
+					fileName: "code snippet",
 					content: content,
 					config: config,
 					lineSeparator: lineSeparator,
@@ -177,6 +177,6 @@ class Formatter {
 
 enum FormatterInput {
 	FileInput(fileName:String);
-	Code(code:String, fileName:String);
+	Code(code:String);
 	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes);
 }
