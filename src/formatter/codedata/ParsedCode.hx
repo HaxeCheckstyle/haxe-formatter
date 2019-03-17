@@ -86,9 +86,12 @@ class ParsedCode {
 		}
 	}
 
-	public function getTokenTree(entryPoint:TokenTreeEntryPoint = TYPE_LEVEL):TokenTree {
+	public function getTokenTree(entryPoint:Null<TokenTreeEntryPoint> = null):TokenTree {
 		if (tokens == null) {
 			return null;
+		}
+		if (entryPoint == null) {
+			entryPoint = TYPE_LEVEL;
 		}
 		if (root == null) {
 			root = TokenTreeBuilder.buildTokenTree(tokens, ByteData.ofBytes(file.content), entryPoint);
