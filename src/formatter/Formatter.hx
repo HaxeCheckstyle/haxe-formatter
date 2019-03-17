@@ -56,6 +56,15 @@ class Formatter {
 					entryPoint: entryPoint
 				};
 				return formatInputData(inputData);
+			case CodeBytes(code, fileName, config, lineSeparator, entryPoint):
+				inputData = {
+					fileName: fileName,
+					content: code,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
 			case Tokens(tokenList, tokenTree, code, fileName, config, lineSeparator, entryPoint):
 				var content:Bytes = Bytes.ofString(code);
 				inputData = {
@@ -179,5 +188,6 @@ class Formatter {
 enum FormatterInput {
 	FileInput(fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
 	Code(code:String, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
+	CodeBytes(code:Bytes, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
 	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:String, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
 }
