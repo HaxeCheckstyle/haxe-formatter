@@ -1,27 +1,21 @@
 import sys.io.File;
-import haxe.io.Bytes;
 import haxe.PosInfos;
 import haxe.Template;
 import massive.munit.Assert;
-import formatter.codedata.ParseFile;
-import formatter.Formatter.Result;
+import formatter.Formatter;
+import formatter.config.Config;
 
 class GoldBaseTest {
-	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?config:String, ?pos:PosInfos) {
-		var file:ParseFile = {
-			name: fileName + ".hxtest",
-			content: Bytes.ofString(unformatted),
-			lineSeparator: lineSeparator
-		};
-		var formatter:GoldFormatter = new GoldFormatter(config);
-		var result:Result = formatter.formatFile(file);
+	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?configString:String, ?pos:PosInfos) {
+		var config = new Config();
+		config.readConfigFromString(configString, "goldhxformat.json");
+		var result:Result = Formatter.format(Code(unformatted), config, lineSeparator);
 		handleResult(fileName, result, goldCode, pos);
 
 		// second run to make sure result is stable
 		switch (result) {
 			case Success(formattedCode):
-				file = {name: "Test.hx", content: Bytes.ofString(formattedCode)};
-				result = formatter.formatFile(file);
+				result = Formatter.format(Code(formattedCode), config, lineSeparator);
 				handleResult(fileName, result, goldCode, pos);
 			case Failure(errorMessage):
 			case Disabled:

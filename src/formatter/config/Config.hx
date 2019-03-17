@@ -1,6 +1,5 @@
 package formatter.config;
 
-import haxe.CallStack;
 import sys.FileSystem;
 import sys.io.File;
 import json2object.JsonParser;
