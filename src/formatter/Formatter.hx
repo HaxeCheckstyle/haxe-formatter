@@ -29,6 +29,49 @@ class Formatter {
 
 	public function new() {}
 
+	public function formatInput(input:FormatterInput, config:Config):Result {
+		var inputData:FormatterInputData;
+		switch (input) {
+			case FileInput(fileName, config, lineSeparator, entryPoint):
+				if (!FileSystem.exists(fileName)) {
+					Sys.println('Skipping \'$fileName\' (path does not exist)');
+					return Failure('File "$fileName" not found');
+				}
+				var content:Bytes = File.getBytes(fileName);
+				inputData = {
+					fileName: fileName,
+					content: content,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
+			case Code(code, fileName, config, lineSeparator, entryPoint):
+				var content:Bytes = Bytes.ofString(code);
+				inputData = {
+					fileName: fileName,
+					content: content,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
+			case Tokens(tokenList, tokenTree, code, fileName, config, lineSeparator, entryPoint):
+				var content:Bytes = Bytes.ofString(code);
+				inputData = {
+					fileName: fileName,
+					content: content,
+					tokenList: tokenList,
+					tokenTree: tokenTree,
+					config: config,
+					lineSeparator: lineSeparator,
+					entryPoint: entryPoint
+				};
+				return formatInputData(inputData);
+		}
+		return Failure("implement me");
+	}
+
 	public function formatFile(file:ParseFile, ?tokenData:TokenData):Result {
 		try {
 			var config:Config = loadConfig(file.name);
@@ -53,6 +96,16 @@ class Formatter {
 			return Failure(e);
 			#end
 		}
+	}
+
+	public function loadConfigFromFileLocation(fileName:String):Null<Config> {
+		var configFileName:Null<String> = determineFormatterConfig(fileName);
+		if (configFileName == null) {
+			return null;
+		}
+		var config:Config = new Config();
+		config.readConfig(configFileName);
+		return config;
 	}
 
 	function formatInputData(inputData:FormatterInputData):Result {
@@ -99,59 +152,6 @@ class Formatter {
 			var callstack = CallStack.toString(CallStack.exceptionStack());
 			return Failure(e + "\n" + callstack + "\n\n");
 		}
-	}
-
-	public function formatInput(input:FormatterInput, config:Config):Result {
-		var inputData:FormatterInputData;
-		switch (input) {
-			case FileInput(fileName, config, lineSeparator, entryPoint):
-				if (!FileSystem.exists(fileName)) {
-					Sys.println('Skipping \'$fileName\' (path does not exist)');
-					return Failure('File "$fileName" not found');
-				}
-				var content:Bytes = File.getBytes(fileName);
-				inputData = {
-					fileName: fileName,
-					content: content,
-					config: config,
-					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
-				};
-				return formatInputData(inputData);
-			case Code(code, fileName, config, lineSeparator, entryPoint):
-				var content:Bytes = Bytes.ofString(code);
-				inputData = {
-					fileName: fileName,
-					content: content,
-					config: config,
-					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
-				};
-				return formatInputData(inputData);
-			case Tokens(tokenList, tokenTree, code, fileName, config, lineSeparator, entryPoint):
-				var content:Bytes = Bytes.ofString(code);
-				inputData = {
-					fileName: fileName,
-					content: content,
-					tokenList: tokenList,
-					tokenTree: tokenTree,
-					config: config,
-					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
-				};
-				return formatInputData(inputData);
-		}
-		return Failure("implement me");
-	}
-
-	public function loadConfigFromFileLocation(fileName:String):Null<Config> {
-		var configFileName:Null<String> = determineFormatterConfig(fileName);
-		if (configFileName == null) {
-			return null;
-		}
-		var config:Config = new Config();
-		config.readConfig(configFileName);
-		return config;
 	}
 
 	function loadConfig(fileName:String):Config {
