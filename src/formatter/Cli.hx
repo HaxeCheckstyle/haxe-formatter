@@ -55,7 +55,7 @@ class Cli {
 			["--check-stability"] => function() mode = CheckStability,
 			#end
 
-			@doc("Generate a default hxformat.json and exit")
+			@doc("Generate a default hxformat.json to a file and exit")
 			["--default-config"] => function(path) generateDefaultConfig(path),
 
 			@doc("Display this list of options")
@@ -113,6 +113,10 @@ class Cli {
 	}
 
 	function generateDefaultConfig(path) {
+		if (FileSystem.isDirectory(path)) {
+			Sys.println('"$path" is a directory, not a file');
+			Sys.exit(1);
+		}
 		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
 		var config:FormatterConfig = parser.fromJson("{}", "default-hxformat.json");
 
