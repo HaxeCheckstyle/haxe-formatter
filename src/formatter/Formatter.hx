@@ -29,10 +29,10 @@ class Formatter {
 
 	public function new() {}
 
-	public function formatInput(input:FormatterInput, config:Config):Result {
+	public function formatInput(input:FormatterInput, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint):Result {
 		var inputData:FormatterInputData;
 		switch (input) {
-			case FileInput(fileName, config, lineSeparator, entryPoint):
+			case FileInput(fileName):
 				if (!FileSystem.exists(fileName)) {
 					Sys.println('Skipping \'$fileName\' (path does not exist)');
 					return Failure('File "$fileName" not found');
@@ -46,7 +46,7 @@ class Formatter {
 					entryPoint: entryPoint
 				};
 				return formatInputData(inputData);
-			case Code(code, fileName, config, lineSeparator, entryPoint):
+			case Code(code, fileName):
 				var content:Bytes = Bytes.ofString(code);
 				inputData = {
 					fileName: fileName,
@@ -56,20 +56,10 @@ class Formatter {
 					entryPoint: entryPoint
 				};
 				return formatInputData(inputData);
-			case CodeBytes(code, fileName, config, lineSeparator, entryPoint):
+			case Tokens(tokenList, tokenTree, code):
 				inputData = {
-					fileName: fileName,
+					fileName: "<unknown.hx>",
 					content: code,
-					config: config,
-					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
-				};
-				return formatInputData(inputData);
-			case Tokens(tokenList, tokenTree, code, fileName, config, lineSeparator, entryPoint):
-				var content:Bytes = Bytes.ofString(code);
-				inputData = {
-					fileName: fileName,
-					content: content,
 					tokenList: tokenList,
 					tokenTree: tokenTree,
 					config: config,
@@ -186,8 +176,7 @@ class Formatter {
 }
 
 enum FormatterInput {
-	FileInput(fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
-	Code(code:String, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
-	CodeBytes(code:Bytes, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
-	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:String, fileName:String, config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint);
+	FileInput(fileName:String);
+	Code(code:String, fileName:String);
+	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes);
 }
