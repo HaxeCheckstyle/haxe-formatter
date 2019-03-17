@@ -8,7 +8,8 @@
 - Fixed specifiying an entry point for tokentree, fixes [#393](https://github.com/HaxeCheckstyle/haxe-formatter/issues/393)
 - Changed default value for `excludes` to include `.git` folders ([#399](https://github.com/HaxeCheckstyle/haxe-formatter/issues/399))
 - Changed using comma as an indicator for simple wrapping
-- Changed formatter api
+- Changed formatter api calls
+- Changed command line help text, fixes [#400](https://github.com/HaxeCheckstyle/haxe-formatter/issues/400) ([#402](https://github.com/HaxeCheckstyle/haxe-formatter/issues/402))
 - Replaced custom schema generator with json2objects ([#398](https://github.com/HaxeCheckstyle/haxe-formatter/issues/398))
 
 ## version 1.5.0 (2019-03-04)
