@@ -1,0 +1,20 @@
+{}
+
+
+---
+
+class Main {
+	static function foo(#if false bar:Int, #else baz:int, #end foobar:Int) {}
+	static function foo(#if false ?bar:Int, #end ?foobar:Int) {}
+	static function foo(#if false ?bar:Int, #else ?baz:Int, #end ?foobar:Int) {}
+}
+
+---
+
+class Main {
+	static function foo(#if false bar:Int, #else baz:int, #end foobar:Int) {}
+
+	static function foo(#if false ?bar:Int, #end ?foobar:Int) {}
+
+	static function foo(#if false ?bar:Int, #else ?baz:Int, #end ?foobar:Int) {}
+}
