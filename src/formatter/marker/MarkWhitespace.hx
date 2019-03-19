@@ -254,7 +254,7 @@ class MarkWhitespace extends MarkerBase {
 				whitespace(token, NoneAfter);
 			case Kwd(KwdExtends), Kwd(KwdImplements):
 				whitespace(token, Around);
-			case Kwd(KwdIf):
+			case Kwd(KwdIf), Kwd(KwdElse):
 				whitespace(token, config.whitespace.ifPolicy);
 			case Kwd(KwdDo):
 				whitespace(token, config.whitespace.doPolicy);
