@@ -245,6 +245,9 @@ class MarkWhitespace extends MarkerBase {
 						case Const(CIdent(_)):
 							whitespace(token, After);
 							return;
+						case Question:
+							whitespace(token, After);
+							return;
 						default:
 					}
 				}
@@ -399,7 +402,7 @@ class MarkWhitespace extends MarkerBase {
 				if (next != null) {
 					switch (next.token.tok) {
 						case Comma, Semicolon:
-						case Const(_), Kwd(_), POpen, BrOpen, BkOpen:
+						case Const(_), Kwd(_), POpen, BrOpen, BkOpen, Question:
 							whitespace(token, After);
 						default:
 					}
