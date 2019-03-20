@@ -537,6 +537,27 @@ class TokenList {
 		info.additionalIndent = indent;
 	}
 
+	public function increaseIndentBetween(start:Null<TokenTree>, end:Null<TokenTree>, depth:Int, ?pos:PosInfos) {
+		if ((depth == 0) || (start == null) || (start.index < 0) || (end == null) || (end.index < 0)) {
+			return;
+		}
+		var startIndex:Int = start.index;
+		if (depth > 0) {
+			startIndex++;
+		}
+		var endIndex:Int = end.index;
+		for (index in startIndex...endIndex) {
+			var info:Null<TokenInfo> = tokens[index];
+			if (info == null) {
+				continue;
+			}
+			#if debugLog
+			logAction(pos, info.token, '${info.additionalIndent} -> ${info.additionalIndent + depth}');
+			#end
+			info.additionalIndent += depth;
+		}
+	}
+
 	public function findTokenAtOffset(offset:Int):Null<TokenInfo> {
 		var lastInfo:Null<TokenInfo> = null;
 

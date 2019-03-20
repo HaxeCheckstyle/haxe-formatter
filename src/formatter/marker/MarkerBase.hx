@@ -93,6 +93,10 @@ class MarkerBase {
 		parsedCode.tokenList.additionalIndent(token, indent, pos);
 	}
 
+	public function increaseIndentBetween(start:Null<TokenTree>, end:Null<TokenTree>, depth:Int, ?pos:PosInfos) {
+		parsedCode.tokenList.increaseIndentBetween(start, end, depth, pos);
+	}
+
 	public function findTokenAtOffset(offset:Int):Null<TokenInfo> {
 		return parsedCode.tokenList.findTokenAtOffset(offset);
 	}
