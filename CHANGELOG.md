@@ -6,7 +6,7 @@
 - Fixed whitespace for conditionals in function arguments with question mark, fixes [#397](https://github.com/HaxeCheckstyle/haxe-formatter/issues/397) ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
 - Fixed unary OpSub in arrays ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
 - Fixed whitespace for else body with ECheckType, fixes [#361](https://github.com/HaxeCheckstyle/haxe-formatter/issues/361) ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
-- Fixed indentation after block breaking conditional, fixes [#290](https://github.com/HaxeCheckstyle/haxe-formatter/issues/290) ([#406](https://github.com/HaxeCheckstyle/haxe-formatter/issues/406))
+- Fixed indentation after block breaking conditional, fixes [#290](https://github.com/HaxeCheckstyle/haxe-formatter/issues/290) ([#406](https://github.com/HaxeCheckstyle/haxe-formatter/issues/406) + [#408](https://github.com/HaxeCheckstyle/haxe-formatter/issues/408))
 - Changed default value for `excludes` to include `.git` folders ([#399](https://github.com/HaxeCheckstyle/haxe-formatter/issues/399))
 - Changed using comma as an indicator for simple wrapping ([#403](https://github.com/HaxeCheckstyle/haxe-formatter/issues/403))
 - Changed formatter api calls, fixes [#393](https://github.com/HaxeCheckstyle/haxe-formatter/issues/393) ([#403](https://github.com/HaxeCheckstyle/haxe-formatter/issues/403))

@@ -5,14 +5,15 @@ class MarkAdditionalIndentation extends MarkerBase {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Sharp(MarkLineEnds.SHARP_IF):
-					markBlockBreakingConditional(token);
+					markBlockBreakingConditional(token, calcDepthDifferenceLeftCurly(token));
+					markBlockBreakingConditional(token, calcDepthDifferenceRightCurly(token));
 				default:
 			}
 			return GO_DEEPER;
 		});
 	}
 
-	function markBlockBreakingConditional(token:TokenTree) {
+	function markBlockBreakingConditional(token:TokenTree, depthDifference:Int) {
 		if (token.children == null) {
 			return;
 		}
@@ -20,7 +21,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 		if (start == null) {
 			return;
 		}
-		var depthDifference:Int = calcDepthDifference(token);
+		// var depthDifference:Int = calcDepthDifference(token);
 
 		if (depthDifference == 0) {
 			return;
@@ -29,7 +30,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 			start = token;
 		}
 
-		var parent:TokenTree = token.parent;
+		var parent:Null<TokenTree> = token.parent;
 		var topLevelToken:Null<TokenTree> = null;
 		while ((parent != null) && (parent.tok != null)) {
 			topLevelToken = parent;
@@ -52,16 +53,15 @@ class MarkAdditionalIndentation extends MarkerBase {
 		increaseIndentBetween(start, TokenTreeCheckUtils.getLastToken(topLevelToken), depthDifference);
 	}
 
-	function calcDepthDifference(token:TokenTree):Int {
+	function calcDepthDifferenceLeftCurly(token:TokenTree):Int {
 		if (token.children == null) {
 			return 0;
 		}
 		var depthIncrease:Int = 0;
-		var depthDecrease:Int = 0;
-
 		for (child in token.children) {
 			var brOpens:Array<TokenTree> = child.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 				return switch (token.tok) {
+					case Sharp(_): SKIP_SUBTREE;
 					case BrOpen: FOUND_GO_DEEPER;
 					default: GO_DEEPER;
 				}
@@ -71,7 +71,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 			}
 			var depth:Int = 0;
 			for (brOpen in brOpens) {
-				if (brOpen.access().lastChild().is(BrClose).exists()) {
+				if (brOpen.access().firstOf(BrClose).exists()) {
 					continue;
 				}
 				depth++;
@@ -80,7 +80,14 @@ class MarkAdditionalIndentation extends MarkerBase {
 				depthIncrease = depth;
 			}
 		}
+		return depthIncrease;
+	}
 
+	function calcDepthDifferenceRightCurly(token:TokenTree):Int {
+		if (token.children == null) {
+			return 0;
+		}
+		var depthDecrease:Int = 0;
 		for (child in token.children) {
 			var brClose:Array<TokenTree> = child.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 				return switch (token.tok) {
@@ -103,6 +110,6 @@ class MarkAdditionalIndentation extends MarkerBase {
 			}
 		}
 
-		return depthIncrease - depthDecrease;
+		return -depthDecrease;
 	}
 }
