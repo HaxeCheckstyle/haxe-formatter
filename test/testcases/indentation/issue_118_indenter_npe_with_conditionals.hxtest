@@ -24,8 +24,8 @@ class Serializer {
 		#else
 		if (cache[i] == v) {
 		#end
+		}
 	}
-}
 
-function serializeFields(v:{}) {}
+	function serializeFields(v:{}) {}
 }

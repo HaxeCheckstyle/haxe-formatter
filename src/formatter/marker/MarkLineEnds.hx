@@ -78,6 +78,16 @@ class MarkLineEnds extends MarkerBase {
 		for (brOpen in brTokens) {
 			var brClose:Null<TokenTree> = brOpen.access().firstOf(BrClose).token;
 			if (brClose == null) {
+				switch (config.lineEnds.leftCurly) {
+					case None:
+					case Before:
+						beforeLeftCurly(brOpen);
+					case After:
+						lineEndAfter(brOpen);
+					case Both:
+						beforeLeftCurly(brOpen);
+						lineEndAfter(brOpen);
+				}
 				continue;
 			}
 			var prev:Null<TokenInfo> = getPreviousToken(brOpen);

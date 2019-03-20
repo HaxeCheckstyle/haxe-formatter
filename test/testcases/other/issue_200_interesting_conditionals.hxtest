@@ -21,7 +21,7 @@ class Main {
 		#if cs
 		pony.cs.Synchro.lock(isRead, function() {
 		#end
-		// some code
+			// some code
 		#if cs
 		});
 		#end

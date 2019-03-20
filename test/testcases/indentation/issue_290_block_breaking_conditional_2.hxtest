@@ -1,0 +1,35 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		#if defined
+		if (true) {
+			trace("foo");
+		#end
+			doSomething("");
+		#if defined
+		}
+		#end
+}
+static function main() {}
+}
+
+---
+
+class Main {
+	static function main() {
+		#if defined
+		if (true) {
+			trace("foo");
+		#end
+			doSomething("");
+		#if defined
+		}
+		#end
+	}
+
+	static function main() {}
+}

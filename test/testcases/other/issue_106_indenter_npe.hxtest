@@ -65,11 +65,11 @@ class Boot {
 		#else
 		String.prototype.charCodeAt = function(i):Null<Int> {
 		#end
-		var s:String = __this__;
-		var x:Float = s.cca(i);
-		if (__global__["isNaN"](x))
-			return null;
-		return Std.int(x);
-	};
-}
+			var s:String = __this__;
+			var x:Float = s.cca(i);
+			if (__global__["isNaN"](x))
+				return null;
+			return Std.int(x);
+		};
+	}
 }

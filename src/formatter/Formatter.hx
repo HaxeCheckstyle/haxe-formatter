@@ -5,6 +5,7 @@ import sys.FileSystem;
 import haxe.CallStack;
 import haxe.io.Path;
 import formatter.config.Config;
+import formatter.marker.MarkAdditionalIndentation;
 import formatter.marker.MarkEmptyLines;
 import formatter.marker.MarkLineEnds;
 import formatter.marker.MarkTokenText;
@@ -109,6 +110,7 @@ class Formatter {
 			var markSameLine = new MarkSameLine(config, parsedCode, indenter);
 			var markWrapping = new MarkWrapping(config, parsedCode, indenter);
 			var markEmptyLines = new MarkEmptyLines(config, parsedCode, indenter);
+			var markAdditionalIndent = new MarkAdditionalIndentation(config, parsedCode, indenter);
 
 			markTokenText.run();
 			markWhitespace.run();
@@ -118,6 +120,7 @@ class Formatter {
 			markEmptyLines.run();
 
 			markTokenText.finalRun();
+			markAdditionalIndent.run();
 
 			var lines:CodeLines = new CodeLines(parsedCode, indenter);
 			lines.applyWrapping(config.wrapping);
