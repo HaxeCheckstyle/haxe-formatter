@@ -162,7 +162,7 @@ class Cli {
 			}
 			if (paths.length != 1) {
 				Sys.println(content);
-				Sys.stderr().writeString("Please use exactly one `--source <path>` parameter");
+				Sys.stderr().writeString("Please use exactly one `--source <path>` parameter when calling formatter with `--stdin`");
 				Sys.exit(3);
 			}
 			if (!FileSystem.exists(paths[0])) {
@@ -183,7 +183,6 @@ class Cli {
 					Sys.exit(2);
 				case Disabled:
 					Sys.println(content);
-					Sys.stderr().writeString('Formatting is disabled in "${paths[0]}"');
 					Sys.exit(1);
 			}
 		} catch (e:Any) {
