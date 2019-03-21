@@ -52,8 +52,11 @@ Use `--check` to run formatter in check mode to see if code is properly formatte
 
 You can run formatter in "piped mode", where it reads code from STDIN and prints formatted results to STDOUT.
 You can enable piped mode by giving `--stdin` on command line. In piped mode formatter requires exactly one `--source <path>` to make sure configuration file detection knows where to start.
+
 Formatter does not support a stream mode, where you can provide an endless stream of code to be formatted, your input data needs some sort of end of file.
+
 Formatter will print formatted code to STDOUT. 
+
 In case of errors, it will print your input file without modifications (as long as formatter is able to read your input). When an error occurs formatter sets an exit code and prints an error message to STDERR.
 
 | Exit code | Description                                                   | STDOUT                    |
