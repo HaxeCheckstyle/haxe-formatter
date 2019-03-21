@@ -2,11 +2,13 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added `--stdin` CLI switch to allow reading code from stdin and printing formatted code to stdout, fixes [#411](https://github.com/HaxeCheckstyle/haxe-formatter/issues/411) ([#412](https://github.com/HaxeCheckstyle/haxe-formatter/issues/412))
 - Fixed specifiying an entry point for tokentree, fixes [#393](https://github.com/HaxeCheckstyle/haxe-formatter/issues/393) ([#403](https://github.com/HaxeCheckstyle/haxe-formatter/issues/403) + [#404](https://github.com/HaxeCheckstyle/haxe-formatter/issues/404))
 - Fixed whitespace for conditionals in function arguments with question mark, fixes [#397](https://github.com/HaxeCheckstyle/haxe-formatter/issues/397) ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
 - Fixed unary OpSub in arrays ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
 - Fixed whitespace for else body with ECheckType, fixes [#361](https://github.com/HaxeCheckstyle/haxe-formatter/issues/361) ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
 - Fixed indentation after block breaking conditional, fixes [#290](https://github.com/HaxeCheckstyle/haxe-formatter/issues/290) ([#406](https://github.com/HaxeCheckstyle/haxe-formatter/issues/406) + [#408](https://github.com/HaxeCheckstyle/haxe-formatter/issues/408))
+- Fixed sameline format of anon types with wrapping set to keep, fixes [#301](https://github.com/HaxeCheckstyle/haxe-formatter/issues/301) ([#412](https://github.com/HaxeCheckstyle/haxe-formatter/issues/412))
 - Changed default value for `excludes` to include `.git` folders ([#399](https://github.com/HaxeCheckstyle/haxe-formatter/issues/399))
 - Changed using comma as an indicator for simple wrapping ([#403](https://github.com/HaxeCheckstyle/haxe-formatter/issues/403))
 - Changed formatter api calls, fixes [#393](https://github.com/HaxeCheckstyle/haxe-formatter/issues/393) ([#403](https://github.com/HaxeCheckstyle/haxe-formatter/issues/403))
