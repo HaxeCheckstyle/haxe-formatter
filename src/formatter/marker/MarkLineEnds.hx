@@ -166,34 +166,11 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function beforeLeftCurly(token:TokenTree) {
-		var prevToken:Null<TokenInfo> = getPreviousToken(token);
-		if (prevToken == null) {
-			return;
-		}
-		switch (prevToken.token.tok) {
-			default:
-				switch (prevToken.whitespaceAfter) {
-					case None:
-						prevToken.whitespaceAfter = Newline;
-					case Space:
-						prevToken.whitespaceAfter = Newline;
-					case Newline:
-				}
-		}
+		lineEndBefore(token);
 	}
 
 	function beforeRightCurly(token:TokenTree) {
-		var prevToken:Null<TokenInfo> = getPreviousToken(token);
-		if (prevToken == null) {
-			return;
-		}
-		switch (prevToken.whitespaceAfter) {
-			case None:
-				prevToken.whitespaceAfter = Newline;
-			case Space:
-				prevToken.whitespaceAfter = Newline;
-			case Newline:
-		}
+		lineEndBefore(token);
 	}
 
 	function afterRightCurly(token:TokenTree) {

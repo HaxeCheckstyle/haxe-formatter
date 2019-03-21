@@ -3,7 +3,7 @@ package formatter.config;
 typedef SameLineConfig = {
 	/**
 		same line policy for non block body of "if"
-		* same = place function and body on same line
+		* same = place if and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -11,7 +11,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for non block body of "else"
-		* same = place function and body on same line
+		* same = place else and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -19,7 +19,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for "else" part of "if…else"
-		* same = place function and body on same line
+		* same = place else and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -27,7 +27,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for "if" part of "else if"
-		* same = place function and body on same line
+		* same = place if and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -35,7 +35,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for non block body of "if" in a value place / as expression
-		* same = place function and body on same line
+		* same = place if and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -58,7 +58,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for non block body of "while" (not "do…while")
-		* same = place function and body on same line
+		* same = place while and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -74,7 +74,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for "while" part in "do…while"
-		* same = place function and body on same line
+		* same = place while and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -82,7 +82,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for non block body of "try"
-		* same = place function and body on same line
+		* same = place try and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -90,7 +90,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for non block body of "catch"
-		* same = place function and body on same line
+		* same = place catch and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
@@ -125,7 +125,7 @@ typedef SameLineConfig = {
 
 	/**
 		same line policy for return values
-		* same = place function and body on same line
+		* same = place return and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/

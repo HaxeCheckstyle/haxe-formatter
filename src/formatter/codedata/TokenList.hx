@@ -301,6 +301,9 @@ class TokenList {
 			return;
 		}
 		if (needsLineBreak(info.token)) {
+			#if debugLog
+			logAction(pos, token, '${info.whitespaceAfter} -> Newline');
+			#end
 			info.whitespaceAfter = Newline;
 			return;
 		}
@@ -330,6 +333,9 @@ class TokenList {
 			return;
 		}
 		if (needsLineBreak(info.token)) {
+			#if debugLog
+			logAction(pos, token, '${info.whitespaceAfter} -> Newline');
+			#end
 			info.whitespaceAfter = Newline;
 			return;
 		}

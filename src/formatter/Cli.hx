@@ -40,9 +40,13 @@ class Cli {
 
 		var paths = [];
 		var help = false;
+		var pipemode = false;
 		var argHandler = hxargs.Args.generate([
 			@doc("File or directory with .hx files to format (multiple allowed)")
 			["-s", "--source"] => function(path:String) paths.push(path),
+
+			@doc("Read code from stdin and print formatted output to stdout")
+			["--stdin"] => function() pipemode = true,
 
 			@doc("Print additional information")
 			["-v"] => function() verbose = true,
@@ -78,6 +82,11 @@ class Cli {
 		}
 		if (args.length == 0 || help) {
 			printHelp();
+			Sys.exit(0);
+		}
+
+		if (pipemode) {
+			runPipe();
 			Sys.exit(0);
 		}
 
@@ -138,6 +147,40 @@ class Cli {
 		}
 	}
 
+	function runPipe() {
+		var content:Null<Bytes> = null;
+		try {
+			var config = Formatter.loadConfig(Sys.getCwd());
+
+			#if nodejs
+			content = readNodeJsBytes(Sys.stdin());
+			#else
+			content = Sys.stdin().readAll();
+			#end
+
+			if (content == null) {
+				Sys.exit(-1);
+			}
+			var result:Result = Formatter.format(Code(content.toString()), config);
+			switch (result) {
+				case Success(formattedCode):
+					Sys.println(formattedCode);
+					Sys.exit(0);
+				case Failure(_):
+					Sys.println(content);
+					Sys.exit(2);
+				case Disabled:
+					Sys.println(content);
+					Sys.exit(1);
+			}
+		} catch (e:Any) {
+			if (content != null) {
+				Sys.println(content);
+			}
+			Sys.exit(-1);
+		}
+	}
+
 	function formatFile(path:String) {
 		if (path.endsWith(".hx")) {
 			if (verbose) {
@@ -181,6 +224,22 @@ class Cli {
 			}
 		}
 	}
+
+	#if nodejs
+	function readNodeJsBytes(stdIn:haxe.io.Input):Bytes {
+		var bufsize:Int = 1 << 14;
+		var buf = Bytes.alloc(bufsize);
+		var total = new haxe.io.BytesBuffer();
+		while (true) {
+			var len = stdIn.readBytes(buf, 0, bufsize);
+			if (len == 0) {
+				break;
+			}
+			total.addBytes(buf, 0, len);
+		}
+		return total.getBytes();
+	}
+	#end
 }
 
 enum Mode {
