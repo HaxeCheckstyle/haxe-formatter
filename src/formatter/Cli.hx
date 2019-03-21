@@ -157,14 +157,17 @@ class Cli {
 			#end
 
 			if (content == null) {
+				Sys.stderr().writeString("Could not read anything from STDIN");
 				Sys.exit(-1);
 			}
 			if (paths.length != 1) {
 				Sys.println(content);
+				Sys.stderr().writeString("Please use exactly one `--source <path>` parameter");
 				Sys.exit(3);
 			}
 			if (!FileSystem.exists(paths[0])) {
 				Sys.println(content);
+				Sys.stderr().writeString('Could not find "${paths[0]}"');
 				Sys.exit(3);
 			}
 			var config = Formatter.loadConfig(paths[0]);
@@ -174,17 +177,20 @@ class Cli {
 				case Success(formattedCode):
 					Sys.println(formattedCode);
 					Sys.exit(0);
-				case Failure(_):
+				case Failure(errorMessage):
 					Sys.println(content);
+					Sys.stderr().writeString("Format failed: " + errorMessage);
 					Sys.exit(2);
 				case Disabled:
 					Sys.println(content);
+					Sys.stderr().writeString('Formatting is disabled in "${paths[0]}"');
 					Sys.exit(1);
 			}
 		} catch (e:Any) {
 			if (content != null) {
 				Sys.println(content);
 			}
+			Sys.stderr().writeString('Format failed: ${e}');
 			Sys.exit(-1);
 		}
 	}
