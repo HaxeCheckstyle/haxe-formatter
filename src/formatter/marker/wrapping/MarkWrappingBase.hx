@@ -99,6 +99,9 @@ class MarkWrappingBase extends MarkerBase {
 				break;
 			}
 		}
+		if (!parsedCode.isOriginalNewlineBefore(open)) {
+			noLineEndBefore(open);
+		}
 	}
 
 	public function wrapChildOneLineEach2(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int = 0, location:WrappingLocation,
