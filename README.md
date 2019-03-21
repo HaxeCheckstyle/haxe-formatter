@@ -48,6 +48,27 @@ Run `haxelib run formatter -s src/Main.hx` to format file `src/Main.hx`.
 
 Use `--check` to run formatter in check mode to see if code is properly formatted without modifying it. This can be especially useful in a CI environment.
 
+### Piped mode
+
+You can run formatter in "piped mode", where it reads code from STDIN and prints formatted results to STDOUT.
+You can enable piped mode by giving `--stdin` on command line. In piped mode formatter requires exactly one `--source <path>` to make sure configuration file detection knows where to start.
+
+Formatter does not support a stream mode, where you can provide an endless stream of code to be formatted, your input data needs some sort of end of file.
+
+Formatter will print formatted code to STDOUT. 
+
+In case of errors, it will print your input file without modifications (as long as formatter is able to read your input). When an error occurs formatter sets an exit code and prints an error message to STDERR.
+
+| Exit code | Description                                                   | STDOUT                    |
+|:---------:| ------------------------------------------------------------- | ------------------------- |
+| 0         | Formatting succeeded                                          | Formatted code            |
+| -1        | no input data or other unknwon error                          | there might not be output |
+| 1         | Formatting is disabled for `--source <path>`                  | unformatted input         |
+| 2         | Formatter error                                               | unformatted input         |
+| 3         | no reference or invalid path specified via  `--source <path>` | unformatted input         |
+
+Sample call: `haxelib run formatter --stdin -s src/Main.hx < /tmp/code.txt > src/FormattedCode.hx`
+
 ## Configuration
 
 Formatter uses `hxformat.json` files for configuration. It searches for a `hxformat.json` file closest to the file being formatted, starting with the file's folder and moving upward all the way to your root folder. A configuration file in a subfolder will always overwrite any settings from a top or higher level folder.

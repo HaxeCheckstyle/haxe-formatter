@@ -45,7 +45,7 @@ class Cli {
 			@doc("File or directory with .hx files to format (multiple allowed)")
 			["-s", "--source"] => function(path:String) paths.push(path),
 
-			@doc("Read code from stdin and print formatted output to stdout")
+			@doc("Read code from stdin and print formatted output to stdout (needs _one_ -s <path> for reference in configuration detection)")
 			["--stdin"] => function() pipemode = true,
 
 			@doc("Print additional information")
@@ -86,7 +86,7 @@ class Cli {
 		}
 
 		if (pipemode) {
-			runPipe();
+			runPipe(paths);
 			Sys.exit(0);
 		}
 
@@ -147,11 +147,9 @@ class Cli {
 		}
 	}
 
-	function runPipe() {
+	function runPipe(paths:Array<String>) {
 		var content:Null<Bytes> = null;
 		try {
-			var config = Formatter.loadConfig(Sys.getCwd());
-
 			#if nodejs
 			content = readNodeJsBytes(Sys.stdin());
 			#else
@@ -159,15 +157,29 @@ class Cli {
 			#end
 
 			if (content == null) {
+				Sys.stderr().writeString("Could not read anything from STDIN");
 				Sys.exit(-1);
 			}
+			if (paths.length != 1) {
+				Sys.println(content);
+				Sys.stderr().writeString("Please use exactly one `--source <path>` parameter when calling formatter with `--stdin`");
+				Sys.exit(3);
+			}
+			if (!FileSystem.exists(paths[0])) {
+				Sys.println(content);
+				Sys.stderr().writeString('Could not find "${paths[0]}"');
+				Sys.exit(3);
+			}
+			var config = Formatter.loadConfig(paths[0]);
+
 			var result:Result = Formatter.format(Code(content.toString()), config);
 			switch (result) {
 				case Success(formattedCode):
 					Sys.println(formattedCode);
 					Sys.exit(0);
-				case Failure(_):
+				case Failure(errorMessage):
 					Sys.println(content);
+					Sys.stderr().writeString("Format failed: " + errorMessage);
 					Sys.exit(2);
 				case Disabled:
 					Sys.println(content);
@@ -177,6 +189,7 @@ class Cli {
 			if (content != null) {
 				Sys.println(content);
 			}
+			Sys.stderr().writeString('Format failed: ${e}');
 			Sys.exit(-1);
 		}
 	}
