@@ -226,7 +226,7 @@ class Cli {
 	}
 
 	#if nodejs
-	function readNodeJsBytes(stdIn:Input):Bytes {
+	function readNodeJsBytes(stdIn:haxe.io.Input):Bytes {
 		var bufsize:Int = 1 << 14;
 		var buf = Bytes.alloc(bufsize);
 		var total = new haxe.io.BytesBuffer();
