@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.6.0 (2019-03-22)
+
 - Added `--stdin` CLI switch to allow reading code from stdin and printing formatted code to stdout, fixes [#411](https://github.com/HaxeCheckstyle/haxe-formatter/issues/411) ([#412](https://github.com/HaxeCheckstyle/haxe-formatter/issues/412) + [#413](https://github.com/HaxeCheckstyle/haxe-formatter/issues/413))
 - Fixed specifiying an entry point for tokentree, fixes [#393](https://github.com/HaxeCheckstyle/haxe-formatter/issues/393) ([#403](https://github.com/HaxeCheckstyle/haxe-formatter/issues/403) + [#404](https://github.com/HaxeCheckstyle/haxe-formatter/issues/404))
 - Fixed whitespace for conditionals in function arguments with question mark, fixes [#397](https://github.com/HaxeCheckstyle/haxe-formatter/issues/397) ([#405](https://github.com/HaxeCheckstyle/haxe-formatter/issues/405))
