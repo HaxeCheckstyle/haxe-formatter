@@ -15,7 +15,7 @@ class PosInfosMacro {
 					if (lastArgument != null && lastArgument.name == "pos") {
 						f.args.pop();
 					}
-					f.expr.iter(function loop(e) {
+					function loop(e:Expr) {
 						switch (e.expr) {
 							case ECall(e, params):
 								var lastParam = params[params.length - 1];
@@ -25,7 +25,8 @@ class PosInfosMacro {
 							case _:
 								e.iter(loop);
 						}
-					});
+					}
+					f.expr.iter(loop);
 				case _:
 			}
 		}
