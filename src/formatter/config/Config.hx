@@ -2,7 +2,9 @@ package formatter.config;
 
 import sys.FileSystem;
 import sys.io.File;
+#if !macro
 import json2object.JsonParser;
+#end
 
 class Config {
 	public var emptyLines:EmptyLinesConfig;

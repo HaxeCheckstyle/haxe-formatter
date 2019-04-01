@@ -16,7 +16,7 @@ node_modules
 log/
 target/
 callgrind.*
-debug/
+./debug
 lcov.info
 lcovtest
 .unittest/**

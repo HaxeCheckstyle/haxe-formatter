@@ -6,6 +6,9 @@ import formatter.codedata.ParsedCode;
 import formatter.config.Config;
 import formatter.config.WhitespacePolicy;
 
+#if (!macro && !debugLog)
+@:build(formatter.debug.PosInfosMacro.clean())
+#end
 class MarkerBase {
 	var config:Config;
 	var parsedCode:ParsedCode;

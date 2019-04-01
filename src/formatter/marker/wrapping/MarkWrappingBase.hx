@@ -7,6 +7,9 @@ import sys.io.FileOutput;
 #end
 import formatter.config.WrapConfig;
 
+#if (!macro && !debugWrapping)
+@:build(formatter.debug.PosInfosMacro.clean())
+#end
 class MarkWrappingBase extends MarkerBase {
 	public function noWrap(open:TokenTree, close:TokenTree) {
 		var colon:Null<TokenTree> = open.access().is(BrOpen).parent().is(DblDot).token;
@@ -631,17 +634,21 @@ class MarkWrappingBase extends MarkerBase {
 
 	#if debugWrapping
 	function logWrappingStart() {
+		#if !js
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString("\n".lpad("-", 202));
 		file.close();
+		#end
 	}
 
 	function log(what:String, value:String, ?pos:PosInfos) {
+		#if !js
 		var func:String = '${pos.fileName}:${pos.lineNumber}:${pos.methodName}';
 		var text:String = '${func.rpad(" ", 90)} ${what.rpad(" ", 20)} ${value.rpad(" ", 90)}';
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString(text + "\n");
 		file.close();
+		#end
 	}
 	#end
 }
