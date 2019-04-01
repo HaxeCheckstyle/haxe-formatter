@@ -8,6 +8,9 @@ import sys.io.FileOutput;
 import formatter.config.WhitespacePolicy;
 import formatter.config.Config;
 
+#if (!macro && !debugLog)
+@:build(formatter.debug.PosInfosMacro.clean())
+#end
 class TokenList {
 	static inline var NEWLINE_TO_SPACE:String = "Newline -> Space";
 
@@ -872,12 +875,15 @@ class TokenList {
 
 	#if debugLog
 	function logFileStart() {
+		#if !js
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString("\n\n".lpad("-", 202) + "\n".lpad("-", 201));
 		file.close();
+		#end
 	}
 
 	function logAction(callerPos:PosInfos, token:TokenTree, what:String, ?pos:PosInfos) {
+		#if !js
 		var func:String = '${callerPos.fileName}:${callerPos.lineNumber}:${callerPos.methodName}';
 		var operation:String = '${pos.methodName.rpad(" ", 25)} $what';
 		var tok:String = '`${token}`';
@@ -887,6 +893,7 @@ class TokenList {
 		var file:FileOutput = File.append("hxformat.log", false);
 		file.writeString(text + "\n");
 		file.close();
+		#end
 	}
 	#end
 }

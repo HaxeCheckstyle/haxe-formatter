@@ -1,6 +1,6 @@
 package formatter;
 
-#if tokentree
+#if (tokentree && !macro)
 import byte.ByteData;
 import haxe.io.Bytes;
 import haxe.macro.Expr;
