@@ -104,7 +104,8 @@
 	},
 	"excludes": [
 		"\\.haxelib",
-		"\\.git"
+		"\\.git",
+		"node_modules"
 	],
 	"indentation": {
 		"character": "tab",
