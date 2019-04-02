@@ -15,7 +15,7 @@ typedef FormatterConfig = {
 
 	/**
 		regular expressions matching files to exclude from formatting
-		default is to exclude any `.haxelib` and `.git` folder
+		default is to exclude any `.haxelib`, `.git` and `node_modules` folder
 	**/
-	@:default(["\\.haxelib", "\\.git"]) @:optional var excludes:Array<String>;
+	@:default(["\\.haxelib", "\\.git", "node_modules"]) @:optional var excludes:Array<String>;
 }
