@@ -3,6 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419)
+- Fixed wrapping of concatenated strings
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessarycode in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 
