@@ -653,7 +653,7 @@ class MarkWrapping extends MarkWrappingBase {
 				case POpen, BrOpen, BkOpen:
 					return parent;
 				case Binop(OpAssign), Binop(OpAssignOp(_)):
-					return itemStart;
+					return parent;
 				case Kwd(KwdThis), Kwd(KwdUntyped), Kwd(KwdNull):
 				case Kwd(_):
 					return parent;

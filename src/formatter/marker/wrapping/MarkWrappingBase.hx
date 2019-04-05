@@ -118,9 +118,9 @@ class MarkWrappingBase extends MarkerBase {
 				additionalIndent(item.first, addIndent);
 				lineEndBefore(item.first);
 				item = items.pop();
-				for (item in items) {
-					additionalIndent(item.last, addIndent);
-					lineEndBefore(item.last);
+				for (it in items) {
+					additionalIndent(it.last, addIndent);
+					lineEndBefore(it.last);
 				}
 				items.push(item);
 			case AfterLast:
