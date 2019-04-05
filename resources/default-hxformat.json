@@ -520,6 +520,10 @@
 				}
 			]
 		},
+		"multiVar": {
+			"defaultWrap": "onePerLineAfterFirst",
+			"rules": []
+		},
 		"objectLiteral": {
 			"defaultWrap": "noWrap",
 			"rules": [

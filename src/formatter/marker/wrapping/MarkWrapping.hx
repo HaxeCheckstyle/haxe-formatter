@@ -56,9 +56,10 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 
 		markMethodChaining();
+		markMultiVarChaining();
+		markImplementsExtendsChaining();
 		markOpBoolChaining();
 		markOpAddChaining();
-		markImplementsExtendsChaining();
 	}
 
 	function wrapTypeParameter(token:TokenTree) {
@@ -721,6 +722,34 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 			var chainEnd:TokenTree = items[items.length - 1].last;
 			var rule:WrapRule = determineWrapType2(config.wrapping.implementsExtends, chainOpen, items);
+			applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
+		}
+	}
+
+	function markMultiVarChaining() {
+		var allVars:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case Kwd(KwdVar):
+					if ((token.hasChildren()) && (token.children.length > 1)) {
+						return FOUND_SKIP_SUBTREE;
+					}
+					return SKIP_SUBTREE;
+				default:
+					return GO_DEEPER;
+			}
+		});
+		for (v in allVars) {
+			var items:Array<WrappableItem> = [];
+			for (child in v.children) {
+				var endToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+				items.push(makeWrappableItem(child, endToken));
+			}
+			if (items.length <= 0) {
+				continue;
+			}
+			var chainOpen:TokenTree = v;
+			var chainEnd:TokenTree = TokenTreeCheckUtils.getLastToken(v);
+			var rule:WrapRule = determineWrapType2(config.wrapping.multiVar, chainOpen, items);
 			applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
 		}
 	}
