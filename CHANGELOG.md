@@ -2,6 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
+- Changed debug code to produce less unneccessarycode in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
+
 ## version 1.6.0 (2019-03-22)
 
 - Added `--stdin` CLI switch to allow reading code from stdin and printing formatted code to stdout, fixes [#411](https://github.com/HaxeCheckstyle/haxe-formatter/issues/411) ([#412](https://github.com/HaxeCheckstyle/haxe-formatter/issues/412) + [#413](https://github.com/HaxeCheckstyle/haxe-formatter/issues/413))

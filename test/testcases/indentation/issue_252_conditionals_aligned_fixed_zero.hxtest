@@ -58,6 +58,7 @@ class Main {
 #else
 	static function doSomething(s) {}
 #end
+
 	static function main() {
 #if (cpp)
 		cpp_doSomething("");
