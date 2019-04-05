@@ -1,0 +1,58 @@
+{
+	"wrapping": {
+		"multiVar": {
+			"defaultWrap": "keep",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var rawRead:ArrayList = getRaw(read),
+			rawWrite:ArrayList = getRaw(write),
+			rawOthers:ArrayList = getRaw(others);
+
+		var
+			rawRead:ArrayList = getRaw(read),
+			rawWrite:ArrayList = getRaw(write),
+			rawOthers:ArrayList = getRaw(others);
+
+		var rawRead:ArrayList = getRaw(read), rawWrite:ArrayList = getRaw(write), rawOthers:ArrayList = getRaw(others);
+
+		var a:Float = 4 * (p1.x * p1.x + p1.y * p1.y),
+			b:Float = 4 * (p1.x * p2.x + p1.y * p2.y),
+			c:Float = p2.x * p2.x + p2.y * p2.y,
+			abc:Float = 2 * Math.sqrt(a + b + c),
+			a2:Float = Math.sqrt(a),
+			a32:Float = 2 * a * a2, c2:Float = 2 * Math.sqrt(c),
+			ba:Float = b / a2;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var rawRead:ArrayList = getRaw(read),
+			rawWrite:ArrayList = getRaw(write),
+			rawOthers:ArrayList = getRaw(others);
+
+		var
+			rawRead:ArrayList = getRaw(read),
+			rawWrite:ArrayList = getRaw(write),
+			rawOthers:ArrayList = getRaw(others);
+
+		var rawRead:ArrayList = getRaw(read), rawWrite:ArrayList = getRaw(write), rawOthers:ArrayList = getRaw(others);
+
+		var a:Float = 4 * (p1.x * p1.x + p1.y * p1.y),
+			b:Float = 4 * (p1.x * p2.x + p1.y * p2.y),
+			c:Float = p2.x * p2.x + p2.y * p2.y,
+			abc:Float = 2 * Math.sqrt(a + b + c),
+			a2:Float = Math.sqrt(a),
+			a32:Float = 2 * a * a2, c2:Float = 2 * Math.sqrt(c),
+			ba:Float = b / a2;
+	}
+}

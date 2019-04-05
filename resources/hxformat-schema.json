@@ -256,6 +256,10 @@
 					"description": "implements / extends chain wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
+				"multiVar": {
+					"description": "chain wrapping rules for OpAdd / OpSub",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"

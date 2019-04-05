@@ -445,6 +445,8 @@ class Indenter {
 				}
 			case Kwd(KwdSwitch), Kwd(KwdCase), Kwd(KwdDefault):
 				return true;
+			case Kwd(KwdVar):
+				return true;
 			case Const(CIdent("from")), Const(CIdent("to")):
 				return isAbstractFromTo(token);
 			default:

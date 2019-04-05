@@ -324,6 +324,16 @@ typedef WrapConfig = {
 	})
 	@:optional
 	var opAddSubChain:WrapRules;
+
+	/**
+		chain wrapping rules for OpAdd / OpSub
+	**/
+	@:default({
+		defaultWrap: OnePerLineAfterFirst,
+		rules: []
+	})
+	@:optional
+	var multiVar:WrapRules;
 }
 
 typedef WrapRules = {
