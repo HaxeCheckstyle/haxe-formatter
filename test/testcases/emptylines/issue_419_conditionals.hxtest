@@ -1,0 +1,62 @@
+{
+}
+
+---
+
+class Main {
+	#if foo
+	static var foo:Int;
+	#end
+	static var bar:Int;
+
+	static function main() {}
+}
+
+class Main {
+	#if foo
+	static var foo:Int;
+	#else
+	static var bar:Int;
+	#end
+
+	static function main() {}
+}
+
+class Main {
+	#if foo
+	static var foo:Int;
+	static var bar:Int;
+	#end
+
+	static function main() {}
+}
+
+---
+
+class Main {
+	#if foo
+	static var foo:Int;
+	#end
+	static var bar:Int;
+
+	static function main() {}
+}
+
+class Main {
+	#if foo
+	static var foo:Int;
+	#else
+	static var bar:Int;
+	#end
+
+	static function main() {}
+}
+
+class Main {
+	#if foo
+	static var foo:Int;
+	static var bar:Int;
+	#end
+
+	static function main() {}
+}
