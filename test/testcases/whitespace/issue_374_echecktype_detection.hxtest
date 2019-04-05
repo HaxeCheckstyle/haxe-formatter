@@ -1,0 +1,18 @@
+{}
+
+
+---
+
+class Main {
+	static function main() {
+		((cast e).__constructs__ : Array<String>).copy();
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		((cast e).__constructs__ : Array<String>).copy();
+	}
+}
