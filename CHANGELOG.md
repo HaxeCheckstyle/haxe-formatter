@@ -4,6 +4,7 @@
 
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419)
 - Fixed wrapping of concatenated strings
+- Fixed ECheckType detection with cast, fixes [#374](https://github.com/HaxeCheckstyle/haxe-formatter/issues/374)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessarycode in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 
