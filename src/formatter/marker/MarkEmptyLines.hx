@@ -251,14 +251,14 @@ class MarkEmptyLines extends MarkerBase {
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
 			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
-			var functions:Array<TokenTree> = findClassAndAbstractFields(c);
+			var fields:Array<TokenTree> = findClassAndAbstractFields(c);
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
 			var currToken:TokenTree = null;
 			var currTokenType:TokenFieldType = null;
-			for (func in functions) {
-				currToken = func;
-				currTokenType = FieldUtils.getFieldType(func, PRIVATE);
+			for (field in fields) {
+				currToken = field;
+				currTokenType = FieldUtils.getFieldType(field, PRIVATE);
 				markClassFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType, typeConfig);
 				prevToken = currToken;
 				prevTokenType = currTokenType;
@@ -678,7 +678,13 @@ class MarkEmptyLines extends MarkerBase {
 	function skipSharpFields(prevToken:TokenTree):Null<TokenTree> {
 		var next:TokenTree = prevToken.nextSibling;
 		if (next == null) {
-			return prevToken;
+			next = prevToken.parent;
+			switch (next.tok) {
+				case Sharp(_):
+					next = next.nextSibling;
+				default:
+					return prevToken;
+			}
 		}
 		switch (next.tok) {
 			case Sharp(MarkLineEnds.SHARP_END):
