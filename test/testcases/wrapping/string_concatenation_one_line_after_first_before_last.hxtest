@@ -1,0 +1,45 @@
+{
+	"wrapping": {
+		"opAddSubChain": {
+			"defaultWrap": "onePerLineAfterFirst",
+			"defaultLocation": "beforeLast",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+           var query : String = "SELECT esprefnr, espartikelnummer, espbezeichnung, esptype, espexternnummer, esptaetigkeit, espimeinsatz, espzusatzinfo, " +
+            "spartikelnummer, sptype, spfarbe, spzusatzinfo, spbildFilename, spffarbe1, spffarbe2 FROM ESPEinsatzbereichSchutzprodukt "
+            + "LEFT JOIN SPSchutzProdukt ON (ESPSPRefnr = SPRefnr) "
+            + "LEFT JOIN SPFSchutzproduktFarbe ON (SPFName = SPFarbe) "
+            + "%WHERE% ORDER BY spartikelnummer";
+
+		return "SELECT esprefnr, espartikelnummer, espbezeichnung, esptype, espexternnummer, esptaetigkeit, espimeinsatz, espzusatzinfo, " +
+            "spartikelnummer, sptype, spfarbe, spzusatzinfo, spbildFilename, spffarbe1, spffarbe2 FROM ESPEinsatzbereichSchutzprodukt "
+            + "LEFT JOIN SPSchutzProdukt ON (ESPSPRefnr = SPRefnr) "
+            + "LEFT JOIN SPFSchutzproduktFarbe ON (SPFName = SPFarbe) "
+            + "%WHERE% ORDER BY spartikelnummer";
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var query:String = "SELECT esprefnr, espartikelnummer, espbezeichnung, esptype, espexternnummer, esptaetigkeit, espimeinsatz, espzusatzinfo, "
+			+ "spartikelnummer, sptype, spfarbe, spzusatzinfo, spbildFilename, spffarbe1, spffarbe2 FROM ESPEinsatzbereichSchutzprodukt "
+			+ "LEFT JOIN SPSchutzProdukt ON (ESPSPRefnr = SPRefnr) "
+			+ "LEFT JOIN SPFSchutzproduktFarbe ON (SPFName = SPFarbe) "
+			+ "%WHERE% ORDER BY spartikelnummer";
+
+		return "SELECT esprefnr, espartikelnummer, espbezeichnung, esptype, espexternnummer, esptaetigkeit, espimeinsatz, espzusatzinfo, "
+			+ "spartikelnummer, sptype, spfarbe, spzusatzinfo, spbildFilename, spffarbe1, spffarbe2 FROM ESPEinsatzbereichSchutzprodukt "
+			+ "LEFT JOIN SPSchutzProdukt ON (ESPSPRefnr = SPRefnr) "
+			+ "LEFT JOIN SPFSchutzproduktFarbe ON (SPFName = SPFarbe) "
+			+ "%WHERE% ORDER BY spartikelnummer";
+	}
+}
