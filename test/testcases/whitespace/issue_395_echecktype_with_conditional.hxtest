@@ -1,0 +1,18 @@
+{}
+
+
+---
+
+class Main {
+	static function main() {
+		__bytePointer.set(#if flash byteArray #else (byteArray : ByteArrayData) #end, byteArray.position);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		__bytePointer.set(#if flash byteArray #else (byteArray : ByteArrayData) #end, byteArray.position);
+	}
+}
