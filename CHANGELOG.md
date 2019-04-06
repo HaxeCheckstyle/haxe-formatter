@@ -7,7 +7,7 @@
 - Fixed wrapping of concatenated strings
 - Fixed ECheckType detection with cast, fixes [#374](https://github.com/HaxeCheckstyle/haxe-formatter/issues/374)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
-- Changed debug code to produce less unneccessarycode in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
+- Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 
 ## version 1.6.0 (2019-03-22)
 
