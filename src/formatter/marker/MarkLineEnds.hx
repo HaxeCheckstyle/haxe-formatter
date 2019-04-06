@@ -76,9 +76,11 @@ class MarkLineEnds extends MarkerBase {
 		});
 
 		for (brOpen in brTokens) {
+			var curlyPolicy:CurlyLineEndPolicy = detectCurlyPolicy(brOpen);
+
 			var brClose:Null<TokenTree> = brOpen.access().firstOf(BrClose).token;
 			if (brClose == null) {
-				switch (config.lineEnds.leftCurly) {
+				switch (curlyPolicy.leftCurly) {
 					case None:
 					case Before:
 						beforeLeftCurly(brOpen);
@@ -117,11 +119,11 @@ class MarkLineEnds extends MarkerBase {
 			}
 			var next:Null<TokenInfo> = getNextToken(brOpen);
 			var isEmpty:Bool = false;
-			if ((next != null) && next.token.is(BrClose) && (config.lineEnds.emptyCurly == NoBreak)) {
+			if ((next != null) && next.token.is(BrClose) && (curlyPolicy.emptyCurly == NoBreak)) {
 				isEmpty = true;
 			}
 			if (!isEmpty) {
-				switch (config.lineEnds.leftCurly) {
+				switch (curlyPolicy.leftCurly) {
 					case None:
 					case Before:
 						beforeLeftCurly(brOpen);
@@ -144,7 +146,7 @@ class MarkLineEnds extends MarkerBase {
 				}
 			}
 
-			switch (config.lineEnds.rightCurly) {
+			switch (curlyPolicy.rightCurly) {
 				case None:
 				case Before:
 					if (!preventBefore) {
@@ -163,6 +165,35 @@ class MarkLineEnds extends MarkerBase {
 					}
 			}
 		}
+	}
+
+	function detectCurlyPolicy(brOpen:TokenTree):CurlyLineEndPolicy {
+		var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
+		var curlyPolicy:CurlyLineEndPolicy = {
+			leftCurly: config.lineEnds.leftCurly,
+			rightCurly: config.lineEnds.rightCurly,
+			emptyCurly: config.lineEnds.emptyCurly
+		};
+		switch (type) {
+			case BLOCK:
+				if (!config.lineEnds.blockCurly.useGlobal) {
+					return config.lineEnds.blockCurly;
+				}
+			case TYPEDEFDECL:
+				if (!config.lineEnds.typedefCurly.useGlobal) {
+					return config.lineEnds.typedefCurly;
+				}
+			case OBJECTDECL:
+				if (!config.lineEnds.objectLiteralCurly.useGlobal) {
+					return config.lineEnds.objectLiteralCurly;
+				}
+			case ANONTYPE:
+				if (!config.lineEnds.anonTypeCurly.useGlobal) {
+					return config.lineEnds.anonTypeCurly;
+				}
+			case UNKNOWN:
+		}
+		return curlyPolicy;
 	}
 
 	function beforeLeftCurly(token:TokenTree) {

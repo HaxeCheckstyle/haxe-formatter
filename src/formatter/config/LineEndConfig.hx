@@ -10,6 +10,26 @@ typedef LineEndConfig = {
 	@:default(After) @:optional var leftCurly:LeftCurlyLineEndPolicy;
 	@:default(Both) @:optional var rightCurly:RightCurlyLineEndPolicy;
 	@:default(NoBreak) @:optional var emptyCurly:EmptyCurlyPolicy;
+
+	/**
+		line end settings for block curlies
+	**/
+	@:default(auto) @:optional var blockCurly:CurlyLineEndPolicy;
+
+	/**
+		line end settings for anon type curlies
+	**/
+	@:default(auto) @:optional var anonTypeCurly:CurlyLineEndPolicy;
+
+	/**
+		line end settings for object literal curlies
+	**/
+	@:default(auto) @:optional var objectLiteralCurly:CurlyLineEndPolicy;
+
+	/**
+		line end settings for typedef curlies
+	**/
+	@:default(auto) @:optional var typedefCurly:CurlyLineEndPolicy;
 }
 
 @:enum
@@ -30,6 +50,28 @@ abstract CaseColonLineEndPolicy(String) {
 abstract SharpLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
+}
+
+typedef CurlyLineEndPolicy = {
+	/**
+		use lineEnds.leftCurly, lineEnds.rightCurly and lineEnds.emptyCurly if true
+	**/
+	@:default(true) @:optional var useGlobal:Bool;
+
+	/**
+		line end options for left curly
+	**/
+	@:default(After) @:optional var leftCurly:LeftCurlyLineEndPolicy;
+
+	/**
+		line end options for right curly
+	**/
+	@:default(Both) @:optional var rightCurly:RightCurlyLineEndPolicy;
+
+	/**
+		line end options for empty curlies
+	**/
+	@:default(NoBreak) @:optional var emptyCurly:EmptyCurlyPolicy;
 }
 
 @:enum
