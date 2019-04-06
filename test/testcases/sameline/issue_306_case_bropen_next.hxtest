@@ -14,6 +14,12 @@ class Main {
 	public static function main() {
 		switch f
 		{
+			case {name: name, kind: FVar(AccCall, AccCall)}
+				: macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
+			case _: continue;
+		}
+		switch f
+		{
 			case
 				{name: name, kind: FVar(AccCall, AccCall)}
 				: macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
@@ -21,10 +27,18 @@ class Main {
 		}
 		return switch f
 		{
+			case {name: name, kind: FVar(AccCall, AccCall)}:
+				macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
+			case _:
+			continue;
+		}
+		return switch f
+		{
 			case
-				{name: name, kind: FVar(AccCall, AccCall)}
-				: macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
-			case _: continue;
+				{name: name, kind: FVar(AccCall, AccCall)}:
+				macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
+			case _:
+			continue;
 		}
 	}
 }
@@ -34,6 +48,18 @@ class Main {
 class Main {
 	public static function main() {
 		switch f {
+			case {name: name, kind: FVar(AccCall, AccCall)}:
+				macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
+			case _:
+				continue;
+		}
+		switch f {
+			case {name: name, kind: FVar(AccCall, AccCall)}:
+				macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
+			case _:
+				continue;
+		}
+		return switch f {
 			case {name: name, kind: FVar(AccCall, AccCall)}:
 				macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
 			case _:
