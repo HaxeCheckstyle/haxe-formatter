@@ -116,6 +116,18 @@
 		"trailingWhitespace": false
 	},
 	"lineEnds": {
+		"anonTypeCurly": {
+			"emptyCurly": "noBreak",
+			"leftCurly": "after",
+			"rightCurly": "both",
+			"useGlobal": true
+		},
+		"blockCurly": {
+			"emptyCurly": "noBreak",
+			"leftCurly": "after",
+			"rightCurly": "both",
+			"useGlobal": true
+		},
 		"caseColon": "after",
 		"emptyCurly": "noBreak",
 		"leftCurly": "after",
@@ -123,8 +135,20 @@
 		"metadataOther": "none",
 		"metadataType": "none",
 		"metadataVar": "none",
+		"objectLiteralCurly": {
+			"emptyCurly": "noBreak",
+			"leftCurly": "after",
+			"rightCurly": "both",
+			"useGlobal": true
+		},
 		"rightCurly": "both",
-		"sharp": "after"
+		"sharp": "after",
+		"typedefCurly": {
+			"emptyCurly": "noBreak",
+			"leftCurly": "after",
+			"rightCurly": "both",
+			"useGlobal": true
+		}
 	},
 	"sameLine": {
 		"anonFunctionBody": "same",

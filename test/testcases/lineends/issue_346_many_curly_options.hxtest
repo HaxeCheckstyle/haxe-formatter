@@ -1,0 +1,88 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"anonTypeCurly": {
+			"useGlobal": false,
+			"leftCurly": "after"
+		},
+		"blockCurly": {
+			"useGlobal": false,
+			"leftCurly": "both"
+		},
+		"objectLiteralCurly": {
+			"useGlobal": false,
+			"leftCurly": "after"
+		},
+		"typedefCurly": {
+			"useGlobal": false,
+			"leftCurly": "after"
+		}
+	}
+}
+
+---
+
+class Main
+{
+    static function main()
+    {
+        var object = {
+            field: 100
+        };
+
+		return [
+			{
+				"name": "Lime",
+				"type": "lime",
+				"request": "launch"
+			}];
+	}
+
+	function polarToRec(r:Float, theta:Float):{
+		x:Float,
+		y:Float
+	}
+	{
+		return  {
+				field: 100
+			};
+	}
+}
+
+typedef Point = {
+    x:Float,
+    y:Float
+}
+
+---
+
+class Main
+{
+	static function main()
+	{
+		var object = {
+			field: 100
+		};
+
+		return [{
+			"name": "Lime",
+			"type": "lime",
+			"request": "launch"
+		}];
+	}
+
+	function polarToRec(r:Float, theta:Float):{
+		x:Float,
+		y:Float
+	}
+	{
+		return {
+			field: 100
+		};
+	}
+}
+
+typedef Point = {
+	x:Float,
+	y:Float
+}
