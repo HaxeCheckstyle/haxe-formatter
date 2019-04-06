@@ -19,6 +19,7 @@
 		"afterLeftCurly": "remove",
 		"afterPackage": 1,
 		"afterReturn": "remove",
+		"afterSingleLineWithDocComments": "one",
 		"beforeBlocks": "remove",
 		"beforeDocCommentEmptyLines": "one",
 		"beforePackage": 0,

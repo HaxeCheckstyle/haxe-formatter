@@ -60,6 +60,7 @@ typedef EmptyLinesConfig = {
 		Remove or keep empty lines below "return"
 	**/
 	@:default(Remove) @:optional var afterReturn:KeepEmptyLinesPolicy;
+
 	@:default(Remove) @:optional var beforeBlocks:KeepEmptyLinesPolicy;
 	@:default(Remove) @:optional var afterBlocks:KeepEmptyLinesPolicy;
 	@:default(auto) @:optional var enumAbstractEmptyLines:EnumAbstractFieldsEmptyLinesConfig;
@@ -78,6 +79,13 @@ typedef EmptyLinesConfig = {
 		"ignore" respects empty lines set via "betweenVars", "betweenFunctions", etc.
 	**/
 	@:default(One) @:optional var beforeDocCommentEmptyLines:CommentEmptyLinesPolicy;
+
+	/**
+		"one" adds one empty line after single line fields with  doc comments
+		"none" removes all empty lines after single line fields with doc comments
+		"ignore" respects empty lines set via "betweenVars", "betweenFunctions", etc.
+	**/
+	@:default(One) @:optional var afterSingleLineWithDocComments:CommentEmptyLinesPolicy;
 
 	/**
 		Adds empty lines when file starts with a multiline comment
@@ -109,6 +117,7 @@ typedef ClassFieldsEmptyLinesConfig = {
 		add empty lines before closing "}" of type
 	**/
 	@:default(0) @:optional var endType:Int;
+
 	@:default(0) @:optional var betweenStaticVars:Int;
 	@:default(1) @:optional var afterStaticVars:Int;
 	@:default(1) @:optional var afterPrivateVars:Int;
@@ -130,6 +139,7 @@ typedef EnumAbstractFieldsEmptyLinesConfig = {
 		add empty lines before closing "}" of type
 	**/
 	@:default(0) @:optional var endType:Int;
+
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(1) @:optional var afterVars:Int;
 	@:default(1) @:optional var betweenFunctions:Int;
@@ -145,6 +155,7 @@ typedef InterfaceFieldsEmptyLinesConfig = {
 		add empty lines before closing "}" of type
 	**/
 	@:default(0) @:optional var endType:Int;
+
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(0) @:optional var afterVars:Int;
 	@:default(0) @:optional var betweenFunctions:Int;
@@ -160,6 +171,7 @@ typedef TypedefFieldsEmptyLinesConfig = {
 		add empty lines before closing "}" of type
 	**/
 	@:default(0) @:optional var endType:Int;
+
 	@:default(0) @:optional var betweenFields:Int;
 }
 

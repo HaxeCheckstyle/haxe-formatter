@@ -30,6 +30,7 @@ typedef WhitespaceConfig = {
 		">"
 	**/
 	@:default(None) @:optional var typeParamClosePolicy:WhitespacePolicy;
+
 	@:default(After) @:optional var typeExtensionPolicy:WhitespacePolicy;
 	@:default(OnlyAfter) @:optional var commaPolicy:WhitespacePolicy;
 	@:default(None) @:optional var dotPolicy:WhitespacePolicy;

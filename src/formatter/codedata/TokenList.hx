@@ -608,6 +608,20 @@ class TokenList {
 		return true;
 	}
 
+	public function findLowestIndex(start:TokenTree):TokenTree {
+		var lowest:TokenTree = start;
+		if (!start.hasChildren()) {
+			return lowest;
+		}
+		for (child in start.children) {
+			var token:TokenTree = findLowestIndex(child);
+			if (token.index < lowest.index) {
+				lowest = token;
+			}
+		}
+		return lowest;
+	}
+
 	public function calcLength(token:TokenTree):Int {
 		if ((token == null) || (token.index < 0)) {
 			return 0;
