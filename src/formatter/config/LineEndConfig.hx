@@ -7,8 +7,20 @@ typedef LineEndConfig = {
 	@:default(None) @:optional var metadataOther:AtLineEndPolicy;
 	@:default(After) @:optional var caseColon:CaseColonLineEndPolicy;
 	@:default(After) @:optional var sharp:SharpLineEndPolicy;
+
+	/**
+		global left curly line end setting
+	**/
 	@:default(After) @:optional var leftCurly:LeftCurlyLineEndPolicy;
+
+	/**
+		global right curly line end setting
+	**/
 	@:default(Both) @:optional var rightCurly:RightCurlyLineEndPolicy;
+
+	/**
+		global empty curlies line end setting
+	**/
 	@:default(NoBreak) @:optional var emptyCurly:EmptyCurlyPolicy;
 
 	/**
