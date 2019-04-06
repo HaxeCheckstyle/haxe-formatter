@@ -2,7 +2,7 @@ language: haxe
 
 haxe:
   - 3.4.7
-  - 4.0.0-rc.2
+  - development
 
 install:
   - haxelib git hxparse https://github.com/Simn/hxparse --never
