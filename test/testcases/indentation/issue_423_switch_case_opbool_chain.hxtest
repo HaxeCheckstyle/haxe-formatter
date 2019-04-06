@@ -1,0 +1,53 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (inputID) {
+			case FlxMouseButtonID.LEFT: switch (trigger) {
+					case PRESSED: FlxG.mouse.pressed || FlxG.mouse.justPressed;
+					case RELEASED: !FlxG.mouse.pressed || FlxG.mouse.justReleased;
+					case JUST_PRESSED: FlxG.mouse.justPressed;
+					case JUST_RELEASED: FlxG.mouse.justReleased;
+				}
+			case FlxMouseButtonID.MIDDLE: switch (trigger) {
+					case PRESSED: FlxG.mouse.pressedMiddle || FlxG.mouse.justPressedMiddle || !FlxG.mouse.pressedMiddle || FlxG.mouse.justReleasedMiddle;
+					case RELEASED: !FlxG.mouse.pressedMiddle || FlxG.mouse.justReleasedMiddle || !FlxG.mouse.pressedMiddle || FlxG.mouse.justReleasedMiddle;
+					case JUST_PRESSED: FlxG.mouse.justPressedMiddle;
+					case JUST_RELEASED: FlxG.mouse.justReleasedMiddle;
+				}
+			default: false;
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (inputID) {
+			case FlxMouseButtonID.LEFT:
+				switch (trigger) {
+					case PRESSED: FlxG.mouse.pressed || FlxG.mouse.justPressed;
+					case RELEASED: !FlxG.mouse.pressed || FlxG.mouse.justReleased;
+					case JUST_PRESSED: FlxG.mouse.justPressed;
+					case JUST_RELEASED: FlxG.mouse.justReleased;
+				}
+			case FlxMouseButtonID.MIDDLE:
+				switch (trigger) {
+					case PRESSED: FlxG.mouse.pressedMiddle || FlxG.mouse.justPressedMiddle || !FlxG.mouse.pressedMiddle || FlxG.mouse.justReleasedMiddle;
+					case RELEASED:
+						!FlxG.mouse.pressedMiddle
+						|| FlxG.mouse.justReleasedMiddle
+						|| !FlxG.mouse.pressedMiddle
+						|| FlxG.mouse.justReleasedMiddle;
+					case JUST_PRESSED: FlxG.mouse.justPressedMiddle;
+					case JUST_RELEASED: FlxG.mouse.justReleasedMiddle;
+				}
+			default:
+				false;
+		}
+	}
+}
