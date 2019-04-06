@@ -1,6 +1,9 @@
 {
 	"wrapping": {
-		"maxLineLength": 1600
+		"maxLineLength": 1600,
+		"objectLiteral": {
+			"defaultWrap": "keep"
+		}
 	},
 	"sameLine": {
 		"caseBody": "keep",
@@ -14,8 +17,7 @@ class Main {
 	public static function main() {
 		switch f
 		{
-			case
-				{name: name, kind: FVar(AccCall, AccCall)}
+			case {name: name, kind: FVar(AccCall, AccCall)}
 				: macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
 			case _: continue;
 		}
@@ -28,8 +30,7 @@ class Main {
 		}
 		return switch f
 		{
-			case
-				{name: name, kind: FVar(AccCall, AccCall)}:
+			case {name: name, kind: FVar(AccCall, AccCall)}:
 				macro callbacks.push(model.observables.$name.bind({direct: direct}, onPropertyChange.bind($v{name})));
 			case _:
 			continue;
