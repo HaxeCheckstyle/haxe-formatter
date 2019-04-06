@@ -24,6 +24,7 @@ typedef IndentationConfig = {
 		adds trailing whitespace to empty lines by copying indentation from preceeding line
 	**/
 	@:default(false) @:optional var trailingWhitespace:Bool;
+
 	@:default(true) @:optional var indentObjectLiteral:Bool;
 }
 

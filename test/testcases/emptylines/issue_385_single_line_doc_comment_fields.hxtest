@@ -1,0 +1,53 @@
+{
+}
+
+---
+
+class Main {
+	/**
+		Docs
+	**/
+	public var foo:Int;
+
+	public var bar:Int;
+
+	/**
+		Docs
+	**/
+	public var foobar:Int;
+}
+
+interface Main {
+	/**
+		Docs
+	**/
+	function foobar();
+	function foobar();
+	function foobar();
+}
+
+---
+
+class Main {
+	/**
+		Docs
+	**/
+	public var foo:Int;
+
+	public var bar:Int;
+
+	/**
+		Docs
+	**/
+	public var foobar:Int;
+}
+
+interface Main {
+	/**
+		Docs
+	**/
+	function foobar();
+
+	function foobar();
+	function foobar();
+}

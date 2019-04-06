@@ -6,6 +6,7 @@ typedef FormatterConfig = {
 		unless subfolder contains a `hxformat.json`
 	**/
 	@:default(false) @:optional var disableFormatting:Bool;
+
 	@:default(auto) @:optional var emptyLines:EmptyLinesConfig;
 	@:default(auto) @:optional var indentation:IndentationConfig;
 	@:default(auto) @:optional var lineEnds:LineEndConfig;

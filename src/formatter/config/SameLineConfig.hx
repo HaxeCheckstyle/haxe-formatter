@@ -54,6 +54,7 @@ typedef SameLineConfig = {
 		* keep = keep same / next line from source
 	**/
 	@:default(Next) @:optional var forBody:SameLinePolicy;
+
 	@:default(Same) @:optional var comprehensionFor:SameLinePolicy;
 
 	/**
@@ -103,6 +104,7 @@ typedef SameLineConfig = {
 		* keep = keep same / next line from source
 	**/
 	@:default(Same) @:optional var tryCatch:SameLinePolicy;
+
 	@:default(Next) @:optional var caseBody:SameLinePolicy;
 	@:default(Keep) @:optional var expressionCase:SameLinePolicy;
 	@:default(Same) @:optional var expressionTry:SameLinePolicy;
