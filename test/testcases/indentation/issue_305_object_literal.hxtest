@@ -25,7 +25,7 @@ class Main {
 		var mockFunc:Function = {
 			expr: macro [],
 			ret: ret.toComplexType(),
-			args: arg.map(function(a) return (({name: a.name, type: a.t.toComplexType()}):FunctionArg))
+			args: arg.map(function(a) return (({name: a.name, type: a.t.toComplexType()}) : FunctionArg))
 		}
 	}
 }
