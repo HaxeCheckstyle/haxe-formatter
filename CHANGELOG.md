@@ -6,8 +6,11 @@
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419)
 - Fixed wrapping of concatenated strings
 - Fixed ECheckType detection with cast, fixes [#374](https://github.com/HaxeCheckstyle/haxe-formatter/issues/374)
+- Fixed same line handling of cases with object pattern, fixes [#306](https://github.com/HaxeCheckstyle/haxe-formatter/issues/306)
+- Fixed ETypeCheck with conditional, fixes [#395](https://github.com/HaxeCheckstyle/haxe-formatter/issues/395)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
+- Updated testcases for [#305](https://github.com/HaxeCheckstyle/haxe-formatter/issues/305)
 
 ## version 1.6.0 (2019-03-22)
 
