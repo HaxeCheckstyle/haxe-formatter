@@ -756,14 +756,10 @@ class MarkEmptyLines extends MarkerBase {
 			typeToken: token,
 			oneLine: false
 		};
-		if (isSameLine(token, info.lastToken)) {
+
+		var start:TokenTree = parsedCode.tokenList.findLowestIndex(token);
+		if (isSameLine(start, info.lastToken)) {
 			info.oneLine = true;
-		}
-		var atToken:Null<TokenTree> = token.access().firstChild().isCIdent().firstOf(At).token;
-		if (atToken != null) {
-			if (!isSameLine(atToken, info.lastToken)) {
-				info.oneLine = false;
-			}
 		}
 		while (true) {
 			var next:Null<TokenInfo> = getNextToken(info.lastToken);
