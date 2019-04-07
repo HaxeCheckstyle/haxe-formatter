@@ -329,8 +329,17 @@ typedef WrapConfig = {
 		chain wrapping rules for OpAdd / OpSub
 	**/
 	@:default({
-		defaultWrap: OnePerLineAfterFirst,
-		rules: []
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: AnyItemLengthLessThan, value: 15}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 80},],
+				type: OnePerLineAfterFirst
+			},
+		]
 	})
 	@:optional
 	var multiVar:WrapRules;
