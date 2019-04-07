@@ -3,7 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Added `wrapping.multiVar`, fixes [#355](https://github.com/HaxeCheckstyle/haxe-formatter/issues/355) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
-- Added `emptylines.afterSingleLineWithDocComments`, fixes [#385](https://github.com/HaxeCheckstyle/haxe-formatter/issues/385) ([#425](https://github.com/HaxeCheckstyle/haxe-formatter/issues/425)
+- Added `emptylines.afterFieldsWithDocComments`, fixes [#385](https://github.com/HaxeCheckstyle/haxe-formatter/issues/385) ([#425](https://github.com/HaxeCheckstyle/haxe-formatter/issues/425)
 - Added `lineEnds.anonTypeCurly`, `lineEnds.blockCurly`, `lineEnds.objectLiteralCurly`, `lineEnds.typedefCurly`, fixes [#346](https://github.com/HaxeCheckstyle/haxe-formatter/issues/346) ([#427](https://github.com/HaxeCheckstyle/haxe-formatter/issues/427)
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
 - Fixed wrapping of concatenated strings ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)

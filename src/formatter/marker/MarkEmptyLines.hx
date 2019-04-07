@@ -30,7 +30,7 @@ class MarkEmptyLines extends MarkerBase {
 		markEnums();
 		markTypedefs();
 		markSharp();
-		if ((config.emptyLines.beforeDocCommentEmptyLines != Ignore) || (config.emptyLines.afterSingleLineWithDocComments != Ignore)) {
+		if ((config.emptyLines.beforeDocCommentEmptyLines != Ignore) || (config.emptyLines.afterFieldsWithDocComments != Ignore)) {
 			markDocComments();
 		}
 		markMultilineComments();
@@ -911,11 +911,7 @@ class MarkEmptyLines extends MarkerBase {
 					emptyLinesBefore(effectiveToken, 1);
 			}
 			var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(next);
-			var start:TokenTree = parsedCode.tokenList.findLowestIndex(next);
-			if (!parsedCode.tokenList.isSameLine(start, lastToken)) {
-				continue;
-			}
-			switch (config.emptyLines.afterSingleLineWithDocComments) {
+			switch (config.emptyLines.afterFieldsWithDocComments) {
 				case Ignore:
 				case None:
 					emptyLinesAfter(lastToken, 0);
