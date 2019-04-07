@@ -22,6 +22,36 @@ void main() {
 	static var vertices(get, never):Array<Float>;
 }
 
+/**
+	`Vector4` is a vector suitable for three-dimensional
+	math, containing (x, y, z, w) components
+**/
+#if !lime_debug
+@:fileXml('tags="haxe,release"')
+@:noDebug
+#end
+class Vector4
+{
+}
+
+/**
+	`ImageBuffer` is a simple object for storing image data.
+
+	For higher-level operations, use the `Image` class.
+**/
+#if !lime_debug
+@:fileXml('tags="haxe,release"')
+@:noDebug
+#end
+
+#if hl
+@:keep
+#end
+@:allow(lime.graphics.Image)
+class ImageBuffer
+{
+}
+
 ---
 
 class Main {
@@ -42,3 +72,28 @@ void main() {
 
 	static var vertices(get, never):Array<Float>;
 }
+
+/**
+	`Vector4` is a vector suitable for three-dimensional
+	math, containing (x, y, z, w) components
+**/
+#if !lime_debug
+@:fileXml('tags="haxe,release"')
+@:noDebug
+#end
+class Vector4 {}
+
+/**
+	`ImageBuffer` is a simple object for storing image data.
+
+	For higher-level operations, use the `Image` class.
+**/
+#if !lime_debug
+@:fileXml('tags="haxe,release"')
+@:noDebug
+#end
+#if hl
+@:keep
+#end
+@:allow(lime.graphics.Image)
+class ImageBuffer {}

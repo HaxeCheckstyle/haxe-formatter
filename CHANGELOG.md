@@ -11,6 +11,7 @@
 - Fixed same line handling of cases with object pattern, fixes [#306](https://github.com/HaxeCheckstyle/haxe-formatter/issues/306) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 - Fixed ETypeCheck with conditional, fixes [#395](https://github.com/HaxeCheckstyle/haxe-formatter/issues/395) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 - Fixed wrong OpBool indentation in nested switch/case, fixes [#423](https://github.com/HaxeCheckstyle/haxe-formatter/issues/423) ([#424](https://github.com/HaxeCheckstyle/haxe-formatter/issues/424))
+- Fixed `afterFieldsWithDocComments` with conditionals, fixes [#428](https://github.com/HaxeCheckstyle/haxe-formatter/issues/428)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 - Updated testcases for [#305](https://github.com/HaxeCheckstyle/haxe-formatter/issues/305) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))

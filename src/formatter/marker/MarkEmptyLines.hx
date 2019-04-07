@@ -872,7 +872,7 @@ class MarkEmptyLines extends MarkerBase {
 			if (comment.nextSibling == null) {
 				continue;
 			}
-			var next:TokenTree = comment.nextSibling;
+			var next:Null<TokenTree> = comment.nextSibling;
 			var found:Bool = true;
 			while (next != null) {
 				switch (next.tok) {
@@ -888,6 +888,7 @@ class MarkEmptyLines extends MarkerBase {
 					case Kwd(KwdFinal):
 					#end
 					case Sharp(_):
+						next = null;
 					case CommentLine(_):
 						next = next.nextSibling;
 						continue;
@@ -906,7 +907,24 @@ class MarkEmptyLines extends MarkerBase {
 				case One:
 					emptyLinesBefore(effectiveToken, 1);
 			}
+
+			if (next == null) {
+				continue;
+			}
 			var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(next);
+			var nextInfo:Null<TokenInfo> = getNextToken(lastToken);
+			if (nextInfo == null) {
+				continue;
+			}
+			switch (nextInfo.token.tok) {
+				case Sharp(MarkLineEnds.SHARP_IF):
+				case Sharp(MarkLineEnds.SHARP_ERROR):
+				case Sharp(MarkLineEnds.SHARP_END):
+					lastToken = nextInfo.token;
+				case Sharp(_):
+					continue;
+				default:
+			}
 			switch (config.emptyLines.afterFieldsWithDocComments) {
 				case Ignore:
 				case None:

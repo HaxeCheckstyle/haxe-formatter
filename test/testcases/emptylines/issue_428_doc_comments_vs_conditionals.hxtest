@@ -1,0 +1,24 @@
+{
+}
+
+---
+
+class Main {
+	#if foo
+	/** docs **/
+	var foo:Int;
+	#end
+
+	var foo:Int;
+}
+
+---
+
+class Main {
+	#if foo
+	/** docs **/
+	var foo:Int;
+	#end
+
+	var foo:Int;
+}
