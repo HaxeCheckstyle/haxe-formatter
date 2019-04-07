@@ -1,6 +1,6 @@
 {
 	"emptyLines": {
-		"afterSingleLineWithDocComments": "ignore"
+		"afterFieldsWithDocComments": "ignore"
 	}
 }
 
