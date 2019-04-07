@@ -679,7 +679,7 @@
 					"type": "integer"
 				},
 				"afterFieldsWithDocComments": {
-					"description": "\"one\" adds one empty line after single line fields with  doc comments \"none\" removes all empty lines after single line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"description": "\"one\" adds one empty line after fields with doc comments \"none\" removes all empty lines line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
 					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
 				},
 				"finalNewline": {

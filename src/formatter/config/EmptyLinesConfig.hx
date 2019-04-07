@@ -81,8 +81,8 @@ typedef EmptyLinesConfig = {
 	@:default(One) @:optional var beforeDocCommentEmptyLines:CommentEmptyLinesPolicy;
 
 	/**
-		"one" adds one empty line after single line fields with  doc comments
-		"none" removes all empty lines after single line fields with doc comments
+		"one" adds one empty line after fields with doc comments
+		"none" removes all empty lines line fields with doc comments
 		"ignore" respects empty lines set via "betweenVars", "betweenFunctions", etc.
 	**/
 	@:default(One) @:optional var afterFieldsWithDocComments:CommentEmptyLinesPolicy;
