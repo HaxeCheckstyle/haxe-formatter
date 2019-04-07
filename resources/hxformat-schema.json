@@ -678,6 +678,10 @@
 					"description": "Adds empty lines between two consecutive multiline comments",
 					"type": "integer"
 				},
+				"afterFieldsWithDocComments": {
+					"description": "\"one\" adds one empty line after single line fields with  doc comments \"none\" removes all empty lines after single line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
+				},
 				"finalNewline": {
 					"description": "adds a final newline",
 					"type": "boolean"
@@ -701,10 +705,6 @@
 				},
 				"enumEmptyLines": {
 					"$ref": "#/definitions/formatter.config.TypedefFieldsEmptyLinesConfig"
-				},
-				"afterSingleLineWithDocComments": {
-					"description": "\"one\" adds one empty line after single line fields with  doc comments \"none\" removes all empty lines after single line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
-					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
 				},
 				"externClassEmptyLines": {
 					"$ref": "#/definitions/formatter.config.InterfaceFieldsEmptyLinesConfig"
