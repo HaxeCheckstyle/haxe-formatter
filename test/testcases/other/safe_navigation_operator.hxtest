@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	private function new() {
+		var obj:Null<{ field:Null<String> }> = null;
+		trace(obj!.field!.length); //null
+		obj = { field:'hello' };
+		trace(obj!.field!.length); //5
+	}
+}
+
+---
+
+class Main {
+	private function new() {
+		var obj:Null<{field:Null<String>}> = null;
+		trace(obj!.field!.length); // null
+		obj = {field: 'hello'};
+		trace(obj!.field!.length); // 5
+	}
+}
