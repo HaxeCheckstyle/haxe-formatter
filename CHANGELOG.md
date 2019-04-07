@@ -2,18 +2,18 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added `wrapping.multiVar`, fixes [#355](https://github.com/HaxeCheckstyle/haxe-formatter/issues/355) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
-- Added `emptylines.afterFieldsWithDocComments`, fixes [#385](https://github.com/HaxeCheckstyle/haxe-formatter/issues/385) ([#425](https://github.com/HaxeCheckstyle/haxe-formatter/issues/425)
-- Added `lineEnds.anonTypeCurly`, `lineEnds.blockCurly`, `lineEnds.objectLiteralCurly`, `lineEnds.typedefCurly`, fixes [#346](https://github.com/HaxeCheckstyle/haxe-formatter/issues/346) ([#427](https://github.com/HaxeCheckstyle/haxe-formatter/issues/427)
-- Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
+- Added `wrapping.multiVar`, fixes [#355](https://github.com/HaxeCheckstyle/haxe-formatter/issues/355), fixes [#430](https://github.com/HaxeCheckstyle/haxe-formatter/issues/430) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
+- Added `emptylines.afterFieldsWithDocComments`, fixes [#385](https://github.com/HaxeCheckstyle/haxe-formatter/issues/385), fixes [#432](https://github.com/HaxeCheckstyle/haxe-formatter/issues/432) ([#425](https://github.com/HaxeCheckstyle/haxe-formatter/issues/425) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
+- Added `lineEnds.anonTypeCurly`, `lineEnds.blockCurly`, `lineEnds.objectLiteralCurly`, `lineEnds.typedefCurly`, fixes [#346](https://github.com/HaxeCheckstyle/haxe-formatter/issues/346) ([#427](https://github.com/HaxeCheckstyle/haxe-formatter/issues/427) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
+- Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 - Fixed wrapping of concatenated strings ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
-- Fixed ECheckType detection with cast, fixes [#374] (https://github.com/HaxeCheckstyle/haxe-formatter/issues/374) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
-- Fixed same line handling of cases with object pattern, fixes [#306](https://github.com/HaxeCheckstyle/haxe-formatter/issues/306) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
-- Fixed ETypeCheck with conditional, fixes [#395](https://github.com/HaxeCheckstyle/haxe-formatter/issues/395) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
-- Fixed wrong OpBool indentation in nested switch/case, fixes [#423](https://github.com/HaxeCheckstyle/haxe-formatter/issues/423) ([#424](https://github.com/HaxeCheckstyle/haxe-formatter/issues/424)
+- Fixed ECheckType detection with cast, fixes [#374] (https://github.com/HaxeCheckstyle/haxe-formatter/issues/374) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
+- Fixed same line handling of cases with object pattern, fixes [#306](https://github.com/HaxeCheckstyle/haxe-formatter/issues/306) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
+- Fixed ETypeCheck with conditional, fixes [#395](https://github.com/HaxeCheckstyle/haxe-formatter/issues/395) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
+- Fixed wrong OpBool indentation in nested switch/case, fixes [#423](https://github.com/HaxeCheckstyle/haxe-formatter/issues/423) ([#424](https://github.com/HaxeCheckstyle/haxe-formatter/issues/424))
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
-- Updated testcases for [#305](https://github.com/HaxeCheckstyle/haxe-formatter/issues/305) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
+- Updated testcases for [#305](https://github.com/HaxeCheckstyle/haxe-formatter/issues/305) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 
 ## version 1.6.0 (2019-03-22)
 
