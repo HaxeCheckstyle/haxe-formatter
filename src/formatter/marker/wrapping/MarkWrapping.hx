@@ -34,7 +34,6 @@ class MarkWrapping extends MarkWrappingBase {
 		for (token in wrappableTokens) {
 			switch (token.tok) {
 				case Dot:
-					wrapBefore(token, true);
 				case BrOpen:
 					markBrWrapping(token);
 				case BkOpen:
@@ -60,69 +59,25 @@ class MarkWrapping extends MarkWrappingBase {
 		markImplementsExtendsChaining();
 		markOpBoolChaining();
 		markOpAddChaining();
+
+		applyWrappingQueue();
 	}
 
 	function wrapTypeParameter(token:TokenTree) {
-		var close:Null<TokenTree> = token.access().firstOf(Binop(OpGt)).token;
-		if ((token.children == null) || (token.children.length <= 1)) {
+		var close:TokenTree = token.access().firstOf(Binop(OpGt)).token;
+		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
-		if (token.index + 1 == close.index) {
-			whitespace(token, NoneAfter);
-			whitespace(close, NoneBefore);
-			return;
-		}
-		var next:Null<TokenInfo> = getNextToken(close);
-		if (next != null) {
-			switch (next.token.tok) {
-				case BrOpen:
-					var info:Null<TokenInfo> = getTokenInfo(close);
-					if (info.whitespaceAfter != Newline) {
-						whitespace(close, After);
-					}
-				case POpen:
-					wrapAfter(close, true);
-				case Semicolon, Dot:
-					whitespace(close, NoneAfter);
-				case Binop(OpGt):
-					whitespace(close, NoneAfter);
-				default:
-			}
-		}
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var itemCount:Int = 0;
-		for (child in token.children) {
-			switch (child.tok) {
-				case BrClose:
-					break;
-				case CommentLine(_):
-					wrapChildOneLineEach(token, close, 0);
-					return;
-				default:
-			}
-			var length:Int = calcLength(child);
-			totalLength += length;
-			if (length > maxLength) {
-				maxLength = length;
-			}
-			itemCount++;
-		}
-		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(config.wrapping.typeParameter, itemCount, maxLength, totalLength, lineLength);
-		switch (rule.type) {
-			case OnePerLine:
-				wrapChildOneLineEach(token, close, rule.additionalIndent);
-			case OnePerLineAfterFirst:
-				wrapChildOneLineEach(token, close, rule.additionalIndent, true);
-			case Keep:
-				keep(token, close, rule.additionalIndent);
-			case EqualNumber:
-			case FillLine:
-				wrapFillLine(token, close, config.wrapping.maxLineLength, rule.additionalIndent, true);
-			case NoWrap:
-				noWrap(token, close);
-		}
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		queueWrapping({
+			start: token,
+			end: null,
+			items: items,
+			rules: config.wrapping.typeParameter,
+			useTrailing: true,
+			overrideAdditionalIndent: null
+		}, "wrapTypeParameter");
+		return;
 	}
 
 	function markBrWrapping(token:TokenTree) {
@@ -414,12 +369,18 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		var emptyBody:Bool = hasEmptyFunctionBody(token);
 		var items:Array<WrappableItem> = makeWrappableItems(token);
-		var rule:WrapRule = determineWrapType2(rules, token, items);
-		var addIndent:Int = rule.additionalIndent;
+		var addIndent:Null<Int> = null;
 		if (emptyBody) {
 			addIndent = 0;
 		}
-		applyRule(rule, token, pClose, items, addIndent, true);
+		queueWrapping({
+			start: token,
+			end: pClose,
+			items: items,
+			rules: rules,
+			useTrailing: true,
+			overrideAdditionalIndent: addIndent
+		}, "wrapFunctionSignature");
 	}
 
 	function wrapCallParameter(token:TokenTree) {
@@ -428,8 +389,14 @@ class MarkWrapping extends MarkWrappingBase {
 			return;
 		}
 		var items:Array<WrappableItem> = makeWrappableItems(token);
-		var rule:WrapRule = determineWrapType2(config.wrapping.callParameter, token, items);
-		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
+		queueWrapping({
+			start: token,
+			end: pClose,
+			items: items,
+			rules: config.wrapping.callParameter,
+			useTrailing: true,
+			overrideAdditionalIndent: null
+		}, "wrapCallParameter");
 	}
 
 	function wrapMetadataCallParameter(token:TokenTree) {
@@ -438,21 +405,27 @@ class MarkWrapping extends MarkWrappingBase {
 			return;
 		}
 		var items:Array<WrappableItem> = makeWrappableItems(token);
-		var rule:WrapRule = determineWrapType2(config.wrapping.metadataCallParameter, token, items);
-		applyRule(rule, token, pClose, items, rule.additionalIndent, false);
+		queueWrapping({
+			start: token,
+			end: pClose,
+			items: items,
+			rules: config.wrapping.metadataCallParameter,
+			useTrailing: false,
+			overrideAdditionalIndent: null
+		}, "wrapMetadataCallParameter");
 	}
 
 	function markMethodChaining() {
 		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Dot:
-					wrapBefore(token, true);
 					var prev:TokenInfo = getPreviousToken(token);
 					if (prev == null) {
 						return GO_DEEPER;
 					}
 					switch (prev.token.tok) {
 						case PClose:
+							wrapBefore(token, true);
 							return FOUND_SKIP_SUBTREE;
 						default:
 					}
@@ -510,8 +483,14 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 			items.push(makeWrappableItem(child, endToken));
 		}
-		var rule:WrapRule = determineWrapType2(config.wrapping.methodChain, chainOpen, items);
-		applyRule(rule, chainOpen, null, items, rule.additionalIndent, false);
+		queueWrapping({
+			start: chainOpen,
+			end: null,
+			items: items,
+			rules: config.wrapping.methodChain,
+			useTrailing: false,
+			overrideAdditionalIndent: null
+		}, "markSingleMethodChain");
 	}
 
 	function markOpBoolChaining() {
@@ -535,7 +514,16 @@ class MarkWrapping extends MarkWrappingBase {
 
 	function markSingleOpBoolChain(itemStart:TokenTree) {
 		var items:Array<WrappableItem> = [];
-		var prev:Null<TokenInfo> = getPreviousToken(itemStart);
+
+		var firstItemStart:TokenTree = itemStart;
+		switch (itemStart.tok) {
+			case Binop(_):
+				if (itemStart.previousSibling != null) {
+					firstItemStart = itemStart.previousSibling;
+				}
+			default:
+		}
+		var prev:Null<TokenInfo> = getPreviousToken(firstItemStart);
 		var chainStart:TokenTree = itemStart;
 		if (prev != null) {
 			chainStart = prev.token;
@@ -552,9 +540,14 @@ class MarkWrapping extends MarkWrappingBase {
 					}
 			}
 		}
+		var first:Bool = true;
 		for (child in itemStart.children) {
 			switch (child.tok) {
 				case Binop(OpBoolAnd), Binop(OpBoolOr):
+					if (first) {
+						itemStart = firstItemStart;
+						first = false;
+					}
 					items.push(makeWrappableItem(itemStart, child));
 					var next:Null<TokenInfo> = getNextToken(child);
 					if (next == null) {
@@ -566,9 +559,14 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 		}
 		items.push(makeWrappableItem(itemStart, TokenTreeCheckUtils.getLastToken(itemStart)));
-
-		var rule:WrapRule = determineWrapType2(config.wrapping.opBoolChain, chainStart, items);
-		applyRule(rule, chainStart, chainEnd, items, rule.additionalIndent, false);
+		queueWrapping({
+			start: chainStart,
+			end: chainEnd,
+			items: items,
+			rules: config.wrapping.opBoolChain,
+			useTrailing: false,
+			overrideAdditionalIndent: null
+		}, "markSingleOpBoolChain");
 	}
 
 	function markOpAddChaining() {
@@ -640,8 +638,14 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 		}
 		items.push(makeWrappableItem(itemStart, TokenTreeCheckUtils.getLastToken(itemStart)));
-		var rule:WrapRule = determineWrapType2(config.wrapping.opAddSubChain, chainStart, items);
-		applyRule(rule, chainStart, null, items, rule.additionalIndent, false);
+		queueWrapping({
+			start: chainStart,
+			end: null,
+			items: items,
+			rules: config.wrapping.opAddSubChain,
+			useTrailing: false,
+			overrideAdditionalIndent: null
+		}, "markSingleOpAddChain");
 	}
 
 	function findOpAddItemStart(itemStart:TokenTree):TokenTree {
@@ -721,8 +725,14 @@ class MarkWrapping extends MarkWrappingBase {
 				chainOpen = prev.token;
 			}
 			var chainEnd:TokenTree = items[items.length - 1].last;
-			var rule:WrapRule = determineWrapType2(config.wrapping.implementsExtends, chainOpen, items);
-			applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
+			queueWrapping({
+				start: chainOpen,
+				end: chainEnd,
+				items: items,
+				rules: config.wrapping.implementsExtends,
+				useTrailing: false,
+				overrideAdditionalIndent: null
+			}, "markImplementsExtendsChaining");
 		}
 	}
 
@@ -749,8 +759,14 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 			var chainOpen:TokenTree = v;
 			var chainEnd:TokenTree = TokenTreeCheckUtils.getLastToken(v);
-			var rule:WrapRule = determineWrapType2(config.wrapping.multiVar, chainOpen, items);
-			applyRule(rule, chainOpen, chainEnd, items, rule.additionalIndent, false);
+			queueWrapping({
+				start: chainOpen,
+				end: chainEnd,
+				items: items,
+				rules: config.wrapping.multiVar,
+				useTrailing: false,
+				overrideAdditionalIndent: null
+			}, "markMultiVarChaining");
 		}
 	}
 }

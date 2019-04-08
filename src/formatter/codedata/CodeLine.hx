@@ -46,9 +46,11 @@ class CodeLine {
 
 	public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
 		var lineLength:Int = indenter.calcAbsoluteIndent(indent);
+		for (part in parts) {
+			calcLineLengths(part, parsedCode.lineSeparator);
+		}
 		for (index in 0...parts.length) {
 			var part:CodePart = parts[index];
-			calcLineLengths(part, parsedCode.lineSeparator);
 			if (part.multiLine) {
 				if (lineLength + part.firstLineLength > config.maxLineLength) {
 					return wrappedAt(index, config, parsedCode, indenter);
@@ -70,7 +72,7 @@ class CodeLine {
 			part.lastLineLength = lines[lines.length - 1].length;
 		} else {
 			part.firstLineLength = part.text.length;
-			part.lastLineLength = part.text.length;
+			part.lastLineLength = -1;
 		}
 	}
 
@@ -90,7 +92,11 @@ class CodeLine {
 		var lastPart:CodePart = part;
 		while (parts.length > 0) {
 			var p:CodePart = parts.shift();
-			if (lineLength + p.firstLineLength > config.maxLineLength) {
+			var partLength:Int = p.firstLineLength;
+			if (!p.multiLine) {
+				partLength = p.text.rtrim().length;
+			}
+			if (lineLength + partLength >= config.maxLineLength) {
 				parsedCode.tokenList.lineEndAfter(lastPart.lastToken);
 				var info:TokenInfo = parsedCode.tokenList.getTokenAt(p.firstToken.index);
 				var additionalIndent:Int = 0;

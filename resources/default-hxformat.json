@@ -404,31 +404,6 @@
 						}
 					],
 					"type": "fillLine"
-				}
-			]
-		},
-		"functionSignature": {
-			"defaultWrap": "noWrap",
-			"rules": [
-				{
-					"conditions": [
-						{
-							"cond": "itemCount >= n",
-							"value": 7
-						}
-					],
-					"type": "fillLine",
-					"additionalIndent": 1
-				},
-				{
-					"conditions": [
-						{
-							"cond": "totalItemLength >= n",
-							"value": 100
-						}
-					],
-					"type": "fillLine",
-					"additionalIndent": 1
 				},
 				{
 					"conditions": [
@@ -437,10 +412,14 @@
 							"value": 160
 						}
 					],
-					"type": "fillLine",
-					"additionalIndent": 1
+					"type": "fillLine"
 				}
 			]
+		},
+		"functionSignature": {
+			"defaultWrap": "fillLine",
+			"defaultAdditionalIndent": 1,
+			"rules": []
 		},
 		"implementsExtends": {
 			"defaultWrap": "noWrap",
@@ -497,11 +476,11 @@
 				{
 					"conditions": [
 						{
-							"cond": "totalItemLength >= n",
-							"value": 140
+							"cond": "lineLength >= n",
+							"value": 160
 						}
 					],
-					"type": "fillLine"
+					"type": "onePerLineAfterFirst"
 				},
 				{
 					"conditions": [
@@ -616,7 +595,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 140
+							"value": 160
 						},
 						{
 							"cond": "anyItemLength >= n",
@@ -630,7 +609,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 140
+							"value": 160
 						}
 					],
 					"location": "beforeLast",

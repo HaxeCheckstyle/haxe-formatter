@@ -76,8 +76,8 @@ class Main {
 }
 
 class Main {
-	static inline var FindReferences = new RequestMethod<ReferenceParams, Null<Array<Location>>, NoData, TextDocumentRegistrationOptions>
-		("textDocument/references");
+	static inline var FindReferences = new RequestMethod<ReferenceParams, Null<Array<Location>>, NoData,
+		TextDocumentRegistrationOptions>("textDocument/references");
 }
 
 class Main {

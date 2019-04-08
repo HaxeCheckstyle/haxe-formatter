@@ -88,8 +88,8 @@ class MarkerBase {
 		parsedCode.tokenList.wrapBefore(token, wrap, pos);
 	}
 
-	public function noWrappingBetween(tokenStart:TokenTree, tokenEnd:TokenTree, ?pos:PosInfos) {
-		parsedCode.tokenList.noWrappingBetween(tokenStart, tokenEnd, config, pos);
+	public function noWrappingBetween(tokenStart:TokenTree, tokenEnd:TokenTree, allowCommas:Bool = true, ?pos:PosInfos) {
+		parsedCode.tokenList.noWrappingBetween(tokenStart, tokenEnd, config, allowCommas, pos);
 	}
 
 	public function additionalIndent(token:TokenTree, indent:Null<Int>, ?pos:PosInfos) {
@@ -110,6 +110,10 @@ class MarkerBase {
 
 	public function calcLength(token:TokenTree):Int {
 		return parsedCode.tokenList.calcLength(token);
+	}
+
+	public function isMultilineToken(token:TokenTree):Bool {
+		return parsedCode.tokenList.isMultilineToken(token);
 	}
 
 	public function calcLengthUntilNewline(token:TokenTree, stop:Null<TokenTree>):Int {
