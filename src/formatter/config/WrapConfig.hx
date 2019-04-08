@@ -57,24 +57,9 @@ typedef WrapConfig = {
 		named function signature wrapping rules
 	**/
 	@:default({
-		defaultWrap: NoWrap,
-		rules: [
-			{
-				conditions: [{cond: ItemCountLargerThan, value: 7}],
-				type: FillLine,
-				additionalIndent: 1
-			},
-			{
-				conditions: [{cond: TotalItemLengthLargerThan, value: 100}],
-				type: FillLine,
-				additionalIndent: 1
-			},
-			{
-				conditions: [{cond: LineLengthLargerThan, value: 160}],
-				type: FillLine,
-				additionalIndent: 1
-			}
-		]
+		defaultWrap: FillLine,
+		defaultAdditionalIndent: 1,
+		rules: []
 	})
 	@:optional
 	var functionSignature:WrapRules;
@@ -116,6 +101,10 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: AnyItemLengthLargerThan, value: 80}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: LineLengthLargerThan, value: 160}],
 				type: FillLine
 			}
 		]
@@ -203,8 +192,8 @@ typedef WrapConfig = {
 		defaultWrap: NoWrap,
 		rules: [
 			{
-				conditions: [{cond: TotalItemLengthLargerThan, value: 140}],
-				type: FillLine
+				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				type: OnePerLineAfterFirst
 			},
 			{
 				conditions: [{cond: ItemCountLessThan, value: 3}],
@@ -296,14 +285,14 @@ typedef WrapConfig = {
 		rules: [
 			{
 				conditions: [
-					{cond: LineLengthLargerThan, value: 140},
+					{cond: LineLengthLargerThan, value: 160},
 					{cond: AnyItemLengthLargerThan, value: 60}
 				],
 				location: BeforeLast,
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: LineLengthLargerThan, value: 140}],
+				conditions: [{cond: LineLengthLargerThan, value: 160}],
 				location: BeforeLast,
 				type: FillLine
 			},

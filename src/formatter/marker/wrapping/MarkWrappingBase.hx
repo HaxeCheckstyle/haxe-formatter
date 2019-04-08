@@ -5,12 +5,21 @@ import haxe.PosInfos;
 import sys.io.File;
 import sys.io.FileOutput;
 #end
+import formatter.codedata.ParsedCode;
+import formatter.config.Config;
 import formatter.config.WrapConfig;
 
 #if (!macro && !debugWrapping)
 @:build(formatter.debug.PosInfosMacro.clean())
 #end
 class MarkWrappingBase extends MarkerBase {
+	var wrappingQueue:Array<WrappingPlace>;
+
+	public function new(config:Config, parsedCode:ParsedCode, indenter:Indenter) {
+		super(config, parsedCode, indenter);
+		wrappingQueue = [];
+	}
+
 	public function noWrap(open:TokenTree, close:TokenTree) {
 		var colon:Null<TokenTree> = open.access().is(BrOpen).parent().is(DblDot).token;
 		if (colon != null) {
@@ -52,11 +61,9 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	public function keep2(open:TokenTree, close:Null<TokenTree>, items:Array<WrappableItem>, addIndent:Int, location:WrappingLocation) {
-		noWrappingBetween(open, close);
 		var tokens:Array<TokenTree> = [];
 		// BeforeLast wrapping location
 		tokens = [for (item in items) item.last];
-		// tokens.pop();
 		if (items.length > 0) {
 			tokens.unshift(items[0].first);
 		}
@@ -248,7 +255,6 @@ class MarkWrappingBase extends MarkerBase {
 
 	public function wrapFillLine2AfterLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
 			useTrailing:Bool = false) {
-		noWrappingBetween(open, close);
 		if (items.length <= 0) {
 			return;
 		}
@@ -299,7 +305,6 @@ class MarkWrappingBase extends MarkerBase {
 
 	public function wrapFillLine2BeforeLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
 			useTrailing:Bool = false) {
-		noWrappingBetween(open, close);
 		if (items.length <= 0) {
 			return;
 		}
@@ -360,7 +365,6 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	public function wrapFillLine(open:TokenTree, close:TokenTree, maxLineLength:Int, addIndent:Int = 0, useTrailing:Bool = false) {
-		noWrappingBetween(open, close);
 		var lineStart:Null<TokenTree> = findLineStartToken(open);
 		if (lineStart == null) {
 			return;
@@ -468,18 +472,33 @@ class MarkWrappingBase extends MarkerBase {
 
 	function makeWrappableItems(token:TokenTree):Array<WrappableItem> {
 		var items:Array<WrappableItem> = [];
+		var lastIndex:Int = -1;
 		for (child in token.children) {
 			switch (child.tok) {
 				case PClose, BkClose, BrClose:
 					return items;
+				case Binop(OpGt):
+					return items;
 				default:
 			}
-			var endToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
+			if (child.index < lastIndex) {
+				continue;
+			}
+			var endToken:Null<TokenTree> = findItemEnd(child);
+			if (endToken == null) {
+				continue;
+			}
+			lastIndex = endToken.index;
+
 			var sameLine:Bool = isSameLineBetween(child, endToken, false);
 			var firstLineLength:Int = calcLengthUntilNewline(child, endToken);
+
+			if (isMultilineToken(endToken)) {
+				sameLine = false;
+			}
 			var lastLineLength:Int = 0;
 			if (!sameLine) {
-				lastLineLength = calcLineLengthBefore(endToken) + calcTokenLength(endToken);
+				lastLineLength = calcLineLengthAfter(endToken);
 			}
 			var item:WrappableItem = {
 				first: child,
@@ -491,6 +510,28 @@ class MarkWrappingBase extends MarkerBase {
 			items.push(item);
 		}
 		return items;
+	}
+
+	function findItemEnd(child:TokenTree):Null<TokenTree> {
+		var endToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
+		if (endToken == null) {
+			return null;
+		}
+		switch (endToken.tok) {
+			case Comma:
+				return endToken;
+			default:
+		}
+		var next:Null<TokenInfo> = getNextToken(endToken);
+		if (next == null) {
+			return endToken;
+		}
+		switch (next.token.tok) {
+			case Binop(_):
+				return findItemEnd(next.token);
+			default:
+		}
+		return endToken;
 	}
 
 	function determineWrapType2(rules:WrapRules, token:TokenTree, items:Array<WrappableItem>, ?pos:PosInfos):WrapRule {
@@ -628,7 +669,70 @@ class MarkWrappingBase extends MarkerBase {
 						wrapFillLine2BeforeLast(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
 				}
 			case NoWrap:
-				noWrappingBetween(open, close);
+				noWrappingBetween(open, close, false);
+		}
+	}
+
+	public function applyWrappingQueue() {
+		for (place in wrappingQueue) {
+			var rule:WrapRule = determineWrapType2(place.rules, place.start, place.items);
+			var additionalIndent:Int = rule.additionalIndent;
+			if (place.overrideAdditionalIndent != null) {
+				additionalIndent = place.overrideAdditionalIndent;
+			}
+			applyRule(rule, place.start, place.end, place.items, additionalIndent, place.useTrailing);
+		}
+	}
+
+	function queueWrapping(place:WrappingPlace, name:String) {
+		if ((place.items == null) || (place.items.length <= 0)) {
+			return;
+		}
+		var startIndex:Int = getPlaceStartIndex(place);
+		var endIndex:Int = getPlaceEndIndex(place);
+		if ((startIndex < 0) || (endIndex < 0)) {
+			return;
+		}
+		var index:Int = 0;
+		for (index in 0...wrappingQueue.length) {
+			var p:WrappingPlace = wrappingQueue[index];
+			var itemStart:Int = getPlaceStartIndex(p);
+			if (startIndex > itemStart) {
+				continue;
+			}
+			if (startIndex == itemStart) {
+				var itemEnd:Int = getPlaceEndIndex(p);
+				if (endIndex > itemEnd) {
+					wrappingQueue.insert(index, place);
+					return;
+				}
+				continue;
+			}
+			wrappingQueue.insert(index, place);
+			return;
+		}
+		wrappingQueue.push(place);
+	}
+
+	function getPlaceStartIndex(place:WrappingPlace):Int {
+		if ((place.items == null) || (place.items.length <= 0)) {
+			return -1;
+		}
+		if (place.start != null) {
+			return place.start.index;
+		} else {
+			return place.items[0].first.index;
+		}
+	}
+
+	function getPlaceEndIndex(place:WrappingPlace):Int {
+		if ((place.items == null) || (place.items.length <= 0)) {
+			return -1;
+		}
+		if (place.end != null) {
+			return place.end.index;
+		} else {
+			return place.items[place.items.length - 1].last.index;
 		}
 	}
 
@@ -651,4 +755,13 @@ class MarkWrappingBase extends MarkerBase {
 		#end
 	}
 	#end
+}
+
+typedef WrappingPlace = {
+	var start:TokenTree;
+	var end:Null<TokenTree>;
+	var items:Array<WrappableItem>;
+	var rules:WrapRules;
+	var useTrailing:Bool;
+	var overrideAdditionalIndent:Null<Int>;
 }

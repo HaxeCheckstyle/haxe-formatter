@@ -445,7 +445,7 @@ class TokenList {
 		prev.wrapAfter = wrap;
 	}
 
-	public function noWrappingBetween(tokenStart:TokenTree, tokenEnd:TokenTree, config:Config, ?pos:PosInfos) {
+	public function noWrappingBetween(tokenStart:TokenTree, tokenEnd:TokenTree, config:Config, allowCommas:Bool = true, ?pos:PosInfos) {
 		if ((tokenStart == null) || (tokenEnd == null)) {
 			return;
 		}
@@ -481,6 +481,10 @@ class TokenList {
 							index = close.index;
 							continue;
 						}
+					}
+				case Comma:
+					if (allowCommas) {
+						continue;
 					}
 				case CommentLine(_):
 					continue;
@@ -647,6 +651,20 @@ class TokenList {
 		return length;
 	}
 
+	public function isMultilineToken(token:TokenTree):Bool {
+		if ((token == null) || (token.index < 0)) {
+			return false;
+		}
+		var current:Null<TokenInfo> = tokens[token.index];
+		if (current == null) {
+			return false;
+		}
+		if ((current.text.indexOf("\r") >= 0) || (current.text.indexOf("\n") >= 0)) {
+			return true;
+		}
+		return false;
+	}
+
 	public function calcLengthUntilNewline(token:TokenTree, stop:Null<TokenTree>):Int {
 		if ((token == null) || (token.index < 0)) {
 			return 0;
@@ -793,6 +811,16 @@ class TokenList {
 			if (info == null) {
 				continue;
 			}
+			var tokenLength = info.text.length;
+			var linefeed:Int = info.text.lastIndexOf("\r");
+			if (linefeed >= 0) {
+				tokenLength -= linefeed;
+			}
+			linefeed = info.text.lastIndexOf("\n");
+			if (linefeed >= 0) {
+				tokenLength -= linefeed;
+			}
+			length += tokenLength;
 			switch (info.whitespaceAfter) {
 				case None:
 				case Space:
@@ -800,7 +828,6 @@ class TokenList {
 				case Newline:
 					break;
 			}
-			length += info.text.length;
 		}
 		return length;
 	}

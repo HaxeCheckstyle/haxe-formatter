@@ -7,7 +7,7 @@ import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 class ParsedCode {
 	static inline var BAD_OFFSET:String = "Bad offset";
 
-	private var file(default, null):ParseFile;
+	var file(default, null):ParseFile;
 
 	public var tokens(default, null):Array<Token>;
 	public var linesIdx(default, null):Array<LineIds>;

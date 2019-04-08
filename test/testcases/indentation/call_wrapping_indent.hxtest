@@ -35,6 +35,7 @@ class Main
         if (media.canCache())
         {
             response.addHeader("Expires", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S") + " GMT");
+            response.addHeader("Last-Modified", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S") + " GMT");
         }
         settingsDialog.addEvent(Form.ONCLICK, Event.wysiwygCreateLink(id, false,
                 {
@@ -55,7 +56,8 @@ class Main
     {
         if (media.canCache())
         {
-            response.addHeader("Expires", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S")
+            response.addHeader("Expires", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S") + " GMT");
+            response.addHeader("Last-Modified", DateTools.format(Date.fromTime(Date.now().getTime() + media.cacheDuration()), "%a, %d %b %Y %H:%M:%S")
                 + " GMT");
         }
         settingsDialog.addEvent(Form.ONCLICK, Event.wysiwygCreateLink(id, false,

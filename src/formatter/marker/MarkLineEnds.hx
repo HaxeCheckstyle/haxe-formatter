@@ -56,7 +56,9 @@ class MarkLineEnds extends MarkerBase {
 					}
 					var commentLine:LinePos = parsedCode.getLinePos(token.pos.min);
 					var prefix:String = parsedCode.getString(parsedCode.linesIdx[commentLine.line].l, token.pos.min);
-					if (~/^\s*$/.match(prefix)) {
+					commentLine = parsedCode.getLinePos(token.pos.max);
+					var postfix:String = parsedCode.getString(token.pos.max, parsedCode.linesIdx[commentLine.line].r);
+					if ((~/^\s*$/.match(prefix)) && (~/^\s*$/.match(postfix))) {
 						lineEndAfter(token);
 						continue;
 					}
