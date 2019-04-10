@@ -1,0 +1,26 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		var locations = locations.map(function(location) return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range
+			.start), copyPosition(location.range.end))));
+
+		var data:Array<Statistics> = try haxe.Json.parse(s) catch (e:Any) return reject(ResponseError.internalError("Error parsing stats response: " + Std
+				.string(e)));
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var locations = locations.map(function(location) return new Location(Uri.parse(cast location.uri),
+			new Range(copyPosition(location.range.start), copyPosition(location.range.end))));
+
+		var data:Array<Statistics> = try haxe.Json.parse(s) catch (e:Any) return reject(ResponseError.internalError("Error parsing stats response: "
+			+ Std.string(e)));
+	}
+}

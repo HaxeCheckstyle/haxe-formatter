@@ -14,6 +14,7 @@
 - Fixed wrong OpBool indentation in nested switch/case, fixes [#423](https://github.com/HaxeCheckstyle/haxe-formatter/issues/423) ([#424](https://github.com/HaxeCheckstyle/haxe-formatter/issues/424))
 - Fixed `afterFieldsWithDocComments` with conditionals, fixes [#428](https://github.com/HaxeCheckstyle/haxe-formatter/issues/428)
 - Fixed default wrapping stopping after first line break ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))
+- Fixed wrapping in field access, fixes [#314](https://github.com/HaxeCheckstyle/haxe-formatter/issues/314)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 - Refactored wrapping to use an ordered list ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))
