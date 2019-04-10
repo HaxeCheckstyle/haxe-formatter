@@ -297,8 +297,10 @@ class MarkWrapping extends MarkWrappingBase {
 					itemsWithoutMetadata.push(item);
 			}
 		}
-		if (tryMatrixWrap(token, bkClose, itemsWithoutMetadata)) {
-			return;
+		if (config.wrapping.arrayMatrixWrap != NoMatrixWrap) {
+			if (tryMatrixWrap(token, bkClose, itemsWithoutMetadata)) {
+				return;
+			}
 		}
 		queueWrapping({
 			start: token,
@@ -345,28 +347,30 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		lineEndAfter(open);
 
-		var maxCols:Array<Int> = [for (i in 0...lineRun) 0];
-		for (index in 0...items.length) {
-			var item:WrappableItem = items[index];
-			var col:Int = index % lineRun;
-			if (item.firstLineLength > maxCols[col]) {
-				maxCols[col] = item.firstLineLength;
-			}
-		}
-
-		for (index in 0...items.length) {
-			var item:WrappableItem = items[index];
-			var expectedLength:Int = maxCols[index % lineRun];
-			if (index == items.length - 1) {
-				switch (item.last.tok) {
-					case Comma:
-						expectedLength -= 1;
-					default:
-						expectedLength -= 2;
+		if (config.wrapping.arrayMatrixWrap == MatrixWrapWithAlign) {
+			var maxCols:Array<Int> = [for (i in 0...lineRun) 0];
+			for (index in 0...items.length) {
+				var item:WrappableItem = items[index];
+				var col:Int = index % lineRun;
+				if (item.firstLineLength > maxCols[col]) {
+					maxCols[col] = item.firstLineLength;
 				}
 			}
-			if (item.firstLineLength < expectedLength) {
-				spacesBefore(item.first, expectedLength - item.firstLineLength);
+
+			for (index in 0...items.length) {
+				var item:WrappableItem = items[index];
+				var expectedLength:Int = maxCols[index % lineRun];
+				if (index == items.length - 1) {
+					switch (item.last.tok) {
+						case Comma:
+							expectedLength -= 1;
+						default:
+							expectedLength -= 2;
+					}
+				}
+				if (item.firstLineLength < expectedLength) {
+					spacesBefore(item.first, expectedLength - item.firstLineLength);
+				}
 			}
 		}
 		var index:Int = lineRun - 1;
