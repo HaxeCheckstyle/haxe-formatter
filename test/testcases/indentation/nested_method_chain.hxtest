@@ -40,10 +40,12 @@ class Main
 	{
 		ul.addChild(new Tag("li")
 			.addChild(Tag.imgTag(Url.parse("images.png"), "16", "", null).addClass("innerClass"))
-			.addClass("outerClass"));
+			.addClass("outerClass")
+		);
 		form.addElement(new SelectElement("type")
 			.addOption(new Option(transHtml("Image"), "Image"))
 			.addOption(new Option(transHtml("PDF"), "PDF"))
-			.addOption(new Option(transHtml("Other"), "Media")));
+			.addOption(new Option(transHtml("Other"), "Media"))
+		);
 	}
 }

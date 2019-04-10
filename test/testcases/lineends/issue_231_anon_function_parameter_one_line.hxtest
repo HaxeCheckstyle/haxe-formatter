@@ -35,12 +35,14 @@ class Main {
 			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
 			.addComponent(new PointerTap(function(e) {
 				trace("yes");
-			})));
+			}))
+		);
 		owner.addEntity(new Entity()
 			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
 			.addComponent(new PointerTap(function(e:Any) {
 				trace("yes");
-			})));
+			}))
+		);
 		owner.addEntity(function(e) {
 			trace("yes");
 		});

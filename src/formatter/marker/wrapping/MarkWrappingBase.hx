@@ -134,6 +134,11 @@ class MarkWrappingBase extends MarkerBase {
 				for (item in items) {
 					additionalIndent(item.first, addIndent);
 					lineEndBefore(item.first);
+					switch (item.last.tok) {
+						case Sharp(_):
+							lineEndBefore(item.last);
+						default:
+					}
 				}
 		}
 		if (keepFirst) {
@@ -157,6 +162,22 @@ class MarkWrappingBase extends MarkerBase {
 						default:
 							noLineEndAfter(lastToken);
 					}
+			}
+		} else {
+			var lastToken:TokenTree = items[items.length - 1].last;
+			var next:TokenInfo = getNextToken(lastToken);
+			if (next == null) {
+				lineEndAfter(lastToken);
+				return;
+			}
+			switch (next.token.tok) {
+				case Kwd(KwdThis), Kwd(KwdNull), Kwd(KwdNew):
+					lineEndAfter(lastToken);
+				case Kwd(_):
+				case BrOpen, POpen, BkOpen:
+				case Semicolon:
+				default:
+					lineEndAfter(lastToken);
 			}
 		}
 	}
@@ -269,7 +290,7 @@ class MarkWrappingBase extends MarkerBase {
 
 		var indent:Int = indenter.calcIndent(lineStart);
 		var lineLength:Int = calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent) + calcTokenLength(open);
-		var first:Bool = true;
+		var first:Bool = false; // true;
 		for (item in items) {
 			var tokenLength:Int = item.firstLineLength;
 			if (!first && (lineLength + tokenLength >= maxLineLength)) {
@@ -301,6 +322,71 @@ class MarkWrappingBase extends MarkerBase {
 		}
 		noLineEndAfter(open);
 		wrapAfter(open, false);
+	}
+
+	public function wrapFillLineWithLeading2AfterLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0) {
+		if (items.length <= 0) {
+			return;
+		}
+		var lineStart:Null<TokenTree> = open;
+		if (lineStart == null) {
+			lineStart = items[0].first;
+		}
+		lineStart = findLineStartToken(lineStart);
+		if (lineStart == null) {
+			return;
+		}
+
+		var indent:Int = indenter.calcIndent(lineStart);
+		var lineLength:Int = indenter.calcAbsoluteIndent(indent + 1 + addIndent);
+		var first:Bool = true;
+		for (item in items) {
+			var tokenLength:Int = item.firstLineLength;
+			if (lineLength + tokenLength >= maxLineLength) {
+				lineEndBefore(item.first);
+				additionalIndent(item.first, addIndent);
+				lineLength = indenter.calcAbsoluteIndent(indent + 1 + addIndent);
+				if (item.multiline) {
+					lineLength = item.lastLineLength;
+				} else {
+					lineLength += item.firstLineLength;
+				}
+				continue;
+			} else {
+				if (!first) {
+					noLineEndBefore(item.first);
+				} else {
+					lineEndBefore(item.first);
+				}
+				lineLength += tokenLength;
+				first = false;
+				if (item.multiline) {
+					lineLength = item.lastLineLength;
+				}
+			}
+		}
+		var lastItem:WrappableItem = items[items.length - 1];
+		switch (lastItem.last.tok) {
+			case Semicolon:
+			case DblDot:
+			case BkClose, BrClose, PClose:
+				if (isNewLineAfter(lastItem.last)) {
+					lineEndAfter(lastItem.last);
+				}
+			default:
+				lineEndAfter(lastItem.last);
+		}
+
+		// if (useTrailing) {
+		// 	var lastItem:WrappableItem = items[items.length - 1];
+		// 	var lengthAfter:Int = calcLineLengthAfter(lastItem.last);
+		// 	if (lineLength + lengthAfter >= maxLineLength) {
+		// 		lineEndBefore(lastItem.first);
+		// 		additionalIndent(lastItem.first, addIndent);
+		// 	}
+		// }
+		// noLineEndAfter(open);
+		// wrapAfter(open, false);
 	}
 
 	public function wrapFillLine2BeforeLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
@@ -554,8 +640,12 @@ class MarkWrappingBase extends MarkerBase {
 		var maxItemLength:Int = 0;
 		var totalItemLength:Int = 0;
 		var lineLength:Int = calcLineLength(token);
+		var hasMultiLineItem:Bool = false;
 		for (item in items) {
 			totalItemLength += item.firstLineLength + item.lastLineLength;
+			if (item.multiline) {
+				hasMultiLineItem = true;
+			}
 			var length:Int = Math.floor(Math.max(item.firstLineLength, item.lastLineLength));
 			if (length > maxItemLength) {
 				maxItemLength = length;
@@ -565,9 +655,10 @@ class MarkWrappingBase extends MarkerBase {
 		log("maxItemLength", '$maxItemLength', pos);
 		log("totalItemLength", '$totalItemLength', pos);
 		log("lineLength", '$lineLength', pos);
+		log("hasMultiLineItem", '$hasMultiLineItem', pos);
 		#end
 		for (rule in rules.rules) {
-			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength)) {
+			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength, hasMultiLineItem)) {
 				return rule;
 			}
 		}
@@ -584,7 +675,7 @@ class MarkWrappingBase extends MarkerBase {
 
 	function determineWrapType(rules:WrapRules, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
 		for (rule in rules.rules) {
-			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength)) {
+			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength, false)) {
 				return rule;
 			}
 		}
@@ -596,7 +687,7 @@ class MarkWrappingBase extends MarkerBase {
 		};
 	}
 
-	function matchesRule(rule:WrapRule, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):Bool {
+	function matchesRule(rule:WrapRule, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int, hasMultiLineItem:Bool):Bool {
 		for (cond in rule.conditions) {
 			switch (cond.cond) {
 				case ItemCountLargerThan:
@@ -630,6 +721,16 @@ class MarkWrappingBase extends MarkerBase {
 				case LineLengthLessThan:
 					if (lineLength > cond.value) {
 						return false;
+					}
+				case HasMultiLineItems:
+					if (cond.value == 1) {
+						if (!hasMultiLineItem) {
+							return false;
+						}
+					} else {
+						if (hasMultiLineItem) {
+							return false;
+						}
 					}
 			}
 		}
@@ -665,6 +766,13 @@ class MarkWrappingBase extends MarkerBase {
 				switch (location) {
 					case AfterLast:
 						wrapFillLine2AfterLast(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
+					case BeforeLast:
+						wrapFillLine2BeforeLast(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
+				}
+			case FillLineWithLeadingBreak:
+				switch (location) {
+					case AfterLast:
+						wrapFillLineWithLeading2AfterLast(open, close, items, config.wrapping.maxLineLength, addIndent);
 					case BeforeLast:
 						wrapFillLine2BeforeLast(open, close, items, config.wrapping.maxLineLength, addIndent, useTrailing);
 				}
