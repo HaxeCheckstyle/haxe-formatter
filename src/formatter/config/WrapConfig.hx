@@ -39,6 +39,14 @@ typedef WrapConfig = {
 	var arrayWrap:WrapRules;
 
 	/**
+		detect arrays in matrix configuration from source
+		noMatrixWrap = no detection
+		matrixWrapNoAlign = detect and format as matrix without alignment
+		matrixWrapWithAlign = detect and format as matrix and align columns
+	**/
+	@:default(MatrixWrapWithAlign) @:optional var arrayMatrixWrap:ArrayMatrixWrap;
+
+	/**
 		type parameter wrapping rules
 	**/
 	@:default({
@@ -421,4 +429,11 @@ typedef ArrayWrapping = {
 	@:default(30) @:optional var maxItemLength:Int;
 	@:default(2) @:optional var maxOneLineItems:Int;
 	@:default(60) @:optional var totalItemLengthOneLine:Int;
+}
+
+@:enum
+abstract ArrayMatrixWrap(String) {
+	var NoMatrixWrap = "noMatrixWrap";
+	var MatrixWrapNoAlign = "matrixWrapNoAlign";
+	var MatrixWrapWithAlign = "matrixWrapWithAlign";
 }

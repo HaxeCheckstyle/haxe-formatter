@@ -334,6 +334,7 @@
 				}
 			]
 		},
+		"arrayMatrixWrap": "matrixWrapWithAlign",
 		"arrayWrap": {
 			"defaultWrap": "noWrap",
 			"rules": [
