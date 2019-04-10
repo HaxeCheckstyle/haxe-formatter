@@ -54,7 +54,8 @@ class Main
 				"name": "Lime",
 				"type": "lime",
 				"request": "launch"
-			}];
+			}
+		];
 	}
 
 	function polarToRec(r:Float, theta:Float):

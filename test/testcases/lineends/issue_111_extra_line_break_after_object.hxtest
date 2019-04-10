@@ -11,6 +11,16 @@ class Main {
 					method: TypeDefinitionMethods.TypeDefinition
 				}
 			]
+			unregisterations: [
+				{
+					id: TypeDefinitionMethods.TypeDefinition,
+					method: TypeDefinitionMethods.TypeDefinition
+				},
+				{
+					id: TypeDefinitionMethods.TypeDefinition,
+					method: TypeDefinitionMethods.TypeDefinition
+				}
+			]
 		},
 			null, _ -> {}, error -> trace(error));
 	}
@@ -22,6 +32,16 @@ class Main {
 	public static function main() {
 		protocol.sendRequest(Methods.UnregisterCapability, {
 			unregisterations: [
+				{
+					id: TypeDefinitionMethods.TypeDefinition,
+					method: TypeDefinitionMethods.TypeDefinition
+				}
+			]
+			unregisterations: [
+				{
+					id: TypeDefinitionMethods.TypeDefinition,
+					method: TypeDefinitionMethods.TypeDefinition
+				},
 				{
 					id: TypeDefinitionMethods.TypeDefinition,
 					method: TypeDefinitionMethods.TypeDefinition

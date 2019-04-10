@@ -41,7 +41,8 @@ class Main {
 			a.y + b.h <= c.y ||
 			d.y >= e.y + f.h ||
 			g.x + h.w <= i.x ||
-			j.x >= k.x + l.w);
+			j.x >= k.x + l.w
+		);
 
 		dirty =
 			dirty ||
@@ -62,7 +63,8 @@ class Main {
 			dirty ||
 			(Tilemap.x != _prevTilemapX) ||
 			((Tilemap.y != _prevTilemapY) ||
-				(Tilemap.scale.x != _prevTilemapScaleX)) &&
+				(Tilemap.scale.x != _prevTilemapScaleX)
+			) &&
 			(Tilemap.scale.x != _prevTilemapScaleX);
 
 		dirty =
@@ -71,7 +73,8 @@ class Main {
 			((Tilemap.y != _prevTilemapY) ||
 				(Tilemap.scale.x != _prevTilemapScaleX) ||
 				(Tilemap.scale.x != _prevTilemapScaleX) ||
-				(Tilemap.scale.x != _prevTilemapScaleX)) &&
+				(Tilemap.scale.x != _prevTilemapScaleX)
+			) &&
 			(Tilemap.scale.x != _prevTilemapScaleX);
 	}
 }

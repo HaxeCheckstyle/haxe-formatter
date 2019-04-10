@@ -41,6 +41,7 @@ class TokenList {
 			tokens[index] = {
 				token: child,
 				whitespaceAfter: None,
+				spacesBefore: 0,
 				spacesAfter: 0,
 				emptyLinesAfter: 0,
 				wrapAfter: false,
@@ -223,20 +224,17 @@ class TokenList {
 	}
 
 	public function spacesBefore(token:TokenTree, count:Int, ?pos:PosInfos) {
-		var info:Null<TokenInfo> = getPreviousToken(token);
+		if (token.index < 0) {
+			return;
+		}
+		var info:Null<TokenInfo> = tokens[token.index];
 		if (info == null) {
 			return;
 		}
 		#if debugLog
-		logAction(pos, token, '${info.spacesAfter} -> $count');
+		logAction(pos, token, '${info.spacesBefore} -> $count');
 		#end
-		info.spacesAfter = count;
-		if ((info.whitespaceAfter == None) && (count > 0)) {
-			#if debugLog
-			logAction(pos, info.token, '${info.whitespaceAfter} -> Space');
-			#end
-			info.whitespaceAfter = Space;
-		}
+		info.spacesBefore = count;
 	}
 
 	public function lineEndAfter(token:TokenTree, ?pos:PosInfos) {

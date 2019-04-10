@@ -340,6 +340,15 @@
 				{
 					"conditions": [
 						{
+							"cond": "hasMultilineItems",
+							"value": 1
+						}
+					],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
 							"cond": "totalItemLength <= n",
 							"value": 80
 						}
@@ -353,7 +362,7 @@
 							"value": 10
 						}
 					],
-					"type": "fillLine"
+					"type": "fillLineWithLeadingBreak"
 				},
 				{
 					"conditions": [

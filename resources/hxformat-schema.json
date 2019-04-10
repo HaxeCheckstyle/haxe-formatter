@@ -515,6 +515,9 @@
 				},
 				{
 					"const": "lineLength <= n"
+				},
+				{
+					"const": "hasMultilineItems"
 				}
 			]
 		},
@@ -816,6 +819,9 @@
 				},
 				{
 					"const": "fillLine"
+				},
+				{
+					"const": "fillLineWithLeadingBreak"
 				},
 				{
 					"const": "noWrap"

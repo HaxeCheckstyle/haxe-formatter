@@ -64,11 +64,13 @@ class Main
 			field: 100
 		};
 
-		return [{
-			"name": "Lime",
-			"type": "lime",
-			"request": "launch"
-		}];
+		return [
+			{
+				"name": "Lime",
+				"type": "lime",
+				"request": "launch"
+			}
+		];
 	}
 
 	function polarToRec(r:Float, theta:Float):{

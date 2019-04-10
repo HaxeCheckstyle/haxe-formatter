@@ -14,12 +14,16 @@ typedef WrapConfig = {
 		defaultWrap: NoWrap,
 		rules: [
 			{
+				conditions: [{cond: HasMultiLineItems, value: 1}],
+				type: OnePerLine
+			},
+			{
 				conditions: [{cond: TotalItemLengthLessThan, value: 80}],
 				type: NoWrap
 			},
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 10}],
-				type: FillLine
+				type: FillLineWithLeadingBreak
 			},
 			{
 				conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
@@ -204,10 +208,7 @@ typedef WrapConfig = {
 				type: NoWrap
 			},
 			{
-				conditions: [
-					{cond: AnyItemLengthLargerThan, value: 30},
-					{cond: ItemCountLargerThan, value: 4}
-				],
+				conditions: [{cond: AnyItemLengthLargerThan, value: 30}, {cond: ItemCountLargerThan, value: 4}],
 				type: OnePerLineAfterFirst
 			},
 			{
@@ -386,6 +387,7 @@ abstract WrappingType(String) {
 	var OnePerLineAfterFirst = "onePerLineAfterFirst";
 	var EqualNumber = "equalNumber";
 	var FillLine = "fillLine";
+	var FillLineWithLeadingBreak = "fillLineWithLeadingBreak";
 	var NoWrap = "noWrap";
 	var Keep = "keep";
 }
@@ -411,6 +413,7 @@ abstract WrapConditionType(String) {
 	var TotalItemLengthLessThan = "totalItemLength <= n";
 	var LineLengthLargerThan = "lineLength >= n";
 	var LineLengthLessThan = "lineLength <= n";
+	var HasMultiLineItems = "hasMultilineItems";
 }
 
 typedef ArrayWrapping = {

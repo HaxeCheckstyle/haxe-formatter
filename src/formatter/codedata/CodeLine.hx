@@ -34,6 +34,9 @@ class CodeLine {
 			parts.push(currentPart);
 		}
 		currentPart.lastToken = tokenInfo.token;
+		if (tokenInfo.spacesBefore > 0) {
+			currentPart.text += "".lpad(" ", tokenInfo.spacesBefore);
+		}
 		if ((tokenInfo.whitespaceAfter == Space) && (tokenInfo.spacesAfter > 0)) {
 			currentPart.text += tokenInfo.text + "".lpad(" ", tokenInfo.spacesAfter);
 		} else {
@@ -125,7 +128,7 @@ class CodeLine {
 		for (part in parts) {
 			line += part.text;
 		}
-		line = indenter.makeIndentString(indent) + line.trim();
+		line = indenter.makeIndentString(indent) + line.rtrim();
 		for (index in 0...emptyLinesAfter) {
 			line += lineSeparator;
 			if (indenter.shouldAddTrailingWhitespace()) {

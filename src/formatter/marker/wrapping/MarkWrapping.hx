@@ -168,6 +168,8 @@ class MarkWrapping extends MarkWrappingBase {
 			case EqualNumber:
 			case FillLine:
 				wrapFillLine(token, brClose, config.wrapping.maxLineLength, rule.additionalIndent);
+			case FillLineWithLeadingBreak:
+				wrapFillLine(token, brClose, config.wrapping.maxLineLength, rule.additionalIndent);
 			case NoWrap:
 				noWrap(token, brClose);
 				var prev:Null<TokenInfo> = getPreviousToken(token);
@@ -228,6 +230,8 @@ class MarkWrapping extends MarkWrappingBase {
 			case EqualNumber:
 			case FillLine:
 				wrapFillLine(token, brClose, config.wrapping.maxLineLength, rule.additionalIndent);
+			case FillLineWithLeadingBreak:
+				wrapFillLine(token, brClose, config.wrapping.maxLineLength, rule.additionalIndent);
 			case NoWrap:
 				noWrap(token, brClose);
 				var next:TokenInfo = getNextToken(brClose);
@@ -278,75 +282,100 @@ class MarkWrapping extends MarkWrappingBase {
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var atLength:Int = 0;
-		var itemCount:Int = 0;
-		for (child in token.children) {
-			switch (child.tok) {
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		var itemsWithoutMetadata:Array<WrappableItem> = [];
+		for (item in items) {
+			switch (item.first.tok) {
+				case Kwd(KwdFor), Kwd(KwdWhile):
+					return;
 				case At:
-					atLength += calcLength(child);
-					continue;
-				case BkClose:
-					break;
-				case Kwd(KwdFor):
-					return;
-				case Kwd(KwdWhile):
-					return;
-				case CommentLine(_):
-				default:
-					var length:Int = calcLength(child);
-					totalLength += length;
-					if (length > maxLength) {
-						maxLength = length;
+					if (item.firstLineLength > 30) {
+						lineEndBefore(token);
+						lineEndBefore(item.first);
 					}
-					itemCount++;
+				default:
+					itemsWithoutMetadata.push(item);
 			}
 		}
-
-		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(config.wrapping.arrayWrap, itemCount, maxLength, totalLength, lineLength);
-		switch (rule.type) {
-			case OnePerLine:
-				wrapChildOneLineEach(token, bkClose, rule.additionalIndent);
-			case OnePerLineAfterFirst:
-				wrapChildOneLineEach(token, bkClose, rule.additionalIndent, true);
-			case Keep:
-				keep(token, bkClose, rule.additionalIndent);
-			case EqualNumber:
-			case FillLine:
-				wrapArrayWithMany(token, bkClose, config.wrapping.maxLineLength);
-			case NoWrap:
-				noWrap(token, bkClose);
+		if (tryMatrixWrap(token, bkClose, itemsWithoutMetadata)) {
+			return;
 		}
-		if (atLength > 30) {
-			lineEndBefore(token);
-		}
+		queueWrapping({
+			start: token,
+			end: bkClose,
+			items: itemsWithoutMetadata,
+			rules: config.wrapping.arrayWrap,
+			useTrailing: true,
+			overrideAdditionalIndent: null
+		}, "wrapCallParameter");
 	}
 
-	function wrapArrayWithMany(bkOpen:TokenTree, bkClose:TokenTree, maxLineLength:Int) {
-		noWrappingBetween(bkOpen, bkClose);
-		lineEndAfter(bkOpen);
-		var indent:Int = indenter.calcAbsoluteIndent(indenter.calcIndent(bkOpen.children[0]));
-		var lineLength:Int = indent;
-		for (child in bkOpen.children) {
-			if (child.is(At)) {
+	function tryMatrixWrap(open:TokenTree, close:TokenTree, items:Array<WrappableItem>):Bool {
+		var prev:Null<WrappableItem> = null;
+		var run:Int = 1;
+		var lineRun:Int = 0;
+		for (index in 0...items.length) {
+			var item:WrappableItem = items[index];
+			if (prev == null) {
+				prev = item;
 				continue;
 			}
-			if (child.is(BkClose)) {
-				break;
+			if (item.multiline) {
+				return false;
 			}
-			var length:Int = calcLength(child);
-			if (length + lineLength > maxLineLength) {
-				lineEndBefore(child);
-				lineLength = length + indent;
-			} else {
-				var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-				whitespace(lastChild, After);
-				lineLength += length;
+			if (parsedCode.isOriginalSameLine(prev.first, item.first)) {
+				run++;
+				prev = item;
+				continue;
+			}
+			if (lineRun != 0) {
+				if (lineRun != run) {
+					return false;
+				}
+			}
+			lineRun = run;
+			run = 1;
+			prev = item;
+		}
+		if (lineRun <= 1) {
+			return false;
+		}
+		if (lineRun != run) {
+			return false;
+		}
+		lineEndAfter(open);
+
+		var maxCols:Array<Int> = [for (i in 0...lineRun) 0];
+		for (index in 0...items.length) {
+			var item:WrappableItem = items[index];
+			var col:Int = index % lineRun;
+			if (item.firstLineLength > maxCols[col]) {
+				maxCols[col] = item.firstLineLength;
 			}
 		}
-		lineEndBefore(bkClose);
+
+		for (index in 0...items.length) {
+			var item:WrappableItem = items[index];
+			var expectedLength:Int = maxCols[index % lineRun];
+			if (index == items.length - 1) {
+				switch (item.last.tok) {
+					case Comma:
+						expectedLength -= 1;
+					default:
+						expectedLength -= 2;
+				}
+			}
+			if (item.firstLineLength < expectedLength) {
+				spacesBefore(item.first, expectedLength - item.firstLineLength);
+			}
+		}
+		var index:Int = lineRun - 1;
+		while (index < items.length) {
+			var item:WrappableItem = items[index];
+			lineEndAfter(item.last);
+			index += lineRun;
+		}
+		return true;
 	}
 
 	override function calcLineLength(token:TokenTree):Int {
