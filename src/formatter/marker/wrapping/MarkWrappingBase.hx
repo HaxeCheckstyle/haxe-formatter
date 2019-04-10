@@ -376,17 +376,6 @@ class MarkWrappingBase extends MarkerBase {
 			default:
 				lineEndAfter(lastItem.last);
 		}
-
-		// if (useTrailing) {
-		// 	var lastItem:WrappableItem = items[items.length - 1];
-		// 	var lengthAfter:Int = calcLineLengthAfter(lastItem.last);
-		// 	if (lineLength + lengthAfter >= maxLineLength) {
-		// 		lineEndBefore(lastItem.first);
-		// 		additionalIndent(lastItem.first, addIndent);
-		// 	}
-		// }
-		// noLineEndAfter(open);
-		// wrapAfter(open, false);
 	}
 
 	public function wrapFillLine2BeforeLast(open:TokenTree, close:TokenTree, items:Array<WrappableItem>, maxLineLength:Int, addIndent:Int = 0,
