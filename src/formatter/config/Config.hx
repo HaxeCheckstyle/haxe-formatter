@@ -21,14 +21,14 @@ class Config {
 		readConfigFromString("{}", "hxformat.json");
 	}
 
-#if (sys || nodejs)
+	#if (sys || nodejs)
 	public function readConfig(fileName:String) {
 		if (!FileSystem.exists(fileName)) {
 			return;
 		}
 		readConfigFromString(File.getContent(fileName), fileName);
 	}
-#end
+	#end
 
 	public function readConfigFromString(jsonContent:String, fileName:String) {
 		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
