@@ -1,6 +1,6 @@
 package formatter;
 
-#if sys
+#if (sys || nodejs)
 import sys.io.File;
 import sys.FileSystem;
 #end
@@ -34,7 +34,7 @@ class Formatter {
 		}
 		var inputData:FormatterInputData;
 		switch (input) {
-			#if sys
+			#if (sys || nodejs)
 			case FileInput(fileName):
 				if (!FileSystem.exists(fileName)) {
 					Sys.println('Skipping \'$fileName\' (path does not exist)');
@@ -75,7 +75,7 @@ class Formatter {
 		return Failure("implement me");
 	}
 
-#if sys
+#if (sys || nodejs)
 	/**
 		Determines the config to be used for a particular `path` (either a directory or a file),
 		based on the `hxformat.json` that is closest to it.
@@ -141,7 +141,7 @@ class Formatter {
 		}
 	}
 
-#if sys
+#if (sys || nodejs)
 	static function determineConfig(fileName:String):Null<String> {
 		var path:String = FileSystem.absolutePath(fileName);
 		if (!FileSystem.isDirectory(path)) {
@@ -160,7 +160,7 @@ class Formatter {
 }
 
 enum FormatterInput {
-#if sys
+#if (sys || nodejs)
 	FileInput(fileName:String);
 #end
 	Code(code:String);
