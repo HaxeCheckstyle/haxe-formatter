@@ -1,10 +1,10 @@
 package formatter.config;
 
+#if sys
 import sys.FileSystem;
 import sys.io.File;
-#if !macro
-import json2object.JsonParser;
 #end
+import json2object.JsonParser;
 
 class Config {
 	public var emptyLines:EmptyLinesConfig;
@@ -21,12 +21,14 @@ class Config {
 		readConfigFromString("{}", "hxformat.json");
 	}
 
+#if sys
 	public function readConfig(fileName:String) {
 		if (!FileSystem.exists(fileName)) {
 			return;
 		}
 		readConfigFromString(File.getContent(fileName), fileName);
 	}
+#end
 
 	public function readConfigFromString(jsonContent:String, fileName:String) {
 		var parser:JsonParser<FormatterConfig> = new JsonParser<FormatterConfig>();
