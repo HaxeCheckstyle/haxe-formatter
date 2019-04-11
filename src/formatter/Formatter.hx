@@ -1,7 +1,9 @@
 package formatter;
 
+#if (sys || nodejs)
 import sys.io.File;
 import sys.FileSystem;
+#end
 import haxe.CallStack;
 import haxe.io.Path;
 import formatter.config.Config;
@@ -32,6 +34,7 @@ class Formatter {
 		}
 		var inputData:FormatterInputData;
 		switch (input) {
+			#if (sys || nodejs)
 			case FileInput(fileName):
 				if (!FileSystem.exists(fileName)) {
 					Sys.println('Skipping \'$fileName\' (path does not exist)');
@@ -46,6 +49,7 @@ class Formatter {
 					entryPoint: entryPoint
 				};
 				return formatInputData(inputData);
+			#end
 			case Code(code):
 				var content:Bytes = Bytes.ofString(code);
 				inputData = {
@@ -71,6 +75,7 @@ class Formatter {
 		return Failure("implement me");
 	}
 
+	#if (sys || nodejs)
 	/**
 		Determines the config to be used for a particular `path` (either a directory or a file),
 		based on the `hxformat.json` that is closest to it.
@@ -86,6 +91,7 @@ class Formatter {
 		config.readConfig(configFileName);
 		return config;
 	}
+	#end
 
 	static function formatInputData(inputData:FormatterInputData):Result {
 		try {
@@ -135,6 +141,7 @@ class Formatter {
 		}
 	}
 
+	#if (sys || nodejs)
 	static function determineConfig(fileName:String):Null<String> {
 		var path:String = FileSystem.absolutePath(fileName);
 		if (!FileSystem.isDirectory(path)) {
@@ -149,10 +156,13 @@ class Formatter {
 		}
 		return null;
 	}
+	#end
 }
 
 enum FormatterInput {
+	#if (sys || nodejs)
 	FileInput(fileName:String);
+	#end
 	Code(code:String);
 	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes);
 }
