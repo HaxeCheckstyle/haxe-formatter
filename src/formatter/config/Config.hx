@@ -1,6 +1,6 @@
 package formatter.config;
 
-#if sys
+#if (sys || nodejs)
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -21,7 +21,7 @@ class Config {
 		readConfigFromString("{}", "hxformat.json");
 	}
 
-#if sys
+#if (sys || nodejs)
 	public function readConfig(fileName:String) {
 		if (!FileSystem.exists(fileName)) {
 			return;
