@@ -4,18 +4,21 @@ import haxe.Template;
 import massive.munit.Assert;
 import formatter.Formatter;
 import formatter.config.Config;
+import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 class GoldBaseTest {
+	var entryPoint:TokenTreeEntryPoint = null;
+
 	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?configString:String, ?pos:PosInfos) {
 		var config = new Config();
 		config.readConfigFromString(configString, "goldhxformat.json");
-		var result:Result = Formatter.format(Code(unformatted), config, lineSeparator);
+		var result:Result = Formatter.format(Code(unformatted), config, lineSeparator, entryPoint);
 		handleResult(fileName, result, goldCode, pos);
 
 		// second run to make sure result is stable
 		switch (result) {
 			case Success(formattedCode):
-				result = Formatter.format(Code(formattedCode), config, lineSeparator);
+				result = Formatter.format(Code(formattedCode), config, lineSeparator, entryPoint);
 				handleResult(fileName, result, goldCode, pos);
 			case Failure(errorMessage):
 			case Disabled:
