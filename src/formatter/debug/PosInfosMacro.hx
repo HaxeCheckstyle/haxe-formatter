@@ -6,7 +6,7 @@ import haxe.macro.Expr;
 using haxe.macro.ExprTools;
 
 class PosInfosMacro {
-	public static function clean():Array<Field> {
+	macro public static function clean():Array<Field> {
 		var fields:Array<Field> = Context.getBuildFields();
 		for (field in fields) {
 			switch (field.kind) {
