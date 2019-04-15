@@ -14,6 +14,7 @@ install:
   - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
   - haxelib git compiletime https://github.com/andyli/compiletime haxe4 src
   - haxelib git json2object https://github.com/elnabo/json2object
+  - haxelib install json2object
   - haxelib install mlib
   - haxelib install mconsole
   - haxelib install test-adapter
