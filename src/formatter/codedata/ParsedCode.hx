@@ -101,7 +101,7 @@ class ParsedCode {
 	}
 
 	function removeBOM() {
-		if (file.content == null) {
+		if ((file.content == null) || (file.content.length <= 0)) {
 			return;
 		}
 		if ((file.content.get(0) == 0xEF) && (file.content.get(1) == 0xBB) && (file.content.get(2) == 0xBF)) {
