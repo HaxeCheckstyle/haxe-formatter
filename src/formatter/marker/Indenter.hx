@@ -115,6 +115,9 @@ class Indenter {
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdIf):
 				var prev:Null<TokenInfo> = parsedCode.tokenList.getPreviousToken(token);
+				if (prev == null) {
+					return token;
+				}
 				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
