@@ -4,10 +4,10 @@
 
 - Added `wrapping.multiVar`, fixes [#355](https://github.com/HaxeCheckstyle/haxe-formatter/issues/355), fixes [#430](https://github.com/HaxeCheckstyle/haxe-formatter/issues/430) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
 - Added `emptylines.afterFieldsWithDocComments`, fixes [#385](https://github.com/HaxeCheckstyle/haxe-formatter/issues/385), fixes [#432](https://github.com/HaxeCheckstyle/haxe-formatter/issues/432) ([#425](https://github.com/HaxeCheckstyle/haxe-formatter/issues/425) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
-- Added `lineEnds.anonTypeCurly`, `lineEnds.blockCurly`, `lineEnds.objectLiteralCurly`, `lineEnds.typedefCurly`, fixes [#346](https://github.com/HaxeCheckstyle/haxe-formatter/issues/346) ([#427](https://github.com/HaxeCheckstyle/haxe-formatter/issues/427) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
+- Added `lineEnds.anonTypeCurly`, `lineEnds.blockCurly`, `lineEnds.objectLiteralCurly`, `lineEnds.typedefCurly`, fixes [#346](https://github.com/HaxeCheckstyle/haxe-formatter/issues/346) ([#427](https://github.com/HaxeCheckstyle/haxe-formatter/issues/427) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434) + [#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Added `wrapping.arrayMatrixWrap` for array matrix wrapping with column alignment, fixes [#433](https://github.com/HaxeCheckstyle/haxe-formatter/issues/433) ([#442](https://github.com/HaxeCheckstyle/haxe-formatter/issues/442))
-- Added Java compilation and tests on TravisCI
-- Added browser JS compilation
+- Added Java compilation and tests on TravisCI ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
+- Added browser JS compilation ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 - Fixed wrapping of concatenated strings ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
 - Fixed ECheckType detection with cast, fixes [#374](https://github.com/HaxeCheckstyle/haxe-formatter/issues/374) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
@@ -20,8 +20,8 @@
 - Fixed object literal detection when using expression level entry point, fixes [#450](https://github.com/HaxeCheckstyle/haxe-formatter/issues/450) ([#451](https://github.com/HaxeCheckstyle/haxe-formatter/issues/451))
 - Fixed null check for indentation on expression level entry points ([#453](https://github.com/HaxeCheckstyle/haxe-formatter/issues/453))
 - Fixed length check in removeBOM ([#453](https://github.com/HaxeCheckstyle/haxe-formatter/issues/453))
-- Fixed semicolon after `#end`, fixes [#429](https://github.com/HaxeCheckstyle/haxe-formatter/issues/429)
-- Fixed comments in array and matrix wrapping, fixes [#443](https://github.com/HaxeCheckstyle/haxe-formatter/issues/443) + [#444](https://github.com/HaxeCheckstyle/haxe-formatter/issues/444)
+- Fixed semicolon after `#end`, fixes [#429](https://github.com/HaxeCheckstyle/haxe-formatter/issues/429) ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
+- Fixed comments in array and matrix wrapping, fixes [#443](https://github.com/HaxeCheckstyle/haxe-formatter/issues/443) + [#444](https://github.com/HaxeCheckstyle/haxe-formatter/issues/444) ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 - Refactored wrapping to use an ordered list ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))
