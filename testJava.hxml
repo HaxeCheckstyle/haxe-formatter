@@ -1,0 +1,25 @@
+-cp src
+-cp test
+
+-lib tokentree
+-lib haxeparser
+-lib hxparse
+-lib json2object
+-lib hxargs
+-lib mcover
+-lib munit
+-lib compiletime
+# -lib safety
+-lib test-adapter
+
+# -D debugLog
+# -D debugIndent
+# -D detailed_coverage
+# -D debugWrapping
+-D unittest
+-java out
+-main TestMain
+
+--macro mcover.MCover.coverage(['formatter'], ['src'], ['formatter.Cli'])
+
+-cmd java -jar out/TestMain.jar
