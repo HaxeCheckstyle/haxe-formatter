@@ -1,0 +1,29 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		return #if js
+			html5.onMobile
+		#elseif mobile
+			true
+		#else
+			false
+		#end;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return #if js
+			html5.onMobile
+		#elseif mobile
+			true
+		#else
+			false
+		#end;
+	}
+}
