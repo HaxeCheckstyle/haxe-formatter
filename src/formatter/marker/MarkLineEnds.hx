@@ -381,19 +381,19 @@ class MarkLineEnds extends MarkerBase {
 				case Sharp(SHARP_END):
 					if (isInlineSharp(token)) {
 						noLineEndBefore(token);
-						var next:Null<TokenInfo> = getNextToken(token);
-						if (next != null) {
-							switch (next.token.tok) {
-								case Comma, Semicolon:
-									continue;
-								default:
-							}
-						}
-						if (!isOnlyWhitespaceAfterToken(token, true)) {
-							continue;
-						}
 					} else {
 						lineEndBefore(token);
+					}
+					var next:Null<TokenInfo> = getNextToken(token);
+					if (next != null) {
+						switch (next.token.tok) {
+							case Comma, Semicolon:
+								continue;
+							default:
+						}
+					}
+					if (!isOnlyWhitespaceAfterToken(token, true)) {
+						continue;
 					}
 					lineEndAfter(token);
 				case Sharp("error"):

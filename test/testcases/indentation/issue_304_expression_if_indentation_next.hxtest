@@ -9,6 +9,48 @@
 class Main {
 	public function new (){
 		var a = if (true) 10;	else 20;
+		var a = if (true) 10	else 20;
+		return if (true) 10	else 20;
+		return if (true) 10;	else 20;
+
+		var a = if (true) 10;
+		else 20;
+		var a = if (true) 10
+		else 20;
+		return if (true) 10
+		else 20;
+		return if (true) 10;
+		else 20;
+
+		var a = if (true)
+		10;
+		else 20;
+		var a = if (true)
+		10
+		else 20;
+		return if (true)
+		10
+		else 20;
+		return if (true)
+		10;
+		else 20;
+
+		var a = if (true)
+		10;
+		else
+		20;
+		var a = if (true)
+		10
+		else
+		20;
+		return if (true)
+		10
+		else
+		20;
+		return if (true)
+		10;
+		else
+		20;
 	}
 }
 
@@ -17,6 +59,69 @@ class Main {
 class Main {
 	public function new() {
 		var a = if (true)
+			10;
+		else
+			20;
+		var a = if (true)
+			10
+		else
+			20;
+		return if (true)
+			10
+		else
+			20;
+		return if (true)
+			10;
+		else
+			20;
+
+		var a = if (true)
+			10;
+		else
+			20;
+		var a = if (true)
+			10
+		else
+			20;
+		return if (true)
+			10
+		else
+			20;
+		return if (true)
+			10;
+		else
+			20;
+
+		var a = if (true)
+			10;
+		else
+			20;
+		var a = if (true)
+			10
+		else
+			20;
+		return if (true)
+			10
+		else
+			20;
+		return if (true)
+			10;
+		else
+			20;
+
+		var a = if (true)
+			10;
+		else
+			20;
+		var a = if (true)
+			10
+		else
+			20;
+		return if (true)
+			10
+		else
+			20;
+		return if (true)
 			10;
 		else
 			20;

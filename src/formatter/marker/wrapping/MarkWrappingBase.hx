@@ -556,7 +556,7 @@ class MarkWrappingBase extends MarkerBase {
 					return items;
 				default:
 			}
-			if (child.index < lastIndex) {
+			if (child.index <= lastIndex) {
 				continue;
 			}
 			var endToken:Null<TokenTree> = findItemEnd(child);
@@ -594,6 +594,17 @@ class MarkWrappingBase extends MarkerBase {
 		}
 		switch (endToken.tok) {
 			case Comma:
+				var next:Null<TokenInfo> = getNextToken(endToken);
+				if (next == null) {
+					return endToken;
+				}
+				switch (next.token.tok) {
+					case Comment(s), CommentLine(s):
+						if (parsedCode.isOriginalSameLine(endToken, next.token)) {
+							return next.token;
+						}
+					default:
+				}
 				return endToken;
 			default:
 		}
@@ -603,6 +614,8 @@ class MarkWrappingBase extends MarkerBase {
 		}
 		switch (next.token.tok) {
 			case Binop(_):
+				return findItemEnd(next.token);
+			case CommentLine(_), Comment(_):
 				return findItemEnd(next.token);
 			default:
 		}

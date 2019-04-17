@@ -268,10 +268,6 @@ class MarkWrapping extends MarkWrappingBase {
 			case CALL:
 				wrapCallParameter(token);
 			case CONDITION:
-				wrapAfter(token, true);
-				if (pClose != null) {
-					wrapBefore(pClose, true);
-				}
 			case FORLOOP:
 			case EXPRESSION:
 		}
