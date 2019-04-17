@@ -178,19 +178,19 @@ class MarkLineEnds extends MarkerBase {
 		};
 		switch (type) {
 			case BLOCK:
-				if (!config.lineEnds.blockCurly.useGlobal) {
+				if (config.lineEnds.blockCurly != null) {
 					return config.lineEnds.blockCurly;
 				}
 			case TYPEDEFDECL:
-				if (!config.lineEnds.typedefCurly.useGlobal) {
+				if (config.lineEnds.typedefCurly != null) {
 					return config.lineEnds.typedefCurly;
 				}
 			case OBJECTDECL:
-				if (!config.lineEnds.objectLiteralCurly.useGlobal) {
+				if (config.lineEnds.objectLiteralCurly != null) {
 					return config.lineEnds.objectLiteralCurly;
 				}
 			case ANONTYPE:
-				if (!config.lineEnds.anonTypeCurly.useGlobal) {
+				if (config.lineEnds.anonTypeCurly != null) {
 					return config.lineEnds.anonTypeCurly;
 				}
 			case UNKNOWN:
