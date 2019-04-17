@@ -26,22 +26,22 @@ typedef LineEndConfig = {
 	/**
 		line end settings for block curlies
 	**/
-	@:default(auto) @:optional var blockCurly:CurlyLineEndPolicy;
+	@:default(null) @:optional var blockCurly:Null<CurlyLineEndPolicy>;
 
 	/**
 		line end settings for anon type curlies
 	**/
-	@:default(auto) @:optional var anonTypeCurly:CurlyLineEndPolicy;
+	@:default(null) @:optional var anonTypeCurly:Null<CurlyLineEndPolicy>;
 
 	/**
 		line end settings for object literal curlies
 	**/
-	@:default(auto) @:optional var objectLiteralCurly:CurlyLineEndPolicy;
+	@:default(null) @:optional var objectLiteralCurly:Null<CurlyLineEndPolicy>;
 
 	/**
 		line end settings for typedef curlies
 	**/
-	@:default(auto) @:optional var typedefCurly:CurlyLineEndPolicy;
+	@:default(null) @:optional var typedefCurly:Null<CurlyLineEndPolicy>;
 }
 
 @:enum
@@ -65,11 +65,6 @@ abstract SharpLineEndPolicy(String) {
 }
 
 typedef CurlyLineEndPolicy = {
-	/**
-		use lineEnds.leftCurly, lineEnds.rightCurly and lineEnds.emptyCurly if true
-	**/
-	@:default(true) @:optional var useGlobal:Bool;
-
 	/**
 		line end options for left curly
 	**/
