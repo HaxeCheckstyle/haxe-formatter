@@ -2,6 +2,8 @@ buildJS.hxml
 --next
 buildNeko.hxml
 --next
+buildJava.hxml
+--next
 buildSchema.hxml
 
 --next

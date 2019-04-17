@@ -25,7 +25,7 @@ class TestMain {
 		#end
 		var runner = new TestRunner(client);
 		runner.completionHandler = completionHandler;
-		#if (neko || cpp || hl)
+		#if (neko || cpp || hl || java)
 		EntryPoint.addThread(function() {
 			while (true) {
 				Sys.sleep(1.0);

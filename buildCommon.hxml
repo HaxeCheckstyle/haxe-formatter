@@ -8,5 +8,4 @@
 
 -cp src
 
--main formatter.Cli
 # --macro nullSafety('formatter')

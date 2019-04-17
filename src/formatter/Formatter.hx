@@ -157,6 +157,20 @@ class Formatter {
 		return null;
 	}
 	#end
+
+	#if (js && !nodejs)
+	public static function main() {
+		var result:Result = Formatter.format(Code(" trace ( 'foo' ) ; "), new Config(), EXPRESSION_LEVEL);
+		switch (result) {
+			case Success(formattedCode):
+				js.Browser.console.log("Success: " + formattedCode);
+			case Failure(errorMessage):
+				js.Browser.console.log("Failed to format: " + errorMessage);
+			case Disabled:
+				js.Browser.console.log("Formatting disabled");
+		}
+	}
+	#end
 }
 
 enum FormatterInput {
