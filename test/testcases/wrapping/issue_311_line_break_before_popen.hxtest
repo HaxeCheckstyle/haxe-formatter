@@ -1,0 +1,20 @@
+{
+}
+
+---
+
+class Main {
+	public static function main() {
+		window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"}).then(item -> if (item != null)
+			displayArguments.selectProvider(item.label));
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"})
+			.then(item -> if (item != null) displayArguments.selectProvider(item.label));
+	}
+}

@@ -1,0 +1,23 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		foo([
+			a, //
+			 b //
+		]);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		foo([a, //
+			b //
+		]);
+	}
+}

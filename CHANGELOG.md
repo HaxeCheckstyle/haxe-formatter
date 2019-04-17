@@ -21,6 +21,7 @@
 - Fixed null check for indentation on expression level entry points ([#453](https://github.com/HaxeCheckstyle/haxe-formatter/issues/453))
 - Fixed length check in removeBOM ([#453](https://github.com/HaxeCheckstyle/haxe-formatter/issues/453))
 - Fixed semicolon after `#end`, fixes [#429](https://github.com/HaxeCheckstyle/haxe-formatter/issues/429)
+- Fixed comments in array and matrix wrapping, fixes [#443](https://github.com/HaxeCheckstyle/haxe-formatter/issues/443) + [#444](https://github.com/HaxeCheckstyle/haxe-formatter/issues/444)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 - Refactored wrapping to use an ordered list ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))
