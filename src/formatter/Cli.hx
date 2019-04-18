@@ -243,13 +243,15 @@ class Cli {
 		var bufsize:Int = 1 << 14;
 		var buf = Bytes.alloc(bufsize);
 		var total = new haxe.io.BytesBuffer();
-		while (true) {
-			var len = stdIn.readBytes(buf, 0, bufsize);
-			if (len == 0) {
-				break;
+		try {
+			while (true) {
+				var len = stdIn.readBytes(buf, 0, bufsize);
+				if (len == 0) {
+					break;
+				}
+				total.addBytes(buf, 0, len);
 			}
-			total.addBytes(buf, 0, len);
-		}
+		} catch (e:Any) {}
 		return total.getBytes();
 	}
 	#end
