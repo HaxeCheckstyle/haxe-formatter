@@ -128,6 +128,9 @@ class Indenter {
 				switch (parent.tok) {
 					case Binop(_):
 						return token;
+					case Kwd(KwdElse):
+					case Kwd(_):
+						return token;
 					default:
 				}
 				return findEffectiveParent(token.parent);
@@ -192,10 +195,22 @@ class Indenter {
 			#end
 			mustIndent = false;
 			switch (prevToken.tok) {
-				case Kwd(KwdElse):
-					if (currentToken.is(Kwd(KwdIf))) {
+				case Kwd(KwdIf):
+					if (prevToken.index == currentToken.index) {
 						continue;
 					}
+					if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
+						var elseTok:Null<TokenTree> = prevToken.access().firstOf(Kwd(KwdElse)).token;
+						if (elseTok != null) {
+							if (parsedCode.tokenList.isSameLineBetween(prevToken, elseTok, false)) {
+								continue;
+							}
+							mustIndent = true;
+						}
+					}
+
+				case Kwd(KwdElse):
+					continue;
 				case Kwd(KwdCatch):
 					if (currentToken.is(Kwd(KwdTry))) {
 						continue;
@@ -384,7 +399,34 @@ class Indenter {
 				}
 			}
 		}
-		return indentingTokensCandidates;
+
+		var compressedCandidates:Array<TokenTree> = [];
+		var state:IndentationCompressElseIf = Copy;
+		for (token in indentingTokensCandidates) {
+			switch (token.tok) {
+				case Kwd(KwdIf):
+					switch (state) {
+						case Copy:
+							if (token.access().firstOf(Kwd(KwdElse)).exists()) {
+								state = SkipElseIf;
+							}
+						case SeenElse:
+							state = SkipElseIf;
+						case SkipElseIf:
+							continue;
+					}
+				case Kwd(KwdElse):
+					if ((state == SeenElse) || (state == SkipElseIf)) {
+						state = SkipElseIf;
+						continue;
+					}
+					state = SeenElse;
+				default:
+					state = Copy;
+			}
+			compressedCandidates.push(token);
+		}
+		return compressedCandidates;
 	}
 
 	function isIndentingToken(token:TokenTree):Bool {
@@ -494,4 +536,10 @@ class Indenter {
 		file.close();
 	}
 	#end
+}
+
+enum IndentationCompressElseIf {
+	Copy;
+	SeenElse;
+	SkipElseIf;
 }

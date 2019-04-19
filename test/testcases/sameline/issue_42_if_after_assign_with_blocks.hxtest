@@ -17,9 +17,9 @@ class Main {
 class Main {
 	public static function main() {
 		var foo = if (bar) {
-			"";
-		} else {
-			"";
-		};
+				"";
+			} else {
+				"";
+			};
 	}
 }
