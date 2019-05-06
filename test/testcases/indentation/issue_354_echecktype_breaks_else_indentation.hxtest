@@ -1,0 +1,36 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		if (Type.get((cast null : T)) == Type.get(0))
+			(bytes : Bytes).sortI32(0, length, cast f);
+		else
+			(bytes : Bytes).sortF64(0, length, cast f);
+	}
+}
+
+class Main {
+	static function main() {
+		var f = if (Internal.hasFields(c)) (Internal.fieldFields(c):Array<String>).copy() else [];
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		if (Type.get((cast null : T)) == Type.get(0))
+			(bytes : Bytes).sortI32(0, length, cast f);
+		else
+			(bytes : Bytes).sortF64(0, length, cast f);
+	}
+}
+
+class Main {
+	static function main() {
+		var f = if (Internal.hasFields(c)) (Internal.fieldFields(c) : Array<String>).copy() else [];
+	}
+}
