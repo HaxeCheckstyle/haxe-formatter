@@ -8,7 +8,7 @@
 - Added `wrapping.arrayMatrixWrap` for array matrix wrapping with column alignment, fixes [#433](https://github.com/HaxeCheckstyle/haxe-formatter/issues/433) ([#442](https://github.com/HaxeCheckstyle/haxe-formatter/issues/442))
 - Added Java compilation and tests on TravisCI ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Added browser JS compilation, fixes [#449](https://github.com/HaxeCheckstyle/haxe-formatter/issues/449) ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
-- Added cache for close tokens `]`, `)` and `}`
+- Added cache for close tokens `]`, `)` and `}` ([#461](https://github.com/HaxeCheckstyle/haxe-formatter/issues/461))
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 - Fixed wrapping of concatenated strings ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
 - Fixed ECheckType detection with cast, fixes [#374](https://github.com/HaxeCheckstyle/haxe-formatter/issues/374) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
