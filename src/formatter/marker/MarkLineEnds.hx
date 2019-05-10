@@ -80,7 +80,7 @@ class MarkLineEnds extends MarkerBase {
 		for (brOpen in brTokens) {
 			var curlyPolicy:CurlyLineEndPolicy = detectCurlyPolicy(brOpen);
 
-			var brClose:Null<TokenTree> = brOpen.access().firstOf(BrClose).token;
+			var brClose:Null<TokenTree> = getCloseToken(brOpen);
 			if (brClose == null) {
 				switch (curlyPolicy.leftCurly) {
 					case None:

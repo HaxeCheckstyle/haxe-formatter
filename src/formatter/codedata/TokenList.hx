@@ -17,9 +17,12 @@ class TokenList {
 	public var tokens:Array<Null<TokenInfo>>;
 	public var leadingEmptyLInes:Int;
 
+	var closeTokenCache:Map<Int, TokenTree>;
+
 	public function new() {
 		tokens = [];
 		leadingEmptyLInes = 0;
+		closeTokenCache = new Map<Int, TokenTree>();
 		#if debugLog
 		logFileStart();
 		#end
@@ -56,6 +59,34 @@ class TokenList {
 		while (count-- > 0) {
 			tokens.push(null);
 		}
+	}
+
+	public function getCloseToken(token:TokenTree):Null<TokenTree> {
+		if ((token == null) || (token.tok == null)) {
+			return null;
+		}
+		if ((token.index < 0) || (token.index >= tokens.length)) {
+			return null;
+		}
+		if (closeTokenCache.exists(token.index)) {
+			return closeTokenCache.get(token.index);
+		}
+		var result:TokenTree;
+		switch (token.tok) {
+			case POpen:
+				result = token.access().firstOf(PClose).token;
+			case BrOpen:
+				result = token.access().firstOf(BrClose).token;
+			case BkOpen:
+				result = token.access().firstOf(BkClose).token;
+			default:
+				return null;
+		}
+		if (result == null) {
+			return null;
+		}
+		closeTokenCache.set(token.index, result);
+		return result;
 	}
 
 	public function getTokenAt(index:Int):Null<TokenInfo> {
@@ -458,7 +489,7 @@ class TokenList {
 			switch (info.token.tok) {
 				case POpen:
 					if (!first) {
-						var close:TokenTree = info.token.access().firstOf(PClose).token;
+						var close:Null<TokenTree> = getCloseToken(info.token);
 						if (close != null) {
 							index = close.index;
 							continue;
@@ -466,7 +497,7 @@ class TokenList {
 					}
 				case BrOpen:
 					if (!first) {
-						var close:TokenTree = info.token.access().firstOf(BrClose).token;
+						var close:Null<TokenTree> = getCloseToken(info.token);
 						if (close != null) {
 							index = close.index;
 							continue;
@@ -474,7 +505,7 @@ class TokenList {
 					}
 				case BkOpen:
 					if (!first) {
-						var close:TokenTree = info.token.access().firstOf(BkClose).token;
+						var close:Null<TokenTree> = getCloseToken(info.token);
 						if (close != null) {
 							index = close.index;
 							continue;

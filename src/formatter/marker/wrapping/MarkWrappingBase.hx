@@ -220,6 +220,14 @@ class MarkWrappingBase extends MarkerBase {
 				lineEndAfter(lastChild);
 			}
 		}
+		if (close == null) {
+			return;
+		}
+		switch (close.tok) {
+			case BrClose, BkClose, PClose:
+				lineEndBefore(close);
+			default:
+		}
 	}
 
 	public function wrapChildOneLineEachSharp(sharp:TokenTree, addIndent:Int = 0, keepFirst:Bool = false) {
