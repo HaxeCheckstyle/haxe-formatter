@@ -20,6 +20,10 @@ class MarkerBase {
 		this.indenter = indenter;
 	}
 
+	function getCloseToken(token:TokenTree):Null<TokenTree> {
+		return parsedCode.tokenList.getCloseToken(token);
+	}
+
 	function getNextToken(token:TokenTree):Null<TokenInfo> {
 		return parsedCode.tokenList.getNextToken(token);
 	}

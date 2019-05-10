@@ -94,7 +94,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function typedefWrapping(token:TokenTree) {
-		var brClose:Null<TokenTree> = token.access().firstOf(BrClose).token;
+		var brClose:Null<TokenTree> = getCloseToken(token);
 		if (isNewLineBefore(token)) {
 			return;
 		}
@@ -105,7 +105,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function anonTypeWrapping(token:TokenTree) {
-		var brClose:Null<TokenTree> = token.access().firstOf(BrClose).token;
+		var brClose:Null<TokenTree> = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
@@ -186,7 +186,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function objectLiteralWrapping(token:TokenTree) {
-		var brClose:Null<TokenTree> = token.access().firstOf(BrClose).token;
+		var brClose:Null<TokenTree> = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 1)) {
 			return;
 		}
@@ -259,7 +259,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function markPWrapping(token:TokenTree) {
-		var pClose:Null<TokenTree> = token.access().firstOf(PClose).token;
+		var pClose:Null<TokenTree> = getCloseToken(token);
 		switch (TokenTreeCheckUtils.getPOpenType(token)) {
 			case AT:
 				wrapMetadataCallParameter(token);
@@ -274,7 +274,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function arrayWrapping(token:TokenTree) {
-		var bkClose:Null<TokenTree> = token.access().firstOf(BkClose).token;
+		var bkClose:Null<TokenTree> = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
@@ -386,7 +386,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function wrapFunctionSignature(token:TokenTree) {
-		var pClose:TokenTree = token.access().firstOf(PClose).token;
+		var pClose:TokenTree = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
@@ -413,7 +413,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function wrapCallParameter(token:TokenTree) {
-		var pClose:TokenTree = token.access().firstOf(PClose).token;
+		var pClose:TokenTree = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
@@ -429,7 +429,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function wrapMetadataCallParameter(token:TokenTree) {
-		var pClose:TokenTree = token.access().firstOf(PClose).token;
+		var pClose:TokenTree = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
@@ -493,9 +493,9 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 
 		var items:Array<WrappableItem> = [];
-		var chainEnd:TokenTree = TokenTreeCheckUtils.getLastToken(chainStart);
+		var chainEnd:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(chainStart);
 		var info:TokenInfo = getPreviousToken(chainStart);
-		var chainOpen:TokenTree = chainStart.parent;
+		var chainOpen:Null<TokenTree> = chainStart.parent;
 		if (info != null) {
 			chainOpen = info.token;
 		}
@@ -512,9 +512,13 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 			items.push(makeWrappableItem(child, endToken));
 		}
+		chainEnd = null;
+		if (chainOpen != null) {
+			chainEnd = getCloseToken(chainOpen);
+		}
 		queueWrapping({
 			start: chainOpen,
-			end: null,
+			end: chainEnd,
 			items: items,
 			rules: config.wrapping.methodChain,
 			useTrailing: false,

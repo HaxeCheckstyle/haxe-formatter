@@ -347,7 +347,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markArrayComprehension(token:TokenTree, bkOpen:TokenTree) {
-		var bkClose:Null<TokenTree> = bkOpen.access().firstOf(BkClose).token;
+		var bkClose:Null<TokenTree> = getCloseToken(bkOpen);
 		switch (config.sameLine.comprehensionFor) {
 			case Keep:
 				if (parsedCode.isOriginalNewlineBefore(token)) {
@@ -592,7 +592,7 @@ class MarkSameLine extends MarkerBase {
 			if (brOpen == null) {
 				continue;
 			}
-			var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+			var brClose:TokenTree = getCloseToken(brOpen);
 			if (!parsedCode.isOriginalSameLine(brOpen, brClose)) {
 				continue;
 			}
@@ -674,7 +674,7 @@ class MarkSameLine extends MarkerBase {
 		if ((brOpen == null) || (!brOpen.token.is(BrOpen))) {
 			return;
 		}
-		var brClose:TokenTree = brOpen.token.access().firstOf(BrClose).token;
+		var brClose:TokenTree = getCloseToken(brOpen.token);
 		if (parsedCode.isOriginalSameLine(brOpen.token, brClose)) {
 			noLineEndAfter(brOpen.token);
 			noLineEndBefore(brClose);

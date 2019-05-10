@@ -273,7 +273,7 @@ class Indenter {
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
 								case OBJECTDECL:
-									var brClose:TokenTree = prevToken.access().firstOf(BrClose).token;
+									var brClose:TokenTree = parsedCode.tokenList.getCloseToken(prevToken);
 									if ((brClose != null)
 										&& (!parsedCode.tokenList.isSameLine(prevToken, brClose))
 										&& !config.indentObjectLiteral) {
@@ -287,18 +287,17 @@ class Indenter {
 								continue;
 							}
 						case Binop(OpAssign), Binop(OpAssignOp(_)):
-							if (currentToken.access().parent().parent().is(Kwd(KwdTypedef)).exists()) {
-								continue;
-							}
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
 								case OBJECTDECL:
-									var brClose:TokenTree = prevToken.access().firstOf(BrClose).token;
+									var brClose:TokenTree = parsedCode.tokenList.getCloseToken(prevToken);
 									if ((brClose != null)
 										&& (!parsedCode.tokenList.isSameLine(prevToken, brClose))
 										&& !config.indentObjectLiteral) {
 										continue;
 									}
+								case TYPEDEFDECL:
+									continue;
 								default:
 									// continue;
 							}

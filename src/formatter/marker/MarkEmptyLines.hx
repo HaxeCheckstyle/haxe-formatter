@@ -330,7 +330,7 @@ class MarkEmptyLines extends MarkerBase {
 		}
 		emptyLinesAfter(brOpen, beginType);
 
-		var brClose:TokenTree = brOpen.access().firstOf(BrClose).token;
+		var brClose:TokenTree = getCloseToken(brOpen);
 		if (brClose == null) {
 			return;
 		}
