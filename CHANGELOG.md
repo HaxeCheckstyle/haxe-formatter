@@ -26,6 +26,7 @@
 - Fixed eof handling in stdin mode when running on Windows, fixes [#418](https://github.com/HaxeCheckstyle/haxe-formatter/issues/418) ([#457](https://github.com/HaxeCheckstyle/haxe-formatter/issues/457))
 - Fixed indentation of if / else in complex var assignments, fixes [#334](https://github.com/HaxeCheckstyle/haxe-formatter/issues/334) ([#458](https://github.com/HaxeCheckstyle/haxe-formatter/issues/458))
 - Fixed ECheckType in if body, fixes [#354](https://github.com/HaxeCheckstyle/haxe-formatter/issues/354) ([#459](https://github.com/HaxeCheckstyle/haxe-formatter/issues/459))
+- Fixed whitespace between IntInterval and POpen ([#462](https://github.com/HaxeCheckstyle/haxe-formatter/issues/462))
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 - Refactored wrapping to use an ordered list ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))
