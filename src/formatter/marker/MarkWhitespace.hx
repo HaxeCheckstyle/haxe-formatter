@@ -192,7 +192,7 @@ class MarkWhitespace extends MarkerBase {
 			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev != null) {
 				switch (prev.token.tok) {
-					case POpen, BrOpen, BkOpen:
+					case POpen, BrOpen, BkOpen, IntInterval(_), Binop(OpInterval):
 						policy = policy.remove(Before);
 					case Binop(OpLt):
 						if (token.is(BrOpen)) {

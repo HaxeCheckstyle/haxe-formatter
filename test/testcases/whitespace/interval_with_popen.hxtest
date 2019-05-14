@@ -1,0 +1,56 @@
+{
+	"whitespace": {
+		"colonPolicy": "around",
+		"typeHintColonPolicy": "around",
+			"parenConfig": {
+				"metadataParens": {
+					"openingPolicy": "before"
+				},
+				"funcParamParens": {
+					"openingPolicy": "before"
+				},
+				"anonFuncParamParens": {
+					"openingPolicy": "before"
+				},
+				"callParens": {
+					"openingPolicy": "before"
+				},
+				"conditionParens": {
+					"openingPolicy": "before"
+				},
+				"forLoopParens": {
+					"openingPolicy": "before"
+				},
+				"expressionParens": {
+					"openingPolicy": "before"
+				}
+			},
+		"openingBracketPolicy": "before"
+	}
+}
+
+---
+
+class Main {
+	function main() {
+        for (colNum in 0 ... (numCols ()))
+		{
+		}
+        for (colNum in 0 ... numCols ())
+		{
+		}
+		for (colNum in numCols () ... numCols ())
+		{
+		}
+	}
+}
+
+---
+
+class Main {
+	function main () {
+		for (colNum in 0...(numCols ())) {}
+		for (colNum in 0...numCols ()) {}
+		for (colNum in numCols ()...numCols ()) {}
+	}
+}
