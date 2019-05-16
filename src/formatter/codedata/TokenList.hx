@@ -830,7 +830,7 @@ class TokenList {
 		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
-		var start:Int = token.index;
+		var start:Int = token.index + 1;
 		var length:Int = 0;
 		while (true) {
 			if (start >= tokens.length) {
