@@ -6,6 +6,7 @@
 class Main {
 	public function main(){
         profiles.get (className).get (methodName).elapsedTime += t - profiles.get (className).get (methodName).startTime;
+        profiles.get (className).get (methodName).elapsedTime = t - profiles.get (className).get (methodName).startTime;
         profiles.get (className)
             .get (methodName)
             .elapsedTime += t - profiles.get (className)
@@ -21,6 +22,11 @@ class Main {
 		profiles.get(className)
 			.get(methodName)
 			.elapsedTime += t - profiles.get(className)
+				.get(methodName)
+				.startTime;
+		profiles.get(className)
+			.get(methodName)
+			.elapsedTime = t - profiles.get(className)
 				.get(methodName)
 				.startTime;
 		profiles.get(className)
