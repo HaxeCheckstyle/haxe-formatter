@@ -12,7 +12,6 @@ install:
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
   - haxelib git mcover https://github.com/AlexHaxe/mcover haxe_4_thread src
   - haxelib git munit https://github.com/AlexHaxe/MassiveUnit haxe_4_thread src
-  - haxelib git compiletime https://github.com/andyli/compiletime haxe4 src
   - haxelib git json2object https://github.com/elnabo/json2object
   - haxelib install hxjava
   - haxelib install mlib

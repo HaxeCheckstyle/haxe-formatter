@@ -35,6 +35,7 @@
 - Refactored wrapping to use an ordered list ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))
 - Refactored array wrapping ([#442](https://github.com/HaxeCheckstyle/haxe-formatter/issues/442))
 - Updated testcases for [#305](https://github.com/HaxeCheckstyle/haxe-formatter/issues/305) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
+- Removed compiletime library, fixes [#390](https://github.com/HaxeCheckstyle/haxe-formatter/issues/390) ([#467](https://github.com/HaxeCheckstyle/haxe-formatter/issues/467))
 
 ## version 1.6.0 (2019-03-22)
 

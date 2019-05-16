@@ -8,7 +8,6 @@
 -lib hxargs
 -lib mcover
 -lib munit
--lib compiletime
 # -lib safety
 -lib test-adapter
 
