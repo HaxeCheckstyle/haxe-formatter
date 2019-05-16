@@ -1,0 +1,26 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		env.clipboard.writeText(if (element == null) {
+			methods.map(method -> method.toString()).join("\n\n");
+		} else {
+			element.toString();
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		env.clipboard.writeText(if (element == null) {
+			methods.map(method -> method.toString()).join("\n\n");
+		} else {
+			element.toString();
+		});
+	}
+}

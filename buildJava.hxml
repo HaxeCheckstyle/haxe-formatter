@@ -1,3 +1,4 @@
 buildCommon.hxml
+-D jvm
 -java out
 -main formatter.Cli

@@ -207,6 +207,15 @@ class Indenter {
 							}
 							mustIndent = true;
 						}
+						var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
+						if (brOpen != null) {
+							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
+							switch (type) {
+								case BLOCK:
+									continue;
+								default:
+							}
+						}
 					}
 
 				case Kwd(KwdElse):

@@ -40,16 +40,16 @@ class Main
 	public function new()
 	{
 		fun.expr = if (fun.ret == null || switch (fun.ret)
-				{
-					case TPath(p): true;
-					default: false;
-				})
 			{
-				macro throw "abstract method, must override";
-			}
-			else
-			{
-				macro return throw "abstract method, must override";
-			}
+				case TPath(p): true;
+				default: false;
+			})
+		{
+			macro throw "abstract method, must override";
+		}
+		else
+		{
+			macro return throw "abstract method, must override";
+		}
 	}
 }

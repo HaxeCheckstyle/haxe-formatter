@@ -32,24 +32,24 @@ class Main {
 class Main {
 	public static function main() {
 		var action = if (relations.length == 0) {
-				{
-					command: {
-						title: title,
-						command: "",
-						arguments: []
-					},
-					range: range
-				};
-			} else {
-				null;
-			}
+			{
+				command: {
+					title: title,
+					command: "",
+					arguments: []
+				},
+				range: range
+			};
+		} else {
+			null;
+		}
 		var action = if (relations.length == 0) {
-				{
-					command: {title: title, command: "", arguments: []},
-					range: range
-				};
-			} else {
-				{command: {title: title, command: "", arguments: []}, range: range};
-			}
+			{
+				command: {title: title, command: "", arguments: []},
+				range: range
+			};
+		} else {
+			{command: {title: title, command: "", arguments: []}, range: range};
+		}
 	}
 }
