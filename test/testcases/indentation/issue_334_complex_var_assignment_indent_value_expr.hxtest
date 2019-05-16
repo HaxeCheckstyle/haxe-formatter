@@ -1,0 +1,24 @@
+{
+	"indentation": {
+		"indentComplexValueExpressions": true
+	}
+}
+
+---
+
+class Main {
+	static var _mul:Int32->Int32->Int32 = untyped
+		if (Math.imul != null)
+			Math.imul
+		else
+			function(a:Int32, b:Int32):Int32 return clamp((a : Int) * ((b : Int) & 0xFFFF) + clamp((a : Int) * ((b : Int) >>> 16) << 16));
+}
+
+---
+
+class Main {
+	static var _mul:Int32->Int32->Int32 = untyped if (Math.imul != null)
+			Math.imul
+		else
+			function(a:Int32, b:Int32):Int32 return clamp((a : Int) * ((b : Int) & 0xFFFF) + clamp((a : Int) * ((b : Int) >>> 16) << 16));
+}

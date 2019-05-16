@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.6.0",
-	"releasenote": "New --stdin CLI parameter and bugfixes - see CHANGELOG for details.",
+	"version": "1.7.0",
+	"releasenote": "Added wrapping for matrixes and multiple var declarations; added more curly line end options; bugfixes - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"

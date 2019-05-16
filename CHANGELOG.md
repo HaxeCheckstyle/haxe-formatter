@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.7.0 (2019-05-16)
+
 - Added `wrapping.multiVar`, fixes [#355](https://github.com/HaxeCheckstyle/haxe-formatter/issues/355), fixes [#430](https://github.com/HaxeCheckstyle/haxe-formatter/issues/430) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
 - Added `emptylines.afterFieldsWithDocComments`, fixes [#385](https://github.com/HaxeCheckstyle/haxe-formatter/issues/385), fixes [#432](https://github.com/HaxeCheckstyle/haxe-formatter/issues/432) ([#425](https://github.com/HaxeCheckstyle/haxe-formatter/issues/425) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434))
 - Added `lineEnds.anonTypeCurly`, `lineEnds.blockCurly`, `lineEnds.objectLiteralCurly`, `lineEnds.typedefCurly`, fixes [#346](https://github.com/HaxeCheckstyle/haxe-formatter/issues/346) ([#427](https://github.com/HaxeCheckstyle/haxe-formatter/issues/427) + [#434](https://github.com/HaxeCheckstyle/haxe-formatter/issues/434) + [#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
@@ -9,6 +11,7 @@
 - Added Java compilation and tests on TravisCI ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Added browser JS compilation, fixes [#449](https://github.com/HaxeCheckstyle/haxe-formatter/issues/449) ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Added cache for close tokens `]`, `)` and `}` ([#461](https://github.com/HaxeCheckstyle/haxe-formatter/issues/461))
+- Added `indentation.indentComplexValueExpressions`, fixes [#468](https://github.com/HaxeCheckstyle/haxe-formatter/issues/468) ([#469](https://github.com/HaxeCheckstyle/haxe-formatter/issues/469))
 - Fixed missing empty lines in classes with conditionals, fixes [#419](https://github.com/HaxeCheckstyle/haxe-formatter/issues/419) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))
 - Fixed wrapping of concatenated strings ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422)
 - Fixed ECheckType detection with cast, fixes [#374](https://github.com/HaxeCheckstyle/haxe-formatter/issues/374) ([#422](https://github.com/HaxeCheckstyle/haxe-formatter/issues/422))

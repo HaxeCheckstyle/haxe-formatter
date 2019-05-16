@@ -1,0 +1,325 @@
+{
+	"indentation": {
+		"indentComplexValueExpressions": true
+	}
+}
+
+---
+
+package memberapplet.feature.chat;
+
+import memberapplet.feature.chat.ChatRoom;
+import memberapplet.feature.chat.translation.*;
+import memberapplet.feature.chat.smileys.*;
+import coconut.Ui.hxx;
+import com.utils.UrlUtil;
+
+using com.utils.SignalUtil;
+using com.utils.ObservableUtil;
+
+private typedef InputPolicy = {
+	@:optional var restrict(default, never):InputRestriction;
+	var maxChars(default, never):Int;
+}
+
+private abstract InputRestriction(Null<EReg>) from EReg {
+
+	public inline function apply(to:String):String
+		return if (this == null) to else this.replace(to, '');
+
+	@:from static function ofString(s:String):InputRestriction
+		return new EReg('[^$s]', 'ig');
+}
+
+class Chat implements plumbum.Scope implements IChat
+{
+	var dependencies:{
+
+		var connectionStatus:Observable<ChatConnectionStatus>;
+
+		var performerNick:Value<String>;//TODO: this shouldn't be here I think ... it duplicates data from the chat room ... instead the chat room should have offline and connecting statuses and there should always be one defined to hold the performer's nick
+		var isFullscreen:Value<Bool>;
+		var isRecommenderEnabled:Value<Bool>;
+		var isPrivateInProgress:Value<Bool>;//TODO: this shouldn't be here for the same reasons as performerNick
+		var isVipShowInProgress:Value<Bool>;//TODO: this shouldn't be here for the same reasons as performerNick
+
+		var upgrades:UserUpgrades;
+
+		var imagePath:String;
+		var smileys:Value<List<Smiley>>;
+
+		var storage:{
+			var language(default, never):State<String>;
+			var collapsed(default, never):State<Bool>;
+			var height(default, never):State<Float>;
+			var fontSize(default, never):State<Int>;
+		}
+
+		var inputPolicies:{
+			var guest(default, never):InputPolicy;
+			var freeChat(default, never):InputPolicy;
+			var privateShow(default, never):InputPolicy;
+		}
+
+	};
+
+	var model:ChatModel = new ChatModel(
+		tink.Anon.merge(
+			storage,
+			dependencies,
+			restrictInput = restrictInput,
+			allSmileys = smileys
+		)
+	);
+
+	function restrictInput(input:String)
+	{
+		var policy =
+			if (isPrivateInProgress.value) inputPolicies.privateShow;
+			else if (model.me.kind == Guest) inputPolicies.guest;
+			else inputPolicies.freeChat;
+
+		return policy.restrict.apply(input).substr(0, policy.maxChars);
+	}
+
+
+	public var messageSent:Signal<String> = model.messageSent;
+
+	public function setMarginTop(pixels:Float)
+		view.marginTop = pixels;
+
+	public var view:ChatView = hxx('
+		<ChatView
+			${...model} ${...dependencies}
+			resizable=${isRecommenderEnabled}
+			collapsed=${isRecommenderEnabled.value && model.collapsed}
+			fontSize=${Observable.const(model.observables.fontSize)}
+			onsubmit=${model.send}
+			onfocus=${model.hasFocus = true}
+			onblur=${model.hasFocus = false}
+			oninput=${model.currentInput = event}
+			onresize=${model.height = event}
+			ontoggle=${model.collapsed = event}
+			hidden=${model.isOffline && (isRecommenderEnabled.value || isFullscreen.value)}
+		>
+			<addons>
+
+				<TranslationPopover
+					${...model} ${...dependencies}
+					group=${group}
+					language=${{
+						current: storage.language,
+						options: getLanguageOptions(),
+						getFlag: getFlag.bind(imagePath),
+					}}
+				/>
+
+				<SmileyPopover
+					${...model} ${...dependencies}
+					group=${group}
+					onSmileyselect=${addText}
+				/>
+
+			</addons>
+
+			<smileyTooltip>
+				<switch ${model.me.kind}>
+	                <case ${Guest | Member({ isFree: true })}>
+						<div onclick=${if (model.me.kind == Guest) upgrades.signup() else upgrades.becomeMember()}>
+							<raw content=${L.SIGNUP_FOR_EMOTIONS} />
+						</div>
+					<case ${_}>
+						${tag}
+				</switch>
+			</smileyTooltip>
+		</ChatView>
+	');
+
+	public var currentInput:Observable<String> = model.observables.currentInput;
+	public var hasFocus:Observable<Bool> = model.observables.hasFocus;
+	public var effectiveHeight:Observable<Float> = Observable.auto(function ()
+		return
+			if (model.collapsed || view.hidden) 0
+			else model.height
+	);
+
+	public function addUi(ui:RenderResult, ?options:{ ?bottom:Bool }):Void
+		view.addUi(ui, options);
+
+	public function addPlainMessage(type:MessageType, text:String):Void
+		model.observables.connectionStatus
+			.getNext(function (status)
+				return switch status {
+					case Online(room): Some(room);
+					default: None;
+				}
+			)
+			.handle(function (room)
+				room.addMessage(new MessageModel({
+					type: type,
+					richBody: [Text(text)]
+				}))
+			);
+
+	function new()
+	{
+		connectionStatus.toSignal().handle(function () model.currentInput = '');//TODO: find more elegant solution for this
+		isPrivateInProgress.bind(function (inProgress) if (inProgress) model.clear());
+		isVipShowInProgress.bind(function (inProgress) if (inProgress) {
+			model.collapsed = false;
+			model.height = 1;
+		});
+	}
+
+	static function getLanguageOptions():List<String>
+		return TranslationsHelper.avaiableLanguagesOrder;
+
+	static var flags = TranslationsHelper.getLanguageFlags();
+
+	static function getFlag(imagePath:String, langTag:String)
+		return UrlUtil.getIconSource(imagePath, flags.get(langTag), 'flags');
+}
+
+---
+
+package memberapplet.feature.chat;
+
+import memberapplet.feature.chat.ChatRoom;
+import memberapplet.feature.chat.translation.*;
+import memberapplet.feature.chat.smileys.*;
+import coconut.Ui.hxx;
+import com.utils.UrlUtil;
+
+using com.utils.SignalUtil;
+using com.utils.ObservableUtil;
+
+private typedef InputPolicy = {
+	@:optional var restrict(default, never):InputRestriction;
+	var maxChars(default, never):Int;
+}
+
+private abstract InputRestriction(Null<EReg>) from EReg {
+	public inline function apply(to:String):String
+		return if (this == null) to else this.replace(to, '');
+
+	@:from static function ofString(s:String):InputRestriction
+		return new EReg('[^$s]', 'ig');
+}
+
+class Chat implements plumbum.Scope implements IChat {
+	var dependencies:{
+		var connectionStatus:Observable<ChatConnectionStatus>;
+		var performerNick:Value<String>; // TODO: this shouldn't be here I think ... it duplicates data from the chat room ... instead the chat room should have offline and connecting statuses and there should always be one defined to hold the performer's nick
+		var isFullscreen:Value<Bool>;
+		var isRecommenderEnabled:Value<Bool>;
+		var isPrivateInProgress:Value<Bool>; // TODO: this shouldn't be here for the same reasons as performerNick
+		var isVipShowInProgress:Value<Bool>; // TODO: this shouldn't be here for the same reasons as performerNick
+		var upgrades:UserUpgrades;
+		var imagePath:String;
+		var smileys:Value<List<Smiley>>;
+		var storage:{
+			var language(default, never):State<String>;
+			var collapsed(default, never):State<Bool>;
+			var height(default, never):State<Float>;
+			var fontSize(default, never):State<Int>;
+		}
+		var inputPolicies:{
+			var guest(default, never):InputPolicy;
+			var freeChat(default, never):InputPolicy;
+			var privateShow(default, never):InputPolicy;
+		}
+	};
+	var model:ChatModel = new ChatModel(tink.Anon.merge(storage, dependencies, restrictInput = restrictInput, allSmileys = smileys));
+
+	function restrictInput(input:String) {
+		var policy = if (isPrivateInProgress.value) inputPolicies.privateShow; else if (model.me.kind == Guest) inputPolicies.guest; else
+				inputPolicies.freeChat;
+
+		return policy.restrict.apply(input).substr(0, policy.maxChars);
+	}
+
+	public var messageSent:Signal<String> = model.messageSent;
+
+	public function setMarginTop(pixels:Float)
+		view.marginTop = pixels;
+
+	public var view:ChatView = hxx('
+		<ChatView
+			${...model} ${...dependencies}
+			resizable=${isRecommenderEnabled}
+			collapsed=${isRecommenderEnabled.value && model.collapsed}
+			fontSize=${Observable.const(model.observables.fontSize)}
+			onsubmit=${model.send}
+			onfocus=${model.hasFocus = true}
+			onblur=${model.hasFocus = false}
+			oninput=${model.currentInput = event}
+			onresize=${model.height = event}
+			ontoggle=${model.collapsed = event}
+			hidden=${model.isOffline && (isRecommenderEnabled.value || isFullscreen.value)}
+		>
+			<addons>
+
+				<TranslationPopover
+					${...model} ${...dependencies}
+					group=${group}
+					language=${{
+						current: storage.language,
+						options: getLanguageOptions(),
+						getFlag: getFlag.bind(imagePath),
+					}}
+				/>
+
+				<SmileyPopover
+					${...model} ${...dependencies}
+					group=${group}
+					onSmileyselect=${addText}
+				/>
+
+			</addons>
+
+			<smileyTooltip>
+				<switch ${model.me.kind}>
+	                <case ${Guest | Member({ isFree: true })}>
+						<div onclick=${if (model.me.kind == Guest) upgrades.signup() else upgrades.becomeMember()}>
+							<raw content=${L.SIGNUP_FOR_EMOTIONS} />
+						</div>
+					<case ${_}>
+						${tag}
+				</switch>
+			</smileyTooltip>
+		</ChatView>
+	');
+	public var currentInput:Observable<String> = model.observables.currentInput;
+	public var hasFocus:Observable<Bool> = model.observables.hasFocus;
+	public var effectiveHeight:Observable<Float> = Observable.auto(function() return if (model.collapsed || view.hidden) 0 else model.height);
+
+	public function addUi(ui:RenderResult, ?options:{?bottom:Bool}):Void
+		view.addUi(ui, options);
+
+	public function addPlainMessage(type:MessageType, text:String):Void
+		model.observables.connectionStatus.getNext(function(status) return switch status {
+			case Online(room): Some(room);
+			default: None;
+		}).handle(function(room) room.addMessage(new MessageModel({
+			type: type,
+			richBody: [Text(text)]
+		})));
+
+	function new() {
+		connectionStatus.toSignal().handle(function() model.currentInput = ''); // TODO: find more elegant solution for this
+		isPrivateInProgress.bind(function(inProgress) if (inProgress)
+			model.clear());
+		isVipShowInProgress.bind(function(inProgress) if (inProgress) {
+			model.collapsed = false;
+			model.height = 1;
+		});
+	}
+
+	static function getLanguageOptions():List<String>
+		return TranslationsHelper.avaiableLanguagesOrder;
+
+	static var flags = TranslationsHelper.getLanguageFlags();
+
+	static function getFlag(imagePath:String, langTag:String)
+		return UrlUtil.getIconSource(imagePath, flags.get(langTag), 'flags');
+}

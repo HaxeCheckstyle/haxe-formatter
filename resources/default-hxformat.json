@@ -111,6 +111,7 @@
 	"indentation": {
 		"character": "tab",
 		"conditionalPolicy": "aligned",
+		"indentComplexValueExpressions": false,
 		"indentObjectLiteral": true,
 		"tabWidth": 4,
 		"trailingWhitespace": false

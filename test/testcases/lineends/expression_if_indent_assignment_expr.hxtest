@@ -1,0 +1,58 @@
+{
+	"indentation": {
+		"indentComplexValueExpressions": true
+	},
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both"
+	},
+	"sameLine": {
+		"ifBody": "same",
+		"ifElse": "next",
+		"doWhile": "next",
+		"tryBody": "next",
+		"tryCatch": "next"
+	}
+}
+
+---
+
+class Main
+{
+	public function new()
+	{
+		fun.expr = if (fun.ret == null || switch (fun.ret)
+		{
+			case TPath (p): true;
+			default: false;
+		})
+		{
+			macro throw "abstract method, must override";
+		}
+		else
+		{
+			macro return throw "abstract method, must override";
+		}
+	}
+}
+
+---
+
+class Main
+{
+	public function new()
+	{
+		fun.expr = if (fun.ret == null || switch (fun.ret)
+				{
+					case TPath(p): true;
+					default: false;
+				})
+			{
+				macro throw "abstract method, must override";
+			}
+			else
+			{
+				macro return throw "abstract method, must override";
+			}
+	}
+}

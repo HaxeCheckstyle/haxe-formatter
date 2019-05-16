@@ -1,0 +1,30 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		return if (foo) {
+			foo;
+		} else if (bar) {
+			bar;
+		} else {
+			foobar;
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return if (foo) {
+			foo;
+		} else if (bar) {
+			bar;
+		} else {
+			foobar;
+		}
+	}
+}
