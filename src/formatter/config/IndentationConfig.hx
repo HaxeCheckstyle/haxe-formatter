@@ -26,6 +26,20 @@ typedef IndentationConfig = {
 	@:default(false) @:optional var trailingWhitespace:Bool;
 
 	@:default(true) @:optional var indentObjectLiteral:Bool;
+
+	/**
+		indent complex value expressions:
+			(true)						(false)
+		var a = if (true)			var a = if (true)
+				10;						10;
+			else					else
+				20;			vs.			20;
+		return if (true)			return if (true)
+				10;						10;
+			else					else
+				20;						20;
+	**/
+	@:default(false) @:optional var indentComplexValueExpressions:Bool;
 }
 
 @:enum

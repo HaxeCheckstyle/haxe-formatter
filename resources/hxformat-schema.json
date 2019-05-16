@@ -1004,6 +1004,11 @@
 					"description": "adds trailing whitespace to empty lines by copying indentation from preceeding line",
 					"type": "boolean",
 					"default": false
+				},
+				"indentComplexValueExpressions": {
+					"description": "indent complex value expressions: (true)\t\t\t\t\t\t(false) var a = if (true)\t\t\tvar a = if (true) 10;\t\t\t\t\t\t10; else\t\t\t\t\telse 20;\t\t\tvs.\t\t\t20; return if (true)\t\t\treturn if (true) 10;\t\t\t\t\t\t10; else\t\t\t\t\telse 20;\t\t\t\t\t\t20;",
+					"type": "boolean",
+					"default": false
 				}
 			},
 			"type": "object"

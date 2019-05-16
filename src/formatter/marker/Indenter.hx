@@ -178,7 +178,7 @@ class Indenter {
 		return token;
 	}
 
-	function countLineBreaks(indentingTokensCandidates:Array<TokenTree>):Int {
+	function countLineBreaks(indentingTokensCandidates:Array<TokenTree>, indentComplexValueExpressions:Bool):Int {
 		var count:Int = 0;
 		var prevToken:Null<TokenTree> = null;
 		var currentToken:Null<TokenTree> = null;
@@ -199,23 +199,32 @@ class Indenter {
 					if (prevToken.index == currentToken.index) {
 						continue;
 					}
-					if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
-						var elseTok:Null<TokenTree> = prevToken.access().firstOf(Kwd(KwdElse)).token;
-						if (elseTok != null) {
-							if (parsedCode.tokenList.isSameLineBetween(prevToken, elseTok, false)) {
-								continue;
+					switch (currentToken.tok) {
+						case Binop(OpAssign):
+							if (indentComplexValueExpressions) {
+								mustIndent = true;
 							}
-							mustIndent = true;
-						}
-						var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
-						if (brOpen != null) {
-							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
-							switch (type) {
-								case BLOCK:
-									continue;
-								default:
+						default:
+							if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
+								var elseTok:Null<TokenTree> = prevToken.access().firstOf(Kwd(KwdElse)).token;
+								if (elseTok != null) {
+									if (parsedCode.tokenList.isSameLineBetween(prevToken, elseTok, false)) {
+										continue;
+									}
+									if (indentComplexValueExpressions) {
+										mustIndent = true;
+									}
+								}
+								var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
+								if (brOpen != null) {
+									var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
+									switch (type) {
+										case BLOCK:
+											continue;
+										default:
+									}
+								}
 							}
-						}
 					}
 
 				case Kwd(KwdElse):
@@ -230,6 +239,10 @@ class Indenter {
 					}
 				case Kwd(KwdSwitch):
 					switch (currentToken.tok) {
+						case Binop(op):
+							if (indentComplexValueExpressions) {
+								mustIndent = true;
+							}
 						case POpen:
 							var type:POpenType = TokenTreeCheckUtils.getPOpenType(currentToken);
 							switch (type) {
@@ -342,6 +355,27 @@ class Indenter {
 		return count;
 	}
 
+	function isFieldLevelVar(indentingTokensCandidates:Array<TokenTree>):Bool {
+		var tokens:Array<TokenTree> = indentingTokensCandidates.copy();
+		tokens.reverse();
+		for (token in tokens) {
+			switch (token.tok) {
+				case Kwd(KwdFunction):
+					return false;
+				case Kwd(KwdVar):
+					return true;
+				case Const(CIdent(MarkEmptyLines.FINAL)):
+				#if (haxe_ver >= 4.0)
+				case Kwd(KwdFinal):
+				#end
+				case Binop(OpAssign):
+					return true;
+				default:
+			}
+		}
+		return false;
+	}
+
 	function calcFromCandidates(token:TokenTree):Int {
 		var indentingTokensCandidates:Array<TokenTree> = findIndentingCandidates(token);
 		#if debugIndent
@@ -350,7 +384,16 @@ class Indenter {
 		if (indentingTokensCandidates.length <= 0) {
 			return 0;
 		}
-		var count:Int = countLineBreaks(indentingTokensCandidates);
+
+		var indentComplexValueExpressions:Bool = config.indentComplexValueExpressions;
+		if (isFieldLevelVar(indentingTokensCandidates)) {
+			indentComplexValueExpressions = true;
+		}
+		if (indentComplexValueExpressions) {
+			indentingTokensCandidates = compressElseIfCandidates(indentingTokensCandidates);
+		}
+
+		var count:Int = countLineBreaks(indentingTokensCandidates, indentComplexValueExpressions);
 		if (hasConditional(indentingTokensCandidates)) {
 			switch (config.conditionalPolicy) {
 				case AlignedDecrease:
@@ -407,7 +450,10 @@ class Indenter {
 				}
 			}
 		}
+		return indentingTokensCandidates;
+	}
 
+	function compressElseIfCandidates(indentingTokensCandidates:Array<TokenTree>):Array<TokenTree> {
 		var compressedCandidates:Array<TokenTree> = [];
 		var state:IndentationCompressElseIf = Copy;
 		for (token in indentingTokensCandidates) {

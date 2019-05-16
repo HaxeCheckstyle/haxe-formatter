@@ -40,21 +40,21 @@ class Main {
 class Main {
 	function loop(min, max) {
 		return if (mid == min)
-				{line: mid, pos: pos - start + 1};
-			else if (start > pos)
-				loop(min, mid);
+			{line: mid, pos: pos - start + 1};
+		else if (start > pos)
+			loop(min, mid);
 
 		return if (mid == min)
-				{line: mid, pos: pos - start + 1};
-			else
-				loop(min, mid);
+			{line: mid, pos: pos - start + 1};
+		else
+			loop(min, mid);
 
 		return if (mid == min)
-				{line: mid, pos: pos - start + 1};
-			else if (start > pos)
-				loop(min, mid);
-			else
-				loop(mid, max);
+			{line: mid, pos: pos - start + 1};
+		else if (start > pos)
+			loop(min, mid);
+		else
+			loop(mid, max);
 
 		return if (mid == min) {
 			{line: mid, pos: pos - start + 1};
