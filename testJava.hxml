@@ -8,7 +8,6 @@
 -lib hxargs
 -lib mcover
 -lib munit
--lib compiletime
 # -lib safety
 -lib test-adapter
 
@@ -17,6 +16,7 @@
 # -D detailed_coverage
 # -D debugWrapping
 -D unittest
+-D jvm
 -java out
 -main TestMain
 

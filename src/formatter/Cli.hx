@@ -67,9 +67,8 @@ class Cli {
 		]);
 
 		function printHelp() {
-			// somehow picks up haxelib.json of hxargs?! - so we use a little trick to make it find ours
-			var pack = CompileTime.parseJsonFile("src/formatter/../../haxelib.json");
-			Sys.println('Haxe Formatter ${pack.version}');
+			var version:String = FormatterVersion.getFormatterVersion();
+			Sys.println('Haxe Formatter ${version}');
 			Sys.println(argHandler.getDoc());
 		}
 

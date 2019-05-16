@@ -6,7 +6,6 @@ module.exports = function(grunt) {
                 command: "haxelib install haxeparser && " +
 					"haxelib install hxparse && " +
 					"haxelib install hxargs && " +
-					"haxelib install compiletime && " +
 					"haxelib install mcover && " +
 					"haxelib install munit && " +
 					"haxelib install tokentree && " +
