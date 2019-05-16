@@ -58,6 +58,8 @@ class CodeLine {
 				if (lineLength + part.firstLineLength > config.maxLineLength) {
 					return wrappedAt(index, config, parsedCode, indenter);
 				}
+				lineLength = part.lastLineLength;
+				continue;
 			}
 			lineLength += part.text.length;
 			if (lineLength > config.maxLineLength) {

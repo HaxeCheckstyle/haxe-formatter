@@ -29,6 +29,7 @@
 - Fixed whitespace between IntInterval and POpen ([#462](https://github.com/HaxeCheckstyle/haxe-formatter/issues/462))
 - Fixed incorrect function header wrapping, fixes [#439](https://github.com/HaxeCheckstyle/haxe-formatter/issues/439) ([#463](https://github.com/HaxeCheckstyle/haxe-formatter/issues/463))
 - Fixed incorrect wrapping of multiline strings, fixes [#438](https://github.com/HaxeCheckstyle/haxe-formatter/issues/438) ([#463](https://github.com/HaxeCheckstyle/haxe-formatter/issues/463))
+- Fixed indentation of if in value place, fixes [#464](https://github.com/HaxeCheckstyle/haxe-formatter/issues/464) [#465](https://github.com/HaxeCheckstyle/haxe-formatter/issues/465)
 - Changed default value for `excludes` to include `node_modules` ([#420](https://github.com/HaxeCheckstyle/haxe-formatter/issues/420))
 - Changed debug code to produce less unneccessary code in non debug mode ([#417](https://github.com/HaxeCheckstyle/haxe-formatter/issues/417))
 - Refactored wrapping to use an ordered list ([#436](https://github.com/HaxeCheckstyle/haxe-formatter/issues/436))

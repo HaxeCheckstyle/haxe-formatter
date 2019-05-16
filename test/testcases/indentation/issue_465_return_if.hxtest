@@ -1,0 +1,26 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		return if (client != null) {
+			client.sendRequest(method, params);
+		} else {
+			Promise.reject("client not initialized");
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return if (client != null) {
+			client.sendRequest(method, params);
+		} else {
+			Promise.reject("client not initialized");
+		}
+	}
+}
