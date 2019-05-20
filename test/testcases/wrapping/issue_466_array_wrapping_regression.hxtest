@@ -1,0 +1,36 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		return makeTimer("vshaxe", totalTime, [
+			makeTimer("display call", displayCallTime),
+			makeTimer("transmission", transmissionTime),
+			makeTimer("parsing", parsingTime),
+			makeTimer("processing", processingTime)
+		]);
+		other = Type.createInstance(classType, [
+			otherName,
+			new XFLSymbolArguments(xfl, symbolItem.linkageClassName, symbolItem.timeline, symbolItem.parametersAreLocked)
+		]);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return makeTimer("vshaxe", totalTime, [
+			makeTimer("display call", displayCallTime),
+			makeTimer("transmission", transmissionTime),
+			makeTimer("parsing", parsingTime),
+			makeTimer("processing", processingTime)
+		]);
+		other = Type.createInstance(classType, [
+			otherName,
+			new XFLSymbolArguments(xfl, symbolItem.linkageClassName, symbolItem.timeline, symbolItem.parametersAreLocked)
+		]);
+	}
+}

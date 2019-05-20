@@ -298,14 +298,14 @@ class MarkWrapping extends MarkWrappingBase {
 				return;
 			}
 		}
-		queueWrapping({
+		applyWrappingPlace({
 			start: token,
 			end: bkClose,
 			items: itemsWithoutMetadata,
 			rules: config.wrapping.arrayWrap,
 			useTrailing: true,
 			overrideAdditionalIndent: null
-		}, "wrapCallParameter");
+		});
 	}
 
 	function tryMatrixWrap(open:TokenTree, close:TokenTree, items:Array<WrappableItem>):Bool {

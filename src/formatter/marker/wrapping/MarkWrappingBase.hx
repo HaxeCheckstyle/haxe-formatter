@@ -793,13 +793,17 @@ class MarkWrappingBase extends MarkerBase {
 
 	public function applyWrappingQueue() {
 		for (place in wrappingQueue) {
-			var rule:WrapRule = determineWrapType2(place.rules, place.start, place.items);
-			var additionalIndent:Int = rule.additionalIndent;
-			if (place.overrideAdditionalIndent != null) {
-				additionalIndent = place.overrideAdditionalIndent;
-			}
-			applyRule(rule, place.start, place.end, place.items, additionalIndent, place.useTrailing);
+			applyWrappingPlace(place);
 		}
+	}
+
+	public function applyWrappingPlace(place:WrappingPlace) {
+		var rule:WrapRule = determineWrapType2(place.rules, place.start, place.items);
+		var additionalIndent:Int = rule.additionalIndent;
+		if (place.overrideAdditionalIndent != null) {
+			additionalIndent = place.overrideAdditionalIndent;
+		}
+		applyRule(rule, place.start, place.end, place.items, additionalIndent, place.useTrailing);
 	}
 
 	function queueWrapping(place:WrappingPlace, name:String) {
