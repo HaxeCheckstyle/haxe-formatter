@@ -2,8 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
-- Fixed indentation of nested object literals
-- Fixed array wrapping in call parameters, fixes [#466](https://github.com/HaxeCheckstyle/haxe-formatter/issues/466)
+- Fixed indentation of nested object literals ([#479](https://github.com/HaxeCheckstyle/haxe-formatter/issues/479))
+- Fixed array wrapping in call parameters, fixes [#466](https://github.com/HaxeCheckstyle/haxe-formatter/issues/466) ([#479](https://github.com/HaxeCheckstyle/haxe-formatter/issues/479))
 
 ## version 1.7.0 (2019-05-17)
 
