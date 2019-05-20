@@ -1,0 +1,48 @@
+{
+	"wrapping": {
+		"arrayWrap": {
+			"defaultWrap": "noWrap",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	public function main(){
+		return [{
+			fixed: [],
+			properties: [{
+				propertyName: "spaceIfCondition",
+				values: [SHOULD, SHOULD_NOT, ANY]
+			}, {
+					propertyName: "spaceForLoop",
+					values: [SHOULD, SHOULD_NOT, ANY]
+				}, {
+					propertyName: "spaceWhileLoop",
+					values: [SHOULD, SHOULD_NOT, ANY]
+				}]
+		}];
+	}
+}
+
+---
+
+class Main {
+	public function main() {
+		return [{
+			fixed: [],
+			properties: [{
+				propertyName: "spaceIfCondition",
+				values: [SHOULD, SHOULD_NOT, ANY]
+			}, {
+				propertyName: "spaceForLoop",
+				values: [SHOULD, SHOULD_NOT, ANY]
+			}, {
+				propertyName: "spaceWhileLoop",
+				values: [SHOULD, SHOULD_NOT, ANY]
+			}]
+		}];
+	}
+}
