@@ -1,0 +1,27 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		#if target.sys
+		trace("Test");
+		#end
+		#if marco.sys
+		trace("Test");
+		#end
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		#if target.sys
+		trace("Test");
+		#end
+		#if marco.sys
+		trace("Test");
+		#end
+	}
+}
