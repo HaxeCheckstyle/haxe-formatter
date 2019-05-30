@@ -10,6 +10,8 @@ class Main {
 		#if marco.sys
 		trace("Test");
 		#end
+
+		return foo #if target .sys #end;
 	}
 }
 
@@ -23,5 +25,7 @@ class Main {
 		#if marco.sys
 		trace("Test");
 		#end
+
+		return foo #if target .sys #end;
 	}
 }
