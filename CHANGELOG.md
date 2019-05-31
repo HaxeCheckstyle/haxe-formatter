@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.7.1 (2019-06-01)
+
 - Fixed indentation of nested object literals ([#479](https://github.com/HaxeCheckstyle/haxe-formatter/issues/479))
 - Fixed array wrapping in call parameters, fixes [#466](https://github.com/HaxeCheckstyle/haxe-formatter/issues/466) ([#479](https://github.com/HaxeCheckstyle/haxe-formatter/issues/479))
 - Fixed conditional using dot ident without parens, fixes [#480](https://github.com/HaxeCheckstyle/haxe-formatter/issues/480) ([#481](https://github.com/HaxeCheckstyle/haxe-formatter/issues/481))
