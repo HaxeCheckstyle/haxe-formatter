@@ -16,6 +16,7 @@ typedef TextDocument = {
 typedef TextDocument = {
 	@:overload(function(position:Position):TextLine {})
 	function lineAt(line:Int):TextLine;
+
 	@:overload(function(position:Position):TextLine {})
 	@:overload(function(position:Pos):TextLine {})
 	function lineAt(line:Int):TextLine;

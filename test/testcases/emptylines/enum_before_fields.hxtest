@@ -5,7 +5,8 @@
 		"enumEmptyLines": {
 			"beginType": 1,
 			"endType": 1,
-			"betweenFields": 1
+			"betweenFields": 1,
+			"existingBetweenFields": "remove"
 		}
 	}
 }

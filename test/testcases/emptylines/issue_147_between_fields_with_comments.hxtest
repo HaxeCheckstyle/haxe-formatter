@@ -1,6 +1,9 @@
 {
 	"emptyLines": {
-		"afterFieldsWithDocComments": "ignore"
+		"afterFieldsWithDocComments": "ignore",
+		"externClassEmptyLines": {
+			"existingBetweenFields": "remove"
+		}
 	}
 }
 

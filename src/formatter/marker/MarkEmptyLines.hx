@@ -389,6 +389,12 @@ class MarkEmptyLines extends MarkerBase {
 		if (prevToken == null) {
 			return;
 		}
+		if (conf.existingBetweenFields == Keep) {
+			if (hasEmptyLinesBetweenFields(prevToken, currToken)) {
+				emptyLinesAfterSubTree(prevToken, 1);
+				return;
+			}
+		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
 			emptyLinesAfterSubTree(prevToken, conf.afterVars);
@@ -427,6 +433,25 @@ class MarkEmptyLines extends MarkerBase {
 			emptyLinesAfterSubTree(prevToken, conf.betweenFunctions);
 			return;
 		}
+	}
+
+	function hasEmptyLinesBetweenFields(prevToken:TokenTree, currToken:TokenTree):Bool {
+		var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(prevToken);
+		if (lastToken == null) {
+			return false;
+		}
+		var prevLine:Int = parsedCode.getLinePos(lastToken.pos.max).line;
+		var currLine:Int = parsedCode.getLinePos(currToken.pos.min).line;
+		for (emptyLine in parsedCode.emptyLines) {
+			if (prevLine >= emptyLine) {
+				continue;
+			}
+			if (currLine > emptyLine) {
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 
 	function markLineCommentsBefore(token:TokenTree, policy:LineCommentEmptyLinePolicy) {
@@ -538,6 +563,12 @@ class MarkEmptyLines extends MarkerBase {
 		prevToken = skipSharpFields(prevToken);
 		if (prevToken == null) {
 			return;
+		}
+		if (conf.existingBetweenFields == Keep) {
+			if (hasEmptyLinesBetweenFields(prevToken, currToken)) {
+				emptyLinesAfterSubTree(prevToken, 1);
+				return;
+			}
 		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
@@ -657,6 +688,12 @@ class MarkEmptyLines extends MarkerBase {
 			if (prevToken == null) {
 				prevToken = child;
 				continue;
+			}
+			if (config.existingBetweenFields == Keep) {
+				if (hasEmptyLinesBetweenFields(prevToken, child)) {
+					emptyLinesAfterSubTree(prevToken, 1);
+					return;
+				}
 			}
 			emptyLinesAfterSubTree(prevToken, config.betweenFields);
 			prevToken = child;

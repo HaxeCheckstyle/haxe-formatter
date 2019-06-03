@@ -127,6 +127,7 @@ typedef ClassFieldsEmptyLinesConfig = {
 	@:default(1) @:optional var betweenStaticFunctions:Int;
 	@:default(1) @:optional var afterPrivateFunctions:Int;
 	@:default(1) @:optional var betweenFunctions:Int;
+	@:default(Keep) @:optional var existingBetweenFields:KeepEmptyLinesPolicy;
 }
 
 typedef EnumAbstractFieldsEmptyLinesConfig = {
@@ -143,6 +144,7 @@ typedef EnumAbstractFieldsEmptyLinesConfig = {
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(1) @:optional var afterVars:Int;
 	@:default(1) @:optional var betweenFunctions:Int;
+	@:default(Keep) @:optional var existingBetweenFields:KeepEmptyLinesPolicy;
 }
 
 typedef InterfaceFieldsEmptyLinesConfig = {
@@ -159,6 +161,7 @@ typedef InterfaceFieldsEmptyLinesConfig = {
 	@:default(0) @:optional var betweenVars:Int;
 	@:default(0) @:optional var afterVars:Int;
 	@:default(0) @:optional var betweenFunctions:Int;
+	@:default(Keep) @:optional var existingBetweenFields:KeepEmptyLinesPolicy;
 }
 
 typedef TypedefFieldsEmptyLinesConfig = {
@@ -173,6 +176,7 @@ typedef TypedefFieldsEmptyLinesConfig = {
 	@:default(0) @:optional var endType:Int;
 
 	@:default(0) @:optional var betweenFields:Int;
+	@:default(Keep) @:optional var existingBetweenFields:KeepEmptyLinesPolicy;
 }
 
 @:enum

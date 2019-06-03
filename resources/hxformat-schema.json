@@ -168,6 +168,10 @@
 					"type": "integer",
 					"default": 0
 				},
+				"existingBetweenFields": {
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy",
+					"default": "keep"
+				},
 				"endType": {
 					"description": "add empty lines before closing \"}\" of type",
 					"type": "integer",
@@ -436,6 +440,10 @@
 				"afterPrivateFunctions": {
 					"type": "integer",
 					"default": 1
+				},
+				"existingBetweenFields": {
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy",
+					"default": "keep"
 				},
 				"endType": {
 					"description": "add empty lines before closing \"}\" of type",
@@ -916,6 +924,10 @@
 					"type": "integer",
 					"default": 1
 				},
+				"existingBetweenFields": {
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy",
+					"default": "keep"
+				},
 				"endType": {
 					"description": "add empty lines before closing \"}\" of type",
 					"type": "integer",
@@ -1135,6 +1147,10 @@
 				"betweenFields": {
 					"type": "integer",
 					"default": 0
+				},
+				"existingBetweenFields": {
+					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy",
+					"default": "keep"
 				},
 				"endType": {
 					"description": "add empty lines before closing \"}\" of type",
