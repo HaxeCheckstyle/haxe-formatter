@@ -5,7 +5,8 @@
         "elseBody": "same",
         "elseIf": "same",
         "expressionIf": "keep",
-        "returnBody": "next"
+        "returnBody": "next",
+		"returnBodySingleLine": "next"
     }
 }
 

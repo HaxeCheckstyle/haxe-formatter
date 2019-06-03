@@ -6,7 +6,8 @@
 		"indentObjectLiteral": true
 	},
 	"sameLine": {
-		"returnBody": "keep"
+		"returnBody": "keep",
+		"returnBodySingleLine": "keep"
 	}
 }
 
