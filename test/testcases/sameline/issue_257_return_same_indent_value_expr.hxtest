@@ -9,7 +9,7 @@
         "elseIf": "same",
         "expressionIf": "keep",
         "returnBody": "same",
-		"returnBodysingleLine": "same"
+		"returnBodySingleLine": "same"
     }
 }
 
