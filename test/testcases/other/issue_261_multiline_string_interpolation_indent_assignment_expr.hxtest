@@ -229,6 +229,7 @@ class Chat implements plumbum.Scope implements IChat {
 			var privateShow(default, never):InputPolicy;
 		}
 	};
+
 	var model:ChatModel = new ChatModel(tink.Anon.merge(storage, dependencies, restrictInput = restrictInput, allSmileys = smileys));
 
 	function restrictInput(input:String) {
@@ -289,6 +290,7 @@ class Chat implements plumbum.Scope implements IChat {
 			</smileyTooltip>
 		</ChatView>
 	');
+
 	public var currentInput:Observable<String> = model.observables.currentInput;
 	public var hasFocus:Observable<Bool> = model.observables.hasFocus;
 	public var effectiveHeight:Observable<Float> = Observable.auto(function() return if (model.collapsed || view.hidden) 0 else model.height);

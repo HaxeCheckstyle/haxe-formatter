@@ -12,7 +12,8 @@
 			"betweenStaticFunctions": 1,
 			"betweenStaticVars": 0,
 			"betweenVars": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"afterBlocks": "remove",
 		"afterFieldsWithDocComments": "one",
@@ -38,7 +39,8 @@
 			"betweenStaticFunctions": 1,
 			"betweenStaticVars": 0,
 			"betweenVars": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"conditionalsEmptyLines": {
 			"afterElse": 0,
@@ -53,19 +55,22 @@
 			"beginType": 0,
 			"betweenFunctions": 1,
 			"betweenVars": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"enumEmptyLines": {
 			"beginType": 0,
 			"betweenFields": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"externClassEmptyLines": {
 			"afterVars": 0,
 			"beginType": 0,
 			"betweenFunctions": 0,
 			"betweenVars": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"finalNewline": true,
 		"importAndUsing": {
@@ -79,7 +84,8 @@
 			"beginType": 0,
 			"betweenFunctions": 0,
 			"betweenVars": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"lineCommentsBetweenFunctions": "keep",
 		"lineCommentsBetweenTypes": "keep",
@@ -94,13 +100,15 @@
 			"betweenStaticFunctions": 1,
 			"betweenStaticVars": 0,
 			"betweenVars": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		},
 		"maxAnywhereInFile": 1,
 		"typedefEmptyLines": {
 			"beginType": 0,
 			"betweenFields": 0,
-			"endType": 0
+			"endType": 0,
+			"existingBetweenFields": "keep"
 		}
 	},
 	"excludes": [

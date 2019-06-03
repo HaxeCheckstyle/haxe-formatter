@@ -1,7 +1,10 @@
 {
 	"emptyLines": {
 		"beforeDocCommentEmptyLines": "ignore",
-		"afterFieldsWithDocComments": "ignore"
+		"afterFieldsWithDocComments": "ignore",
+		"classEmptyLines": {
+			"existingBetweenFields": "remove"
+		}
 	}
 }
 

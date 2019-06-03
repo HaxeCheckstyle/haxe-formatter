@@ -1,0 +1,71 @@
+{
+	"emptyLines": {
+		"classEmptyLines": {
+			"betweenFunctions": 0,
+			"existingBetweenFields": "remove"
+		},
+		"interfaceEmptyLines": {
+			"existingBetweenFields": "remove"
+		}
+	}
+}
+
+---
+
+class Main {
+	var foo:Int;
+	var foo:Int;
+
+	var foo:Int;
+	static var foo:Int;
+	static var foo:Int;
+
+	static var foo:Int;
+	function main (){}
+	function main (){}
+
+	function main (){}
+}
+
+interface Main {
+	var foo:Int;
+	var foo:Int;
+
+	var foo:Int;
+	static var foo:Int;
+	static var foo:Int;
+
+	static var foo:Int;
+	function main ();
+	function main ();
+
+	function main ();
+}
+
+---
+
+class Main {
+	var foo:Int;
+	var foo:Int;
+	var foo:Int;
+
+	static var foo:Int;
+	static var foo:Int;
+	static var foo:Int;
+
+	function main() {}
+	function main() {}
+	function main() {}
+}
+
+interface Main {
+	var foo:Int;
+	var foo:Int;
+	var foo:Int;
+	static var foo:Int;
+	static var foo:Int;
+	static var foo:Int;
+	function main();
+	function main();
+	function main();
+}

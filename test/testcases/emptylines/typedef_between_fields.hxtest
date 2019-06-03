@@ -3,7 +3,8 @@
 		"afterLeftCurly": "keep",
 		"typedefEmptyLines": {
 			"beginType": 1,
-			"betweenFields": 1
+			"betweenFields": 1,
+			"existingBetweenFields": "remove"
 		}
 	}
 }
