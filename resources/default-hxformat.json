@@ -149,6 +149,7 @@
 		"ifBody": "next",
 		"ifElse": "same",
 		"returnBody": "same",
+		"returnBodySingleLine": "same",
 		"tryBody": "next",
 		"tryCatch": "same",
 		"whileBody": "next"

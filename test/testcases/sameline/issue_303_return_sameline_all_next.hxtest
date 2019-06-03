@@ -1,0 +1,70 @@
+{
+	"sameLine": {
+		"returnBody": "next",
+		"returnBodySingleLine": "next"
+	}
+}
+
+---
+
+class Main {
+	function a() {
+		return 10;
+		return null;
+		return this;
+		return untyped;
+		return x < 0 ? "negative" : "non-negative";
+		return [for (c in childs) c.val];
+	}
+	function b() {
+		return
+			if (x < 0) "negative";
+			else "non-negative";
+		return
+			switch y {
+				case "negative": -1;
+				case "non-negative": 1;
+			}
+		return {
+			switch y {
+				case "negative": -1;
+				case "non-negative": 1;
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	function a() {
+		return
+			10;
+		return
+			null;
+		return
+			this;
+		return
+			untyped;
+		return
+			x < 0 ? "negative" : "non-negative";
+		return
+			[for (c in childs) c.val];
+	}
+
+	function b() {
+		return
+			if (x < 0) "negative"; else "non-negative";
+		return
+			switch y {
+				case "negative": -1;
+				case "non-negative": 1;
+			}
+		return {
+			switch y {
+				case "negative": -1;
+				case "non-negative": 1;
+			}
+		}
+	}
+}
