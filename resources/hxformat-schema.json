@@ -656,6 +656,11 @@
 					"$ref": "#/definitions/formatter.config.SameLinePolicy",
 					"default": "same"
 				},
+				"returnBodySingleLine": {
+					"description": "same line policy for single line expression return values * same = place return and body on same line * next = place body on next line * keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy",
+					"default": "same"
+				},
 				"ifElse": {
 					"description": "same line policy for \"else\" part of \"if…else\" * same = place else and body on same line * next = place body on next line * keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy",
@@ -724,7 +729,7 @@
 					"default": "next"
 				},
 				"returnBody": {
-					"description": "same line policy for return values * same = place return and body on same line * next = place body on next line * keep = keep same / next line from source",
+					"description": "same line policy for multiline expression return values * same = place return and body on same line * next = place body on next line * keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy",
 					"default": "same"
 				},

@@ -699,6 +699,39 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markReturn(token:TokenTree) {
-		markBody(token, config.sameLine.returnBody, false);
+		if (shouldReturnBeSameLine(token)) {
+			markBody(token, config.sameLine.returnBodySingleLine, false);
+		} else {
+			markBody(token, config.sameLine.returnBody, false);
+		}
+	}
+
+	function shouldReturnBeSameLine(token:TokenTree):Bool {
+		var lastToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
+		if (lastToken == null) {
+			return true;
+		}
+		if (isSameLineBetween(token, lastToken, false)) {
+			return true;
+		}
+		return shouldReturnChildsBeSameLine(token);
+	}
+
+	function shouldReturnChildsBeSameLine(token:TokenTree):Bool {
+		if (token.children == null) {
+			return true;
+		}
+		for (child in token.children) {
+			switch (child.tok) {
+				case Kwd(KwdIf), Kwd(KwdSwitch), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdTry):
+					return false;
+				default:
+					var result:Bool = shouldReturnChildsBeSameLine(child);
+					if (!result) {
+						return false;
+					}
+			}
+		}
+		return true;
 	}
 }

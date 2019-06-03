@@ -2,7 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added `sameLine.returnBodySingleLine`, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303)
 - Fixed same line handling of if-else with try catch body, fixes [#360](https://github.com/HaxeCheckstyle/haxe-formatter/issues/360)
+- Changed `sameLine.returnBody` to only apply to multiline or loop/switch/try/if expressions, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303)
 
 ## version 1.7.1 (2019-06-01)
 

@@ -126,12 +126,20 @@ typedef SameLineConfig = {
 	@:default(Same) @:optional var anonFunctionBody:SameLinePolicy;
 
 	/**
-		same line policy for return values
+		same line policy for multiline expression return values
 		* same = place return and body on same line
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
 	@:default(Same) @:optional var returnBody:SameLinePolicy;
+
+	/**
+		same line policy for single line expression return values
+		* same = place return and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
+	@:default(Same) @:optional var returnBodySingleLine:SameLinePolicy;
 }
 
 @:enum
