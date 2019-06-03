@@ -1,0 +1,79 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		if (ver[0] > 3 || (ver[0] == 3 && ver[1] >= 3)) // >= 3.3
+			try {
+				p.terminate();
+			} catch (e:python.Exceptions.ProcessLookupError) {
+				// it has already terminated
+			}
+		else
+			try {
+				p.terminate();
+			} catch (e:python.Exceptions.OSError) {
+				// it has already terminated
+			}
+
+		if (ver[0] > 3 || (ver[0] == 3 && ver[1] >= 3)) // >= 3.3
+			try
+				p.terminate();
+			catch (e:python.Exceptions.OSError)
+				trace(e);
+		else
+			try
+				p.terminate();
+			catch (e:python.Exceptions.OSError)
+				trace(e);
+
+		if (ver[0] > 3 || (ver[0] == 3 && ver[1] >= 3)) // >= 3.3
+			while (false) {
+				p.terminate();
+			}
+		else
+			while (true) {
+				p.terminate();
+			}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		if (ver[0] > 3 || (ver[0] == 3 && ver[1] >= 3)) // >= 3.3
+			try {
+				p.terminate();
+			} catch (e:python.Exceptions.ProcessLookupError) {
+				// it has already terminated
+			}
+		else
+			try {
+				p.terminate();
+			} catch (e:python.Exceptions.OSError) {
+				// it has already terminated
+			}
+
+		if (ver[0] > 3 || (ver[0] == 3 && ver[1] >= 3)) // >= 3.3
+			try
+				p.terminate();
+			catch (e:python.Exceptions.OSError)
+				trace(e);
+		else
+			try
+				p.terminate();
+			catch (e:python.Exceptions.OSError)
+				trace(e);
+
+		if (ver[0] > 3 || (ver[0] == 3 && ver[1] >= 3)) // >= 3.3
+			while (false) {
+				p.terminate();
+			}
+		else
+			while (true) {
+				p.terminate();
+			}
+	}
+}

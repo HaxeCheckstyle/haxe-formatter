@@ -215,7 +215,23 @@ class MarkSameLine extends MarkerBase {
 		}
 
 		markBody(token, config.sameLine.elseBody, false);
-		applySameLinePolicyChained(token, config.sameLine.ifBody, config.sameLine.ifElse);
+		var policy:SameLinePolicy = config.sameLine.ifElse;
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case BrClose:
+					if (!prev.token.access().parent().is(BrOpen).parent().is(Kwd(KwdIf)).exists()) {
+						switch (policy) {
+							case Same:
+								policy = Next;
+							case Next:
+							case Keep:
+						}
+					}
+				default:
+			}
+		}
+		applySameLinePolicyChained(token, config.sameLine.ifBody, policy);
 	}
 
 	function markTry(token:TokenTree) {
