@@ -1,0 +1,13 @@
+{}
+
+---
+
+class Foo {
+	function toObjectVector<T:{}>() {}
+}
+
+---
+
+class Foo {
+	function toObjectVector<T:{}>() {}
+}
