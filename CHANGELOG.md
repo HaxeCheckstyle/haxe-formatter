@@ -5,7 +5,7 @@
 - Added `sameLine.returnBodySingleLine`, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 - Added `emptyLines.*.existingBetweenFields`, fixes [#455](https://github.com/HaxeCheckstyle/haxe-formatter/issues/455) ([#484](https://github.com/HaxeCheckstyle/haxe-formatter/issues/484))
 - Fixed same line handling of if-else with try catch body, fixes [#360](https://github.com/HaxeCheckstyle/haxe-formatter/issues/360) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
-- Fixed line end handling of structure type as type parameter, fixes [#475](https://github.com/HaxeCheckstyle/haxe-formatter/issues/475)
+- Fixed line end handling of structure type as type parameter, fixes [#475](https://github.com/HaxeCheckstyle/haxe-formatter/issues/475) ([#486](https://github.com/HaxeCheckstyle/haxe-formatter/issues/486))
 - Changed `sameLine.returnBody` to only apply to multiline or loop/switch/try/if expressions, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 
 ## version 1.7.1 (2019-06-01)
