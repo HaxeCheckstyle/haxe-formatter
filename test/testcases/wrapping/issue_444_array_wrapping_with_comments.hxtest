@@ -17,7 +17,9 @@ class Main {
 
 class Main {
 	static function main() {
-		actualArgs = actualArgs.concat(["-D", "display-details", // get more details in completion results,
+		actualArgs = actualArgs.concat([
+			"-D",
+			"display-details", // get more details in completion results,
 			"--no-output" // prevent any generation
 		]);
 	}

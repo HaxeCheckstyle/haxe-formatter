@@ -698,41 +698,36 @@ class TokenList {
 		if ((token == null) || (token.index < 0)) {
 			return 0;
 		}
-		var current:Null<TokenInfo> = tokens[token.index];
-		if (current == null) {
-			return 0;
+		var endIndex:Int = tokens.length - 1;
+		if (stop != null) {
+			endIndex = stop.index;
 		}
-		if (current.text == null) {
-			current.text = '${current.token}';
-		}
-		if (current.text.indexOf("\r") >= 0) {
-			return current.text.indexOf("\r");
-		}
-		if (current.text.indexOf("\n") >= 0) {
-			return current.text.indexOf("\n");
-		}
-		var spaceAdd:Int = 0;
-		if (current.whitespaceAfter == Space) {
-			spaceAdd = 1;
-		}
-		var length:Int = current.text.length + spaceAdd;
-		if ((token.children == null) || (token.children.length <= 0)) {
-			return length;
-		}
-		if (current.whitespaceAfter == Newline) {
-			return length;
-		}
-		for (child in token.children) {
-			if (stop != null) {
-				if (child.index > stop.index) {
-					break;
-				}
+		var index:Int = token.index;
+		var length:Int = 0;
+		while (index <= endIndex) {
+			var current:Null<TokenInfo> = tokens[index++];
+			if (current == null) {
+				continue;
 			}
-			var current:Null<TokenInfo> = tokens[child.index];
-			if ((current != null) && (current.whitespaceAfter == Newline)) {
+			if (current.text == null) {
+				current.text = '${current.token}';
+			}
+			if (current.text.indexOf("\r") >= 0) {
+				length += current.text.indexOf("\r");
 				break;
 			}
-			length += calcLengthUntilNewline(child, stop);
+			if (current.text.indexOf("\n") >= 0) {
+				length += current.text.indexOf("\n");
+				break;
+			}
+			length += current.spacesBefore;
+			if (current.whitespaceAfter == Space) {
+				length += current.spacesAfter;
+			}
+			length += current.text.length;
+			if (current.whitespaceAfter == Newline) {
+				break;
+			}
 		}
 		return length;
 	}
@@ -911,6 +906,9 @@ class TokenList {
 			}
 			if (info.whitespaceAfter == Newline) {
 				return false;
+			}
+			if (info.text == null) {
+				continue;
 			}
 			if ((info.text.indexOf("\r") >= 0) || (info.text.indexOf("\n") >= 0)) {
 				return false;

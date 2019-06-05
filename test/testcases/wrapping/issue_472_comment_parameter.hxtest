@@ -1,0 +1,16 @@
+{
+}
+
+---
+
+extern class Foo {
+	public function new(thickness:Float = 0 /*NaN*/, pixelHinting:Bool = false, ?scaleMode:LineScaleMode, ?caps:CapsStyle, ?joints:JointStyle,
+		miterLimit:Float = 3, fill:IGraphicsFill = null);
+}
+
+---
+
+extern class Foo {
+	public function new(thickness:Float = 0 /*NaN*/, pixelHinting:Bool = false, ?scaleMode:LineScaleMode, ?caps:CapsStyle, ?joints:JointStyle,
+		miterLimit:Float = 3, fill:IGraphicsFill = null);
+}
