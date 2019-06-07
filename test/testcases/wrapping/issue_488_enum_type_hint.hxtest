@@ -1,0 +1,33 @@
+{
+	"whitespace": {
+		"typeHintColonPolicy": "around"
+	}
+}
+
+---
+
+enum LoadState
+{
+	NotLoaded;
+	Loaded;
+	Loading(progress:Float);
+}
+
+extern class Angular
+{
+	@:overload(function(element:js.html.Element):AngularElement {})
+	public static function element(name:String):AngularElement;
+}
+
+---
+
+enum LoadState {
+	NotLoaded;
+	Loaded;
+	Loading(progress : Float);
+}
+
+extern class Angular {
+	@:overload(function(element : js.html.Element) : AngularElement {})
+	public static function element(name : String) : AngularElement;
+}
