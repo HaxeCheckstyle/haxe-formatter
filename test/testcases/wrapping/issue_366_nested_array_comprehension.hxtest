@@ -1,0 +1,43 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		var grid = [
+			for (x in 0...gridSize.x + 1) [
+				for (y in 0...gridSize.y + 1) {
+					new Point(x, y);
+				}
+			]
+		];
+
+		var grid = [
+			for (x in 0...gridSize.x + 1) [
+				for (y in 0...gridSize.y + 1) new Point(x, y);
+			]
+		];
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var grid = [
+			for (x in 0...gridSize.x + 1) [
+				for (y in 0...gridSize.y + 1) {
+					new Point(x, y);
+				}
+			]
+		];
+
+		var grid = [
+			for (x in 0...gridSize.x + 1) [
+				for (y in 0...gridSize.y + 1)
+					new Point(x, y);
+			]
+		];
+	}
+}

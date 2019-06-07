@@ -1,0 +1,45 @@
+{
+}
+
+---
+
+class Main {
+	function foo() {
+		cmd = [
+			for (a in [StringTools.replace(cmd, "/", "\\")].concat(args))
+				StringTools.quoteWinArg(a, true)
+		].join(" ");
+	}
+}
+
+
+class Main {
+	function foo() {
+		cmd = [
+			for (a in [StringTools.replace(cmd, "/", "\\")].concat(args)) {
+				StringTools.quoteWinArg(a, true)
+			}
+		].join(" ");
+	}
+}
+
+---
+
+class Main {
+	function foo() {
+		cmd = [
+			for (a in [StringTools.replace(cmd, "/", "\\")].concat(args))
+				StringTools.quoteWinArg(a, true)
+		].join(" ");
+	}
+}
+
+class Main {
+	function foo() {
+		cmd = [
+			for (a in [StringTools.replace(cmd, "/", "\\")].concat(args)) {
+				StringTools.quoteWinArg(a, true)
+			}
+		].join(" ");
+	}
+}
