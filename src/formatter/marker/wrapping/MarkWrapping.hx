@@ -283,7 +283,10 @@ class MarkWrapping extends MarkWrappingBase {
 		for (item in items) {
 			switch (item.first.tok) {
 				case Kwd(KwdFor), Kwd(KwdWhile):
-					return;
+					if (config.sameLine.comprehensionFor == Keep) {
+						return;
+					}
+					itemsWithoutMetadata.push(item);
 				case At:
 					if (item.firstLineLength > 30) {
 						lineEndBefore(token);

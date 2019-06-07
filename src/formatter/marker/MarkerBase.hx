@@ -1,7 +1,6 @@
 package formatter.marker;
 
 import haxe.PosInfos;
-import formatter.codedata.CodeLines;
 import formatter.codedata.ParsedCode;
 import formatter.config.Config;
 import formatter.config.WhitespacePolicy;

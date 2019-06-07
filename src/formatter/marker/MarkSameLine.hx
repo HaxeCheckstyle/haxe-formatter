@@ -383,7 +383,6 @@ class MarkSameLine extends MarkerBase {
 					markBodyAfterPOpen(token, config.sameLine.comprehensionFor, false);
 					whitespace(bkClose, NoneBefore);
 				} else {
-					lineEndAfter(bkOpen);
 					markBodyAfterPOpen(token, config.sameLine.forBody, false);
 				}
 			case Next:
@@ -586,6 +585,10 @@ class MarkSameLine extends MarkerBase {
 				switch (token.tok) {
 					case CommentLine(s):
 						if (!parsedCode.isOriginalNewlineBefore(token)) {
+							return;
+						}
+					case BkOpen:
+						if (token.access().parent().is(Kwd(KwdFor)).exists()) {
 							return;
 						}
 					default:
