@@ -5,6 +5,7 @@ import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
 import formatter.Formatter.Result;
+import formatter.config.Config;
 import formatter.config.FormatterConfig;
 
 class Cli {
@@ -15,6 +16,7 @@ class Cli {
 	var verbose:Bool = false;
 	var mode:Mode = Format;
 	var exitCode:Int = 0;
+	var lastConfigFileName:Null<String>;
 
 	function new() {
 		var args = Sys.args();
@@ -195,12 +197,11 @@ class Cli {
 
 	function formatFile(path:String) {
 		if (path.endsWith(".hx")) {
+			var config = Formatter.loadConfig(path);
 			if (verbose) {
-				var action = if (mode == Format) "Formatting" else "Checking";
-				Sys.println('$action $path');
+				verboseLogFile(path, config);
 			}
 			var content:String = File.getContent(path);
-			var config = Formatter.loadConfig(path);
 			var result:Result = Formatter.format(Code(content), config);
 			switch (result) {
 				case Success(formattedCode):
@@ -235,6 +236,20 @@ class Cli {
 					FormatStats.incDisabled();
 			}
 		}
+	}
+
+	function verboseLogFile(path:String, config:Null<Config>) {
+		if (config != null) {
+			if ((lastConfigFileName == null) || (lastConfigFileName != config.configFileName)) {
+				if (lastConfigFileName != null) {
+					Sys.println("");
+				}
+				lastConfigFileName = config.configFileName;
+				Sys.println('Using $lastConfigFileName:');
+			}
+		}
+		var action = if (mode == Format) "Formatting" else "Checking";
+		Sys.println('$action $path');
 	}
 
 	#if nodejs

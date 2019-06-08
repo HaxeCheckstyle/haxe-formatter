@@ -15,6 +15,7 @@ class Config {
 	public var wrapping:WrapConfig;
 	public var disableFormatting:Bool;
 	public var excludes:Array<EReg>;
+	public var configFileName:String;
 
 	public function new() {
 		excludes = [];
@@ -41,6 +42,7 @@ class Config {
 		wrapping = data.wrapping;
 		disableFormatting = data.disableFormatting;
 		excludes = [];
+		configFileName = fileName;
 		for (exclude in data.excludes) {
 			excludes.push(new EReg(exclude, ""));
 		}
