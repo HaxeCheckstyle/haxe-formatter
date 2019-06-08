@@ -10,6 +10,7 @@
 - Fixed line break right before, fixes [#311](https://github.com/HaxeCheckstyle/haxe-formatter/issues/311) ([#456](https://github.com/HaxeCheckstyle/haxe-formatter/issues/456))
 - Fixed wrapping of array comprehension, fixes [#357](https://github.com/HaxeCheckstyle/haxe-formatter/issues/357) + [#366](https://github.com/HaxeCheckstyle/haxe-formatter/issues/366) ([#491](https://github.com/HaxeCheckstyle/haxe-formatter/issues/491))
 - Fixed type hint detection for enums and overload metas, fixes [#488](https://github.com/HaxeCheckstyle/haxe-formatter/issues/488) ([#491](https://github.com/HaxeCheckstyle/haxe-formatter/issues/491))
+- Fixed comments in OpAdd chains and case, fixes [#396](https://github.com/HaxeCheckstyle/haxe-formatter/issues/396) + [#477](https://github.com/HaxeCheckstyle/haxe-formatter/issues/477)
 - Changed `sameLine.returnBody` to only apply to multiline or loop/switch/try/if expressions, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 
 ## version 1.7.1 (2019-06-01)

@@ -1,0 +1,24 @@
+{
+}
+
+---
+
+class Foo {
+	function foo() {
+		switch (GraphicsPathCommand.NO_OP) {
+			case GraphicsPathCommand.NO_OP, GraphicsPathCommand.MOVE_TO, GraphicsPathCommand.LINE_TO /*, GraphicsPathCommand.CUBIC_CURVE_TO*/:
+			default:
+		}
+	}
+}
+
+---
+
+class Foo {
+	function foo() {
+		switch (GraphicsPathCommand.NO_OP) {
+			case GraphicsPathCommand.NO_OP, GraphicsPathCommand.MOVE_TO, GraphicsPathCommand.LINE_TO /*, GraphicsPathCommand.CUBIC_CURVE_TO*/:
+			default:
+		}
+	}
+}
