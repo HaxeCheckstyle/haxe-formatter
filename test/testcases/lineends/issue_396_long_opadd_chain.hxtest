@@ -1,0 +1,53 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	}
+}
+
+---
+
+class WordWrapTest1
+{
+	public override function start():Void
+	{
+		content = new Sprite();
+
+		textField.htmlText = "Here is some UTF-8: " /*+ word1 + " " +
+			word2 + " " + word3 + " " + word4 */
+			+ "angelo <i>Ephesi ecclesiae</i> scribe haec dicit qui tenet septem "
+			+ "<b>stellas</b> in dextera sua qui ambulat in medio septem "
+			+ "candelabrorum aureorum scio <u>opera tua et laborem</u> et "
+			+ "<br>&lt; (less than), &gt; (greater than), &amp; "
+			+ "(ampersand), &quot; (double quote), &apos; (apostrophe), "
+			+ "&lt;&gt;&amp;&quot;&apos; (all)"
+			+ "patientiam <font size=\"+10\">tuam et quia</font> nom potes "
+			+ "<font size=\"-6\" color=\"#123456\">sustinere malos</font> et "
+			+ "temptasti eos qui se dicunt apostolos et non sunt et "
+			+ "invenisti eos mendaces et patientiam habes et sustinuisti "
+			+ "propter nomen meum et non defecisti sed habeo adversus te <p><p>";
+	}
+}
+
+---
+
+class WordWrapTest1
+{
+	public override function start():Void
+	{
+		content = new Sprite();
+
+		textField.htmlText = "Here is some UTF-8: " /*+ word1 + " " +
+			word2 + " " + word3 + " " + word4 */
+			+ "angelo <i>Ephesi ecclesiae</i> scribe haec dicit qui tenet septem "
+			+ "<b>stellas</b> in dextera sua qui ambulat in medio septem "
+			+ "candelabrorum aureorum scio <u>opera tua et laborem</u> et "
+			+ "<br>&lt; (less than), &gt; (greater than), &amp; "
+			+ "(ampersand), &quot; (double quote), &apos; (apostrophe), "
+			+ "&lt;&gt;&amp;&quot;&apos; (all)"
+			+ "patientiam <font size=\"+10\">tuam et quia</font> nom potes "
+			+ "<font size=\"-6\" color=\"#123456\">sustinere malos</font> et "
+			+ "temptasti eos qui se dicunt apostolos et non sunt et "
+			+ "invenisti eos mendaces et patientiam habes et sustinuisti "
+			+ "propter nomen meum et non defecisti sed habeo adversus te <p><p>";
+	}
+}
