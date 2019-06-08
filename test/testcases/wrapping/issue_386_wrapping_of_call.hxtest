@@ -1,0 +1,55 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		{
+			{
+				{
+					secondChild = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+				}
+			}
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		{
+			{
+				{
+					secondChild = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width,
+						nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width,
+						nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width,
+						nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight, nodeToDivide.width,
+						nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight,
+						nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x, nodeToDivide.y + insertHeight,
+						nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x,
+						nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x,
+						nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+					secondChildaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = new FlxNode(FlxRect.get(nodeToDivide.x,
+						nodeToDivide.y + insertHeight, nodeToDivide.width, nodeToDivide.height - insertHeight), this);
+				}
+			}
+		}
+	}
+}
