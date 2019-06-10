@@ -1,0 +1,69 @@
+{}
+
+---
+
+class Main {
+	function switchToDirectory() {
+		window.showOpenDialog({canSelectFiles: false, canSelectFolders: true}).then(function(uris) {
+			if (uris != null && uris.length > 0) {
+				var path = uris[0].fsPath;
+				var isWindows = Sys.systemName() == "Windows";
+				if (isWindows) {
+					// c: -> C:
+					path = path.substr(0, 1).toUpperCase() + path.substr(1);
+				}
+			}
+		});
+		window.showOpenDialog({canSelectFiles: false, canSelectFolders: true}).then(function(uris) {
+			if (uris != null && uris.length > 0) {
+				var path = uris[0].fsPath;
+				var isWindows = Sys.systemName() == "Windows";
+				if (isWindows) {
+					// c: -> C:
+					path = path.substr(0, 1).toUpperCase() + path.substr(1);
+					path = path.substr(0, 1).toUpperCase() + path.substr(1);
+					path = path.substr(0, 1).toUpperCase().substr(1).substr(0, 1).toUpperCase().substr(1);
+					path = path.substr(0, 1).toUpperCase().substr(1).substr(0, 1).toUpperCase().substr(1).substr(0, 1).toUpperCase().substr(1);
+				}
+			}
+		});
+	}
+}
+
+---
+
+class Main {
+	function switchToDirectory() {
+		window.showOpenDialog({canSelectFiles: false, canSelectFolders: true}).then(function(uris) {
+			if (uris != null && uris.length > 0) {
+				var path = uris[0].fsPath;
+				var isWindows = Sys.systemName() == "Windows";
+				if (isWindows) {
+					// c: -> C:
+					path = path.substr(0, 1).toUpperCase() + path.substr(1);
+				}
+			}
+		});
+		window.showOpenDialog({canSelectFiles: false, canSelectFolders: true}).then(function(uris) {
+			if (uris != null && uris.length > 0) {
+				var path = uris[0].fsPath;
+				var isWindows = Sys.systemName() == "Windows";
+				if (isWindows) {
+					// c: -> C:
+					path = path.substr(0, 1).toUpperCase() + path.substr(1);
+					path = path.substr(0, 1).toUpperCase() + path.substr(1);
+					path = path.substr(0, 1).toUpperCase().substr(1).substr(0, 1).toUpperCase().substr(1);
+					path = path.substr(0, 1)
+						.toUpperCase()
+						.substr(1)
+						.substr(0, 1)
+						.toUpperCase()
+						.substr(1)
+						.substr(0, 1)
+						.toUpperCase()
+						.substr(1);
+				}
+			}
+		});
+	}
+}
