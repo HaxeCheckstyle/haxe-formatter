@@ -54,7 +54,7 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 		}
 
-		markMethodChaining();
+		markMethodChaining(parsedCode.root);
 		markMultiVarChaining();
 		markImplementsExtendsChaining();
 		markOpBoolChaining();
@@ -447,8 +447,11 @@ class MarkWrapping extends MarkWrappingBase {
 		}, "wrapMetadataCallParameter");
 	}
 
-	function markMethodChaining() {
-		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+	function markMethodChaining(startToken:Null<TokenTree>) {
+		if (startToken == null) {
+			return;
+		}
+		var chainStarts:Array<TokenTree> = startToken.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Dot:
 					var prev:TokenInfo = getPreviousToken(token);
@@ -467,8 +470,21 @@ class MarkWrapping extends MarkWrappingBase {
 			return GO_DEEPER;
 		});
 		for (chainStart in chainStarts) {
+			// look at additional chain starts below
+			markInternalMethodChaining(chainStart);
 			markSingleMethodChain(chainStart);
 		}
+	}
+
+	function markInternalMethodChaining(startToken:TokenTree) {
+		startToken.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			switch (token.tok) {
+				case BkOpen, BrOpen, POpen:
+					markMethodChaining(token);
+				default:
+			}
+			return GO_DEEPER;
+		});
 	}
 
 	function markSingleMethodChain(chainStart:TokenTree) {
@@ -484,6 +500,8 @@ class MarkWrapping extends MarkWrappingBase {
 							return FOUND_GO_DEEPER;
 						default:
 					}
+				case POpen, BrOpen, BkOpen:
+					return SKIP_SUBTREE;
 				default:
 			}
 			return GO_DEEPER;

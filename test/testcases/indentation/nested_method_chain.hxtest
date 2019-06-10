@@ -39,7 +39,10 @@ class Main
 	public function main()
 	{
 		ul.addChild(new Tag("li")
-			.addChild(Tag.imgTag(Url.parse("images.png"), "16", "", null).addClass("innerClass"))
+			.addChild(Tag
+				.imgTag(Url.parse("images.png"), "16", "", null)
+				.addClass("innerClass")
+			)
 			.addClass("outerClass")
 		);
 		form.addElement(new SelectElement("type")
