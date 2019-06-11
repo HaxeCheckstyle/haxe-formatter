@@ -202,7 +202,7 @@ class MarkTokenText extends MarkerBase {
 		var linesNew:Array<String> = [];
 		var endIndex:Int = lines.length - 1;
 		var lastLine:String = lines[lines.length - 1];
-		if (!~/^\s*(\*?$|\})/.match(lastLine)) {
+		if (!~/^\s*(\**$|\})/.match(lastLine)) {
 			endIndex = lines.length;
 		}
 		for (index in 1...endIndex) {
@@ -231,7 +231,7 @@ class MarkTokenText extends MarkerBase {
 			lines = linesNew;
 		}
 		var lastLine:String = lines[lines.length - 1];
-		if (~/^\s*\*?$/.match(lastLine)) {
+		if (~/^\s*\*\**$/.match(lastLine)) {
 			lines[lines.length - 1] = lastLine.ltrim();
 		}
 		return lines;
