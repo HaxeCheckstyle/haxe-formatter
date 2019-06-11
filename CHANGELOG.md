@@ -14,6 +14,7 @@
 - Fixed comments in OpAdd chains and case, fixes [#396](https://github.com/HaxeCheckstyle/haxe-formatter/issues/396) + [#477](https://github.com/HaxeCheckstyle/haxe-formatter/issues/477) ([#492](https://github.com/HaxeCheckstyle/haxe-formatter/issues/492))
 - Fixed wrapping of call, fixes [#386](https://github.com/HaxeCheckstyle/haxe-formatter/issues/386) ([#492](https://github.com/HaxeCheckstyle/haxe-formatter/issues/492))
 - Fixed nested method chain handling, fixes [#496](https://github.com/HaxeCheckstyle/haxe-formatter/issues/496) ([#497](https://github.com/HaxeCheckstyle/haxe-formatter/issues/497))
+- Fixed nested inline array comprehension, fixes [#498](https://github.com/HaxeCheckstyle/haxe-formatter/issues/498)
 - Changed `sameLine.returnBody` to only apply to multiline or loop/switch/try/if expressions, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 
 ## version 1.7.1 (2019-06-01)
