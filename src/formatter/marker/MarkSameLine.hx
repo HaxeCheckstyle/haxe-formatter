@@ -319,6 +319,24 @@ class MarkSameLine extends MarkerBase {
 		noLineEndAfter(dblDot);
 	}
 
+	function isArrayComprehension(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		var parent:Null<TokenTree> = token.parent;
+		while ((parent != null) && (parent.tok != null)) {
+			switch (parent.tok) {
+				case Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdIf), Kwd(KwdElse):
+					parent = parent.parent;
+				case BkOpen:
+					return true;
+				default:
+					return false;
+			}
+		}
+		return false;
+	}
+
 	function markFor(token:TokenTree) {
 		if (token == null) {
 			return;
@@ -327,10 +345,11 @@ class MarkSameLine extends MarkerBase {
 		if ((parent == null) || (parent.tok == null)) {
 			return;
 		}
+		if (isArrayComprehension(token)) {
+			markArrayComprehension(token, parent);
+			return;
+		}
 		switch (parent.tok) {
-			case BkOpen:
-				markArrayComprehension(token, parent);
-				return;
 			case Kwd(KwdMacro):
 				var lastToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
 				if (lastToken == null) {
@@ -353,11 +372,9 @@ class MarkSameLine extends MarkerBase {
 		if ((parent == null) || (parent.tok == null)) {
 			return;
 		}
-		switch (parent.tok) {
-			case BkOpen:
-				markArrayComprehension(token, parent);
-				return;
-			default:
+		if (isArrayComprehension(token)) {
+			markArrayComprehension(token, parent);
+			return;
 		}
 		markBodyAfterPOpen(token, config.sameLine.whileBody, false);
 	}
@@ -377,11 +394,18 @@ class MarkSameLine extends MarkerBase {
 				var origSame:Bool = false;
 				if (bkClose != null) {
 					origSame = parsedCode.isOriginalSameLine(bkOpen, bkClose);
+				} else {
+					var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(bkOpen);
+					if (lastToken != null) {
+						origSame = parsedCode.isOriginalSameLine(bkOpen, lastToken);
+					}
 				}
 				if (origSame) {
-					whitespace(token, NoneBefore);
 					markBodyAfterPOpen(token, config.sameLine.comprehensionFor, false);
-					whitespace(bkClose, NoneBefore);
+					if (bkClose != null) {
+						whitespace(token, NoneBefore);
+						whitespace(bkClose, NoneBefore);
+					}
 				} else {
 					markBodyAfterPOpen(token, config.sameLine.forBody, false);
 				}

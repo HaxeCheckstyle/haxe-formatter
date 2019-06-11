@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	public static function main():Void {
+		var a = [for (e in [[]]) for (x in e) x];
+	}
+}
+
+---
+
+class Main {
+	public static function main():Void {
+		var a = [for (e in [[]]) for (x in e) x];
+	}
+}
