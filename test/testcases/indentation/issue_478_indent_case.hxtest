@@ -1,0 +1,31 @@
+{
+	"indentation": {
+		"indentCaseLabels": false
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch haxe.ds.Option.None {
+			case Some(v):
+				trace("Foo");
+			default:
+				trace("Bar");
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch haxe.ds.Option.None {
+		case Some(v):
+			trace("Foo");
+		default:
+			trace("Bar");
+		}
+	}
+}

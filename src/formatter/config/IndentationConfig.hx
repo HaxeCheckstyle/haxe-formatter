@@ -40,6 +40,11 @@ typedef IndentationConfig = {
 				20;						20;
 	**/
 	@:default(false) @:optional var indentComplexValueExpressions:Bool;
+
+	/**
+		indent case / default labels (true) or keep them on same level as switch (false)
+	**/
+	@:default(true) @:optional var indentCaseLabels:Bool;
 }
 
 @:enum

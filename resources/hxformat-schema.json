@@ -1002,6 +1002,11 @@
 					"type": "boolean",
 					"default": true
 				},
+				"indentCaseLabels": {
+					"description": "indent case / default labels (true) or keep them on same level as switch (false)",
+					"type": "boolean",
+					"default": true
+				},
 				"character": {
 					"description": "use \"tab\", \" \", \"  \", \"   \", \"    \", etc. to define which character to use",
 					"type": "string",

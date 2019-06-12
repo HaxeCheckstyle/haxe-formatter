@@ -257,6 +257,10 @@ class Indenter {
 							}
 						default:
 					}
+				case Kwd(KwdDefault), Kwd(KwdCase):
+					if (!config.indentCaseLabels) {
+						continue;
+					}
 				case Arrow:
 					if (currentToken.is(POpen)) {
 						continue;
