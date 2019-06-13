@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.8.0 (2019-06-13)
+
 - Added `sameLine.returnBodySingleLine`, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 - Added `emptyLines.*.existingBetweenFields`, fixes [#455](https://github.com/HaxeCheckstyle/haxe-formatter/issues/455) ([#484](https://github.com/HaxeCheckstyle/haxe-formatter/issues/484))
 - Added printing config filename in verbose mode, fixes [#460](https://github.com/HaxeCheckstyle/haxe-formatter/issues/460) ([#493](https://github.com/HaxeCheckstyle/haxe-formatter/issues/493))
@@ -19,6 +21,7 @@
 - Fixed nested inline array comprehension, fixes [#498](https://github.com/HaxeCheckstyle/haxe-formatter/issues/498) ([#501](https://github.com/HaxeCheckstyle/haxe-formatter/issues/501))
 - Fixed incorrect comment closing, fixes [#500](https://github.com/HaxeCheckstyle/haxe-formatter/issues/500) ([#501](https://github.com/HaxeCheckstyle/haxe-formatter/issues/501))
 - Fixed imports with conditionals, fixes [#504](https://github.com/HaxeCheckstyle/haxe-formatter/issues/504) ([#505](https://github.com/HaxeCheckstyle/haxe-formatter/issues/505))
+- Fixed line break in type parameters, fixes [#494](https://github.com/HaxeCheckstyle/haxe-formatter/issues/494) ([#507](https://github.com/HaxeCheckstyle/haxe-formatter/issues/507))
 - Changed `sameLine.returnBody` to only apply to multiline or loop/switch/try/if expressions, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 
 ## version 1.7.1 (2019-06-01)
