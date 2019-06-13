@@ -295,7 +295,7 @@ class Indenter {
 				case BrOpen:
 					switch (currentToken.tok) {
 						case Kwd(KwdIf), Kwd(KwdElse), Kwd(KwdTry), Kwd(KwdCatch), Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor), Kwd(KwdFunction), Kwd(KwdSwitch),
-							Kwd(KwdReturn):
+							Kwd(KwdReturn), Kwd(KwdUntyped):
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
 								case OBJECTDECL:
