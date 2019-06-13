@@ -17,7 +17,7 @@
 - Fixed nested method chain handling, fixes [#496](https://github.com/HaxeCheckstyle/haxe-formatter/issues/496) ([#497](https://github.com/HaxeCheckstyle/haxe-formatter/issues/497))
 - Fixed nested inline array comprehension, fixes [#498](https://github.com/HaxeCheckstyle/haxe-formatter/issues/498) ([#501](https://github.com/HaxeCheckstyle/haxe-formatter/issues/501))
 - Fixed incorrect comment closing, fixes [#500](https://github.com/HaxeCheckstyle/haxe-formatter/issues/500) ([#501](https://github.com/HaxeCheckstyle/haxe-formatter/issues/501))
-- Fixed imports with conditionals, fixes [#504](https://github.com/HaxeCheckstyle/haxe-formatter/issues/504)
+- Fixed imports with conditionals, fixes [#504](https://github.com/HaxeCheckstyle/haxe-formatter/issues/504) ([#505](https://github.com/HaxeCheckstyle/haxe-formatter/issues/505))
 - Changed `sameLine.returnBody` to only apply to multiline or loop/switch/try/if expressions, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 
 ## version 1.7.1 (2019-06-01)
