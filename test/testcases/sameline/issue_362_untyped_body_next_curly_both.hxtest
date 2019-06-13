@@ -1,0 +1,60 @@
+{
+	"lineEnds": {
+		"leftCurly": "both"
+	},
+	"sameLine": {
+		"untypedBody": "next"
+	}
+}
+
+---
+
+class Main {
+	public static function listNames():Array<String> untyped {
+		return __keys__(__resources__.list);
+	}
+	public static function listNames():Array<String> { untyped {
+			return __keys__(__resources__.list);
+		}
+	}
+	function main(){
+		try untyped {
+			var c = __as__(__global__["flash.utils.getDefinitionByName"]("_res._"+name.split(".").join("_")),Class);
+			return __new__(c);
+		} catch (e:Dynamic) {
+			return null;
+		}
+	}
+}
+
+---
+
+class Main
+{
+	public static function listNames():Array<String>
+		untyped
+		{
+			return __keys__(__resources__.list);
+		}
+
+	public static function listNames():Array<String>
+	{
+		untyped
+		{
+			return __keys__(__resources__.list);
+		}
+	}
+
+	function main()
+	{
+		try
+			untyped
+			{
+				var c = __as__(__global__["flash.utils.getDefinitionByName"]("_res._" + name.split(".").join("_")), Class);
+				return __new__(c);
+			} catch (e:Dynamic)
+		{
+			return null;
+		}
+	}
+}

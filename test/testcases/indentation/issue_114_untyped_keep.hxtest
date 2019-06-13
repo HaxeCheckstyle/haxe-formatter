@@ -1,6 +1,7 @@
 {
 	"sameLine": {
-		"functionBody": "keep"
+		"functionBody": "keep",
+		"untypedBody": "keep"
 	}
 }
 

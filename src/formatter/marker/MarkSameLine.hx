@@ -39,6 +39,8 @@ class MarkSameLine extends MarkerBase {
 					markMacro(token);
 				case Kwd(KwdReturn):
 					markReturn(token);
+				case Kwd(KwdUntyped):
+					markUntyped(token);
 				default:
 			}
 			return GO_DEEPER;
@@ -731,6 +733,32 @@ class MarkSameLine extends MarkerBase {
 		} else {
 			markBody(token, config.sameLine.returnBody, false);
 		}
+	}
+
+	function markUntyped(token:TokenTree) {
+		if (!token.access().firstChild().is(BrOpen).exists()) {
+			return;
+		}
+		var parent:Null<TokenTree> = token.parent;
+		if ((parent == null) || (token.tok == null)) {
+			return;
+		}
+		switch (parent.tok) {
+			case BrOpen:
+				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
+				switch (type) {
+					case BLOCK:
+						return;
+					case TYPEDEFDECL:
+						return;
+					case OBJECTDECL:
+					case ANONTYPE:
+					case UNKNOWN:
+				}
+			default:
+		}
+
+		applySameLinePolicy(token, config.sameLine.untypedBody);
 	}
 
 	function shouldReturnBeSameLine(token:TokenTree):Bool {

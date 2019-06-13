@@ -161,6 +161,7 @@
 		"returnBodySingleLine": "same",
 		"tryBody": "next",
 		"tryCatch": "same",
+		"untypedBody": "same",
 		"whileBody": "next"
 	},
 	"whitespace": {
