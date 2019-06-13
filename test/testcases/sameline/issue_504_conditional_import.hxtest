@@ -1,0 +1,20 @@
+{}
+
+---
+
+#if js
+import #if haxe4 js.lib.Error #else js.Error #end as JsError;
+import #if haxe4 js.lib.Promise #else js.Promise #end as JsPromise;
+#end
+import #if haxe4 js.lib.Error #else js.Error #end as JsError;
+using #if haxe4 js.lib.Error #else js.Error #end;
+
+---
+
+#if js
+import #if haxe4 js.lib.Error #else js.Error #end as JsError;
+import #if haxe4 js.lib.Promise #else js.Promise #end as JsPromise;
+#end
+import #if haxe4 js.lib.Error #else js.Error #end as JsError;
+
+using #if haxe4 js.lib.Error #else js.Error #end;
