@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.8.0 (2019-06-13)
+
 - Added `sameLine.returnBodySingleLine`, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
 - Added `emptyLines.*.existingBetweenFields`, fixes [#455](https://github.com/HaxeCheckstyle/haxe-formatter/issues/455) ([#484](https://github.com/HaxeCheckstyle/haxe-formatter/issues/484))
 - Added printing config filename in verbose mode, fixes [#460](https://github.com/HaxeCheckstyle/haxe-formatter/issues/460) ([#493](https://github.com/HaxeCheckstyle/haxe-formatter/issues/493))
