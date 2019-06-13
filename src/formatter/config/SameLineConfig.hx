@@ -140,6 +140,14 @@ typedef SameLineConfig = {
 		* keep = keep same / next line from source
 	**/
 	@:default(Same) @:optional var returnBodySingleLine:SameLinePolicy;
+
+	/**
+		same line policy for untyped {…} as a body
+		* same = place return and body on same line
+		* next = place body on next line
+		* keep = keep same / next line from source
+	**/
+	@:default(Same) @:optional var untypedBody:SameLinePolicy;
 }
 
 @:enum

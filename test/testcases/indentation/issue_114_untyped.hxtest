@@ -29,10 +29,9 @@ class Main {
 ---
 
 class Main {
-	function foo()
-		untyped {
-			trace("");
-		}
+	function foo() untyped {
+		trace("");
+	}
 
 	function foo()
 		return {
@@ -40,10 +39,9 @@ class Main {
 			y: 0
 		}
 
-	function foo()
-		untyped {
-			trace("");
-		}
+	function foo() untyped {
+		trace("");
+	}
 
 	function foo()
 		return {
