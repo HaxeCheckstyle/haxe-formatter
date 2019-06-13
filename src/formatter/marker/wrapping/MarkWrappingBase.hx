@@ -621,6 +621,11 @@ class MarkWrappingBase extends MarkerBase {
 			return endToken;
 		}
 		switch (next.token.tok) {
+			case Binop(OpGt):
+				if (next.token.access().parent().is(Binop(OpLt)).exists()) {
+					return endToken;
+				}
+				return findItemEnd(next.token);
 			case Binop(_):
 				return findItemEnd(next.token);
 			case CommentLine(_), Comment(_):

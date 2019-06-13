@@ -1,0 +1,17 @@
+{}
+
+---
+
+typedef HaxeRequestMethod<TParams, TResponse> = RequestMethod<TParams, TResponse, ResponseErrorData>;
+typedef HaxeRequestMethod<TParams, TResponse, ResponseErrorData,TParams, TResponse, ResponseErrorData> = RequestMethod<TParams, TResponse, ResponseErrorData, TParams, TResponse, ResponseErrorData>;
+
+typedef HaxeNotificationMethod<TParams> = NotificationMethod<TParams>;
+
+---
+
+typedef HaxeRequestMethod<TParams, TResponse> = RequestMethod<TParams, TResponse, ResponseErrorData>;
+
+typedef HaxeRequestMethod<TParams, TResponse, ResponseErrorData, TParams, TResponse,
+	ResponseErrorData> = RequestMethod<TParams, TResponse, ResponseErrorData, TParams, TResponse, ResponseErrorData>;
+
+typedef HaxeNotificationMethod<TParams> = NotificationMethod<TParams>;
