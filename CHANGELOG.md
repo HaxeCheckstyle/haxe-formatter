@@ -2,6 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added `fixedZeroIncrease` and `fixedZeroIncreaseBlocks` policies to `indentation.conditionalPolicy`
+- Fixed same line handling of singleline return bodies of functions
+
 ## version 1.8.0 (2019-06-13)
 
 - Added `sameLine.returnBodySingleLine`, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))
