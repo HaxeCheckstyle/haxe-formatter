@@ -696,6 +696,16 @@ class MarkSameLine extends MarkerBase {
 		switch (body.tok) {
 			case BrOpen:
 				return;
+			case Kwd(KwdReturn):
+				if (policy != Keep) {
+					var lastToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(body);
+					if (lastToken == null) {
+						return;
+					}
+					if (isSameLineBetween(body, lastToken, false)) {
+						return;
+					}
+				}
 			case Semicolon:
 				return;
 			case CommentLine(_):
