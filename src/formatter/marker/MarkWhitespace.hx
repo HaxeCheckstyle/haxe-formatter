@@ -433,6 +433,28 @@ class MarkWhitespace extends MarkerBase {
 				return config.whitespace.parenConfig.metadataParens;
 			case PARAMETER:
 				switch (token.parent.tok) {
+					case Kwd(KwdReturn):
+						var policy:OpenClosePolicy = {
+							openingPolicy: config.whitespace.parenConfig.anonFuncParamParens.openingPolicy,
+							closingPolicy: config.whitespace.parenConfig.anonFuncParamParens.closingPolicy,
+							removeInnerWhenEmpty: config.whitespace.parenConfig.anonFuncParamParens.removeInnerWhenEmpty
+						}
+						switch (policy.openingPolicy) {
+							case None:
+								policy.openingPolicy = Before;
+							case Before:
+							case NoneBefore:
+								policy.openingPolicy = Before;
+							case OnlyBefore:
+							case After:
+								policy.openingPolicy = Around;
+							case OnlyAfter:
+								policy.openingPolicy = Around;
+							case NoneAfter:
+								policy.openingPolicy = OnlyBefore;
+							case Around:
+						}
+						return policy;
 					case Const(CIdent(_)), Kwd(KwdNew):
 						return config.whitespace.parenConfig.funcParamParens;
 					default:
