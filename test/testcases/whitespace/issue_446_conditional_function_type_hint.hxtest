@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	static function foo() #if foo :SomeType #end {
+		bar;
+	}
+}
+
+---
+
+class Main {
+	static function foo() #if foo :SomeType #end {
+		bar;
+	}
+}
