@@ -5,6 +5,7 @@
 - Added `fixedZeroIncrease` and `fixedZeroIncreaseBlocks` policies to `indentation.conditionalPolicy` ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed same line handling of singleline return bodies of functions ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed missing space when returning an arrow function, fixes [#513](https://github.com/HaxeCheckstyle/haxe-formatter/issues/513) ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
+- Fixed conditionals in return types, fixes [#446](https://github.com/HaxeCheckstyle/haxe-formatter/issues/446)
 
 ## version 1.8.0 (2019-06-13)
 

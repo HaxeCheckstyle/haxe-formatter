@@ -706,6 +706,8 @@ class MarkSameLine extends MarkerBase {
 						return;
 					}
 				}
+			case Sharp(MarkLineEnds.SHARP_IF):
+				return;
 			case Semicolon:
 				return;
 			case CommentLine(_):
