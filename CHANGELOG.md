@@ -5,6 +5,7 @@
 ## version 1.8.1 (2019-06-27)
 
 - Fixed debug info in command line version
+- Fixed total runtime calculation
 
 ## version 1.8.0 (2019-06-13)
 
