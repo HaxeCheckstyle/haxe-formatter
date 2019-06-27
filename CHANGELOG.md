@@ -7,6 +7,11 @@
 - Fixed missing space when returning an arrow function, fixes [#513](https://github.com/HaxeCheckstyle/haxe-formatter/issues/513) ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed conditionals in return types, fixes [#446](https://github.com/HaxeCheckstyle/haxe-formatter/issues/446) ([#515](https://github.com/HaxeCheckstyle/haxe-formatter/issues/515))
 
+## version 1.8.1 (2019-06-27)
+
+- Fixed debug info in command line version
+- Fixed total runtime calculation
+
 ## version 1.8.0 (2019-06-13)
 
 - Added `sameLine.returnBodySingleLine`, fixes [#303](https://github.com/HaxeCheckstyle/haxe-formatter/issues/303) ([#483](https://github.com/HaxeCheckstyle/haxe-formatter/issues/483))

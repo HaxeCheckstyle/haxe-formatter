@@ -1,6 +1,7 @@
 package formatter;
 
 import haxe.Json;
+import haxe.Timer;
 import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
@@ -91,15 +92,15 @@ class Cli {
 			Sys.exit(0);
 		}
 
-		var startTime = Date.now().getTime();
+		var startTime = Timer.stamp();
 		run(paths);
 
-		printStats(Date.now().getTime() - startTime);
+		printStats(Timer.stamp() - startTime);
 		Sys.exit(exitCode);
 	}
 
 	function printStats(duration:Float) {
-		var seconds = duration / 1000;
+		var seconds = Math.round(duration * 1000) / 1000;
 		var action = if (mode == Format) "Formatted" else "Checked";
 
 		Sys.println("");
