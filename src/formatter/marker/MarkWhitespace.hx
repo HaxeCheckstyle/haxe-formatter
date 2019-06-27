@@ -335,22 +335,41 @@ class MarkWhitespace extends MarkerBase {
 
 	function markDblDot(token:TokenTree) {
 		var type:ColonType = TokenTreeCheckUtils.getColonType(token);
+		var policy:WhitespacePolicy = config.whitespace.colonPolicy;
 		switch (type) {
 			case SWITCH_CASE:
-				whitespace(token, config.whitespace.caseColonPolicy);
+				policy = config.whitespace.caseColonPolicy;
 			case TYPE_HINT:
-				whitespace(token, config.whitespace.typeHintColonPolicy);
+				policy = config.whitespace.typeHintColonPolicy;
 			case TYPE_CHECK:
-				whitespace(token, config.whitespace.typeCheckColonPolicy);
+				policy = config.whitespace.typeCheckColonPolicy;
 			case TERNARY:
-				whitespace(token, config.whitespace.ternaryPolicy);
+				policy = config.whitespace.ternaryPolicy;
 			case OBJECT_LITERAL:
-				whitespace(token, config.whitespace.objectFieldColonPolicy);
+				policy = config.whitespace.objectFieldColonPolicy;
 			case AT:
 				whitespace(token, None);
+				return;
 			case UNKNOWN:
-				whitespace(token, config.whitespace.colonPolicy);
+				policy = config.whitespace.colonPolicy;
 		}
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case Sharp(_):
+					policy = policy.add(Before);
+				case PClose, Const(_):
+					if ((token.parent != null) && (token.parent.tok != null)) {
+						switch (token.parent.tok) {
+							case Sharp(MarkLineEnds.SHARP_IF):
+								policy = policy.add(Before);
+							default:
+						}
+					}
+				default:
+			}
+		}
+		whitespace(token, policy);
 	}
 
 	function markSemicolon(token:TokenTree) {
@@ -433,6 +452,28 @@ class MarkWhitespace extends MarkerBase {
 				return config.whitespace.parenConfig.metadataParens;
 			case PARAMETER:
 				switch (token.parent.tok) {
+					case Kwd(KwdReturn):
+						var policy:OpenClosePolicy = {
+							openingPolicy: config.whitespace.parenConfig.anonFuncParamParens.openingPolicy,
+							closingPolicy: config.whitespace.parenConfig.anonFuncParamParens.closingPolicy,
+							removeInnerWhenEmpty: config.whitespace.parenConfig.anonFuncParamParens.removeInnerWhenEmpty
+						}
+						switch (policy.openingPolicy) {
+							case None:
+								policy.openingPolicy = Before;
+							case Before:
+							case NoneBefore:
+								policy.openingPolicy = Before;
+							case OnlyBefore:
+							case After:
+								policy.openingPolicy = Around;
+							case OnlyAfter:
+								policy.openingPolicy = Around;
+							case NoneAfter:
+								policy.openingPolicy = OnlyBefore;
+							case Around:
+						}
+						return policy;
 					case Const(CIdent(_)), Kwd(KwdNew):
 						return config.whitespace.parenConfig.funcParamParens;
 					default:

@@ -46,6 +46,15 @@ class Indenter {
 				if (config.conditionalPolicy == FixedZero) {
 					return 0;
 				}
+				if (config.conditionalPolicy == FixedZeroIncrease) {
+					return calcConditionalLevel(token);
+				}
+				if (config.conditionalPolicy == FixedZeroIncreaseBlocks) {
+					if (hasBlockParent(token)) {
+						return calcConditionalLevel(token);
+					}
+					return 0;
+				}
 			default:
 		}
 		#if debugIndent
@@ -57,6 +66,22 @@ class Indenter {
 		log(token, "effectiveParent");
 		#end
 		return calcFromCandidates(token);
+	}
+
+	function calcConditionalLevel(token:TokenTree):Int {
+		var count:Int = -1;
+		while ((token != null) && (token.tok != null)) {
+			switch (token.tok) {
+				case Sharp(MarkLineEnds.SHARP_IF):
+					count++;
+				default:
+			}
+			token = token.parent;
+		}
+		if (count <= 0) {
+			return 0;
+		}
+		return count;
 	}
 
 	public function shouldAddTrailingWhitespace():Bool {
@@ -404,6 +429,20 @@ class Indenter {
 					count--;
 				case AlignedIncrease:
 				case FixedZero:
+				case FixedZeroIncrease:
+					count--;
+					var conditionalLevel:Int = calcConditionalLevel(token);
+					if (conditionalLevel == count) {
+						count++;
+					}
+				case FixedZeroIncreaseBlocks:
+					if (hasBlock(indentingTokensCandidates)) {
+						count--;
+						var conditionalLevel:Int = calcConditionalLevel(token);
+						if (conditionalLevel == count) {
+							count++;
+						}
+					}
 				case Aligned:
 			}
 		}
@@ -416,9 +455,33 @@ class Indenter {
 	function hasConditional(tokens:Array<TokenTree>):Bool {
 		for (token in tokens) {
 			switch (token.tok) {
-				case Sharp("if"):
+				case Sharp(MarkLineEnds.SHARP_IF):
 					return true;
 				default:
+			}
+		}
+		return false;
+	}
+
+	function hasBlock(tokens:Array<TokenTree>):Bool {
+		for (token in tokens) {
+			switch (token.tok) {
+				case BrOpen:
+					return true;
+				default:
+			}
+		}
+		return false;
+	}
+
+	function hasBlockParent(token:TokenTree):Bool {
+		var parent:TokenTree = token.parent;
+		while ((parent != null) && (parent.tok != null)) {
+			switch (parent.tok) {
+				case BrOpen:
+					return true;
+				default:
+					parent = parent.parent;
 			}
 		}
 		return false;
@@ -522,6 +585,10 @@ class Indenter {
 						return false;
 					case FixedZero:
 						return false;
+					case FixedZeroIncrease:
+						return true;
+					case FixedZeroIncreaseBlocks:
+						return (hasBlockParent(token));
 				}
 			case Kwd(KwdIf), Kwd(KwdElse):
 				return true;

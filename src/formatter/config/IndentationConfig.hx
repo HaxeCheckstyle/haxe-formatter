@@ -4,6 +4,8 @@ typedef IndentationConfig = {
 	/**
 		only applies to non inlined conditionals
 		"fixedZero" = all conditional statements should start in column 1
+		"fixedZeroIncrease" = indentation for conditionals starts at 0 and increases for every level
+		"fixedZeroIncreaseBlocks" = same as "fixedZeroIncrease" but increases only inside blocks, outside it's "fixedZero"
 		"aligned" = conditional statements share indentation of surrounding code
 		"alignedIncrease" = same as "aligned" but will increase indent by +1 for enclosed code
 		"alignedDecrease" = same as "aligned" but will decrease indent by -1 for enclosed code
@@ -50,6 +52,8 @@ typedef IndentationConfig = {
 @:enum
 abstract ConditionalIndentationPolicy(String) {
 	var FixedZero = "fixedZero";
+	var FixedZeroIncrease = "fixedZeroIncrease";
+	var FixedZeroIncreaseBlocks = "fixedZeroIncreaseBlocks";
 	var Aligned = "aligned";
 	var AlignedIncrease = "alignedIncrease";
 	var AlignedDecrease = "alignedDecrease";
