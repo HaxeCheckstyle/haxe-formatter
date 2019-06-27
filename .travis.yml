@@ -1,9 +1,5 @@
 language: haxe
 
-haxe:
-  - 3.4.7
-  - development
-
 matrix:
   include:
     - haxe: 3.4.7
