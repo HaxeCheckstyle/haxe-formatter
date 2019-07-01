@@ -1,0 +1,117 @@
+{
+	"indentation": {
+		"conditionalPolicy": "alignedNestedIncrease"
+	}
+}
+
+---
+
+#if hl
+import hl.*;
+#elseif sys
+import sys.*;
+#else
+import sys2.*;
+    #if haxe4
+    import haxe4.*;
+    #else
+    import haxe.*;
+    #end
+import sys3.*;
+#end
+
+class Main {
+    function main() {
+		a();
+        #if hl
+        return bla();
+        #elseif sys
+        return foo();
+        #else
+		a();
+            #if haxe4
+            return a();
+            #else
+            return b();
+            #end
+		a();
+        #end
+		a();
+    }
+
+	#if debugLog
+    function main() {
+		a();
+        #if hl
+        return bla();
+        #elseif sys
+        return foo();
+        #else
+		a();
+            #if haxe4
+            return a();
+            #else
+            return b();
+            #end
+		a();
+        #end
+		a();
+    }
+	#end
+}
+
+---
+
+#if hl
+import hl.*;
+#elseif sys
+import sys.*;
+#else
+import sys2.*;
+	#if haxe4
+	import haxe4.*;
+	#else
+	import haxe.*;
+	#end
+import sys3.*;
+#end
+
+class Main {
+	function main() {
+		a();
+		#if hl
+		return bla();
+		#elseif sys
+		return foo();
+		#else
+		a();
+			#if haxe4
+			return a();
+			#else
+			return b();
+			#end
+		a();
+		#end
+		a();
+	}
+
+	#if debugLog
+	function main() {
+		a();
+		#if hl
+		return bla();
+		#elseif sys
+		return foo();
+		#else
+		a();
+			#if haxe4
+			return a();
+			#else
+			return b();
+			#end
+		a();
+		#end
+		a();
+	}
+	#end
+}

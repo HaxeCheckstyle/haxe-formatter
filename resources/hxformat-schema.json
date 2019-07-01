@@ -349,6 +349,9 @@
 					"const": "aligned"
 				},
 				{
+					"const": "alignedNestedIncrease"
+				},
+				{
 					"const": "alignedIncrease"
 				},
 				{
@@ -1024,9 +1027,9 @@
 					"default": "tab"
 				},
 				"conditionalPolicy": {
-					"description": "only applies to non inlined conditionals \"fixedZero\" = all conditional statements should start in column 1 \"fixedZeroIncrease\" = indentation for conditionals starts at 0 and increases for every level \"fixedZeroIncreaseBlocks\" = same as \"fixedZeroIncrease\" but increases only inside blocks, outside it's \"fixedZero\" \"aligned\" = conditional statements share indentation of surrounding code \"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code \"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
+					"description": "only applies to non inlined conditionals \"fixedZero\" = all conditional statements should start in column 1 \"fixedZeroIncrease\" = indentation for conditionals starts at 0 and increases for every level \"fixedZeroIncreaseBlocks\" = same as \"fixedZeroIncrease\" but increases only inside blocks, outside it's \"fixedZero\" \"aligned\" = conditional statements share indentation of surrounding code \"alignedNestedIncrease\" = conditionals align with surrounding code, but will increase indent when nested \"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code \"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
 					"$ref": "#/definitions/formatter.config.ConditionalIndentationPolicy",
-					"default": "aligned"
+					"default": "alignedNestedIncrease"
 				},
 				"tabWidth": {
 					"description": "if `character` is set to \"tab\", formatter uses `tabWidth` to calculate absolute line length",
