@@ -7,10 +7,11 @@ typedef IndentationConfig = {
 		"fixedZeroIncrease" = indentation for conditionals starts at 0 and increases for every level
 		"fixedZeroIncreaseBlocks" = same as "fixedZeroIncrease" but increases only inside blocks, outside it's "fixedZero"
 		"aligned" = conditional statements share indentation of surrounding code
+		"alignedNestedIncrease" = conditionals align with surrounding code, but will increase indent when nested
 		"alignedIncrease" = same as "aligned" but will increase indent by +1 for enclosed code
 		"alignedDecrease" = same as "aligned" but will decrease indent by -1 for enclosed code
 	**/
-	@:default(Aligned) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
+	@:default(AlignedNestedIncrease) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
 
 	/**
 		use "tab", " ", "  ", "   ", "    ", etc. to define which character to use
@@ -55,6 +56,7 @@ abstract ConditionalIndentationPolicy(String) {
 	var FixedZeroIncrease = "fixedZeroIncrease";
 	var FixedZeroIncreaseBlocks = "fixedZeroIncreaseBlocks";
 	var Aligned = "aligned";
+	var AlignedNestedIncrease = "alignedNestedIncrease";
 	var AlignedIncrease = "alignedIncrease";
 	var AlignedDecrease = "alignedDecrease";
 }

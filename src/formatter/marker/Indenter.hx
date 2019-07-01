@@ -84,6 +84,32 @@ class Indenter {
 		return count;
 	}
 
+	function calcConsecutiveConditionalLevel(token:TokenTree):Int {
+		var count:Int = -1;
+		var maxCount:Int = -1;
+
+		while ((token != null) && (token.tok != null)) {
+			switch (token.tok) {
+				case Sharp(MarkLineEnds.SHARP_IF):
+					count++;
+				case Sharp(_):
+				default:
+					if (count > maxCount) {
+						maxCount = count;
+					}
+					count = -1;
+			}
+			token = token.parent;
+		}
+		if (count > maxCount) {
+			maxCount = count;
+		}
+		if (maxCount <= 0) {
+			return 0;
+		}
+		return maxCount;
+	}
+
 	public function shouldAddTrailingWhitespace():Bool {
 		return config.trailingWhitespace;
 	}
@@ -428,6 +454,8 @@ class Indenter {
 				case AlignedDecrease:
 					count--;
 				case AlignedIncrease:
+				case AlignedNestedIncrease:
+					count += calcConsecutiveConditionalLevel(token);
 				case FixedZero:
 				case FixedZeroIncrease:
 					count--;
@@ -582,6 +610,8 @@ class Indenter {
 					case AlignedIncrease, AlignedDecrease:
 						return true;
 					case Aligned:
+						return false;
+					case AlignedNestedIncrease:
 						return false;
 					case FixedZero:
 						return false;

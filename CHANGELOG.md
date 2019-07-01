@@ -3,14 +3,16 @@
 ## dev branch / next version (1.x.x)
 
 - Added `fixedZeroIncrease` and `fixedZeroIncreaseBlocks` policies to `indentation.conditionalPolicy` ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
+- Added `alignedNestedIncrease` policies to `indentation.conditionalPolicy`, fixes [#519](https://github.com/HaxeCheckstyle/haxe-formatter/issues/519) ([#520](https://github.com/HaxeCheckstyle/haxe-formatter/issues/520))
 - Fixed same line handling of singleline return bodies of functions ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed missing space when returning an arrow function, fixes [#513](https://github.com/HaxeCheckstyle/haxe-formatter/issues/513) ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed conditionals in return types, fixes [#446](https://github.com/HaxeCheckstyle/haxe-formatter/issues/446) ([#515](https://github.com/HaxeCheckstyle/haxe-formatter/issues/515))
+- Changed default `indentation.conditionalPolicy` to `alignedNestedIncrease`, fixes [#519](https://github.com/HaxeCheckstyle/haxe-formatter/issues/519) ([#520](https://github.com/HaxeCheckstyle/haxe-formatter/issues/520))
 
 ## version 1.8.1 (2019-06-27)
 
-- Fixed debug info in command line version
-- Fixed total runtime calculation
+- Fixed debug info in command line version ([#517](https://github.com/HaxeCheckstyle/haxe-formatter/issues/517))
+- Fixed total runtime calculation ([#517](https://github.com/HaxeCheckstyle/haxe-formatter/issues/517))
 
 ## version 1.8.0 (2019-06-13)
 
