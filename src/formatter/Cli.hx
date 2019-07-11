@@ -2,6 +2,7 @@ package formatter;
 
 import haxe.Json;
 import haxe.Timer;
+import haxe.io.Path;
 import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
@@ -137,12 +138,13 @@ class Cli {
 
 	function run(paths:Array<String>) {
 		for (path in paths) {
+			var path:String = StringTools.trim(path);
 			if (!FileSystem.exists(path)) {
 				Sys.println('Skipping \'$path\' (path does not exist)');
 				continue;
 			}
 			if (FileSystem.isDirectory(path)) {
-				run([for (file in FileSystem.readDirectory(path)) '$path/$file']);
+				run([for (file in FileSystem.readDirectory(path)) Path.join([path, file])]);
 			} else {
 				formatFile(path);
 			}

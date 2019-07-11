@@ -334,7 +334,10 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function markDblDot(token:TokenTree) {
-		var type:ColonType = TokenTreeCheckUtils.getColonType(token);
+		var type:Null<ColonType> = TokenTreeCheckUtils.getColonType(token);
+		if (type == null) {
+			type = UNKNOWN;
+		}
 		var policy:WhitespacePolicy = config.whitespace.colonPolicy;
 		switch (type) {
 			case SWITCH_CASE:
@@ -433,7 +436,10 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function markArrow(token:TokenTree) {
-		var arrowType:ArrowType = TokenTreeCheckUtils.getArrowType(token);
+		var arrowType:Null<ArrowType> = TokenTreeCheckUtils.getArrowType(token);
+		if (arrowType == null) {
+			arrowType = ARROW_FUNCTION;
+		}
 		switch (arrowType) {
 			case ARROW_FUNCTION:
 				whitespace(token, config.whitespace.arrowFunctionsPolicy);
@@ -445,7 +451,10 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function determinePOpenPolicy(token:TokenTree):OpenClosePolicy {
-		var type:POpenType = TokenTreeCheckUtils.getPOpenType(token);
+		var type:Null<POpenType> = TokenTreeCheckUtils.getPOpenType(token);
+		if (type == null) {
+			type = EXPRESSION;
+		}
 		switch (type) {
 			case AT:
 				config.whitespace.parenConfig.metadataParens.openingPolicy = config.whitespace.parenConfig.metadataParens.openingPolicy.remove(Before);
@@ -536,7 +545,10 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	function determineBrOpenPolicy(token:TokenTree):OpenClosePolicy {
-		var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
+		var type:Null<BrOpenType> = TokenTreeCheckUtils.getBrOpenType(token);
+		if (type == null) {
+			type = UNKNOWN;
+		}
 		switch (type) {
 			case BLOCK:
 				return config.whitespace.bracesConfig.blockBraces;
