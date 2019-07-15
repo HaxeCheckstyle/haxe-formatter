@@ -79,7 +79,23 @@ The VSCode extension comes with a JSON schema providing completion and limited d
 
 An empty `hxformat.json` (containing only `{}`) or having `hxformat.json` will result in formatting using the built-in default which is the coding style of formatter itself.
 
-When creating your custom `hxformat.json` file, you only need to provide settings that you want to override with respect to the built-in default. So configuration always starts with the default style of formatter.
+When creating your custom `hxformat.json` file, you only need to provide settings that you want to override with respect to the built-in default. So configuration always starts with the default style of formatter. The following example changes curly braces placement and
+indentation to 4 space characters:
+```
+{
+    "lineEnds": {
+        "blockCurly": {
+            "leftCurly": "both",
+            "emptyCurly": "noBreak"
+        }
+    },
+    "indentation": {
+        "character": "    "
+    }
+}
+```
+Pro tip: Visual Studio Code has a `Format on Save` option that you can enable in `File -> Preferences -> Settings -> Text Editor -> Formatting`.
+
 
 ### Ways to opt-out of formatting
 
