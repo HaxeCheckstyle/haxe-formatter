@@ -11,4 +11,10 @@ typedef FormatterInputData = {
 	var config:Config;
 	@:optional var entryPoint:TokenTreeEntryPoint;
 	@:optional var lineSeparator:String;
+	@:optional var range:FormatterInputRange;
+}
+
+typedef FormatterInputRange = {
+	var startPos:Int;
+	var endPos:Int;
 }

@@ -1,0 +1,34 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		switch (type) { // haxe.macro.Type
+			case TInst(t, params):
+				switch ('test') {
+					case 'test':
+						var test = function(exprs, o_ref)
+							return macro [for (key => $i{exprs[0].name} in $i{o_ref}) key => ${exprs[0].expr}];
+				}
+			case TMono(t): // <- important
+			default:
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (type) { // haxe.macro.Type
+			case TInst(t, params):
+				switch ('test') {
+					case 'test':
+						var test = function(exprs, o_ref) return macro [for (key => $i{exprs[0].name} in $i{o_ref}) key => ${exprs[0].expr}];
+				}
+			case TMono(t): // <- important
+			default:
+		}
+	}
+}
