@@ -12,6 +12,7 @@ import formatter.config.Config;
 @:build(formatter.debug.PosInfosMacro.clean())
 #end
 class TokenList {
+	static inline var BAD_OFFSET:String = "Bad offset";
 	static inline var NEWLINE_TO_SPACE:String = "Newline -> Space";
 
 	public var tokens:Array<Null<TokenInfo>>;
@@ -87,6 +88,44 @@ class TokenList {
 		}
 		closeTokenCache.set(token.index, result);
 		return result;
+	}
+
+	public function getTokenAtOffset(off:Int):Null<TokenInfo> {
+		var lowerBound:Int = 0;
+		var upperBound:Int = tokens.length - 1;
+		if (tokens.length <= 0) {
+			throw BAD_OFFSET;
+		}
+
+		if (off < 0) {
+			throw BAD_OFFSET;
+		}
+
+		if (off > tokens[upperBound].token.pos.max) {
+			throw BAD_OFFSET;
+		}
+
+		while (true) {
+			if (lowerBound > upperBound) {
+				throw BAD_OFFSET;
+			}
+
+			var center:Int = lowerBound + Math.floor((upperBound - lowerBound) / 2);
+			var matchLeft:Bool = tokens[center].token.pos.min <= off;
+			var matchRight:Bool = tokens[center].token.pos.max >= off;
+			if (matchLeft && matchRight) {
+				return tokens[center];
+			}
+			if (matchLeft) {
+				lowerBound = center + 1;
+				continue;
+			}
+			if (matchRight) {
+				upperBound = center - 1;
+				continue;
+			}
+		}
+		throw BAD_OFFSET;
 	}
 
 	public function getTokenAt(index:Int):Null<TokenInfo> {

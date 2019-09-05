@@ -28,7 +28,8 @@ enum Result {
 class Formatter {
 	static inline var FORMATTER_JSON:String = "hxformat.json";
 
-	public static function format(input:FormatterInput, ?config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint):Result {
+	public static function format(input:FormatterInput, ?config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint,
+			?range:FormatterInputRange):Result {
 		if (config == null) {
 			config = new Config();
 		}
@@ -46,7 +47,8 @@ class Formatter {
 					content: content,
 					config: config,
 					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
+					entryPoint: entryPoint,
+					range: range
 				};
 				return formatInputData(inputData);
 			#end
@@ -57,7 +59,8 @@ class Formatter {
 					content: content,
 					config: config,
 					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
+					entryPoint: entryPoint,
+					range: range
 				};
 				return formatInputData(inputData);
 			case Tokens(tokenList, tokenTree, code):
@@ -68,7 +71,8 @@ class Formatter {
 					tokenTree: tokenTree,
 					config: config,
 					lineSeparator: lineSeparator,
-					entryPoint: entryPoint
+					entryPoint: entryPoint,
+					range: range
 				};
 				return formatInputData(inputData);
 		}
@@ -128,7 +132,7 @@ class Formatter {
 			markTokenText.finalRun();
 			markAdditionalIndent.run();
 
-			var lines:CodeLines = new CodeLines(parsedCode, indenter);
+			var lines:CodeLines = new CodeLines(parsedCode, indenter, inputData.range);
 			lines.applyWrapping(config.wrapping);
 			markEmptyLines.finalRun(lines);
 

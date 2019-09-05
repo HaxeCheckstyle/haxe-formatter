@@ -4,6 +4,7 @@
 
 - Added `fixedZeroIncrease` and `fixedZeroIncreaseBlocks` policies to `indentation.conditionalPolicy` ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Added `alignedNestedIncrease` policies to `indentation.conditionalPolicy`, fixes [#519](https://github.com/HaxeCheckstyle/haxe-formatter/issues/519) ([#520](https://github.com/HaxeCheckstyle/haxe-formatter/issues/520))
+- Added range to format API ([#524](https://github.com/HaxeCheckstyle/haxe-formatter/issues/524))
 - Fixed same line handling of singleline return bodies of functions ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed missing space when returning an arrow function, fixes [#513](https://github.com/HaxeCheckstyle/haxe-formatter/issues/513) ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
 - Fixed conditionals in return types, fixes [#446](https://github.com/HaxeCheckstyle/haxe-formatter/issues/446) ([#515](https://github.com/HaxeCheckstyle/haxe-formatter/issues/515))
