@@ -11,7 +11,7 @@ typedef IndentationConfig = {
 		"alignedIncrease" = same as "aligned" but will increase indent by +1 for enclosed code
 		"alignedDecrease" = same as "aligned" but will decrease indent by -1 for enclosed code
 	**/
-	@:default(AlignedNestedIncrease) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
+	@:default(Aligned) @:optional var conditionalPolicy:ConditionalIndentationPolicy;
 
 	/**
 		use "tab", " ", "  ", "   ", "    ", etc. to define which character to use

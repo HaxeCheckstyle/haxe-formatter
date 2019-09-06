@@ -118,7 +118,7 @@
 	],
 	"indentation": {
 		"character": "tab",
-		"conditionalPolicy": "alignedNestedIncrease",
+		"conditionalPolicy": "aligned",
 		"indentCaseLabels": true,
 		"indentComplexValueExpressions": false,
 		"indentObjectLiteral": true,
