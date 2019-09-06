@@ -199,9 +199,11 @@ private typedef InputPolicy = {
 }
 
 private abstract InputRestriction(Null<EReg>) from EReg {
-	public inline function apply(to:String):String return if (this == null) to else this.replace(to, '');
+	public inline function apply(to:String):String
+		return if (this == null) to else this.replace(to, '');
 
-	@:from static function ofString(s:String):InputRestriction return new EReg('[^$s]', 'ig');
+	@:from static function ofString(s:String):InputRestriction
+		return new EReg('[^$s]', 'ig');
 }
 
 class Chat implements plumbum.Scope implements IChat {
@@ -315,9 +317,11 @@ class Chat implements plumbum.Scope implements IChat {
 		});
 	}
 
-	static function getLanguageOptions():List<String> return TranslationsHelper.avaiableLanguagesOrder;
+	static function getLanguageOptions():List<String>
+		return TranslationsHelper.avaiableLanguagesOrder;
 
 	static var flags = TranslationsHelper.getLanguageFlags();
 
-	static function getFlag(imagePath:String, langTag:String) return UrlUtil.getIconSource(imagePath, flags.get(langTag), 'flags');
+	static function getFlag(imagePath:String, langTag:String)
+		return UrlUtil.getIconSource(imagePath, flags.get(langTag), 'flags');
 }

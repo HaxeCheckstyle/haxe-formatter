@@ -18,7 +18,8 @@ class Main {
 class Main {
 	public static function main() {
 		var variableWithBlockInit:Int = {
-			function foo():Int return 0;
+			function foo():Int
+				return 0;
 			var bar = foo();
 			bar;
 		};
