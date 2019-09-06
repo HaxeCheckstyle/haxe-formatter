@@ -91,38 +91,22 @@ class TokenList {
 	}
 
 	public function getTokenAtOffset(off:Int):Null<TokenInfo> {
-		var lowerBound:Int = 0;
-		var upperBound:Int = tokens.length - 1;
 		if (tokens.length <= 0) {
 			throw BAD_OFFSET;
 		}
-
 		if (off < 0) {
 			throw BAD_OFFSET;
 		}
-
-		if (off > tokens[upperBound].token.pos.max) {
+		if (off > tokens[tokens.length - 1].token.pos.max) {
 			throw BAD_OFFSET;
 		}
 
-		while (true) {
-			if (lowerBound > upperBound) {
-				throw BAD_OFFSET;
-			}
-
-			var center:Int = lowerBound + Math.floor((upperBound - lowerBound) / 2);
-			var matchLeft:Bool = tokens[center].token.pos.min <= off;
-			var matchRight:Bool = tokens[center].token.pos.max >= off;
-			if (matchLeft && matchRight) {
-				return tokens[center];
-			}
-			if (matchLeft) {
-				lowerBound = center + 1;
+		for (token in tokens) {
+			if (token == null) {
 				continue;
 			}
-			if (matchRight) {
-				upperBound = center - 1;
-				continue;
+			if (token.token.pos.max >= off) {
+				return token;
 			}
 		}
 		throw BAD_OFFSET;
