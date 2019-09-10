@@ -164,6 +164,10 @@ class CodeLines {
 			if (newLineAfterRange) {
 				rangeNewLine = lineSeparator;
 			}
+			if (lines.length > 0) {
+				var line:CodeLine = lines[lines.length - 1];
+				line.emptyLinesAfter = 0;
+			}
 		}
 		return prefix + lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator) + rangeNewLine;
 	}
