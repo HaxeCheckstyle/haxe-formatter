@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.8.1",
-	"releasenote": "Fixed debug output in command line version, fixed total runtime calculation - see CHANGELOG for details.",
+	"version": "1.9.0",
+	"releasenote": "Added indentation options for conditionalPolicy, added range format API and bugfixes - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
