@@ -11,7 +11,7 @@
 - Fixed conditionals in return types, fixes [#446](https://github.com/HaxeCheckstyle/haxe-formatter/issues/446) ([#515](https://github.com/HaxeCheckstyle/haxe-formatter/issues/515))
 - Fixed null pointer issues in MarkWhitespace ([#521](https://github.com/HaxeCheckstyle/haxe-formatter/issues/521))
 - Fixed path handling in Hashlink 1.1 ([#521](https://github.com/HaxeCheckstyle/haxe-formatter/issues/521))
-- Fixed postfix exclamation mark, fixes [#516](https://github.com/HaxeCheckstyle/haxe-formatter/issues/516)
+- Fixed postfix exclamation mark, fixes [#516](https://github.com/HaxeCheckstyle/haxe-formatter/issues/516) ([#527](https://github.com/HaxeCheckstyle/haxe-formatter/issues/527))
 
 ## version 1.8.1 (2019-06-27)
 
