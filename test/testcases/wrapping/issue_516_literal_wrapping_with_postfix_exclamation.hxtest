@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		var object = {
+			a: b,
+			c: d!.e
+		};
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var object = {
+			a: b,
+			c: d!.e
+		};
+	}
+}
