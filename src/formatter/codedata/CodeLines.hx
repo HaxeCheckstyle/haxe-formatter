@@ -11,6 +11,8 @@ class CodeLines {
 	var indenter:Indenter;
 	var parsedCode:ParsedCode;
 	var range:FormatterInputRange;
+	var posRange:FormatterInputRange;
+	var newLineAfterRange:Bool;
 
 	public var lines(default, null):Array<CodeLine>;
 
@@ -19,9 +21,14 @@ class CodeLines {
 		this.indenter = indenter;
 		this.parsedCode = parsedCode;
 		this.range = null;
+		this.posRange = range;
+		this.newLineAfterRange = false;
 		if (range != null) {
 			var start:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.startPos);
 			var end:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.endPos);
+			if ((end != null) && (range.endPos - 1 < end.token.pos.min)) {
+				end = parsedCode.tokenList.getPreviousToken(end.token);
+			}
 			if ((start != null) && (end != null)) {
 				this.range = {startPos: start.token.index, endPos: end.token.index};
 			}
@@ -59,6 +66,14 @@ class CodeLines {
 			if (line == null) {
 				line = new CodeLine(indenter.calcIndent(tokenInfo.token) + tokenInfo.additionalIndent);
 				lines.push(line);
+			}
+			if ((range != null) && (index == range.endPos)) {
+				if ((posRange.endPos > tokenInfo.token.pos.max) && (tokenInfo.whitespaceAfter == Newline)) {
+					newLineAfterRange = true;
+				}
+				if ((posRange.endPos >= tokenInfo.token.pos.min) && (posRange.endPos < tokenInfo.token.pos.max)) {
+					tokenInfo.text = tokenInfo.text.substr(0, posRange.endPos - tokenInfo.token.pos.min);
+				}
 			}
 			line.addToken(tokenInfo, parsedCode.lineSeparator);
 			if (tokenInfo.whitespaceAfter == Newline) {
@@ -141,11 +156,15 @@ class CodeLines {
 		if (parsedCode.tokenList.leadingEmptyLInes > 0) {
 			prefix = "".lpad(lineSeparator, lineSeparator.length * parsedCode.tokenList.leadingEmptyLInes);
 		}
+		var rangeNewLine:String = "";
 		if (range != null) {
 			if (range.startPos > 0) {
 				prefix = "";
 			}
+			if (newLineAfterRange) {
+				rangeNewLine = lineSeparator;
+			}
 		}
-		return prefix + lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator);
+		return prefix + lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator) + rangeNewLine;
 	}
 }
