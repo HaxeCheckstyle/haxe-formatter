@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed range format issues
+
 ## version 1.9.0 (2019-09-10)
 
 - Added `fixedZeroIncrease` and `fixedZeroIncreaseBlocks` policies to `indentation.conditionalPolicy` ([#514](https://github.com/HaxeCheckstyle/haxe-formatter/issues/514))
