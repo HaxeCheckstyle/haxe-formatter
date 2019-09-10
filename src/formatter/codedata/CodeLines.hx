@@ -12,7 +12,7 @@ class CodeLines {
 	var parsedCode:ParsedCode;
 	var range:FormatterInputRange;
 	var posRange:FormatterInputRange;
-	var newLineAfterRange:Bool;
+	var trailingWhitespaceAfterRange:String;
 
 	public var lines(default, null):Array<CodeLine>;
 
@@ -22,7 +22,7 @@ class CodeLines {
 		this.parsedCode = parsedCode;
 		this.range = null;
 		this.posRange = range;
-		this.newLineAfterRange = false;
+		this.trailingWhitespaceAfterRange = "";
 		if (range != null) {
 			var start:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.startPos);
 			var end:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.endPos);
@@ -68,11 +68,11 @@ class CodeLines {
 				lines.push(line);
 			}
 			if ((range != null) && (index == range.endPos)) {
-				if ((posRange.endPos > tokenInfo.token.pos.max) && (tokenInfo.whitespaceAfter == Newline)) {
-					newLineAfterRange = true;
-				}
 				if ((posRange.endPos >= tokenInfo.token.pos.min) && (posRange.endPos < tokenInfo.token.pos.max)) {
 					tokenInfo.text = tokenInfo.text.substr(0, posRange.endPos - tokenInfo.token.pos.min);
+				}
+				if (posRange.endPos > tokenInfo.token.pos.max) {
+					trailingWhitespaceAfterRange = parsedCode.getString(tokenInfo.token.pos.max, posRange.endPos);
 				}
 			}
 			line.addToken(tokenInfo, parsedCode.lineSeparator);
@@ -161,14 +161,11 @@ class CodeLines {
 			if (range.startPos > 0) {
 				prefix = "";
 			}
-			if (newLineAfterRange) {
-				rangeNewLine = lineSeparator;
-			}
 			if (lines.length > 0) {
 				var line:CodeLine = lines[lines.length - 1];
 				line.emptyLinesAfter = 0;
 			}
 		}
-		return prefix + lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator) + rangeNewLine;
+		return prefix + lines.map(function(line) return line.print(indenter, lineSeparator)).join(lineSeparator) + trailingWhitespaceAfterRange;
 	}
 }
