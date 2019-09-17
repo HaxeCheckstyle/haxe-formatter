@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed range format issues with multiline tokens
+
 ## version 1.9.1 (2019-09-12)
 
 - Fixed range format issues ([#528](https://github.com/HaxeCheckstyle/haxe-formatter/issues/528) + [#529](https://github.com/HaxeCheckstyle/haxe-formatter/issues/529) + [#530](https://github.com/HaxeCheckstyle/haxe-formatter/issues/530))

@@ -1,0 +1,16 @@
+{}
+
+---
+
+class Main {
+	var text:String = "
+		var fileName:String;
+		var content:Bytes;
+>[		var content2:Bytes;
+]<		@:optional var tokenList:Array<Token>;
+	";
+}
+
+---
+
+		var content2:Bytes;
