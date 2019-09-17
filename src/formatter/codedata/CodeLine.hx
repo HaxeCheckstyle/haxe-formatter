@@ -10,12 +10,14 @@ class CodeLine {
 	public var indent:Int;
 	public var emptyLinesAfter:Int;
 	public var verbatim:Bool;
+	public var partialLine:Bool;
 
 	public function new(indent:Int) {
 		this.indent = indent;
 		parts = [];
 		emptyLinesAfter = 0;
 		verbatim = false;
+		partialLine = false;
 	}
 
 	public function addToken(tokenInfo:TokenInfo, lineSeparator:String) {
@@ -130,7 +132,11 @@ class CodeLine {
 		for (part in parts) {
 			line += part.text;
 		}
-		line = indenter.makeIndentString(indent) + line.rtrim();
+		if (partialLine) {
+			line = indenter.makeIndentString(indent) + line;
+		} else {
+			line = indenter.makeIndentString(indent) + line.rtrim();
+		}
 		for (index in 0...emptyLinesAfter) {
 			line += lineSeparator;
 			if (indenter.shouldAddTrailingWhitespace()) {

@@ -13,6 +13,7 @@ class CodeLines {
 	var range:FormatterInputRange;
 	var posRange:FormatterInputRange;
 	var trailingWhitespaceAfterRange:String;
+	var rangeStartOffset:Int;
 
 	public var lines(default, null):Array<CodeLine>;
 
@@ -23,6 +24,7 @@ class CodeLines {
 		this.range = null;
 		this.posRange = range;
 		this.trailingWhitespaceAfterRange = "";
+		this.rangeStartOffset = 0;
 		if (range != null) {
 			var start:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.startPos);
 			var end:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.endPos);
@@ -30,6 +32,14 @@ class CodeLines {
 				end = parsedCode.tokenList.getPreviousToken(end.token);
 			}
 			if ((start != null) && (end != null)) {
+				var startLine:LinePos = parsedCode.getLinePos(start.token.pos.min);
+				var rangeStartLine:LinePos = parsedCode.getLinePos(range.startPos);
+				var endLine:LinePos = parsedCode.getLinePos(start.token.pos.max);
+
+				if (startLine.line != rangeStartLine.line) {
+					rangeStartOffset = range.startPos - rangeStartLine.ofs - start.token.pos.min;
+				}
+
 				this.range = {startPos: start.token.index, endPos: end.token.index};
 			}
 		}
@@ -67,12 +77,20 @@ class CodeLines {
 				line = new CodeLine(indenter.calcIndent(tokenInfo.token) + tokenInfo.additionalIndent);
 				lines.push(line);
 			}
+			if (range != null) {
+				if ((index == range.startPos) && (rangeStartOffset > 0)) {
+					tokenInfo.text = tokenInfo.text.substr(rangeStartOffset);
+					line.indent = 0;
+				}
+			}
 			if ((range != null) && (index == range.endPos)) {
 				if ((posRange.endPos >= tokenInfo.token.pos.min) && (posRange.endPos < tokenInfo.token.pos.max)) {
-					tokenInfo.text = tokenInfo.text.substr(0, posRange.endPos - tokenInfo.token.pos.min);
+					tokenInfo.text = tokenInfo.text.substr(0, tokenInfo.text.length - (tokenInfo.token.pos.max - posRange.endPos));
+					line.partialLine = true;
 				}
 				if (posRange.endPos > tokenInfo.token.pos.max) {
 					trailingWhitespaceAfterRange = parsedCode.getString(tokenInfo.token.pos.max, posRange.endPos);
+					line.partialLine = true;
 				}
 			}
 			line.addToken(tokenInfo, parsedCode.lineSeparator);

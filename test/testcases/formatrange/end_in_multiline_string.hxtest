@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	public function new ()
+	{
+	>[	trace ("test");
+	}
+	var text:String = "
+		var fileName:String;
+		var content:Bytes;
+]<		var content2:Bytes;
+		@:optional var tokenList:Array<Token>;
+	";
+}
+
+---
+
+		trace("test");
+	}
+
+	var text:String = "
+		var fileName:String;
+		var content:Bytes;

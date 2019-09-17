@@ -2,6 +2,7 @@ import formatter.FormatStatsTest;
 import formatter.codedata.TokenListTest;
 import testcases.EmptyLinesTestCases;
 import testcases.ExpressionLevelTestCases;
+import testcases.FormatRangeTestCases;
 import testcases.IndentationTestCases;
 import testcases.LineEndsTestCases;
 import testcases.MissingTestCases;
@@ -23,6 +24,7 @@ class TestSuite extends massive.munit.TestSuite {
 
 		add(EmptyLinesTestCases);
 		add(ExpressionLevelTestCases);
+		add(FormatRangeTestCases);
 		add(IndentationTestCases);
 		add(LineEndsTestCases);
 		add(MissingTestCases);
