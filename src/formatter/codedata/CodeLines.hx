@@ -14,6 +14,7 @@ class CodeLines {
 	var posRange:FormatterInputRange;
 	var trailingWhitespaceAfterRange:String;
 	var rangeStartOffset:Int;
+	var rangeEndOffset:Int;
 
 	public var lines(default, null):Array<CodeLine>;
 
@@ -25,6 +26,7 @@ class CodeLines {
 		this.posRange = range;
 		this.trailingWhitespaceAfterRange = "";
 		this.rangeStartOffset = 0;
+		this.rangeEndOffset = 0;
 		if (range != null) {
 			var start:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.startPos);
 			var end:Null<TokenInfo> = parsedCode.tokenList.getTokenAtOffset(range.endPos);
@@ -32,18 +34,81 @@ class CodeLines {
 				end = parsedCode.tokenList.getPreviousToken(end.token);
 			}
 			if ((start != null) && (end != null)) {
-				var startLine:LinePos = parsedCode.getLinePos(start.token.pos.min);
-				var rangeStartLine:LinePos = parsedCode.getLinePos(range.startPos);
-				var endLine:LinePos = parsedCode.getLinePos(start.token.pos.max);
+				switch (start.token.tok) {
+					case Comment(s):
+						rangeStartOffset = calcStartCommentOffset(start);
+					default:
+						var startLine:LinePos = parsedCode.getLinePos(start.token.pos.min);
+						var rangeStartLine:LinePos = parsedCode.getLinePos(range.startPos);
+						var endLine:LinePos = parsedCode.getLinePos(start.token.pos.max);
 
-				if (startLine.line != rangeStartLine.line) {
-					rangeStartOffset = range.startPos - rangeStartLine.ofs - start.token.pos.min;
+						if (startLine.line != rangeStartLine.line) {
+							rangeStartOffset = range.startPos - rangeStartLine.ofs - start.token.pos.min;
+						}
+				}
+				switch (end.token.tok) {
+					case Comment(s):
+						rangeEndOffset = calcEndCommentOffset(end);
+					default:
+						if ((posRange.endPos >= end.token.pos.min) && (posRange.endPos < end.token.pos.max)) {
+							rangeEndOffset = end.text.length - (end.token.pos.max - posRange.endPos);
+						}
 				}
 
 				this.range = {startPos: start.token.index, endPos: end.token.index};
 			}
 		}
 		buildLines();
+	}
+
+	function calcStartCommentOffset(info:TokenInfo):Int {
+		var comment:String = parsedCode.getString(info.token.pos.min, info.token.pos.max);
+		var commentLines:Array<String> = comment.split(parsedCode.lineSeparator);
+
+		var index:Int = 0;
+		var offset:Int = 0;
+		var sepLength:Int = parsedCode.lineSeparator.length;
+		var pos:Int = posRange.startPos - info.token.pos.min;
+		for (line in commentLines) {
+			if (line.length + offset + sepLength > pos) {
+				break;
+			}
+			offset += line.length + sepLength;
+			index++;
+		}
+		commentLines = info.text.split(parsedCode.lineSeparator);
+
+		offset = 0;
+		for (j in 0...index) {
+			offset += commentLines[j].length + sepLength;
+		}
+		return offset;
+	}
+
+	function calcEndCommentOffset(info:TokenInfo):Int {
+		var comment:String = parsedCode.getString(info.token.pos.min, info.token.pos.max);
+		var commentLines:Array<String> = comment.split(parsedCode.lineSeparator);
+
+		var index:Int = 0;
+		var offset:Int = 0;
+		var trailCount:Int = 0;
+		var pos:Int = posRange.endPos - info.token.pos.min;
+		var sepLength:Int = parsedCode.lineSeparator.length;
+		for (line in commentLines) {
+			if (line.length + offset + sepLength > pos) {
+				trailCount = line.length - (pos - offset);
+				break;
+			}
+			offset += line.length + sepLength;
+			index++;
+		}
+		commentLines = info.text.split(parsedCode.lineSeparator);
+		offset = 0;
+		for (j in 0...index) {
+			offset += commentLines[j].length + sepLength;
+		}
+		var lastLine:String = commentLines[index];
+		return offset + lastLine.length - trailCount;
 	}
 
 	function buildLines() {
@@ -85,7 +150,11 @@ class CodeLines {
 			}
 			if ((range != null) && (index == range.endPos)) {
 				if ((posRange.endPos >= tokenInfo.token.pos.min) && (posRange.endPos < tokenInfo.token.pos.max)) {
-					tokenInfo.text = tokenInfo.text.substr(0, tokenInfo.text.length - (tokenInfo.token.pos.max - posRange.endPos));
+					var index:Int = 0;
+					if (range.endPos == range.startPos) {
+						index = rangeStartOffset;
+					}
+					tokenInfo.text = tokenInfo.text.substr(0, rangeEndOffset - index);
 					line.partialLine = true;
 				}
 				if (posRange.endPos > tokenInfo.token.pos.max) {
