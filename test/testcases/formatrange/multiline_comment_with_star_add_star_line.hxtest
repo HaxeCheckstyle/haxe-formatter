@@ -4,9 +4,9 @@
 
 
 /**
->[	var startPos:Int;]<
  * comment
- */
+>[* var startPos:Int;
+]< */
 typedef FormatterInputRange = {
 	var startPos:Int;
 	var endPos:Int;
@@ -14,4 +14,4 @@ typedef FormatterInputRange = {
 
 ---
 
-	var startPos:Int;
+ * var startPos:Int;

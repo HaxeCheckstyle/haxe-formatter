@@ -1,0 +1,22 @@
+{}
+
+---
+
+
+/**
+>[	var startPos:Int;
+ * comment
+ */
+typedef FormatterInputRange = {
+	var startPos:Int;
+	var endPos:Int;]<
+}
+
+---
+
+	var startPos:Int;
+	 * comment
+ */
+typedef FormatterInputRange = {
+	var startPos:Int;
+	var endPos:Int;
