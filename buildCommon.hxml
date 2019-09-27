@@ -5,6 +5,9 @@
 -lib hxargs
 # -lib safety
 
+-dce full
+-D analyzer-optimize
+
 -cp src
 
 # --macro nullSafety('formatter')

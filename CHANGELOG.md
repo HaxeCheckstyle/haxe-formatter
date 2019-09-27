@@ -2,7 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added unittests for empty lines ([#535](https://github.com/HaxeCheckstyle/haxe-formatter/issues/535))
 - Fixed range format issues with multiline tokens ([#532](https://github.com/HaxeCheckstyle/haxe-formatter/issues/532) + [#533](https://github.com/HaxeCheckstyle/haxe-formatter/issues/533))
+- Fixed extra indentation for parens after `=`, fixes [#534](https://github.com/HaxeCheckstyle/haxe-formatter/issues/534) ([#535](https://github.com/HaxeCheckstyle/haxe-formatter/issues/535))
 
 ## version 1.9.1 (2019-09-12)
 

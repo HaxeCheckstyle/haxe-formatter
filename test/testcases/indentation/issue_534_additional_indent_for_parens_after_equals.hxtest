@@ -1,0 +1,37 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		var a = true;
+		(a);
+	}
+	static function main() {
+		var a = true && !false;
+		(a);
+	}
+	static function main() {
+		var a = true | !false;
+		(a);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var a = true;
+		(a);
+	}
+
+	static function main() {
+		var a = true && !false;
+		(a);
+	}
+
+	static function main() {
+		var a = true | !false;
+		(a);
+	}
+}
