@@ -9,13 +9,13 @@ import formatter.config.Config;
 class EmptyLinesTest {
 	@Test
 	public function testEmptyLines() {
-		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map((s) -> s.trim());
+		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 		var formatted:String = format(lines.join("\n"));
-		var formattedLines:Array<String> = formatted.split("\n").map((s) -> s.ltrim());
+		var formattedLines:Array<String> = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		formatted = format(lines.join("\r\n"));
-		formattedLines = formatted.split("\r\n").map((s) -> s.ltrim());
+		formattedLines = formatted.split("\r\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		var buf:StringBuf = new StringBuf();
@@ -30,16 +30,16 @@ class EmptyLinesTest {
 			odd = !odd;
 		}
 		formatted = format(buf.toString());
-		formattedLines = formatted.split("\n").map((s) -> s.ltrim());
+		formattedLines = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 	}
 
 	@Test
 	public function testBOMEmptyLines() {
-		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map((s) -> s.trim());
+		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 
 		var formatted:String = format(lines.join("\r\n"));
-		var formattedLines:Array<String> = formatted.split("\r\n").map((s) -> s.ltrim());
+		var formattedLines:Array<String> = formatted.split("\r\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		var byteBuffer:BytesBuffer = new BytesBuffer();
@@ -49,7 +49,7 @@ class EmptyLinesTest {
 		byteBuffer.addString(lines.join("\n"));
 
 		formatted = format(byteBuffer.getBytes().toString());
-		formattedLines = formatted.split("\n").map((s) -> s.ltrim());
+		formattedLines = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		byteBuffer = new BytesBuffer();
@@ -59,23 +59,23 @@ class EmptyLinesTest {
 		byteBuffer.addString(lines.join("\r\n"));
 
 		formatted = format(byteBuffer.getBytes().toString());
-		formattedLines = formatted.split("\r\n").map((s) -> s.ltrim());
+		formattedLines = formatted.split("\r\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 	}
 
 	@Test
 	public function testCommentEmptyLines() {
-		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map((s) -> s.trim());
+		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 		lines.unshift("// äääääääääääääääääääööööööööööööööööööööüüüüüüüüüüüüüüüüüüüüüüßßßßßßßßßßßßßßßßßææææææææææææææææðððððððððððð€€€€€€€€€€€€€€¶¶¶¶¶¶¶¶¶¶¶đđđđđđđłł");
 		lines.pop();
 		lines.push("// äääääääääääääääääääööööööööööööööööööööüüüüüüüüüüüüüüüüüüüüüüßßßßßßßßßßßßßßßßßææææææææææææææææðððððððððððð€€€€€€€€€€€€€€¶¶¶¶¶¶¶¶¶¶¶đđđđđđđłł");
 		lines.push("");
 		var formatted:String = format(lines.join("\n"));
-		var formattedLines:Array<String> = formatted.split("\n").map((s) -> s.ltrim());
+		var formattedLines:Array<String> = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		formatted = format(lines.join("\r\n"));
-		formattedLines = formatted.split("\r\n").map((s) -> s.ltrim());
+		formattedLines = formatted.split("\r\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 	}
 
