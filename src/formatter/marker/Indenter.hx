@@ -677,8 +677,10 @@ class Indenter {
 	}
 
 	#if debugIndent
+	public static inline var DEBUG_IDENT_LOGFILE:String = "hxformat.log";
+
 	function logIndentStart() {
-		var file:FileOutput = File.append("hxformat.log", false);
+		var file:FileOutput = File.append(DEBUG_IDENT_LOGFILE, false);
 		file.writeString("\n".lpad("-", 202));
 		file.close();
 	}
@@ -686,7 +688,7 @@ class Indenter {
 	function logLine(token:TokenTree) {
 		var pos:LinePos = parsedCode.getLinePos(token.pos.min);
 		var text:String = '${pos.line + 1}: ${parsedCode.lines[pos.line]}';
-		var file:FileOutput = File.append("hxformat.log", false);
+		var file:FileOutput = File.append(DEBUG_IDENT_LOGFILE, false);
 		file.writeString(text + "\n");
 		file.close();
 	}
@@ -694,7 +696,7 @@ class Indenter {
 	function log(token:TokenTree, what:String) {
 		var tokenText:String = '`$token` (${token.pos.min})';
 		var text:String = '${tokenText.rpad(" ", 50)} ${what.rpad(" ", 90)}';
-		var file:FileOutput = File.append("hxformat.log", false);
+		var file:FileOutput = File.append(DEBUG_IDENT_LOGFILE, false);
 		file.writeString(text + "\n");
 		file.close();
 	}

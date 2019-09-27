@@ -1,4 +1,5 @@
 import formatter.FormatStatsTest;
+import formatter.EmptyLinesTest;
 import formatter.codedata.TokenListTest;
 import testcases.EmptyLinesTestCases;
 import testcases.ExpressionLevelTestCases;
@@ -20,6 +21,7 @@ class TestSuite extends massive.munit.TestSuite {
 			add(SelfTest);
 			add(FormatStatsTest);
 			add(TokenListTest);
+			add(EmptyLinesTest);
 		}
 
 		add(EmptyLinesTestCases);

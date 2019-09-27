@@ -2,7 +2,7 @@ import haxe.Json;
 import sys.io.File;
 
 class FormatterVersion {
-	public static macro function getFormatterVersion():haxe.macro.Expr.ExprOf<String> {
+	macro public static function getFormatterVersion():haxe.macro.Expr.ExprOf<String> {
 		#if !display
 		try {
 			var content:String = File.getContent("haxelib.json");
