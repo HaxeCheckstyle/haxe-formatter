@@ -455,16 +455,18 @@ class MarkWrapping extends MarkWrappingBase {
 			switch (token.tok) {
 				case Dot:
 					var prev:TokenInfo = getPreviousToken(token);
-					if (prev == null) {
-						return GO_DEEPER;
+					while (prev != null) {
+						switch (prev.token.tok) {
+							case Comment(_):
+							case CommentLine(_):
+							case PClose:
+								wrapBefore(token, true);
+								return FOUND_SKIP_SUBTREE;
+							default:
+								break;
+						}
+						prev = getPreviousToken(prev.token);
 					}
-					switch (prev.token.tok) {
-						case PClose:
-							wrapBefore(token, true);
-							return FOUND_SKIP_SUBTREE;
-						default:
-					}
-
 				default:
 			}
 			return GO_DEEPER;
@@ -492,14 +494,18 @@ class MarkWrapping extends MarkWrappingBase {
 			switch (token.tok) {
 				case Dot:
 					var prev:TokenInfo = getPreviousToken(token);
-					if (prev == null) {
-						return GO_DEEPER;
+					while (prev != null) {
+						switch (prev.token.tok) {
+							case Comment(_):
+							case CommentLine(_):
+							case PClose:
+								return FOUND_GO_DEEPER;
+							default:
+								break;
+						}
+						prev = getPreviousToken(prev.token);
 					}
-					switch (prev.token.tok) {
-						case PClose:
-							return FOUND_GO_DEEPER;
-						default:
-					}
+					return GO_DEEPER;
 				case POpen, BrOpen, BkOpen:
 					return SKIP_SUBTREE;
 				default:
