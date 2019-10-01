@@ -1,0 +1,124 @@
+{
+    "wrapping": {
+        "methodChain": {
+            "defaultWrap": "keep",
+            "rules": []
+        }
+    }
+}
+
+---
+
+class Main  {
+	function main() {
+		owner.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity();
+		owner.addEntity() // test
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity();
+		owner // test
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity();
+		owner.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity(); // test
+		owner.addEntity() // test
+			.addEntity() // test
+			.addEntity() // test
+			.addEntity() // test
+			.addEntity(); //test
+
+		new Entity() // test
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap()); // test
+		new Entity()
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap()); // test
+		new Entity()
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap());
+		new Entity() // test
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE)) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE)) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE)) // test
+			.addComponent(new PointerTap()); // test
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		owner.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity();
+		owner.addEntity() // test
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity();
+		owner // test
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity();
+		owner.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity()
+			.addEntity(); // test
+		owner.addEntity() // test
+			.addEntity() // test
+			.addEntity() // test
+			.addEntity() // test
+			.addEntity(); // test
+
+		new Entity() // test
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap()); // test
+		new Entity()
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap()); // test
+		new Entity()
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE))
+			.addComponent(new PointerTap());
+		new Entity() // test
+			.addComponent(new PointerTap()) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE)) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE)) // test
+			.addComponent(_sprite = FlumpAssets.getMovieSprite("mute_button", LibraryName.INTERFACE)) // test
+			.addComponent(new PointerTap()); // test
+	}
+}
