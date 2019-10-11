@@ -1,41 +1,26 @@
-language: haxe
+language: node_js
+node_js:
+  - "10"
+dist: xenial
 
-matrix:
-  include:
-    - haxe: 3.4.7
-      install:
-      - haxelib git hxparse https://github.com/Simn/hxparse --never
-      - ( git clone https://github.com/Simn/haxeparser && cd haxeparser && git checkout 48160b190cacafb0003d0c8d085dca2c85e21e31 && haxelib dev haxeparser . && echo '{ "disableFormatting":true }' > hxformat.json )
-      - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
-      - haxelib git hxargs https://github.com/Simn/hxargs --never
-      - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
-      - haxelib git mcover https://github.com/massiveinteractive/mcover master src
-      - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
-      - haxelib git json2object https://github.com/elnabo/json2object
-      - haxelib install hxjava
-      - haxelib install mlib
-      - haxelib install mconsole
-      - haxelib install test-adapter
-    - haxe: development
-      install:
-      - haxelib git hxparse https://github.com/Simn/hxparse --never
-      - haxelib git haxeparser https://github.com/Simn/haxeparser --never
-      - haxelib git tokentree https://github.com/HaxeCheckstyle/tokentree --never
-      - haxelib git hxargs https://github.com/Simn/hxargs --never
-      - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs --never
-      - haxelib git mcover https://github.com/massiveinteractive/mcover master src
-      - haxelib git munit https://github.com/massiveinteractive/MassiveUnit master src
-      - haxelib git json2object https://github.com/elnabo/json2object
-      - haxelib install hxjava
-      - haxelib install mlib
-      - haxelib install mconsole
-      - haxelib install test-adapter
+env:
+  - HAXE_VERSION=haxe347
+  - HAXE_VERSION=haxe4rc5
+  - HAXE_VERSION=nightly
+
+install:
+  - npm install
+  - if [[ "$HAXE_VERSION" == "haxe347" ]]; then ln -sfn haxe3_libraries haxe_libraries; fi
+  - if [[ "$HAXE_VERSION" == "haxe347" ]]; then npx lix download haxe 3.4.7; npx lix use haxe 3.4.7; fi
+  - if [[ "$HAXE_VERSION" == "haxe4rc5" ]]; then npx lix download haxe 4.0.0-rc.5; npx lix use haxe 4.0.0-rc.5; fi
+  - if [[ "$HAXE_VERSION" == "nightly" ]]; then npx lix download haxe nightly; npx lix use haxe nightly; fi
+  - npx lix download
 
 script:
-  - haxe buildAll.hxml
-  - haxe test.hxml -D codecov_json
-  - haxe testJava.hxml -D codecov_json
-  - haxe buildSchema.hxml
+  - npx haxe buildAll.hxml
+  - npx haxe test.hxml -D codecov_json
+  - npx haxe testJava.hxml -D codecov_json
+  - npx haxe buildSchema.hxml
   - node run.js -s . --check
   - java -jar out/Cli.jar -s . --check
   - neko run.n -s . --check
