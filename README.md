@@ -55,7 +55,7 @@ You can enable piped mode by giving `--stdin` on command line. In piped mode for
 
 Formatter does not support a stream mode, where you can provide an endless stream of code to be formatted, your input data needs some sort of end of file.
 
-Formatter will print formatted code to STDOUT. 
+Formatter will print formatted code to STDOUT.
 
 In case of errors, it will print your input file without modifications (as long as formatter is able to read your input). When an error occurs formatter sets an exit code and prints an error message to STDERR.
 
@@ -129,7 +129,7 @@ When you have a `hxformat.json` file that works for you, you can enable formatti
 
 ### Unittests
 
-To run all unittests simply use `haxe buildTest.hxml`
+To run all unittests simply use `haxe test.hxml`
 
 if you want to only run a single testcase you can either:
 
@@ -137,7 +137,7 @@ if you want to only run a single testcase you can either:
 - run it on command line by
   1. place a file called `single-run.txt` in your workspace's `test` folder
   2. make `single-run.txt` contain your testcase's path and name (without `.hxtest` extension) like `test/testcases/sameline/issue_235_keep_if_else`
-  3. run `haxe buildTest.hxml`
+  3. run `haxe test.hxml`
   4. you will get a `test/formatter-result.txt` containing two sections with result and gold (empty sections for green tests)
 
-Removing `test/single-run.txt` makes `haxe buildTest.hxml` do a full run. `vshaxe-debug-tools` is recommended since it performs all manual steps outlined and also opens a diff-view editor so you can easily compare result and gold.
+Removing `test/single-run.txt` makes `haxe test.hxml` do a full run. `vshaxe-debug-tools` is recommended since it performs all manual steps outlined and also opens a diff-view editor so you can easily compare result and gold.
