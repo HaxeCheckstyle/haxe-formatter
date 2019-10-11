@@ -17,10 +17,13 @@ install:
   - npx lix download
 
 script:
-  - npx haxe buildAll.hxml
+  - npx haxe buildJsNode.hxml
+  - npx haxe buildJsBrowser.hxml
+  - npx haxe buildNeko.hxml
+  - npx haxe buildJava.hxml
+  - npx haxe buildSchema.hxml
   - npx haxe test.hxml -D codecov_json
   - npx haxe testJava.hxml -D codecov_json
-  - npx haxe buildSchema.hxml
   - node run.js -s . --check
   - java -jar out/Cli.jar -s . --check
   - neko run.n -s . --check
