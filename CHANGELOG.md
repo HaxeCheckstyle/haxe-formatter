@@ -6,6 +6,7 @@
 - Fixed range format issues with multiline tokens ([#532](https://github.com/HaxeCheckstyle/haxe-formatter/issues/532) + [#533](https://github.com/HaxeCheckstyle/haxe-formatter/issues/533))
 - Fixed extra indentation for parens after `=`, fixes [#534](https://github.com/HaxeCheckstyle/haxe-formatter/issues/534) ([#535](https://github.com/HaxeCheckstyle/haxe-formatter/issues/535))
 - Fixed method chain with comments detection and wrapping ([#536](https://github.com/HaxeCheckstyle/haxe-formatter/issues/536))
+- Fixed whitespace before metadata
 
 ## version 1.9.1 (2019-09-12)
 
