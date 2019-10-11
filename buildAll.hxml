@@ -1,4 +1,6 @@
-buildJS.hxml
+buildJsNode.hxml
+--next
+buildJsBrowser.hxml
 --next
 buildNeko.hxml
 --next

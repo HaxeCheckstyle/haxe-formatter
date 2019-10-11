@@ -7,6 +7,7 @@
 - Fixed extra indentation for parens after `=`, fixes [#534](https://github.com/HaxeCheckstyle/haxe-formatter/issues/534) ([#535](https://github.com/HaxeCheckstyle/haxe-formatter/issues/535))
 - Fixed method chain with comments detection and wrapping ([#536](https://github.com/HaxeCheckstyle/haxe-formatter/issues/536))
 - Fixed whitespace before metadata
+- Refactored build system to use lix
 
 ## version 1.9.1 (2019-09-12)
 
