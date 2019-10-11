@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-ln -sfn haxe4_libraries haxe_libraries
+# ln -sfn haxe4_libraries haxe_libraries
 
 npm install
 npx lix download

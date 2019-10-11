@@ -10,7 +10,7 @@ env:
 
 install:
   - npm install
-  - if [[ "$HAXE_VERSION" == "haxe347" ]]; then ln -sfn haxe3_libraries haxe_libraries; fi
+  - if [[ "$HAXE_VERSION" == "haxe347" ]]; then mv haxe_libraries haxe4_libraries; mv haxe3_libraries haxe_libraries; fi
   - if [[ "$HAXE_VERSION" == "haxe347" ]]; then npx lix download haxe 3.4.7; npx lix use haxe 3.4.7; fi
   - if [[ "$HAXE_VERSION" == "haxe4rc5" ]]; then npx lix download haxe 4.0.0-rc.5; npx lix use haxe 4.0.0-rc.5; fi
   - if [[ "$HAXE_VERSION" == "nightly" ]]; then npx lix download haxe nightly; npx lix use haxe nightly; fi
