@@ -100,6 +100,8 @@ class MarkWhitespace extends MarkerBase {
 					whitespace(token, Before);
 				case Comment(_):
 					markComment(token);
+				case At:
+					markAt(token);
 				default:
 			}
 			return GO_DEEPER;
@@ -610,5 +612,48 @@ class MarkWhitespace extends MarkerBase {
 		}
 
 		whitespace(token, policy);
+	}
+
+	function markAt(token:TokenTree) {
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev == null) {
+			return;
+		}
+		switch (prev.whitespaceAfter) {
+			case None:
+			case Space, Newline:
+				return;
+		}
+		switch (prev.token.tok) {
+			case Kwd(_):
+			case Const(_):
+			case Sharp(_):
+			case Dollar(_):
+			case Unop(_):
+			case Binop(OpLt):
+				if (TokenTreeCheckUtils.isTypeParameter(prev.token)) {
+					return;
+				}
+			case Binop(_):
+			case Comment(_), CommentLine(_):
+				return;
+			case IntInterval(_):
+			case Semicolon:
+				return;
+			case Dot:
+			case DblDot:
+			case Arrow:
+			case Comma:
+			case BkOpen, BrOpen, POpen:
+				return;
+			case BkClose:
+			case BrClose:
+			case PClose:
+			case Question:
+			case At:
+			case Eof:
+				return;
+		}
+		whitespace(token, Before);
 	}
 }
