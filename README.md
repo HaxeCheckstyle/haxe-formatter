@@ -38,7 +38,7 @@ haxelib install formatter
 - Run `haxelib run formatter -s src` to format folder `src`.
 - Run `haxelib run formatter -s src -s test` to format folders `src` and `test`.
 
-If the `node` command is available on your system, the formatter automatically uses a JS instead of a Neko build (which is considerably faster).
+If the `node` command is available on your system, the formatter automatically uses its NodeJS version instead of a Neko build (which is considerably faster).
 
 ### Single File Formatting
 
@@ -81,7 +81,8 @@ An empty `hxformat.json` (containing only `{}`) or having `hxformat.json` will r
 
 When creating your custom `hxformat.json` file, you only need to provide settings that you want to override with respect to the built-in default. So configuration always starts with the default style of formatter. The following example changes curly braces placement and
 indentation to 4 space characters:
-```
+
+```json
 {
     "lineEnds": {
         "blockCurly": {
@@ -94,8 +95,16 @@ indentation to 4 space characters:
     }
 }
 ```
-Pro tip: Visual Studio Code has a `Format on Save` option that you can enable in `File -> Preferences -> Settings -> Text Editor -> Formatting`.
 
+Pro tip: Visual Studio Code has `Format on Save` and `Format on Paste` settings that you can enable by adding
+
+```json
+"[haxe]": {
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
+}
+```
+to your configuration (local or global). `formatOnPaste` will also give you `Format Selection` in `.hx` files.
 
 ### Ways to opt-out of formatting
 
@@ -125,11 +134,32 @@ When you have a `hxformat.json` file that works for you, you can enable formatti
 
 - improve wrapping
 
-## Development
+### Compiling formatter
+
+```bash
+git clone https://github.com/HaxeCheckstyle/haxe-formatter.git
+npm install
+lix download
+haxe buildAll.hxml # for Neko, NodeJS and Java version + run Unittests and create schema
+haxe buildCpp.hxml # for C++ version
+```
+
+#### Compiling with Haxe 3
+
+```bash
+git clone https://github.com/HaxeCheckstyle/haxe-formatter.git
+mv haxe_libraries haxe4_libraries
+mv haxe3_libraries haxe_libraries
+npm install
+lix use haxe 3.4.7
+lix download
+haxe buildAll.hxml # for Neko, NodeJS and Java version + run Unittests and create schema
+haxe buildCpp.hxml # for C++ version
+```
 
 ### Unittests
 
-To run all unittests simply use `haxe test.hxml`
+To run all unittests simply use `npx haxe test.hxml`
 
 if you want to only run a single testcase you can either:
 
@@ -137,7 +167,7 @@ if you want to only run a single testcase you can either:
 - run it on command line by
   1. place a file called `single-run.txt` in your workspace's `test` folder
   2. make `single-run.txt` contain your testcase's path and name (without `.hxtest` extension) like `test/testcases/sameline/issue_235_keep_if_else`
-  3. run `haxe test.hxml`
+  3. run `npx haxe test.hxml`
   4. you will get a `test/formatter-result.txt` containing two sections with result and gold (empty sections for green tests)
 
 Removing `test/single-run.txt` makes `haxe test.hxml` do a full run. `vshaxe-debug-tools` is recommended since it performs all manual steps outlined and also opens a diff-view editor so you can easily compare result and gold.
