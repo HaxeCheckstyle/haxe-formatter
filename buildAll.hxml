@@ -1,13 +1,4 @@
-buildJsNode.hxml
---next
-buildJsBrowser.hxml
---next
-buildNeko.hxml
---next
-buildJava.hxml
---next
-buildSchema.hxml
-
---next
+-cp build
+--run Build
 
 -cmd neko run --default-config resources/default-hxformat.json
