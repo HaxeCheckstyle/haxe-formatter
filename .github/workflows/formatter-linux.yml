@@ -1,0 +1,78 @@
+name: Haxe-Formatter Linux
+
+on:
+  push:
+    branches:
+    - dev
+  pull_request:
+    branches:
+    - dev
+  schedule:
+    - cron: '15 23 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        haxe-version: ['3.4.7', '4.0.0', 'nightly']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 10
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: Run npm install
+      run: npm ci
+    - name: Install Haxe version ${{ matrix.haxe-version }}
+      run: |
+        npx lix download haxe ${{ matrix.haxe-version }}
+        npx lix use haxe ${{ matrix.haxe-version }}
+    - name: Prepare Haxe 3 dependencies
+      if: matrix.haxe-version == '3.4.7'
+      run: |
+        mv haxe_libraries haxe4_libraries
+        mv haxe3_libraries haxe_libraries
+    - name: Run lix download
+      run: npx lix download
+    - name: Print versions
+      run: |
+        npx haxe -version
+        npx neko -version
+        npx haxelib list
+    - name: Build neko versions
+      run: |
+        npx haxe build.hxml
+        npx haxe buildDebug.hxml
+    - name: Build NodeJs version
+      run: npx haxe buildJsNode.hxml
+    - name: Build browser JS version
+      run: npx haxe buildJsBrowser.hxml
+    - name: Build Neko version
+      run: npx haxe buildNeko.hxml
+    - name: Build Java version
+      run: npx haxe buildJava.hxml
+    - name: Build JSON schema
+      run: npx haxe buildSchema.hxml
+    - name: Run Neko tests
+      if: matrix.haxe-version == '3.4.7'
+      run: npx haxe -D codecov_json text.hxml
+    - name: Run eval tests
+      if: matrix.haxe-version != '3.4.7'
+      run: npx haxe -D codecov_json test.hxml
+    - name: Run Java tests
+      run: npx haxe -D codecov_json testJava.hxml
+    - name: Run Node version with --check
+      run: node run.js -s . --check
+    - name: Run Java version with --check
+      run: java -jar out/Cli.jar -s . --check
+    - name: Run Neko (with node) with --check
+      run: |
+        neko run.n -s . --check
+    - name: Run Neko (without node) with --check
+      run: |
+        rm run.js
+        neko run.n -s . --check
+    - name: Upload results to codecov
+      if: success() && matrix.haxe-version == '4.0.0'
+      run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
