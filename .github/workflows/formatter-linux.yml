@@ -64,11 +64,11 @@ jobs:
       run: java -jar out/Cli.jar -s . --check
     - name: Run Neko (with node) with --check
       run: |
-        neko run.n -s . --check
+        npx neko run.n -s . --check
     - name: Run Neko (without node) with --check
       run: |
         rm run.js
-        neko run.n -s . --check
+        npx neko run.n -s . --check
     - name: Upload results to codecov
       if: success() && matrix.haxe-version == '4.0.0'
       run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
