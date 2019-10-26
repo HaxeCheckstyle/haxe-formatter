@@ -56,7 +56,7 @@ jobs:
       run: npx haxe buildSchema.hxml
     - name: Run Neko tests
       if: matrix.haxe-version == '3.4.7'
-      run: npx haxe -D codecov_json text.hxml
+      run: npx haxe -D codecov_json test.hxml
     - name: Run eval tests
       if: matrix.haxe-version != '3.4.7'
       run: npx haxe -D codecov_json test.hxml
