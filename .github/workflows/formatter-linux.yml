@@ -40,10 +40,6 @@ jobs:
         npx haxe -version
         npx neko -version
         npx haxelib list
-    - name: Build neko versions
-      run: |
-        npx haxe build.hxml
-        npx haxe buildDebug.hxml
     - name: Build NodeJs version
       run: npx haxe buildJsNode.hxml
     - name: Build browser JS version
