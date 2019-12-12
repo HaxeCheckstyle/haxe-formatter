@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - actions_for_win_osx
   pull_request:
     branches:
     - master
