@@ -1,10 +1,9 @@
-name: Haxe-Formatter Linux
+name: Haxe-Formatter
 
 on:
   push:
     branches:
     - master
-    - actions_for_win_osx
   pull_request:
     branches:
     - master
@@ -19,10 +18,10 @@ jobs:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-    - name: Prepare
+    - name: Set Git Auto CRLF to false on Windows
       if: matrix.platform == 'windows-latest'
       run: git config --global core.autocrlf false
-    - name: Checkout
+    - name: Checkout Formatter sources
       uses: actions/checkout@v1
     - name: Use Node.js 10
       uses: actions/setup-node@v1
