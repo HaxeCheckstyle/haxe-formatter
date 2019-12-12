@@ -21,7 +21,7 @@ jobs:
     steps:
     - name: Prepare
       if: matrix.platform == 'windows-latest'
-      run: git config core.autocrlf false
+      run: git config --global core.autocrlf false
     - name: Checkout
       uses: actions/checkout@v1
     - name: Use Node.js 10
