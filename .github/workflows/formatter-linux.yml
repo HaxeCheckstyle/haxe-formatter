@@ -19,7 +19,11 @@ jobs:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-    - uses: actions/checkout@v1
+    - name: Prepare
+      if: matrix.platform == 'windows-latest'
+      run: git config core.autocrlf false
+    - name: Checkout
+      uses: actions/checkout@v1
     - name: Use Node.js 10
       uses: actions/setup-node@v1
       with:
