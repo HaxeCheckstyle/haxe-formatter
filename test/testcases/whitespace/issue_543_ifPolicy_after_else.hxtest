@@ -1,0 +1,21 @@
+{
+  "whitespace": {
+    "ifPolicy": "onlyBefore"
+  }
+}
+
+---
+
+class Main {
+	static function main() {
+		return if(self == id) self else id;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return if(self == id) self else id;
+	}
+}

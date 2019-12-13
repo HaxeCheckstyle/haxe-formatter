@@ -1,0 +1,26 @@
+{
+	"emptyLines": {
+		"classEmptyLines": {
+			"beginType": 1,
+			"endType": 1
+		},
+		"afterLeftCurly": "keep",
+		"beforeRightCurly": "keep"
+	}
+}
+
+---
+
+class Main {
+	function main2()
+		return "";
+}
+
+---
+
+class Main {
+
+	function main2()
+		return "";
+
+}
