@@ -829,6 +829,9 @@ class MarkEmptyLines extends MarkerBase {
 	function markReturn() {
 		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], ALL);
 		for (ret in returns) {
+			if (isReturnBody(ret)) {
+				continue;
+			}
 			var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(ret);
 			if (lastChild == null) {
 				continue;
@@ -843,6 +846,21 @@ class MarkEmptyLines extends MarkerBase {
 				default:
 			}
 		}
+	}
+
+	function isReturnBody(ret:TokenTree):Bool {
+		var parent:TokenTree = ret.parent;
+		while ((parent != null) && (parent.tok != null)) {
+			switch (parent.tok) {
+				case Kwd(KwdFunction):
+					return true;
+				case BrOpen:
+					return false;
+				default:
+					parent = parent.parent;
+			}
+		}
+		return true;
 	}
 
 	function markSharp() {
