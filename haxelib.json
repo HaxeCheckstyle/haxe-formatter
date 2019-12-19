@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.9.1",
-	"releasenote": "Fixed issues with range formatting API  - see CHANGELOG for details.",
+	"version": "1.9.2",
+	"releasenote": "Fixed whitespace issues and changed build system to lix  - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
