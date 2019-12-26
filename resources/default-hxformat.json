@@ -126,6 +126,7 @@
 		"trailingWhitespace": false
 	},
 	"lineEnds": {
+		"anonFunctionCurly": null,
 		"anonTypeCurly": null,
 		"blockCurly": null,
 		"caseColon": "after",
@@ -150,7 +151,7 @@
 		"elseBody": "next",
 		"elseIf": "same",
 		"expressionCase": "keep",
-		"expressionIf": "same",
+		"expressionIf": "keep",
 		"expressionIfWithBlocks": false,
 		"expressionTry": "same",
 		"forBody": "next",

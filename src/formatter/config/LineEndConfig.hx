@@ -29,6 +29,11 @@ typedef LineEndConfig = {
 	@:default(null) @:optional var blockCurly:Null<CurlyLineEndPolicy>;
 
 	/**
+		line end settings for anon function body curlies
+	**/
+	@:default(null) @:optional var anonFunctionCurly:Null<CurlyLineEndPolicy>;
+
+	/**
 		line end settings for anon type curlies
 	**/
 	@:default(null) @:optional var anonTypeCurly:Null<CurlyLineEndPolicy>;
