@@ -1,0 +1,28 @@
+{
+	"lineEnds": {
+		"objectLiteralCurly": {
+			"leftCurly": "both"
+		}
+	},
+	"indentation": {
+		"indentObjectLiteral": false
+	}
+}
+
+---
+
+private var user:User = {
+	Address: {
+		Street: ""
+	}
+}
+
+---
+
+private var user:User =
+{
+	Address:
+	{
+		Street: ""
+	}
+}
