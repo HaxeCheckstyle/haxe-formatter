@@ -2,10 +2,11 @@
 
 ## dev branch / next version (1.x.x)
 
-- Fixed indentation of wrapped callbacks, fixes [#470](https://github.com/HaxeCheckstyle/haxe-formatter/issues/470), [#476](https://github.com/HaxeCheckstyle/haxe-formatter/issues/476), [#546](https://github.com/HaxeCheckstyle/haxe-formatter/issues/546)
-- Fixed indentation of array literals in calls, fixes [#376](https://github.com/HaxeCheckstyle/haxe-formatter/issues/367)
-- Fixed indentation of array literals in assignments, fixes [#512](https://github.com/HaxeCheckstyle/haxe-formatter/issues/512)
-- Changed default of `sameLine.expressionIf` to `keep`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304)
+- Fixed indentation of wrapped callbacks, fixes [#470](https://github.com/HaxeCheckstyle/haxe-formatter/issues/470), [#476](https://github.com/HaxeCheckstyle/haxe-formatter/issues/476), [#546](https://github.com/HaxeCheckstyle/haxe-formatter/issues/546) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
+- Fixed indentation of array literals in calls, fixes [#376](https://github.com/HaxeCheckstyle/haxe-formatter/issues/367) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
+- Fixed indentation of array literals in assignments, fixes [#512](https://github.com/HaxeCheckstyle/haxe-formatter/issues/512) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
+- Fixed indentation of object literals, fixes [#490](https://github.com/HaxeCheckstyle/haxe-formatter/issues/490) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
+- Changed default of `sameLine.expressionIf` to `keep`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 
 ## version 1.9.2 (2019-12-19)
 

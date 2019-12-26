@@ -385,7 +385,7 @@ class Indenter {
 							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								continue;
 							}
-						case Binop(OpAssign), Binop(OpAssignOp(_)):
+						case Binop(OpAssign) | Binop(OpAssignOp(_)) | DblDot:
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
 								case OBJECTDECL:
