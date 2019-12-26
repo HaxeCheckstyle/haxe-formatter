@@ -1,0 +1,27 @@
+{}
+
+---
+
+class Main {
+	public function new() {
+		context.callHaxeMethod("long parameter - long parameter - long parameter - long parameter - long parameter - long parameter - long parameter",
+			result -> {
+				trace("hello");
+			}, error -> {
+				trace(error);
+			});
+	}
+}
+
+---
+
+class Main {
+	public function new() {
+		context.callHaxeMethod("long parameter - long parameter - long parameter - long parameter - long parameter - long parameter - long parameter",
+			result -> {
+				trace("hello");
+			}, error -> {
+				trace(error);
+			});
+	}
+}
