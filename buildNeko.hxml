@@ -1,4 +1,4 @@
 buildCommon.hxml
 -neko run.n
 -main formatter.Cli
---cmd neko run.n --default-config resources/default-hxformat.json
+-cmd neko run.n --default-config resources/default-hxformat.json
