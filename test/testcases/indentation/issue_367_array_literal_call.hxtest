@@ -1,0 +1,42 @@
+{
+	"wrapping": {
+		"arrayWrap": {
+			"defaultWrap": "noWrap",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		states[state] = If(ifValue, {
+			foo: bar
+		}, {
+			foo: bar
+		});
+		states[state] = If(ifValue, [{
+			foo: bar
+		}], [{
+			foo: bar
+		}]);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		states[state] = If(ifValue, {
+			foo: bar
+		}, {
+			foo: bar
+		});
+		states[state] = If(ifValue, [{
+			foo: bar
+		}], [{
+			foo: bar
+		}]);
+	}
+}

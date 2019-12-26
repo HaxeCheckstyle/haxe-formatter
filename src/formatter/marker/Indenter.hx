@@ -287,7 +287,7 @@ class Indenter {
 					if (currentToken.is(Kwd(KwdTry))) {
 						continue;
 					}
-				case Kwd(KwdFunction) | Arrow:
+				case Kwd(KwdFunction) | Arrow | BkOpen:
 					switch (currentToken.tok) {
 						case POpen:
 							if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
@@ -350,7 +350,6 @@ class Indenter {
 								}
 								return count + calcIndent(firstToken.token);
 							}
-
 						case Kwd(KwdReturn), Kwd(KwdUntyped), Kwd(KwdNew):
 							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								continue;
