@@ -1,0 +1,46 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		a == b;
+		-1 != 0;
+	}
+	static function main2() {
+		a == b;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+	}
+	static function main3() {
+		-a == b;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		a == b;
+		-1 != 0;
+	}
+
+	static function main2() {
+		a == b;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+	}
+
+	static function main3() {
+		-a == b;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+		-1 != fairlyLongExpressionHereLoremIpsumFooBar;
+	}
+}
