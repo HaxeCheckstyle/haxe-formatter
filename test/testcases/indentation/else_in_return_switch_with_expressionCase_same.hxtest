@@ -1,6 +1,7 @@
 {
 	"sameLine":{
-		"expressionCase":"same"
+		"expressionCase":"same",
+		"expressionIf": "same"
 	}
 }
 

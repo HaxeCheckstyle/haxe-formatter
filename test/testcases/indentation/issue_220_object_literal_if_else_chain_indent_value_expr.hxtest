@@ -62,7 +62,8 @@ class Main {
 
 		return if (mid == min) {
 			{line: mid, pos: pos - start + 1};
-		} else {
+		}
+		else {
 			if (start > pos) {
 				loop(min, mid);
 			} else {

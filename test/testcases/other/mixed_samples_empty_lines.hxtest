@@ -1,6 +1,9 @@
 {
 	"emptyLines":{
 		"betweenSingleLineTypes": 1
+	},
+	"sameLine": {
+		"expressionIf": "same"
 	}
 }
 

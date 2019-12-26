@@ -129,9 +129,6 @@ class MarkSameLine extends MarkerBase {
 		if (body == null) {
 			return false;
 		}
-		if (!parsedCode.isOriginalSameLine(token, body)) {
-			return false;
-		}
 
 		return isExpression(token);
 	}

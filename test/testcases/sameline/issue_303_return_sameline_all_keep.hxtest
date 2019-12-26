@@ -1,7 +1,8 @@
 {
 	"sameLine": {
 		"returnBody": "keep",
-		"returnBodySingleLine": "keep"
+		"returnBodySingleLine": "keep",
+		"expressionIf": "keep"
 	}
 }
 
@@ -85,7 +86,8 @@ class Main {
 	}
 
 	function b() {
-		return if (x < 0) "negative"; else "non-negative";
+		return if (x < 0) "negative";
+		else "non-negative";
 		return switch y {
 			case "negative": -1;
 			case "non-negative": 1;
@@ -97,7 +99,8 @@ class Main {
 			}
 		}
 		return
-			if (x < 0) "negative"; else "non-negative";
+			if (x < 0) "negative";
+			else "non-negative";
 		return
 			switch y {
 				case "negative": -1;

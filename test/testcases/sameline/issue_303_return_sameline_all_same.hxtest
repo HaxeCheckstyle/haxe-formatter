@@ -1,7 +1,8 @@
 {
 	"sameLine": {
 		"returnBody": "same",
-		"returnBodySingleLine": "same"
+		"returnBodySingleLine": "same",
+		"expressionIf": "same"
 	}
 }
 

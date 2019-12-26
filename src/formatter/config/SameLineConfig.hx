@@ -39,7 +39,7 @@ typedef SameLineConfig = {
 		* next = place body on next line
 		* keep = keep same / next line from source
 	**/
-	@:default(Same) @:optional var expressionIf:SameLinePolicy;
+	@:default(Keep) @:optional var expressionIf:SameLinePolicy;
 
 	/**
 		will place if with one expression in a block in one line (requires "expressionIf" = "same")

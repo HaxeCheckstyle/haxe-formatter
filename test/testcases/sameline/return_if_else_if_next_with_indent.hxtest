@@ -1,4 +1,12 @@
-{}
+{
+	"indentation": {
+		"indentComplexValueExpressions": true
+	},
+	"sameLine": {
+		"expressionIf": "next"
+	}
+}
+
 
 ---
 
@@ -19,13 +27,17 @@ class Main {
 
 class Main {
 	static function main() {
-		return if (difference > 0) 1
-		else if (difference < 0) -1
-		else
-			0;
-		return if (difference > 0) 1;
-		else if (difference < 0) -1;
-		else
-			0;
+		return if (difference > 0)
+				1
+			else if (difference < 0)
+				-1
+			else
+				0;
+		return if (difference > 0)
+				1;
+			else if (difference < 0)
+				-1;
+			else
+				0;
 	}
 }
