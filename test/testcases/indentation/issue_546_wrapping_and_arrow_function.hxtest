@@ -1,0 +1,41 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		return AStar.search(new SearchState("0", []), s -> s.visitedCount() == locationCount && s.location == "0", s -> locationCount - s.visitedCount(),
+			function(state) {
+				var moves = [];
+				var targets = distances[state.location];
+				for (target in targets.keys()) {
+					moves.push({
+						cost: targets[target],
+						state: new SearchState(target, state.visited.copy())
+					});
+				}
+				return moves;
+			}
+		).score;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return AStar.search(new SearchState("0", []), s -> s.visitedCount() == locationCount && s.location == "0", s -> locationCount - s.visitedCount(),
+			function(state) {
+				var moves = [];
+				var targets = distances[state.location];
+				for (target in targets.keys()) {
+					moves.push({
+						cost: targets[target],
+						state: new SearchState(target, state.visited.copy())
+					});
+				}
+				return moves;
+			})
+			.score;
+	}
+}
