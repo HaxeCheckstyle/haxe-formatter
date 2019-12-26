@@ -1,8 +1,11 @@
  {
 	"indentation": {
 		"indentComplexValueExpressions": true
+	},
+ 	"sameLine": {
+		"expressionIf": "keep"
 	}
- }
+}
 
 ---
 
@@ -21,6 +24,11 @@ class Main {
 
 class Main {
 	function getRevBits(n) {
-		return if (n == 0) 0 else if (getBit()) (1 << (n - 1)) | getRevBits(n - 1) else getRevBits(n - 1);
+		return if (n == 0)
+				0
+			else if (getBit())
+				(1 << (n - 1)) | getRevBits(n - 1)
+			else
+				getRevBits(n - 1);
 	}
 }

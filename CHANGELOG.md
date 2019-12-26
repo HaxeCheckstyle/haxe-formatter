@@ -8,7 +8,7 @@
 - Fixed indentation of array literals in assignments, fixes [#512](https://github.com/HaxeCheckstyle/haxe-formatter/issues/512) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 - Fixed indentation of object literals, fixes [#490](https://github.com/HaxeCheckstyle/haxe-formatter/issues/490) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 - Fixed handling of unary OpSub, fixes [#547](https://github.com/HaxeCheckstyle/haxe-formatter/issues/547) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
-- Changed default of `sameLine.expressionIf` to `keep`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
+- Changed keep-like behaviour of `sameLine.expressionIf` with `same`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548) + [#550](https://github.com/HaxeCheckstyle/haxe-formatter/issues/550))
 
 ## version 1.9.2 (2019-12-19)
 

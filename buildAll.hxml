@@ -1,4 +1,2 @@
 -cp build
 --run Build
-
--cmd neko run --default-config resources/default-hxformat.json

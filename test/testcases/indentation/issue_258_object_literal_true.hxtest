@@ -7,7 +7,8 @@
 	},
 	"sameLine": {
 		"returnBody": "keep",
-		"returnBodySingleLine": "keep"
+		"returnBodySingleLine": "keep",
+		"expressionIf": "keep"
 	}
 }
 

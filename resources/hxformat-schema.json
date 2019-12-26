@@ -723,7 +723,7 @@
 				"expressionIf": {
 					"description": "same line policy for non block body of \"if\" in a value place / as expression * same = place if and body on same line * next = place body on next line * keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy",
-					"default": "keep"
+					"default": "same"
 				},
 				"ifBody": {
 					"description": "same line policy for non block body of \"if\" * same = place if and body on same line * next = place body on next line * keep = keep same / next line from source",
