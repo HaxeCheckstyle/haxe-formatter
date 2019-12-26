@@ -1,4 +1,8 @@
-{}
+{
+	"sameLine": {
+		"expressionIf": "keep"
+	}
+}
 
 ---
 

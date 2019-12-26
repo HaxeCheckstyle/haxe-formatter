@@ -151,7 +151,7 @@
 		"elseBody": "next",
 		"elseIf": "same",
 		"expressionCase": "keep",
-		"expressionIf": "keep",
+		"expressionIf": "same",
 		"expressionIfWithBlocks": false,
 		"expressionTry": "same",
 		"forBody": "next",

@@ -1,6 +1,9 @@
 {
 	"indentation": {
 		"indentComplexValueExpressions": true
+	},
+	"sameLine": {
+		"expressionIf": "keep"
 	}
 }
 
