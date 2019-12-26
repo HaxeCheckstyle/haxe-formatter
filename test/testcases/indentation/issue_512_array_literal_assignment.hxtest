@@ -1,0 +1,28 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		items = [
+			{label: "class", code: 'class $name $body'},
+			{label: "enum abstract", code: 'enum abstract $abstractName $body'}
+		].map(function(foo) {
+			bar;
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		items = [
+			{label: "class", code: 'class $name $body'},
+			{label: "enum abstract", code: 'enum abstract $abstractName $body'}
+		].map(function(foo) {
+			bar;
+		});
+	}
+}
