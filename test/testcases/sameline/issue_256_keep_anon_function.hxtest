@@ -10,6 +10,7 @@
         "ifElse": "next",
         "elseBody": "same",
         "elseIf": "same",
+		"expressionIf": "same",
         "caseBody": "keep",
         "doWhile": "same",
         "doWhileBody": "same",
