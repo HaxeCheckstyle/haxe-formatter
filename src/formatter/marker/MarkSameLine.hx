@@ -76,6 +76,13 @@ class MarkSameLine extends MarkerBase {
 			case Kwd(KwdElse):
 				return shouldElseBeSameLine(parent);
 			case DblDot:
+				var lastChild:Null<TokenTree> = parent.getLastChild();
+				if (lastChild == null) {
+					return false;
+				}
+				if (lastChild.index != token.index) {
+					return false;
+				}
 				return isReturnExpression(parent);
 			default:
 		}
