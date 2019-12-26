@@ -1,0 +1,36 @@
+{}
+
+---
+
+class Main
+{
+	static function main()
+	{
+		doSomethingWith(function () {
+		});
+		doSomethingWith(() -> {});
+
+		doSomethingWith(function () {
+			trace("foo");
+		});
+		doSomethingWith(() -> {
+			trace("foo");
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		doSomethingWith(function() {});
+		doSomethingWith(() -> {});
+
+		doSomethingWith(function() {
+			trace("foo");
+		});
+		doSomethingWith(() -> {
+			trace("foo");
+		});
+	}
+}

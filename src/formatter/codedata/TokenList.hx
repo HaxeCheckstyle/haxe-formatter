@@ -540,7 +540,7 @@ class TokenList {
 					}
 				case CommentLine(_):
 					continue;
-				case Kwd(KwdFunction), Kwd(KwdMacro):
+				case Kwd(KwdFunction) | Kwd(KwdMacro) | Arrow:
 					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(info.token);
 					if (lastChild != null) {
 						if (lastChild.index > index) {

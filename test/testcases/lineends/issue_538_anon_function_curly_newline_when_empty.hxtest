@@ -1,0 +1,60 @@
+{
+	"lineEnds": {
+		"anonFunctionCurly": {
+			"leftCurly": "both",
+			"emptyCurly": "break"
+		}
+	}
+}
+
+---
+
+class Main
+{
+	static function main()
+	{
+		doSomethingWith(function () {
+		});
+		doSomethingWith(() -> {});
+
+		doSomethingWith(function () {
+			trace("foo");
+		});
+		doSomethingWith(() -> {
+			trace("foo");
+		});
+
+		if (true) {
+		}
+		else{
+		}
+	}
+	static function main()
+	{
+
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		doSomethingWith(function()
+		{
+		});
+		doSomethingWith(() -> {});
+
+		doSomethingWith(function()
+		{
+			trace("foo");
+		});
+		doSomethingWith(() ->
+		{
+			trace("foo");
+		});
+
+		if (true) {} else {}
+	}
+
+	static function main() {}
+}

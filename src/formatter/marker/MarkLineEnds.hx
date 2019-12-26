@@ -178,6 +178,13 @@ class MarkLineEnds extends MarkerBase {
 		};
 		switch (type) {
 			case BLOCK:
+				if (brOpen.parent != null && brOpen.parent.tok != null && config.lineEnds.anonFunctionCurly != null) {
+					switch (brOpen.parent.tok) {
+						case Kwd(KwdFunction) | Arrow:
+							return config.lineEnds.anonFunctionCurly;
+						default:
+					}
+				}
 				if (config.lineEnds.blockCurly != null) {
 					return config.lineEnds.blockCurly;
 				}
