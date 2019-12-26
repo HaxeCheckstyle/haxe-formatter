@@ -295,7 +295,7 @@ class Indenter {
 							}
 							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								var firstToken:TokenInfo = parsedCode.tokenList.getPreviousToken(prevToken);
-								while (!parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
+								while (firstToken != null && !parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
 									firstToken = parsedCode.tokenList.getPreviousToken(firstToken.token);
 								}
 								return count + calcIndent(firstToken.token);
@@ -326,6 +326,7 @@ class Indenter {
 					if (!config.indentCaseLabels) {
 						continue;
 					}
+				case Dot:
 					switch (currentToken.tok) {
 						case POpen, BrOpen:
 							if (parsedCode.tokenList.isSameLine(currentToken, prevToken)) {
@@ -338,11 +339,24 @@ class Indenter {
 							} else {
 								continue;
 							}
-						case Binop(OpAssign), Binop(OpAssignOp(_)):
+						case Binop(OpAssign) | Binop(OpAssignOp(_)):
+							if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
+								continue;
+							}
+							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
+								var firstToken:TokenInfo = parsedCode.tokenList.getPreviousToken(prevToken);
+								while (firstToken != null && !parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
+									firstToken = parsedCode.tokenList.getPreviousToken(firstToken.token);
+								}
+								return count + calcIndent(firstToken.token);
+							}
+
 						case Kwd(KwdReturn), Kwd(KwdUntyped), Kwd(KwdNew):
 							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								continue;
 							}
+						case Kwd(KwdCase) | Kwd(KwdDefault):
+							continue;
 						default:
 							if (parsedCode.tokenList.isNewLineBefore(prevToken)) {
 								#if debugIndent

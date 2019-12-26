@@ -1,0 +1,30 @@
+{
+}
+
+---
+
+class Main {
+	static function main() {
+		var p = Promise.all().then(function(r) {
+			Assert.notNull(r);
+			done();
+		}).catchError(function(e) {
+			trace(e);
+			done();
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var p = Promise.all().then(function(r) {
+			Assert.notNull(r);
+			done();
+		}).catchError(function(e) {
+			trace(e);
+			done();
+		});
+	}
+}

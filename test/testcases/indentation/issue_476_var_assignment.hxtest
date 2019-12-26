@@ -1,0 +1,15 @@
+{
+}
+
+---
+
+class Foo {
+	private static var __pool:ObjectPool<AsyncErrorEvent> = new ObjectPool<AsyncErrorEvent>(function() return new AsyncErrorEvent(null), function(event) event.__init());
+}
+
+---
+
+class Foo {
+	private static var __pool:ObjectPool<AsyncErrorEvent> = new ObjectPool<AsyncErrorEvent>(function() return new AsyncErrorEvent(null),
+		function(event) event.__init());
+}
