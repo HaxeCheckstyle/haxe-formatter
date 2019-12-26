@@ -144,6 +144,9 @@ class Indenter {
 					case Kwd(KwdDo), Kwd(KwdWhile), Kwd(KwdFor):
 						return findEffectiveParent(parent);
 					case Kwd(KwdFunction):
+						if (parsedCode.tokenList.isNewLineBefore(parent)) {
+							return parent;
+						}
 						return findEffectiveParent(parent);
 					case Kwd(KwdSwitch):
 						return findEffectiveParent(parent);
@@ -284,9 +287,20 @@ class Indenter {
 					if (currentToken.is(Kwd(KwdTry))) {
 						continue;
 					}
-				case Kwd(KwdFunction):
-					if (currentToken.is(POpen) && !parsedCode.tokenList.isNewLineAfter(currentToken)) {
-						continue;
+				case Kwd(KwdFunction) | Arrow:
+					switch (currentToken.tok) {
+						case POpen:
+							if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
+								continue;
+							}
+							if (!parsedCode.tokenList.isNewLineBefore(prevToken)) {
+								var firstToken:TokenInfo = parsedCode.tokenList.getPreviousToken(prevToken);
+								while (!parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
+									firstToken = parsedCode.tokenList.getPreviousToken(firstToken.token);
+								}
+								return count + calcIndent(firstToken.token);
+							}
+						default:
 					}
 				case Kwd(KwdSwitch):
 					switch (currentToken.tok) {
@@ -312,11 +326,6 @@ class Indenter {
 					if (!config.indentCaseLabels) {
 						continue;
 					}
-				case Arrow:
-					if (currentToken.is(POpen)) {
-						continue;
-					}
-				case Dot:
 					switch (currentToken.tok) {
 						case POpen, BrOpen:
 							if (parsedCode.tokenList.isSameLine(currentToken, prevToken)) {
