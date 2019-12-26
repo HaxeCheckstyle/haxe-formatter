@@ -1,0 +1,48 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		trace(switch foo {
+			case "bar":
+				if (foo == "bar")
+					return "bar";
+				true;
+			case _:
+				false;
+		});
+		var x = switch foo {
+			case "bar":
+				if (foo == "bar")
+					return "bar";
+				true;
+			case _:
+				false;
+		};
+
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		trace(switch foo {
+			case "bar":
+				if (foo == "bar")
+					return "bar";
+				true;
+			case _:
+				false;
+		});
+		var x = switch foo {
+			case "bar":
+				if (foo == "bar")
+					return "bar";
+				true;
+			case _:
+				false;
+		};
+	}
+}
