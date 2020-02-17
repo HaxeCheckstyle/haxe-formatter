@@ -1,8 +1,8 @@
 package formatter.codedata;
 
 import haxeparser.HaxeLexer;
-import tokentree.TokenTreeBuilder;
 import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
+import tokentree.TokenTreeBuilder;
 
 class ParsedCode {
 	static inline var BAD_OFFSET:String = "Bad offset";
@@ -240,6 +240,9 @@ class ParsedCode {
 			var line:String = lines[index];
 			if (~/^\s*$/.match(line)) {
 				emptyLines.push(index);
+			}
+			if (line.startsWith("<<<<<<<")) {
+				throw 'not formatting "${file.name}" - file contains a merge conflict';
 			}
 		}
 	}

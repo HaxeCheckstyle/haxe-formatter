@@ -15,7 +15,7 @@
         "email": "Alexander.Blum@gmail.com"
     },
     "devDependencies": {
-        "lix": "^15.5.4"
+        "lix": "^15.8.6"
     },
     "bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
     "license": "MIT"
