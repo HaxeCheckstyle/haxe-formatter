@@ -1,0 +1,31 @@
+{}
+
+---
+
+class Foo {
+	function foo() {
+		switch (bar) {
+<<<<<<< .mine
+foobar
+=======
+fubar
+>>>>>>> .rxxx
+		}
+		}
+		}
+
+
+
+---
+
+class Foo {
+	function foo() {
+		switch (bar) {
+			case foo if (switch(bar) { case _: false; }): doSomething();
+			case foo if (true): doSomething();
+			case foo2: doSomething();
+				x >>>= 10;
+		}
+		}
+		}
+

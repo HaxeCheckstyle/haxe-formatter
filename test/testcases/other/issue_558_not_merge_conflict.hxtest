@@ -1,0 +1,27 @@
+{}
+
+---
+
+class Foo {
+	function foo() {
+		switch (bar) {
+ <<<<<<< .mine
+foobar
+=======
+fubar
+>>>>>>> .rxxx
+		}
+		}
+		}
+
+
+
+---
+
+class Foo {
+	function foo() {
+		switch (bar) {
+			<< << << < .mine foobar == == == = fubar >>> >>> > .rxxx
+		}
+	}
+}

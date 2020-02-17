@@ -201,8 +201,12 @@ typedef ImportsEmptyLinesConfig = {
 	/**
 		restrict betweenImports setting to a specific level
 		"all" - apply betweenImports to all imports/using entries
-		"topLevelPackage" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names
-		"packages" - group imports/using entries using full packages; no empty lines for identical package names
+		"firstLevelPackage" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names
+		"secondLevelPackage" - group imports/using entries using top- and secondlevel package names; no empty lines for identical toplevel and secondlevel names
+		"thirdLevelPackage" - group imports/using entries using upto thirdlevel package names
+		"fourthLevelPackage" - group imports/using entries using upto foruthlevel package names
+		"fifthLevelPackage" - group imports/using entries using upto fifthlevel package names
+		"fullPackage" - group imports/using entries using full packages; no empty lines for identical package names
 	**/
 	@:default(All) @:optional var betweenImportsLevel:BetweenImportsEmptyLinesLevel;
 

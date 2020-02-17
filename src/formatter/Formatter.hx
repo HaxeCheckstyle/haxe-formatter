@@ -1,23 +1,23 @@
 package formatter;
 
 #if (sys || nodejs)
-import sys.io.File;
 import sys.FileSystem;
+import sys.io.File;
 #end
 import haxe.CallStack;
 import haxe.io.Path;
+import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
+import formatter.codedata.CodeLines;
+import formatter.codedata.FormatterInputData;
 import formatter.config.Config;
+import formatter.marker.Indenter;
 import formatter.marker.MarkAdditionalIndentation;
 import formatter.marker.MarkEmptyLines;
 import formatter.marker.MarkLineEnds;
+import formatter.marker.MarkSameLine;
 import formatter.marker.MarkTokenText;
 import formatter.marker.MarkWhitespace;
-import formatter.marker.Indenter;
 import formatter.marker.wrapping.MarkWrapping;
-import formatter.marker.MarkSameLine;
-import formatter.codedata.CodeLines;
-import formatter.codedata.FormatterInputData;
-import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 enum Result {
 	Success(formattedCode:String);

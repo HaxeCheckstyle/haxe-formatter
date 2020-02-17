@@ -1,9 +1,9 @@
-import sys.io.File;
 import haxe.PosInfos;
 import haxe.Template;
-import massive.munit.Assert;
+import sys.io.File;
 import formatter.Formatter;
 import formatter.config.Config;
+import massive.munit.Assert;
 import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 class GoldBaseTest {
@@ -27,17 +27,24 @@ class GoldBaseTest {
 
 	function handleResult(fileName:String, result:Result, goldCode:String, ?pos:PosInfos) {
 		var isDisabled:Bool = fileName.startsWith("disabled_");
+		var isFailing:Bool = fileName.startsWith("failing_");
 
 		switch (result) {
 			case Success(formattedCode):
 				if (isDisabled) {
 					Assert.fail("testcase should be disabled!");
 				}
+				if (isFailing) {
+					Assert.fail("testcase should be failing!");
+				}
 				if (goldCode != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
 				}
 				Assert.areEqual(goldCode, formattedCode, pos);
 			case Failure(errorMessage):
+				if (isFailing) {
+					return;
+				}
 				Assert.fail(errorMessage, pos);
 			case Disabled:
 				if (isDisabled) {
