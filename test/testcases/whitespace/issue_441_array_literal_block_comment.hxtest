@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		[ /* foo */];
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		[/* foo */];
+	}
+}
