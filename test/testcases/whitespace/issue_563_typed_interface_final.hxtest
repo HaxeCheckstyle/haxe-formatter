@@ -1,0 +1,14 @@
+{
+}
+
+---
+
+interface V {
+	final v:Null<String>;
+}
+
+---
+
+interface V {
+	final v:Null<String>;
+}
