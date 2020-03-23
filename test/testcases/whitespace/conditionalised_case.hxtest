@@ -1,0 +1,26 @@
+{
+}
+
+
+---
+
+
+class Main {
+    static function main() {
+		switch (prev.tok) {
+			case #if (haxe_ver < 4.0) Kwd(KwdIn) #else Binop(OpIn) #end :
+				return true;
+		}
+    }
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (prev.tok) {
+			case #if (haxe_ver < 4.0) Kwd(KwdIn) #else Binop(OpIn) #end:
+				return true;
+		}
+	}
+}
