@@ -613,6 +613,10 @@ class MarkWhitespace extends MarkerBase {
 			switch (prev.token.tok) {
 				case BkOpen, BrOpen, POpen:
 					policy = policy.remove(Before);
+				case Binop(OpLt):
+					if (TokenTreeCheckUtils.isTypeParameter(prev.token)) {
+						policy = policy.remove(Before);
+					}
 				default:
 			}
 		}
