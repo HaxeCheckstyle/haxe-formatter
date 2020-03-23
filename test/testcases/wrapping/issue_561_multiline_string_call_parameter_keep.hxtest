@@ -1,0 +1,29 @@
+{
+    "wrapping": {
+        "callParameter": {
+            "defaultWrap": "keep"
+        }
+    }
+}
+
+---
+
+class Main
+{
+	private function someFunc()
+	{
+		return hxx('
+			<div></div>
+		');
+	}
+}
+
+---
+
+class Main {
+	private function someFunc() {
+		return hxx('
+			<div></div>
+		');
+	}
+}
