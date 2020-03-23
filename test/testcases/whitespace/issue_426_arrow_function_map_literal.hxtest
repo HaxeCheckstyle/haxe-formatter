@@ -1,0 +1,14 @@
+{
+}
+
+---
+
+class Main {
+	var map:Map<String, String->SomeEnum> = ["a" => _ -> Foo];
+}
+
+---
+
+class Main {
+	var map:Map<String, String->SomeEnum> = ["a" => _ -> Foo];
+}
