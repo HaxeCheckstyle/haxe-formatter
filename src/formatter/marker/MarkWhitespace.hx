@@ -187,6 +187,10 @@ class MarkWhitespace extends MarkerBase {
 						} else {
 							policy = policy.remove(After);
 						}
+					case Binop(OpGt):
+						if (TokenTreeCheckUtils.isTypeParameter(next.token)) {
+							policy = policy.remove(After);
+						}
 					default:
 				}
 			}
