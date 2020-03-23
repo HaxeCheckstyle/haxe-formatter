@@ -1,0 +1,32 @@
+{
+    "lineEnds": {
+        "blockCurly": {
+            "leftCurly": "both",
+            "rightCurly": "both",
+            "emptyCurly": "break"
+        },
+        "anonFunctionCurly": {
+            "leftCurly": "after",
+            "rightCurly": "before"
+        }
+    }
+}
+
+---
+
+private function someFunc()
+{
+    timer.onComplete(() ->
+        {
+            delayedCombine(assetConfigVo, firstCombinedSymbol, symbolsToBeCombinedWithFirstList);
+        });
+}
+
+---
+
+private function someFunc()
+{
+	timer.onComplete(() -> {
+		delayedCombine(assetConfigVo, firstCombinedSymbol, symbolsToBeCombinedWithFirstList);
+	});
+}
