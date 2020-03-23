@@ -364,6 +364,7 @@ class MarkWhitespace extends MarkerBase {
 		var prev:Null<TokenInfo> = getPreviousToken(token);
 		if (prev != null) {
 			switch (prev.token.tok) {
+				case Sharp(MarkLineEnds.SHARP_END):
 				case Sharp(_):
 					policy = policy.add(Before);
 				case PClose, Const(_):

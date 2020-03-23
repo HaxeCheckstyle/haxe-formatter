@@ -12,6 +12,7 @@
 - Fixed `expressionIf` detection in switch, fixes [#552](https://github.com/HaxeCheckstyle/haxe-formatter/issues/552) ([#553](https://github.com/HaxeCheckstyle/haxe-formatter/issues/553))
 - Fixed keep wrapping with multiline strings, fixes [#561](https://github.com/HaxeCheckstyle/haxe-formatter/issues/561)
 - Fixed whitespace of block comment in array literals, fixes [#441](https://github.com/HaxeCheckstyle/haxe-formatter/issues/441)
+- Fixed whitespace of conditionalised case
 - Changed keep-like behaviour of `sameLine.expressionIf` with `same`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548) + [#550](https://github.com/HaxeCheckstyle/haxe-formatter/issues/550))
 
 ## version 1.9.2 (2019-12-19)
