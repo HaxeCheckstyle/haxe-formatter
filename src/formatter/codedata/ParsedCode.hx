@@ -196,7 +196,7 @@ class ParsedCode {
 	}
 
 	public function isOriginalSameLine(first:TokenTree, second:TokenTree):Bool {
-		var startLine:Int = getLinePos(first.pos.min).line;
+		var startLine:Int = getLinePos(first.pos.max).line;
 		var endLine:Int = getLinePos(second.pos.min).line;
 		return (startLine == endLine);
 	}
