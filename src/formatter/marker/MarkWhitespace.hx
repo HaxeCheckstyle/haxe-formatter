@@ -200,6 +200,12 @@ class MarkWhitespace extends MarkerBase {
 				switch (prev.token.tok) {
 					case POpen, BrOpen, BkOpen, IntInterval(_), Binop(OpInterval):
 						policy = policy.remove(Before);
+					case PClose:
+						switch (TokenTreeCheckUtils.getPOpenType(prev.token)) {
+							case CONDITION:
+								policy = policy.add(Before);
+							default:
+						}
 					case Binop(OpLt):
 						if (token.is(BrOpen)) {
 							return;
