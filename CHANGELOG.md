@@ -16,6 +16,7 @@
 - Fixed conditionalised class declaration with constraints, fixes [#431](https://github.com/HaxeCheckstyle/haxe-formatter/issues/431)
 - Fixed conditionalised function type typedef, fixes [#531](https://github.com/HaxeCheckstyle/haxe-formatter/issues/531)
 - Fixed arrow function in map literal, fixes [#426](https://github.com/HaxeCheckstyle/haxe-formatter/issues/426)
+- Fixed whitespace in single argument arrow function, fixes [#562](https://github.com/HaxeCheckstyle/haxe-formatter/issues/562)
 - Changed keep-like behaviour of `sameLine.expressionIf` with `same`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548) + [#550](https://github.com/HaxeCheckstyle/haxe-formatter/issues/550))
 
 ## version 1.9.2 (2019-12-19)
