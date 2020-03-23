@@ -603,17 +603,24 @@ class MarkWhitespace extends MarkerBase {
 
 	function markComment(token:TokenTree) {
 		var policy:WhitespacePolicy = Around;
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case BkOpen, BrOpen, POpen:
+					policy = policy.remove(Before);
+				default:
+			}
+		}
 		var next:Null<TokenInfo> = getNextToken(token);
-		if (next == null) {
-			whitespace(token, policy);
-			return;
+		if (next != null) {
+			switch (next.token.tok) {
+				case Comma:
+					policy = policy.remove(After);
+				case BkClose, BrClose, PClose:
+					policy = policy.remove(After);
+				default:
+			}
 		}
-		switch (next.token.tok) {
-			case Comma:
-				policy.remove(After);
-			default:
-		}
-
 		whitespace(token, policy);
 	}
 
