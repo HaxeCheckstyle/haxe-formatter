@@ -59,6 +59,7 @@ class MarkWrapping extends MarkWrappingBase {
 		markImplementsExtendsChaining();
 		markOpBoolChaining();
 		markOpAddChaining();
+		markCasePatternChaining();
 
 		applyWrappingQueue();
 	}
@@ -627,6 +628,49 @@ class MarkWrapping extends MarkWrappingBase {
 			useTrailing: false,
 			overrideAdditionalIndent: null
 		}, "markSingleOpBoolChain");
+	}
+
+	function markCasePatternChaining() {
+		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdCase):
+					FOUND_GO_DEEPER;
+				default:
+					GO_DEEPER;
+			}
+		});
+		for (chainStart in chainStarts) {
+			markSingleCasePatternChain(chainStart);
+		}
+	}
+
+	function markSingleCasePatternChain(itemContainer:TokenTree) {
+		var items:Array<WrappableItem> = [];
+		// var prev:Null<TokenInfo> = getPreviousToken(findOpAddItemStart(itemContainer));
+		var chainStart:TokenTree = itemContainer;
+		var chainEnd:Null<TokenTree> = itemContainer.access().firstOf(DblDot).token;
+		var next:Null<TokenInfo> = getNextToken(chainStart);
+		if (next == null) {
+			return;
+		}
+		var itemStart:TokenTree = next.token;
+		for (child in itemContainer.children) {
+			switch (child.tok) {
+				case DblDot:
+					break;
+				default:
+					var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+					items.push(makeWrappableItem(child, lastToken));
+			}
+		}
+		queueWrapping({
+			start: chainStart,
+			end: chainEnd,
+			items: items,
+			rules: config.wrapping.casePattern,
+			useTrailing: false,
+			overrideAdditionalIndent: null
+		}, "markSingleCasePatternChain");
 	}
 
 	function markOpAddChaining() {

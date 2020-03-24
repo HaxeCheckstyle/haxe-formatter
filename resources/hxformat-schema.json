@@ -310,6 +310,10 @@
 					"description": "anon function signature wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
+				"casePattern": {
+					"description": "chain wrapping rules for case patterns",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
 				"typeParameter": {
 					"description": "type parameter wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"

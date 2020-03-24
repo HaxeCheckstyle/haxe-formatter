@@ -419,6 +419,22 @@
 				}
 			]
 		},
+		"casePattern": {
+			"defaultWrap": "noWrap",
+			"defaultLocation": "beforeLast",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "itemCount >= n",
+							"value": 2
+						}
+					],
+					"location": "beforeLast",
+					"type": "fillLine"
+				}
+			]
+		},
 		"functionSignature": {
 			"defaultWrap": "fillLine",
 			"defaultAdditionalIndent": 1,
