@@ -1,0 +1,36 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		var name = 'Foo';
+		var def = macro class $name {}
+		for (i in 0...10)
+			trace(i);
+	}
+	static function main() {
+		var name = 'Foo';
+		var def = macro class name {}
+		for (i in 0...10)
+			trace(i);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var name = 'Foo';
+		var def = macro class $name {}
+		for (i in 0...10)
+			trace(i);
+	}
+
+	static function main() {
+		var name = 'Foo';
+		var def = macro class name {}
+		for (i in 0...10)
+			trace(i);
+	}
+}
