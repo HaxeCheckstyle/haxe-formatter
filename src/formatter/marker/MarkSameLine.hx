@@ -1,7 +1,6 @@
 package formatter.marker;
 
 import formatter.config.SameLineConfig;
-import formatter.config.WhitespaceConfig;
 
 class MarkSameLine extends MarkerBase {
 	public function run() {
@@ -630,8 +629,10 @@ class MarkSameLine extends MarkerBase {
 	function markDollarSameLine() {
 		var tokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
-				case Dollar(_):
+				case Dollar("") | Dollar("a") | Dollar("b") | Dollar("e") | Dollar("i") | Dollar("p") | Dollar("v"):
 					FOUND_SKIP_SUBTREE;
+				case Dollar(_):
+					SKIP_SUBTREE;
 				default:
 					GO_DEEPER;
 			}

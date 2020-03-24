@@ -97,7 +97,7 @@ class MarkLineEnds extends MarkerBase {
 			var prev:Null<TokenInfo> = getPreviousToken(brOpen);
 			if (prev != null) {
 				switch (prev.token.tok) {
-					case Dollar(name):
+					case Dollar("") | Dollar("a") | Dollar("b") | Dollar("e") | Dollar("i") | Dollar("p") | Dollar("v"):
 						if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
 							noLineEndAfter(brOpen);
 							noLineEndBefore(brClose);
@@ -113,9 +113,7 @@ class MarkLineEnds extends MarkerBase {
 							}
 							continue;
 						}
-						if (name.length <= 1) {
-							whitespace(brOpen, NoneBefore);
-						}
+						whitespace(brOpen, NoneBefore);
 					default:
 				}
 			}

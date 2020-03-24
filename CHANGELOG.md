@@ -19,6 +19,7 @@
 - Fixed arrow function in map literal, fixes [#426](https://github.com/HaxeCheckstyle/haxe-formatter/issues/426) ([#564](https://github.com/HaxeCheckstyle/haxe-formatter/issues/564))
 - Fixed whitespace in single argument arrow function, fixes [#562](https://github.com/HaxeCheckstyle/haxe-formatter/issues/562) ([#564](https://github.com/HaxeCheckstyle/haxe-formatter/issues/564))
 - Fixed whitespace of final in interfaces, fixes [#563](https://github.com/HaxeCheckstyle/haxe-formatter/issues/563) ([#564](https://github.com/HaxeCheckstyle/haxe-formatter/issues/564))
+- Fixed newline after macro class, fixes [#565](https://github.com/HaxeCheckstyle/haxe-formatter/issues/565)
 - Changed keep-like behaviour of `sameLine.expressionIf` with `same`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548) + [#550](https://github.com/HaxeCheckstyle/haxe-formatter/issues/550))
 
 ## version 1.9.2 (2019-12-19)
