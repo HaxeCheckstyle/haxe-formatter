@@ -344,6 +344,23 @@ typedef WrapConfig = {
 	})
 	@:optional
 	var multiVar:WrapRules;
+
+	/**
+		chain wrapping rules for case patterns
+	**/
+	@:default({
+		defaultWrap: NoWrap,
+		defaultLocation: BeforeLast,
+		rules: [
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 2}],
+				location: BeforeLast,
+				type: FillLine
+			}
+		]
+	})
+	@:optional
+	var casePattern:WrapRules;
 }
 
 typedef WrapRules = {

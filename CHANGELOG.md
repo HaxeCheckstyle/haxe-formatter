@@ -4,6 +4,7 @@
 
 - Added `lineEnds.anonFunctionCurly`, fixes [#538](https://github.com/HaxeCheckstyle/haxe-formatter/issues/538) ([#549](https://github.com/HaxeCheckstyle/haxe-formatter/issues/549))
 - Added detection for and skipping files with merge conflicts, fixes [#558](https://github.com/HaxeCheckstyle/haxe-formatter/issues/558) ([#559](https://github.com/HaxeCheckstyle/haxe-formatter/issues/559))
+- Added case pattern wrapping with `wrapping.casePattern`, fixes [#359](https://github.com/HaxeCheckstyle/haxe-formatter/issues/359)
 - Fixed indentation of wrapped callbacks, fixes [#470](https://github.com/HaxeCheckstyle/haxe-formatter/issues/470), [#476](https://github.com/HaxeCheckstyle/haxe-formatter/issues/476), [#540](https://github.com/HaxeCheckstyle/haxe-formatter/issues/540), [#546](https://github.com/HaxeCheckstyle/haxe-formatter/issues/546) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 - Fixed indentation of array literals in calls, fixes [#376](https://github.com/HaxeCheckstyle/haxe-formatter/issues/367) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 - Fixed indentation of array literals in assignments, fixes [#512](https://github.com/HaxeCheckstyle/haxe-formatter/issues/512) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
