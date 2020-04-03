@@ -12,6 +12,11 @@ class Main {
 			return;
 		}
 		@:nullSafety(Off)
+
+		if (foo) {
+			return;
+		}
+		@:nullSafety(Off)
 		@:nullSafety(Off) if (foo) {
 			return;
 	}
@@ -23,6 +28,10 @@ class Main {
 class Main {
 	static function main() {
 		@:nullSafety(Off) if (foo) {
+			return;
+		}
+		@:nullSafety(Off)
+		if (foo) {
 			return;
 		}
 		@:nullSafety(Off)
