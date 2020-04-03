@@ -175,6 +175,19 @@ class Indenter {
 				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
+				var metadata:Null<TokenTree> = token.access().firstOf(At).token;
+				if (metadata != null) {
+					if (!parsedCode.tokenList.isSameLineBetween(metadata, token, false)) {
+						return token;
+					}
+					prev = parsedCode.tokenList.getPreviousToken(metadata);
+					if (prev == null) {
+						return token;
+					}
+					if (prev.whitespaceAfter == Newline) {
+						return token;
+					}
+				}
 				var parent:TokenTree = token.parent;
 				if (parent.tok == null) {
 					return token;
