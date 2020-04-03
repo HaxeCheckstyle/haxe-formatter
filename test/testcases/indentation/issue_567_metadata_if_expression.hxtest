@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		@:nullSafety(Off) if (foo) {
+			return;
+	}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		@:nullSafety(Off) if (foo) {
+			return;
+		}
+	}
+}

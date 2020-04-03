@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	function main () {
+		var @:name name = 'Foo';
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		var @:name name = 'Foo';
+	}
+}

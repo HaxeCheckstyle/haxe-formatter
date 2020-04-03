@@ -29,3 +29,4 @@ core
 test/formatter-result.txt
 test/single-run.txt
 result.txt
+**.hxtest.disabled
