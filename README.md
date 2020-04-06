@@ -105,6 +105,7 @@ Pro tip: Visual Studio Code has `Format on Save` and `Format on Paste` settings 
   "editor.formatOnPaste": true
 }
 ```
+
 to your configuration (local or global). `formatOnPaste` will also give you `Format Selection` in `.hx` files.
 
 ### Ways to opt-out of formatting
