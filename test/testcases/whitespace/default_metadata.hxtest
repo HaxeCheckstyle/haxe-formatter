@@ -1,0 +1,55 @@
+{
+  "whitespace": {
+    "colonPolicy": "around",
+    "typeHintColonPolicy": "around",
+	"parenConfig": {
+		"metadataParens": {
+			"openingPolicy": "none"
+		},
+		"funcParamParens": {
+			"openingPolicy": "before"
+		},
+		"anonFuncParamParens": {
+			"openingPolicy": "before"
+		},
+		"callParens": {
+			"openingPolicy": "before"
+		},
+		"conditionParens": {
+			"openingPolicy": "before"
+		},
+		"forLoopParens": {
+			"openingPolicy": "before"
+		},
+		"expressionParens": {
+			"openingPolicy": "before"
+		}
+	},
+    "openingBracketPolicy": "before"
+  }
+}
+
+---
+
+
+typedef OpenClosePolicy = {
+	/**
+		"("
+	**/
+	@:default(None) @:optional var openingPolicy:WhitespacePolicy;
+
+	@:default(OnlyAfter) @:optional var closingPolicy:WhitespacePolicy;
+	@:default(true) @:optional var removeInnerWhenEmpty:Bool;
+}
+
+---
+
+typedef OpenClosePolicy = {
+	/**
+		"("
+	**/
+	@:default(None) @:optional var openingPolicy : WhitespacePolicy;
+
+	@:default(OnlyAfter) @:optional var closingPolicy : WhitespacePolicy;
+	@:default(true) @:optional var removeInnerWhenEmpty : Bool;
+}
