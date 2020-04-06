@@ -22,6 +22,8 @@
 - Fixed whitespace of final in interfaces, fixes [#563](https://github.com/HaxeCheckstyle/haxe-formatter/issues/563) ([#564](https://github.com/HaxeCheckstyle/haxe-formatter/issues/564))
 - Fixed newline after macro class, fixes [#565](https://github.com/HaxeCheckstyle/haxe-formatter/issues/565) ([#566](https://github.com/HaxeCheckstyle/haxe-formatter/issues/566))
 - Fixed indentation of if-expression with metadata, fixes [#567](https://github.com/HaxeCheckstyle/haxe-formatter/issues/567) ([#568](https://github.com/HaxeCheckstyle/haxe-formatter/issues/568))
+- Fixed wrapping of object literals with OpBoolOr/OpBooland, fixes [#569](https://github.com/HaxeCheckstyle/haxe-formatter/issues/569) ([#570](https://github.com/HaxeCheckstyle/haxe-formatter/issues/570))
+- Fixed handling of parens in `@:default(1)` ([#570](https://github.com/HaxeCheckstyle/haxe-formatter/issues/570))
 - Changed keep-like behaviour of `sameLine.expressionIf` with `same`, fixes [#304](https://github.com/HaxeCheckstyle/haxe-formatter/issues/304) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548) + [#550](https://github.com/HaxeCheckstyle/haxe-formatter/issues/550))
 
 ## version 1.9.2 (2019-12-19)
