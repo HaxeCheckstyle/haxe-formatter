@@ -155,6 +155,9 @@ class CodeLines {
 						index = rangeStartOffset;
 					}
 					tokenInfo.text = tokenInfo.text.substr(0, rangeEndOffset - index);
+					tokenInfo.spacesAfter = 0;
+					tokenInfo.whitespaceAfter = None;
+					tokenInfo.emptyLinesAfter = 0;
 					line.partialLine = true;
 				}
 				if (posRange.endPos > tokenInfo.token.pos.max) {
