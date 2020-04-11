@@ -1,13 +1,12 @@
 package formatter.marker.wrapping;
 
-import haxe.PosInfos;
+import formatter.codedata.ParsedCode;
+import formatter.config.Config;
+import formatter.config.WrapConfig;
 #if debugWrapping
 import sys.io.File;
 import sys.io.FileOutput;
 #end
-import formatter.codedata.ParsedCode;
-import formatter.config.Config;
-import formatter.config.WrapConfig;
 
 #if (!macro && !debugWrapping)
 @:build(formatter.debug.PosInfosMacro.clean())
@@ -746,6 +745,10 @@ class MarkWrappingBase extends MarkerBase {
 						if (hasMultiLineItem) {
 							return false;
 						}
+					}
+				case ExceedsMaxLineLength:
+					if (lineLength < config.wrapping.maxLineLength) {
+						return false;
 					}
 			}
 		}
