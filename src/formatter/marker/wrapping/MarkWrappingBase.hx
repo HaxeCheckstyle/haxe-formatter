@@ -4,6 +4,7 @@ import formatter.codedata.ParsedCode;
 import formatter.config.Config;
 import formatter.config.WrapConfig;
 #if debugWrapping
+import haxe.PosInfos;
 import sys.io.File;
 import sys.io.FileOutput;
 #end
@@ -747,8 +748,14 @@ class MarkWrappingBase extends MarkerBase {
 						}
 					}
 				case ExceedsMaxLineLength:
-					if (lineLength <= config.wrapping.maxLineLength) {
-						return false;
+					if (cond.value == 1) {
+						if (lineLength <= config.wrapping.maxLineLength) {
+							return false;
+						}
+					} else {
+						if (lineLength > config.wrapping.maxLineLength) {
+							return false;
+						}
 					}
 			}
 		}

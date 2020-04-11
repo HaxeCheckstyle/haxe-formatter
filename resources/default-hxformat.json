@@ -287,7 +287,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "fillLine",
@@ -303,6 +304,10 @@
 						{
 							"cond": "itemCount <= n",
 							"value": 3
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -337,7 +342,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "fillLine"
@@ -396,7 +402,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "onePerLine"
@@ -445,7 +452,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "fillLine"
@@ -469,7 +477,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"location": "beforeLast",
@@ -508,7 +517,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "fillLine",
@@ -541,7 +551,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "fillLine"
@@ -565,6 +576,10 @@
 						{
 							"cond": "itemCount <= n",
 							"value": 3
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -574,6 +589,10 @@
 						{
 							"cond": "totalItemLength <= n",
 							"value": 80
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -603,7 +622,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "onePerLineAfterFirst"
@@ -634,7 +654,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "onePerLineAfterFirst"
@@ -649,6 +670,10 @@
 						{
 							"cond": "itemCount <= n",
 							"value": 3
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -683,7 +708,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"type": "onePerLine"
@@ -722,6 +748,10 @@
 						{
 							"cond": "itemCount <= n",
 							"value": 3
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -731,6 +761,10 @@
 						{
 							"cond": "totalItemLength <= n",
 							"value": 120
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -748,7 +782,8 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
 					"location": "beforeLast",
@@ -788,6 +823,10 @@
 						{
 							"cond": "itemCount <= n",
 							"value": 3
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -797,6 +836,10 @@
 						{
 							"cond": "totalItemLength <= n",
 							"value": 120
+						},
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 0
 						}
 					],
 					"type": "noWrap"
@@ -814,9 +857,11 @@
 				{
 					"conditions": [
 						{
-							"cond": "exceedsMaxLineLength"
+							"cond": "exceedsMaxLineLength",
+							"value": 1
 						}
 					],
+					"location": "beforeLast",
 					"type": "fillLine"
 				}
 			]

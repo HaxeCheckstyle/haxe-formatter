@@ -576,33 +576,43 @@
 		"formatter.config.WrapConditionType": {
 			"anyOf": [
 				{
+					"description": "condition matches if item count is larger than or equal n characters",
 					"const": "itemCount >= n"
 				},
 				{
+					"description": "condition matches if item count is less than or equal n characters",
 					"const": "itemCount <= n"
 				},
 				{
+					"description": "condition matches if max item length is larger than or equal n characters",
 					"const": "anyItemLength >= n"
 				},
 				{
+					"description": "condition matches if max item length is less than or equal n characters",
 					"const": "anyItemLength <= n"
 				},
 				{
+					"description": "condition matches if total length of all wrapable items is larger than or equal n characters",
 					"const": "totalItemLength >= n"
 				},
 				{
+					"description": "condition matches if total length of all wrapable items is less than or equal n characters",
 					"const": "totalItemLength <= n"
 				},
 				{
+					"description": "condition matches lines larger than or equal n characters",
 					"const": "lineLength >= n"
 				},
 				{
+					"description": "condition matches lines less than or equal n characters",
 					"const": "lineLength <= n"
 				},
 				{
+					"description": "condition value = 1 matches if line contains a multiline token (string literal, block comment) value = 0 matches if no multiline token is present",
 					"const": "hasMultilineItems"
 				},
 				{
+					"description": "condition value = 1 matches if unwrapped line exceeds maxLineLength value = 0 matches unwrapped lines not exceeding maxLineLength",
 					"const": "exceedsMaxLineLength"
 				}
 			]
@@ -964,24 +974,31 @@
 		"formatter.config.WrappingType": {
 			"anyOf": [
 				{
+					"description": "every item in a separate line, including first item",
 					"const": "onePerLine"
 				},
 				{
+					"description": "every item in a separate line, except first item",
 					"const": "onePerLineAfterFirst"
 				},
 				{
+					"description": "put an equal amount of items per line - not yet implemented",
 					"const": "equalNumber"
 				},
 				{
+					"description": "fill each line until maxLineLength - does not start with a newline",
 					"const": "fillLine"
 				},
 				{
+					"description": "fill each line until maxLineLength, starts with a newline before first item",
 					"const": "fillLineWithLeadingBreak"
 				},
 				{
+					"description": "do not wrap items",
 					"const": "noWrap"
 				},
 				{
+					"description": "use wrapping information from source",
 					"const": "keep"
 				}
 			]

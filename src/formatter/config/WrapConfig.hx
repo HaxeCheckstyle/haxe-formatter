@@ -34,7 +34,7 @@ typedef WrapConfig = {
 				type: OnePerLine
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: OnePerLine
 			}
 		]
@@ -97,7 +97,7 @@ typedef WrapConfig = {
 				additionalIndent: 1
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: FillLine,
 				additionalIndent: 1
 			}
@@ -129,7 +129,7 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: FillLine
 			}
 		]
@@ -152,7 +152,7 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: FillLine
 			}
 		]
@@ -167,7 +167,7 @@ typedef WrapConfig = {
 		defaultWrap: NoWrap,
 		rules: [
 			{
-				conditions: [{cond: ItemCountLessThan, value: 3}],
+				conditions: [{cond: ItemCountLessThan, value: 3}, {cond: ExceedsMaxLineLength, value: 0}],
 				type: NoWrap
 			},
 			{
@@ -183,7 +183,7 @@ typedef WrapConfig = {
 				type: OnePerLine
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: OnePerLine
 			}
 		]
@@ -197,7 +197,7 @@ typedef WrapConfig = {
 		defaultWrap: NoWrap,
 		rules: [
 			{
-				conditions: [{cond: ItemCountLessThan, value: 3}],
+				conditions: [{cond: ItemCountLessThan, value: 3}, {cond: ExceedsMaxLineLength, value: 0}],
 				type: NoWrap
 			},
 			{
@@ -213,7 +213,7 @@ typedef WrapConfig = {
 				type: OnePerLine
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: FillLine
 			}
 		]
@@ -232,11 +232,14 @@ typedef WrapConfig = {
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: ItemCountLessThan, value: 3}],
+				conditions: [{cond: ItemCountLessThan, value: 3}, {cond: ExceedsMaxLineLength, value: 0}],
 				type: NoWrap
 			},
 			{
-				conditions: [{cond: TotalItemLengthLessThan, value: 80}],
+				conditions: [
+					{cond: TotalItemLengthLessThan, value: 80},
+					{cond: ExceedsMaxLineLength, value: 0}
+				],
 				type: NoWrap
 			},
 			{
@@ -251,7 +254,7 @@ typedef WrapConfig = {
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: OnePerLineAfterFirst
 			}
 		]
@@ -279,11 +282,14 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: ItemCountLessThan, value: 3}],
+				conditions: [{cond: ItemCountLessThan, value: 3}, {cond: ExceedsMaxLineLength, value: 0}],
 				type: NoWrap
 			},
 			{
-				conditions: [{cond: TotalItemLengthLessThan, value: 120}],
+				conditions: [
+					{cond: TotalItemLengthLessThan, value: 120},
+					{cond: ExceedsMaxLineLength, value: 0}
+				],
 				type: NoWrap
 			},
 			{
@@ -292,7 +298,8 @@ typedef WrapConfig = {
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
+				location: BeforeLast,
 				type: FillLine
 			}
 		]
@@ -317,7 +324,7 @@ typedef WrapConfig = {
 				additionalIndent: 2
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: FillLine,
 				additionalIndent: 2
 			}
@@ -346,11 +353,14 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: ItemCountLessThan, value: 3}],
+				conditions: [{cond: ItemCountLessThan, value: 3}, {cond: ExceedsMaxLineLength, value: 0}],
 				type: NoWrap
 			},
 			{
-				conditions: [{cond: TotalItemLengthLessThan, value: 120}],
+				conditions: [
+					{cond: TotalItemLengthLessThan, value: 120},
+					{cond: ExceedsMaxLineLength, value: 0}
+				],
 				type: NoWrap
 			},
 			{
@@ -359,7 +369,7 @@ typedef WrapConfig = {
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				location: BeforeLast,
 				type: OnePerLineAfterFirst
 			}
@@ -383,7 +393,7 @@ typedef WrapConfig = {
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				type: OnePerLineAfterFirst
 			}
 		]
@@ -404,7 +414,7 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: ExceedsMaxLineLength}],
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
 				location: BeforeLast,
 				type: FillLine
 			}
@@ -462,12 +472,39 @@ typedef WrapRule = {
 
 @:enum
 abstract WrappingType(String) {
+	/**
+		every item in a separate line, including first item
+	**/
 	var OnePerLine = "onePerLine";
+
+	/**
+		every item in a separate line, except first item
+	**/
 	var OnePerLineAfterFirst = "onePerLineAfterFirst";
+
+	/**
+		put an equal amount of items per line - not yet implemented
+	**/
 	var EqualNumber = "equalNumber";
+
+	/**
+		fill each line until maxLineLength - does not start with a newline
+	**/
 	var FillLine = "fillLine";
+
+	/**
+		fill each line until maxLineLength, starts with a newline before first item
+	**/
 	var FillLineWithLeadingBreak = "fillLineWithLeadingBreak";
+
+	/**
+		do not wrap items
+	**/
 	var NoWrap = "noWrap";
+
+	/**
+		use wrapping information from source
+	**/
 	var Keep = "keep";
 }
 
@@ -484,15 +521,56 @@ typedef WrapCondition = {
 
 @:enum
 abstract WrapConditionType(String) {
+	/**
+		condition matches if item count is larger than or equal n characters
+	**/
 	var ItemCountLargerThan = "itemCount >= n";
+
+	/**
+		condition matches if item count is less than or equal n characters
+	**/
 	var ItemCountLessThan = "itemCount <= n";
+
+	/**
+		condition matches if max item length is larger than or equal n characters
+	**/
 	var AnyItemLengthLargerThan = "anyItemLength >= n";
+
+	/**
+		condition matches if max item length is less than or equal n characters
+	**/
 	var AnyItemLengthLessThan = "anyItemLength <= n";
+
+	/**
+		condition matches if total length of all wrapable items is larger than or equal n characters
+	**/
 	var TotalItemLengthLargerThan = "totalItemLength >= n";
+
+	/**
+		condition matches if total length of all wrapable items is less than or equal n characters
+	**/
 	var TotalItemLengthLessThan = "totalItemLength <= n";
+
+	/**
+		condition matches lines larger than or equal n characters
+	**/
 	var LineLengthLargerThan = "lineLength >= n";
+
+	/**
+		condition matches lines less than or equal n characters
+	**/
 	var LineLengthLessThan = "lineLength <= n";
+
+	/**
+		condition value = 1 matches if line contains a multiline token (string literal, block comment)
+		value = 0 matches if no multiline token is present
+	**/
 	var HasMultiLineItems = "hasMultilineItems";
+
+	/**
+		condition value = 1 matches if unwrapped line exceeds maxLineLength
+		value = 0 matches unwrapped lines not exceeding maxLineLength
+	**/
 	var ExceedsMaxLineLength = "exceedsMaxLineLength";
 }
 
