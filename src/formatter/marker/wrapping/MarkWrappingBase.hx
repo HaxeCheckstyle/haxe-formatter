@@ -747,7 +747,7 @@ class MarkWrappingBase extends MarkerBase {
 						}
 					}
 				case ExceedsMaxLineLength:
-					if (lineLength < config.wrapping.maxLineLength) {
+					if (lineLength <= config.wrapping.maxLineLength) {
 						return false;
 					}
 			}
