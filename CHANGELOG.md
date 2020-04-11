@@ -6,6 +6,7 @@
 - Added detection for and skipping files with merge conflicts, fixes [#558](https://github.com/HaxeCheckstyle/haxe-formatter/issues/558) ([#559](https://github.com/HaxeCheckstyle/haxe-formatter/issues/559))
 - Added case pattern wrapping with `wrapping.casePattern`, fixes [#359](https://github.com/HaxeCheckstyle/haxe-formatter/issues/359) ([#566](https://github.com/HaxeCheckstyle/haxe-formatter/issues/566))
 - Added support for `var @:meta name` ([#568](https://github.com/HaxeCheckstyle/haxe-formatter/issues/568))
+- Added new wrapping rule condition type `exceedsMaxLineLength`, fixes [#572](https://github.com/HaxeCheckstyle/haxe-formatter/issues/572) ([#573](https://github.com/HaxeCheckstyle/haxe-formatter/issues/573))
 - Fixed indentation of wrapped callbacks, fixes [#470](https://github.com/HaxeCheckstyle/haxe-formatter/issues/470), [#476](https://github.com/HaxeCheckstyle/haxe-formatter/issues/476), [#540](https://github.com/HaxeCheckstyle/haxe-formatter/issues/540), [#546](https://github.com/HaxeCheckstyle/haxe-formatter/issues/546) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 - Fixed indentation of array literals in calls, fixes [#376](https://github.com/HaxeCheckstyle/haxe-formatter/issues/367) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))
 - Fixed indentation of array literals in assignments, fixes [#512](https://github.com/HaxeCheckstyle/haxe-formatter/issues/512) ([#548](https://github.com/HaxeCheckstyle/haxe-formatter/issues/548))

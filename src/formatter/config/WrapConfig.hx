@@ -32,6 +32,10 @@ typedef WrapConfig = {
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
 				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: OnePerLine
 			}
 		]
 	})
@@ -91,6 +95,11 @@ typedef WrapConfig = {
 				conditions: [{cond: TotalItemLengthLargerThan, value: 80}],
 				type: FillLine,
 				additionalIndent: 1
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: FillLine,
+				additionalIndent: 1
 			}
 		]
 	})
@@ -118,6 +127,10 @@ typedef WrapConfig = {
 			{
 				conditions: [{cond: LineLengthLargerThan, value: 160}],
 				type: FillLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: FillLine
 			}
 		]
 	})
@@ -136,6 +149,10 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				type: FillLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
 				type: FillLine
 			}
 		]
@@ -164,10 +181,13 @@ typedef WrapConfig = {
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
 				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: OnePerLine
 			}
 		]
-	})
-	@:optional
+	}) @:optional
 	var objectLiteral:WrapRules;
 
 	/**
@@ -191,6 +211,10 @@ typedef WrapConfig = {
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
 				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: FillLine
 			}
 		]
 	})
@@ -224,6 +248,10 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 7}],
+				type: OnePerLineAfterFirst
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
 				type: OnePerLineAfterFirst
 			}
 		]
@@ -262,6 +290,10 @@ typedef WrapConfig = {
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
 				location: BeforeLast,
 				type: OnePerLineAfterFirst
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: FillLine
 			}
 		]
 	})
@@ -281,6 +313,11 @@ typedef WrapConfig = {
 			},
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: FillLine,
+				additionalIndent: 2
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
 				type: FillLine,
 				additionalIndent: 2
 			}
@@ -320,6 +357,11 @@ typedef WrapConfig = {
 				conditions: [{cond: ItemCountLargerThan, value: 4}],
 				location: BeforeLast,
 				type: OnePerLineAfterFirst
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				location: BeforeLast,
+				type: OnePerLineAfterFirst
 			}
 		]
 	})
@@ -340,6 +382,10 @@ typedef WrapConfig = {
 				conditions: [{cond: LineLengthLargerThan, value: 80},],
 				type: OnePerLineAfterFirst
 			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
+				type: OnePerLineAfterFirst
+			}
 		]
 	})
 	@:optional
@@ -354,6 +400,11 @@ typedef WrapConfig = {
 		rules: [
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 2}],
+				location: BeforeLast,
+				type: FillLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength}],
 				location: BeforeLast,
 				type: FillLine
 			}
@@ -442,6 +493,7 @@ abstract WrapConditionType(String) {
 	var LineLengthLargerThan = "lineLength >= n";
 	var LineLengthLessThan = "lineLength <= n";
 	var HasMultiLineItems = "hasMultilineItems";
+	var ExceedsMaxLineLength = "exceedsMaxLineLength";
 }
 
 typedef ArrayWrapping = {

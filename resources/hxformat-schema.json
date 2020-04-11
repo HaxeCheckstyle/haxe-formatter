@@ -601,6 +601,9 @@
 				},
 				{
 					"const": "hasMultilineItems"
+				},
+				{
+					"const": "exceedsMaxLineLength"
 				}
 			]
 		},

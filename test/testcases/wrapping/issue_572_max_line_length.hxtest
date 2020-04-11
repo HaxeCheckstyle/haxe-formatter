@@ -1,0 +1,22 @@
+{
+	"wrapping": {
+		"maxLineLength": 100
+	}
+}
+
+---
+
+class PlayState extends FlxState {
+	override public function create() {
+		var text = new FlxBitmapText(FlxBitmapFont.fromMonospace("assets/tiny-font.png", FlxBitmapFont.DEFAULT_CHARS, FlxPoint.get(8, 8)));
+	}
+}
+
+---
+
+class PlayState extends FlxState {
+	override public function create() {
+		var text = new FlxBitmapText(FlxBitmapFont.fromMonospace("assets/tiny-font.png",
+			FlxBitmapFont.DEFAULT_CHARS, FlxPoint.get(8, 8)));
+	}
+}

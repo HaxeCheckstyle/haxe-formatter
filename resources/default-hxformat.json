@@ -283,6 +283,15 @@
 					],
 					"type": "fillLine",
 					"additionalIndent": 1
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "fillLine",
+					"additionalIndent": 1
 				}
 			]
 		},
@@ -324,6 +333,14 @@
 						}
 					],
 					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "fillLine"
 				}
 			]
 		},
@@ -375,6 +392,14 @@
 						}
 					],
 					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "onePerLine"
 				}
 			]
 		},
@@ -416,6 +441,14 @@
 						}
 					],
 					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "fillLine"
 				}
 			]
 		},
@@ -428,6 +461,15 @@
 						{
 							"cond": "itemCount >= n",
 							"value": 2
+						}
+					],
+					"location": "beforeLast",
+					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
 						}
 					],
 					"location": "beforeLast",
@@ -462,6 +504,15 @@
 					],
 					"type": "fillLine",
 					"additionalIndent": 2
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "fillLine",
+					"additionalIndent": 2
 				}
 			]
 		},
@@ -483,6 +534,14 @@
 						{
 							"cond": "lineLength >= n",
 							"value": 160
+						}
+					],
+					"type": "fillLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
 						}
 					],
 					"type": "fillLine"
@@ -540,6 +599,14 @@
 						}
 					],
 					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "onePerLineAfterFirst"
 				}
 			]
 		},
@@ -560,6 +627,14 @@
 						{
 							"cond": "lineLength >= n",
 							"value": 80
+						}
+					],
+					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
 						}
 					],
 					"type": "onePerLineAfterFirst"
@@ -601,6 +676,14 @@
 						{
 							"cond": "itemCount >= n",
 							"value": 4
+						}
+					],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
 						}
 					],
 					"type": "onePerLine"
@@ -657,6 +740,15 @@
 						{
 							"cond": "itemCount >= n",
 							"value": 4
+						}
+					],
+					"location": "beforeLast",
+					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
 						}
 					],
 					"location": "beforeLast",
@@ -718,6 +810,14 @@
 					],
 					"location": "beforeLast",
 					"type": "onePerLineAfterFirst"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength"
+						}
+					],
+					"type": "fillLine"
 				}
 			]
 		},
