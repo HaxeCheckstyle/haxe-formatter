@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.10.0 (2020-04-11)
+
 - Added `lineEnds.anonFunctionCurly`, fixes [#538](https://github.com/HaxeCheckstyle/haxe-formatter/issues/538) ([#549](https://github.com/HaxeCheckstyle/haxe-formatter/issues/549))
 - Added detection for and skipping files with merge conflicts, fixes [#558](https://github.com/HaxeCheckstyle/haxe-formatter/issues/558) ([#559](https://github.com/HaxeCheckstyle/haxe-formatter/issues/559))
 - Added case pattern wrapping with `wrapping.casePattern`, fixes [#359](https://github.com/HaxeCheckstyle/haxe-formatter/issues/359) ([#566](https://github.com/HaxeCheckstyle/haxe-formatter/issues/566))
