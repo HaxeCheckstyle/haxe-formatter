@@ -1,0 +1,32 @@
+{
+	"wrapping": {
+		"maxLineLength": 100
+	}
+}
+
+
+---
+
+class Main {
+	static function main() {
+		switch (BlendMode.SUBTRACT) {
+			case BlendMode.ADD, BlendMode.ALPHA, BlendMode.DARKEN, BlendMode.DIFFERENCE,
+				BlendMode.ERASE, BlendMode.HARDLIGHT, BlendMode.INVERT, BlendMode.LAYER,
+				BlendMode.LIGHTEN, BlendMode.MULTIPLY, BlendMode.NORMAL, BlendMode.OVERLAY,
+				BlendMode.SCREEN, BlendMode.SUBTRACT, BlendMode.SHADER:
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch (BlendMode.SUBTRACT) {
+			case BlendMode.ADD, BlendMode.ALPHA, BlendMode.DARKEN, BlendMode.DIFFERENCE,
+				BlendMode.ERASE, BlendMode.HARDLIGHT, BlendMode.INVERT, BlendMode.LAYER,
+				BlendMode.LIGHTEN, BlendMode.MULTIPLY, BlendMode.NORMAL, BlendMode.OVERLAY,
+				BlendMode.SCREEN, BlendMode.SUBTRACT, BlendMode.SHADER:
+		}
+	}
+}

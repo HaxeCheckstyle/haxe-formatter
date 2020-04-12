@@ -406,16 +406,13 @@ typedef WrapConfig = {
 	**/
 	@:default({
 		defaultWrap: NoWrap,
-		defaultLocation: BeforeLast,
 		rules: [
 			{
 				conditions: [{cond: ItemCountLargerThan, value: 2}],
-				location: BeforeLast,
 				type: FillLine
 			},
 			{
 				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
-				location: BeforeLast,
 				type: FillLine
 			}
 		]
