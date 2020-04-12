@@ -1,18 +1,18 @@
 package formatter.marker;
 
+import formatter.config.Config;
+import formatter.config.IndentationConfig;
 #if debugIndent
-import haxe.PosInfos;
 import sys.io.File;
 import sys.io.FileOutput;
 #end
-import formatter.config.IndentationConfig;
 
 class Indenter {
 	var config:IndentationConfig;
 	var parsedCode:Null<ParsedCode>;
 
-	public function new(config:IndentationConfig) {
-		this.config = config;
+	public function new(config:Config) {
+		this.config = fconfig;
 		if (config.character.toLowerCase() == "tab") {
 			config.character = "\t";
 		}
@@ -310,6 +310,12 @@ class Indenter {
 								var firstToken:TokenInfo = parsedCode.tokenList.getPreviousToken(prevToken);
 								while (firstToken != null && !parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
 									firstToken = parsedCode.tokenList.getPreviousToken(firstToken.token);
+								}
+								var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
+								if (brOpen != null) {
+									if (!parsedCode.tokenList.isSameLineBetween(prevToken, brOpen, false)) {
+										continue;
+									}
 								}
 								return count + calcIndent(firstToken.token);
 							}
