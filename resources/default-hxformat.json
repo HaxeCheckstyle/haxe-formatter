@@ -462,7 +462,6 @@
 		},
 		"casePattern": {
 			"defaultWrap": "noWrap",
-			"defaultLocation": "beforeLast",
 			"rules": [
 				{
 					"conditions": [
@@ -471,7 +470,6 @@
 							"value": 2
 						}
 					],
-					"location": "beforeLast",
 					"type": "fillLine"
 				},
 				{
@@ -481,7 +479,6 @@
 							"value": 1
 						}
 					],
-					"location": "beforeLast",
 					"type": "fillLine"
 				}
 			]

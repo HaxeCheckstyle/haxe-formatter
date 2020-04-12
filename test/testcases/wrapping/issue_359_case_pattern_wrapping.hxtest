@@ -1,4 +1,10 @@
 {
+	"wrapping": {
+		"casePattern": {
+			"defaultWrap": "fillLine",
+			"defaultLocation": "beforeLast"
+		}
+	}
 }
 
 ---
