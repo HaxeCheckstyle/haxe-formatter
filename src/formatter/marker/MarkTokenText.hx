@@ -1,15 +1,12 @@
 package formatter.marker;
 
-import haxe.zip.Entry;
 import haxeparser.HaxeLexer;
+import tokentree.TokenStream;
 import tokentree.TokenStreamProgress;
 import tokentree.walk.WalkStatement;
-import tokentree.TokenStream;
 import formatter.codedata.CodeLines;
 import formatter.codedata.FormatterInputData;
-import formatter.codedata.ParseFile;
 import formatter.codedata.ParsedCode;
-import formatter.codedata.TokenData;
 
 class MarkTokenText extends MarkerBase {
 	public function run() {
