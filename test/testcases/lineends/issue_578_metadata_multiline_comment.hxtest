@@ -1,0 +1,17 @@
+{}
+
+---
+
+@:jsRequire("openfl/display/Bitmap", "default")
+/**
+ * The Bitmap class represents display objects that represent bitmap images.
+ */
+extern class Bitmap extends DisplayObject {}
+
+---
+
+@:jsRequire("openfl/display/Bitmap", "default")
+/**
+ * The Bitmap class represents display objects that represent bitmap images.
+ */
+extern class Bitmap extends DisplayObject {}
