@@ -2,6 +2,7 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed broken indentation after case with OpOr pattern, fixes [#576](https://github.com/HaxeCheckstyle/haxe-formatter/issues/576)
 - Changed default wrapping location of `casePattern` to `afterLast`, fixes [#579](https://github.com/HaxeCheckstyle/haxe-formatter/issues/579)
 
 ## version 1.10.0 (2020-04-11)
