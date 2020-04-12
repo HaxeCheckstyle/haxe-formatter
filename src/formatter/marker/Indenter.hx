@@ -11,8 +11,8 @@ class Indenter {
 	var config:IndentationConfig;
 	var parsedCode:Null<ParsedCode>;
 
-	public function new(config:Config) {
-		this.config = fconfig;
+	public function new(config:IndentationConfig) {
+		this.config = config;
 		if (config.character.toLowerCase() == "tab") {
 			config.character = "\t";
 		}

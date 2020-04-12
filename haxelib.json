@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.10.0",
-	"releasenote": "added case pattern wrapping, merge conflict file detection and various bugfixes - see CHANGELOG for details.",
+	"version": "1.10.1",
+	"releasenote": "fixed some regressions of 1.10.0 - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
