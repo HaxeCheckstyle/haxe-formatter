@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.10.1 (2020-04-12)
+
 - Fixed broken indentation after case with OpOr pattern, fixes [#576](https://github.com/HaxeCheckstyle/haxe-formatter/issues/576)
 - Fixed missing linebreak between metadata and doc comment, fixes [#578](https://github.com/HaxeCheckstyle/haxe-formatter/issues/578)
 - Fixed indentation in anon function body, fixes [#577](https://github.com/HaxeCheckstyle/haxe-formatter/issues/577)
