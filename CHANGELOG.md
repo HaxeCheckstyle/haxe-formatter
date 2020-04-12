@@ -4,10 +4,10 @@
 
 ## version 1.10.1 (2020-04-12)
 
-- Fixed broken indentation after case with OpOr pattern, fixes [#576](https://github.com/HaxeCheckstyle/haxe-formatter/issues/576)
-- Fixed missing linebreak between metadata and doc comment, fixes [#578](https://github.com/HaxeCheckstyle/haxe-formatter/issues/578)
-- Fixed indentation in anon function body, fixes [#577](https://github.com/HaxeCheckstyle/haxe-formatter/issues/577)
-- Changed default wrapping location of `casePattern` to `afterLast`, fixes [#579](https://github.com/HaxeCheckstyle/haxe-formatter/issues/579)
+- Fixed broken indentation after case with OpOr pattern, fixes [#576](https://github.com/HaxeCheckstyle/haxe-formatter/issues/576) ([#581](https://github.com/HaxeCheckstyle/haxe-formatter/issues/581))
+- Fixed missing linebreak between metadata and doc comment, fixes [#578](https://github.com/HaxeCheckstyle/haxe-formatter/issues/578) ([#581](https://github.com/HaxeCheckstyle/haxe-formatter/issues/581))
+- Fixed indentation in anon function body, fixes [#577](https://github.com/HaxeCheckstyle/haxe-formatter/issues/577) ([#581](https://github.com/HaxeCheckstyle/haxe-formatter/issues/581))
+- Changed default wrapping location of `casePattern` to `afterLast`, fixes [#579](https://github.com/HaxeCheckstyle/haxe-formatter/issues/579) ([#581](https://github.com/HaxeCheckstyle/haxe-formatter/issues/581))
 
 ## version 1.10.0 (2020-04-11)
 
