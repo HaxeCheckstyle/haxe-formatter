@@ -11,10 +11,11 @@
 *.zip
 .haxelib/
 out/
-node_modules
-.DS_Store
+node_modules/
 log/
+dump/
 target/
+haxe3/
 callgrind.*
 ./debug
 lcov.info
