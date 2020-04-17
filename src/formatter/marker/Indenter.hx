@@ -1,6 +1,5 @@
 package formatter.marker;
 
-import formatter.config.Config;
 import formatter.config.IndentationConfig;
 #if debugIndent
 import sys.io.File;

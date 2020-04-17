@@ -2,6 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.10.2 (2020-04-18)
+
+- Fixed a null pointer exception in tokentree ([#584](https://github.com/HaxeCheckstyle/haxe-formatter/issues/584))
+
 ## version 1.10.1 (2020-04-12)
 
 - Fixed broken indentation after case with OpOr pattern, fixes [#576](https://github.com/HaxeCheckstyle/haxe-formatter/issues/576) ([#581](https://github.com/HaxeCheckstyle/haxe-formatter/issues/581))

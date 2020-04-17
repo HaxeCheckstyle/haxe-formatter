@@ -1,0 +1,17 @@
+{}
+
+---
+
+package;
+private final class Test {
+	public function new() {
+	}
+}
+
+---
+
+package;
+
+private final class Test {
+	public function new() {}
+}
