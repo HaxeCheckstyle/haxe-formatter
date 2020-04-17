@@ -2,7 +2,7 @@
 
 [![Haxelib Version](https://img.shields.io/github/tag/HaxeCheckstyle/haxe-formatter.svg?label=haxelib)](http://lib.haxe.org/p/formatter)
 [![Build Status](https://travis-ci.org/HaxeCheckstyle/haxe-formatter.svg?branch=master)](https://travis-ci.org/HaxeCheckstyle/haxe-formatter)
-[![Haxe-Formatter Linux](https://github.com/HaxeCheckstyle/haxe-formatter/workflows/Haxe-Formatter%20Linux/badge.svg)](https://github.com/HaxeCheckstyle/haxe-formatter/actions)
+[![Haxe-Formatter](https://github.com/HaxeCheckstyle/haxe-formatter/workflows/Haxe-Formatter/badge.svg)](https://github.com/HaxeCheckstyle/haxe-formatter/actions)
 [![codecov](https://codecov.io/gh/HaxeCheckstyle/haxe-formatter/branch/master/graph/badge.svg)](https://codecov.io/gh/HaxeCheckstyle/haxe-formatter)
 [![Gitter chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/HaxeCheckstyle/haxe-formatter)
 
@@ -73,6 +73,8 @@ Sample call: `haxelib run formatter --stdin -s src/Main.hx < /tmp/code.txt > src
 ## Configuration
 
 Formatter uses `hxformat.json` files for configuration. It searches for a `hxformat.json` file closest to the file being formatted, starting with the file's folder and moving upward all the way to your root folder. A configuration file in a subfolder will always overwrite any settings from a top or higher level folder.
+
+You can test different configuration settings in our [Formatter code samples / playground / documentation](https://haxecheckstyle.github.io/haxe-formatter-docs/#codesamples.CommonSamples.allman_curlies) website.
 
 The VSCode extension comes with a JSON schema providing completion and limited documentation for edition `hxformat.json` files:
 
