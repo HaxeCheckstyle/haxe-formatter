@@ -1006,12 +1006,32 @@
 		"formatter.config.ParenWhitespaceConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"sharpConditionParens": {
+					"description": "parens used for sharp conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
 				"metadataParens": {
 					"description": "parens used for metadata",
 					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
 				},
+				"whileConditionParens": {
+					"description": "parens used for while conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"catchParens": {
+					"description": "parens used for catch",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"switchConditionParens": {
+					"description": "parens used for switch conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
 				"callParens": {
 					"description": "parens used for calls",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"ifConditionParens": {
+					"description": "parens used for if conditions",
 					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
 				},
 				"forLoopParens": {

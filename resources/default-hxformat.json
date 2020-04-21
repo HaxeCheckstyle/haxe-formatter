@@ -223,6 +223,7 @@
 				"openingPolicy": "none",
 				"removeInnerWhenEmpty": true
 			},
+			"catchParens": null,
 			"conditionParens": {
 				"openingPolicy": "noneAfter",
 				"closingPolicy": "onlyAfter",
@@ -243,11 +244,15 @@
 				"openingPolicy": "none",
 				"removeInnerWhenEmpty": true
 			},
+			"ifConditionParens": null,
 			"metadataParens": {
 				"closingPolicy": "onlyAfter",
 				"openingPolicy": "none",
 				"removeInnerWhenEmpty": true
-			}
+			},
+			"sharpConditionParens": null,
+			"switchConditionParens": null,
+			"whileConditionParens": null
 		},
 		"semicolonPolicy": "onlyAfter",
 		"switchPolicy": "after",

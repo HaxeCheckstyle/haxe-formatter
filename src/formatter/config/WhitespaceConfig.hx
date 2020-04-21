@@ -98,6 +98,31 @@ typedef ParenWhitespaceConfig = {
 	@:default({openingPolicy: NoneAfter, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var conditionParens:OpenClosePolicy;
 
 	/**
+		parens used for if conditions
+	**/
+	@:default(null) @:optional var ifConditionParens:OpenClosePolicy;
+
+	/**
+		parens used for switch conditions
+	**/
+	@:default(null) @:optional var switchConditionParens:OpenClosePolicy;
+
+	/**
+		parens used for while conditions
+	**/
+	@:default(null) @:optional var whileConditionParens:OpenClosePolicy;
+
+	/**
+		parens used for sharp conditions
+	**/
+	@:default(null) @:optional var sharpConditionParens:OpenClosePolicy;
+
+	/**
+		parens used for catch
+	**/
+	@:default(null) @:optional var catchParens:OpenClosePolicy;
+
+	/**
 		parens used for for loops
 	**/
 	@:default({openingPolicy: NoneAfter, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var forLoopParens:OpenClosePolicy;

@@ -268,7 +268,11 @@ class MarkWrapping extends MarkWrappingBase {
 				wrapFunctionSignature(token);
 			case CALL:
 				wrapCallParameter(token);
-			case CONDITION:
+			case SWITCH_CONDITION:
+			case WHILE_CONDITION:
+			case IF_CONDITION:
+			case SHARP_CONDITION:
+			case CATCH:
 			case FORLOOP:
 			case EXPRESSION:
 		}
@@ -705,7 +709,11 @@ class MarkWrapping extends MarkWrappingBase {
 						return;
 					case PARAMETER:
 					case CALL:
-					case CONDITION:
+					case SWITCH_CONDITION:
+					case WHILE_CONDITION:
+					case IF_CONDITION:
+					case SHARP_CONDITION:
+					case CATCH:
 					case FORLOOP:
 					case EXPRESSION:
 				}

@@ -175,13 +175,13 @@ class MarkWhitespace extends MarkerBase {
 					case POpen, PClose, BrOpen, BkOpen, BkClose:
 						if (token.is(PClose)) {
 							switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
-								case CONDITION:
-									policy = policy.add(After);
 								case PARAMETER:
+									policy = policy.add(After);
+								case SWITCH_CONDITION | WHILE_CONDITION | IF_CONDITION | SHARP_CONDITION | CATCH:
 									policy = policy.add(After);
 								case FORLOOP:
 									policy = policy.add(After);
-								default:
+								case AT | CALL | EXPRESSION:
 									policy = policy.remove(After);
 							}
 						} else {
@@ -202,7 +202,7 @@ class MarkWhitespace extends MarkerBase {
 						policy = policy.remove(Before);
 					case PClose:
 						switch (TokenTreeCheckUtils.getPOpenType(prev.token)) {
-							case CONDITION:
+							case SWITCH_CONDITION | WHILE_CONDITION | IF_CONDITION | SHARP_CONDITION | CATCH:
 								policy = policy.add(Before);
 							default:
 						}
@@ -506,7 +506,30 @@ class MarkWhitespace extends MarkerBase {
 				}
 			case CALL:
 				return config.whitespace.parenConfig.callParens;
-			case CONDITION:
+			case SWITCH_CONDITION:
+				if (config.whitespace.parenConfig.switchConditionParens != null) {
+					return config.whitespace.parenConfig.switchConditionParens;
+				}
+				return config.whitespace.parenConfig.conditionParens;
+			case WHILE_CONDITION:
+				if (config.whitespace.parenConfig.whileConditionParens != null) {
+					return config.whitespace.parenConfig.whileConditionParens;
+				}
+				return config.whitespace.parenConfig.conditionParens;
+			case IF_CONDITION:
+				if (config.whitespace.parenConfig.ifConditionParens != null) {
+					return config.whitespace.parenConfig.ifConditionParens;
+				}
+				return config.whitespace.parenConfig.conditionParens;
+			case SHARP_CONDITION:
+				if (config.whitespace.parenConfig.sharpConditionParens != null) {
+					return config.whitespace.parenConfig.sharpConditionParens;
+				}
+				return config.whitespace.parenConfig.conditionParens;
+			case CATCH:
+				if (config.whitespace.parenConfig.catchParens != null) {
+					return config.whitespace.parenConfig.catchParens;
+				}
 				return config.whitespace.parenConfig.conditionParens;
 			case FORLOOP:
 				return config.whitespace.parenConfig.forLoopParens;
