@@ -11,7 +11,10 @@
 		"schema",
 		"test"
 	],
-	"coverage-gutters.showLineCoverage": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": false
+	},
+	"coverage-gutters.showLineCoverage": false,
 	"coverage-gutters.showRulerCoverage": false,
 	"coverage-gutters.partialHighlightDark": "rgba(120, 120, 120, 0.75)"
 }

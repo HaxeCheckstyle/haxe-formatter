@@ -333,7 +333,15 @@ class Indenter {
 								case PARAMETER:
 									mustIndent = true;
 								case CALL:
-								case CONDITION:
+								case SWITCH_CONDITION:
+									mustIndent = true;
+								case WHILE_CONDITION:
+									mustIndent = true;
+								case IF_CONDITION:
+									mustIndent = true;
+								case SHARP_CONDITION:
+									mustIndent = true;
+								case CATCH:
 									mustIndent = true;
 								case FORLOOP:
 								case EXPRESSION:

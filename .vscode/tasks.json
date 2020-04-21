@@ -7,7 +7,8 @@
 			"group": {
 				"kind": "build",
 				"isDefault": true
-			}
+			},
+			"label": "Build All"
 		},
 		{
 			"type": "hxml",

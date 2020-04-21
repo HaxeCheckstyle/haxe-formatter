@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added whitespace policies for `ifConditionParens`, `switchConditionParens`, `whileConditionParens`, `sharpConditionParens` and `catchParens` - a all inside `whitespace.parenConfig`, fixes [#583](https://github.com/HaxeCheckstyle/haxe-formatter/issues/583) ([#585](https://github.com/HaxeCheckstyle/haxe-formatter/issues/585))
+
 ## version 1.10.2 (2020-04-18)
 
 - Fixed a null pointer exception in tokentree ([#584](https://github.com/HaxeCheckstyle/haxe-formatter/issues/584))
