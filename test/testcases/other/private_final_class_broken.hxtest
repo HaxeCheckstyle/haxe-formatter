@@ -1,6 +1,6 @@
 {
 	"emptyLines": {
-		"maxAnywhereInFile": 0
+		"maxAnywhereInFile": 1
 	}
 }
 
@@ -15,6 +15,7 @@ private final class Test {
 ---
 
 package;
+
 private final class Test {
 	public function new() {}
 }
