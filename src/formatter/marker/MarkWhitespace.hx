@@ -371,24 +371,34 @@ class MarkWhitespace extends MarkerBase {
 			case UNKNOWN:
 				policy = config.whitespace.colonPolicy;
 		}
-		var prev:Null<TokenInfo> = getPreviousToken(token);
-		if (prev != null) {
-			switch (prev.token.tok) {
-				case Sharp(MarkLineEnds.SHARP_END):
-				case Sharp(_):
-					policy = policy.add(Before);
-				case PClose, Const(_):
-					if ((token.parent != null) && (token.parent.tok != null)) {
-						switch (token.parent.tok) {
-							case Sharp(MarkLineEnds.SHARP_IF):
-								policy = policy.add(Before);
-							default:
-						}
-					}
-				default:
-			}
-		}
+
+		policy = correctDblDotSharp(token, policy);
 		whitespace(token, policy);
+	}
+
+	function correctDblDotSharp(token:TokenTree, policy:WhitespacePolicy):WhitespacePolicy {
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev == null) {
+			return policy;
+		}
+		switch (prev.token.tok) {
+			case Sharp(MarkLineEnds.SHARP_END):
+			case Sharp(_):
+				policy = policy.add(Before);
+			case PClose, Const(_):
+				if ((prev.token.parent == null) || (prev.token.parent.tok == null)) {
+					return policy;
+				}
+				switch (prev.token.parent.tok) {
+					case Sharp(MarkLineEnds.SHARP_IF):
+						if (prev.token.parent.getFirstChild().index == prev.token.index) {
+							policy = policy.add(Before);
+						}
+					default:
+				}
+			default:
+		}
+		return policy;
 	}
 
 	function markSemicolon(token:TokenTree) {
