@@ -1,0 +1,23 @@
+{
+	"wrapping": {
+		"maxLineLength": 100
+	}
+}
+
+---
+
+extern class TouchEvent extends Event {
+	public function new(isTouchPointCanceled:Bool = false
+		#if air, commandKey:Bool = false, controlKey:Bool = false, ?timestamp:Float,
+		?touchIntent:TouchEventIntent, ?samples:flash.utils.ByteArray,
+		isTouchPointCanceled:Bool = false #end);
+}
+
+---
+
+extern class TouchEvent extends Event {
+	public function new(isTouchPointCanceled:Bool = false
+		#if air, commandKey:Bool = false, controlKey:Bool = false, ?timestamp:Float,
+		?touchIntent:TouchEventIntent, ?samples:flash.utils.ByteArray,
+		isTouchPointCanceled:Bool = false #end);
+}
