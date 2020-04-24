@@ -1,0 +1,32 @@
+{
+}
+
+---
+
+typedef Type = {f:Int}
+typedef Type = {f:{f:Int}}
+
+class Main {
+	function foo():Void {
+		final test:Void->Void = () -> trace(1);
+		final test:() -> Void = () -> trace(1);
+		final obj:{f: Int} = {f: 1};
+		final obj:{f: {f: Int}} = {f: {f: 1}};
+		final int:Int = 1;
+	}
+}
+
+---
+
+typedef Type = {f:Int}
+typedef Type = {f:{f:Int}}
+
+class Main {
+	function foo():Void {
+		final test:Void->Void = () -> trace(1);
+		final test:() -> Void = () -> trace(1);
+		final obj:{f:Int} = {f: 1};
+		final obj:{f:{f:Int}} = {f: {f: 1}};
+		final int:Int = 1;
+	}
+}
