@@ -1,0 +1,14 @@
+{
+  "whitespace": {
+    "typeParamOpenPolicy": "after",
+    "typeParamClosePolicy": "before"
+  }
+}
+
+---
+
+typedef Type = Array< {key:Int} >;
+
+---
+
+typedef Type = Array< {key:Int} >;

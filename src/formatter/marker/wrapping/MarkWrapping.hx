@@ -126,7 +126,6 @@ class MarkWrapping extends MarkWrappingBase {
 					}
 				case Binop(OpGt):
 					noLineEndAfter(brClose);
-					whitespace(brClose, NoneAfter);
 				case Const(CIdent("from")), Const(CIdent("to")):
 					noLineEndAfter(brClose);
 				case Kwd(_), Const(_):
