@@ -4,16 +4,17 @@
 	],
 	"[haxe]": {
 		"editor.formatOnSave": true,
-		"editor.formatOnPaste": true
+		"editor.formatOnPaste": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true
+		}
 	},
 	"haxecheckstyle.sourceFolders": [
 		"src",
 		"schema",
 		"test"
 	],
-	"editor.codeActionsOnSave": {
-		"source.organizeImports": false
-	},
+	"haxe.importsSortOrder": "stdlib -> libs -> project",
 	"coverage-gutters.showLineCoverage": false,
 	"coverage-gutters.showRulerCoverage": false,
 	"coverage-gutters.partialHighlightDark": "rgba(120, 120, 120, 0.75)"

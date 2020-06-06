@@ -1,0 +1,155 @@
+{}
+
+---
+
+final version = 4;
+
+function main() {
+	trace('Hello from version ' + version);
+}
+
+final asyncWaits = new Array<haxe.PosInfos>();
+final asyncCache = new Array<Void -> Void>();
+
+public final finalInit = 'finalInit';
+public final finalHintInit:String = 'finalHintInit';
+public inline final inlineFinalInit = 'inlineFinalInit';
+public inline final inlineFinalHintInit:String = 'inlineFinalHintInit';
+
+public var varInit = 'varInit';
+public var varInitHint:String = 'varInitHint';
+public var varHint:String;
+
+// comment
+
+final finalInit = 'finalInit';
+final finalHintInit:String = 'finalHintInit';
+inline final inlineFinalInit = 'inlineFinalInit';
+inline final inlineFinalHintInit:String = 'inlineFinalHintInit';
+private final privateFinalInit = 'privateFinalInit';
+private final privateFinalHintInit:String = 'privateFinalHintInit';
+private inline final privateInlineFinalInit = 'privateInlineFinalInit';
+private inline final privateInlineFinalHintInit:String = 'privateInlineFinalHintInit';
+inline private final inlinePrivateFinalInit = 'inlinePrivateFinalInit';
+inline private final inlinePrivateFinalHintInit:String = 'inlinePrivateFinalHintInit';
+var varInit = 'varInit';
+// comment
+var varInitHint:String = 'varInitHint';
+var varHint:String;
+inline var inlineVarInit = 'inlineVarInit';
+inline var inlineVarInitHint:String = 'inlineVarInitHint';
+private var privateVarInit = 'privateVarInit';
+private var privateVarInitHint:String = 'privateVarInitHint';
+private var privateVarHint:String;
+private inline var privateInlineVarInit = 'privateInlineVarInit';
+private inline var privateInlineVarInitHint:String = 'privateInlineVarInitHint';
+inline private var inlinePrivateVarInit = 'inlinePrivateVarInit';
+inline private var inlinePrivateVarInitHint:String = 'inlinePrivateVarInitHint';
+class Main {}
+
+public function func() return 'func';
+function func() return 'func';
+// comment
+private function privateFunc() return 'privateFunc';
+private inline function privateInlineFunc() return 'privateInlineFunc';
+inline private function inlinePrivateFunc() return 'inlinePrivateFunc';
+dynamic function dynamicFunc() return 'dynamicFunc';
+private dynamic function privateDynamicFunc() return 'privateDynamicFunc';
+dynamic private function dynamicPrivateFunc() return 'dynamicPrivateFunc';
+class Main {}
+
+// comment
+@:isVar var prop(get,set):String = 'prop';
+function get_prop() return prop + '-get';
+function set_prop(value) return prop = value + '-set';
+
+final version;
+
+final /* foo */ finalHintInit:String = 'finalHintInit';
+/* foo */ final /* foo */ inline /* foo */ inlineFinalInit = 'inlineFinalInit';
+
+---
+
+final version = 4;
+
+function main() {
+	trace('Hello from version ' + version);
+}
+
+final asyncWaits = new Array<haxe.PosInfos>();
+final asyncCache = new Array<Void->Void>();
+public final finalInit = 'finalInit';
+public final finalHintInit:String = 'finalHintInit';
+public inline final inlineFinalInit = 'inlineFinalInit';
+public inline final inlineFinalHintInit:String = 'inlineFinalHintInit';
+public var varInit = 'varInit';
+public var varInitHint:String = 'varInitHint';
+public var varHint:String;
+
+// comment
+
+final finalInit = 'finalInit';
+final finalHintInit:String = 'finalHintInit';
+inline final inlineFinalInit = 'inlineFinalInit';
+inline final inlineFinalHintInit:String = 'inlineFinalHintInit';
+private final privateFinalInit = 'privateFinalInit';
+private final privateFinalHintInit:String = 'privateFinalHintInit';
+private inline final privateInlineFinalInit = 'privateInlineFinalInit';
+private inline final privateInlineFinalHintInit:String = 'privateInlineFinalHintInit';
+inline private final inlinePrivateFinalInit = 'inlinePrivateFinalInit';
+inline private final inlinePrivateFinalHintInit:String = 'inlinePrivateFinalHintInit';
+var varInit = 'varInit';
+
+// comment
+var varInitHint:String = 'varInitHint';
+var varHint:String;
+inline var inlineVarInit = 'inlineVarInit';
+inline var inlineVarInitHint:String = 'inlineVarInitHint';
+private var privateVarInit = 'privateVarInit';
+private var privateVarInitHint:String = 'privateVarInitHint';
+private var privateVarHint:String;
+private inline var privateInlineVarInit = 'privateInlineVarInit';
+private inline var privateInlineVarInitHint:String = 'privateInlineVarInitHint';
+inline private var inlinePrivateVarInit = 'inlinePrivateVarInit';
+inline private var inlinePrivateVarInitHint:String = 'inlinePrivateVarInitHint';
+class Main {}
+
+public function func()
+	return 'func';
+
+function func()
+	return 'func';
+
+// comment
+private function privateFunc()
+	return 'privateFunc';
+
+private inline function privateInlineFunc()
+	return 'privateInlineFunc';
+
+inline private function inlinePrivateFunc()
+	return 'inlinePrivateFunc';
+
+dynamic function dynamicFunc()
+	return 'dynamicFunc';
+
+private dynamic function privateDynamicFunc()
+	return 'privateDynamicFunc';
+
+dynamic private function dynamicPrivateFunc()
+	return 'dynamicPrivateFunc';
+
+class Main {}
+
+// comment
+@:isVar var prop(get, set):String = 'prop';
+
+function get_prop()
+	return prop + '-get';
+
+function set_prop(value)
+	return prop = value + '-set';
+
+final version;
+final /* foo */ finalHintInit:String = 'finalHintInit';
+/* foo */ final /* foo */ inline /* foo */ inlineFinalInit = 'inlineFinalInit';

@@ -1,0 +1,16 @@
+{}
+
+
+---
+
+class Main {
+	@in var someVar = 123;
+	@in(true) var someVar = 123;
+}
+
+---
+
+class Main {
+	@in var someVar = 123;
+	@in(true) var someVar = 123;
+}
