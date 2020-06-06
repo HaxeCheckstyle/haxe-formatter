@@ -19,7 +19,7 @@ class MarkWhitespace extends MarkerBase {
 					whitespace(token, config.whitespace.intervalPolicy);
 				#if (haxe_ver >= 4.0)
 				case Binop(OpIn):
-					whitespace(token, Around);
+					markIn(token);
 				#end
 				case Binop(OpMult):
 					if (TokenTreeCheckUtils.isImport(token.parent)) {
@@ -285,7 +285,7 @@ class MarkWhitespace extends MarkerBase {
 				whitespace(token, config.whitespace.catchPolicy);
 			#if (haxe_ver < 4.0)
 			case Kwd(KwdIn):
-				whitespace(token, Around);
+				markIn(token);
 			#end
 			case Kwd(KwdReturn):
 				whitespace(token, After);
@@ -305,6 +305,18 @@ class MarkWhitespace extends MarkerBase {
 				whitespace(token, After);
 			default:
 		}
+	}
+
+	function markIn(token:TokenTree) {
+		if (!TokenTreeCheckUtils.hasAtParent(token)) {
+			whitespace(token, Around);
+			return;
+		}
+		var policy:WhitespacePolicy = After;
+		if (token.hasChildren()) {
+			policy = None;
+		}
+		whitespace(token, policy);
 	}
 
 	function markUnop(token:TokenTree) {
