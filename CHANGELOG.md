@@ -2,7 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added whitespace policies for `ifConditionParens`, `switchConditionParens`, `whileConditionParens`, `sharpConditionParens` and `catchParens` - a all inside `whitespace.parenConfig`, fixes [#583](https://github.com/HaxeCheckstyle/haxe-formatter/issues/583) ([#585](https://github.com/HaxeCheckstyle/haxe-formatter/issues/585))
+## version 1.11.0 (2020-06-07)
+
+- Added whitespace policies for `ifConditionParens`, `switchConditionParens`, `whileConditionParens`, `sharpConditionParens` and `catchParens` - all inside `whitespace.parenConfig`, fixes [#583](https://github.com/HaxeCheckstyle/haxe-formatter/issues/583) ([#585](https://github.com/HaxeCheckstyle/haxe-formatter/issues/585))
 - Fixed type hint whitespace in anonymous types, fixes [#586](https://github.com/HaxeCheckstyle/haxe-formatter/issues/586) ([#587](https://github.com/HaxeCheckstyle/haxe-formatter/issues/587))
 - Fixed type hint whitespace with conditionals, fixes [#582](https://github.com/HaxeCheckstyle/haxe-formatter/issues/582) ([#587](https://github.com/HaxeCheckstyle/haxe-formatter/issues/587))
 - Fixed whitspace handling for anon types as type parameter, fixes [#588](https://github.com/HaxeCheckstyle/haxe-formatter/issues/588) ([#590](https://github.com/HaxeCheckstyle/haxe-formatter/issues/590))
