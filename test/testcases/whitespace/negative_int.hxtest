@@ -1,0 +1,20 @@
+{
+}
+
+---
+
+class Main {
+    static function main() {
+		var exitCode:Int = try Sys.command(cmd, args) catch (e:Dynamic) -1;
+		var exitCode:Int = if (true) -1 else -2;
+    }
+}
+
+---
+
+class Main {
+	static function main() {
+		var exitCode:Int = try Sys.command(cmd, args) catch (e:Dynamic) -1;
+		var exitCode:Int = if (true) -1 else -2;
+	}
+}
