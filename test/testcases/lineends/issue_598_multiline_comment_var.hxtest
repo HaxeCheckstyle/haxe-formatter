@@ -1,0 +1,37 @@
+{}
+
+---
+
+class Main {
+	/**
+	 * [Description]
+	 */ var foo:Int;
+	/**
+	 * [Description]
+	 */ private /**/var foo:Int;
+	/**
+	 * [Description]
+	 */ public /*
+	 */var foo:Int;
+}
+
+---
+
+class Main {
+	/**
+	 * [Description]
+	 */
+	var foo:Int;
+
+	/**
+	 * [Description]
+	 */
+	private /**/ var foo:Int;
+
+	/**
+	 * [Description]
+	 */
+	public /*
+	 */
+	var foo:Int;
+}

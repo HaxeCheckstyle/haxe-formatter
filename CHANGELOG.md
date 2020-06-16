@@ -3,6 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Fixed whitespace for negative const values
+- Fixed multiline comments with vars, fixes [#598](https://github.com/HaxeCheckstyle/haxe-formatter/issues/598)
 
 ## version 1.11.0 (2020-06-07)
 
