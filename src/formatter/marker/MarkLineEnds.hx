@@ -74,6 +74,11 @@ class MarkLineEnds extends MarkerBase {
 								lineEndAfter(token);
 							}
 							continue;
+						case Const(CIdent("final")):
+							if (!noneBefore) {
+								lineEndAfter(token);
+							}
+							continue;
 						default:
 					}
 				default:
