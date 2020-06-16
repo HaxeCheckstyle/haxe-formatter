@@ -4,6 +4,7 @@
 
 - Fixed whitespace for negative const values
 - Fixed multiline comments with vars, fixes [#598](https://github.com/HaxeCheckstyle/haxe-formatter/issues/598)
+- Fixed whitespace for null safe navigation operator, fixes [#599](https://github.com/HaxeCheckstyle/haxe-formatter/issues/599)
 
 ## version 1.11.0 (2020-06-07)
 

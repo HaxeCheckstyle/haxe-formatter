@@ -327,6 +327,13 @@ class MarkWhitespace extends MarkerBase {
 					return;
 				case PClose, BkClose, BrClose:
 					return;
+				case Dot:
+					switch (token.tok) {
+						case Unop(OpNot):
+							whitespace(token, None);
+							return;
+						default:
+					}
 				default:
 			}
 		}
