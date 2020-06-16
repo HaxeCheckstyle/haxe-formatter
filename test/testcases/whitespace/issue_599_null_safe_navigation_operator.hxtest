@@ -1,0 +1,13 @@
+{}
+
+---
+
+function main() {
+	foo(bar)!.method();
+}
+
+---
+
+function main() {
+	foo(bar)!.method();
+}

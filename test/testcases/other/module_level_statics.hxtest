@@ -152,4 +152,5 @@ function set_prop(value)
 
 final version;
 final /* foo */ finalHintInit:String = 'finalHintInit';
-/* foo */ final /* foo */ inline /* foo */ inlineFinalInit = 'inlineFinalInit';
+/* foo */
+final /* foo */ inline /* foo */ inlineFinalInit = 'inlineFinalInit';

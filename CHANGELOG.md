@@ -2,6 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed whitespace for negative const values ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
+- Fixed multiline comments with vars, fixes [#598](https://github.com/HaxeCheckstyle/haxe-formatter/issues/598) ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
+- Fixed whitespace for null safe navigation operator, fixes [#599](https://github.com/HaxeCheckstyle/haxe-formatter/issues/599) ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
+
 ## version 1.11.0 (2020-06-07)
 
 - Added whitespace policies for `ifConditionParens`, `switchConditionParens`, `whileConditionParens`, `sharpConditionParens` and `catchParens` - all inside `whitespace.parenConfig`, fixes [#583](https://github.com/HaxeCheckstyle/haxe-formatter/issues/583) ([#585](https://github.com/HaxeCheckstyle/haxe-formatter/issues/585))

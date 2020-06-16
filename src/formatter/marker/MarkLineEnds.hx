@@ -46,12 +46,14 @@ class MarkLineEnds extends MarkerBase {
 					lineEndAfter(token);
 				case Comment(_):
 					var prev:Null<TokenInfo> = getPreviousToken(token);
+					var noneBefore:Bool = false;
 					if (prev != null) {
 						if (parsedCode.isOriginalSameLine(token, prev.token)) {
 							if (prev.whitespaceAfter == Newline) {
 								lineEndAfter(token);
 							}
 							noLineEndBefore(token);
+							noneBefore = true;
 						}
 					}
 					var commentLine:LinePos = parsedCode.getLinePos(token.pos.min);
@@ -61,6 +63,23 @@ class MarkLineEnds extends MarkerBase {
 					if ((~/^\s*$/.match(prefix)) && (~/^\s*$/.match(postfix))) {
 						lineEndAfter(token);
 						continue;
+					}
+					var next:Null<TokenInfo> = getNextToken(token);
+					if (next == null) {
+						continue;
+					}
+					switch (next.token.tok) {
+						case Kwd(_):
+							if (!noneBefore) {
+								lineEndAfter(token);
+							}
+							continue;
+						case Const(CIdent("final")):
+							if (!noneBefore) {
+								lineEndAfter(token);
+							}
+							continue;
+						default:
 					}
 				default:
 			}
