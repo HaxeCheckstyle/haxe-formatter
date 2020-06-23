@@ -1,0 +1,33 @@
+{}
+
+---
+
+class Main {
+	static function foobar() {
+		function foo() {
+			return bar;
+		}
+		@:nullSafety(Off) return switch thing {
+			case something: null;
+		};
+		@:nullSafety(Off) return switch thing {
+			case something: null;
+		}
+	}
+}
+
+---
+
+class Main {
+	static function foobar() {
+		function foo() {
+			return bar;
+		}
+		@:nullSafety(Off) return switch thing {
+			case something: null;
+		};
+		@:nullSafety(Off) return switch thing {
+			case something: null;
+		}
+	}
+}
