@@ -5,10 +5,10 @@
 - Fixed whitespace for negative const values ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
 - Fixed multiline comments with vars, fixes [#598](https://github.com/HaxeCheckstyle/haxe-formatter/issues/598) ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
 - Fixed whitespace for null safe navigation operator, fixes [#599](https://github.com/HaxeCheckstyle/haxe-formatter/issues/599) ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
-- Fixed sameline handling of metadata after `BrOpen` and `Semicolon`, fixes [#602](https://github.com/HaxeCheckstyle/haxe-formatter/issues/602)
-- Fixed whitespace of macro reification in call, fixes [#591](https://github.com/HaxeCheckstyle/haxe-formatter/issues/591)
-- Fixed emptyline after final in enum abstract, fixes [#601](https://github.com/HaxeCheckstyle/haxe-formatter/issues/601)
-- Fixed keep trailing whitespace of multiline comments, fixes [#593](https://github.com/HaxeCheckstyle/haxe-formatter/issues/593)
+- Fixed sameline handling of metadata after `BrOpen` and `Semicolon`, fixes [#602](https://github.com/HaxeCheckstyle/haxe-formatter/issues/602) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
+- Fixed whitespace of macro reification in call, fixes [#591](https://github.com/HaxeCheckstyle/haxe-formatter/issues/591) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
+- Fixed emptyline after final in enum abstract, fixes [#601](https://github.com/HaxeCheckstyle/haxe-formatter/issues/601) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
+- Fixed keep trailing whitespace of multiline comments, fixes [#593](https://github.com/HaxeCheckstyle/haxe-formatter/issues/593) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
 
 ## version 1.11.0 (2020-06-07)
 
