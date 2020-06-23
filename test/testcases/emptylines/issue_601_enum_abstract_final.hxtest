@@ -1,0 +1,60 @@
+{
+}
+
+---
+
+enum abstract EnumAbstract(String) {
+	var A;
+	var B;
+	var C;
+
+	function new(s)
+		this = s;
+}
+
+enum abstract EnumAbstract(String) {
+	final A;
+	final B;
+	final C;
+
+	function new(s)
+		this = s;
+}
+
+class Main {
+	final A;
+	final B;
+	final C;
+
+	function new(s)
+		this = s;
+}
+
+---
+
+enum abstract EnumAbstract(String) {
+	var A;
+	var B;
+	var C;
+
+	function new(s)
+		this = s;
+}
+
+enum abstract EnumAbstract(String) {
+	final A;
+	final B;
+	final C;
+
+	function new(s)
+		this = s;
+}
+
+class Main {
+	final A;
+	final B;
+	final C;
+
+	function new(s)
+		this = s;
+}

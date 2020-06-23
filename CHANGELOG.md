@@ -7,6 +7,7 @@
 - Fixed whitespace for null safe navigation operator, fixes [#599](https://github.com/HaxeCheckstyle/haxe-formatter/issues/599) ([#600](https://github.com/HaxeCheckstyle/haxe-formatter/issues/600))
 - Fixed sameline handling of metadata after `BrOpen` and `Semicolon`, fixes [#602](https://github.com/HaxeCheckstyle/haxe-formatter/issues/602)
 - Fixed whitespace of macro reification in call, fixes [#591](https://github.com/HaxeCheckstyle/haxe-formatter/issues/591)
+- Fixed emptyline after final in enum abstract, fixes [#601](https://github.com/HaxeCheckstyle/haxe-formatter/issues/601)
 
 ## version 1.11.0 (2020-06-07)
 
