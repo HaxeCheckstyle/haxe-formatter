@@ -1,0 +1,23 @@
+{
+  "whitespace": {
+    "parenConfig": {
+      "callParens": {
+        "openingPolicy": "onlyAfter",
+        "closingPolicy": "before"
+      }
+    },
+	"compressSuccessiveParenthesis": false
+  }
+}
+
+---
+
+
+var foo = bar1( {baz1: 0} );
+var foo = macro bar2( ${baz2} );
+
+
+---
+
+var foo = bar1( {baz1: 0} );
+var foo = macro bar2( ${baz2} );
