@@ -590,8 +590,14 @@ class MarkSameLine extends MarkerBase {
 					noLineEndBefore(token);
 				} else {
 					switch (prev.token.tok) {
-						case POpen, Dot:
+						case POpen | Dot:
 							whitespace(token, NoneBefore);
+						case BrClose | Semicolon:
+							switch (token.tok) {
+								case At:
+								case _:
+									noLineEndBefore(token);
+							}
 						default:
 							noLineEndBefore(token);
 					}
