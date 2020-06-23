@@ -250,7 +250,7 @@ class MarkEmptyLines extends MarkerBase {
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
-			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
+			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
 			var fields:Array<TokenTree> = findClassAndAbstractFields(c);
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
@@ -289,7 +289,7 @@ class MarkEmptyLines extends MarkerBase {
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
-			var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
+			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
 			var functions:Array<TokenTree> = findClassAndAbstractFields(c);
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
@@ -312,7 +312,7 @@ class MarkEmptyLines extends MarkerBase {
 					FOUND_SKIP_SUBTREE;
 				case Const(CIdent(FINAL)):
 					FOUND_SKIP_SUBTREE;
-				#if (haxe_ver >= 4.0)
+				#if haxe4
 				case Kwd(KwdFinal):
 					FOUND_SKIP_SUBTREE;
 				#end
@@ -510,8 +510,7 @@ class MarkEmptyLines extends MarkerBase {
 		}
 		markBeginAndEndType(block, conf.beginType, conf.endType);
 
-		var finalTokDef:TokenDef = #if (haxe_ver >= 4.0) Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
-		var fields:Array<TokenTree> = block.filter([Kwd(KwdFunction), Kwd(KwdVar), finalTokDef], FIRST);
+		var fields:Array<TokenTree> = findClassAndAbstractFields(block);
 
 		var prevToken:Null<TokenTree> = null;
 		var prevTokenType:Null<TokenFieldType> = null;
@@ -590,7 +589,7 @@ class MarkEmptyLines extends MarkerBase {
 		var block:Null<TokenTree> = token.access().firstChild().firstOf(BrOpen).token;
 		markBeginAndEndType(block, config.emptyLines.enumAbstractEmptyLines.beginType, config.emptyLines.enumAbstractEmptyLines.endType);
 
-		var functions:Array<TokenTree> = token.filter([Kwd(KwdFunction), Kwd(KwdVar)], FIRST);
+		var functions:Array<TokenTree> = findClassAndAbstractFields(token);
 
 		var prevToken:Null<TokenTree> = null;
 		var prevTokenType:Null<TokenFieldType> = null;
@@ -747,7 +746,7 @@ class MarkEmptyLines extends MarkerBase {
 					FOUND_SKIP_SUBTREE;
 				case Const(CIdent(FINAL)):
 					FOUND_SKIP_SUBTREE;
-				#if (haxe_ver >= 4.0)
+				#if haxe4
 				case Kwd(KwdFinal):
 					FOUND_SKIP_SUBTREE;
 				#end
@@ -938,7 +937,7 @@ class MarkEmptyLines extends MarkerBase {
 					case Kwd(KwdInterface):
 					case Kwd(KwdTypedef):
 					case Const(CIdent(_)):
-					#if (haxe_ver >= 4.0)
+					#if haxe4
 					case Kwd(KwdFinal):
 					#end
 					case Sharp(_):
