@@ -153,7 +153,7 @@ class MarkTokenText extends MarkerBase {
 		text = "/*" + lines[0];
 		for (index in 1...lines.length) {
 			text += parsedCode.lineSeparator;
-			var line:String = lines[index].rtrim();
+			var line:String = lines[index];
 			var lineIndent:Int = indent;
 			var lastLine:Bool = index == lines.length - 1;
 			if (!lastLine) {
