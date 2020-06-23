@@ -656,11 +656,8 @@ class MarkSameLine extends MarkerBase {
 			var next:Null<TokenInfo> = getNextToken(brClose);
 			if (next != null) {
 				switch (next.token.tok) {
-					case BrClose:
-					case POpen, PClose, BkOpen, BkClose:
-						whitespace(brClose, None);
-					case DblDot:
-					case Comma, Semicolon, Dot:
+					case BrClose | POpen | PClose | BkOpen | BkClose | DblDot:
+					case Comma | Semicolon | Dot:
 						whitespace(brClose, None);
 					default:
 						whitespace(brClose, OnlyAfter);
