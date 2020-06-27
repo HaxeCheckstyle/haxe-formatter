@@ -164,7 +164,7 @@ class Formatter {
 
 	#if (js && !nodejs)
 	public static function main() {
-		var result:Result = Formatter.format(Code(" trace ( 'foo' ) ; "), new Config(), EXPRESSION_LEVEL);
+		var result:Result = Formatter.format(Code(" trace ( 'foo' ) ; "), new Config(), ExpressionLevel);
 		switch (result) {
 			case Success(formattedCode):
 				js.Browser.console.log("Success: " + formattedCode);
