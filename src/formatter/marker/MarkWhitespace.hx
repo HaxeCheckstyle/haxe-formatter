@@ -104,7 +104,7 @@ class MarkWhitespace extends MarkerBase {
 					markAt(token);
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -175,13 +175,13 @@ class MarkWhitespace extends MarkerBase {
 					case POpen, PClose, BrOpen, BkOpen, BkClose:
 						if (token.is(PClose)) {
 							switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
-								case PARAMETER:
+								case Parameter:
 									policy = policy.add(After);
-								case SWITCH_CONDITION | WHILE_CONDITION | IF_CONDITION | SHARP_CONDITION | CATCH:
+								case SwitchCondition | WhileCondition | IfCondition | SharpCondition | Catch:
 									policy = policy.add(After);
-								case FORLOOP:
+								case ForLoop:
 									policy = policy.add(After);
-								case AT | CALL | EXPRESSION:
+								case At | Call | Expression:
 									policy = policy.remove(After);
 							}
 						} else {
@@ -202,7 +202,7 @@ class MarkWhitespace extends MarkerBase {
 						policy = policy.remove(Before);
 					case PClose:
 						switch (TokenTreeCheckUtils.getPOpenType(prev.token)) {
-							case SWITCH_CONDITION | WHILE_CONDITION | IF_CONDITION | SHARP_CONDITION | CATCH:
+							case SwitchCondition | WhileCondition | IfCondition | SharpCondition | Catch:
 								policy = policy.add(Before);
 							default:
 						}
@@ -370,24 +370,24 @@ class MarkWhitespace extends MarkerBase {
 	function markDblDot(token:TokenTree) {
 		var type:Null<ColonType> = TokenTreeCheckUtils.getColonType(token);
 		if (type == null) {
-			type = UNKNOWN;
+			type = Unknown;
 		}
 		var policy:WhitespacePolicy = config.whitespace.colonPolicy;
 		switch (type) {
-			case SWITCH_CASE:
+			case SwitchCase:
 				policy = config.whitespace.caseColonPolicy;
-			case TYPE_HINT:
+			case TypeHint:
 				policy = config.whitespace.typeHintColonPolicy;
-			case TYPE_CHECK:
+			case TypeCheck:
 				policy = config.whitespace.typeCheckColonPolicy;
-			case TERNARY:
+			case Ternary:
 				policy = config.whitespace.ternaryPolicy;
-			case OBJECT_LITERAL:
+			case ObjectLiteral:
 				policy = config.whitespace.objectFieldColonPolicy;
-			case AT:
+			case At:
 				whitespace(token, None);
 				return;
-			case UNKNOWN:
+			case Unknown:
 				policy = config.whitespace.colonPolicy;
 		}
 
@@ -405,7 +405,7 @@ class MarkWhitespace extends MarkerBase {
 			case Sharp(_):
 				policy = policy.add(Before);
 			case PClose, Const(_):
-				if ((prev.token.parent == null) || (prev.token.parent.tok == null)) {
+				if (prev.token.parent == null) {
 					return policy;
 				}
 				switch (prev.token.parent.tok) {
@@ -483,14 +483,14 @@ class MarkWhitespace extends MarkerBase {
 	function markArrow(token:TokenTree) {
 		var arrowType:Null<ArrowType> = TokenTreeCheckUtils.getArrowType(token);
 		if (arrowType == null) {
-			arrowType = ARROW_FUNCTION;
+			arrowType = ArrowFunction;
 		}
 		switch (arrowType) {
-			case ARROW_FUNCTION:
+			case ArrowFunction:
 				whitespace(token, config.whitespace.arrowFunctionsPolicy);
-			case FUNCTION_TYPE_HAXE3:
+			case OldFunctionType:
 				whitespace(token, config.whitespace.functionTypeHaxe3Policy);
-			case FUNCTION_TYPE_HAXE4:
+			case NewFunctionType:
 				whitespace(token, config.whitespace.functionTypeHaxe4Policy);
 		}
 	}
@@ -498,13 +498,13 @@ class MarkWhitespace extends MarkerBase {
 	function determinePOpenPolicy(token:TokenTree):OpenClosePolicy {
 		var type:Null<POpenType> = TokenTreeCheckUtils.getPOpenType(token);
 		if (type == null) {
-			type = EXPRESSION;
+			type = Expression;
 		}
 		switch (type) {
-			case AT:
+			case At:
 				config.whitespace.parenConfig.metadataParens.openingPolicy = config.whitespace.parenConfig.metadataParens.openingPolicy.remove(Before);
 				return config.whitespace.parenConfig.metadataParens;
-			case PARAMETER:
+			case Parameter:
 				switch (token.parent.tok) {
 					case Kwd(KwdReturn):
 						var policy:OpenClosePolicy = {
@@ -533,36 +533,36 @@ class MarkWhitespace extends MarkerBase {
 					default:
 						return config.whitespace.parenConfig.anonFuncParamParens;
 				}
-			case CALL:
+			case Call:
 				return config.whitespace.parenConfig.callParens;
-			case SWITCH_CONDITION:
+			case SwitchCondition:
 				if (config.whitespace.parenConfig.switchConditionParens != null) {
 					return config.whitespace.parenConfig.switchConditionParens;
 				}
 				return config.whitespace.parenConfig.conditionParens;
-			case WHILE_CONDITION:
+			case WhileCondition:
 				if (config.whitespace.parenConfig.whileConditionParens != null) {
 					return config.whitespace.parenConfig.whileConditionParens;
 				}
 				return config.whitespace.parenConfig.conditionParens;
-			case IF_CONDITION:
+			case IfCondition:
 				if (config.whitespace.parenConfig.ifConditionParens != null) {
 					return config.whitespace.parenConfig.ifConditionParens;
 				}
 				return config.whitespace.parenConfig.conditionParens;
-			case SHARP_CONDITION:
+			case SharpCondition:
 				if (config.whitespace.parenConfig.sharpConditionParens != null) {
 					return config.whitespace.parenConfig.sharpConditionParens;
 				}
 				return config.whitespace.parenConfig.conditionParens;
-			case CATCH:
+			case Catch:
 				if (config.whitespace.parenConfig.catchParens != null) {
 					return config.whitespace.parenConfig.catchParens;
 				}
 				return config.whitespace.parenConfig.conditionParens;
-			case FORLOOP:
+			case ForLoop:
 				return config.whitespace.parenConfig.forLoopParens;
-			case EXPRESSION:
+			case Expression:
 				return config.whitespace.parenConfig.expressionParens;
 		}
 		return config.whitespace.parenConfig.expressionParens;
@@ -615,18 +615,18 @@ class MarkWhitespace extends MarkerBase {
 	function determineBrOpenPolicy(token:TokenTree):OpenClosePolicy {
 		var type:Null<BrOpenType> = TokenTreeCheckUtils.getBrOpenType(token);
 		if (type == null) {
-			type = UNKNOWN;
+			type = Unknown;
 		}
 		switch (type) {
-			case BLOCK:
+			case Block:
 				return config.whitespace.bracesConfig.blockBraces;
-			case TYPEDEFDECL:
+			case TypedefDecl:
 				return config.whitespace.bracesConfig.typedefBraces;
-			case OBJECTDECL:
+			case ObjectDecl:
 				return config.whitespace.bracesConfig.objectLiteralBraces;
-			case ANONTYPE:
+			case AnonType:
 				return config.whitespace.bracesConfig.anonTypeBraces;
-			case UNKNOWN:
+			case Unknown:
 				return config.whitespace.bracesConfig.unknownBraces;
 		}
 		return config.whitespace.bracesConfig.unknownBraces;
@@ -702,6 +702,8 @@ class MarkWhitespace extends MarkerBase {
 				return;
 		}
 		switch (prev.token.tok) {
+			case Root:
+				return;
 			case Kwd(_):
 			case Const(_):
 			case Sharp(_):

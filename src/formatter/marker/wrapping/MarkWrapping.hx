@@ -7,27 +7,27 @@ class MarkWrapping extends MarkWrappingBase {
 		var wrappableTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Dot:
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case BrOpen:
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case BkOpen:
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case POpen:
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case Binop(OpAdd):
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case Binop(OpLt):
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case Binop(OpArrow), Arrow:
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case CommentLine(_):
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				case Comma:
 					wrapAfter(token, true);
-					return GO_DEEPER;
+					return GoDeeper;
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 
 		wrappableTokens.reverse();
@@ -83,14 +83,14 @@ class MarkWrapping extends MarkWrappingBase {
 
 	function markBrWrapping(token:TokenTree) {
 		switch (TokenTreeCheckUtils.getBrOpenType(token)) {
-			case BLOCK:
-			case TYPEDEFDECL:
+			case Block:
+			case TypedefDecl:
 				typedefWrapping(token);
-			case OBJECTDECL:
+			case ObjectDecl:
 				objectLiteralWrapping(token);
-			case ANONTYPE:
+			case AnonType:
 				anonTypeWrapping(token);
-			case UNKNOWN:
+			case Unknown:
 		}
 	}
 
@@ -261,19 +261,19 @@ class MarkWrapping extends MarkWrappingBase {
 	function markPWrapping(token:TokenTree) {
 		var pClose:Null<TokenTree> = getCloseToken(token);
 		switch (TokenTreeCheckUtils.getPOpenType(token)) {
-			case AT:
+			case At:
 				wrapMetadataCallParameter(token);
-			case PARAMETER:
+			case Parameter:
 				wrapFunctionSignature(token);
-			case CALL:
+			case Call:
 				wrapCallParameter(token);
-			case SWITCH_CONDITION:
-			case WHILE_CONDITION:
-			case IF_CONDITION:
-			case SHARP_CONDITION:
-			case CATCH:
-			case FORLOOP:
-			case EXPRESSION:
+			case SwitchCondition:
+			case WhileCondition:
+			case IfCondition:
+			case SharpCondition:
+			case Catch:
+			case ForLoop:
+			case Expression:
 		}
 	}
 
@@ -465,7 +465,7 @@ class MarkWrapping extends MarkWrappingBase {
 							case CommentLine(_):
 							case PClose:
 								wrapBefore(token, true);
-								return FOUND_SKIP_SUBTREE;
+								return FoundSkipSubtree;
 							default:
 								break;
 						}
@@ -473,7 +473,7 @@ class MarkWrapping extends MarkWrappingBase {
 					}
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 		for (chainStart in chainStarts) {
 			// look at additional chain starts below
@@ -489,7 +489,7 @@ class MarkWrapping extends MarkWrappingBase {
 					markMethodChaining(token);
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -503,18 +503,18 @@ class MarkWrapping extends MarkWrappingBase {
 							case Comment(_):
 							case CommentLine(_):
 							case PClose:
-								return FOUND_GO_DEEPER;
+								return FoundGoDeeper;
 							default:
 								break;
 						}
 						prev = getPreviousToken(prev.token);
 					}
-					return GO_DEEPER;
+					return GoDeeper;
 				case POpen, BrOpen, BkOpen:
-					return SKIP_SUBTREE;
+					return SkipSubtree;
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 
 		var firstMethodCall:TokenTree = chainStart.access().parent().isCIdent().parent().is(Dot).token;
@@ -560,16 +560,16 @@ class MarkWrapping extends MarkWrappingBase {
 	function markOpBoolChaining() {
 		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			if (!token.hasChildren()) {
-				return SKIP_SUBTREE;
+				return SkipSubtree;
 			}
 			for (child in token.children) {
 				switch (child.tok) {
 					case Binop(OpBoolAnd), Binop(OpBoolOr):
-						return FOUND_GO_DEEPER;
+						return FoundGoDeeper;
 					default:
 				}
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 		for (chainStart in chainStarts) {
 			markSingleOpBoolChain(chainStart);
@@ -637,9 +637,9 @@ class MarkWrapping extends MarkWrappingBase {
 		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdCase):
-					FOUND_GO_DEEPER;
+					FoundGoDeeper;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		for (chainStart in chainStarts) {
@@ -679,16 +679,16 @@ class MarkWrapping extends MarkWrappingBase {
 	function markOpAddChaining() {
 		var chainStarts:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			if (!token.hasChildren()) {
-				return SKIP_SUBTREE;
+				return SkipSubtree;
 			}
 			for (child in token.children) {
 				switch (child.tok) {
 					case Binop(OpAdd), Binop(OpSub):
-						return FOUND_GO_DEEPER;
+						return FoundGoDeeper;
 					default:
 				}
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 		for (chainStart in chainStarts) {
 			markSingleOpAddChain(chainStart);
@@ -704,17 +704,17 @@ class MarkWrapping extends MarkWrappingBase {
 			case POpen:
 				var type:POpenType = TokenTreeCheckUtils.getPOpenType(chainStart);
 				switch (type) {
-					case AT:
+					case At:
 						return;
-					case PARAMETER:
-					case CALL:
-					case SWITCH_CONDITION:
-					case WHILE_CONDITION:
-					case IF_CONDITION:
-					case SHARP_CONDITION:
-					case CATCH:
-					case FORLOOP:
-					case EXPRESSION:
+					case Parameter:
+					case Call:
+					case SwitchCondition:
+					case WhileCondition:
+					case IfCondition:
+					case SharpCondition:
+					case Catch:
+					case ForLoop:
+					case Expression:
 				}
 			default:
 		}
@@ -760,11 +760,11 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function findOpAddItemStart(itemStart:TokenTree):TokenTree {
-		if ((itemStart == null) || (itemStart.tok == null)) {
+		if ((itemStart == null) || (itemStart.tok == Root)) {
 			return itemStart;
 		}
 		var parent:TokenTree = itemStart;
-		while ((parent != null) && (parent.tok != null)) {
+		while ((parent != null) && (parent.tok != Root)) {
 			switch (parent.tok) {
 				case POpen, BrOpen, BkOpen:
 					return parent;
@@ -804,11 +804,11 @@ class MarkWrapping extends MarkWrappingBase {
 		var classesAndInterfaces:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdInterface), Kwd(KwdClass):
-					return FOUND_SKIP_SUBTREE;
+					return FoundSkipSubtree;
 				case Kwd(KwdAbstract), Kwd(KwdEnum), Kwd(KwdTypedef):
-					return SKIP_SUBTREE;
+					return SkipSubtree;
 				default:
-					return GO_DEEPER;
+					return GoDeeper;
 			}
 		});
 		for (type in classesAndInterfaces) {
@@ -816,11 +816,11 @@ class MarkWrapping extends MarkWrappingBase {
 			var impls:Array<TokenTree> = type.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 				switch (token.tok) {
 					case Kwd(KwdExtends), Kwd(KwdImplements):
-						return FOUND_SKIP_SUBTREE;
+						return FoundSkipSubtree;
 					case Kwd(KwdFunction), Kwd(KwdVar):
-						return SKIP_SUBTREE;
+						return SkipSubtree;
 					default:
-						return GO_DEEPER;
+						return GoDeeper;
 				}
 			});
 			for (impl in impls) {
@@ -852,11 +852,11 @@ class MarkWrapping extends MarkWrappingBase {
 			switch (token.tok) {
 				case Kwd(KwdVar):
 					if ((token.hasChildren()) && (token.children.length > 1)) {
-						return FOUND_SKIP_SUBTREE;
+						return FoundSkipSubtree;
 					}
-					return SKIP_SUBTREE;
+					return SkipSubtree;
 				default:
-					return GO_DEEPER;
+					return GoDeeper;
 			}
 		});
 		for (v in allVars) {

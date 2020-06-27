@@ -49,7 +49,7 @@ class TokenListTest {
 			fileName: "test.hx",
 			content: content,
 			config: null,
-			entryPoint: TYPE_LEVEL,
+			entryPoint: TypeLevel,
 			lineSeparator: null,
 			range: null
 		}

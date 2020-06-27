@@ -1,12 +1,12 @@
 package formatter.codedata;
 
 import haxe.PosInfos;
+import formatter.config.Config;
+import formatter.config.WhitespacePolicy;
 #if debugLog
 import sys.io.File;
 import sys.io.FileOutput;
 #end
-import formatter.config.WhitespacePolicy;
-import formatter.config.Config;
 
 #if (!macro && !debugLog)
 @:build(formatter.debug.PosInfosMacro.clean())
@@ -63,7 +63,7 @@ class TokenList {
 	}
 
 	public function getCloseToken(token:TokenTree):Null<TokenTree> {
-		if ((token == null) || (token.tok == null)) {
+		if ((token == null) || (token.tok == Root)) {
 			return null;
 		}
 		if ((token.index < 0) || (token.index >= tokens.length)) {

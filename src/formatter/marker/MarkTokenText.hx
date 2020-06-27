@@ -21,7 +21,7 @@ class MarkTokenText extends MarkerBase {
 				default:
 					tokenText(token, token.toString());
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -32,7 +32,7 @@ class MarkTokenText extends MarkerBase {
 					tokenText(token, printComment(text, token));
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -78,7 +78,7 @@ class MarkTokenText extends MarkerBase {
 			var fileName:String = "string interpolation";
 			var tokens:Array<Token> = makeTokens(ByteData.ofString(fragment), fileName);
 			var stream:TokenStream = new TokenStream(tokens, ByteData.ofString(fragment));
-			var root:TokenTree = new TokenTree(null, "", null, -1);
+			var root:TokenTree = new TokenTree(Root, "", null, -1);
 			var progress:TokenStreamProgress = new TokenStreamProgress(stream);
 			while (progress.streamHasChanged()) {
 				if (stream.hasMore()) {
@@ -92,7 +92,7 @@ class MarkTokenText extends MarkerBase {
 				tokenList: tokens,
 				tokenTree: root,
 				config: config,
-				entryPoint: EXPRESSION_LEVEL
+				entryPoint: ExpressionLevel
 			};
 			var interpolParsedCode:ParsedCode = new ParsedCode(inputData);
 			var interpolIndenter = new Indenter(config.indentation);

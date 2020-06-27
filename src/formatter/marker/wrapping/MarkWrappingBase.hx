@@ -25,14 +25,14 @@ class MarkWrappingBase extends MarkerBase {
 		if (colon != null) {
 			var type:ColonType = TokenTreeCheckUtils.getColonType(colon);
 			switch (type) {
-				case SWITCH_CASE:
-				case TYPE_HINT:
-				case TYPE_CHECK:
-				case TERNARY:
-				case OBJECT_LITERAL:
+				case SwitchCase:
+				case TypeHint:
+				case TypeCheck:
+				case Ternary:
+				case ObjectLiteral:
 					noLineEndBefore(open);
-				case AT:
-				case UNKNOWN:
+				case At:
+				case Unknown:
 			}
 		}
 		noWrappingBetween(open, close);
