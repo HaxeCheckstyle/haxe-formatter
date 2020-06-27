@@ -9,7 +9,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 					markBlockBreakingConditional(token, calcDepthDifferenceRightCurly(token));
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -32,7 +32,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 
 		var parent:Null<TokenTree> = token.parent;
 		var topLevelToken:Null<TokenTree> = null;
-		while ((parent != null) && (parent.tok != null)) {
+		while ((parent != null) && (parent.tok != Root)) {
 			topLevelToken = parent;
 			parent = parent.parent;
 		}
@@ -61,9 +61,9 @@ class MarkAdditionalIndentation extends MarkerBase {
 		for (child in token.children) {
 			var brOpens:Array<TokenTree> = child.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 				return switch (token.tok) {
-					case Sharp(_): SKIP_SUBTREE;
-					case BrOpen: FOUND_GO_DEEPER;
-					default: GO_DEEPER;
+					case Sharp(_): SkipSubtree;
+					case BrOpen: FoundGoDeeper;
+					default: GoDeeper;
 				}
 			});
 			if (brOpens.length <= 0) {
@@ -91,8 +91,8 @@ class MarkAdditionalIndentation extends MarkerBase {
 		for (child in token.children) {
 			var brClose:Array<TokenTree> = child.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 				return switch (token.tok) {
-					case BrClose: FOUND_GO_DEEPER;
-					default: GO_DEEPER;
+					case BrClose: FoundGoDeeper;
+					default: GoDeeper;
 				}
 			});
 			if (brClose.length <= 0) {

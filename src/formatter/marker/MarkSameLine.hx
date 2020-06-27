@@ -8,7 +8,7 @@ class MarkSameLine extends MarkerBase {
 
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			if ((token.parent != null) && (token.parent.is(At))) {
-				return GO_DEEPER;
+				return GoDeeper;
 			}
 			switch (token.tok) {
 				case Kwd(KwdIf):
@@ -19,7 +19,7 @@ class MarkSameLine extends MarkerBase {
 					markFor(token);
 				case Kwd(KwdWhile):
 					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
-						return GO_DEEPER;
+						return GoDeeper;
 					}
 					markWhile(token);
 				case Kwd(KwdDo):
@@ -42,7 +42,7 @@ class MarkSameLine extends MarkerBase {
 					markUntyped(token);
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -51,9 +51,6 @@ class MarkSameLine extends MarkerBase {
 			return false;
 		}
 		var parent:TokenTree = token.parent;
-		if (parent.tok == null) {
-			return false;
-		}
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
 				return true;
@@ -91,7 +88,7 @@ class MarkSameLine extends MarkerBase {
 
 	function isReturnExpression(token:TokenTree):Bool {
 		var parent:TokenTree = token;
-		while (parent.parent.tok != null) {
+		while (parent.parent.tok != Root) {
 			parent = parent.parent;
 			switch (parent.tok) {
 				case Binop(_):
@@ -111,12 +108,12 @@ class MarkSameLine extends MarkerBase {
 				case BrOpen:
 					var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
 					switch (type) {
-						case BLOCK:
-						case TYPEDEFDECL:
-						case OBJECTDECL:
+						case Block:
+						case TypedefDecl:
+						case ObjectDecl:
 							return true;
-						case ANONTYPE:
-						case UNKNOWN:
+						case AnonType:
+						case Unknown:
 					}
 				default:
 			}
@@ -329,7 +326,7 @@ class MarkSameLine extends MarkerBase {
 			return false;
 		}
 		var parent:Null<TokenTree> = token.parent;
-		while ((parent != null) && (parent.tok != null)) {
+		while (parent != null) {
 			switch (parent.tok) {
 				case Kwd(KwdFor), Kwd(KwdWhile), Kwd(KwdIf), Kwd(KwdElse):
 					parent = parent.parent;
@@ -347,7 +344,7 @@ class MarkSameLine extends MarkerBase {
 			return;
 		}
 		var parent:Null<TokenTree> = token.parent;
-		if ((parent == null) || (parent.tok == null)) {
+		if ((parent == null) || (parent.tok == Root)) {
 			return;
 		}
 		if (isArrayComprehension(token)) {
@@ -374,7 +371,7 @@ class MarkSameLine extends MarkerBase {
 			return;
 		}
 		var parent:Null<TokenTree> = token.parent;
-		if ((parent == null) || (parent.tok == null)) {
+		if ((parent == null) || (parent.tok == Root)) {
 			return;
 		}
 		if (isArrayComprehension(token)) {
@@ -456,16 +453,16 @@ class MarkSameLine extends MarkerBase {
 				case BrOpen:
 					var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(body);
 					switch (type) {
-						case BLOCK:
+						case Block:
 							if (includeBrOpen) {
 								markBlockBody(body, policy);
 							}
 							return;
-						case TYPEDEFDECL:
-						case OBJECTDECL:
+						case TypedefDecl:
+						case ObjectDecl:
 							applySameLinePolicy(body, policy);
-						case ANONTYPE:
-						case UNKNOWN:
+						case AnonType:
+						case Unknown:
 					}
 					body = body.nextSibling;
 				case Sharp(MarkLineEnds.SHARP_ELSE_IF), Sharp(MarkLineEnds.SHARP_ELSE), Sharp(MarkLineEnds.SHARP_END):
@@ -498,16 +495,16 @@ class MarkSameLine extends MarkerBase {
 		if (body.is(BrOpen)) {
 			var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(body);
 			switch (type) {
-				case BLOCK:
+				case Block:
 					if (includeBrOpen) {
 						markBlockBody(body, policy);
 					}
 					return;
-				case TYPEDEFDECL:
-				case OBJECTDECL:
+				case TypedefDecl:
+				case ObjectDecl:
 					applySameLinePolicy(body, policy);
-				case ANONTYPE:
-				case UNKNOWN:
+				case AnonType:
+				case Unknown:
 			}
 			return;
 		}
@@ -636,11 +633,11 @@ class MarkSameLine extends MarkerBase {
 		var tokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Dollar("") | Dollar("a") | Dollar("b") | Dollar("e") | Dollar("i") | Dollar("p") | Dollar("v"):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				case Dollar(_):
-					SKIP_SUBTREE;
+					SkipSubtree;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		for (token in tokens) {
@@ -750,20 +747,20 @@ class MarkSameLine extends MarkerBase {
 			return;
 		}
 		var parent:Null<TokenTree> = token.parent;
-		if ((parent == null) || (token.tok == null)) {
+		if ((parent == null) || (token.tok == Root)) {
 			return;
 		}
 		switch (parent.tok) {
 			case BrOpen:
 				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(parent);
 				switch (type) {
-					case BLOCK:
+					case Block:
 						return;
-					case TYPEDEFDECL:
+					case TypedefDecl:
 						return;
-					case OBJECTDECL:
-					case ANONTYPE:
-					case UNKNOWN:
+					case ObjectDecl:
+					case AnonType:
+					case Unknown:
 				}
 			default:
 		}

@@ -69,7 +69,7 @@ class Indenter {
 
 	function calcConditionalLevel(token:TokenTree):Int {
 		var count:Int = -1;
-		while ((token != null) && (token.tok != null)) {
+		while ((token != null) && (token.tok != Root)) {
 			switch (token.tok) {
 				case Sharp(MarkLineEnds.SHARP_IF):
 					count++;
@@ -87,7 +87,7 @@ class Indenter {
 		var count:Int = -1;
 		var maxCount:Int = -1;
 
-		while ((token != null) && (token.tok != null)) {
+		while ((token != null) && (token.tok != Root)) {
 			switch (token.tok) {
 				case Sharp(MarkLineEnds.SHARP_IF):
 					count++;
@@ -114,26 +114,26 @@ class Indenter {
 	}
 
 	function findEffectiveParent(token:TokenTree):TokenTree {
-		if (token.tok == null) {
+		if (token.tok == Root) {
 			return token.getFirstChild();
 		}
 
 		switch (token.tok) {
 			case BrOpen:
 				var parent:TokenTree = token.parent;
-				if (parent.tok == null) {
+				if (parent.tok == Root) {
 					return token;
 				}
 				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(token);
 				switch (type) {
-					case BLOCK:
-					case TYPEDEFDECL:
+					case Block:
+					case TypedefDecl:
 						return token.parent;
-					case OBJECTDECL:
+					case ObjectDecl:
 						return token;
-					case ANONTYPE:
+					case AnonType:
 						return token;
-					case UNKNOWN:
+					case Unknown:
 				}
 				switch (parent.tok) {
 					case Kwd(KwdIf), Kwd(KwdElse):
@@ -188,7 +188,7 @@ class Indenter {
 					}
 				}
 				var parent:TokenTree = token.parent;
-				if (parent.tok == null) {
+				if (parent.tok == Root) {
 					return token;
 				}
 				switch (parent.tok) {
@@ -204,7 +204,7 @@ class Indenter {
 				return findEffectiveParent(token.parent);
 			case Kwd(KwdWhile):
 				var parent:TokenTree = token.parent;
-				if (parent.tok == null) {
+				if (parent.tok == Root) {
 					return token;
 				}
 				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
@@ -212,7 +212,7 @@ class Indenter {
 				}
 			case Kwd(KwdFunction):
 				var parent:TokenTree = token.parent;
-				if (parent.tok == null) {
+				if (parent.tok == Root) {
 					return token;
 				}
 				switch (parent.tok) {
@@ -285,7 +285,7 @@ class Indenter {
 								if (brOpen != null) {
 									var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
 									switch (type) {
-										case BLOCK:
+										case Block:
 											continue;
 										default:
 									}
@@ -329,22 +329,22 @@ class Indenter {
 						case POpen:
 							var type:POpenType = TokenTreeCheckUtils.getPOpenType(currentToken);
 							switch (type) {
-								case AT:
-								case PARAMETER:
+								case At:
+								case Parameter:
 									mustIndent = true;
-								case CALL:
-								case SWITCH_CONDITION:
+								case Call:
+								case SwitchCondition:
 									mustIndent = true;
-								case WHILE_CONDITION:
+								case WhileCondition:
 									mustIndent = true;
-								case IF_CONDITION:
+								case IfCondition:
 									mustIndent = true;
-								case SHARP_CONDITION:
+								case SharpCondition:
 									mustIndent = true;
-								case CATCH:
+								case Catch:
 									mustIndent = true;
-								case FORLOOP:
-								case EXPRESSION:
+								case ForLoop:
+								case Expression:
 							}
 						default:
 					}
@@ -397,7 +397,7 @@ class Indenter {
 							Kwd(KwdSwitch) | Kwd(KwdReturn) | Kwd(KwdUntyped) | Arrow:
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
-								case OBJECTDECL:
+								case ObjectDecl:
 									var brClose:TokenTree = parsedCode.tokenList.getCloseToken(prevToken);
 									if ((brClose != null)
 										&& (!parsedCode.tokenList.isSameLine(prevToken, brClose))
@@ -414,14 +414,14 @@ class Indenter {
 						case Binop(OpAssign) | Binop(OpAssignOp(_)) | DblDot:
 							var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(prevToken);
 							switch (type) {
-								case OBJECTDECL:
+								case ObjectDecl:
 									var brClose:TokenTree = parsedCode.tokenList.getCloseToken(prevToken);
 									if ((brClose != null)
 										&& (!parsedCode.tokenList.isSameLine(prevToken, brClose))
 										&& !config.indentObjectLiteral) {
 										continue;
 									}
-								case TYPEDEFDECL:
+								case TypedefDecl:
 									continue;
 								default:
 									// continue;
@@ -552,7 +552,7 @@ class Indenter {
 
 	function hasBlockParent(token:TokenTree):Bool {
 		var parent:TokenTree = token.parent;
-		while ((parent != null) && (parent.tok != null)) {
+		while ((parent != null) && (parent.tok != Root)) {
 			switch (parent.tok) {
 				case BrOpen:
 					return true;
@@ -573,7 +573,7 @@ class Indenter {
 		}
 		indentingTokensCandidates.push(token);
 		var parent:Null<TokenTree> = token;
-		while ((parent.parent != null) && (parent.parent.tok != null)) {
+		while ((parent.parent != null) && (parent.parent.tok != Root)) {
 			parent = parent.parent;
 			if (parent.pos.min > token.pos.min) {
 				continue;
@@ -704,7 +704,7 @@ class Indenter {
 
 	function isAbstractFromTo(token:TokenTree):Bool {
 		var parent:Null<TokenTree> = token.parent;
-		if ((parent == null) || (parent.tok == null)) {
+		if (parent == null) {
 			return false;
 		}
 		switch (parent.tok) {
@@ -713,7 +713,7 @@ class Indenter {
 				return false;
 		}
 		parent = parent.parent;
-		if ((parent == null) || (parent.tok == null)) {
+		if (parent == null) {
 			return false;
 		}
 		switch (parent.tok) {

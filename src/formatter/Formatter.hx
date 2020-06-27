@@ -107,7 +107,7 @@ class Formatter {
 				return Disabled;
 			}
 
-			tokentree.TokenStream.MODE = RELAXED;
+			tokentree.TokenStream.MODE = Relaxed;
 			var parsedCode = new ParsedCode(inputData);
 			FormatStats.addOrigLines(parsedCode.lines.length);
 

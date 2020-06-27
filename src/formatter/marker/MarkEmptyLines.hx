@@ -11,7 +11,7 @@ class MarkEmptyLines extends MarkerBase {
 	public function run() {
 		keepExistingEmptyLines();
 
-		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], ALL);
+		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], All);
 		packs.reverse();
 		for (pack in packs) {
 			if (TokenTreeCheckUtils.isMetadata(pack)) {
@@ -73,12 +73,12 @@ class MarkEmptyLines extends MarkerBase {
 			switch (token.tok) {
 				case Kwd(KwdImport), Kwd(KwdUsing):
 					if (TokenTreeCheckUtils.isMetadata(token)) {
-						return SKIP_SUBTREE;
+						return SkipSubtree;
 					} else {
-						return FOUND_SKIP_SUBTREE;
+						return FoundSkipSubtree;
 					}
 				default:
-					return GO_DEEPER;
+					return GoDeeper;
 			}
 		});
 		if (imports.length <= 0) {
@@ -223,9 +223,9 @@ class MarkEmptyLines extends MarkerBase {
 		var classes:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdClass), Kwd(KwdAbstract):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 
@@ -258,7 +258,7 @@ class MarkEmptyLines extends MarkerBase {
 			var currTokenType:TokenFieldType = null;
 			for (field in fields) {
 				currToken = field;
-				currTokenType = FieldUtils.getFieldType(field, PRIVATE);
+				currTokenType = FieldUtils.getFieldType(field, Private);
 				markClassFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType, typeConfig);
 				prevToken = currToken;
 				prevTokenType = currTokenType;
@@ -270,17 +270,17 @@ class MarkEmptyLines extends MarkerBase {
 		var classes:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdClass):
-					if ((token.parent == null) || (token.parent.tok == null)) {
-						return GO_DEEPER;
+					if ((token.parent == null) || (token.parent.tok == Root)) {
+						return GoDeeper;
 					}
 					switch (token.parent.tok) {
 						case Kwd(KwdMacro):
-							return FOUND_SKIP_SUBTREE;
+							return FoundSkipSubtree;
 						default:
-							return GO_DEEPER;
+							return GoDeeper;
 					}
 				default:
-					return GO_DEEPER;
+					return GoDeeper;
 			}
 		});
 
@@ -297,7 +297,7 @@ class MarkEmptyLines extends MarkerBase {
 			var currTokenType:TokenFieldType = null;
 			for (func in functions) {
 				currToken = func;
-				currTokenType = FieldUtils.getFieldType(func, PRIVATE);
+				currTokenType = FieldUtils.getFieldType(func, Private);
 				markClassFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType, typeConfig);
 				prevToken = currToken;
 				prevTokenType = currTokenType;
@@ -309,17 +309,17 @@ class MarkEmptyLines extends MarkerBase {
 		return c.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdFunction), Kwd(KwdVar):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				case Const(CIdent(FINAL)):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				#if haxe4
 				case Kwd(KwdFinal):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				#end
 				case At:
-					SKIP_SUBTREE;
+					SkipSubtree;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 	}
@@ -349,35 +349,35 @@ class MarkEmptyLines extends MarkerBase {
 		var prevPrivate:Bool = false;
 		var currPrivate:Bool = false;
 		switch (prevTokenType) {
-			case FUNCTION(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
+			case Function(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
 				prevVar = false;
 				prevStatic = isStatic;
-				prevPrivate = (visibility == PRIVATE);
-			case VAR(name, visibility, isStatic, isInline, isFinal, isExtern):
+				prevPrivate = (visibility == Private);
+			case Var(name, visibility, isStatic, isInline, isFinal, isExtern):
 				prevVar = true;
 				prevStatic = isStatic;
-				prevPrivate = (visibility == PRIVATE);
-			case PROP(name, visibility, isStatic, getter, setter):
+				prevPrivate = (visibility == Private);
+			case Prop(name, visibility, isStatic, getter, setter):
 				prevVar = true;
 				prevStatic = isStatic;
-				prevPrivate = (visibility == PRIVATE);
-			case UNKNOWN:
+				prevPrivate = (visibility == Private);
+			case Unknown:
 				return;
 		}
 		switch (currTokenType) {
-			case FUNCTION(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
+			case Function(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
 				currVar = false;
 				currStatic = isStatic;
-				currPrivate = (visibility == PRIVATE);
-			case VAR(name, visibility, isStatic, isInline, isFinal, isExtern):
+				currPrivate = (visibility == Private);
+			case Var(name, visibility, isStatic, isInline, isFinal, isExtern):
 				currVar = true;
 				currStatic = isStatic;
-				currPrivate = (visibility == PRIVATE);
-			case PROP(name, visibility, isStatic, getter, setter):
+				currPrivate = (visibility == Private);
+			case Prop(name, visibility, isStatic, getter, setter):
 				currVar = true;
 				currStatic = isStatic;
-				currPrivate = (visibility == PRIVATE);
-			case UNKNOWN:
+				currPrivate = (visibility == Private);
+			case Unknown:
 				return;
 		}
 
@@ -518,7 +518,7 @@ class MarkEmptyLines extends MarkerBase {
 		var currTokenType:Null<TokenFieldType> = null;
 		for (field in fields) {
 			currToken = field;
-			currTokenType = FieldUtils.getFieldType(field, PUBLIC);
+			currTokenType = FieldUtils.getFieldType(field, Public);
 			markInterfaceEmptyLines(prevToken, prevTokenType, currToken, currTokenType, conf);
 			prevToken = currToken;
 			prevTokenType = currTokenType;
@@ -526,7 +526,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markInterfaces() {
-		var interfaces:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdInterface)], ALL);
+		var interfaces:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdInterface)], All);
 		for (i in interfaces) {
 			markExternClass(i, config.emptyLines.interfaceEmptyLines);
 		}
@@ -540,23 +540,23 @@ class MarkEmptyLines extends MarkerBase {
 		var prevVar:Bool = false;
 		var currVar:Bool = false;
 		switch (prevTokenType) {
-			case FUNCTION(name, _, _, _, _, _, _):
+			case Function(name, _, _, _, _, _, _):
 				prevVar = false;
-			case VAR(name, _, _, _, _, _):
+			case Var(name, _, _, _, _, _):
 				prevVar = true;
-			case PROP(name, _, _, _, _):
+			case Prop(name, _, _, _, _):
 				prevVar = true;
-			case UNKNOWN:
+			case Unknown:
 				return;
 		}
 		switch (currTokenType) {
-			case FUNCTION(name, _, _, _, _, _, _):
+			case Function(name, _, _, _, _, _, _):
 				currVar = false;
-			case VAR(name, _, _, _, _, _):
+			case Var(name, _, _, _, _, _):
 				currVar = true;
-			case PROP(name, _, _, _, _):
+			case Prop(name, _, _, _, _):
 				currVar = true;
-			case UNKNOWN:
+			case Unknown:
 				return;
 		}
 		prevToken = skipSharpFields(prevToken);
@@ -597,7 +597,7 @@ class MarkEmptyLines extends MarkerBase {
 		var currTokenType:Null<TokenFieldType> = null;
 		for (func in functions) {
 			currToken = func;
-			currTokenType = FieldUtils.getFieldType(func, PUBLIC);
+			currTokenType = FieldUtils.getFieldType(func, Public);
 			markEnumAbstractFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType);
 			prevToken = currToken;
 			prevTokenType = currTokenType;
@@ -611,23 +611,23 @@ class MarkEmptyLines extends MarkerBase {
 		var prevVar:Bool = false;
 		var currVar:Bool = false;
 		switch (prevTokenType) {
-			case FUNCTION(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
+			case Function(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
 				prevVar = false;
-			case VAR(name, visibility, isStatic, isInline, isFinal, isExtern):
+			case Var(name, visibility, isStatic, isInline, isFinal, isExtern):
 				prevVar = true;
-			case PROP(name, visibility, isStatic, getter, setter):
+			case Prop(name, visibility, isStatic, getter, setter):
 				prevVar = true;
-			case UNKNOWN:
+			case Unknown:
 				return;
 		}
 		switch (currTokenType) {
-			case FUNCTION(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
+			case Function(name, visibility, isStatic, isInline, isOverride, isFinal, isExtern):
 				currVar = false;
-			case VAR(name, visibility, isStatic, isInline, isFinal, isExtern):
+			case Var(name, visibility, isStatic, isInline, isFinal, isExtern):
 				currVar = true;
-			case PROP(name, visibility, isStatic, getter, setter):
+			case Prop(name, visibility, isStatic, getter, setter):
 				currVar = true;
-			case UNKNOWN:
+			case Unknown:
 				return;
 		}
 		prevToken = skipSharpFields(prevToken);
@@ -651,9 +651,9 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markEnums() {
-		var enums:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdEnum)], ALL);
+		var enums:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdEnum)], All);
 		for (e in enums) {
-			if (e.parent.tok != null) {
+			if (e.parent.tok != Root) {
 				switch (e.parent.tok) {
 					case Const(_):
 						continue;
@@ -700,7 +700,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markTypedefs() {
-		var typedefs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
+		var typedefs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], All);
 		for (t in typedefs) {
 			var block:Null<TokenTree> = t.access().firstChild().firstOf(Binop(OpAssign)).firstOf(BrOpen).token;
 			if (block == null) {
@@ -741,17 +741,17 @@ class MarkEmptyLines extends MarkerBase {
 		var types:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Kwd(KwdAbstract), Kwd(KwdClass), Kwd(KwdEnum), Kwd(KwdInterface), Kwd(KwdTypedef):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				case Kwd(KwdVar), Kwd(KwdFunction):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				case Const(CIdent(FINAL)):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				#if haxe4
 				case Kwd(KwdFinal):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				#end
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		if (types.length <= 1) {
@@ -812,21 +812,21 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markLeftCurly() {
-		var brOpens:Array<TokenTree> = parsedCode.root.filter([BrOpen], ALL);
+		var brOpens:Array<TokenTree> = parsedCode.root.filter([BrOpen], All);
 		for (br in brOpens) {
 			emptyLinesAfter(br, 0);
 		}
 	}
 
 	function markRightCurly() {
-		var brCloses:Array<TokenTree> = parsedCode.root.filter([BrClose], ALL);
+		var brCloses:Array<TokenTree> = parsedCode.root.filter([BrClose], All);
 		for (br in brCloses) {
 			emptyLinesBefore(br, 0);
 		}
 	}
 
 	function markReturn() {
-		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], ALL);
+		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], All);
 		for (ret in returns) {
 			if (isReturnBody(ret)) {
 				continue;
@@ -849,7 +849,7 @@ class MarkEmptyLines extends MarkerBase {
 
 	function isReturnBody(ret:TokenTree):Bool {
 		var parent:TokenTree = ret.parent;
-		while ((parent != null) && (parent.tok != null)) {
+		while ((parent != null) && (parent.tok != Root)) {
 			switch (parent.tok) {
 				case Kwd(KwdFunction):
 					return true;
@@ -866,9 +866,9 @@ class MarkEmptyLines extends MarkerBase {
 		var sharps:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Sharp(_):
-					FOUND_GO_DEEPER;
+					FoundGoDeeper;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		for (sharp in sharps) {
@@ -899,16 +899,16 @@ class MarkEmptyLines extends MarkerBase {
 		var comments:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(text):
-					if (text.startsWith("*")) FOUND_GO_DEEPER; else GO_DEEPER;
+					if (text.startsWith("*")) FoundGoDeeper; else GoDeeper;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		for (comment in comments) {
 			var effectiveToken:Null<TokenTree> = null;
 			effectiveToken = comment;
 			if (comment.previousSibling != null) {
-				if ((comment.parent != null) && (comment.parent.tok != null)) {
+				if (comment.parent != null) {
 					switch (comment.parent.tok) {
 						case Sharp(_):
 							if (comment.parent.getFirstChild() == comment.previousSibling) {
@@ -918,7 +918,7 @@ class MarkEmptyLines extends MarkerBase {
 					}
 				}
 			} else {
-				if ((comment.parent == null) || (comment.parent.tok == null)) {
+				if ((comment.parent == null) || (comment.parent.tok == Root)) {
 					continue;
 				}
 			}
@@ -992,9 +992,9 @@ class MarkEmptyLines extends MarkerBase {
 		var comments:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(text):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		for (comment in comments) {
@@ -1047,7 +1047,7 @@ class MarkEmptyLines extends MarkerBase {
 					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 	}
 
@@ -1067,7 +1067,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function keepExistingEmptyLines() {
-		var funcs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdFunction)], ALL);
+		var funcs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdFunction)], All);
 		for (func in funcs) {
 			var block:Null<TokenTree> = func.access().firstChild().is(BrOpen).token;
 			if (block == null) {
@@ -1100,7 +1100,7 @@ class MarkEmptyLines extends MarkerBase {
 	function markFileHeader() {
 		var info:Null<TokenInfo> = getTokenAt(0);
 		var info2:Null<TokenInfo> = getTokenAt(1);
-		var packagesAndImports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage), Kwd(KwdImport), Kwd(KwdUsing)], ALL);
+		var packagesAndImports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage), Kwd(KwdImport), Kwd(KwdUsing)], All);
 
 		if (info == null) {
 			return;

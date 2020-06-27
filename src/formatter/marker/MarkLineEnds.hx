@@ -10,7 +10,7 @@ class MarkLineEnds extends MarkerBase {
 	public static inline var SHARP_ERROR:String = "error";
 
 	public function run() {
-		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], ALL);
+		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], All);
 		for (token in semicolonTokens) {
 			lineEndAfter(token);
 		}
@@ -27,11 +27,11 @@ class MarkLineEnds extends MarkerBase {
 		var commentTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case Comment(_):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				case CommentLine(_):
-					FOUND_SKIP_SUBTREE;
+					FoundSkipSubtree;
 				default:
-					GO_DEEPER;
+					GoDeeper;
 			}
 		});
 		for (token in commentTokens) {
@@ -90,10 +90,10 @@ class MarkLineEnds extends MarkerBase {
 		var brTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case BrOpen:
-					return FOUND_GO_DEEPER;
+					return FoundGoDeeper;
 				default:
 			}
-			return GO_DEEPER;
+			return GoDeeper;
 		});
 
 		for (brOpen in brTokens) {
@@ -194,8 +194,8 @@ class MarkLineEnds extends MarkerBase {
 			emptyCurly: config.lineEnds.emptyCurly
 		};
 		switch (type) {
-			case BLOCK:
-				if (brOpen.parent != null && brOpen.parent.tok != null && config.lineEnds.anonFunctionCurly != null) {
+			case Block:
+				if (brOpen.parent != null && config.lineEnds.anonFunctionCurly != null) {
 					switch (brOpen.parent.tok) {
 						case Kwd(KwdFunction) | Arrow:
 							return config.lineEnds.anonFunctionCurly;
@@ -205,19 +205,19 @@ class MarkLineEnds extends MarkerBase {
 				if (config.lineEnds.blockCurly != null) {
 					return config.lineEnds.blockCurly;
 				}
-			case TYPEDEFDECL:
+			case TypedefDecl:
 				if (config.lineEnds.typedefCurly != null) {
 					return config.lineEnds.typedefCurly;
 				}
-			case OBJECTDECL:
+			case ObjectDecl:
 				if (config.lineEnds.objectLiteralCurly != null) {
 					return config.lineEnds.objectLiteralCurly;
 				}
-			case ANONTYPE:
+			case AnonType:
 				if (config.lineEnds.anonTypeCurly != null) {
 					return config.lineEnds.anonTypeCurly;
 				}
-			case UNKNOWN:
+			case Unknown:
 		}
 		return curlyPolicy;
 	}
@@ -252,12 +252,12 @@ class MarkLineEnds extends MarkerBase {
 			case BrOpen:
 				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(nextToken.token);
 				switch (type) {
-					case BLOCK:
-					case TYPEDEFDECL:
-					case OBJECTDECL:
+					case Block:
+					case TypedefDecl:
+					case ObjectDecl:
 						lineEndAfter(token);
-					case ANONTYPE:
-					case UNKNOWN:
+					case AnonType:
+					case Unknown:
 				}
 			default:
 				lineEndAfter(token);
@@ -265,7 +265,7 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function markAt() {
-		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], ALL);
+		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], All);
 		for (token in atTokens) {
 			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token);
 			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
@@ -323,12 +323,12 @@ class MarkLineEnds extends MarkerBase {
 			return config.lineEnds.metadataOther;
 		}
 		var parent:TokenTree = token.parent;
-		if ((parent == null) || (parent.tok == null)) {
+		if ((parent == null) || (parent.tok == Root)) {
 			return config.lineEnds.metadataType;
 		}
 		switch (parent.tok) {
 			case Const(CIdent(_)), Kwd(KwdNew), Dollar(_):
-				if ((parent.parent == null) || (parent.parent.tok == null)) {
+				if (parent.parent == null) {
 					return config.lineEnds.metadataOther;
 				}
 				switch (parent.parent.tok) {
@@ -351,7 +351,7 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function markDblDot() {
-		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], ALL);
+		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], All);
 		for (token in dblDotTokens) {
 			if (!token.parent.is(Kwd(KwdCase)) && !token.parent.is(Kwd(KwdDefault))) {
 				continue;
@@ -375,7 +375,7 @@ class MarkLineEnds extends MarkerBase {
 			Sharp(SHARP_ELSE_IF),
 			Sharp(SHARP_END),
 			Sharp("error")
-		], ALL);
+		], All);
 		for (token in sharpTokens) {
 			switch (token.tok) {
 				case Sharp(SHARP_IF), Sharp(SHARP_ELSE_IF):
@@ -520,7 +520,7 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function markStructureExtension() {
-		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], ALL);
+		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], All);
 		for (token in typedefTokens) {
 			markAfterTypedef(token);
 			var brOpen:Null<TokenTree> = findTypedefBrOpen(token);

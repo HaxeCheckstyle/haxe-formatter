@@ -90,7 +90,7 @@ class ParsedCode {
 			return null;
 		}
 		if (entryPoint == null) {
-			entryPoint = TYPE_LEVEL;
+			entryPoint = TypeLevel;
 		}
 		if (root == null) {
 			root = TokenTreeBuilder.buildTokenTree(tokens, ByteData.ofBytes(file.content), entryPoint);
