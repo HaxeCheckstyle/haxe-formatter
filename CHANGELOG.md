@@ -9,6 +9,7 @@
 - Fixed whitespace of macro reification in call, fixes [#591](https://github.com/HaxeCheckstyle/haxe-formatter/issues/591) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
 - Fixed emptyline after final in enum abstract, fixes [#601](https://github.com/HaxeCheckstyle/haxe-formatter/issues/601) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
 - Fixed keep trailing whitespace of multiline comments, fixes [#593](https://github.com/HaxeCheckstyle/haxe-formatter/issues/593) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
+- Fixed whitespace around is operator, fixes [#605](https://github.com/HaxeCheckstyle/haxe-formatter/issues/605) ([#606](https://github.com/HaxeCheckstyle/haxe-formatter/issues/606))
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604))
 
 ## version 1.11.0 (2020-06-07)

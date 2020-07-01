@@ -249,6 +249,7 @@ class MarkLineEnds extends MarkerBase {
 			case Arrow:
 			case Binop(OpAssign):
 			case Binop(OpGt):
+			case Const(CIdent("is")):
 			case BrOpen:
 				var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(nextToken.token);
 				switch (type) {
