@@ -52,6 +52,8 @@ class MarkWhitespace extends MarkerBase {
 					markDblDot(token);
 				case Kwd(_):
 					markKeyword(token);
+				case Const(CIdent("is")):
+					markIs(token);
 				case POpen:
 					markPOpen(token);
 				case PClose:
@@ -76,15 +78,6 @@ class MarkWhitespace extends MarkerBase {
 					markSemicolon(token);
 				case Const(CIdent(MarkEmptyLines.FINAL)):
 					whitespace(token, After);
-				case Const(CIdent("is")):
-					var parent:Null<TokenTree> = token.access().parent().is(POpen).token;
-					if (parent != null) {
-						var prev:Null<TokenInfo> = getPreviousToken(parent);
-						if ((prev != null) && (prev.token.is(POpen))) {
-							whitespace(token, Around);
-						}
-					}
-					fixConstAfterConst(token);
 				case Const(CIdent("from")), Const(CIdent("to")):
 					var parent:Null<TokenTree> = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
 					if (parent != null) {
@@ -305,6 +298,18 @@ class MarkWhitespace extends MarkerBase {
 				whitespace(token, After);
 			default:
 		}
+	}
+
+	function markIs(token:TokenTree) {
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case Dot | POpen:
+					return;
+				default:
+			}
+		}
+		whitespace(token, Around);
 	}
 
 	function markIn(token:TokenTree) {
