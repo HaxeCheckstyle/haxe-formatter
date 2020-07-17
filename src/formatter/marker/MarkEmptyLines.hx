@@ -11,7 +11,16 @@ class MarkEmptyLines extends MarkerBase {
 	public function run() {
 		keepExistingEmptyLines();
 
-		var packs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage)], All);
+		var packs:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdPackage):
+					FoundSkipSubtree;
+				case Kwd(_):
+					SkipSubtree;
+				default:
+					GoDeeper;
+			}
+		});
 		packs.reverse();
 		for (pack in packs) {
 			if (TokenTreeCheckUtils.isMetadata(pack)) {
@@ -183,7 +192,7 @@ class MarkEmptyLines extends MarkerBase {
 				default:
 			}
 			token = token.getFirstChild();
-			if ((token == null) || (!token.is(Dot))) {
+			if ((token == null) || (!token.tok.match(Dot))) {
 				break;
 			}
 			token = token.getFirstChild();
@@ -238,7 +247,10 @@ class MarkEmptyLines extends MarkerBase {
 			switch (c.tok) {
 				case Kwd(KwdClass):
 					typeConfig = config.emptyLines.classEmptyLines;
-					if (c.access().firstChild().firstOf(Kwd(KwdExtern)).exists()) {
+					if (c.access()
+						.firstChild()
+						.firstOf(function(t) return t.match(Kwd(KwdExtern)))
+						.exists()) {
 						markExternClass(c, config.emptyLines.externClassEmptyLines);
 						continue;
 					}
@@ -247,7 +259,7 @@ class MarkEmptyLines extends MarkerBase {
 				default:
 					continue;
 			}
-			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
+			var block:TokenTree = c.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
 			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
@@ -286,7 +298,7 @@ class MarkEmptyLines extends MarkerBase {
 
 		for (c in classes) {
 			var typeConfig:ClassFieldsEmptyLinesConfig = config.emptyLines.macroClassEmptyLines;
-			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
+			var block:TokenTree = c.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
 			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
@@ -504,7 +516,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markExternClass(c:TokenTree, conf:InterfaceFieldsEmptyLinesConfig) {
-		var block:Null<TokenTree> = c.access().firstChild().firstOf(BrOpen).token;
+		var block:Null<TokenTree> = c.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
 		if (block == null) {
 			return;
 		}
@@ -526,7 +538,16 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markInterfaces() {
-		var interfaces:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdInterface)], All);
+		var interfaces:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdInterface):
+					FoundSkipSubtree;
+				case Kwd(_):
+					SkipSubtree;
+				default:
+					GoDeeper;
+			}
+		});
 		for (i in interfaces) {
 			markExternClass(i, config.emptyLines.interfaceEmptyLines);
 		}
@@ -586,7 +607,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markEnumAbstracts(token:TokenTree) {
-		var block:Null<TokenTree> = token.access().firstChild().firstOf(BrOpen).token;
+		var block:Null<TokenTree> = token.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
 		markBeginAndEndType(block, config.emptyLines.enumAbstractEmptyLines.beginType, config.emptyLines.enumAbstractEmptyLines.endType);
 
 		var functions:Array<TokenTree> = findClassAndAbstractFields(token);
@@ -651,7 +672,16 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markEnums() {
-		var enums:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdEnum)], All);
+		var enums:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdEnum):
+					FoundSkipSubtree;
+				case Kwd(_):
+					SkipSubtree;
+				default:
+					GoDeeper;
+			}
+		});
 		for (e in enums) {
 			if (e.parent.tok != Root) {
 				switch (e.parent.tok) {
@@ -662,7 +692,7 @@ class MarkEmptyLines extends MarkerBase {
 					default:
 				}
 			}
-			var block:TokenTree = e.access().firstChild().firstOf(BrOpen).token;
+			var block:TokenTree = e.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
 			if (block == null) {
 				continue;
 			}
@@ -700,9 +730,22 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markTypedefs() {
-		var typedefs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], All);
+		var typedefs:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdTypedef):
+					FoundSkipSubtree;
+				case Kwd(_):
+					SkipSubtree;
+				default:
+					GoDeeper;
+			}
+		});
 		for (t in typedefs) {
-			var block:Null<TokenTree> = t.access().firstChild().firstOf(Binop(OpAssign)).firstOf(BrOpen).token;
+			var block:Null<TokenTree> = t.access()
+				.firstChild()
+				.firstOf(function(t) return t.match(Binop(OpAssign)))
+				.firstOf(function(t) return t.match(BrOpen))
+				.token;
 			if (block == null) {
 				continue;
 			}
@@ -812,21 +855,42 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markLeftCurly() {
-		var brOpens:Array<TokenTree> = parsedCode.root.filter([BrOpen], All);
+		var brOpens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case BrOpen:
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (br in brOpens) {
 			emptyLinesAfter(br, 0);
 		}
 	}
 
 	function markRightCurly() {
-		var brCloses:Array<TokenTree> = parsedCode.root.filter([BrClose], All);
+		var brCloses:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case BrClose:
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (br in brCloses) {
 			emptyLinesBefore(br, 0);
 		}
 	}
 
 	function markReturn() {
-		var returns:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdReturn)], All);
+		var returns:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdReturn):
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (ret in returns) {
 			if (isReturnBody(ret)) {
 				continue;
@@ -1019,14 +1083,17 @@ class MarkEmptyLines extends MarkerBase {
 			switch (token.tok) {
 				case Kwd(KwdIf):
 					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
-					var block:Null<TokenTree> = token.access().firstOf(Kwd(KwdElse)).previousSibling().token;
+					var block:Null<TokenTree> = token.access()
+						.firstOf(function(t) return t.match(Kwd(KwdElse)))
+						.previousSibling()
+						.token;
 					if (block != null) {
 						removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 					}
 				case Kwd(KwdElse):
 					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdCase), Kwd(KwdDefault):
-					var block:Null<TokenTree> = token.access().firstOf(DblDot).firstChild().token;
+					var block:Null<TokenTree> = token.access().firstOf(function(t) return t.match(DblDot)).firstChild().token;
 					removeEmptyLinesAroundBlock(block, config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdFunction):
 				case Kwd(KwdFor):
@@ -1036,7 +1103,7 @@ class MarkEmptyLines extends MarkerBase {
 					var block:Null<TokenTree> = token.access().lastChild().previousSibling().token;
 					removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 				case Kwd(KwdWhile):
-					if ((token.parent == null) || (!token.parent.is(Kwd(KwdDo)))) {
+					if ((token.parent == null) || (!token.parent.tok.match(Kwd(KwdDo)))) {
 						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 					}
 				case Kwd(KwdTry):
@@ -1067,11 +1134,18 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function keepExistingEmptyLines() {
-		var funcs:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdFunction)], All);
+		var funcs:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdFunction):
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (func in funcs) {
-			var block:Null<TokenTree> = func.access().firstChild().is(BrOpen).token;
+			var block:Null<TokenTree> = func.access().firstChild().matches(function(t) return t.match(BrOpen)).token;
 			if (block == null) {
-				block = func.access().firstChild().firstOf(BrOpen).token;
+				block = func.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
 			}
 			if (block == null) {
 				continue;
@@ -1100,7 +1174,16 @@ class MarkEmptyLines extends MarkerBase {
 	function markFileHeader() {
 		var info:Null<TokenInfo> = getTokenAt(0);
 		var info2:Null<TokenInfo> = getTokenAt(1);
-		var packagesAndImports:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdPackage), Kwd(KwdImport), Kwd(KwdUsing)], All);
+		var packagesAndImports:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdPackage) | Kwd(KwdImport) | Kwd(KwdUsing):
+					FoundSkipSubtree;
+				case Kwd(_):
+					SkipSubtree;
+				default:
+					GoDeeper;
+			}
+		});
 
 		if (info == null) {
 			return;

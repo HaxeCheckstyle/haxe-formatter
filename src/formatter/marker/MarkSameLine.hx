@@ -7,7 +7,7 @@ class MarkSameLine extends MarkerBase {
 		markDollarSameLine();
 
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
-			if ((token.parent != null) && (token.parent.is(At))) {
+			if ((token.parent != null) && (token.parent.tok.match(At))) {
 				return GoDeeper;
 			}
 			switch (token.tok) {
@@ -18,7 +18,7 @@ class MarkSameLine extends MarkerBase {
 				case Kwd(KwdFor):
 					markFor(token);
 				case Kwd(KwdWhile):
-					if ((token.parent != null) && (token.parent.is(Kwd(KwdDo)))) {
+					if ((token.parent != null) && (token.parent.tok.match(Kwd(KwdDo)))) {
 						return GoDeeper;
 					}
 					markWhile(token);
@@ -59,7 +59,7 @@ class MarkSameLine extends MarkerBase {
 			case Kwd(KwdUntyped):
 				return isExpression(parent);
 			case Kwd(KwdFor), Kwd(KwdWhile):
-				if (parent.parent.is(BkOpen)) {
+				if (parent.parent.tok.match(BkOpen)) {
 					return true;
 				}
 			case Binop(_):
@@ -125,7 +125,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return false;
 		}
-		if (!token.is(Kwd(KwdIf))) {
+		if (!token.tok.match(Kwd(KwdIf))) {
 			return false;
 		}
 		var body:Null<TokenTree> = getBodyAfterCondition(token);
@@ -140,7 +140,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return false;
 		}
-		if (!token.is(Kwd(KwdElse))) {
+		if (!token.tok.match(Kwd(KwdElse))) {
 			return false;
 		}
 
@@ -151,7 +151,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return false;
 		}
-		if (!token.is(Kwd(KwdTry))) {
+		if (!token.tok.match(Kwd(KwdTry))) {
 			return false;
 		}
 		return isExpression(token);
@@ -161,7 +161,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return false;
 		}
-		if (!token.is(Kwd(KwdCatch))) {
+		if (!token.tok.match(Kwd(KwdCatch))) {
 			return false;
 		}
 		return shouldTryBeSameLine(token.parent);
@@ -181,7 +181,7 @@ class MarkSameLine extends MarkerBase {
 		}
 		markBodyAfterPOpen(token, config.sameLine.ifBody, false);
 		var prev:Null<TokenInfo> = getPreviousToken(token);
-		if ((prev != null) && (prev.token.is(Kwd(KwdElse)))) {
+		if ((prev != null) && (prev.token.tok.match(Kwd(KwdElse)))) {
 			applySameLinePolicy(token, config.sameLine.elseIf);
 		}
 	}
@@ -195,7 +195,7 @@ class MarkSameLine extends MarkerBase {
 					if (prev == null) {
 						return;
 					}
-					if (prev.token.is(BrClose)) {
+					if (prev.token.tok.match(BrClose)) {
 						applySameLinePolicyChained(token, config.sameLine.ifBody, config.sameLine.ifElse);
 					}
 					return;
@@ -208,7 +208,7 @@ class MarkSameLine extends MarkerBase {
 					if (prev == null) {
 						return;
 					}
-					if (prev.token.is(BrClose)) {
+					if (prev.token.tok.match(BrClose)) {
 						applySameLinePolicyChained(token, Keep, Keep);
 					}
 					return;
@@ -222,7 +222,12 @@ class MarkSameLine extends MarkerBase {
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case BrClose:
-					if (!prev.token.access().parent().is(BrOpen).parent().is(Kwd(KwdIf)).exists()) {
+					if (!prev.token.access()
+						.parent()
+						.matches(function(t) return t.match(BrOpen))
+						.parent()
+						.matches(function(t) return t.match(Kwd(KwdIf)))
+						.exists()) {
 						switch (policy) {
 							case Same:
 								policy = Next;
@@ -258,7 +263,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return;
 		}
-		var dblDot:TokenTree = token.access().firstOf(DblDot).token;
+		var dblDot:TokenTree = token.access().firstOf(function(t) return t.match(DblDot)).token;
 		if (dblDot == null) {
 			return;
 		}
@@ -417,7 +422,10 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function getBodyAfterCondition(token:TokenTree):Null<TokenTree> {
-		var pClose:Null<TokenTree> = token.access().firstOf(POpen).firstOf(PClose).token;
+		var pClose:Null<TokenTree> = token.access()
+			.firstOf(function(t) return t.match(POpen))
+			.firstOf(function(t) return t.match(PClose))
+			.token;
 		if (pClose != null) {
 			var next:TokenInfo = getNextToken(pClose);
 			if (next != null) {
@@ -492,7 +500,7 @@ class MarkSameLine extends MarkerBase {
 		if (body == null) {
 			return;
 		}
-		if (body.is(BrOpen)) {
+		if (body.tok.match(BrOpen)) {
 			var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(body);
 			switch (type) {
 				case Block:
@@ -515,7 +523,7 @@ class MarkSameLine extends MarkerBase {
 		if (token == null) {
 			return;
 		}
-		if (!token.is(BrOpen)) {
+		if (!token.tok.match(BrOpen)) {
 			return;
 		}
 		if (token.children == null) {
@@ -523,7 +531,7 @@ class MarkSameLine extends MarkerBase {
 		}
 
 		var lastChild:Null<TokenTree> = token.getLastChild();
-		if (lastChild.is(Semicolon)) {
+		if (lastChild.tok.match(Semicolon)) {
 			if (token.children.length > 3) {
 				return;
 			}
@@ -565,7 +573,7 @@ class MarkSameLine extends MarkerBase {
 			if (prev == null) {
 				policy = Next;
 			}
-			if ((!prev.token.is(BrClose)) && (previousBlockPolicy != Same)) {
+			if ((!prev.token.tok.match(BrClose)) && (previousBlockPolicy != Same)) {
 				policy = Next;
 			}
 		}
@@ -620,7 +628,7 @@ class MarkSameLine extends MarkerBase {
 							return;
 						}
 					case BkOpen:
-						if (token.access().parent().is(Kwd(KwdFor)).exists()) {
+						if (token.access().parent().matches(function(t) return t.match(Kwd(KwdFor))).exists()) {
 							return;
 						}
 					default:
@@ -641,7 +649,7 @@ class MarkSameLine extends MarkerBase {
 			}
 		});
 		for (token in tokens) {
-			var brOpen:Null<TokenTree> = token.access().firstChild().is(BrOpen).token;
+			var brOpen:Null<TokenTree> = token.access().firstChild().matches(function(t) return t.match(BrOpen)).token;
 			if (brOpen == null) {
 				continue;
 			}
@@ -672,7 +680,7 @@ class MarkSameLine extends MarkerBase {
 	function markFunction(token:TokenTree) {
 		var body:Null<TokenTree> = token.access().firstChild().isCIdent().token;
 		if (body == null) {
-			body = token.access().firstChild().is(Kwd(KwdNew)).token;
+			body = token.access().firstChild().matches(function(t) return t.match(Kwd(KwdNew))).token;
 		}
 		var policy:SameLinePolicy = config.sameLine.functionBody;
 		if (body == null) {
@@ -682,7 +690,7 @@ class MarkSameLine extends MarkerBase {
 		if ((body == null) || (body.children == null)) {
 			return;
 		}
-		body = body.access().firstOf(POpen).token;
+		body = body.access().firstOf(function(t) return t.match(POpen)).token;
 		if (body == null) {
 			return;
 		}
@@ -714,7 +722,7 @@ class MarkSameLine extends MarkerBase {
 
 	function markDoWhile(token:TokenTree) {
 		markBody(token, config.sameLine.doWhileBody, false);
-		var whileTok:Null<TokenTree> = token.access().firstOf(Kwd(KwdWhile)).token;
+		var whileTok:Null<TokenTree> = token.access().firstOf(function(t) return t.match(Kwd(KwdWhile))).token;
 		if (whileTok == null) {
 			return;
 		}
@@ -723,7 +731,7 @@ class MarkSameLine extends MarkerBase {
 
 	function markMacro(token:TokenTree) {
 		var brOpen:Null<TokenInfo> = getNextToken(token);
-		if ((brOpen == null) || (!brOpen.token.is(BrOpen))) {
+		if ((brOpen == null) || (!brOpen.token.tok.match(BrOpen))) {
 			return;
 		}
 		var brClose:TokenTree = getCloseToken(brOpen.token);
@@ -743,7 +751,7 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markUntyped(token:TokenTree) {
-		if (!token.access().firstChild().is(BrOpen).exists()) {
+		if (!token.access().firstChild().matches(function(t) return t.match(BrOpen)).exists()) {
 			return;
 		}
 		var parent:Null<TokenTree> = token.parent;

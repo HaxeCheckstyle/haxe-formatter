@@ -65,7 +65,7 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function wrapTypeParameter(token:TokenTree) {
-		var close:TokenTree = token.access().firstOf(Binop(OpGt)).token;
+		var close:TokenTree = token.access().firstOf(function(t) return t.match(Binop(OpGt))).token;
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
 		}
@@ -517,7 +517,12 @@ class MarkWrapping extends MarkWrappingBase {
 			return GoDeeper;
 		});
 
-		var firstMethodCall:TokenTree = chainStart.access().parent().isCIdent().parent().is(Dot).token;
+		var firstMethodCall:TokenTree = chainStart.access()
+			.parent()
+			.isCIdent()
+			.parent()
+			.matches(function(t) return t.match(Dot))
+			.token;
 		if (firstMethodCall != null) {
 			chainedCalls.unshift(firstMethodCall);
 			chainStart = firstMethodCall;
@@ -651,7 +656,7 @@ class MarkWrapping extends MarkWrappingBase {
 		var items:Array<WrappableItem> = [];
 		// var prev:Null<TokenInfo> = getPreviousToken(findOpAddItemStart(itemContainer));
 		var chainStart:TokenTree = itemContainer;
-		var chainEnd:Null<TokenTree> = itemContainer.access().firstOf(DblDot).token;
+		var chainEnd:Null<TokenTree> = itemContainer.access().firstOf(function(t) return t.match(DblDot)).token;
 		var next:Null<TokenInfo> = getNextToken(chainStart);
 		if (next == null) {
 			return;

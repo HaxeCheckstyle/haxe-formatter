@@ -17,7 +17,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 		if (token.children == null) {
 			return;
 		}
-		var start:Null<TokenTree> = token.access().firstOf(Sharp(MarkLineEnds.SHARP_END)).token;
+		var start:Null<TokenTree> = token.access().firstOf(function(t) return t.match(Sharp(MarkLineEnds.SHARP_END))).token;
 		if (start == null) {
 			return;
 		}
@@ -71,7 +71,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 			}
 			var depth:Int = 0;
 			for (brOpen in brOpens) {
-				if (brOpen.access().firstOf(BrClose).exists()) {
+				if (brOpen.access().firstOf(function(t) return t.match(BrClose)).exists()) {
 					continue;
 				}
 				depth++;
@@ -100,7 +100,7 @@ class MarkAdditionalIndentation extends MarkerBase {
 			}
 			var depth:Int = 0;
 			for (brClose in brClose) {
-				if (brClose.access().parent().is(BrOpen).exists()) {
+				if (brClose.access().parent().matches(function(t) return t.match(BrOpen)).exists()) {
 					continue;
 				}
 				depth++;
