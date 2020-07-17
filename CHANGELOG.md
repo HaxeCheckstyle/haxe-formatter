@@ -11,7 +11,7 @@
 - Fixed keep trailing whitespace of multiline comments, fixes [#593](https://github.com/HaxeCheckstyle/haxe-formatter/issues/593) ([#603](https://github.com/HaxeCheckstyle/haxe-formatter/issues/603))
 - Fixed whitespace around is operator, fixes [#605](https://github.com/HaxeCheckstyle/haxe-formatter/issues/605) ([#606](https://github.com/HaxeCheckstyle/haxe-formatter/issues/606))
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604))
-- Refactored for deprecation of `is`
+- Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
 
 ## version 1.11.0 (2020-06-07)
 
