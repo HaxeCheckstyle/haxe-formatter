@@ -150,11 +150,11 @@ class Indenter {
 					case Kwd(KwdSwitch):
 						return findEffectiveParent(parent);
 					case Const(CIdent(_)), Kwd(KwdNew):
-						if (parent.parent.is(Kwd(KwdFunction))) {
+						if (parent.parent.tok.match(Kwd(KwdFunction))) {
 							return findEffectiveParent(parent.parent);
 						}
 					case Binop(OpAssign), Binop(OpAssignOp(_)):
-						var access:TokenTreeAccessHelper = parent.access().parent().parent().is(Kwd(KwdTypedef));
+						var access:TokenTreeAccessHelper = parent.access().parent().parent().matches(function(t) return t.match(Kwd(KwdTypedef)));
 						if (access.exists()) {
 							return access.token;
 						}
@@ -174,7 +174,7 @@ class Indenter {
 				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
-				var metadata:Null<TokenTree> = token.access().firstOf(At).token;
+				var metadata:Null<TokenTree> = token.access().firstOf(function(t) return t.match(At)).token;
 				if (metadata != null) {
 					if (!parsedCode.tokenList.isSameLineBetween(metadata, token, false)) {
 						return token;
@@ -207,7 +207,7 @@ class Indenter {
 				if (parent.tok == Root) {
 					return token;
 				}
-				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
+				if ((parent != null) && (parent.tok.match(Kwd(KwdDo)))) {
 					return findEffectiveParent(token.parent);
 				}
 			case Kwd(KwdFunction):
@@ -272,7 +272,7 @@ class Indenter {
 							}
 						default:
 							if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
-								var elseTok:Null<TokenTree> = prevToken.access().firstOf(Kwd(KwdElse)).token;
+								var elseTok:Null<TokenTree> = prevToken.access().firstOf(function(t) return t.match(Kwd(KwdElse))).token;
 								if (elseTok != null) {
 									if (parsedCode.tokenList.isSameLineBetween(prevToken, elseTok, false)) {
 										continue;
@@ -281,7 +281,7 @@ class Indenter {
 										mustIndent = true;
 									}
 								}
-								var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
+								var brOpen:Null<TokenTree> = prevToken.access().firstOf(function(t) return t.match(BrOpen)).token;
 								if (brOpen != null) {
 									var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
 									switch (type) {
@@ -296,7 +296,7 @@ class Indenter {
 				case Kwd(KwdElse):
 					continue;
 				case Kwd(KwdCatch):
-					if (currentToken.is(Kwd(KwdTry))) {
+					if (currentToken.tok.match(Kwd(KwdTry))) {
 						continue;
 					}
 				case Kwd(KwdFunction) | Arrow | BkOpen:
@@ -310,7 +310,7 @@ class Indenter {
 								while (firstToken != null && !parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
 									firstToken = parsedCode.tokenList.getPreviousToken(firstToken.token);
 								}
-								var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
+								var brOpen:Null<TokenTree> = prevToken.access().firstOf(function(t) return t.match(BrOpen)).token;
 								if (brOpen != null) {
 									if (!parsedCode.tokenList.isSameLineBetween(prevToken, brOpen, false)) {
 										continue;
@@ -580,7 +580,7 @@ class Indenter {
 			}
 			if (isIndentingToken(parent)) {
 				if (lastIndentingToken != null) {
-					if (lastIndentingToken.is(Dot) && parent.is(Dot)) {
+					if (lastIndentingToken.tok.match(Dot) && parent.tok.match(Dot)) {
 						continue;
 					}
 				}
@@ -604,7 +604,7 @@ class Indenter {
 				case Kwd(KwdIf):
 					switch (state) {
 						case Copy:
-							if (token.access().firstOf(Kwd(KwdElse)).exists()) {
+							if (token.access().firstOf(function(t) return t.match(Kwd(KwdElse))).exists()) {
 								state = SkipElseIf;
 							}
 						case SeenElse:
@@ -640,7 +640,7 @@ class Indenter {
 			case Binop(OpLt):
 				return TokenTreeCheckUtils.isTypeParameter(token);
 			case DblDot:
-				if ((token.parent.is(Kwd(KwdCase))) || (token.parent.is(Kwd(KwdDefault)))) {
+				if ((token.parent.tok.match(Kwd(KwdCase))) || (token.parent.tok.match(Kwd(KwdDefault)))) {
 					return true;
 				}
 				var info:Null<TokenInfo> = parsedCode.tokenList.getTokenAt(token.index);
@@ -674,7 +674,7 @@ class Indenter {
 				return true;
 			case Kwd(KwdWhile):
 				var parent:TokenTree = token.parent;
-				if ((parent != null) && (parent.is(Kwd(KwdDo)))) {
+				if ((parent != null) && (parent.tok.match(Kwd(KwdDo)))) {
 					return false;
 				}
 				return true;

@@ -10,7 +10,15 @@ class MarkLineEnds extends MarkerBase {
 	public static inline var SHARP_ERROR:String = "error";
 
 	public function run() {
-		var semicolonTokens:Array<TokenTree> = parsedCode.root.filter([Semicolon], All);
+		var semicolonTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Semicolon:
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
+
 		for (token in semicolonTokens) {
 			lineEndAfter(token);
 		}
@@ -138,7 +146,7 @@ class MarkLineEnds extends MarkerBase {
 			}
 			var next:Null<TokenInfo> = getNextToken(brOpen);
 			var isEmpty:Bool = false;
-			if ((next != null) && next.token.is(BrClose) && (curlyPolicy.emptyCurly == NoBreak)) {
+			if ((next != null) && next.token.tok.match(BrClose) && (curlyPolicy.emptyCurly == NoBreak)) {
 				isEmpty = true;
 			}
 			if (!isEmpty) {
@@ -266,7 +274,14 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function markAt() {
-		var atTokens:Array<TokenTree> = parsedCode.root.filter([At], All);
+		var atTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case At:
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (token in atTokens) {
 			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token);
 			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
@@ -277,13 +292,13 @@ class MarkLineEnds extends MarkerBase {
 				lineEndAfter(lastChild);
 				continue;
 			}
-			if ((token.previousSibling != null) && (token.previousSibling.is(At))) {
+			if ((token.previousSibling != null) && (token.previousSibling.tok.match(At))) {
 				// only look at first metadata
 				continue;
 			}
 			var next:Null<TokenTree> = token.nextSibling;
 			var metadata:Array<TokenTree> = [token];
-			while ((next != null) && (next.is(At))) {
+			while ((next != null) && (next.tok.match(At))) {
 				metadata.push(next);
 				next = next.nextSibling;
 			}
@@ -352,9 +367,16 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function markDblDot() {
-		var dblDotTokens:Array<TokenTree> = parsedCode.root.filter([DblDot], All);
+		var dblDotTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case DblDot:
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (token in dblDotTokens) {
-			if (!token.parent.is(Kwd(KwdCase)) && !token.parent.is(Kwd(KwdDefault))) {
+			if (!token.parent.tok.match(Kwd(KwdCase)) && !token.parent.tok.match(Kwd(KwdDefault))) {
 				continue;
 			}
 
@@ -370,13 +392,14 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function markSharp() {
-		var sharpTokens:Array<TokenTree> = parsedCode.root.filter([
-			Sharp(SHARP_IF),
-			Sharp(SHARP_ELSE),
-			Sharp(SHARP_ELSE_IF),
-			Sharp(SHARP_END),
-			Sharp("error")
-		], All);
+		var sharpTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Sharp(SHARP_IF) | Sharp(SHARP_ELSE) | Sharp(SHARP_ELSE_IF) | Sharp(SHARP_END) | Sharp("error"):
+					FoundGoDeeper;
+				default:
+					GoDeeper;
+			}
+		});
 		for (token in sharpTokens) {
 			switch (token.tok) {
 				case Sharp(SHARP_IF), Sharp(SHARP_ELSE_IF):
@@ -389,7 +412,7 @@ class MarkLineEnds extends MarkerBase {
 						continue;
 					}
 					if (isInlineSharp(token)) {
-						if (token.is(Sharp(SHARP_IF)) && isOnlyWhitespaceBeforeToken(token)) {
+						if (token.tok.match(Sharp(SHARP_IF)) && isOnlyWhitespaceBeforeToken(token)) {
 							continue;
 						}
 						noLineEndBefore(token);
@@ -451,7 +474,7 @@ class MarkLineEnds extends MarkerBase {
 						if (sharpEnd == null) {
 							return false;
 						}
-						if (!sharpEnd.is(Sharp(SHARP_END))) {
+						if (!sharpEnd.tok.match(Sharp(SHARP_END))) {
 							return false;
 						}
 					default:
@@ -513,15 +536,28 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function findTypedefBrOpen(token:TokenTree):Null<TokenTree> {
-		var assign:Null<TokenTree> = token.access().firstChild().isCIdent().firstOf(Binop(OpAssign)).token;
+		var assign:Null<TokenTree> = token.access()
+			.firstChild()
+			.isCIdent()
+			.firstOf(function(t) return t.match(Binop(OpAssign)))
+			.token;
 		if (assign == null) {
 			return null;
 		}
-		return assign.access().firstOf(BrOpen).token;
+		return assign.access().firstOf(function(t) return t.match(BrOpen)).token;
 	}
 
 	function markStructureExtension() {
-		var typedefTokens:Array<TokenTree> = parsedCode.root.filter([Kwd(KwdTypedef)], All);
+		var typedefTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
+			return switch (token.tok) {
+				case Kwd(KwdTypedef):
+					FoundSkipSubtree;
+				case Kwd(_):
+					SkipSubtree;
+				default:
+					GoDeeper;
+			}
+		});
 		for (token in typedefTokens) {
 			markAfterTypedef(token);
 			var brOpen:Null<TokenTree> = findTypedefBrOpen(token);
@@ -542,7 +578,7 @@ class MarkLineEnds extends MarkerBase {
 					if (next == null) {
 						continue;
 					}
-					if (lastChild.is(BrClose)) {
+					if (lastChild.tok.match(BrClose)) {
 						switch (next.token.tok) {
 							case Arrow:
 								whitespace(lastChild, None);
@@ -556,7 +592,7 @@ class MarkLineEnds extends MarkerBase {
 							default:
 						}
 					}
-					if (next.token.is(BrOpen)) {
+					if (next.token.tok.match(BrOpen)) {
 						continue;
 					}
 					lineEndAfter(lastChild);
@@ -576,10 +612,10 @@ class MarkLineEnds extends MarkerBase {
 						if (next == null) {
 							continue;
 						}
-						if (next.token.is(Binop(OpAnd))) {
+						if (next.token.tok.match(Binop(OpAnd))) {
 							noLineEndAfter(child);
 						}
-						if (next.token.is(Binop(OpGt))) {
+						if (next.token.tok.match(Binop(OpGt))) {
 							whitespace(child, NoneAfter);
 						}
 					default:

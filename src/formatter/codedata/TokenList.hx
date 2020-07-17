@@ -75,11 +75,11 @@ class TokenList {
 		var result:TokenTree;
 		switch (token.tok) {
 			case POpen:
-				result = token.access().firstOf(PClose).token;
+				result = token.access().firstOf(function(t) return t.match(PClose)).token;
 			case BrOpen:
-				result = token.access().firstOf(BrClose).token;
+				result = token.access().firstOf(function(t) return t.match(BrClose)).token;
 			case BkOpen:
-				result = token.access().firstOf(BkClose).token;
+				result = token.access().firstOf(function(t) return t.match(BkClose)).token;
 			default:
 				return null;
 		}

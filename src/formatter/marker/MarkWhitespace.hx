@@ -79,7 +79,11 @@ class MarkWhitespace extends MarkerBase {
 				case Const(CIdent(MarkEmptyLines.FINAL)):
 					whitespace(token, After);
 				case Const(CIdent("from")), Const(CIdent("to")):
-					var parent:Null<TokenTree> = token.access().parent().parent().is(Kwd(KwdAbstract)).token;
+					var parent:Null<TokenTree> = token.access()
+						.parent()
+						.parent()
+						.matches(function(t) return t.match(Kwd(KwdAbstract)))
+						.token;
 					if (parent != null) {
 						whitespace(token, Around);
 						wrapBefore(token, true);
@@ -144,7 +148,7 @@ class MarkWhitespace extends MarkerBase {
 				case Dot, Comma, DblDot, Semicolon:
 					policy = policy.remove(After);
 				case Binop(OpGt):
-					if (token.is(BrClose)) {
+					if (token.tok.match(BrClose)) {
 						policy = policy.remove(After);
 					}
 				case Binop(OpArrow):
@@ -166,7 +170,7 @@ class MarkWhitespace extends MarkerBase {
 					case BrClose:
 						policy = policy.remove(After);
 					case POpen, PClose, BrOpen, BkOpen, BkClose:
-						if (token.is(PClose)) {
+						if (token.tok.match(PClose)) {
 							switch (TokenTreeCheckUtils.getPOpenType(token.parent)) {
 								case Parameter:
 									policy = policy.add(After);
@@ -200,7 +204,7 @@ class MarkWhitespace extends MarkerBase {
 							default:
 						}
 					case Binop(OpLt):
-						if (token.is(BrOpen)) {
+						if (token.tok.match(BrOpen)) {
 							return;
 						}
 					case DblDot:
