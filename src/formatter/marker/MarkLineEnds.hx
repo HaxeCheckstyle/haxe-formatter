@@ -536,15 +536,11 @@ class MarkLineEnds extends MarkerBase {
 	}
 
 	function findTypedefBrOpen(token:TokenTree):Null<TokenTree> {
-		var assign:Null<TokenTree> = token.access()
-			.firstChild()
-			.isCIdent()
-			.firstOf(function(t) return t.match(Binop(OpAssign)))
-			.token;
+		var assign:Null<TokenTree> = token.access().firstChild().isCIdent().firstOf(Binop(OpAssign)).token;
 		if (assign == null) {
 			return null;
 		}
-		return assign.access().firstOf(function(t) return t.match(BrOpen)).token;
+		return assign.access().firstOf(BrOpen).token;
 	}
 
 	function markStructureExtension() {

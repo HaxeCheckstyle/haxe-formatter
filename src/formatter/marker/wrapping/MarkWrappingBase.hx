@@ -21,11 +21,7 @@ class MarkWrappingBase extends MarkerBase {
 	}
 
 	public function noWrap(open:TokenTree, close:TokenTree) {
-		var colon:Null<TokenTree> = open.access()
-			.matches(function(t) return t.match(BrOpen))
-			.parent()
-			.matches(function(t) return t.match(DblDot))
-			.token;
+		var colon:Null<TokenTree> = open.access().matches(BrOpen).parent().matches(DblDot).token;
 		if (colon != null) {
 			var type:ColonType = TokenTreeCheckUtils.getColonType(colon);
 			switch (type) {
@@ -626,7 +622,7 @@ class MarkWrappingBase extends MarkerBase {
 		}
 		switch (next.token.tok) {
 			case Binop(OpGt):
-				if (next.token.access().parent().matches(function(t) return t.match(Binop(OpLt))).exists()) {
+				if (next.token.access().parent().matches(Binop(OpLt)).exists()) {
 					return endToken;
 				}
 				return findItemEnd(next.token);

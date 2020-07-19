@@ -79,11 +79,7 @@ class MarkWhitespace extends MarkerBase {
 				case Const(CIdent(MarkEmptyLines.FINAL)):
 					whitespace(token, After);
 				case Const(CIdent("from")), Const(CIdent("to")):
-					var parent:Null<TokenTree> = token.access()
-						.parent()
-						.parent()
-						.matches(function(t) return t.match(Kwd(KwdAbstract)))
-						.token;
+					var parent:Null<TokenTree> = token.access().parent().parent().matches(Kwd(KwdAbstract)).token;
 					if (parent != null) {
 						whitespace(token, Around);
 						wrapBefore(token, true);

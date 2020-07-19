@@ -154,7 +154,7 @@ class Indenter {
 							return findEffectiveParent(parent.parent);
 						}
 					case Binop(OpAssign), Binop(OpAssignOp(_)):
-						var access:TokenTreeAccessHelper = parent.access().parent().parent().matches(function(t) return t.match(Kwd(KwdTypedef)));
+						var access:TokenTreeAccessHelper = parent.access().parent().parent().matches(Kwd(KwdTypedef));
 						if (access.exists()) {
 							return access.token;
 						}
@@ -174,7 +174,7 @@ class Indenter {
 				if (prev.whitespaceAfter == Newline) {
 					return token;
 				}
-				var metadata:Null<TokenTree> = token.access().firstOf(function(t) return t.match(At)).token;
+				var metadata:Null<TokenTree> = token.access().firstOf(At).token;
 				if (metadata != null) {
 					if (!parsedCode.tokenList.isSameLineBetween(metadata, token, false)) {
 						return token;
@@ -272,7 +272,7 @@ class Indenter {
 							}
 						default:
 							if (parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
-								var elseTok:Null<TokenTree> = prevToken.access().firstOf(function(t) return t.match(Kwd(KwdElse))).token;
+								var elseTok:Null<TokenTree> = prevToken.access().firstOf(Kwd(KwdElse)).token;
 								if (elseTok != null) {
 									if (parsedCode.tokenList.isSameLineBetween(prevToken, elseTok, false)) {
 										continue;
@@ -281,7 +281,7 @@ class Indenter {
 										mustIndent = true;
 									}
 								}
-								var brOpen:Null<TokenTree> = prevToken.access().firstOf(function(t) return t.match(BrOpen)).token;
+								var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
 								if (brOpen != null) {
 									var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
 									switch (type) {
@@ -310,7 +310,7 @@ class Indenter {
 								while (firstToken != null && !parsedCode.tokenList.isNewLineBefore(firstToken.token)) {
 									firstToken = parsedCode.tokenList.getPreviousToken(firstToken.token);
 								}
-								var brOpen:Null<TokenTree> = prevToken.access().firstOf(function(t) return t.match(BrOpen)).token;
+								var brOpen:Null<TokenTree> = prevToken.access().firstOf(BrOpen).token;
 								if (brOpen != null) {
 									if (!parsedCode.tokenList.isSameLineBetween(prevToken, brOpen, false)) {
 										continue;
@@ -604,7 +604,7 @@ class Indenter {
 				case Kwd(KwdIf):
 					switch (state) {
 						case Copy:
-							if (token.access().firstOf(function(t) return t.match(Kwd(KwdElse))).exists()) {
+							if (token.access().firstOf(Kwd(KwdElse)).exists()) {
 								state = SkipElseIf;
 							}
 						case SeenElse:
