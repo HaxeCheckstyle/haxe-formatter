@@ -247,10 +247,7 @@ class MarkEmptyLines extends MarkerBase {
 			switch (c.tok) {
 				case Kwd(KwdClass):
 					typeConfig = config.emptyLines.classEmptyLines;
-					if (c.access()
-						.firstChild()
-						.firstOf(function(t) return t.match(Kwd(KwdExtern)))
-						.exists()) {
+					if (c.access().firstChild().firstOf(Kwd(KwdExtern)).exists()) {
 						markExternClass(c, config.emptyLines.externClassEmptyLines);
 						continue;
 					}
@@ -259,7 +256,7 @@ class MarkEmptyLines extends MarkerBase {
 				default:
 					continue;
 			}
-			var block:TokenTree = c.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
+			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
 			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
@@ -298,7 +295,7 @@ class MarkEmptyLines extends MarkerBase {
 
 		for (c in classes) {
 			var typeConfig:ClassFieldsEmptyLinesConfig = config.emptyLines.macroClassEmptyLines;
-			var block:TokenTree = c.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
+			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
 			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
@@ -516,7 +513,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markExternClass(c:TokenTree, conf:InterfaceFieldsEmptyLinesConfig) {
-		var block:Null<TokenTree> = c.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
+		var block:Null<TokenTree> = c.access().firstChild().firstOf(BrOpen).token;
 		if (block == null) {
 			return;
 		}
@@ -607,7 +604,7 @@ class MarkEmptyLines extends MarkerBase {
 	}
 
 	function markEnumAbstracts(token:TokenTree) {
-		var block:Null<TokenTree> = token.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
+		var block:Null<TokenTree> = token.access().firstChild().firstOf(BrOpen).token;
 		markBeginAndEndType(block, config.emptyLines.enumAbstractEmptyLines.beginType, config.emptyLines.enumAbstractEmptyLines.endType);
 
 		var functions:Array<TokenTree> = findClassAndAbstractFields(token);
@@ -692,7 +689,7 @@ class MarkEmptyLines extends MarkerBase {
 					default:
 				}
 			}
-			var block:TokenTree = e.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
+			var block:TokenTree = e.access().firstChild().firstOf(BrOpen).token;
 			if (block == null) {
 				continue;
 			}
@@ -741,11 +738,7 @@ class MarkEmptyLines extends MarkerBase {
 			}
 		});
 		for (t in typedefs) {
-			var block:Null<TokenTree> = t.access()
-				.firstChild()
-				.firstOf(function(t) return t.match(Binop(OpAssign)))
-				.firstOf(function(t) return t.match(BrOpen))
-				.token;
+			var block:Null<TokenTree> = t.access().firstChild().firstOf(Binop(OpAssign)).firstOf(BrOpen).token;
 			if (block == null) {
 				continue;
 			}
@@ -1083,17 +1076,14 @@ class MarkEmptyLines extends MarkerBase {
 			switch (token.tok) {
 				case Kwd(KwdIf):
 					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
-					var block:Null<TokenTree> = token.access()
-						.firstOf(function(t) return t.match(Kwd(KwdElse)))
-						.previousSibling()
-						.token;
+					var block:Null<TokenTree> = token.access().firstOf(Kwd(KwdElse)).previousSibling().token;
 					if (block != null) {
 						removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 					}
 				case Kwd(KwdElse):
 					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdCase), Kwd(KwdDefault):
-					var block:Null<TokenTree> = token.access().firstOf(function(t) return t.match(DblDot)).firstChild().token;
+					var block:Null<TokenTree> = token.access().firstOf(DblDot).firstChild().token;
 					removeEmptyLinesAroundBlock(block, config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdFunction):
 				case Kwd(KwdFor):
@@ -1143,9 +1133,9 @@ class MarkEmptyLines extends MarkerBase {
 			}
 		});
 		for (func in funcs) {
-			var block:Null<TokenTree> = func.access().firstChild().matches(function(t) return t.match(BrOpen)).token;
+			var block:Null<TokenTree> = func.access().firstChild().matches(BrOpen).token;
 			if (block == null) {
-				block = func.access().firstChild().firstOf(function(t) return t.match(BrOpen)).token;
+				block = func.access().firstChild().firstOf(BrOpen).token;
 			}
 			if (block == null) {
 				continue;
