@@ -59,9 +59,10 @@ jobs:
       if: matrix.haxe-version == '3.4.7'
       run: npx haxe -D codecov_json test.hxml
     - name: Run eval tests
-      if: matrix.haxe-version != '3.4.7'
+      if: (matrix.haxe-version != '3.4.7' && matrix.haxe-version != 'nightly')
       run: npx haxe -D codecov_json test.hxml
     - name: Run Java tests
+      if: matrix.haxe-version != 'nightly'
       run: npx haxe -D codecov_json testJava.hxml
     - name: Run Node version with --check
       run: node run.js -s . --check
