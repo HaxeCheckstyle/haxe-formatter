@@ -76,7 +76,7 @@ jobs:
         rm run.js
         npx neko run.n -s . --check
     - name: publish artifacts
-      if: (matrix.haxe-version == '4.1.4' && matrix.platform == "ubuntu-latest")
+      if: (matrix.haxe-version == '4.1.4' && matrix.platform == 'ubuntu-latest')
       uses: actions/upload-artifact@v2
       with:
           name: formatter.js
