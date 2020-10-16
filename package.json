@@ -1,29 +1,29 @@
 {
-    "name": "haxe-formatter",
-    "version": "1.11.0",
-    "description": "A code formatter for Haxe",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/HaxeCheckstyle/haxe-formatter"
-    },
-    "keywords": [
-        "haxe",
-        "formatter"
-    ],
-    "author": {
-        "name": "Alexander Blum",
-        "email": "Alexander.Blum@gmail.com"
-    },
-    "devDependencies": {
-        "lix": "^15.9.0"
+	"name": "haxe-formatter",
+	"version": "1.11.0",
+	"description": "A code formatter for Haxe",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HaxeCheckstyle/haxe-formatter"
+	},
+	"keywords": [
+		"haxe",
+		"formatter"
+	],
+	"author": {
+		"name": "Alexander Blum",
+		"email": "Alexander.Blum@gmail.com"
+	},
+	"devDependencies": {
+		"lix": "^15.9.0"
 	},
 	"bin": {
-        "haxe-formatter": "bin/formatter.js"
-    },
+		"haxe-formatter": "bin/formatter.js"
+	},
 	"files": [
 		"bin"
 	],
-    "bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
+	"bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
 	"license": "MIT",
 	"homepage": "https://github.com/HaxeCheckstyle/haxe-formatter#readme"
 }
