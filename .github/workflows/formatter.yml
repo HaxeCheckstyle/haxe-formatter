@@ -76,11 +76,11 @@ jobs:
         rm run.js
         npx neko run.n -s . --check
     - name: publish artifacts
-      if: matrix.haxe-version == '4.1.4'
+      if: (matrix.haxe-version == '4.1.4' && platform == "ubuntu-latest")
       uses: actions/upload-artifact@v2
       with:
           name: formatter.js
-          path: bin/js/formatter.js
+          path: bin/formatter.js
     - name: Upload results to codecov
       if: success() && matrix.platform == 'ubuntu-latest' && (matrix.haxe-version == '3.4.7' || matrix.haxe-version == '4.1.4')
       run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
