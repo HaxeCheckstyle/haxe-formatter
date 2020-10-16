@@ -4,7 +4,7 @@
     "description": "A code formatter for Haxe",
     "repository": {
         "type": "git",
-        "url": "https://github.com/HaxeCheckstyle/haxe-formatter"
+        "url": "git+https://github.com/HaxeCheckstyle/haxe-formatter"
     },
     "keywords": [
         "haxe",
@@ -16,7 +16,14 @@
     },
     "devDependencies": {
         "lix": "^15.9.0"
+	},
+	"bin": {
+        "haxe-formatter": "bin/formatter.js"
     },
+	"files": [
+		"bin"
+	],
     "bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
-    "license": "MIT"
+	"license": "MIT",
+	"homepage": "https://github.com/HaxeCheckstyle/haxe-formatter#readme"
 }

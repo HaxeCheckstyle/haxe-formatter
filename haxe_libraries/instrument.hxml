@@ -1,0 +1,5 @@
+# @install: lix --silent download "gh://github.com/AlexHaxe/haxe-instrument#b61bdee34bf175e31b725306971d21105545ff89" into instrument/1.1.0/github/b61bdee34bf175e31b725306971d21105545ff89
+-lib safety
+-cp ${HAXE_LIBCACHE}/instrument/1.1.0/github/b61bdee34bf175e31b725306971d21105545ff89/src
+-D instrument=1.1.0
+-lib safety

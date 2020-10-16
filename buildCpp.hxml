@@ -1,3 +1,5 @@
 buildCommon.hxml
 -cpp out
 -main formatter.Cli
+
+-D HAXE_OUTPUT_FILE=formatter
