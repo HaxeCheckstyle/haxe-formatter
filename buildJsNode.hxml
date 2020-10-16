@@ -3,4 +3,4 @@ buildCommon.hxml
 -js run.js
 -main formatter.Cli
 
--cmd cp run.js bin/formatter.js
+-cmd mkdir bin && cp run.js bin/formatter.js
