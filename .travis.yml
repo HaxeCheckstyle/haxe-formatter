@@ -26,8 +26,8 @@ script:
   - npx haxe buildNeko.hxml
   - npx haxe buildJava.hxml
   - npx haxe buildSchema.hxml
-  - if [[ "$HAXE_VERSION" != "nightly" ]]; npx haxe test.hxml -D codecov_json
-  - if [[ "$HAXE_VERSION" != "nightly" ]]; npx haxe testJava.hxml -D codecov_json
+  - if [[ "$HAXE_VERSION" != "nightly" ]]; npx haxe test.hxml -D codecov_json; fi
+  - if [[ "$HAXE_VERSION" != "nightly" ]]; npx haxe testJava.hxml -D codecov_json; fi
   - node run.js -s . --check
   - java -jar out/Cli.jar -s . --check
   - neko run.n -s . --check
