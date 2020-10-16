@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	function foobar() {
+		switch foo {
+			case bar:
+				a = b - a + 1;
+		}	
+	}
+}
+
+---
+
+class Main {
+	function foobar() {
+		switch foo {
+			case bar:
+				a = b - a + 1;
+		}
+	}
+}
