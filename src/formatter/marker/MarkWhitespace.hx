@@ -40,6 +40,8 @@ class MarkWhitespace extends MarkerBase {
 					} else {
 						whitespace(token, config.whitespace.binopPolicy);
 					}
+				case Binop(OpAssign):
+					markOpAssign(token);
 				case Binop(_):
 					whitespace(token, config.whitespace.binopPolicy);
 				case Unop(_):
@@ -320,6 +322,22 @@ class MarkWhitespace extends MarkerBase {
 		var policy:WhitespacePolicy = After;
 		if (token.hasChildren()) {
 			policy = None;
+		}
+		whitespace(token, policy);
+	}
+
+	function markOpAssign(token:TokenTree) {
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev == null) {
+			whitespace(token, config.whitespace.binopPolicy);
+			return;
+		}
+		var policy:WhitespacePolicy = config.whitespace.binopPolicy;
+		switch (prev.token.tok) {
+			case Binop(OpBoolAnd) | Binop(OpBoolOr):
+				prev.whitespaceAfter = None;
+				policy = policy.remove(Before);
+			default:
 		}
 		whitespace(token, policy);
 	}

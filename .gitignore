@@ -22,6 +22,7 @@ lcov.info
 lcovtest
 .unittest/**
 
+codecov.json
 coverage.json
 deprecated/
 resources/schema.xml
