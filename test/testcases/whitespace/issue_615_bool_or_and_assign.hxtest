@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		x &&= y;
+		x ||= z;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		x &&= y;
+		x ||= z;
+	}
+}
