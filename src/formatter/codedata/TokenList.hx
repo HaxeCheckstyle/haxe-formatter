@@ -909,25 +909,25 @@ class TokenList {
 		return (info.whitespaceAfter == Newline);
 	}
 
-	public function calcNewLinesBetween(tokenStart:TokenTree, tokenEnd:TokenTree):Int {
-		if ((tokenStart == null) || (tokenEnd == null)) {
-			return 0;
-		}
-		if ((tokenStart.index < 0) || (tokenEnd.index < 0)) {
-			return 0;
-		}
-		var count:Int = 0;
-		for (index in tokenStart.index...tokenEnd.index) {
-			var current:Null<TokenInfo> = tokens[index];
-			if (current == null) {
-				continue;
-			}
-			if (current.whitespaceAfter == Newline) {
-				count++;
-			}
-		}
-		return count;
-	}
+	// public function calcNewLinesBetween(tokenStart:TokenTree, tokenEnd:TokenTree):Int {
+	// 	if ((tokenStart == null) || (tokenEnd == null)) {
+	// 		return 0;
+	// 	}
+	// 	if ((tokenStart.index < 0) || (tokenEnd.index < 0)) {
+	// 		return 0;
+	// 	}
+	// 	var count:Int = 0;
+	// 	for (index in tokenStart.index...tokenEnd.index) {
+	// 		var current:Null<TokenInfo> = tokens[index];
+	// 		if (current == null) {
+	// 			continue;
+	// 		}
+	// 		if (current.whitespaceAfter == Newline) {
+	// 			count++;
+	// 		}
+	// 	}
+	// 	return count;
+	// }
 
 	public function isSameLineBetween(tokenStart:TokenTree, tokenEnd:TokenTree, exclude:Bool):Bool {
 		if ((tokenStart == null) || (tokenEnd == null)) {
