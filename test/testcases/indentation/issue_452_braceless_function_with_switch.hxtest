@@ -1,0 +1,21 @@
+{}
+
+---
+
+class Main {
+	public function connect():Void
+		(switch handlers[name] {
+			case null: handlers[name] = [];
+			case v: v;
+		}).push({target: target, method: method});
+}
+
+---
+
+class Main {
+	public function connect():Void
+		(switch handlers[name] {
+			case null: handlers[name] = [];
+			case v: v;
+		}).push({target: target, method: method});
+}

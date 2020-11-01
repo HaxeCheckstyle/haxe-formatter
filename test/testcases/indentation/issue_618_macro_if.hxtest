@@ -1,0 +1,23 @@
+{}
+
+---
+
+class Main {
+	public static function main() {
+		macro if ($i{name} != null)
+			$e
+		else
+			1;
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		macro if ($i{name} != null)
+			$e
+		else
+			1;
+	}
+}

@@ -37,7 +37,8 @@ class Main {
 	@static function main() {}
 }
 @class Main {
-	@function main() {
-@super();
+	@function main()
+	{
+		@super() ;
 	}
 }

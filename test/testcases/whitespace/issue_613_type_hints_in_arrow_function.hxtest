@@ -1,0 +1,25 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		foo((data:Some) -> {
+			trace(1);
+		}, (error:Error) -> {
+			trace(2);
+		});
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		foo((data:Some) -> {
+			trace(1);
+		}, (error:Error) -> {
+			trace(2);
+		});
+	}
+}

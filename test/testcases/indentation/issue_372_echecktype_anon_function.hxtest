@@ -1,0 +1,32 @@
+{
+	"wrapping": {
+		"methodChain": {
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.",
+			({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
+				if (button == null)
+					return;
+			})
+		);
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.",
+			({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
+				if (button == null)
+					return;
+			}));
+	}
+}
