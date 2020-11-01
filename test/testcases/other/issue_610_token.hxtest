@@ -1,0 +1,59 @@
+{}
+
+---
+
+class Some {
+	public function first():Void {
+		makeRequest(/* some multiline comment
+		*/ function(response:Dynamic) {
+			replace("some_value");
+		});
+	}	
+}
+
+class Some {
+	public function makeRequest(request: String, callback: Dynamic->Void) {
+		callback(request);
+	}
+
+	public function first(): Void {
+		var request: String = "asd";
+		this.makeRequest(
+			request,
+			/* some multiline comment
+			*/
+			function(response: Dynamic) {
+				var data = haxe.Json.parse(response);
+				var path = StringTools.replace(data.content, "some_value", data.some_id);
+			}
+		);
+	}
+}
+
+---
+
+class Some {
+	public function first():Void {
+		makeRequest(/* some multiline comment
+		 */
+			function(response:Dynamic) {
+				replace("some_value");
+			});
+	}
+}
+
+class Some {
+	public function makeRequest(request:String, callback:Dynamic->Void) {
+		callback(request);
+	}
+
+	public function first():Void {
+		var request:String = "asd";
+		this.makeRequest(request, /* some multiline comment
+		 */
+			function(response:Dynamic) {
+				var data = haxe.Json.parse(response);
+				var path = StringTools.replace(data.content, "some_value", data.some_id);
+			});
+	}
+}
