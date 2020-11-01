@@ -61,9 +61,10 @@ class MarkLineEnds extends MarkerBase {
 								lineEndAfter(token);
 							}
 							noLineEndBefore(token);
-							noneBefore = true;
+							noneBefore = !isMultilineToken(token);
 						}
 					}
+
 					var commentLine:LinePos = parsedCode.getLinePos(token.pos.min);
 					var prefix:String = parsedCode.getString(parsedCode.linesIdx[commentLine.line].l, token.pos.min);
 					commentLine = parsedCode.getLinePos(token.pos.max);
@@ -75,6 +76,9 @@ class MarkLineEnds extends MarkerBase {
 					var next:Null<TokenInfo> = getNextToken(token);
 					if (next == null) {
 						continue;
+					}
+					if (parsedCode.isOriginalSameLine(token, next.token)) {
+						noLineEndAfter(token);
 					}
 					switch (next.token.tok) {
 						case Kwd(_):
@@ -106,6 +110,8 @@ class MarkLineEnds extends MarkerBase {
 
 		for (brOpen in brTokens) {
 			var curlyPolicy:CurlyLineEndPolicy = detectCurlyPolicy(brOpen);
+
+			fixMissingSemicolonsInBlock(brOpen);
 
 			var brClose:Null<TokenTree> = getCloseToken(brOpen);
 			if (brClose == null) {
@@ -146,19 +152,29 @@ class MarkLineEnds extends MarkerBase {
 			}
 			var next:Null<TokenInfo> = getNextToken(brOpen);
 			var isEmpty:Bool = false;
-			if ((next != null) && next.token.tok.match(BrClose) && (curlyPolicy.emptyCurly == NoBreak)) {
-				isEmpty = true;
+			var keepComment:Bool = false;
+			if (next != null) {
+				switch (next.token.tok) {
+					case BrClose if (curlyPolicy.emptyCurly == NoBreak):
+						isEmpty = true;
+					default:
+				}
 			}
+
 			if (!isEmpty) {
 				switch (curlyPolicy.leftCurly) {
 					case None:
 					case Before:
 						beforeLeftCurly(brOpen);
 					case After:
-						lineEndAfter(brOpen);
+						if (!keepComment) {
+							lineEndAfter(brOpen);
+						}
 					case Both:
 						beforeLeftCurly(brOpen);
-						lineEndAfter(brOpen);
+						if (!keepComment) {
+							lineEndAfter(brOpen);
+						}
 				}
 			}
 
@@ -194,6 +210,57 @@ class MarkLineEnds extends MarkerBase {
 		}
 	}
 
+	function fixMissingSemicolonsInBlock(token:TokenTree) {
+		switch (TokenTreeCheckUtils.getBrOpenType(token)) {
+			case Block:
+			case TypedefDecl | ObjectDecl | AnonType | Unknown:
+				return;
+		}
+		if (!token.hasChildren()) {
+			return;
+		}
+		for (child in token.children) {
+			switch (child.tok) {
+				case BrClose:
+					return;
+				case Sharp(_):
+					continue;
+				default:
+					var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
+					if (lastChild == null) {
+						continue;
+					}
+					switch (lastChild.tok) {
+						case Semicolon:
+							continue;
+						default:
+							if (isMissingSemicolon(lastChild)) {
+								lineEndAfter(lastChild);
+							}
+					}
+			}
+		}
+	}
+
+	function isMissingSemicolon(token:TokenTree):Bool {
+		while (true) {
+			var next:Null<TokenInfo> = getNextToken(token);
+			if (next == null) {
+				return true;
+			}
+			token = next.token;
+			switch (token.tok) {
+				case Semicolon:
+					return false;
+				case PClose | BkClose:
+					continue;
+				default:
+					return true;
+			}
+		}
+		return false;
+	}
+
 	function detectCurlyPolicy(brOpen:TokenTree):CurlyLineEndPolicy {
 		var type:BrOpenType = TokenTreeCheckUtils.getBrOpenType(brOpen);
 		var curlyPolicy:CurlyLineEndPolicy = {
@@ -224,6 +291,17 @@ class MarkLineEnds extends MarkerBase {
 			case AnonType:
 				if (config.lineEnds.anonTypeCurly != null) {
 					return config.lineEnds.anonTypeCurly;
+				} else {
+					var brClose:Null<TokenTree> = getCloseToken(brOpen);
+					if (parsedCode.isOriginalSameLine(brOpen, brClose)) {
+						switch (curlyPolicy.leftCurly) {
+							case Before:
+								curlyPolicy.leftCurly = None;
+							case Both:
+								curlyPolicy.leftCurly = After;
+							default:
+						}
+					}
 				}
 			case Unknown:
 		}
@@ -588,8 +666,10 @@ class MarkLineEnds extends MarkerBase {
 							default:
 						}
 					}
-					if (next.token.tok.match(BrOpen)) {
-						continue;
+					switch (next.token.tok) {
+						case BrOpen | Semicolon:
+							continue;
+						default:
 					}
 					lineEndAfter(lastChild);
 				}

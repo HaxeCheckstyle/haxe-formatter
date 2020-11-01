@@ -12,6 +12,10 @@
 - Fixed whitespace around is operator, fixes [#605](https://github.com/HaxeCheckstyle/haxe-formatter/issues/605) ([#606](https://github.com/HaxeCheckstyle/haxe-formatter/issues/606))
 - Fixed newline before semicolon when used with binops, fixes [#614](https://github.com/HaxeCheckstyle/haxe-formatter/issues/614) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
 - Fixed whitespace between `&&=` and `||=`, fixes [#615](https://github.com/HaxeCheckstyle/haxe-formatter/issues/615) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
+- Fixed handling of missing semicolon, fixes [#410](https://github.com/HaxeCheckstyle/haxe-formatter/issues/410)
+
+
+
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604) + [#609](https://github.com/HaxeCheckstyle/haxe-formatter/issues/609))
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
 - Refactored anonymous type wrapping

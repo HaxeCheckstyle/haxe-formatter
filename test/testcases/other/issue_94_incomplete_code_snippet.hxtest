@@ -1,4 +1,10 @@
-{}
+{
+	"wrapping": {
+		"anonType": {
+			"rules": []
+		}
+	}
+}
 
 ---
 

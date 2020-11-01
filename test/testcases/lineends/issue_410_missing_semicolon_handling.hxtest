@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		trace("a")
+		trace("b");
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		trace("a")
+		trace("b");
+	}
+}

@@ -21,7 +21,8 @@ fubar
 class Foo {
 	function foo() {
 		switch (bar) {
-			<< << << < .mine foobar == == == = fubar >>> >>> > .rxxx
+			<< << << < .mine
+			foobar == == == = fubar >>> >>> > .rxxx
 		}
 	}
 }

@@ -1,6 +1,11 @@
 {
 	"emptyLines":{
 		"betweenSingleLineTypes": 1
+	},
+	"wrapping": {
+		"anonType": {
+			"rules": []
+		}
 	}
 }
 
