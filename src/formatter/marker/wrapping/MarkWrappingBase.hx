@@ -600,6 +600,16 @@ class MarkWrappingBase extends MarkerBase {
 		if (endToken == null) {
 			return null;
 		}
+		if (endToken.index == child.index) {
+			switch (child.tok) {
+				case Comment(_) | CommentLine(_):
+					var next:Null<TokenTree> = child.nextSibling;
+					if (next != null) {
+						return findItemEnd(next);
+					}
+				default:
+			}
+		}
 		switch (endToken.tok) {
 			case Comma:
 				var next:Null<TokenInfo> = getNextToken(endToken);
@@ -762,12 +772,14 @@ class MarkWrappingBase extends MarkerBase {
 		return true;
 	}
 
-	function applyRule(rule:WrapRule, open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int, useTrailing:Bool, ?pos:PosInfos) {
+	function applyRule(origin:WrappingOrigin, rule:WrapRule, open:TokenTree, close:TokenTree, items:Array<WrappableItem>, addIndent:Int, useTrailing:Bool,
+			?pos:PosInfos) {
 		var location:WrappingLocation = AfterLast;
 		if (rule.location != null) {
 			location = rule.location;
 		}
 		#if debugWrapping
+		log("origin", originToText(origin), pos);
 		log("rule", '$rule', pos);
 		if (open != null) {
 			log("open", '`$open` (${open.pos.min})', pos);
@@ -777,6 +789,9 @@ class MarkWrappingBase extends MarkerBase {
 		}
 		for (item in items) {
 			log("item", '$item', pos);
+		}
+		for (item in items) {
+			logWrappableItem(item);
 		}
 		#end
 		switch (rule.type) {
@@ -818,7 +833,7 @@ class MarkWrappingBase extends MarkerBase {
 		if (place.overrideAdditionalIndent != null) {
 			additionalIndent = place.overrideAdditionalIndent;
 		}
-		applyRule(rule, place.start, place.end, place.items, additionalIndent, place.useTrailing);
+		applyRule(place.origin, rule, place.start, place.end, place.items, additionalIndent, place.useTrailing);
 	}
 
 	function queueWrapping(place:WrappingPlace, name:String) {
@@ -891,14 +906,73 @@ class MarkWrappingBase extends MarkerBase {
 		file.close();
 		#end
 	}
+
+	function logWrappableItem(item:WrappableItem, ?pos:PosInfos) {
+		if (item.last == null) {
+			return;
+		}
+		var text:String = "";
+		for (index in item.first.index...item.last.index + 1) {
+			if (text != "") {
+				text += " ";
+			}
+			text += '${parsedCode.tokens[index]}';
+		}
+		log("code", text, pos);
+	}
+
+	function originToText(origin:WrappingOrigin):String {
+		return switch (origin) {
+			case AnonTypeWrapping:
+				"AnonTypeWrapping";
+			case ArrayWrapping:
+				"ArrayWrapping";
+			case CallParameterWrapping:
+				"CallParameterWrapping";
+			case CasePatternWrapping:
+				"CasePatternWrapping";
+			case FunctionSignatureWrapping:
+				"FunctionSignatureWrapping";
+			case ImplementsWrapping:
+				"ImplementsWrapping";
+			case MetadataCallParameterWrapping:
+				"MetadataCallParameterWrapping";
+			case MethodChainWrapping:
+				"MethodChainWrapping";
+			case MultiVarWrapping:
+				"MultiVarWrapping";
+			case OpAddChainWrapping:
+				"OpAddChainWrapping";
+			case OpBoolChainWrapping:
+				"OpBoolChainWrapping";
+			case TypeParameterWrapping:
+				"TypeParameterWrapping";
+		}
+	}
 	#end
 }
 
 typedef WrappingPlace = {
+	var origin:WrappingOrigin;
 	var start:TokenTree;
 	var end:Null<TokenTree>;
 	var items:Array<WrappableItem>;
 	var rules:WrapRules;
 	var useTrailing:Bool;
 	var overrideAdditionalIndent:Null<Int>;
+}
+
+enum WrappingOrigin {
+	AnonTypeWrapping;
+	ArrayWrapping;
+	CallParameterWrapping;
+	CasePatternWrapping;
+	FunctionSignatureWrapping;
+	ImplementsWrapping;
+	MetadataCallParameterWrapping;
+	MethodChainWrapping;
+	MultiVarWrapping;
+	OpAddChainWrapping;
+	OpBoolChainWrapping;
+	TypeParameterWrapping;
 }
