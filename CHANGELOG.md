@@ -16,6 +16,7 @@
 - Fixed line breaks for anonymous type hints
 - Fixed indentation of wrapped expressions, fixes [#372](https://github.com/HaxeCheckstyle/haxe-formatter/issues/372) + [#452](https://github.com/HaxeCheckstyle/haxe-formatter/issues/452) + [#557](https://github.com/HaxeCheckstyle/haxe-formatter/issues/557) + [#613](https://github.com/HaxeCheckstyle/haxe-formatter/issues/613) + [#617](https://github.com/HaxeCheckstyle/haxe-formatter/issues/617) + [#618](https://github.com/HaxeCheckstyle/haxe-formatter/issues/618)
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604) + [#609](https://github.com/HaxeCheckstyle/haxe-formatter/issues/609))
+- Fixed indentation for block init of var with function, fixes [#611](https://github.com/HaxeCheckstyle/haxe-formatter/issues/611)
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
 - Refactored anonymous type wrapping
 - Refactored wrapping diagnostics to provide more info in logs
