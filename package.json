@@ -1,5 +1,5 @@
 {
-	"name": "haxe-formatter",
+	"name": "@haxecheckstyle/haxe-formatter",
 	"version": "1.11.1",
 	"description": "A code formatter for Haxe",
 	"repository": {
@@ -14,6 +14,9 @@
 		"name": "Alexander Blum",
 		"email": "Alexander.Blum@gmail.com"
 	},
+	"bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
+	"license": "MIT",
+	"homepage": "https://github.com/HaxeCheckstyle/haxe-formatter#readme",
 	"devDependencies": {
 		"lix": "^15.10.1"
 	},
@@ -23,7 +26,10 @@
 	"files": [
 		"bin"
 	],
-	"bugs": "https://github.com/HaxeCheckstyle/haxe-formatter/issues",
-	"license": "MIT",
-	"homepage": "https://github.com/HaxeCheckstyle/haxe-formatter#readme"
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
+	},
+	"scripts": {
+		"build": "haxe buildAll.hxml"
+	}
 }
