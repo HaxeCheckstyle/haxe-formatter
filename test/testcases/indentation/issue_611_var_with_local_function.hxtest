@@ -1,0 +1,19 @@
+{}
+
+---
+
+class Main {
+	var foo:Array<Int> = {
+		function bar() {}
+			[1, 2, 3];
+	}
+}
+
+---
+
+class Main {
+	var foo:Array<Int> = {
+		function bar() {}
+		[1, 2, 3];
+	}
+}
