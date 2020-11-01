@@ -12,15 +12,15 @@
 - Fixed whitespace around is operator, fixes [#605](https://github.com/HaxeCheckstyle/haxe-formatter/issues/605) ([#606](https://github.com/HaxeCheckstyle/haxe-formatter/issues/606))
 - Fixed newline before semicolon when used with binops, fixes [#614](https://github.com/HaxeCheckstyle/haxe-formatter/issues/614) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
 - Fixed whitespace between `&&=` and `||=`, fixes [#615](https://github.com/HaxeCheckstyle/haxe-formatter/issues/615) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
-- Fixed handling of missing semicolon, fixes [#410](https://github.com/HaxeCheckstyle/haxe-formatter/issues/410)
-- Fixed line breaks for anonymous type hints
-- Fixed indentation of wrapped expressions, fixes [#372](https://github.com/HaxeCheckstyle/haxe-formatter/issues/372) + [#452](https://github.com/HaxeCheckstyle/haxe-formatter/issues/452) + [#557](https://github.com/HaxeCheckstyle/haxe-formatter/issues/557) + [#613](https://github.com/HaxeCheckstyle/haxe-formatter/issues/613) + [#617](https://github.com/HaxeCheckstyle/haxe-formatter/issues/617) + [#618](https://github.com/HaxeCheckstyle/haxe-formatter/issues/618)
+- Fixed handling of missing semicolon, fixes [#410](https://github.com/HaxeCheckstyle/haxe-formatter/issues/410) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
+- Fixed line breaks for anonymous type hints ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
+- Fixed indentation of wrapped expressions, fixes [#372](https://github.com/HaxeCheckstyle/haxe-formatter/issues/372) + [#452](https://github.com/HaxeCheckstyle/haxe-formatter/issues/452) + [#557](https://github.com/HaxeCheckstyle/haxe-formatter/issues/557) + [#613](https://github.com/HaxeCheckstyle/haxe-formatter/issues/613) + [#617](https://github.com/HaxeCheckstyle/haxe-formatter/issues/617) + [#618](https://github.com/HaxeCheckstyle/haxe-formatter/issues/618) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604) + [#609](https://github.com/HaxeCheckstyle/haxe-formatter/issues/609))
-- Fixed indentation for block init of var with function, fixes [#611](https://github.com/HaxeCheckstyle/haxe-formatter/issues/611)
-- Fixed wrapping with multiline comment in parameters, fixes [#610](https://github.com/HaxeCheckstyle/haxe-formatter/issues/610)
+- Fixed indentation for block init of var with function, fixes [#611](https://github.com/HaxeCheckstyle/haxe-formatter/issues/611) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
+- Fixed wrapping with multiline comment in parameters, fixes [#610](https://github.com/HaxeCheckstyle/haxe-formatter/issues/610) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
-- Refactored anonymous type wrapping
-- Refactored wrapping diagnostics to provide more info in logs
+- Refactored anonymous type wrapping ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
+- Refactored wrapping diagnostics to provide more info in logs ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 
 ## version 1.11.0 (2020-06-07)
 
