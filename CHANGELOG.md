@@ -13,9 +13,8 @@
 - Fixed newline before semicolon when used with binops, fixes [#614](https://github.com/HaxeCheckstyle/haxe-formatter/issues/614) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
 - Fixed whitespace between `&&=` and `||=`, fixes [#615](https://github.com/HaxeCheckstyle/haxe-formatter/issues/615) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
 - Fixed handling of missing semicolon, fixes [#410](https://github.com/HaxeCheckstyle/haxe-formatter/issues/410)
-
-
-
+- Fixed line breaks for anonymous type hints
+- Fixed indentation of wrapped expressions, fixes [#372](https://github.com/HaxeCheckstyle/haxe-formatter/issues/372) + [#452](https://github.com/HaxeCheckstyle/haxe-formatter/issues/452) + [#557](https://github.com/HaxeCheckstyle/haxe-formatter/issues/557) + [#613](https://github.com/HaxeCheckstyle/haxe-formatter/issues/613) + [#617](https://github.com/HaxeCheckstyle/haxe-formatter/issues/617) + [#618](https://github.com/HaxeCheckstyle/haxe-formatter/issues/618)
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604) + [#609](https://github.com/HaxeCheckstyle/haxe-formatter/issues/609))
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
 - Refactored anonymous type wrapping

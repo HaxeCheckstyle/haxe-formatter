@@ -1,0 +1,25 @@
+{
+}
+
+
+---
+
+class Main {
+	public static function main() {
+		return [
+			foo.bar(dummy, dummy, dummy, dummy, dummy, dummy),
+			() -> foo.bar(dummy, dummy, dummy, dummy, dummy),
+		];
+	}
+}
+
+---
+
+class Main {
+	public static function main() {
+		return [
+			foo.bar(dummy, dummy, dummy, dummy, dummy, dummy),
+			() -> foo.bar(dummy, dummy, dummy, dummy, dummy),
+		];
+	}
+}
