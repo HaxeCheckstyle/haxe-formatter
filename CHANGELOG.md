@@ -14,6 +14,8 @@
 - Fixed whitespace between `&&=` and `||=`, fixes [#615](https://github.com/HaxeCheckstyle/haxe-formatter/issues/615) ([#616](https://github.com/HaxeCheckstyle/haxe-formatter/issues/616))
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604) + [#609](https://github.com/HaxeCheckstyle/haxe-formatter/issues/609))
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
+- Refactored anonymous type wrapping
+- Refactored wrapping diagnostics to provide more info in logs
 
 ## version 1.11.0 (2020-06-07)
 

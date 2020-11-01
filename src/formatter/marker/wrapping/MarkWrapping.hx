@@ -71,6 +71,7 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		var items:Array<WrappableItem> = makeWrappableItems(token);
 		queueWrapping({
+			origin: TypeParameterWrapping,
 			start: token,
 			end: null,
 			items: items,
@@ -137,52 +138,18 @@ class MarkWrapping extends MarkWrappingBase {
 			wrapChildOneLineEach(token, brClose, 0);
 			return;
 		}
-		var maxLength:Int = 0;
-		var totalLength:Int = 0;
-		var itemCount:Int = 0;
-		for (child in token.children) {
-			switch (child.tok) {
-				case BrClose:
-					break;
-				case CommentLine(_):
-					wrapChildOneLineEach(token, brClose, 0);
-					return;
-				default:
-			}
-			var length:Int = calcLength(child);
-			totalLength += length;
-			if (length > maxLength) {
-				maxLength = length;
-			}
-			itemCount++;
-		}
-		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(config.wrapping.anonType, itemCount, maxLength, totalLength, lineLength);
-		switch (rule.type) {
-			case OnePerLine:
-				wrapChildOneLineEach(token, brClose, rule.additionalIndent);
-			case OnePerLineAfterFirst:
-				wrapChildOneLineEach(token, brClose, rule.additionalIndent, true);
-			case Keep:
-				keep(token, brClose, rule.additionalIndent);
-			case EqualNumber:
-			case FillLine:
-				wrapFillLine(token, brClose, config.wrapping.maxLineLength, rule.additionalIndent);
-			case FillLineWithLeadingBreak:
-				wrapFillLine(token, brClose, config.wrapping.maxLineLength, rule.additionalIndent);
-			case NoWrap:
-				noWrap(token, brClose);
-				var prev:Null<TokenInfo> = getPreviousToken(token);
-				if (prev == null) {
-					return;
-				}
-				switch (prev.whitespaceAfter) {
-					case None:
-					case Space:
-					case Newline:
-						prev.whitespaceAfter = Space;
-				}
-		}
+
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+
+		applyWrappingPlace({
+			origin: AnonTypeWrapping,
+			start: token,
+			end: brClose,
+			items: items,
+			rules: config.wrapping.anonType,
+			useTrailing: true,
+			overrideAdditionalIndent: null
+		});
 	}
 
 	function objectLiteralWrapping(token:TokenTree) {
@@ -306,6 +273,7 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 		}
 		applyWrappingPlace({
+			origin: ArrayWrapping,
 			start: token,
 			end: bkClose,
 			items: itemsWithoutMetadata,
@@ -410,6 +378,7 @@ class MarkWrapping extends MarkWrappingBase {
 			addIndent = 0;
 		}
 		queueWrapping({
+			origin: FunctionSignatureWrapping,
 			start: token,
 			end: pClose,
 			items: items,
@@ -426,6 +395,7 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		var items:Array<WrappableItem> = makeWrappableItems(token);
 		queueWrapping({
+			origin: CallParameterWrapping,
 			start: token,
 			end: pClose,
 			items: items,
@@ -442,6 +412,7 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		var items:Array<WrappableItem> = makeWrappableItems(token);
 		queueWrapping({
+			origin: MetadataCallParameterWrapping,
 			start: token,
 			end: pClose,
 			items: items,
@@ -548,6 +519,7 @@ class MarkWrapping extends MarkWrappingBase {
 			chainEnd = getCloseToken(chainOpen);
 		}
 		queueWrapping({
+			origin: MethodChainWrapping,
 			start: chainOpen,
 			end: chainEnd,
 			items: items,
@@ -624,6 +596,7 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		items.push(makeWrappableItem(itemStart, TokenTreeCheckUtils.getLastToken(itemStart)));
 		queueWrapping({
+			origin: OpBoolChainWrapping,
 			start: chainStart,
 			end: chainEnd,
 			items: items,
@@ -667,6 +640,7 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 		}
 		queueWrapping({
+			origin: CasePatternWrapping,
 			start: chainStart,
 			end: chainEnd,
 			items: items,
@@ -750,6 +724,7 @@ class MarkWrapping extends MarkWrappingBase {
 		}
 		items.push(makeWrappableItem(itemStart, TokenTreeCheckUtils.getLastToken(itemStart)));
 		queueWrapping({
+			origin: OpAddChainWrapping,
 			start: chainStart,
 			end: null,
 			items: items,
@@ -766,8 +741,21 @@ class MarkWrapping extends MarkWrappingBase {
 		var parent:TokenTree = itemStart;
 		while ((parent != null) && (parent.tok != Root)) {
 			switch (parent.tok) {
-				case POpen, BrOpen, BkOpen:
-					return parent;
+				case POpen:
+					var pClose:Null<TokenTree> = parent.access().firstOf(PClose).token;
+					if ((pClose == null) || (pClose.index > itemStart.index)) {
+						return parent;
+					}
+				case BkOpen:
+					var bkClose:Null<TokenTree> = parent.access().firstOf(BkClose).token;
+					if ((bkClose == null) || (bkClose.index > itemStart.index)) {
+						return parent;
+					}
+				case BrOpen:
+					var brClose:Null<TokenTree> = parent.access().firstOf(BrClose).token;
+					if ((brClose == null) || (brClose.index > itemStart.index)) {
+						return parent;
+					}
 				case Binop(OpAssign), Binop(OpAssignOp(_)):
 					return parent;
 				case Kwd(KwdThis), Kwd(KwdUntyped), Kwd(KwdNull):
@@ -837,6 +825,7 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 			var chainEnd:TokenTree = items[items.length - 1].last;
 			queueWrapping({
+				origin: ImplementsWrapping,
 				start: chainOpen,
 				end: chainEnd,
 				items: items,
@@ -871,6 +860,7 @@ class MarkWrapping extends MarkWrappingBase {
 			var chainOpen:TokenTree = v;
 			var chainEnd:TokenTree = TokenTreeCheckUtils.getLastToken(v);
 			queueWrapping({
+				origin: MultiVarWrapping,
 				start: chainOpen,
 				end: chainEnd,
 				items: items,
