@@ -1,9 +1,9 @@
 package formatter.codedata;
 
-import haxe.PosInfos;
 import formatter.config.Config;
 import formatter.config.WhitespacePolicy;
 #if debugLog
+import haxe.PosInfos;
 import sys.io.File;
 import sys.io.FileOutput;
 #end
@@ -540,6 +540,8 @@ class TokenList {
 					}
 				case CommentLine(_):
 					continue;
+				case Comment(_):
+					continue;
 				case Kwd(KwdFunction) | Kwd(KwdMacro) | Arrow:
 					var lastChild:TokenTree = TokenTreeCheckUtils.getLastToken(info.token);
 					if (lastChild != null) {
@@ -558,12 +560,6 @@ class TokenList {
 							case Before, Both:
 								continue;
 							case None, After:
-						}
-					case BrClose:
-						switch (config.lineEnds.rightCurly) {
-							case After, Both:
-								continue;
-							case None, Before:
 						}
 					default:
 				}
@@ -911,6 +907,26 @@ class TokenList {
 			return false;
 		}
 		return (info.whitespaceAfter == Newline);
+	}
+
+	public function calcNewLinesBetween(tokenStart:TokenTree, tokenEnd:TokenTree):Int {
+		if ((tokenStart == null) || (tokenEnd == null)) {
+			return 0;
+		}
+		if ((tokenStart.index < 0) || (tokenEnd.index < 0)) {
+			return 0;
+		}
+		var count:Int = 0;
+		for (index in tokenStart.index...tokenEnd.index) {
+			var current:Null<TokenInfo> = tokens[index];
+			if (current == null) {
+				continue;
+			}
+			if (current.whitespaceAfter == Newline) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	public function isSameLineBetween(tokenStart:TokenTree, tokenEnd:TokenTree, exclude:Bool):Bool {
