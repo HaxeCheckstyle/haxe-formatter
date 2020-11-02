@@ -1,0 +1,18 @@
+{
+}
+
+---
+
+final flags = [
+	CompilationServer => [
+		// server
+	],
+];
+
+---
+
+final flags = [
+	CompilationServer => [
+		// server
+	],
+];
