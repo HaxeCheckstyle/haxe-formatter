@@ -1,0 +1,28 @@
+{
+}
+
+---
+
+class Main {
+	function foobar() {
+		assignments.push(macro {
+			if ($struct.$name == null)
+				$struct.$name = $defaults.$name;
+			if ($struct.$name.$struct.$name == null)
+				$struct.$name.$struct.$name = $defaults.$name.$defaults.$name;
+		});
+	}
+}
+
+---
+
+class Main {
+	function foobar() {
+		assignments.push(macro {
+			if ($struct.$name == null)
+				$struct.$name = $defaults.$name;
+			if ($struct.$name.$struct.$name == null)
+				$struct.$name.$struct.$name = $defaults.$name.$defaults.$name;
+		});
+	}
+}
