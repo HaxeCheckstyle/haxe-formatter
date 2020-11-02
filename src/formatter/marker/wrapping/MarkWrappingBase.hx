@@ -171,11 +171,12 @@ class MarkWrappingBase extends MarkerBase {
 				return;
 			}
 			switch (next.token.tok) {
-				case Kwd(KwdThis), Kwd(KwdNull), Kwd(KwdNew):
+				case Kwd(KwdThis) | Kwd(KwdNull) | Kwd(KwdNew):
 					lineEndAfter(lastToken);
 				case Kwd(_):
-				case BrOpen, POpen, BkOpen:
+				case BrOpen | POpen | BkOpen:
 				case Semicolon:
+				case Comma:
 				default:
 					lineEndAfter(lastToken);
 			}
