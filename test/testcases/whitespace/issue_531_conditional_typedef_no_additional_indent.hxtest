@@ -1,4 +1,11 @@
-{}
+{
+	"wrapping": {
+		"functionSignature": {
+			"defaultWrap": "fillLine",
+			"defaultAdditionalIndent": 0
+		}
+	}
+}
 
 ---
 
@@ -8,4 +15,4 @@ stderr : EitherType<Buffer, String>) -> Void; #else Null<ChildProcessExecError>-
 ---
 
 typedef ChildProcessExecCallback = #if (haxe_ver >= 4) (error:Null<ChildProcessExecError>, stdout:EitherType<Buffer, String>,
-		stderr:EitherType<Buffer, String>) -> Void; #else Null<ChildProcessExecError>->EitherType<Buffer, String>->EitherType<Buffer, String>->Void; #end
+	stderr:EitherType<Buffer, String>) -> Void; #else Null<ChildProcessExecError>->EitherType<Buffer, String>->EitherType<Buffer, String>->Void; #end

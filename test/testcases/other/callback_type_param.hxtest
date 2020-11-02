@@ -1,0 +1,13 @@
+{}
+
+---
+
+class HaxeServer {
+	var stopProgressCallback:Null<() -> Void>;
+}
+
+---
+
+class HaxeServer {
+	var stopProgressCallback:Null<() -> Void>;
+}
