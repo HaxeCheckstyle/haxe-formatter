@@ -18,6 +18,7 @@
 - Refactored for tokentree API change ([#604](https://github.com/HaxeCheckstyle/haxe-formatter/issues/604) + [#609](https://github.com/HaxeCheckstyle/haxe-formatter/issues/609))
 - Fixed indentation for block init of var with function, fixes [#611](https://github.com/HaxeCheckstyle/haxe-formatter/issues/611) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 - Fixed wrapping with multiline comment in parameters, fixes [#610](https://github.com/HaxeCheckstyle/haxe-formatter/issues/610) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
+- Fixed type parameter exception
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
 - Refactored anonymous type wrapping ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 - Refactored wrapping diagnostics to provide more info in logs ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
