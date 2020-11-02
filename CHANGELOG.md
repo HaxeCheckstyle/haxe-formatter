@@ -20,6 +20,7 @@
 - Fixed wrapping with multiline comment in parameters, fixes [#610](https://github.com/HaxeCheckstyle/haxe-formatter/issues/610) ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 - Fixed type parameter exception
 - Fixed map initialisation with comment
+- Fixed Dollar chains
 - Refactored for deprecation of `is` ([#608](https://github.com/HaxeCheckstyle/haxe-formatter/issues/608))
 - Refactored anonymous type wrapping ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
 - Refactored wrapping diagnostics to provide more info in logs ([#619](https://github.com/HaxeCheckstyle/haxe-formatter/issues/619))
