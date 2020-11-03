@@ -2,5 +2,3 @@ buildCommon.hxml
 -lib hxnodejs
 -js run.js
 -main formatter.Cli
-
--cmd mkdir -p bin && echo "#\!/usr/bin/env node" | cat - run.js > bin/formatter.js
