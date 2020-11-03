@@ -4,13 +4,15 @@
 
 npm install
 npx lix download
-npx lix use haxe 4.0.5
+npx lix use haxe 4.1.4
 
 npx haxe buildJsNode.hxml
 npx haxe buildJsBrowser.hxml
 npx haxe buildNeko.hxml
 npx haxe buildJava.hxml
 npx haxe buildSchema.hxml
+
+./uglifyFormatter.sh
 
 neko run --default-config resources/default-hxformat.json
 
