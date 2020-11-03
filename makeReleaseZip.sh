@@ -17,4 +17,4 @@ neko run --default-config resources/default-hxformat.json
 npx haxe test.hxml
 
 rm -f formatter.zip
-zip -9 -r -q formatter.zip src run.n run.js resources/default-hxformat.json resources/formatter-schema.json haxelib.json README.md CHANGELOG.md LICENSE.md
+zip -9 -r -q formatter.zip src run.n run.js resources/default-hxformat.json resources/hxformat-schema.json haxelib.json README.md CHANGELOG.md LICENSE.md
