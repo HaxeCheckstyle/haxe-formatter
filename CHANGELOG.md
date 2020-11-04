@@ -4,7 +4,7 @@
 
 ## version 1.11.2 (2020-11-04)
 
-- Fixed array type parameter, fixes [#622](https://github.com/HaxeCheckstyle/haxe-formatter/issues/622)
+- Fixed array type parameter, fixes [#622](https://github.com/HaxeCheckstyle/haxe-formatter/issues/622) ([#623](https://github.com/HaxeCheckstyle/haxe-formatter/issues/623))
 
 ## version 1.11.1 (2020-11-03)
 
