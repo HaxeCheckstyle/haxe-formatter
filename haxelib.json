@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.11.1",
-	"releasenote": "fixed indentation issues - see CHANGELOG for details.",
+	"version": "1.11.2",
+	"releasenote": "fixed array type parameter - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
