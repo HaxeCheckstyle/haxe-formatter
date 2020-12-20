@@ -2,8 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
-- Fixed support for overload access modifier, fixes [#626](https://github.com/HaxeCheckstyle/haxe-formatter/issues/626)
-- Retired Haxe 3.4.7 compile support
+- Fixed support for overload access modifier, fixes [#626](https://github.com/HaxeCheckstyle/haxe-formatter/issues/626) ([#627](https://github.com/HaxeCheckstyle/haxe-formatter/issues/627))
+- Retired Haxe 3.4.7 compile support ([#627](https://github.com/HaxeCheckstyle/haxe-formatter/issues/627))
 
 ## version 1.11.2 (2020-11-04)
 
