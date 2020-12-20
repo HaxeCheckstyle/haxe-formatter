@@ -1,0 +1,24 @@
+{}
+
+---
+
+abstract class Foo {
+	static
+	overload extern inline function foo() {}
+
+	overload
+	static extern inline function foo(i:Int) {}
+}
+
+	overload
+	static inline function foo(i:Int) {}
+
+---
+
+abstract class Foo {
+	static overload extern inline function foo() {}
+
+	overload static extern inline function foo(i:Int) {}
+}
+
+overload static inline function foo(i:Int) {}

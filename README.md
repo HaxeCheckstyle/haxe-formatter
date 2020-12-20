@@ -39,7 +39,9 @@ haxelib install formatter
 - Run `haxelib run formatter -s src` to format folder `src`.
 - Run `haxelib run formatter -s src -s test` to format folders `src` and `test`.
 
-If the `node` command is available on your system, the formatter automatically uses its NodeJS version instead of a Neko build (which is considerably faster).
+Note: haxelib version of formatter comes with both a NodeJS and a Neko version. when running `haxelib run formatter` it always launches Neko version (`run.n`). however Neko version will check for NodeJS (simply by calling `node -v` and checking its exit code). if you have NodeJS installed and working, then it will spawn a new process running `run.js` and passing all of your command line parameters to it. so you might end up running Neko or NodeJS versions of formatter depending on your system setup and installed software.
+NodeJS version is noticeably faster than Neko. so it's the preferred version to run when bulk formatting larger code bases.
+if you see dramatically slower performance when formatting the same codebase on multiple machines, it might be caused by one of the systems not being able to switch to NodeJS version and doing all the work in Neko instead.
 
 ### Single File Formatting
 

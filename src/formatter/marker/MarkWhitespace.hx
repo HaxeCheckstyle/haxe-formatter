@@ -16,11 +16,9 @@ class MarkWhitespace extends MarkerBase {
 				case Binop(OpGt):
 					markGt(token);
 				case Binop(OpInterval):
-					whitespace(token, config.whitespace.intervalPolicy);
-				#if (haxe_ver >= 4.0)
+					markOpSpread(token);
 				case Binop(OpIn):
 					markIn(token);
-				#end
 				case Binop(OpMult):
 					if (TokenTreeCheckUtils.isImport(token.parent)) {
 						whitespace(token, None);
@@ -78,8 +76,6 @@ class MarkWhitespace extends MarkerBase {
 					markSharp(token);
 				case Semicolon:
 					markSemicolon(token);
-				case Const(CIdent(MarkEmptyLines.FINAL)):
-					whitespace(token, After);
 				case Const(CIdent("from")), Const(CIdent("to")):
 					var parent:Null<TokenTree> = token.access().parent().parent().matches(Kwd(KwdAbstract)).token;
 					if (parent != null) {
@@ -101,6 +97,20 @@ class MarkWhitespace extends MarkerBase {
 			}
 			return GoDeeper;
 		});
+	}
+
+	function markOpSpread(token) {
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		var policy:WhitespacePolicy = config.whitespace.intervalPolicy;
+		if (prev != null) {
+			policy = switch (prev.token.tok) {
+				case Comma:
+					config.whitespace.intervalPolicy.add(Before);
+				default:
+					config.whitespace.intervalPolicy;
+			}
+		}
+		whitespace(token, policy);
 	}
 
 	function markGt(token:TokenTree) {
@@ -278,10 +288,6 @@ class MarkWhitespace extends MarkerBase {
 				whitespace(token, config.whitespace.tryPolicy);
 			case Kwd(KwdCatch):
 				whitespace(token, config.whitespace.catchPolicy);
-			#if (haxe_ver < 4.0)
-			case Kwd(KwdIn):
-				markIn(token);
-			#end
 			case Kwd(KwdReturn):
 				whitespace(token, After);
 			case Kwd(KwdUntyped):

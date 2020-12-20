@@ -6,8 +6,6 @@ import formatter.codedata.CodeLines;
 import formatter.config.EmptyLinesConfig;
 
 class MarkEmptyLines extends MarkerBase {
-	public static inline var FINAL:String = "final";
-
 	public function run() {
 		keepExistingEmptyLines();
 
@@ -259,7 +257,7 @@ class MarkEmptyLines extends MarkerBase {
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
-			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
+			// var finalTokDef:TokenDef = Kwd(KwdFinal);
 			var fields:Array<TokenTree> = findClassAndAbstractFields(c);
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
@@ -298,7 +296,7 @@ class MarkEmptyLines extends MarkerBase {
 			var block:TokenTree = c.access().firstChild().firstOf(BrOpen).token;
 			markBeginAndEndType(block, typeConfig.beginType, typeConfig.endType);
 
-			var finalTokDef:TokenDef = #if haxe4 Kwd(KwdFinal); #else Const(CIdent(FINAL)); #end
+			// var finalTokDef:TokenDef = Kwd(KwdFinal);
 			var functions:Array<TokenTree> = findClassAndAbstractFields(c);
 			var prevToken:TokenTree = null;
 			var prevTokenType:TokenFieldType = null;
@@ -319,12 +317,8 @@ class MarkEmptyLines extends MarkerBase {
 			return switch (token.tok) {
 				case Kwd(KwdFunction), Kwd(KwdVar):
 					FoundSkipSubtree;
-				case Const(CIdent(FINAL)):
-					FoundSkipSubtree;
-				#if haxe4
 				case Kwd(KwdFinal):
 					FoundSkipSubtree;
-				#end
 				case At:
 					SkipSubtree;
 				default:
@@ -780,12 +774,8 @@ class MarkEmptyLines extends MarkerBase {
 					FoundSkipSubtree;
 				case Kwd(KwdVar), Kwd(KwdFunction):
 					FoundSkipSubtree;
-				case Const(CIdent(FINAL)):
-					FoundSkipSubtree;
-				#if haxe4
 				case Kwd(KwdFinal):
 					FoundSkipSubtree;
-				#end
 				default:
 					GoDeeper;
 			}
@@ -994,9 +984,7 @@ class MarkEmptyLines extends MarkerBase {
 					case Kwd(KwdInterface):
 					case Kwd(KwdTypedef):
 					case Const(CIdent(_)):
-					#if haxe4
 					case Kwd(KwdFinal):
-					#end
 					case Sharp(_):
 						next = null;
 					case CommentLine(_):

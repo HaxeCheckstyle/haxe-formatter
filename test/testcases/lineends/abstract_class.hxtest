@@ -1,0 +1,19 @@
+{}
+
+---
+
+abstract class Foo {
+	abstract function foo();
+	public abstract function foo2();
+	public function foo3();
+}
+
+---
+
+abstract class Foo {
+	abstract function foo();
+
+	public abstract function foo2();
+
+	public function foo3();
+}
