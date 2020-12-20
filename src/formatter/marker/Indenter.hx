@@ -557,10 +557,7 @@ class Indenter {
 					return false;
 				case Kwd(KwdVar):
 					return true;
-				case Const(CIdent(MarkEmptyLines.FINAL)):
-				#if (haxe_ver >= 4.0)
 				case Kwd(KwdFinal):
-				#end
 				case Binop(OpAssign):
 					return true;
 				default:

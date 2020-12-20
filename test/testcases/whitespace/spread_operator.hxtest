@@ -1,0 +1,45 @@
+{
+}
+
+
+---
+
+class Foo {
+	function func(...r:Any) {}
+	function func(...r:Int) {}
+	function func(a:Int, ...r:Int) {}
+	function func(a:Int, ...r:Array<Int>) {}
+	function methodWithRest(rest:Rest<Int>):Rest<Int> {
+		return super.methodWithRest(...rest.append(999));
+	}
+}
+function func(...r:Int) {}
+function func(a:Int, ...r:Int) {}
+function func(a:Int, ...r:Array<Int>) {}
+function methodWithRest(rest:Rest<Int>):Rest<Int> {
+	return super.methodWithRest(...rest.append(999));
+}
+
+---
+
+class Foo {
+	function func(...r:Any) {}
+
+	function func(...r:Int) {}
+
+	function func(a:Int, ...r:Int) {}
+
+	function func(a:Int, ...r:Array<Int>) {}
+
+	function methodWithRest(rest:Rest<Int>):Rest<Int> {
+		return super.methodWithRest(...rest.append(999));
+	}
+}
+
+function func(...r:Int) {}
+function func(a:Int, ...r:Int) {}
+function func(a:Int, ...r:Array<Int>) {}
+
+function methodWithRest(rest:Rest<Int>):Rest<Int> {
+	return super.methodWithRest(...rest.append(999));
+}

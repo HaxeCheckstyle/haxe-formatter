@@ -1,6 +1,7 @@
 package formatter.codedata;
 
 import haxeparser.HaxeLexer;
+import hxparse.ParserError;
 import tokentree.TokenTreeBuilder;
 
 class ParsedCode {
@@ -257,6 +258,10 @@ class ParsedCode {
 				tokens.push(t);
 				t = lexer.token(haxeparser.HaxeLexer.tok);
 			}
+		} catch (e:ParserError) {
+			throw 'failed to make tokens - ParserError: $e (${e.pos})';
+		} catch (e:LexerError) {
+			throw 'failed to make tokens - LexerError: ${e.msg} (${e.pos})';
 		} catch (e:Any) {
 			throw 'failed to make tokens $e';
 		}

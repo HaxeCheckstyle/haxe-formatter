@@ -4,14 +4,11 @@ node_js:
 dist: xenial
 
 env:
-  - HAXE_VERSION=haxe347
   - HAXE_VERSION=haxe4
   - HAXE_VERSION=nightly
 
 install:
   - npm install
-  - if [[ "$HAXE_VERSION" == "haxe347" ]]; then mv haxe_libraries haxe4_libraries; mv haxe3_libraries haxe_libraries; fi
-  - if [[ "$HAXE_VERSION" == "haxe347" ]]; then npx lix download haxe 3.4.7; npx lix use haxe 3.4.7; fi
   - if [[ "$HAXE_VERSION" == "haxe4" ]]; then npx lix download haxe 4.1.4; npx lix use haxe 4.1.4; fi
   - if [[ "$HAXE_VERSION" == "nightly" ]]; then npx lix download haxe nightly; npx lix use haxe nightly; fi
   - npx lix download
@@ -26,8 +23,8 @@ script:
   - npx haxe buildNeko.hxml
   - npx haxe buildJava.hxml
   - npx haxe buildSchema.hxml
-  - if [[ "$HAXE_VERSION" != "nightly" ]]; then npx haxe test.hxml -D codecov_json; fi
-  - if [[ "$HAXE_VERSION" != "nightly" ]]; then npx haxe testJava.hxml -D codecov_json; fi
+  - npx haxe test.hxml -D codecov_json
+  - npx haxe testJava.hxml -D codecov_json
   - node run.js -s . --check
   - java -jar out/Cli.jar -s . --check
   - neko run.n -s . --check
