@@ -1,0 +1,15 @@
+{}
+
+---
+
+function main() {
+	if (true) {}
+		(f : Dynamic).foo = true;
+}
+
+---
+
+function main() {
+	if (true) {}
+	(f : Dynamic).foo = true;
+}
