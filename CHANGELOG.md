@@ -2,9 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added testcase for local metadata linebreak, fixes [#630](https://github.com/HaxeCheckstyle/haxe-formatter/issues/6230)
+- Added testcase for local metadata linebreak, fixes [#630](https://github.com/HaxeCheckstyle/haxe-formatter/issues/6230) ([#631](https://github.com/HaxeCheckstyle/haxe-formatter/issues/631))
 - Fixed support for overload access modifier, fixes [#626](https://github.com/HaxeCheckstyle/haxe-formatter/issues/626) ([#627](https://github.com/HaxeCheckstyle/haxe-formatter/issues/627))
-- Fixed parens after curly block, fixes [#629](https://github.com/HaxeCheckstyle/haxe-formatter/issues/629)
+- Fixed parens after curly block, fixes [#629](https://github.com/HaxeCheckstyle/haxe-formatter/issues/629) ([#631](https://github.com/HaxeCheckstyle/haxe-formatter/issues/631))
 - Retired Haxe 3.4.7 compile support ([#627](https://github.com/HaxeCheckstyle/haxe-formatter/issues/627))
 
 ## version 1.11.2 (2020-11-04)
