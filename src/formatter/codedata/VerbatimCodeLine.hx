@@ -12,7 +12,7 @@ class VerbatimCodeLine extends CodeLine {
 		verbatim = true;
 	}
 
-	override public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
+	override public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter, lineSeparator:String):Array<CodeLine> {
 		return [this];
 	}
 

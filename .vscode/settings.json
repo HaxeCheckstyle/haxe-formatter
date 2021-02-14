@@ -5,9 +5,6 @@
 	"[haxe]": {
 		"editor.formatOnSave": true,
 		"editor.formatOnPaste": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": true
-		}
 	},
 	"haxecheckstyle.sourceFolders": [
 		"src",

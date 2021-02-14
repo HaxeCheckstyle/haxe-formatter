@@ -179,14 +179,12 @@ typedef TypedefFieldsEmptyLinesConfig = {
 	@:default(Keep) @:optional var existingBetweenFields:KeepEmptyLinesPolicy;
 }
 
-@:enum
-abstract KeepEmptyLinesPolicy(String) {
+enum abstract KeepEmptyLinesPolicy(String) {
 	var Keep = "keep";
 	var Remove = "remove";
 }
 
-@:enum
-abstract CommentEmptyLinesPolicy(String) {
+enum abstract CommentEmptyLinesPolicy(String) {
 	var Ignore = "ignore";
 	var None = "none";
 	var One = "one";
@@ -221,7 +219,7 @@ typedef ImportsEmptyLinesConfig = {
 	@:default(1) @:optional var beforeType:Int;
 }
 
-@:enum abstract BetweenImportsEmptyLinesLevel(String) {
+enum abstract BetweenImportsEmptyLinesLevel(String) {
 	var All = "all";
 	var FirstLevelPackage = "firstLevelPackage";
 	var SecondLevelPackage = "secondLevelPackage";
@@ -231,7 +229,7 @@ typedef ImportsEmptyLinesConfig = {
 	var FullPackage = "fullPackage";
 }
 
-@:enum abstract LineCommentEmptyLinePolicy(String) {
+enum abstract LineCommentEmptyLinePolicy(String) {
 	var Keep = "keep";
 	var One = "one";
 	var None = "none";

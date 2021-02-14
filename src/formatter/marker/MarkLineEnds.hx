@@ -1,5 +1,6 @@
 package formatter.marker;
 
+import formatter.config.Config;
 import formatter.config.LineEndConfig;
 
 class MarkLineEnds extends MarkerBase {
@@ -719,5 +720,18 @@ class MarkLineEnds extends MarkerBase {
 			}
 		}
 		lineEndAfter(lastChild);
+	}
+
+	public static function outputLineSeparator(config:LineEndConfig, parsedCode:ParsedCode):String {
+		return switch (config.lineEndCharacter) {
+			case CR:
+				"\r";
+			case LF:
+				"\n";
+			case CRLF:
+				"\r\n";
+			default:
+				parsedCode.lineSeparator;
+		}
 	}
 }

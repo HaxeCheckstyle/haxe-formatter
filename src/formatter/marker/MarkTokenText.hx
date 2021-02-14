@@ -54,7 +54,7 @@ class MarkTokenText extends MarkerBase {
 				if (fragment.indexOf("{") >= 0) {
 					continue;
 				}
-				var formatted:String = formatFragment(fragment);
+				var formatted:String = formatFragment(fragment); // , tokenIndent);
 				start += formatted.length;
 				text = text.substr(0, index + 2) + formatted + text.substr(indexEnd);
 			}
@@ -103,8 +103,9 @@ class MarkTokenText extends MarkerBase {
 			markTokenText.run();
 			markWhitespace.run();
 
+			var outputLineEnds:String = MarkLineEnds.outputLineSeparator(config.lineEnds, interpolParsedCode);
 			var lines:CodeLines = new CodeLines(interpolParsedCode, interpolIndenter);
-			var formatted:String = lines.print(interpolParsedCode.lineSeparator);
+			var formatted:String = lines.print(outputLineEnds);
 			return formatted.trim();
 		} catch (e:Any) {
 			// ignore any errors
@@ -150,9 +151,10 @@ class MarkTokenText extends MarkerBase {
 		}
 		lines = removeCommentPrefix(linesNew);
 
+		var outputLineEnds:String = MarkLineEnds.outputLineSeparator(config.lineEnds, parsedCode);
 		text = "/*" + lines[0];
 		for (index in 1...lines.length) {
-			text += parsedCode.lineSeparator;
+			text += outputLineEnds;
 			var line:String = lines[index];
 			var lineIndent:Int = indent;
 			var lastLine:Bool = index == lines.length - 1;

@@ -1,7 +1,6 @@
 package formatter.config;
 
-@:enum
-abstract WhitespacePolicy(String) {
+enum abstract WhitespacePolicy(String) {
 	var None = "none";
 	var Before = "before";
 	var NoneBefore = "noneBefore";

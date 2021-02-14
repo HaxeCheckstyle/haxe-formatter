@@ -150,8 +150,7 @@ typedef SameLineConfig = {
 	@:default(Same) @:optional var untypedBody:SameLinePolicy;
 }
 
-@:enum
-abstract SameLinePolicy(String) {
+enum abstract SameLinePolicy(String) {
 	var Same = "same";
 	var Next = "next";
 	var Keep = "keep";

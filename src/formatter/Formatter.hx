@@ -132,12 +132,13 @@ class Formatter {
 			markTokenText.finalRun();
 			markAdditionalIndent.run();
 
+			var outputLineEnds:String = MarkLineEnds.outputLineSeparator(config.lineEnds, parsedCode);
 			var lines:CodeLines = new CodeLines(parsedCode, indenter, inputData.range);
-			lines.applyWrapping(config.wrapping);
+			lines.applyWrapping(config.wrapping, outputLineEnds);
 			markEmptyLines.finalRun(lines);
 
-			var formatted:String = lines.print(parsedCode.lineSeparator);
-			FormatStats.addFormattedLines(formatted.split(parsedCode.lineSeparator).length);
+			var formatted:String = lines.print(outputLineEnds);
+			FormatStats.addFormattedLines(formatted.split(outputLineEnds).length);
 			return Success(formatted);
 		} catch (e:Any) {
 			var callstack = CallStack.toString(CallStack.exceptionStack());

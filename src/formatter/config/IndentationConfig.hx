@@ -50,8 +50,7 @@ typedef IndentationConfig = {
 	@:default(true) @:optional var indentCaseLabels:Bool;
 }
 
-@:enum
-abstract ConditionalIndentationPolicy(String) {
+enum abstract ConditionalIndentationPolicy(String) {
 	var FixedZero = "fixedZero";
 	var FixedZeroIncrease = "fixedZeroIncrease";
 	var FixedZeroIncreaseBlocks = "fixedZeroIncreaseBlocks";
