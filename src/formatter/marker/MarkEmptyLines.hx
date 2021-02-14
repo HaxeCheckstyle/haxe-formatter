@@ -1131,7 +1131,6 @@ class MarkEmptyLines extends MarkerBase {
 			var fullPos:Position = block.getPos();
 			var startLine:Int = parsedCode.getLinePos(fullPos.min).line;
 			var endLine:Int = parsedCode.getLinePos(fullPos.max).line;
-
 			for (emptyLine in parsedCode.emptyLines) {
 				if ((startLine >= emptyLine) || (endLine <= emptyLine)) {
 					continue;

@@ -20,7 +20,7 @@ class CodeLine {
 		partialLine = false;
 	}
 
-	public function addToken(tokenInfo:TokenInfo, lineSeparator:String) {
+	public function addToken(tokenInfo:TokenInfo) {
 		if (tokenInfo.emptyLinesAfter > emptyLinesAfter) {
 			emptyLinesAfter = tokenInfo.emptyLinesAfter;
 		}
@@ -49,10 +49,10 @@ class CodeLine {
 		}
 	}
 
-	public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter):Array<CodeLine> {
+	public function applyWrapping(config:WrapConfig, parsedCode:ParsedCode, indenter:Indenter, lineSeparator:String):Array<CodeLine> {
 		var lineLength:Int = indenter.calcAbsoluteIndent(indent);
 		for (part in parts) {
-			calcLineLengths(part, parsedCode.lineSeparator);
+			calcLineLengths(part, lineSeparator);
 		}
 		for (index in 0...parts.length) {
 			var part:CodePart = parts[index];
@@ -138,10 +138,10 @@ class CodeLine {
 			line = indenter.makeIndentString(indent) + line.rtrim();
 		}
 		for (index in 0...emptyLinesAfter) {
-			line += lineSeparator;
 			if (indenter.shouldAddTrailingWhitespace()) {
 				line += indenter.makeIndentString(indent);
 			}
+			line += lineSeparator;
 		}
 		return line;
 	}

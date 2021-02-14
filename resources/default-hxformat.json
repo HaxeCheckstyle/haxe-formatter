@@ -132,6 +132,7 @@
 		"caseColon": "after",
 		"emptyCurly": "noBreak",
 		"leftCurly": "after",
+		"lineEndCharacter": "auto",
 		"metadataFunction": "none",
 		"metadataOther": "none",
 		"metadataType": "none",

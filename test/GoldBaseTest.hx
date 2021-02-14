@@ -70,8 +70,7 @@ class GoldBaseTest {
 	}
 }
 
-@:enum
-abstract GoldBaseTemplates(String) to String {
+enum abstract GoldBaseTemplates(String) to String {
 	var FieldTemplate = "class Test {
 ::code::
 }";

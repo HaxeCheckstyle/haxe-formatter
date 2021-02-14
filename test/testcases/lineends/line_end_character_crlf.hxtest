@@ -1,0 +1,17 @@
+{
+	"lineEnds": {
+		"lineEndCharacter": "CRLF"
+	}
+}
+
+---
+
+public inline function test() {
+	trace("test");
+}
+
+---
+
+public inline function test() {
+	trace("test");
+}

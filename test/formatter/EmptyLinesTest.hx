@@ -14,8 +14,8 @@ class EmptyLinesTest {
 		var formattedLines:Array<String> = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
-		formatted = format(lines.join("\r\n"));
-		formattedLines = formatted.split("\r\n").map(function(s) return s.ltrim());
+		formatted = format(lines.join("\n"));
+		formattedLines = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		var buf:StringBuf = new StringBuf();
@@ -38,8 +38,8 @@ class EmptyLinesTest {
 	public function testBOMEmptyLines() {
 		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 
-		var formatted:String = format(lines.join("\r\n"));
-		var formattedLines:Array<String> = formatted.split("\r\n").map(function(s) return s.ltrim());
+		var formatted:String = format(lines.join("\n"));
+		var formattedLines:Array<String> = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
 		var byteBuffer:BytesBuffer = new BytesBuffer();
@@ -56,10 +56,10 @@ class EmptyLinesTest {
 		byteBuffer.addByte(0xEF);
 		byteBuffer.addByte(0xBB);
 		byteBuffer.addByte(0xBF);
-		byteBuffer.addString(lines.join("\r\n"));
+		byteBuffer.addString(lines.join("\n"));
 
 		formatted = format(byteBuffer.getBytes().toString());
-		formattedLines = formatted.split("\r\n").map(function(s) return s.ltrim());
+		formattedLines = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 	}
 
@@ -74,8 +74,8 @@ class EmptyLinesTest {
 		var formattedLines:Array<String> = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 
-		formatted = format(lines.join("\r\n"));
-		formattedLines = formatted.split("\r\n").map(function(s) return s.ltrim());
+		formatted = format(lines.join("\n"));
+		formattedLines = formatted.split("\n").map(function(s) return s.ltrim());
 		compareLines(lines, formattedLines);
 	}
 
@@ -103,8 +103,7 @@ class EmptyLinesTest {
 	}
 }
 
-@:enum
-abstract EmptyLinesTests(String) to String {
+enum abstract EmptyLinesTests(String) to String {
 	var EmptyLinesText1 = "class Test {
 	function test() {
 		trace(oldText);

@@ -1,6 +1,11 @@
 package formatter.config;
 
 typedef LineEndConfig = {
+	/**
+		line end character to use when outputting formatted code
+	**/
+	@:default(Auto) @:optional var lineEndCharacter:LineEndCharacter;
+
 	@:default(None) @:optional var metadataType:AtLineEndPolicy;
 	@:default(None) @:optional var metadataVar:AtLineEndPolicy;
 	@:default(None) @:optional var metadataFunction:AtLineEndPolicy;
@@ -49,22 +54,19 @@ typedef LineEndConfig = {
 	@:default(null) @:optional var typedefCurly:Null<CurlyLineEndPolicy>;
 }
 
-@:enum
-abstract AtLineEndPolicy(String) {
+enum abstract AtLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
 	var AfterLast = "afterLast";
 	var ForceAfterLast = "forceAfterLast";
 }
 
-@:enum
-abstract CaseColonLineEndPolicy(String) {
+enum abstract CaseColonLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
 }
 
-@:enum
-abstract SharpLineEndPolicy(String) {
+enum abstract SharpLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
 }
@@ -86,24 +88,43 @@ typedef CurlyLineEndPolicy = {
 	@:default(NoBreak) @:optional var emptyCurly:EmptyCurlyPolicy;
 }
 
-@:enum
-abstract LeftCurlyLineEndPolicy(String) {
+enum abstract LeftCurlyLineEndPolicy(String) {
 	var None = "none";
 	var After = "after";
 	var Before = "before";
 	var Both = "both";
 }
 
-@:enum
-abstract RightCurlyLineEndPolicy(String) {
+enum abstract RightCurlyLineEndPolicy(String) {
 	var None = "none";
 	var Before = "before";
 	var After = "after";
 	var Both = "both";
 }
 
-@:enum
-abstract EmptyCurlyPolicy(String) {
+enum abstract EmptyCurlyPolicy(String) {
 	var NoBreak = "noBreak";
 	var Break = "break";
+}
+
+enum abstract LineEndCharacter(String) {
+	/**
+		detect line end character from input (repeated for each input file)
+	**/
+	var Auto = "auto";
+
+	/**
+		output files with \r line endings
+	**/
+	var CR = "CR";
+
+	/**
+		output files with \n line endings
+	**/
+	var LF = "LF";
+
+	/**
+		output files with \r\n line endings
+	**/
+	var CRLF = "CRLF";
 }

@@ -467,8 +467,7 @@ typedef WrapRule = {
 	@:default(0) @:optional var additionalIndent:Int;
 }
 
-@:enum
-abstract WrappingType(String) {
+enum abstract WrappingType(String) {
 	/**
 		every item in a separate line, including first item
 	**/
@@ -505,8 +504,7 @@ abstract WrappingType(String) {
 	var Keep = "keep";
 }
 
-@:enum
-abstract WrappingLocation(String) {
+enum abstract WrappingLocation(String) {
 	var BeforeLast = "beforeLast";
 	var AfterLast = "afterLast";
 }
@@ -516,8 +514,7 @@ typedef WrapCondition = {
 	@:default(1) @:optional var value:Int;
 }
 
-@:enum
-abstract WrapConditionType(String) {
+enum abstract WrapConditionType(String) {
 	/**
 		condition matches if item count is larger than or equal n characters
 	**/
@@ -578,8 +575,7 @@ typedef ArrayWrapping = {
 	@:default(60) @:optional var totalItemLengthOneLine:Int;
 }
 
-@:enum
-abstract ArrayMatrixWrap(String) {
+enum abstract ArrayMatrixWrap(String) {
 	var NoMatrixWrap = "noMatrixWrap";
 	var MatrixWrapNoAlign = "matrixWrapNoAlign";
 	var MatrixWrapWithAlign = "matrixWrapWithAlign";

@@ -165,7 +165,7 @@ class CodeLines {
 					line.partialLine = true;
 				}
 			}
-			line.addToken(tokenInfo, parsedCode.lineSeparator);
+			line.addToken(tokenInfo);
 			if (tokenInfo.whitespaceAfter == Newline) {
 				line = null;
 			}
@@ -231,11 +231,11 @@ class CodeLines {
 		lines.push(new VerbatimCodeLine(content));
 	}
 
-	public function applyWrapping(config:WrapConfig) {
+	public function applyWrapping(config:WrapConfig, lineSeparator:String) {
 		var wrappedLines:Array<CodeLine> = [];
 
 		for (line in lines) {
-			var wrappedCode:Array<CodeLine> = line.applyWrapping(config, parsedCode, indenter);
+			var wrappedCode:Array<CodeLine> = line.applyWrapping(config, parsedCode, indenter, lineSeparator);
 			wrappedLines = wrappedLines.concat(wrappedCode);
 		}
 		lines = wrappedLines;
@@ -246,7 +246,6 @@ class CodeLines {
 		if (parsedCode.tokenList.leadingEmptyLInes > 0) {
 			prefix = "".lpad(lineSeparator, lineSeparator.length * parsedCode.tokenList.leadingEmptyLInes);
 		}
-		var rangeNewLine:String = "";
 		if (range != null) {
 			if (range.startPos > 0) {
 				prefix = "";

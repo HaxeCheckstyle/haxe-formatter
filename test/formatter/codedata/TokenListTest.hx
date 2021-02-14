@@ -58,8 +58,7 @@ class TokenListTest {
 	}
 }
 
-@:enum
-abstract FormatStatsTestCode(String) to String {
+enum abstract FormatStatsTestCode(String) to String {
 	var CodeSample = "
 class Main {
 

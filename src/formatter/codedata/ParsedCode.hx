@@ -122,11 +122,22 @@ class ParsedCode {
 		var last = 0;
 		var left = false;
 
+		var skip0A:Bool = false;
 		for (i in 0...code.length) {
-			if (code.get(i) == 0x0A) {
-				linesIdx.push({l: last, r: i});
-				last = i + 1;
-				left = false;
+			var charCode:Int = code.get(i);
+			if (skip0A && (charCode == 0x0A)) {
+				skip0A = false;
+				continue;
+			}
+			if ((charCode == 0x0A) || (charCode == 0x0D)) {
+				if ((charCode == 0x0D) && ((i + 1) < code.length) && (code.get(i + 1) == 0x0A)) {
+					skip0A = true;
+					linesIdx.push({l: last, r: i + 1});
+					last = i + 2;
+				} else {
+					linesIdx.push({l: last, r: i});
+					last = i + 1;
+				}
 			}
 			left = true;
 		}
