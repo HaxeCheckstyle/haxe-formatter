@@ -1,0 +1,20 @@
+{}
+
+---
+
+import Std.is as isOfType;
+
+#if (haxe_ver >= 4.2)
+import Std.isOfType;
+#else
+import Std.is as isOfType;
+#end
+
+---
+
+import Std.is as isOfType;
+#if (haxe_ver >= 4.2)
+import Std.isOfType;
+#else
+import Std.is as isOfType;
+#end
