@@ -310,14 +310,15 @@ class MarkWhitespace extends MarkerBase {
 
 	function markIs(token:TokenTree) {
 		var prev:Null<TokenInfo> = getPreviousToken(token);
+		var policy:WhitespacePolicy = Around;
 		if (prev != null) {
 			switch (prev.token.tok) {
 				case Dot | POpen:
-					return;
+					policy = policy.remove(Before);
 				default:
 			}
 		}
-		whitespace(token, Around);
+		whitespace(token, policy);
 	}
 
 	function markIn(token:TokenTree) {
