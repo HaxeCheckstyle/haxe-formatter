@@ -586,17 +586,24 @@ class MarkSameLine extends MarkerBase {
 				if (prev == null) {
 					noLineEndBefore(token);
 				} else {
-					switch (prev.token.tok) {
-						case POpen | Dot:
-							whitespace(token, NoneBefore);
-						case BrClose | Semicolon:
-							switch (token.tok) {
-								case At:
-								case _:
+					switch (token.tok) {
+						case At:
+							switch (prev.token.tok) {
+								case POpen | Dot:
+									whitespace(token, NoneBefore);
+								case BrOpen | BrClose | Semicolon | DblDot | Sharp(_) | Kwd(_):
+								case Binop(_):
+									lineEndBefore(token);
+								default:
 									noLineEndBefore(token);
 							}
-						default:
-							noLineEndBefore(token);
+						case _:
+							switch (prev.token.tok) {
+								case POpen | Dot:
+									whitespace(token, NoneBefore);
+								default:
+									noLineEndBefore(token);
+							}
 					}
 				}
 				var lastToken:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
@@ -624,6 +631,14 @@ class MarkSameLine extends MarkerBase {
 							return;
 						}
 					default:
+				}
+				var prev:Null<TokenInfo> = getPreviousToken(token);
+				if ((prev == null) || (!TokenTreeCheckUtils.isMetadata(prev.token))) {
+					lineEndBefore(token);
+					return;
+				}
+				if (!parsedCode.isOriginalNewlineBefore(token)) {
+					return;
 				}
 				lineEndBefore(token);
 		}
