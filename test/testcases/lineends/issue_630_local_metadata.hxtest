@@ -6,9 +6,160 @@ public inline function next():{key:K, value:V} {
 	var key = keys.next(); @:nullSafety(Off) return {value: map.get(key), key: key};
 }
 
+public inline function next():{key:K, value:V} {
+	var key = keys.next();
+	@:nullSafety(Off) return {value: map.get(key), key: key};
+}
+
+public function unserialize():Dynamic {
+	switch (get(pos++)) {
+		case "n".code: @:nullSafety(Off)
+			return null;
+	}
+}
+
+public function unserialize():Dynamic {
+	switch (get(pos++)) {
+		case "n".code:
+			@:nullSafety(Off) return null;
+	}
+}
+
+static inline function fastCharCodeAt(s:String, pos:Int):Int {
+	#if php
+	return php.Global.ord((s : php.NativeString)[pos]);
+	#else @:nullSafety(Off)
+	return s.charCodeAt(pos);
+	#end
+}
+
+static inline function fastCharCodeAt(s:String, pos:Int):Int {
+	#if php
+	return php.Global.ord((s : php.NativeString)[pos]);
+	#else
+	@:nullSafety(Off) return s.charCodeAt(pos);
+	#end
+}
+
+public function first():Null<T> {@:nullSafety(Off)
+	return if (h == null) null else h.item;
+}
+
+public function first():Null<T> {
+	@:nullSafety(Off) return if (h == null) null else h.item;
+}
+
+public inline function resolveClass(name:String):Null<Class<Dynamic>> @:nullSafety(Off)
+	return null;
+
+public inline function resolveClass(name:String):Null<Class<Dynamic>>
+	@:nullSafety(Off) return null;
+
+public inline function resolveClass(name:String):Null<Class<Dynamic>>
+	@:nullSafety(Off)
+	return null;
+
+public function add(item:T) {
+	var x = ListNode.create(item, null);
+	if (h == null)
+		h = x;
+	else @:nullSafety(Off)
+		q.next = x;
+	q = x;
+	length++;
+}
+
+public function add(item:T) {
+	var x = ListNode.create(item, null);
+	if (h == null)
+		h = x;
+	else
+		@:nullSafety(Off) q.next = x;
+	q = x;
+	length++;
+}
+
 ---
 
 public inline function next():{key:K, value:V} {
 	var key = keys.next();
 	@:nullSafety(Off) return {value: map.get(key), key: key};
+}
+
+public inline function next():{key:K, value:V} {
+	var key = keys.next();
+	@:nullSafety(Off) return {value: map.get(key), key: key};
+}
+
+public function unserialize():Dynamic {
+	switch (get(pos++)) {
+		case "n".code:
+			@:nullSafety(Off)
+			return null;
+	}
+}
+
+public function unserialize():Dynamic {
+	switch (get(pos++)) {
+		case "n".code:
+			@:nullSafety(Off) return null;
+	}
+}
+
+static inline function fastCharCodeAt(s:String, pos:Int):Int {
+	#if php
+	return php.Global.ord((s : php.NativeString)[pos]);
+	#else
+	@:nullSafety(Off)
+	return s.charCodeAt(pos);
+	#end
+}
+
+static inline function fastCharCodeAt(s:String, pos:Int):Int {
+	#if php
+	return php.Global.ord((s : php.NativeString)[pos]);
+	#else
+	@:nullSafety(Off) return s.charCodeAt(pos);
+	#end
+}
+
+public function first():Null<T> {
+	@:nullSafety(Off)
+	return if (h == null) null else h.item;
+}
+
+public function first():Null<T> {
+	@:nullSafety(Off) return if (h == null) null else h.item;
+}
+
+public inline function resolveClass(name:String):Null<Class<Dynamic>>
+	@:nullSafety(Off)
+	return null;
+
+public inline function resolveClass(name:String):Null<Class<Dynamic>>
+	@:nullSafety(Off) return null;
+
+public inline function resolveClass(name:String):Null<Class<Dynamic>>
+	@:nullSafety(Off)
+	return null;
+
+public function add(item:T) {
+	var x = ListNode.create(item, null);
+	if (h == null)
+		h = x;
+	else
+		@:nullSafety(Off)
+		q.next = x;
+	q = x;
+	length++;
+}
+
+public function add(item:T) {
+	var x = ListNode.create(item, null);
+	if (h == null)
+		h = x;
+	else
+		@:nullSafety(Off) q.next = x;
+	q = x;
+	length++;
 }

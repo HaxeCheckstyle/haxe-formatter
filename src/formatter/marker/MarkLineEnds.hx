@@ -356,22 +356,42 @@ class MarkLineEnds extends MarkerBase {
 		var atTokens:Array<TokenTree> = parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
 				case At:
-					FoundGoDeeper;
+					FoundSkipSubtree;
 				default:
 					GoDeeper;
 			}
 		});
+		function addLineEndBefore(atToken:TokenTree) {
+			var prev:TokenInfo = getPreviousToken(atToken);
+			if (prev == null) {
+				lineEndBefore(atToken);
+				return;
+			}
+			switch (prev.token.tok) {
+				case Kwd(KwdElse):
+					lineEndBefore(atToken);
+				case BrOpen:
+					lineEndBefore(atToken);
+				case Kwd(KwdFinal) | Kwd(KwdFunction) | Kwd(KwdVar):
+					noLineEndBefore(atToken);
+				default:
+			}
+		}
 		for (token in atTokens) {
 			var metadataPolicy:AtLineEndPolicy = determineMetadataPolicy(token);
 			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(token);
 			if (lastChild == null) {
 				continue;
 			}
+			var isNotFirst:Bool = (token.previousSibling != null) && (token.previousSibling.tok.match(At));
+			if (!isNotFirst) {
+				addLineEndBefore(token);
+			}
 			if (metadataPolicy == After) {
 				lineEndAfter(lastChild);
 				continue;
 			}
-			if ((token.previousSibling != null) && (token.previousSibling.tok.match(At))) {
+			if (isNotFirst) {
 				// only look at first metadata
 				continue;
 			}

@@ -1,6 +1,6 @@
 {
 	"name": "@haxecheckstyle/haxe-formatter",
-	"version": "1.11.2",
+	"version": "1.12.0",
 	"description": "A code formatter for Haxe",
 	"repository": {
 		"type": "git",
