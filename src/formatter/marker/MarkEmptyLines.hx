@@ -1126,6 +1126,9 @@ class MarkEmptyLines extends MarkerBase {
 				block = func.access().firstChild().firstOf(BrOpen).token;
 			}
 			if (block == null) {
+				block = func.access().firstOf(BrOpen).token;
+			}
+			if (block == null) {
 				continue;
 			}
 			var fullPos:Position = block.getPos();
