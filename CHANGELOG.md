@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed empty lines in anonymous functions, fixes [#644](https://github.com/HaxeCheckstyle/haxe-formatter/issues/644) ([#627](https://github.com/HaxeCheckstyle/haxe-formatter/issues/645))
+
 ## version 1.12.0 (2021-02-28)
 
 - Added `lineEnds.lineEndCharacter` to set line end character used for output ([#633](https://github.com/HaxeCheckstyle/haxe-formatter/issues/633))
