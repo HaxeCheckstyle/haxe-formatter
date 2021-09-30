@@ -3,6 +3,20 @@
 
 ---
 
+class Foo {
+	var a = function() {
+		1;
+
+		2;
+	}
+}
+
+var b = function() {
+	1;
+
+	2;
+}
+
 final a = function() {
 	1;
 
@@ -10,6 +24,20 @@ final a = function() {
 }
 
 ---
+
+class Foo {
+	var a = function() {
+		1;
+
+		2;
+	}
+}
+
+var b = function() {
+	1;
+
+	2;
+}
 
 final a = function() {
 	1;
