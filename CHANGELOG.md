@@ -3,7 +3,8 @@
 ## dev branch / next version (1.x.x)
 
 - Added default type parameter support, fixes [#650](https://github.com/HaxeCheckstyle/haxe-formatter/issues/650)
-- Fixed empty lines in anonymous functions, fixes [#644](https://github.com/HaxeCheckstyle/haxe-formatter/issues/644) ([#627](https://github.com/HaxeCheckstyle/haxe-formatter/issues/645))
+- Fixed empty lines in anonymous functions, fixes [#644](https://github.com/HaxeCheckstyle/haxe-formatter/issues/644) ([#645](https://github.com/HaxeCheckstyle/haxe-formatter/issues/645))
+- Fixed trailing whitespace getting moved to previous line, fixes [#646](https://github.com/HaxeCheckstyle/haxe-formatter/issues/646) ([#647](https://github.com/HaxeCheckstyle/haxe-formatter/issues/647))
 
 ## version 1.12.0 (2021-02-28)
 
