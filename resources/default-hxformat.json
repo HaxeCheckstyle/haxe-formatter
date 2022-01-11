@@ -381,6 +381,10 @@
 				{
 					"conditions": [
 						{
+							"cond": "anyItemLength <= n",
+							"value": 30
+						},
+						{
 							"cond": "itemCount >= n",
 							"value": 10
 						}

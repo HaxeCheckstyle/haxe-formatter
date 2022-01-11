@@ -1,0 +1,25 @@
+{
+	"indentation": {
+		"trailingWhitespace": false
+	}
+}
+
+---
+
+class Main {
+static function main() {
+trace(1);
+
+trace(2);
+}
+}
+
+---
+
+class Main {
+	static function main() {
+		trace(1);
+
+		trace(2);
+	}
+}

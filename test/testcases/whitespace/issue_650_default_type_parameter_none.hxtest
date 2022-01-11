@@ -1,0 +1,27 @@
+{
+	"whitespace" : {
+		"binopPolicy" : "none"
+	}
+}
+
+---
+
+private class DefaultTPClass_y<T=String> {}
+private class DefaultTPClass_yn<S=String, T> {}
+private class DefaultTPClass_ny<S, T=String> {}
+private class DefaultTPClass_yy<S=Int, T=String> {}
+private class DefaultTPClass_yy<S=Int, T=String> {}
+class DefaultTPClass_yy<S=pack.sub.Type, T=String> {}
+class DefaultTPClass_yy<S:(pack.sub.Type)=pack.sub.TypeImpl, T=String> {}
+class DefaultTPClass_yy<S:pack.sub.Type=pack.sub.TypeImpl, T=String> {}
+
+---
+
+private class DefaultTPClass_y<T=String> {}
+private class DefaultTPClass_yn<S=String, T> {}
+private class DefaultTPClass_ny<S, T=String> {}
+private class DefaultTPClass_yy<S=Int, T=String> {}
+private class DefaultTPClass_yy<S=Int, T=String> {}
+class DefaultTPClass_yy<S=pack.sub.Type, T=String> {}
+class DefaultTPClass_yy<S:(pack.sub.Type)=pack.sub.TypeImpl, T=String> {}
+class DefaultTPClass_yy<S:pack.sub.Type=pack.sub.TypeImpl, T=String> {}

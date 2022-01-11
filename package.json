@@ -18,7 +18,7 @@
 	"license": "MIT",
 	"homepage": "https://github.com/HaxeCheckstyle/haxe-formatter#readme",
 	"devDependencies": {
-		"lix": "^15.11.4",
+		"lix": "^15.11.6",
 		"uglify-js-es6": "^2.8.9"
 	},
 	"bin": {
