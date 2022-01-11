@@ -138,10 +138,10 @@ class CodeLine {
 			line = indenter.makeIndentString(indent) + line.rtrim();
 		}
 		for (index in 0...emptyLinesAfter) {
+			line += lineSeparator;
 			if (indenter.shouldAddTrailingWhitespace()) {
 				line += indenter.makeIndentString(indent);
 			}
-			line += lineSeparator;
 		}
 		return line;
 	}
