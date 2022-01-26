@@ -3,6 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Added default type parameter support, fixes [#650](https://github.com/HaxeCheckstyle/haxe-formatter/issues/650) ([#651](https://github.com/HaxeCheckstyle/haxe-formatter/issues/651))
+- Added support for static locals
 - Fixed empty lines in anonymous functions, fixes [#644](https://github.com/HaxeCheckstyle/haxe-formatter/issues/644) ([#645](https://github.com/HaxeCheckstyle/haxe-formatter/issues/645))
 - Fixed trailing whitespace getting moved to previous line, fixes [#646](https://github.com/HaxeCheckstyle/haxe-formatter/issues/646) ([#647](https://github.com/HaxeCheckstyle/haxe-formatter/issues/647))
 

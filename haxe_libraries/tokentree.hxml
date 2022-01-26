@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/HaxeCheckstyle/tokentree#a07b94f8eee0b7d0ddbfb3d285fd487a44fa0656" into tokentree/1.1.1/github/a07b94f8eee0b7d0ddbfb3d285fd487a44fa0656
--cp ${HAXE_LIBCACHE}/tokentree/1.1.1/github/a07b94f8eee0b7d0ddbfb3d285fd487a44fa0656/src
+# @install: lix --silent download "gh://github.com/HaxeCheckstyle/tokentree#a91db0c834a63f371a6f3858f62a0f951be2bbcf" into tokentree/1.1.1/github/a91db0c834a63f371a6f3858f62a0f951be2bbcf
+-cp ${HAXE_LIBCACHE}/tokentree/1.1.1/github/a91db0c834a63f371a6f3858f62a0f951be2bbcf/src
 -D tokentree=1.1.1
