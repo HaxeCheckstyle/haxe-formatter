@@ -25,6 +25,7 @@ Class Main {
 Class Main {
 	var startPos:Int;
 	var endPos:Int;
+
 	/**
 	 * var startPos:Int;
 	 * var endPos:Int;

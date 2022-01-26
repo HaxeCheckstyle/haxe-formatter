@@ -1,0 +1,24 @@
+{
+}
+
+---
+
+class Main {
+    static function main() {
+		static final @Test a = 1, b = 2;
+		static var c, d;
+		final e = 2;
+		var f;
+    }
+}
+
+---
+
+class Main {
+	static function main() {
+		static final @Test a = 1, b = 2;
+		static var c, d;
+		final e = 2;
+		var f;
+	}
+}
