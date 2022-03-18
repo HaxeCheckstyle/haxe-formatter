@@ -26,8 +26,9 @@ class GoldBaseTest {
 	}
 
 	function handleResult(fileName:String, result:Result, goldCode:String, ?pos:PosInfos) {
-		var isDisabled:Bool = fileName.startsWith("disabled_");
-		var isFailing:Bool = fileName.startsWith("failing_");
+		var file = new haxe.io.Path(fileName).file;
+		var isDisabled:Bool = file.startsWith("disabled_");
+		var isFailing:Bool = file.startsWith("failing_");
 
 		switch (result) {
 			case Success(formattedCode):

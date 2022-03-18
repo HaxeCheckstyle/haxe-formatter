@@ -40,7 +40,7 @@ class TestCaseMacro {
 		return (macro class {
 			@Test
 			public function $fieldName() {
-				goldCheck($v{fieldName}, $v{unformatted}, $v{gold}, $v{lineSeparator}, $v{config});
+				goldCheck($v{fileName}, $v{unformatted}, $v{gold}, $v{lineSeparator}, $v{config});
 			};
 		}).fields[0];
 	}

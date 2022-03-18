@@ -1,5 +1,5 @@
 {
-	"excludes": ["disabled_excluded"]
+	"excludes": ["test\/testcases\/other\/disabled_excluded.hxtest"]
 }
 
 ---

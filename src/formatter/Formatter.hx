@@ -66,9 +66,12 @@ class Formatter {
 					range: range
 				};
 				return formatInputData(inputData);
-			case Tokens(tokenList, tokenTree, code):
+			case Tokens(tokenList, tokenTree, code, origin):
 				inputData = {
-					fileName: "<unknown.hx>",
+					fileName: switch (origin) {
+						case SourceFile(fileName): fileName;
+						case Snippet: "code snippet";
+					},
 					content: code,
 					tokenList: tokenList,
 					tokenTree: tokenTree,
@@ -186,7 +189,7 @@ enum FormatterInput {
 	FileInput(fileName:String);
 	#end
 	Code(code:String, origin:CodeOrigin);
-	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes);
+	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes, origin:CodeOrigin);
 }
 
 enum CodeOrigin {
