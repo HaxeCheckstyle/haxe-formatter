@@ -1,5 +1,5 @@
-# @install: lix --silent download "gh://github.com/AlexHaxe/haxe-instrument#b61bdee34bf175e31b725306971d21105545ff89" into instrument/1.1.0/github/b61bdee34bf175e31b725306971d21105545ff89
+# @install: lix --silent download "gh://github.com/AlexHaxe/haxe-instrument#9a687ac403cebdcde2d5326af2487d1dea88d66e" into instrument/1.1.1/github/9a687ac403cebdcde2d5326af2487d1dea88d66e
 -lib safety
--cp ${HAXE_LIBCACHE}/instrument/1.1.0/github/b61bdee34bf175e31b725306971d21105545ff89/src
--D instrument=1.1.0
+-cp ${HAXE_LIBCACHE}/instrument/1.1.1/github/9a687ac403cebdcde2d5326af2487d1dea88d66e/src
+-D instrument=1.1.1
 -lib safety

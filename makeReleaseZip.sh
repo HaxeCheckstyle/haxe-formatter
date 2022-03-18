@@ -4,7 +4,7 @@
 
 npm install
 npx lix download
-npx lix use haxe 4.1.5
+npx lix use haxe nightly
 
 npx haxe buildJsNode.hxml
 npx haxe buildJsBrowser.hxml
