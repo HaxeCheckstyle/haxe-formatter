@@ -90,7 +90,7 @@ class EmptyLinesTest {
 	function format(unformatted:String, ?pos:PosInfos):String {
 		var config = new Config();
 		config.readConfigFromString("{}", "goldhxformat.json");
-		var result:Result = Formatter.format(Code(unformatted), config, null, TypeLevel);
+		var result:Result = Formatter.format(Code(unformatted, Snippet), config, null, TypeLevel);
 		switch (result) {
 			case Success(formattedCode):
 				return formattedCode;

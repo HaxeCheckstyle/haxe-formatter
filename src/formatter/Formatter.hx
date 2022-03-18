@@ -52,10 +52,13 @@ class Formatter {
 				};
 				return formatInputData(inputData);
 			#end
-			case Code(code):
+			case Code(code, origin):
 				var content:Bytes = Bytes.ofString(code);
 				inputData = {
-					fileName: "code snippet",
+					fileName: switch (origin) {
+						case SourceFile(fileName): fileName;
+						case Snippet: "code snippet";
+					},
 					content: content,
 					config: config,
 					lineSeparator: lineSeparator,
@@ -63,9 +66,12 @@ class Formatter {
 					range: range
 				};
 				return formatInputData(inputData);
-			case Tokens(tokenList, tokenTree, code):
+			case Tokens(tokenList, tokenTree, code, origin):
 				inputData = {
-					fileName: "<unknown.hx>",
+					fileName: switch (origin) {
+						case SourceFile(fileName): fileName;
+						case Snippet: "code snippet";
+					},
 					content: code,
 					tokenList: tokenList,
 					tokenTree: tokenTree,
@@ -165,7 +171,7 @@ class Formatter {
 
 	#if (js && !nodejs)
 	public static function main() {
-		var result:Result = Formatter.format(Code(" trace ( 'foo' ) ; "), new Config(), ExpressionLevel);
+		var result:Result = Formatter.format(Code(" trace ( 'foo' ) ; ", Snippet), new Config(), ExpressionLevel);
 		switch (result) {
 			case Success(formattedCode):
 				js.Browser.console.log("Success: " + formattedCode);
@@ -182,6 +188,11 @@ enum FormatterInput {
 	#if (sys || nodejs)
 	FileInput(fileName:String);
 	#end
-	Code(code:String);
-	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes);
+	Code(code:String, origin:CodeOrigin);
+	Tokens(tokenList:Array<Token>, tokenTree:TokenTree, code:Bytes, origin:CodeOrigin);
+}
+
+enum CodeOrigin {
+	SourceFile(fileName:String);
+	Snippet;
 }

@@ -12,13 +12,13 @@ class GoldBaseTest {
 	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?configString:String, ?pos:PosInfos) {
 		var config = new Config();
 		config.readConfigFromString(configString, "goldhxformat.json");
-		var result:Result = Formatter.format(Code(unformatted), config, lineSeparator, entryPoint);
+		var result:Result = Formatter.format(Code(unformatted, SourceFile(fileName)), config, lineSeparator, entryPoint);
 		handleResult(fileName, result, goldCode, pos);
 
 		// second run to make sure result is stable
 		switch (result) {
 			case Success(formattedCode):
-				result = Formatter.format(Code(formattedCode), config, lineSeparator, entryPoint);
+				result = Formatter.format(Code(formattedCode, SourceFile(fileName)), config, lineSeparator, entryPoint);
 				handleResult(fileName, result, goldCode, pos);
 			case Failure(errorMessage):
 			case Disabled:
@@ -26,8 +26,9 @@ class GoldBaseTest {
 	}
 
 	function handleResult(fileName:String, result:Result, goldCode:String, ?pos:PosInfos) {
-		var isDisabled:Bool = fileName.startsWith("disabled_");
-		var isFailing:Bool = fileName.startsWith("failing_");
+		var file = new haxe.io.Path(fileName).file;
+		var isDisabled:Bool = file.startsWith("disabled_");
+		var isFailing:Bool = file.startsWith("failing_");
 
 		switch (result) {
 			case Success(formattedCode):

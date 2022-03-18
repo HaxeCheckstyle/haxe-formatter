@@ -22,7 +22,8 @@ class FormatRangeTestCases extends GoldBaseTest {
 		}
 		unformatted = unformatted.replace("]<", "");
 
-		var result:Result = Formatter.format(Code(unformatted), config, lineSeparator, entryPoint, {startPos: startIndex, endPos: endIndex});
+		var result:Result = Formatter.format(Code(unformatted, SourceFile(fileName)), config, lineSeparator, entryPoint,
+			{startPos: startIndex, endPos: endIndex});
 		handleResult(fileName, result, goldCode, pos);
 	}
 }

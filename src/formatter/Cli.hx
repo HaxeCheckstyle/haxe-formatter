@@ -175,8 +175,7 @@ class Cli {
 				Sys.exit(3);
 			}
 			var config = Formatter.loadConfig(paths[0]);
-
-			var result:Result = Formatter.format(Code(content.toString()), config);
+			var result:Result = Formatter.format(Code(content.toString(), SourceFile(paths[0])), config);
 			switch (result) {
 				case Success(formattedCode):
 					Sys.println(formattedCode);
@@ -205,7 +204,7 @@ class Cli {
 				verboseLogFile(path, config);
 			}
 			var content:String = File.getContent(path);
-			var result:Result = Formatter.format(Code(content), config);
+			var result:Result = Formatter.format(Code(content, SourceFile(path)), config);
 			switch (result) {
 				case Success(formattedCode):
 					FormatStats.incSuccess();
@@ -218,7 +217,7 @@ class Cli {
 								exitCode = 1;
 							}
 						case CheckStability:
-							var secondResult = Formatter.format(Code(formattedCode), config);
+							var secondResult = Formatter.format(Code(formattedCode, SourceFile(path)), config);
 							function unstable() {
 								Sys.println('Unstable formatting in $path');
 								exitCode = 1;
