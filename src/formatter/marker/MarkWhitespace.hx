@@ -231,6 +231,15 @@ class MarkWhitespace extends MarkerBase {
 								policy = policy.add(Before);
 							default:
 						}
+					case Const(CIdent("from")) | Const(CIdent("to")):
+						var parent:Null<TokenTree> = prev.token.parent;
+						if (parent != null) {
+							switch (parent.tok) {
+								case Const(_):
+									policy = policy.add(Before);
+								default:
+							}
+						}
 					default:
 				}
 			}

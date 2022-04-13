@@ -3,6 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Fixed conditional line ends / wrapping
+- Fixed whitespace after from/to with arrow functions
 
 ## version 1.13.0 (2022-03-18)
 
