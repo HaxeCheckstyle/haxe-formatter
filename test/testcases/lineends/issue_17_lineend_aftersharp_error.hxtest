@@ -4,8 +4,19 @@
 
 #if js #error "js is defined" #elseif php #else #end
 
+#if js trace("js is defined"); #elseif php #else #end
+
+#if js 
+#error "js is defined" 
+#elseif php 
+#else 
+#end
+
+
 ---
 
+#if js #error "js is defined" #elseif php #else #end
+#if js trace("js is defined"); #elseif php #else #end
 #if js
 #error "js is defined"
 #elseif php

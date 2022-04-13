@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed conditional line ends / wrapping
+
 ## version 1.13.0 (2022-03-18)
 
 - Added default type parameter support, fixes [#650](https://github.com/HaxeCheckstyle/haxe-formatter/issues/650) ([#651](https://github.com/HaxeCheckstyle/haxe-formatter/issues/651))

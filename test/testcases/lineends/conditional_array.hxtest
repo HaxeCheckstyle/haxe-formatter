@@ -1,0 +1,115 @@
+{
+	"lineEnds": {
+		"metadataFunction": "none"
+	}
+}
+
+---
+
+class Main{
+	function main() {
+		var test = [
+			new Node ("test", result.test, Leaf, node),
+			#if true
+			new Node ("test", result.test, Leaf, node),
+			#end
+			new Node ("test", result.test, Leaf, node),
+		];
+		var test = [
+			#if true
+			new Node ("test", result.test, Leaf, node),
+			#end
+			new Node ("test", result.test, Leaf, node),
+			new Node ("test", result.test, Leaf, node),
+		];
+		var test = [
+			new Node ("test", result.test, Leaf, node),
+			new Node ("test", result.test, Leaf, node),
+			#if true
+			new Node ("test", result.test, Leaf, node),
+			#end
+		];
+		var test = [
+			new Node ("test", result.test, Leaf, node),
+			new Node ("test", result.test, Leaf, node),
+			#if true
+			new Node ("test", result.test, Leaf, node)
+			#end
+		];
+		var test = [
+			#if true new Node ("test", result.test, Leaf, node), #end
+			new Node ("test", result.test, Leaf, node),
+			new Node ("test", result.test, Leaf, node),
+		];
+		var test = [
+			new Node ("test", result.test, Leaf, node),
+			#if true new Node ("test", result.test, Leaf, node), #end
+			new Node ("test", result.test, Leaf, node),
+		];
+		var test = [
+			new Node ("test", result.test, Leaf, node),
+			new Node ("test", result.test, Leaf, node),
+			#if true new Node ("test", result.test, Leaf, node), #end
+		];
+		var test = [
+			new Node ("test", result.test, Leaf, node),
+			new Node ("test", result.test, Leaf, node),
+			#if true new Node ("test", result.test, Leaf, node) #end
+		];
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		var test = [
+			new Node("test", result.test, Leaf, node),
+			#if true
+			new Node("test", result.test, Leaf, node),
+			#end
+			new Node("test", result.test, Leaf, node),
+		];
+		var test = [
+			#if true
+			new Node("test", result.test, Leaf, node),
+			#end
+			new Node("test", result.test, Leaf, node),
+			new Node("test", result.test, Leaf, node),
+		];
+		var test = [
+			new Node("test", result.test, Leaf, node),
+			new Node("test", result.test, Leaf, node),
+			#if true
+			new Node("test", result.test, Leaf, node),
+			#end
+		];
+		var test = [
+			new Node("test", result.test, Leaf, node),
+			new Node("test", result.test, Leaf, node),
+			#if true
+			new Node("test", result.test, Leaf, node)
+			#end
+		];
+		var test = [
+			#if true new Node("test", result.test, Leaf, node), #end
+			new Node("test", result.test, Leaf, node),
+			new Node("test", result.test, Leaf, node),
+		];
+		var test = [
+			new Node("test", result.test, Leaf, node),
+			#if true new Node("test", result.test, Leaf, node), #end
+			new Node("test", result.test, Leaf, node),
+		];
+		var test = [
+			new Node("test", result.test, Leaf, node),
+			new Node("test", result.test, Leaf, node),
+			#if true new Node("test", result.test, Leaf, node), #end
+		];
+		var test = [
+			new Node("test", result.test, Leaf, node),
+			new Node("test", result.test, Leaf, node),
+			#if true new Node("test", result.test, Leaf, node) #end
+		];
+	}
+}

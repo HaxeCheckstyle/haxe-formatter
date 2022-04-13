@@ -134,11 +134,6 @@ class MarkWrappingBase extends MarkerBase {
 				for (item in items) {
 					additionalIndent(item.first, addIndent);
 					lineEndBefore(item.first);
-					switch (item.last.tok) {
-						case Sharp(_):
-							lineEndBefore(item.last);
-						default:
-					}
 				}
 		}
 		if (keepFirst) {
