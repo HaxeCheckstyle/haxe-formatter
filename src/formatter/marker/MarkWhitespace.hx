@@ -231,6 +231,15 @@ class MarkWhitespace extends MarkerBase {
 								policy = policy.add(Before);
 							default:
 						}
+					case Const(CIdent("from")) | Const(CIdent("to")):
+						var parent:Null<TokenTree> = prev.token.parent;
+						if (parent != null) {
+							switch (parent.tok) {
+								case Const(_):
+									policy = policy.add(Before);
+								default:
+							}
+						}
 					default:
 				}
 			}
@@ -470,7 +479,7 @@ class MarkWhitespace extends MarkerBase {
 				var prev:Null<TokenInfo> = getPreviousToken(token);
 				if (prev != null) {
 					switch (prev.token.tok) {
-						case Const(_), Kwd(_):
+						case Const(_) | Kwd(_) | Binop(_):
 							whitespace(token, Before);
 						default:
 					}
@@ -505,7 +514,7 @@ class MarkWhitespace extends MarkerBase {
 					}
 				}
 			case Sharp("error"):
-				whitespace(token, After);
+				whitespace(token, Around);
 			default:
 		}
 	}

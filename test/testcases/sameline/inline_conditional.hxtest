@@ -38,7 +38,12 @@ class Main {
 class Main {
 	static function main() {
 		var debugDraw = #if debug System..... #else false #end;
-		var debugDraw = #if (debug) System.url.queryString.exists("debugDraw"); #else false; #end
+		var debugDraw =
+			#if (debug)
+			System.url.queryString.exists("debugDraw");
+			#else
+			false;
+			#end
 		#if (debug)
 		var debugDraw = System.url.queryString.exists("debugDraw");
 		#else

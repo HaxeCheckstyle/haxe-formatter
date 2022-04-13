@@ -8,7 +8,5 @@ class Foo {}
 
 ---
 
-#if foo
-@:keep
-#end
+#if foo @:keep #end
 class Foo {}

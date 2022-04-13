@@ -565,10 +565,26 @@ class MarkLineEnds extends MarkerBase {
 				}
 				switch (sharpEnd.tok) {
 					case Sharp(SHARP_END):
-						if (parsedCode.linesBetweenOriginal(token, sharpEnd) > 5) {
+						var count:Int = parsedCode.linesBetweenOriginal(token, sharpEnd);
+						var next:Null<TokenInfo> = getNextToken(sharpEnd);
+						if (next != null) {
+							switch (next.token.tok) {
+								case Comma, Semicolon:
+									if (count > 5) {
+										return false;
+									}
+									return true;
+								default:
+							}
+						}
+
+						if (count == 0) {
+							return true;
+						}
+						if (count > 3) {
 							return false;
 						}
-					case Comma, Semicolon:
+					case Comma | Semicolon:
 						sharpEnd = sharpEnd.previousSibling;
 						if (sharpEnd == null) {
 							return false;
@@ -593,12 +609,10 @@ class MarkLineEnds extends MarkerBase {
 					return false;
 				}
 				switch (prev.token.tok) {
-					case Semicolon:
+					case Semicolon | BrClose | Comment(_) | CommentLine(_) | BkOpen | Comma:
 						return false;
-					case BrClose:
-						return false;
-					case Comment(_), CommentLine(_):
-						return false;
+					case Binop(_):
+						return true;
 					case PClose:
 						if (parsedCode.isOriginalSameLine(prev.token, token)) {
 							return true;

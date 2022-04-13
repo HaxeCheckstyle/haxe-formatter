@@ -1,0 +1,14 @@
+{}
+
+
+---
+
+abstract A(Dynamic) from (String, Int) -> Int from (String, Bool) -> Bool from (Int) -> Void {}
+abstract A(Dynamic) to (String, Int) -> Int to (String, Bool) -> Bool to (Int) -> Void {}
+abstract A(Dynamic) from (String, Int) -> Int from (Int) -> Void to (String, Int) -> Int to (Int) -> Void {}
+
+---
+
+abstract A(Dynamic) from (String, Int) -> Int from (String, Bool) -> Bool from (Int) -> Void {}
+abstract A(Dynamic) to (String, Int) -> Int to (String, Bool) -> Bool to (Int) -> Void {}
+abstract A(Dynamic) from (String, Int) -> Int from (Int) -> Void to (String, Int) -> Int to (Int) -> Void {}
