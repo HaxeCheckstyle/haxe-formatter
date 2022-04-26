@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.13.1 (2022-04-26)
+
 - Fixed conditional line ends / wrapping ([#654](https://github.com/HaxeCheckstyle/haxe-formatter/issues/654))
 - Fixed whitespace after from/to with arrow functions ([#654](https://github.com/HaxeCheckstyle/haxe-formatter/issues/654))
 
