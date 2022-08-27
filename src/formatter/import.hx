@@ -1,9 +1,9 @@
 package formatter;
 
 #if (tokentree && !macro)
-import byte.ByteData;
 import haxe.io.Bytes;
 import haxe.macro.Expr;
+import byte.ByteData;
 import haxeparser.Data;
 import tokentree.TokenTree;
 import tokentree.TokenTreeAccessHelper;

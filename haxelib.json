@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.13.1",
-	"releasenote": "fixed conditional line ends / wrapping, fixed whitespace after from/to with arrow functions - see CHANGELOG for details.",
+	"version": "1.14.0",
+	"releasenote": "added support for inline markup - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"

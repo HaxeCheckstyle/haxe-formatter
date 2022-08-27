@@ -1,0 +1,76 @@
+{}
+
+---
+
+function inline_markup() {
+	<xml a=// </xml>
+
+	static var SRC =
+	<obj class="foo" padding-left={value} color="blue">
+		@exampleText("!")
+		<custom(55) public id="sub" custom-color="#ff0 0.5" active/>
+		<custom(66) if( anotherCustom )/>
+	</obj>;
+
+	super (<xml />);
+	super (<xml><xml /></xml>);
+
+	<xml></xml>;
+	<xml ></xml>;
+	<xml > </xml>;
+
+	<div some="attributes"/>;
+	<foo>$${x < foo ? "a" : "b"}</foo>;
+
+	<xml><xml></xml></xml>;
+	<xml><yml></xml>;
+
+	<xml/>;
+	<xml abc />;
+
+	static var SRC = <syntax-test>
+		for( x in arr )
+			<custom(x)/>
+		for( y in arr ) {
+			<custom(y)/>
+			<custom(y)/>
+		}
+	</syntax-test>
+}
+
+---
+
+function inline_markup() {
+	<xml a=// </xml>
+
+	static var SRC = <obj class="foo" padding-left={value} color="blue">
+		@exampleText("!")
+		<custom(55) public id="sub" custom-color="#ff0 0.5" active/>
+		<custom(66) if( anotherCustom )/>
+	</obj>;
+
+	super(<xml />);
+	super(<xml><xml /></xml>);
+
+	<xml></xml>;
+	<xml ></xml>;
+	<xml > </xml>;
+
+	<div some="attributes"/>;
+	<foo>$${x < foo ? "a" : "b"}</foo>;
+
+	<xml><xml></xml></xml>;
+	<xml><yml></xml>;
+
+	<xml/>;
+	<xml abc />;
+
+	static var SRC = <syntax-test>
+		for( x in arr )
+			<custom(x)/>
+		for( y in arr ) {
+			<custom(y)/>
+			<custom(y)/>
+		}
+	</syntax-test>
+}
