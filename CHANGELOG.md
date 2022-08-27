@@ -4,7 +4,7 @@
 
 ## version 1.14.0 (2022-08-27)
 
-- Added support for inline markup, fixes [#523](https://github.com/HaxeCheckstyle/haxe-formatter/issues/523) + [#624](https://github.com/HaxeCheckstyle/haxe-formatter/issues/624)
+- Added support for inline markup, fixes [#523](https://github.com/HaxeCheckstyle/haxe-formatter/issues/523) + [#624](https://github.com/HaxeCheckstyle/haxe-formatter/issues/624) ([#655](https://github.com/HaxeCheckstyle/haxe-formatter/issues/655))
 
 ## version 1.13.1 (2022-04-26)
 
