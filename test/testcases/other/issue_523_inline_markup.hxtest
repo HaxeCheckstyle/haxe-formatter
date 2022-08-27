@@ -1,0 +1,50 @@
+{
+    "indentation": {
+        "character": "    "
+    },
+    "sameLine": {
+        "ifBody": "keep",
+        "elseIf": "keep",
+        "elseBody": "keep",
+        "forBody": "keep",
+        "whileBody": "keep"
+    }
+}
+
+---
+
+class Test {
+	function main() {
+		final user = "usr";
+
+		XmlTools.toString(
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:foo="https://foo.bar/baz">
+				<soap:Header>
+					<foo:Foo>
+						<foo:User>${user}</foo:User>
+					</foo:Foo>
+				</soap:Header>
+				<soap:Body>
+				</soap:Body>
+			</soap:Envelope>
+		);
+	}
+}
+
+---
+
+class Test {
+    function main() {
+        final user = "usr";
+
+        XmlTools.toString(<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:foo="https://foo.bar/baz">
+				<soap:Header>
+					<foo:Foo>
+						<foo:User>${user}</foo:User>
+					</foo:Foo>
+				</soap:Header>
+				<soap:Body>
+				</soap:Body>
+			</soap:Envelope>);
+    }
+}

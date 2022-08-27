@@ -72,6 +72,15 @@ class ParsedCode {
 					skipCount = 1;
 				case Binop(OpGte):
 					skipCount = 1;
+				case Const(CMarkup(_)):
+					var skipIndex = index + 1;
+					while (true) {
+						if (tokens[skipIndex].pos.min >= token.pos.max) {
+							break;
+						}
+						skipCount++;
+						skipIndex++;
+					}
 				case Const(CInt(v)):
 					if (v.startsWith("-")) {
 						skipCount = 1;
