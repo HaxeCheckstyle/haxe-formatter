@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.14.0",
-	"releasenote": "added support for inline markup - see CHANGELOG for details.",
+	"version": "1.14.1",
+	"releasenote": "improved support for inline markup - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
