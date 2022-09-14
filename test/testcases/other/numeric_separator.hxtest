@@ -72,6 +72,16 @@ public function testJustBeforeSuffix() {
 	// science float
 	feq(1_2e3_4_f64, 12e34f64);
 	feq(1_2.3e4_5_f64, 12.3e45f64);
+
+	feq(1_2e-3_4_f64, 12e-34f64);
+	feq(1_2.3e-4_5_f64, 12.3e-45f64);
+	feq(1_2e+3_4_f64, 12e+34f64);
+	feq(1_2.3e+4_5_f64, 12.3e+45f64);
+
+	feq(-1_2e-3_4_f64, -12e-34f64);
+	feq(-1_2.3e-4_5_f64, -12.3e-45f64);
+	feq(-1_2e+3_4_f64, -12e+34f64);
+	feq(-1_2.3e+4_5_f64, -12.3e+45f64);
 }
 
 ---
@@ -146,4 +156,14 @@ public function testJustBeforeSuffix() {
 	// science float
 	feq(1_2e3_4f64, 12e34f64);
 	feq(1_2.3e4_5f64, 12.3e45f64);
+
+	feq(1_2e-3_4f64, 12e-34f64);
+	feq(1_2.3e-4_5f64, 12.3e-45f64);
+	feq(1_2e+3_4f64, 12e+34f64);
+	feq(1_2.3e+4_5f64, 12.3e+45f64);
+
+	feq(-1_2e-3_4f64, -12e-34f64);
+	feq(-1_2.3e-4_5f64, -12.3e-45f64);
+	feq(-1_2e+3_4f64, -12e+34f64);
+	feq(-1_2.3e+4_5f64, -12.3e+45f64);
 }

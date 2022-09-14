@@ -51,8 +51,10 @@ jobs:
     - name: Build JSON schema
       run: npx haxe buildSchema.hxml
     - name: Run eval tests
+      if: (matrix.haxe-version == 'nightly')
       run: npx haxe -D codecov_json test.hxml
     - name: Run Java tests
+      if: (matrix.haxe-version == 'nightly')
       run: npx haxe -D codecov_json testJava.hxml
     - name: Run Node version with --check
       run: node run.js -s . --check

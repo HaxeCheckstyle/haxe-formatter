@@ -4,7 +4,7 @@
 
 ## version 1.14.2 (2022-09-14)
 
-- Updated haxeparser to support latest Haxe nightly syntax
+- Updated haxeparser to support latest Haxe nightly syntax ([#657](https://github.com/HaxeCheckstyle/haxe-formatter/issues/657))
 
 ## version 1.14.1 (2022-09-07)
 
