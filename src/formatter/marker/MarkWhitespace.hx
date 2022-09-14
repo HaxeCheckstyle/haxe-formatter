@@ -15,7 +15,7 @@ class MarkWhitespace extends MarkerBase {
 					}
 				case Binop(OpGt):
 					markGt(token);
-				case Binop(OpInterval):
+				case Spread | Binop(OpInterval):
 					markOpSpread(token);
 				case Binop(OpIn):
 					markIn(token);
@@ -203,7 +203,7 @@ class MarkWhitespace extends MarkerBase {
 			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev != null) {
 				switch (prev.token.tok) {
-					case POpen, BrOpen, BkOpen, IntInterval(_), Binop(OpInterval):
+					case POpen | BrOpen | BkOpen | IntInterval(_) | Spread | Binop(OpInterval):
 						policy = policy.remove(Before);
 					case PClose:
 						switch (TokenTreeCheckUtils.getPOpenType(prev.token)) {
@@ -760,6 +760,7 @@ class MarkWhitespace extends MarkerBase {
 				return;
 			case Dot:
 			case DblDot:
+			case QuestionDot:
 			case Arrow:
 			case Comma:
 			case BkOpen, BrOpen, POpen:
@@ -771,6 +772,7 @@ class MarkWhitespace extends MarkerBase {
 			case At:
 			case Eof:
 				return;
+			case Spread:
 		}
 		whitespace(token, Before);
 	}

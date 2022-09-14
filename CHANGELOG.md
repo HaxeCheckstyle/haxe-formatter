@@ -2,6 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.14.2 (2022-09-14)
+
+- Updated haxeparser to support latest Haxe nightly syntax
+
 ## version 1.14.1 (2022-09-07)
 
 - Improved support for inline markup ([#656](https://github.com/HaxeCheckstyle/haxe-formatter/issues/656))
