@@ -17,7 +17,7 @@ class MarkWhitespace extends MarkerBase {
 					markGt(token);
 				case Spread | Binop(OpInterval):
 					markOpSpread(token);
-				case Binop(OpIn):
+				case Binop(OpIn) | Kwd(KwdIn):
 					markIn(token);
 				case Binop(OpMult):
 					if (TokenTreeCheckUtils.isImport(token.parent)) {

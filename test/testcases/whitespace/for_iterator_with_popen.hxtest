@@ -1,0 +1,28 @@
+{
+}
+
+---
+
+class Main {
+    static function main() {
+		for (i in (startLine + 1)...endLine) run();
+		for (i in (startLine + 1)...(endLine-1)) run();
+		for (i in startLine + 1...endLine) run();
+		for (i in startLine + 1...endLine - 1) run();
+    }
+}
+
+---
+
+class Main {
+	static function main() {
+		for (i in (startLine + 1)...endLine)
+			run();
+		for (i in (startLine + 1)...(endLine - 1))
+			run();
+		for (i in startLine + 1...endLine)
+			run();
+		for (i in startLine + 1...endLine - 1)
+			run();
+	}
+}

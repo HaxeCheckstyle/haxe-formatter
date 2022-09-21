@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.14.2",
-	"releasenote": "updated haxeparser to support latest Haxe nightly syntax - see CHANGELOG for details.",
+	"version": "1.14.3",
+	"releasenote": "fixed whitespace issue in for loop with parentheses - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
