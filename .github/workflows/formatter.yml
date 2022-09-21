@@ -74,5 +74,5 @@ jobs:
     #       name: formatter.js
     #       path: bin/formatter.js
     - name: Upload results to codecov
-      if: success() && matrix.platform == 'ubuntu-latest' && (matrix.haxe-version == '4.2.5')
+      if: success() && matrix.platform == 'ubuntu-latest' && (matrix.haxe-version == 'nightly')
       run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
