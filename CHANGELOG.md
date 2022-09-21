@@ -4,7 +4,7 @@
 
 ## version 1.14.3 (2022-09-21)
 
-- Fixed whitespace issue in for loops when using parentheses around start value, fixes [vshaxe/vshaxe#545](https://github.com/vshaxe/vshaxe/issues/545)
+- Fixed whitespace issue in for loops when using parentheses around start value, fixes [vshaxe/vshaxe#545](https://github.com/vshaxe/vshaxe/issues/545) ([#658](https://github.com/HaxeCheckstyle/haxe-formatter/issues/658))
 
 ## version 1.14.2 (2022-09-14)
 
