@@ -11,10 +11,6 @@ class PosInfosMacro {
 		for (field in fields) {
 			switch (field.kind) {
 				case FFun(f):
-					var lastArgument = f.args[f.args.length - 1];
-					if (lastArgument != null && lastArgument.name == "pos") {
-						f.args.pop();
-					}
 					function loop(e:Expr) {
 						switch (e.expr) {
 							case ECall(e, params):
@@ -26,7 +22,11 @@ class PosInfosMacro {
 								e.iter(loop);
 						}
 					}
-					f.expr.iter(loop);
+					var lastArgument = f.args[f.args.length - 1];
+					if (lastArgument != null && lastArgument.name == "pos") {
+						f.args.pop();
+						f.expr.iter(loop);
+					}
 				case _:
 			}
 		}
