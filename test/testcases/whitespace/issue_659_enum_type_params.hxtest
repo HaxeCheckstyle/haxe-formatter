@@ -1,0 +1,13 @@
+{}
+
+---
+
+enum Foo<Child> {
+	Bar<T>(options : Array<T>);
+}
+
+---
+
+enum Foo<Child> {
+	Bar<T>(options:Array<T>);
+}
