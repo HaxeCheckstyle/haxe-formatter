@@ -3,12 +3,12 @@
 ## dev branch / next version (1.x.x)
 
 - Refactored PosInfosMacro to limit number of invocations of inner loop
-- Fixed anon objects with metadata, fixes [#607](https://github.com/HaxeCheckstyle/haxe-formatter/issues/607)
-- Fixed ComplexType reification mixed with ternary, fixes [#638](https://github.com/HaxeCheckstyle/haxe-formatter/issues/638)
-- Fixed arrow function with optional parameter, fixes [#642](https://github.com/HaxeCheckstyle/haxe-formatter/issues/642)
-- Fixed comments in typedef definition, fixes [#643](https://github.com/HaxeCheckstyle/haxe-formatter/issues/643)
-- Fixed enum type parameter, fixes [#659](https://github.com/HaxeCheckstyle/haxe-formatter/issues/659)
-- Fixed macro type hint, fixes [#660](https://github.com/HaxeCheckstyle/haxe-formatter/issues/660)
+- Fixed anon objects with metadata, fixes [#607](https://github.com/HaxeCheckstyle/haxe-formatter/issues/607) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/662))
+- Fixed ComplexType reification mixed with ternary, fixes [#638](https://github.com/HaxeCheckstyle/haxe-formatter/issues/638) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/662))
+- Fixed arrow function with optional parameter, fixes [#642](https://github.com/HaxeCheckstyle/haxe-formatter/issues/642) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/662))
+- Fixed comments in typedef definition, fixes [#643](https://github.com/HaxeCheckstyle/haxe-formatter/issues/643) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/662))
+- Fixed enum type parameter, fixes [#659](https://github.com/HaxeCheckstyle/haxe-formatter/issues/659) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/662))
+- Fixed macro type hint, fixes [#660](https://github.com/HaxeCheckstyle/haxe-formatter/issues/660) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/662))
 
 ## version 1.14.3 (2022-09-21)
 
