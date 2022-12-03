@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	function main() {
+		final type = true ? macro:String : macro:Int;
+	}
+}
+
+---
+
+class Main {
+	function main() {
+		final type = true ? macro :String : macro :Int;
+	}
+}
