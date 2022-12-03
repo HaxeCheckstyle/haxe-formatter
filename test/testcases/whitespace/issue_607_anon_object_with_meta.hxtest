@@ -1,0 +1,22 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		return @patch {
+			status: InProgress(v),
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return @patch
+			{
+				status: InProgress(v),
+			}
+	}
+}
