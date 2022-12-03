@@ -1,0 +1,17 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		final f = (?options:{?foo:Bool, ?bar:Int}) -> {}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		final f = (?options:{?foo:Bool, ?bar:Int}) -> {}
+	}
+}

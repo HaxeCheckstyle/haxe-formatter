@@ -1,0 +1,19 @@
+{}
+
+---
+
+function test() {
+	switch type {
+		case Foo:
+			macro :Float;
+	}
+}
+
+---
+
+function test() {
+	switch type {
+		case Foo:
+			macro :Float;
+	}
+}

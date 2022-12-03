@@ -717,6 +717,21 @@ class MarkLineEnds extends MarkerBase {
 						if (lastChild == null) {
 							continue;
 						}
+						var next:Null<TokenInfo> = getNextToken(lastChild);
+						if (next != null) {
+							switch (next.token.tok) {
+								case Comment(_):
+									if (parsedCode.isOriginalSameLine(lastChild, next.token)) {
+										lineEndAfter(next.token);
+										continue;
+									}
+								case CommentLine(_):
+									if (parsedCode.isOriginalSameLine(lastChild, next.token)) {
+										continue;
+									}
+								default:
+							}
+						}
 						lineEndAfter(lastChild);
 					case BrClose:
 						var next:Null<TokenInfo> = getNextToken(child);

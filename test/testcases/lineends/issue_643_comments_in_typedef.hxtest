@@ -1,0 +1,117 @@
+{}
+
+---
+
+typedef T = {
+    a: Float // Comment
+}
+
+typedef T = {
+    a: Float, // Comment
+    b: Float // Comment
+}
+
+typedef T = {
+    a: Float,
+	// Comment
+    b: Float // Comment
+}
+
+typedef T = {
+    a: Float,
+	// Comment
+    b: Float 
+	// Comment
+}
+
+typedef T = {
+    a: Float,
+    b: Float 
+	// Comment
+}
+
+typedef T = {
+    a: Float,
+	// Comment
+    b: Float 
+}
+
+typedef T = {
+	// Comment
+    a: Float,
+    b: Float 
+}
+
+typedef T = {
+	/* Comment */ a: Float,
+    /* Comment */ b: Float 
+}
+
+typedef T = {
+	a: Float, /* Comment */ 
+    b: Float /* Comment */ 
+}
+
+typedef T = {
+	a: Float /* Comment */,
+	b: Float /* Comment */,
+    c: Float /* Comment */ 
+}
+
+---
+
+typedef T = {
+	a:Float // Comment
+}
+
+typedef T = {
+	a:Float, // Comment
+	b:Float // Comment
+}
+
+typedef T = {
+	a:Float,
+	// Comment
+	b:Float // Comment
+}
+
+typedef T = {
+	a:Float,
+	// Comment
+	b:Float
+	// Comment
+}
+
+typedef T = {
+	a:Float,
+	b:Float
+	// Comment
+}
+
+typedef T = {
+	a:Float,
+	// Comment
+	b:Float
+}
+
+typedef T = {
+	// Comment
+	a:Float,
+	b:Float
+}
+
+typedef T = {
+	/* Comment */ a:Float,
+	/* Comment */ b:Float
+}
+
+typedef T = {
+	a:Float, /* Comment */
+	b:Float /* Comment */
+}
+
+typedef T = {
+	a:Float /* Comment */,
+	b:Float /* Comment */,
+	c:Float /* Comment */
+}

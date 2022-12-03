@@ -417,6 +417,14 @@ class MarkWhitespace extends MarkerBase {
 				policy = config.whitespace.caseColonPolicy;
 			case TypeHint:
 				policy = config.whitespace.typeHintColonPolicy;
+				var parent:TokenTree = token.parent;
+				if (parent != null) {
+					switch (parent.tok) {
+						case Kwd(KwdMacro):
+							policy = policy.add(Before);
+						default:
+					}
+				}
 			case TypeCheck:
 				policy = config.whitespace.typeCheckColonPolicy;
 			case Ternary:
