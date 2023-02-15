@@ -36,24 +36,26 @@ class MarkWrappingBase extends MarkerBase {
 			}
 		}
 		noWrappingBetween(open, close);
-		for (child in open.children) {
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					break;
-				case Binop(OpGt):
-					continue;
-				case Semicolon, Comma:
-					continue;
-				default:
-			}
-			var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
-			if (lastChild == null) {
-				continue;
-			} else {
-				switch (lastChild.tok) {
-					case Comma, Semicolon:
-						noLineEndAfter(lastChild);
+		if (open.children != null) {
+			for (child in open.children) {
+				switch (child.tok) {
+					case PClose, BrClose, BkClose:
+						break;
+					case Binop(OpGt):
+						continue;
+					case Semicolon, Comma:
+						continue;
 					default:
+				}
+				var lastChild:Null<TokenTree> = TokenTreeCheckUtils.getLastToken(child);
+				if (lastChild == null) {
+					continue;
+				} else {
+					switch (lastChild.tok) {
+						case Comma, Semicolon:
+							noLineEndAfter(lastChild);
+						default:
+					}
 				}
 			}
 		}
@@ -87,26 +89,29 @@ class MarkWrappingBase extends MarkerBase {
 
 	public function keep(open:TokenTree, close:TokenTree, addIndent:Int) {
 		noWrappingBetween(open, close);
-		for (child in open.children) {
-			var last:Bool = false;
-			switch (child.tok) {
-				case PClose, BrClose, BkClose:
-					last = true;
-				case Binop(OpGt):
-					continue;
-				case Semicolon, Comma:
-					continue;
-				default:
-			}
-			if (parsedCode.isOriginalNewlineBefore(child)) {
-				lineEndBefore(child);
-				additionalIndent(child, addIndent);
-			} else {
-				noLineEndBefore(child);
-				wrapBefore(child, false);
-			}
-			if (last) {
-				break;
+
+		if (open.children != null) {
+			for (child in open.children) {
+				var last:Bool = false;
+				switch (child.tok) {
+					case PClose, BrClose, BkClose:
+						last = true;
+					case Binop(OpGt):
+						continue;
+					case Semicolon, Comma:
+						continue;
+					default:
+				}
+				if (parsedCode.isOriginalNewlineBefore(child)) {
+					lineEndBefore(child);
+					additionalIndent(child, addIndent);
+				} else {
+					noLineEndBefore(child);
+					wrapBefore(child, false);
+				}
+				if (last) {
+					break;
+				}
 			}
 		}
 		if (!parsedCode.isOriginalNewlineBefore(open)) {
@@ -181,6 +186,9 @@ class MarkWrappingBase extends MarkerBase {
 	public function wrapChildOneLineEach(open:TokenTree, close:TokenTree, addIndent:Int = 0, keepFirst:Bool = false) {
 		if (!keepFirst) {
 			lineEndAfter(open);
+		}
+		if (open.children == null) {
+			return;
 		}
 		for (child in open.children) {
 			switch (child.tok) {
@@ -452,6 +460,9 @@ class MarkWrappingBase extends MarkerBase {
 		var indent:Int = indenter.calcIndent(lineStart);
 		var lineLength:Int = calcLineLengthBefore(open) + indenter.calcAbsoluteIndent(indent + addIndent);
 		var first:Bool = true;
+		if (open.children == null) {
+			return;
+		}
 		for (child in open.children) {
 			switch (child.tok) {
 				case PClose, BrClose, BkClose:
@@ -552,6 +563,9 @@ class MarkWrappingBase extends MarkerBase {
 	function makeWrappableItems(token:TokenTree):Array<WrappableItem> {
 		var items:Array<WrappableItem> = [];
 		var lastIndex:Int = -1;
+		if (token.children == null) {
+			return items;
+		}
 		for (child in token.children) {
 			switch (child.tok) {
 				case PClose, BkClose, BrClose:

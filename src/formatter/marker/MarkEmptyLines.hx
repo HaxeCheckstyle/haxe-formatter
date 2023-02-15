@@ -1063,7 +1063,9 @@ class MarkEmptyLines extends MarkerBase {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdIf):
-					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					if ((token.children != null) && (token.children.length > 0)) {
+						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					}
 					var block:Null<TokenTree> = token.access().firstOf(Kwd(KwdElse)).previousSibling().token;
 					if (block != null) {
 						removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
@@ -1075,13 +1077,17 @@ class MarkEmptyLines extends MarkerBase {
 					removeEmptyLinesAroundBlock(block, config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdFunction):
 				case Kwd(KwdFor):
-					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					if ((token.children != null) && (token.children.length > 0)) {
+						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					}
 				case Kwd(KwdDo):
 					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
 					var block:Null<TokenTree> = token.access().lastChild().previousSibling().token;
 					removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 				case Kwd(KwdWhile):
-					if ((token.parent == null) || (!token.parent.tok.match(Kwd(KwdDo)))) {
+					if ((token.children != null)
+						&& (token.children.length > 0)
+						&& (token.parent == null || !token.parent.tok.match(Kwd(KwdDo)))) {
 						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 					}
 				case Kwd(KwdTry):
@@ -1089,7 +1095,9 @@ class MarkEmptyLines extends MarkerBase {
 					var block:Null<TokenTree> = token.access().lastChild().previousSibling().token;
 					removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 				case Kwd(KwdCatch):
-					removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					if ((token.children != null) && (token.children.length > 0)) {
+						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					}
 				default:
 			}
 			return GoDeeper;

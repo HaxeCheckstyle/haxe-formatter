@@ -1,0 +1,131 @@
+{}
+
+---
+
+package stdgo.math.big;
+
+import stdgo.Chan;
+import stdgo.Error;
+import stdgo.Go;
+import stdgo.GoArray;
+import stdgo.GoMap;
+import stdgo.GoString;
+import stdgo.Pointer;
+import stdgo.Slice;
+import stdgo.StdGoTypes;
+
+/**
+	// construct table of powers of bb*leafSize to use in subdivisions.
+**/
+private function _divisors(_m:GoInt, _b:Word, _ndigits:GoInt, _bb:Word):Slice<T_divisor> {
+	if ((_leafSize == (0 : GoInt)) || (_m <= _leafSize)) {
+	    return (null : Slice<T_divisor>);
+	};
+	var _k:GoInt = (1 : GoInt);
+	{
+		var _words:GoInt = _leafSize;
+		Go.cfor((_words < (_m >> (("1" : GoUInt64) : GoUInt64)))
+			&& (_k < _cacheBase10._table.length), _words = _words << (("1" : GoUInt64)), {
+				_k++;
+			});
+	};
+	var _table:Slice<T_divisor> = (null : Slice<T_divisor>);
+	if (_b == ((("10" : GoUInt) : Word))) {
+	    _cacheBase10.lock();
+	    _table = (_cacheBase10._table.__slice__((0 : GoInt), _k) : Slice<T_divisor>);
+	} else {
+	    _table = new Slice<T_divisor>((_k : GoInt).toBasic(), 0, ...[for (i in 0 ... (_k : GoInt).toBasic()) ({} : T_divisor)]);
+	};
+	if (_table[(_k - (1 : GoInt) : GoInt)]._ndigits == ((0 : GoInt))) {
+	    var _larger:T_nat = new T_nat(0, 0);
+	    {
+	        var _i:GoInt = (0 : GoInt);
+	        Go.cfor(_i < _k, _i++, {
+	            if (_table[(_i : GoInt)]._ndigits == ((0 : GoInt))) {
+	                if (_i == ((0 : GoInt))) {
+	                    _table[(0 : GoInt)]._bbb = (new T_nat(0, 0) : T_nat)._expWW(_bb, (_leafSize : Word));
+	                    _table[(0 : GoInt)]._ndigits = _ndigits * _leafSize;
+	                } else {
+	                    _table[(_i : GoInt)]._bbb = (new T_nat(0, 0) : T_nat)._sqr(_table[(_i - (1 : GoInt) : GoInt)]._bbb);
+	                    _table[(_i : GoInt)]._ndigits = (2 : GoInt) * _table[(_i - (1 : GoInt) : GoInt)]._ndigits;
+	                };
+	                _larger = (new T_nat(0, 0) : T_nat)._set(_table[(_i : GoInt)]._bbb);
+	                while (_mulAddVWW(_larger, _larger, _b, (("0" : GoUInt) : Word)) == ((("0" : GoUInt) : Word))) {
+	                    _table[(_i : GoInt)]._bbb = _table[(_i : GoInt)]._bbb._set(_larger);
+	                    _table[(_i : GoInt)]._ndigits++;
+	                };
+	                _table[(_i : GoInt)]._nbits = _table[(_i : GoInt)]._bbb._bitLen();
+	            };
+	        });
+	    };
+	};
+	if (_b == ((("10" : GoUInt) : Word))) {
+	    _cacheBase10.unlock();
+	};
+	return _table;
+}
+
+---
+
+package stdgo.math.big;
+
+import stdgo.Chan;
+import stdgo.Error;
+import stdgo.Go;
+import stdgo.GoArray;
+import stdgo.GoMap;
+import stdgo.GoString;
+import stdgo.Pointer;
+import stdgo.Slice;
+import stdgo.StdGoTypes;
+
+/**
+	// construct table of powers of bb*leafSize to use in subdivisions.
+**/
+private function _divisors(_m:GoInt, _b:Word, _ndigits:GoInt, _bb:Word):Slice<T_divisor> {
+	if ((_leafSize == (0 : GoInt)) || (_m <= _leafSize)) {
+		return (null : Slice<T_divisor>);
+	};
+	var _k:GoInt = (1 : GoInt);
+	{
+		var _words:GoInt = _leafSize;
+		Go.cfor((_words < (_m >> (("1" : GoUInt64) : GoUInt64)))
+			&& (_k < _cacheBase10._table.length), _words = _words << (("1" : GoUInt64)), {
+				_k++;
+			});
+	};
+	var _table:Slice<T_divisor> = (null : Slice<T_divisor>);
+	if (_b == ((("10" : GoUInt) : Word))) {
+		_cacheBase10.lock();
+		_table = (_cacheBase10._table.__slice__((0 : GoInt), _k) : Slice<T_divisor>);
+	} else {
+		_table = new Slice<T_divisor>((_k : GoInt).toBasic(), 0, ...[for (i in 0...(_k : GoInt).toBasic()) ({} : T_divisor)]);
+	};
+	if (_table[(_k - (1 : GoInt) : GoInt)]._ndigits == ((0 : GoInt))) {
+		var _larger:T_nat = new T_nat(0, 0);
+		{
+			var _i:GoInt = (0 : GoInt);
+			Go.cfor(_i < _k, _i++, {
+				if (_table[(_i : GoInt)]._ndigits == ((0 : GoInt))) {
+					if (_i == ((0 : GoInt))) {
+						_table[(0 : GoInt)]._bbb = (new T_nat(0, 0) : T_nat)._expWW(_bb, (_leafSize : Word));
+						_table[(0 : GoInt)]._ndigits = _ndigits * _leafSize;
+					} else {
+						_table[(_i : GoInt)]._bbb = (new T_nat(0, 0) : T_nat)._sqr(_table[(_i - (1 : GoInt) : GoInt)]._bbb);
+						_table[(_i : GoInt)]._ndigits = (2 : GoInt) * _table[(_i - (1 : GoInt) : GoInt)]._ndigits;
+					};
+					_larger = (new T_nat(0, 0) : T_nat)._set(_table[(_i : GoInt)]._bbb);
+					while (_mulAddVWW(_larger, _larger, _b, (("0" : GoUInt) : Word)) == ((("0" : GoUInt) : Word))) {
+						_table[(_i : GoInt)]._bbb = _table[(_i : GoInt)]._bbb._set(_larger);
+						_table[(_i : GoInt)]._ndigits++;
+					};
+					_table[(_i : GoInt)]._nbits = _table[(_i : GoInt)]._bbb._bitLen();
+				};
+			});
+		};
+	};
+	if (_b == ((("10" : GoUInt) : Word))) {
+		_cacheBase10.unlock();
+	};
+	return _table;
+}
