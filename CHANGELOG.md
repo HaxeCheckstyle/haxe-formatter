@@ -2,6 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.14.5 (2023-02-15)
+
+- Fixed null pointer issues
+
 ## version 1.14.4 (2022-12-14)
 
 - Refactored PosInfosMacro to limit number of invocations of inner loop

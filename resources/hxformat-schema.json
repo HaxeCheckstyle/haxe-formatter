@@ -576,11 +576,11 @@
 		"formatter.config.WrapConditionType": {
 			"anyOf": [
 				{
-					"description": "condition matches if item count is larger than or equal n characters",
+					"description": "condition matches if item count is larger than or equal n items",
 					"const": "itemCount >= n"
 				},
 				{
-					"description": "condition matches if item count is less than or equal n characters",
+					"description": "condition matches if item count is less than or equal n items",
 					"const": "itemCount <= n"
 				},
 				{

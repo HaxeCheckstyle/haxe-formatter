@@ -577,21 +577,23 @@ class MarkWrapping extends MarkWrappingBase {
 			}
 		}
 		var first:Bool = true;
-		for (child in itemStart.children) {
-			switch (child.tok) {
-				case Binop(OpBoolAnd), Binop(OpBoolOr):
-					if (first) {
-						itemStart = firstItemStart;
-						first = false;
-					}
-					items.push(makeWrappableItem(itemStart, child));
-					var next:Null<TokenInfo> = getNextToken(child);
-					if (next == null) {
-						return;
-					}
-					itemStart = next.token;
-				default:
-					continue;
+		if (itemStart.children != null) {
+			for (child in itemStart.children) {
+				switch (child.tok) {
+					case Binop(OpBoolAnd), Binop(OpBoolOr):
+						if (first) {
+							itemStart = firstItemStart;
+							first = false;
+						}
+						items.push(makeWrappableItem(itemStart, child));
+						var next:Null<TokenInfo> = getNextToken(child);
+						if (next == null) {
+							return;
+						}
+						itemStart = next.token;
+					default:
+						continue;
+				}
 			}
 		}
 		items.push(makeWrappableItem(itemStart, TokenTreeCheckUtils.getLastToken(itemStart)));
@@ -630,13 +632,15 @@ class MarkWrapping extends MarkWrappingBase {
 			return;
 		}
 		var itemStart:TokenTree = next.token;
-		for (child in itemContainer.children) {
-			switch (child.tok) {
-				case DblDot:
-					break;
-				default:
-					var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
-					items.push(makeWrappableItem(child, lastToken));
+		if (itemContainer.children != null) {
+			for (child in itemContainer.children) {
+				switch (child.tok) {
+					case DblDot:
+						break;
+					default:
+						var lastToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
+						items.push(makeWrappableItem(child, lastToken));
+				}
 			}
 		}
 		queueWrapping({
@@ -709,17 +713,19 @@ class MarkWrapping extends MarkWrappingBase {
 			return;
 		}
 		var itemStart:TokenTree = next.token;
-		for (child in itemContainer.children) {
-			switch (child.tok) {
-				case Binop(OpAdd), Binop(OpSub):
-					items.push(makeWrappableItem(itemStart, child));
-					var next:Null<TokenInfo> = getNextToken(child);
-					if (next == null) {
+		if (itemContainer.children != null) {
+			for (child in itemContainer.children) {
+				switch (child.tok) {
+					case Binop(OpAdd), Binop(OpSub):
+						items.push(makeWrappableItem(itemStart, child));
+						var next:Null<TokenInfo> = getNextToken(child);
+						if (next == null) {
+							continue;
+						}
+						itemStart = next.token;
+					default:
 						continue;
-					}
-					itemStart = next.token;
-				default:
-					continue;
+				}
 			}
 		}
 		items.push(makeWrappableItem(itemStart, TokenTreeCheckUtils.getLastToken(itemStart)));
@@ -850,6 +856,9 @@ class MarkWrapping extends MarkWrappingBase {
 		});
 		for (v in allVars) {
 			var items:Array<WrappableItem> = [];
+			if (v.children == null) {
+				continue;
+			}
 			for (child in v.children) {
 				var endToken:TokenTree = TokenTreeCheckUtils.getLastToken(child);
 				items.push(makeWrappableItem(child, endToken));

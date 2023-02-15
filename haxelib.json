@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.14.4",
-	"releasenote": "fixed some whitespace formatting issues - see CHANGELOG for details.",
+	"version": "1.14.5",
+	"releasenote": "fixed null pointer issue - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"

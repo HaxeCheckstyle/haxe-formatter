@@ -1,0 +1,47 @@
+{
+	"wrapping": {
+		"callParameter": {
+			"defaultWrap": "onePerLine",
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		g.drawImage(
+			tileset.img,
+			ix * tileSize, iy * tileSize,
+			tileset.img,
+			ix * tileSize, iy * tileSize,
+			tileset.img,
+			ix * tileSize, iy * tileSize,
+			ix * tileSize, iy * tileSize,
+			tileSize, tileSize
+		);
+	}
+}
+
+---
+
+class Main {
+	static function main():Void {
+		g.drawImage(
+			tileset.img,
+			ix * tileSize,
+			iy * tileSize,
+			tileset.img,
+			ix * tileSize,
+			iy * tileSize,
+			tileset.img,
+			ix * tileSize,
+			iy * tileSize,
+			ix * tileSize,
+			iy * tileSize,
+			tileSize,
+			tileSize
+		);
+	}
+}

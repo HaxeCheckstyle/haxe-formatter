@@ -1,0 +1,40 @@
+{
+	"wrapping": {
+		"callParameter": {
+			"defaultWrap": "fillLine",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "anyItemLength >= n",
+							"value": 60
+						}
+					],
+					"type": "onePerLine"
+				}
+			]
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		builder.addComponents(new ButtonBuilder().setCustomId('snippet_left').setLabel('Prev').setStyle(Primary), new ButtonBuilder().setCustomId('snippet_right').setLabel('Next').setStyle(Primary));
+		builder.addComponents(new ButtonBuilder().setCustomId('snippet_left'), new ButtonBuilder().setCustomId('snippet_right'), new ButtonBuilder().setCustomId('snippet_left'), new ButtonBuilder().setCustomId('snippet_right'));
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		builder.addComponents(
+			new ButtonBuilder().setCustomId('snippet_left').setLabel('Prev').setStyle(Primary),
+			new ButtonBuilder().setCustomId('snippet_right').setLabel('Next').setStyle(Primary)
+		);
+		builder.addComponents(new ButtonBuilder().setCustomId('snippet_left'), new ButtonBuilder().setCustomId('snippet_right'),
+			new ButtonBuilder().setCustomId('snippet_left'), new ButtonBuilder().setCustomId('snippet_right'));
+	}
+}

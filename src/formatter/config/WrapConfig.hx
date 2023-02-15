@@ -516,12 +516,12 @@ typedef WrapCondition = {
 
 enum abstract WrapConditionType(String) {
 	/**
-		condition matches if item count is larger than or equal n characters
+		condition matches if item count is larger than or equal n items
 	**/
 	var ItemCountLargerThan = "itemCount >= n";
 
 	/**
-		condition matches if item count is less than or equal n characters
+		condition matches if item count is less than or equal n items
 	**/
 	var ItemCountLessThan = "itemCount <= n";
 
