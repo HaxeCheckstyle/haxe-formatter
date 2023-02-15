@@ -4,7 +4,7 @@
 
 ## version 1.14.5 (2023-02-15)
 
-- Fixed null pointer issues
+- Fixed null pointer issues ([#666](https://github.com/HaxeCheckstyle/haxe-formatter/issues/666))
 
 ## version 1.14.4 (2022-12-14)
 
