@@ -2,6 +2,10 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.14.6 (2023-02-22)
+
+- Fixed inline call() and inline new issue ([#667](https://github.com/HaxeCheckstyle/haxe-formatter/issues/667))
+
 ## version 1.14.5 (2023-02-15)
 
 - Fixed null pointer issues ([#666](https://github.com/HaxeCheckstyle/haxe-formatter/issues/666))

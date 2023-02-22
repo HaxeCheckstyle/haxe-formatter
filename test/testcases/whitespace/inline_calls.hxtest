@@ -1,0 +1,59 @@
+{}
+
+---
+
+function test(){
+	var x = inline toString();
+	var x = inline new String("");
+
+	inline toString();
+	inline new String("");
+
+	inline function testInline(i:Int) {
+		return i + 1;
+	}
+	var testInline = inline function (i:Int) {
+		return i + 1;
+	}
+	use(inline testInline(3));
+	inline testInline(3);
+}
+
+class Test {
+	inline public function new(x:Int, y:Int) {}
+	public inline function new(x:Int, y:Int) {}
+	public inline static function new(x:Int, y:Int) {}
+}
+
+inline public function toString(x:Int, y:Int) {}
+public inline function toString(x:Int, y:Int) {}
+
+---
+
+function test() {
+	var x = inline toString();
+	var x = inline new String("");
+
+	inline toString();
+	inline new String("");
+
+	inline function testInline(i:Int) {
+		return i + 1;
+	}
+	var testInline = inline function(i:Int) {
+		return i + 1;
+	}
+	use(inline testInline(3));
+	inline testInline(3);
+}
+
+class Test {
+	inline public function new(x:Int, y:Int) {}
+
+	public inline function new(x:Int, y:Int) {}
+
+	public inline static function new(x:Int, y:Int) {}
+}
+
+inline public function toString(x:Int, y:Int) {}
+public inline function toString(x:Int, y:Int) {}
