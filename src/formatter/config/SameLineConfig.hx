@@ -26,6 +26,12 @@ typedef SameLineConfig = {
 	@:default(Same) @:optional var ifElse:SameLinePolicy;
 
 	/**
+		Add new line after `if body` to `if (...) body; else ...`
+		Don't touch `if (...) body else ...` or `if (...) {body} else ...`
+	**/
+	@:default(true) @:optional var ifElseSemicolonNextLine:Bool;
+
+	/**
 		same line policy for "if" part of "else if"
 		* same = place if and body on same line
 		* next = place body on next line

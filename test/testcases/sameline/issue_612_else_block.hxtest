@@ -1,0 +1,62 @@
+{
+	"sameLine": {
+		"ifBody": "same",
+		"elseBody": "same",
+		"ifElse": "same",
+		"ifElseSemicolonNextLine": true
+	}
+}
+
+---
+
+class Main {
+
+	static function main():Void {
+		if (true) foo else foo;
+		if (true) foo else {
+			foo;
+		}
+
+		if (true) foo; else {
+			foo;
+		}
+		if (true) foo; else foo;
+
+		if (true) {
+			foo;
+		} else foo;
+		if (true) {
+			foo;
+		} else {
+			foo;
+		}
+	}
+
+}
+
+---
+
+class Main {
+	static function main():Void {
+		if (true) foo else foo;
+		if (true) foo else {
+			foo;
+		}
+
+		if (true) foo;
+		else {
+			foo;
+		}
+		if (true) foo;
+		else foo;
+
+		if (true) {
+			foo;
+		} else foo;
+		if (true) {
+			foo;
+		} else {
+			foo;
+		}
+	}
+}

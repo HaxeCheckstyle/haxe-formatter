@@ -230,6 +230,15 @@ class MarkSameLine extends MarkerBase {
 							case Keep:
 						}
 					}
+				case Semicolon:
+					if (config.sameLine.ifElseSemicolonNextLine) {
+						switch (policy) {
+							case Same:
+								policy = Next;
+							case Next:
+							case Keep:
+						}
+					}
 				default:
 			}
 		}
