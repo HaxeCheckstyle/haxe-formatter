@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added `sameLine.ifElseSemicolonNextLine` to allow breaking `if (true) foo; else foo;`, fixes [#612](https://github.com/HaxeCheckstyle/haxe-formatter/issues/612) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/668))
+
 ## version 1.14.6 (2023-02-22)
 
 - Fixed inline call() and inline new issue ([#667](https://github.com/HaxeCheckstyle/haxe-formatter/issues/667))

@@ -2,7 +2,8 @@
 	"sameLine": {
 		"ifBody": "same",
 		"elseBody": "same",
-		"ifElse": "same"
+		"ifElse": "same",
+		"ifElseSemicolonNextLine": true
 	}
 }
 

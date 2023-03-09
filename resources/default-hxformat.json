@@ -159,7 +159,7 @@
 		"functionBody": "next",
 		"ifBody": "next",
 		"ifElse": "same",
-		"ifElseNextLineSemicolon": true,
+		"ifElseSemicolonNextLine": true,
 		"returnBody": "same",
 		"returnBodySingleLine": "same",
 		"tryBody": "next",
