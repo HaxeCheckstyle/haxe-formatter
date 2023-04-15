@@ -1,0 +1,24 @@
+{
+}
+
+
+---
+
+
+class Main {
+    static function main() {
+        "" ?. split(";") ?. map(item -> item.toLowerCase())??[".exe", ".cmd", ".bat", ".com"];
+        text ?. split(";") ?. map(item -> item.toLowerCase())??[".exe", ".cmd", ".bat", ".com"];
+        cb() ?. split(";") ?. map(item -> item.toLowerCase())??[".exe", ".cmd", ".bat", ".com"];
+    }
+}
+
+---
+
+class Main {
+	static function main() {
+		""?.split(";")?.map(item -> item.toLowerCase()) ?? [".exe", ".cmd", ".bat", ".com"];
+		text?.split(";")?.map(item -> item.toLowerCase()) ?? [".exe", ".cmd", ".bat", ".com"];
+		cb()?.split(";")?.map(item -> item.toLowerCase()) ?? [".exe", ".cmd", ".bat", ".com"];
+	}
+}

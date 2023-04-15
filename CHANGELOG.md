@@ -3,6 +3,7 @@
 ## dev branch / next version (1.x.x)
 
 - Added `sameLine.ifElseSemicolonNextLine` to allow breaking `if (true) foo; else foo;`, fixes [#612](https://github.com/HaxeCheckstyle/haxe-formatter/issues/612) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/668))
+- Fixed whitespace before null safety operator
 
 ## version 1.14.6 (2023-02-22)
 

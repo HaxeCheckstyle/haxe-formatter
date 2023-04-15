@@ -153,7 +153,7 @@ class MarkWhitespace extends MarkerBase {
 		var next:Null<TokenInfo> = getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
-				case Dot, Comma, DblDot, Semicolon:
+				case Dot | Comma | DblDot | Semicolon | QuestionDot:
 					policy = policy.remove(After);
 				case Binop(OpGt):
 					if (token.tok.match(BrClose)) {
