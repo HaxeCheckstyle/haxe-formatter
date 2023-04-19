@@ -26,6 +26,8 @@ class Main {
 				if (key.code == DKUnusedImport)
 					{range: patchRange(doc, key.range), newText: "", range: patchRange(doc, key.range), newText: ""}
 		];
+		var e1 = macro if (1) 2;
+		var e2 = macro if (1) 2 else 3;
 		return
 			{
 				foo: 10
@@ -54,6 +56,8 @@ class Main
 					newText: ""
 				}
 		];
+		var e1 = macro if (1) 2;
+		var e2 = macro if (1) 2 else 3;
 		return
 		{
 			foo: 10

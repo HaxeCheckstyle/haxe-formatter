@@ -9,6 +9,8 @@
 
 class Main {
 	function foo():Bool {
+		var e1 = macro if (1) 2;
+		var e2 = macro if (1) 2 else 3;
 		return switch (tok) {
 			case POpen:
 				if (token) false;
@@ -21,6 +23,12 @@ class Main {
 
 class Main {
 	function foo():Bool {
+		var e1 = macro if (1)
+			2;
+		var e2 = macro if (1)
+			2
+		else
+			3;
 		return switch (tok) {
 			case POpen:
 				if (token)
