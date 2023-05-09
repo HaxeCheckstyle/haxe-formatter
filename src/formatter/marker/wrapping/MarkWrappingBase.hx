@@ -327,7 +327,7 @@ class MarkWrappingBase extends MarkerBase {
 		if (useTrailing) {
 			var lastItem:WrappableItem = items[items.length - 1];
 			var lengthAfter:Int = calcLineLengthAfter(lastItem.last);
-			if (lineLength + lengthAfter >= maxLineLength) {
+			if (lineLength + lengthAfter > maxLineLength) {
 				lineEndBefore(lastItem.first);
 				additionalIndent(lastItem.first, addIndent);
 			}
