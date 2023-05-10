@@ -1,0 +1,64 @@
+{
+	"indentation": {
+  	"character": "  "
+  },
+	"wrapping": {
+		"maxLineLength": 80,
+		"callParameter": {
+			"defaultWrap": "fillLine",
+			"rules": [
+				{
+					"type": "onePerLine",
+					"conditions": [{ "cond": "exceedsMaxLineLength" }]
+				}
+			]
+		},
+		"functionSignature": {
+			"defaultWrap": "fillLine",
+			"rules": [
+				{
+					"type": "onePerLine",
+					"conditions": [{ "cond": "exceedsMaxLineLength" }]
+				}
+			]
+		},
+		"anonFunctionSignature": {
+			"defaultWrap": "fillLine",
+			"rules": [
+				{
+					"type": "onePerLine",
+					"conditions": [{ "cond": "exceedsMaxLineLength" }]
+				}
+			]
+		}
+	},
+	"whitespace": {
+		"typeHintColonPolicy": "after",
+		"bracesConfig": {
+			"anonTypeBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "before"
+			},
+			"objectLiteralBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "before"
+			},
+			"typedefBraces": {
+				"openingPolicy": "around",
+				"closingPolicy": "before"
+			}
+		}
+	}
+}
+
+---
+
+function sleep(ms: Int = 0): Promise<Never> {
+  return new Promise((resolve, reject) -> Timer.delay(() -> resolve(null), ms));
+}
+
+---
+
+function sleep(ms: Int = 0): Promise<Never> {
+  return new Promise((resolve, reject) -> Timer.delay(() -> resolve(null), ms));
+}
