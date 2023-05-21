@@ -6,6 +6,7 @@
 - Fixed whitespace before null safety operator
 - Fixed keeping same line for `macro if` expressions
 - Fixed wrapping with maxLineLength off by one, fixes [#670](https://github.com/HaxeCheckstyle/haxe-formatter/issues/670) ([#671](https://github.com/HaxeCheckstyle/haxe-formatter/issues/671))
+- Fixed extends wrapping for interfaces, fixes [#669](https://github.com/HaxeCheckstyle/haxe-formatter/issues/669)
 
 ## version 1.14.6 (2023-02-22)
 

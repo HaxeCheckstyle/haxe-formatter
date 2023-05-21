@@ -1,0 +1,45 @@
+{
+	"wrapping": {
+		"implementsExtends": {
+			"defaultWrap": "onePerLineAfterFirst"
+		},
+		"maxLineLength": 80
+	}
+}
+
+---
+
+interface MyInterface extends MyInterface1 extends MyInterface2 extends MyInterface3 extends MyInterface4 {
+	public var foo: String;
+}
+
+class MyInterface implements MyInterface1 implements MyInterface2 implements MyInterface3 implements MyInterface4 {
+	public var foo: String;
+}
+
+class MyInterface extends MyInterface1 implements MyInterface2 implements MyInterface3 implements MyInterface4 {
+	public var foo: String;
+}
+
+---
+
+interface MyInterface extends MyInterface1
+extends MyInterface2
+extends MyInterface3
+extends MyInterface4 {
+	public var foo:String;
+}
+
+class MyInterface implements MyInterface1
+implements MyInterface2
+implements MyInterface3
+implements MyInterface4 {
+	public var foo:String;
+}
+
+class MyInterface extends MyInterface1
+implements MyInterface2
+implements MyInterface3
+implements MyInterface4 {
+	public var foo:String;
+}
