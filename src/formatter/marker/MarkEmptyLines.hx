@@ -315,7 +315,7 @@ class MarkEmptyLines extends MarkerBase {
 	function findClassAndAbstractFields(c:TokenTree):Array<TokenTree> {
 		return c.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			return switch (token.tok) {
-				case Kwd(KwdFunction), Kwd(KwdVar):
+				case Kwd(KwdFunction) | Kwd(KwdVar):
 					FoundSkipSubtree;
 				case Kwd(KwdFinal):
 					FoundSkipSubtree;
@@ -646,6 +646,12 @@ class MarkEmptyLines extends MarkerBase {
 		if (prevToken == null) {
 			return;
 		}
+		if (config.emptyLines.enumAbstractEmptyLines.existingBetweenFields == Keep) {
+			if (hasEmptyLinesBetweenFields(prevToken, currToken)) {
+				emptyLinesAfterSubTree(prevToken, 1);
+				return;
+			}
+		}
 		if (prevVar != currVar) {
 			// transition between vars and functions
 			emptyLinesAfterSubTree(prevToken, config.emptyLines.enumAbstractEmptyLines.afterVars);
@@ -712,7 +718,8 @@ class MarkEmptyLines extends MarkerBase {
 			if (config.existingBetweenFields == Keep) {
 				if (hasEmptyLinesBetweenFields(prevToken, child)) {
 					emptyLinesAfterSubTree(prevToken, 1);
-					return;
+					prevToken = child;
+					continue;
 				}
 			}
 			emptyLinesAfterSubTree(prevToken, config.betweenFields);
