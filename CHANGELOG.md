@@ -7,6 +7,9 @@
 - Fixed keeping same line for `macro if` expressions
 - Fixed wrapping with maxLineLength off by one, fixes [#670](https://github.com/HaxeCheckstyle/haxe-formatter/issues/670) ([#671](https://github.com/HaxeCheckstyle/haxe-formatter/issues/671))
 - Fixed extends wrapping for interfaces, fixes [#669](https://github.com/HaxeCheckstyle/haxe-formatter/issues/669)
+- Fixed empty lines between fields of enum abstract, fixes [#672](https://github.com/HaxeCheckstyle/haxe-formatter/issues/672)
+- Fixed empty lines for if with comment, fixes [#556](https://github.com/HaxeCheckstyle/haxe-formatter/issues/556)
+- Fixed empty lines for block level doc comments, fixes [#511](https://github.com/HaxeCheckstyle/haxe-formatter/issues/51)
 
 ## version 1.14.6 (2023-02-22)
 

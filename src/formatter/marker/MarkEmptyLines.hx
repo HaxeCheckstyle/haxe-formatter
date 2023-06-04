@@ -1005,6 +1005,9 @@ class MarkEmptyLines extends MarkerBase {
 			if (!found) {
 				continue;
 			}
+			if (!isField(next)) {
+				continue;
+			}
 			switch (config.emptyLines.beforeDocCommentEmptyLines) {
 				case Ignore:
 				case None:
@@ -1037,6 +1040,28 @@ class MarkEmptyLines extends MarkerBase {
 				case One:
 					emptyLinesAfter(lastToken, 1);
 			}
+		}
+	}
+
+	function isField(token:TokenTree):Bool {
+		if (token == null) {
+			return false;
+		}
+		var parent:TokenTree = token.parent;
+		if (parent == null) {
+			return true;
+		}
+		return switch (parent.tok) {
+			case Kwd(KwdAbstract) | Kwd(KwdClass) | Kwd(KwdEnum) | Kwd(KwdInterface) | Kwd(KwdTypedef):
+				true;
+			case Kwd(_):
+				false;
+			case Dot | DblDot | QuestionDot | Arrow | Comma:
+				false;
+			case BkOpen | POpen:
+				false;
+			default:
+				isField(parent);
 		}
 	}
 

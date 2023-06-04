@@ -1,0 +1,39 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		
+		/** test **/
+		foo();
+		bar();
+
+		/** test **/
+
+		foo();
+
+		bar();
+
+		/** test **/
+
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		/** test **/
+		foo();
+		bar();
+
+		/** test **/
+
+		foo();
+
+		bar();
+
+		/** test **/
+	}
+}
