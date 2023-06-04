@@ -1,0 +1,138 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		if (foo)
+			
+			bar;
+		if (foo) //
+
+			bar;
+
+		if (foo)
+			
+			bar;
+		else
+
+			baz;
+		if (foo) //
+
+			bar;
+		else //
+
+			baz;
+
+		if (foo) 
+		
+			//
+
+			bar;
+		else 
+		
+			//
+
+			baz;
+
+
+		if (foo) 
+		
+			//
+
+			//
+
+			bar; 
+		else 
+		
+			//
+
+			//
+
+			baz;
+
+		if (foo) 
+		
+			//
+
+			//
+
+			bar; //
+		else 
+		
+			//
+
+			//
+
+			baz; //
+
+		if (foo) //
+		
+			//
+
+			//
+
+			bar; //
+		else //
+		
+			//
+
+			//
+
+			baz; //
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		if (foo)
+			bar;
+		if (foo) //
+			bar;
+
+		if (foo)
+			bar;
+		else
+			baz;
+		if (foo) //
+			bar;
+		else //
+			baz;
+
+		if (foo)
+			//
+			bar;
+		else
+			//
+			baz;
+
+		if (foo)
+			//
+			//
+			bar;
+		else
+			//
+			//
+			baz;
+
+		if (foo)
+			//
+			//
+			bar; //
+		else
+			//
+			//
+			baz; //
+
+		if (foo) //
+			//
+			//
+			bar; //
+		else //
+			//
+			//
+			baz; //
+	}
+}

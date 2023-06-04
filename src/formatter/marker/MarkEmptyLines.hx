@@ -1070,21 +1070,32 @@ class MarkEmptyLines extends MarkerBase {
 		parsedCode.root.filterCallback(function(token:TokenTree, index:Int):FilterResult {
 			switch (token.tok) {
 				case Kwd(KwdIf):
-					if ((token.children != null) && (token.children.length > 0)) {
-						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
+					if ((token.children != null) && (token.children.length > 1)) {
+						for (child in token.children) {
+							switch (child.tok) {
+								case POpen:
+									continue;
+								default:
+									removeEmptyLinesAroundBlock(child, config.emptyLines.beforeBlocks, Keep);
+							}
+						}
 					}
 					var block:Null<TokenTree> = token.access().firstOf(Kwd(KwdElse)).previousSibling().token;
 					if (block != null) {
 						removeEmptyLinesAroundBlock(block, Keep, config.emptyLines.afterBlocks);
 					}
 				case Kwd(KwdElse):
-					removeEmptyLinesAroundBlock(token.getFirstChild(), config.emptyLines.beforeBlocks, Keep);
+					if (token.children != null) {
+						for (child in token.children) {
+							removeEmptyLinesAroundBlock(child, config.emptyLines.beforeBlocks, Keep);
+						}
+					}
 				case Kwd(KwdCase), Kwd(KwdDefault):
 					var block:Null<TokenTree> = token.access().firstOf(DblDot).firstChild().token;
 					removeEmptyLinesAroundBlock(block, config.emptyLines.beforeBlocks, Keep);
 				case Kwd(KwdFunction):
 				case Kwd(KwdFor):
-					if ((token.children != null) && (token.children.length > 0)) {
+					if ((token.children != null) && (token.children.length > 1)) {
 						removeEmptyLinesAroundBlock(token.children[1], config.emptyLines.beforeBlocks, Keep);
 					}
 				case Kwd(KwdDo):
