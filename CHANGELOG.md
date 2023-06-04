@@ -2,14 +2,14 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added `sameLine.ifElseSemicolonNextLine` to allow breaking `if (true) foo; else foo;`, fixes [#612](https://github.com/HaxeCheckstyle/haxe-formatter/issues/612) ([#662](https://github.com/HaxeCheckstyle/haxe-formatter/issues/668))
+- Added `sameLine.ifElseSemicolonNextLine` to allow breaking `if (true) foo; else foo;`, fixes [#612](https://github.com/HaxeCheckstyle/haxe-formatter/issues/612) ([#668](https://github.com/HaxeCheckstyle/haxe-formatter/issues/668))
 - Fixed whitespace before null safety operator
 - Fixed keeping same line for `macro if` expressions
 - Fixed wrapping with maxLineLength off by one, fixes [#670](https://github.com/HaxeCheckstyle/haxe-formatter/issues/670) ([#671](https://github.com/HaxeCheckstyle/haxe-formatter/issues/671))
 - Fixed extends wrapping for interfaces, fixes [#669](https://github.com/HaxeCheckstyle/haxe-formatter/issues/669)
-- Fixed empty lines between fields of enum abstract, fixes [#672](https://github.com/HaxeCheckstyle/haxe-formatter/issues/672)
-- Fixed empty lines for if with comment, fixes [#556](https://github.com/HaxeCheckstyle/haxe-formatter/issues/556)
-- Fixed empty lines for block level doc comments, fixes [#511](https://github.com/HaxeCheckstyle/haxe-formatter/issues/51)
+- Fixed empty lines between fields of enum abstract, fixes [#672](https://github.com/HaxeCheckstyle/haxe-formatter/issues/672) ([#673](https://github.com/HaxeCheckstyle/haxe-formatter/issues/673))
+- Fixed empty lines for if with comment, fixes [#556](https://github. ([#673](https://github.com/HaxeCheckstyle/haxe-formatter/issues/673))com/HaxeCheckstyle/haxe-formatter/issues/556)
+- Fixed empty lines for block level doc comments, fixes [#511](https://github.com/HaxeCheckstyle/haxe-formatter/issues/51) ([#673](https://github.com/HaxeCheckstyle/haxe-formatter/issues/673))
 
 ## version 1.14.6 (2023-02-22)
 
