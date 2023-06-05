@@ -1,0 +1,119 @@
+{
+	"emptyLines": {
+		"beforeDocCommentEmptyLines": "ignore",
+		"afterFieldsWithDocComments": "ignore",
+		"enumAbstractEmptyLines": {
+			"existingBetweenFields": "keep"
+		}
+	}
+}
+
+---
+
+enum abstract Color(Int) {
+	/**
+	 * Contains a float representing the red color component.
+	 */
+	var R = 0;
+
+	/**
+	 * Contains a float representing the green color component.
+	 */
+	var G = 0;
+
+	/**
+	 * Contains a float representing the blue color component.
+	 */
+	var B = 0;
+}
+
+enum Color {
+	/**
+	 * Contains a float representing the red color component.
+	 */
+	R;
+
+	/**
+	 * Contains a float representing the green color component.
+	 */
+	G;
+
+	/**
+	 * Contains a float representing the blue color component.
+	 */
+	B;
+}
+
+class Main {
+	/**
+	 * Contains a float representing the red color component.
+	 */
+	var R = 0;
+
+	/**
+	 * Contains a float representing the green color component.
+	 */
+	var G = 0;
+
+	/**
+	 * Contains a float representing the blue color component.
+	 */
+	var B = 0;
+
+	static function main() {}
+}
+
+---
+
+enum abstract Color(Int) {
+	/**
+	 * Contains a float representing the red color component.
+	 */
+	var R = 0;
+
+	/**
+	 * Contains a float representing the green color component.
+	 */
+	var G = 0;
+
+	/**
+	 * Contains a float representing the blue color component.
+	 */
+	var B = 0;
+}
+
+enum Color {
+	/**
+	 * Contains a float representing the red color component.
+	 */
+	R;
+
+	/**
+	 * Contains a float representing the green color component.
+	 */
+	G;
+
+	/**
+	 * Contains a float representing the blue color component.
+	 */
+	B;
+}
+
+class Main {
+	/**
+	 * Contains a float representing the red color component.
+	 */
+	var R = 0;
+
+	/**
+	 * Contains a float representing the green color component.
+	 */
+	var G = 0;
+
+	/**
+	 * Contains a float representing the blue color component.
+	 */
+	var B = 0;
+
+	static function main() {}
+}
