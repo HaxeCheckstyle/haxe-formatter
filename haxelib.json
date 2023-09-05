@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.14.6",
-	"releasenote": "fixed inline call() and inline new issue - see CHANGELOG for details.",
+	"version": "1.15.0",
+	"releasenote": " Added sameLine.ifElseSemicolonNextLine - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"

@@ -1,6 +1,7 @@
 import haxe.io.Path;
 import haxe.macro.Context;
 import haxe.macro.Expr;
+import haxe.macro.Type.ClassType;
 import sys.FileSystem;
 import sys.io.File;
 
@@ -8,6 +9,11 @@ class TestCaseMacro {
 	#if macro
 	public macro static function build(folder:String):Array<Field> {
 		var fields:Array<Field> = Context.getBuildFields();
+		var cls:ClassType = Context.getLocalClass().get();
+
+		if (!shouldApply(cls, ":testcases")) {
+			return fields;
+		}
 		var testCases:Array<String> = collectAllFileNames(folder);
 		var singleRun:TestSingleRun = new TestSingleRun();
 		for (testCase in testCases) {
@@ -21,6 +27,17 @@ class TestCaseMacro {
 			fields.push(field);
 		}
 		return fields;
+	}
+
+	public static function shouldApply(cls:ClassType, what:String):Bool {
+		if (cls.meta.has(what)) {
+			return false;
+		}
+
+		if (cls.superClass == null) {
+			return true;
+		}
+		return shouldApply(cls.superClass.t.get(), what);
 	}
 
 	static function buildTestCaseField(fileName:String):Field {

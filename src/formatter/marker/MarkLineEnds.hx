@@ -329,7 +329,7 @@ class MarkLineEnds extends MarkerBase {
 			return;
 		}
 		switch (nextToken.token.tok) {
-			case PClose:
+			case PClose | BkClose:
 			case Dot:
 			case Comma:
 			case Semicolon:
