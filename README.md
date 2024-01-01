@@ -122,6 +122,8 @@ to your configuration (local or global). `formatOnPaste` will also give you `For
 - use `excludes` inside your `hxformat.json` to specify a number of regexes, that will exclude any filename from formatting matching any one of these regexes
 - use `// @formatter:off` and `// @formatter:on` comments inside your code to turn off formatting for parts of your code, it's line based and includes lines containing `// @formatter:off` and `// @formatter:on`.
 
+> NOTE: do not add trailing whitespace to `// @formatter:off` or `// @formatter:on` (they are fine inside a no-format block but not when starting or stopping one)
+
 ### How to start using formatter in your projects
 
 Switching from manually formatted source code to an automated formatter workflow can be a lot of work. The following steps should help you get started:
