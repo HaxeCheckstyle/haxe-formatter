@@ -6,6 +6,7 @@
 - Fixed multiline comment indentation with conditionals, fixes [#499](https://github.com/HaxeCheckstyle/haxe-formatter/issues/499)
 - Fixed empty lines between static functions in abstract, fixes [#356](https://github.com/HaxeCheckstyle/haxe-formatter/issues/356)
 - Fixed multiline string literals with empty lines, fixes [#368](https://github.com/HaxeCheckstyle/haxe-formatter/issues/368)
+- Fixed expressionIf for array comprehension, fixes [#365](https://github.com/HaxeCheckstyle/haxe-formatter/issues/365)
 
 ## version 1.15.0 (2023-09-05)
 

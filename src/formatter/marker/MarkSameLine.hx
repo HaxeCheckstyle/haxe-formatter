@@ -54,6 +54,12 @@ class MarkSameLine extends MarkerBase {
 		switch (parent.tok) {
 			case Kwd(KwdReturn):
 				return true;
+			case BkOpen:
+				return true;
+			case BrOpen:
+				if (parent.parent.tok.match(Kwd(KwdFor))) {
+					return isExpression(parent);
+				}
 			case Kwd(KwdMacro):
 				return isExpression(parent);
 			case Arrow:

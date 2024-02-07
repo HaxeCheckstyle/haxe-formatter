@@ -1,0 +1,47 @@
+{}
+
+---
+
+class Main {
+	static function main() {
+		return [
+			for (meta in node.metadata) {
+				var child = node.children[meta - 1];
+				if (child == null) 0 else value(child);
+			}
+		].sum();
+	}
+
+	static function main() {
+		[
+			if (foo) bar else foo,
+			if (foo) bar else foo,
+			if (foo) bar else foo,
+			if (foo) bar else foo,
+			if (foo) bar else foo
+		]
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return [
+			for (meta in node.metadata) {
+				var child = node.children[meta - 1];
+				if (child == null) 0 else value(child);
+			}
+		].sum();
+	}
+
+	static function main() {
+		[
+			if (foo) bar else foo,
+			if (foo) bar else foo,
+			if (foo) bar else foo,
+			if (foo) bar else foo,
+			if (foo) bar else foo
+		]
+	}
+}
