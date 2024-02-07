@@ -73,6 +73,7 @@ class ParsedCode {
 				case Binop(OpGte):
 					skipCount = 1;
 				case Const(CMarkup(_)):
+					elimateMulitlineEmptyLines(token.pos);
 					var skipIndex = index + 1;
 					while (true) {
 						if (tokens[skipIndex].pos.min >= token.pos.max) {
@@ -89,9 +90,20 @@ class ParsedCode {
 					if (v.startsWith("-")) {
 						skipCount = 1;
 					}
+				case Comment(_) | Const(CString(_)):
+					elimateMulitlineEmptyLines(token.pos);
+					skipCount = 0;
 				default:
 					skipCount = 0;
 			}
+		}
+	}
+
+	function elimateMulitlineEmptyLines(pos:Position) {
+		var start:LinePos = getLinePos(pos.min);
+		var end:LinePos = getLinePos(pos.max);
+		for (i in start.line...end.line) {
+			emptyLines.remove(i);
 		}
 	}
 
