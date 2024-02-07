@@ -55,7 +55,7 @@ class Main {
 			// nothing to do
 			// nothing to do
 			case B:
-			// nothing to do
+				// nothing to do
 			default:
 				// nothing to do
 		}

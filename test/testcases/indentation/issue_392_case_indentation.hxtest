@@ -1,0 +1,91 @@
+{
+	"wrapping": {
+		"methodChain": {
+			"rules": []
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch ("c") {
+			case "a":
+			// nothing to do
+			case "b":
+			case _:
+				// nothing to do
+		}
+		switch ("c") {
+			case "a":
+				trace("foo");
+			// check for "b"
+			case "b":
+			case _:
+		}
+	}
+}
+
+class Main {
+	public static function main() {
+		var value:MyEnum = Math.random() < 0.5 ? A : B;
+
+		switch value {
+			case A:
+				// Case A
+
+			case B:
+				// Case B
+				trace('hello');
+
+			case C:
+				// Case C
+
+			case D:
+				// Case D
+		}
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		switch ("c") {
+			case "a":
+				// nothing to do
+			case "b":
+			case _:
+				// nothing to do
+		}
+		switch ("c") {
+			case "a":
+				trace("foo");
+			// check for "b"
+			case "b":
+			case _:
+		}
+	}
+}
+
+class Main {
+	public static function main() {
+		var value:MyEnum = Math.random() < 0.5 ? A : B;
+
+		switch value {
+			case A:
+				// Case A
+
+			case B:
+				// Case B
+				trace('hello');
+
+			case C:
+				// Case C
+
+			case D:
+				// Case D
+		}
+	}
+}
