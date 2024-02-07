@@ -16,10 +16,24 @@
 # -D detailed_coverage
 # -D debugWrapping
 -D unittest
--D jvm
--java out
+--jvm out/TestMain.jar
 -main TestMain
 
 --macro mcover.MCover.coverage(['formatter'], ['src'], ['formatter.Cli'])
+
+# -lib instrument
+# # -D profiler-console-detail-reporter
+# # -D profiler-console-missing-reporter
+# # -D profiler-console-summary-reporter
+# # -D profiler-console-hierarchy-reporter
+# # -D profiler-csv-reporter
+# # -D profiler-d3-reporter
+# # -D coverage-console-summary-reporter
+# -D coverage-console-package-summary-reporter
+# # -D coverage-console-detail-reporter
+# -D coverage-lcov-reporter
+# -D coverage-codecov-reporter
+
+# --macro instrument.Instrumentation.coverage(['formatter'], ['src'], ['formatter.Cli', 'formatter.debug.PosInfosMacro'])
 
 -cmd java -jar out/TestMain.jar

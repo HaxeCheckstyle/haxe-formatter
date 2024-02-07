@@ -14,7 +14,7 @@ jobs:
   build:
     strategy:
       matrix:
-        haxe-version: ['4.3.2', 'nightly']
+        haxe-version: ['4.3.3', 'nightly']
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
@@ -47,11 +47,12 @@ jobs:
     - name: Build Neko version
       run: npx haxe buildNeko.hxml
     - name: Build Java version
+      if: (matrix.haxe-version == 'nightly')
       run: npx haxe buildJava.hxml
     - name: Build JSON schema
       run: npx haxe buildSchema.hxml
     - name: Run eval tests
-      if: (matrix.haxe-version == '4.3.2')
+      if: (matrix.haxe-version == '4.3.3')
       run: npx haxe -D codecov_json test.hxml
     - name: Run Java tests
       if: (matrix.haxe-version == 'nightly')
@@ -74,5 +75,5 @@ jobs:
     #       name: formatter.js
     #       path: bin/formatter.js
     - name: Upload results to codecov
-      if: success() && matrix.platform == 'ubuntu-latest' && (matrix.haxe-version == '4.3.2')
+      if: success() && matrix.platform == 'ubuntu-latest' && (matrix.haxe-version == '4.3.3')
       run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"

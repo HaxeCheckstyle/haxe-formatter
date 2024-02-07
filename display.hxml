@@ -11,3 +11,4 @@
 -lib munit
 -lib safety
 -lib test-adapter
+-lib instrument
