@@ -4,6 +4,7 @@
 
 - Fixed comment indentation in empty switch cases, fixes [#392](https://github.com/HaxeCheckstyle/haxe-formatter/issues/392), [#174](https://github.com/HaxeCheckstyle/haxe-formatter/issues/174)
 - Fixed multiline comment indentation with conditionals, fixes [#499](https://github.com/HaxeCheckstyle/haxe-formatter/issues/499)
+- Fixed empty lines between static functions in abstract, fixes [#356](https://github.com/HaxeCheckstyle/haxe-formatter/issues/356)
 
 ## version 1.15.0 (2023-09-05)
 
