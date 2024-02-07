@@ -1,0 +1,33 @@
+{}
+
+---
+
+class Main {
+	#if true
+	function foo() {
+	#else
+	function foo() {
+	#end
+	}
+
+	/**
+		Doc.
+	**/
+	public static function bar():Void {}
+}
+
+---
+
+class Main {
+	#if true
+	function foo() {
+	#else
+	function foo() {
+	#end
+	}
+
+	/**
+		Doc.
+	**/
+	public static function bar():Void {}
+}
