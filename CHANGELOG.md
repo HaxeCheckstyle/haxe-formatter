@@ -2,12 +2,14 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added `wrapping.mapWrap`, fixes [#675](https://github.com/HaxeCheckstyle/haxe-formatter/issues/675)
-- Fixed comment indentation in empty switch cases, fixes [#392](https://github.com/HaxeCheckstyle/haxe-formatter/issues/392), [#174](https://github.com/HaxeCheckstyle/haxe-formatter/issues/174)
-- Fixed multiline comment indentation with conditionals, fixes [#499](https://github.com/HaxeCheckstyle/haxe-formatter/issues/499)
-- Fixed empty lines between static functions in abstract, fixes [#356](https://github.com/HaxeCheckstyle/haxe-formatter/issues/356)
-- Fixed multiline string literals with empty lines, fixes [#368](https://github.com/HaxeCheckstyle/haxe-formatter/issues/368)
-- Fixed expressionIf for array comprehension, fixes [#365](https://github.com/HaxeCheckstyle/haxe-formatter/issues/365)
+## version 1.16.0 (2024-02-10)
+
+- Added `wrapping.mapWrap`, fixes [#675](https://github.com/HaxeCheckstyle/haxe-formatter/issues/675) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))
+- Fixed comment indentation in empty switch cases, fixes [#392](https://github.com/HaxeCheckstyle/haxe-formatter/issues/392), [#174](https://github.com/HaxeCheckstyle/haxe-formatter/issues/174) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))
+- Fixed multiline comment indentation with conditionals, fixes [#499](https://github.com/HaxeCheckstyle/haxe-formatter/issues/499) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))
+- Fixed empty lines between static functions in abstract, fixes [#356](https://github.com/HaxeCheckstyle/haxe-formatter/issues/356) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))
+- Fixed multiline string literals with empty lines, fixes [#368](https://github.com/HaxeCheckstyle/haxe-formatter/issues/368) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))
+- Fixed expressionIf for array comprehension, fixes [#365](https://github.com/HaxeCheckstyle/haxe-formatter/issues/365) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))
 
 ## version 1.15.0 (2023-09-05)
 

@@ -47,7 +47,6 @@ jobs:
     - name: Build Neko version
       run: npx haxe buildNeko.hxml
     - name: Build Java version
-      if: (matrix.haxe-version == 'nightly')
       run: npx haxe buildJava.hxml
     - name: Build JSON schema
       run: npx haxe buildSchema.hxml
@@ -55,7 +54,6 @@ jobs:
       if: (matrix.haxe-version == '4.3.3')
       run: npx haxe -D codecov_json test.hxml
     - name: Run Java tests
-      if: (matrix.haxe-version == 'nightly')
       run: npx haxe -D codecov_json testJava.hxml
     - name: Run Node version with --check
       run: node run.js -s . --check
