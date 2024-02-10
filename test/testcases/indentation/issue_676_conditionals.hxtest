@@ -1,0 +1,83 @@
+{
+	"lineEnds": {
+		"leftCurly": "both",
+		"rightCurly": "both",
+		"emptyCurly": "break",
+		"objectLiteralCurly": {
+			"leftCurly": "after"
+		}
+	},
+	"sameLine": {
+		"ifElse": "next",
+		"doWhile": "next",
+		"tryBody": "next",
+		"tryCatch": "next"
+	}
+}
+
+---
+
+// @formatter:off
+class Main
+{
+	static function main()
+	{
+		for (event in eventsPushed)
+		{
+			#if LUA_ALLOWED
+			var luaToLoad:String = '';
+			#if MODS_ALLOWED
+			luaToLoad = Paths.modFolders('custom_events/$event.lua');
+			if (FileSystem.exists(luaToLoad))
+			{
+				luaArray.push(new FunkinLua(luaToLoad));
+			}
+			else
+			{
+			#end
+				luaToLoad = Paths.getPreloadPath('custom_events/$event.lua');
+				if (OpenFlAssets.exists(luaToLoad))
+				{
+					luaArray.push(new FunkinLua(luaToLoad));
+				}
+			#if MODS_ALLOWED
+			}
+			#end
+			#end
+		}
+	}
+}
+
+
+---
+
+// @formatter:off
+class Main
+{
+	static function main()
+	{
+		for (event in eventsPushed)
+		{
+			#if LUA_ALLOWED
+			var luaToLoad:String = '';
+			#if MODS_ALLOWED
+			luaToLoad = Paths.modFolders('custom_events/$event.lua');
+			if (FileSystem.exists(luaToLoad))
+			{
+				luaArray.push(new FunkinLua(luaToLoad));
+			}
+			else
+			{
+			#end
+				luaToLoad = Paths.getPreloadPath('custom_events/$event.lua');
+				if (OpenFlAssets.exists(luaToLoad))
+				{
+					luaArray.push(new FunkinLua(luaToLoad));
+				}
+			#if MODS_ALLOWED
+			}
+			#end
+			#end
+		}
+	}
+}
