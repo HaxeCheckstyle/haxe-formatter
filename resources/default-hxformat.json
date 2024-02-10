@@ -534,6 +534,69 @@
 				}
 			]
 		},
+		"mapWrap": {
+			"defaultWrap": "noWrap",
+			"rules": [
+				{
+					"conditions": [
+						{
+							"cond": "hasMultilineItems",
+							"value": 1
+						}
+					],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "totalItemLength <= n",
+							"value": 80
+						}
+					],
+					"type": "noWrap"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "anyItemLength <= n",
+							"value": 30
+						},
+						{
+							"cond": "itemCount >= n",
+							"value": 10
+						}
+					],
+					"type": "fillLineWithLeadingBreak"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "anyItemLength >= n",
+							"value": 30
+						}
+					],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "itemCount >= n",
+							"value": 4
+						}
+					],
+					"type": "onePerLine"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "exceedsMaxLineLength",
+							"value": 1
+						}
+					],
+					"type": "onePerLine"
+				}
+			]
+		},
 		"maxLineLength": 160,
 		"metadataCallParameter": {
 			"defaultWrap": "noWrap",

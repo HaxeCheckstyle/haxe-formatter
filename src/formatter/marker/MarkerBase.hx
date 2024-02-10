@@ -100,7 +100,7 @@ class MarkerBase {
 	}
 
 	public function increaseIndentBetween(start:Null<TokenTree>, end:Null<TokenTree>, depth:Int, ?pos:PosInfos) {
-		parsedCode.tokenList.increaseIndentBetween(start, end, depth, pos);
+		parsedCode.tokenList.increaseIndentBetween(start, end, depth, config, parsedCode, indenter, pos);
 	}
 
 	public function findTokenAtOffset(offset:Int):Null<TokenInfo> {

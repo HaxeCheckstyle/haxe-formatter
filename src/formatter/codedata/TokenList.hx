@@ -2,6 +2,8 @@ package formatter.codedata;
 
 import formatter.config.Config;
 import formatter.config.WhitespacePolicy;
+import formatter.marker.Indenter;
+import formatter.marker.MarkLineEnds;
 #if debugLog
 import haxe.PosInfos;
 import sys.io.File;
@@ -598,7 +600,8 @@ class TokenList {
 		info.additionalIndent = indent;
 	}
 
-	public function increaseIndentBetween(start:Null<TokenTree>, end:Null<TokenTree>, depth:Int, ?pos:PosInfos) {
+	public function increaseIndentBetween(start:Null<TokenTree>, end:Null<TokenTree>, depth:Int, config:Config, parsedCode:ParsedCode, indenter:Indenter,
+			?pos:PosInfos) {
 		if ((depth == 0) || (start == null) || (start.index < 0) || (end == null) || (end.index < 0)) {
 			return;
 		}
@@ -607,6 +610,7 @@ class TokenList {
 			startIndex++;
 		}
 		var endIndex:Int = end.index;
+		var outputLineEnds:String = MarkLineEnds.outputLineSeparator(config.lineEnds, parsedCode);
 		for (index in startIndex...endIndex) {
 			var info:Null<TokenInfo> = tokens[index];
 			if (info == null) {
@@ -616,6 +620,18 @@ class TokenList {
 			logAction(pos, info.token, '${info.additionalIndent} -> ${info.additionalIndent + depth}');
 			#end
 			info.additionalIndent += depth;
+			switch (info.token.tok) {
+				case Comment(s):
+					var lines:Array<String> = info.text.split(outputLineEnds);
+					var addIndent:String = indenter.makeIndentString(depth);
+					if (lines.length > 0) {
+						for (line in 1...lines.length) {
+							lines[line] = addIndent + lines[line];
+						}
+						info.text = lines.join(outputLineEnds);
+					}
+				default:
+			}
 		}
 	}
 

@@ -1285,6 +1285,10 @@
 					"description": "type parameter wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
+				"mapWrap": {
+					"description": "map literal wrapping rules does not affect map comprehension, use \"sameLine.comprehensionFor\"",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
