@@ -1,0 +1,34 @@
+ {
+    "wrapping": {
+        "arrayWrap": {
+            "defaultWrap": "noWrap"
+        },
+        "mapWrap": {
+            "defaultWrap": "onePerLine"
+		}
+	}
+}
+
+---
+
+class Main {
+    private var array:Array<String> = ["a", "b", "c"];
+
+    private var map:Map<String, String> = [
+        "a" => "apple",
+        "b" => "bear",
+        "c" => "callsign"
+    ];
+}
+
+---
+
+class Main {
+	private var array:Array<String> = ["a", "b", "c"];
+
+	private var map:Map<String, String> = [
+		"a" => "apple",
+		"b" => "bear",
+		"c" => "callsign"
+	];
+}

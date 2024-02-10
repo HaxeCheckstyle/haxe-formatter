@@ -2,6 +2,7 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added `wrapping.mapWrap`, fixes [#675](https://github.com/HaxeCheckstyle/haxe-formatter/issues/675)
 - Fixed comment indentation in empty switch cases, fixes [#392](https://github.com/HaxeCheckstyle/haxe-formatter/issues/392), [#174](https://github.com/HaxeCheckstyle/haxe-formatter/issues/174)
 - Fixed multiline comment indentation with conditionals, fixes [#499](https://github.com/HaxeCheckstyle/haxe-formatter/issues/499)
 - Fixed empty lines between static functions in abstract, fixes [#356](https://github.com/HaxeCheckstyle/haxe-formatter/issues/356)

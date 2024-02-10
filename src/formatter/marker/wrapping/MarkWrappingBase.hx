@@ -945,6 +945,8 @@ class MarkWrappingBase extends MarkerBase {
 				"FunctionSignatureWrapping";
 			case ImplementsWrapping:
 				"ImplementsWrapping";
+			case MapWrapping:
+				"MapWrapping";
 			case MetadataCallParameterWrapping:
 				"MetadataCallParameterWrapping";
 			case MethodChainWrapping:
@@ -975,6 +977,7 @@ typedef WrappingPlace = {
 enum WrappingOrigin {
 	AnonTypeWrapping;
 	ArrayWrapping;
+	MapWrapping;
 	CallParameterWrapping;
 	CasePatternWrapping;
 	FunctionSignatureWrapping;

@@ -43,6 +43,42 @@ typedef WrapConfig = {
 	var arrayWrap:WrapRules;
 
 	/**
+		map literal wrapping rules
+		does not affect map comprehension, use "sameLine.comprehensionFor"
+	**/
+	@:default({
+		defaultWrap: NoWrap,
+		rules: [
+			{
+				conditions: [{cond: HasMultiLineItems, value: 1}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: TotalItemLengthLessThan, value: 80}],
+				type: NoWrap
+			},
+			{
+				conditions: [{cond: AnyItemLengthLessThan, value: 30}, {cond: ItemCountLargerThan, value: 10}],
+				type: FillLineWithLeadingBreak
+			},
+			{
+				conditions: [{cond: AnyItemLengthLargerThan, value: 30}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ItemCountLargerThan, value: 4}],
+				type: OnePerLine
+			},
+			{
+				conditions: [{cond: ExceedsMaxLineLength, value: 1}],
+				type: OnePerLine
+			}
+		]
+	})
+	@:optional
+	var mapWrap:WrapRules;
+
+	/**
 		detect arrays in matrix configuration from source
 		noMatrixWrap = no detection
 		matrixWrapNoAlign = detect and format as matrix without alignment

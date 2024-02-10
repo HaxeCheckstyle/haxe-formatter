@@ -245,6 +245,21 @@ class MarkWrapping extends MarkWrappingBase {
 	}
 
 	function arrayWrapping(token:TokenTree) {
+		switch (TokenTreeCheckUtils.getBkOpenType(token)) {
+			case ArrayAccess:
+				return;
+			case ArrayLiteral:
+				arrayLiteralWrapping(token);
+			case Comprehension:
+				arrayLiteralWrapping(token);
+			case MapLiteral:
+				mapLiteralWrapping(token);
+			case Unknown:
+				arrayLiteralWrapping(token);
+		}
+	}
+
+	function arrayLiteralWrapping(token:TokenTree) {
 		var bkClose:Null<TokenTree> = getCloseToken(token);
 		if ((token.children == null) || (token.children.length <= 0)) {
 			return;
@@ -351,6 +366,35 @@ class MarkWrapping extends MarkWrappingBase {
 			index += lineRun;
 		}
 		return true;
+	}
+
+	function mapLiteralWrapping(token:TokenTree) {
+		var bkClose:Null<TokenTree> = getCloseToken(token);
+		if ((token.children == null) || (token.children.length <= 0)) {
+			return;
+		}
+		var items:Array<WrappableItem> = makeWrappableItems(token);
+		var itemsWithoutMetadata:Array<WrappableItem> = [];
+		for (item in items) {
+			switch (item.first.tok) {
+				case At:
+					if (item.firstLineLength > 30) {
+						lineEndBefore(token);
+						lineEndBefore(item.first);
+					}
+				default:
+					itemsWithoutMetadata.push(item);
+			}
+		}
+		applyWrappingPlace({
+			origin: MapWrapping,
+			start: token,
+			end: bkClose,
+			items: itemsWithoutMetadata,
+			rules: config.wrapping.mapWrap,
+			useTrailing: true,
+			overrideAdditionalIndent: null
+		});
 	}
 
 	override function calcLineLength(token:TokenTree):Int {
