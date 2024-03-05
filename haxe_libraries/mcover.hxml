@@ -1,3 +1,0 @@
-# @install: lix --silent download "gh://github.com/AlexHaxe/mcover#fdbdbc11938eabf068b40e30e8b8b16912f8da6c" into mcover/0.0.0/github/fdbdbc11938eabf068b40e30e8b8b16912f8da6c
--cp ${HAXE_LIBCACHE}/mcover/0.0.0/github/fdbdbc11938eabf068b40e30e8b8b16912f8da6c/src
--D mcover=0.0.0

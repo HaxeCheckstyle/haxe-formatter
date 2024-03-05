@@ -1,42 +1,67 @@
-import haxe.EntryPoint;
 import sys.io.File;
-import massive.munit.TestRunner;
-import mcover.coverage.MCoverage;
-import mcover.coverage.munit.client.MCoverPrintClient;
-#if codecov_json
-import mcover.coverage.client.CodecovJsonPrintClient;
-#else
-import mcover.coverage.client.LcovPrintClient;
-#end
+import formatter.EmptyLinesTest;
+import formatter.FormatStatsTest;
+import formatter.codedata.TokenListTest;
+import testcases.EmptyLinesTestCases;
+import testcases.ExpressionLevelTestCases;
+import testcases.FormatRangeTestCases;
+import testcases.IndentationTestCases;
+import testcases.LineEndsTestCases;
+import testcases.MissingTestCases;
+import testcases.Other;
+import testcases.SameLineTestCases;
+import testcases.WhitespaceTestCases;
+import testcases.WrappingTestCases;
+import utest.Runner;
+import utest.ui.text.DiagnosticsReport;
 
 class TestMain {
 	public function new() {
-		var suites:Array<Class<massive.munit.TestSuite>> = [TestSuite];
-		var client:MCoverPrintClient = new MCoverPrintClient();
-		#if codecov_json
-		MCoverage.getLogger().addClient(new CodecovJsonPrintClient());
-		#else
-		MCoverage.getLogger().addClient(new LcovPrintClient("Formatter Unittests"));
-		#end
+		var tests:Array<() -> ITest> = [];
 
-		#if detailed_coverage
-		client.includeClassAndPackageBreakdowns = true;
-		client.includeMissingBlocks = true;
-		#end
-		var runner = new TestRunner(client);
-		runner.completionHandler = completionHandler;
-		#if (neko || cpp || hl || java)
-		EntryPoint.addThread(function() {
-			while (true) {
-				Sys.sleep(1.0);
+		var singleRun:TestSingleRun = new TestSingleRun();
+		if (!singleRun.isSingleRun()) {
+			tests.push(SelfTest.new);
+			tests.push(FormatStatsTest.new);
+			tests.push(TokenListTest.new);
+			tests.push(EmptyLinesTest.new);
+		}
+
+		tests.push(cast EmptyLinesTestCases.new);
+		tests.push(cast ExpressionLevelTestCases.new);
+		tests.push(cast FormatRangeTestCases.new);
+		tests.push(cast IndentationTestCases.new);
+		tests.push(cast LineEndsTestCases.new);
+		tests.push(cast MissingTestCases.new);
+		tests.push(cast Other.new);
+		tests.push(cast SameLineTestCases.new);
+		tests.push(cast WhitespaceTestCases.new);
+		tests.push(cast WrappingTestCases.new);
+
+		var runner:Runner = new Runner();
+
+		var failed = false;
+		runner.onProgress.add(r -> {
+			if (!r.result.allOk()) {
+				failed = true;
 			}
 		});
-		#end
-		runner.run(suites);
-		EntryPoint.run();
+		runner.onComplete.add(_ -> {
+			completionHandler(!failed);
+		});
+
+		new DiagnosticsReport(runner);
+		for (test in tests) {
+			runner.addCase(test());
+		}
+		runner.run();
 	}
 
 	function completionHandler(success:Bool) {
+		#if instrument
+		instrument.coverage.Coverage.endCoverage();
+		#end
+
 		if (success) {
 			File.saveContent("test/formatter-result.txt", "\n---\n");
 		}

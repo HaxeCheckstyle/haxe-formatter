@@ -1,19 +1,35 @@
 import haxe.io.Path;
 import haxe.macro.Context;
 import haxe.macro.Expr;
+import haxe.macro.PositionTools;
 import haxe.macro.Type.ClassType;
 import sys.FileSystem;
 import sys.io.File;
+
+using haxe.macro.ExprTools;
 
 class TestCaseMacro {
 	#if macro
 	public macro static function build(folder:String):Array<Field> {
 		var fields:Array<Field> = Context.getBuildFields();
 		var cls:ClassType = Context.getLocalClass().get();
-
 		if (!shouldApply(cls, ":testcases")) {
 			return fields;
 		}
+		cls.meta.add(":testcases", [], cls.pos);
+
+		// revert the effects of implementing ITest interface
+		//
+		// unfortunately utest initialises before this macro runs, making our testcases invisible to utest.
+		// additionally test-adapter needs ITest interface to be able to collect position info of testcases
+		// which means we have to implement utests ITest interface to keep test explorer working.
+		//
+		// solution:
+		// we remove the field and meta info added by @:autoBuild (through ITest), add our testcases and
+		// then re-apply utest's test builder macro a second time
+		fields = fields.filter(f -> f.name != "__initializeUtest__");
+		cls.meta.remove(":utestProcessed");
+
 		var testCases:Array<String> = collectAllFileNames(folder);
 		var singleRun:TestSingleRun = new TestSingleRun();
 		for (testCase in testCases) {
@@ -52,14 +68,29 @@ class TestCaseMacro {
 		var unformatted:String = segments[1];
 		var gold:String = segments[2];
 		var fieldName:String = new haxe.io.Path(fileName).file;
+		fieldName = 'test_$fieldName';
 		var lineSeparator:String = detectLineSeparator(content);
 
-		return (macro class {
-			@Test
+		var field = (macro class {
 			public function $fieldName() {
 				goldCheck($v{fileName}, $v{unformatted}, $v{gold}, $v{lineSeparator}, $v{config});
 			};
 		}).fields[0];
+
+		// make assertion failures show up in testfile
+		field.pos = PositionTools.make({file: fileName, min: content.length, max: content.length});
+		switch (field.kind) {
+			case FFun(f):
+				relocateExpr(f.expr, field.pos);
+			default:
+		}
+
+		return field;
+	}
+
+	static function relocateExpr(expr:Expr, pos:Position):Expr {
+		expr.pos = pos;
+		return expr.map((e) -> relocateExpr(e, pos));
 	}
 
 	static function collectAllFileNames(path:String):Array<String> {

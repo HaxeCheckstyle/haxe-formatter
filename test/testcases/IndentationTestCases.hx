@@ -1,4 +1,5 @@
 package testcases;
 
 @:build(TestCaseMacro.build("test/testcases/indentation"))
-class IndentationTestCases extends GoldBaseTest {}
+@:build(utest.utils.TestBuilder.build())
+class IndentationTestCases extends GoldBaseTest implements ITest {}

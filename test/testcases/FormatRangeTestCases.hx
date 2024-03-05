@@ -1,12 +1,12 @@
 package testcases;
 
 import haxe.PosInfos;
-import massive.munit.Assert;
 import formatter.Formatter;
 import formatter.config.Config;
 
 @:build(TestCaseMacro.build("test/testcases/formatrange"))
-class FormatRangeTestCases extends GoldBaseTest {
+@:build(utest.utils.TestBuilder.build())
+class FormatRangeTestCases extends GoldBaseTest implements ITest {
 	override public function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?configString:String, ?pos:PosInfos) {
 		var config = new Config();
 		config.readConfigFromString(configString, "goldhxformat.json");

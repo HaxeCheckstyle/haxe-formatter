@@ -6,9 +6,7 @@
 -lib hxparse
 -lib json2object
 -lib hxargs
--lib mcover
--lib munit
-# -lib safety
+-lib utest
 -lib test-adapter
 
 # -D debugLog
@@ -16,6 +14,9 @@
 # -D detailed_coverage
 # -D debugWrapping
 -D unittest
+-D haxe-next
 -x TestMain
 
---macro mcover.MCover.coverage(['formatter'], ['src'], ['formatter.Cli'])
+-D UTEST_PRINT_TESTS
+
+# -D dump=pretty

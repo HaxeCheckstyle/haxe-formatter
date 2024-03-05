@@ -2,12 +2,12 @@ package formatter;
 
 import haxe.PosInfos;
 import haxe.io.BytesBuffer;
-import massive.munit.Assert;
 import formatter.Formatter;
 import formatter.config.Config;
 
-class EmptyLinesTest {
-	@Test
+class EmptyLinesTest implements ITest {
+	public function new() {}
+
 	public function testEmptyLines() {
 		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 		var formatted:String = format(lines.join("\n"));
@@ -34,7 +34,6 @@ class EmptyLinesTest {
 		compareLines(lines, formattedLines);
 	}
 
-	@Test
 	public function testBOMEmptyLines() {
 		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 
@@ -63,7 +62,6 @@ class EmptyLinesTest {
 		compareLines(lines, formattedLines);
 	}
 
-	@Test
 	public function testCommentEmptyLines() {
 		var lines:Array<String> = (EmptyLinesText1 : String).split("\n").map(function(s) return s.trim());
 		lines.unshift("// äääääääääääääääääääööööööööööööööööööööüüüüüüüüüüüüüüüüüüüüüüßßßßßßßßßßßßßßßßßææææææææææææææææðððððððððððð€€€€€€€€€€€€€€¶¶¶¶¶¶¶¶¶¶¶đđđđđđđłł");
@@ -80,10 +78,10 @@ class EmptyLinesTest {
 	}
 
 	function compareLines(lines:Array<String>, formattedLines:Array<String>, ?pos:PosInfos) {
-		Assert.areEqual(lines.length, formattedLines.length, pos);
+		Assert.equals(lines.length, formattedLines.length, pos);
 		var index:Int = 0;
 		for (i in 0...lines.length) {
-			Assert.areEqual(lines[i], formattedLines[i], pos);
+			Assert.equals(lines[i], formattedLines[i], pos);
 		}
 	}
 

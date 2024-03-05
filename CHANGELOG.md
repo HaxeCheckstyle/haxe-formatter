@@ -2,6 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Refactored unittests to work with utest library
+- Removed munit library
+
 ## version 1.16.0 (2024-02-10)
 
 - Added `wrapping.mapWrap`, fixes [#675](https://github.com/HaxeCheckstyle/haxe-formatter/issues/675) ([#677](https://github.com/HaxeCheckstyle/haxe-formatter/issues/677))

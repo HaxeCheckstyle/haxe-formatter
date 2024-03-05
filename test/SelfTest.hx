@@ -1,14 +1,12 @@
 import haxe.PosInfos;
-import haxe.io.Bytes;
 import haxe.io.Path;
-import massive.munit.Assert;
-import formatter.Formatter;
-import formatter.codedata.ParseFile;
-import sys.io.File;
 import sys.FileSystem;
+import sys.io.File;
+import formatter.Formatter;
 
-class SelfTest {
-	@Test
+class SelfTest implements ITest {
+	public function new() {}
+
 	public function testSelfSrc() {
 		var files:Array<String> = collectAllFileNames("src");
 		for (file in files) {
@@ -16,7 +14,6 @@ class SelfTest {
 		}
 	}
 
-	@Test
 	public function testSelfTest() {
 		var files:Array<String> = collectAllFileNames("test");
 		for (file in files) {
@@ -24,7 +21,6 @@ class SelfTest {
 		}
 	}
 
-	@Test
 	public function testSelfSchema() {
 		var files:Array<String> = collectAllFileNames("schema");
 		for (file in files) {
@@ -40,7 +36,7 @@ class SelfTest {
 				if (code != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$code\n---\n$formattedCode');
 				}
-				Assert.areEqual(code, formattedCode, 'Format failed for $fileName', pos);
+				Assert.equals(code, formattedCode, 'Format failed for $fileName', pos);
 			case Failure(errorMessage):
 				Assert.fail(errorMessage);
 			case Disabled:
