@@ -1,4 +1,5 @@
 package testcases;
 
 @:build(TestCaseMacro.build("test/testcases/whitespace"))
-class WhitespaceTestCases extends GoldBaseTest {}
+@:build(utest.utils.TestBuilder.build())
+class WhitespaceTestCases extends GoldBaseTest implements ITest {}

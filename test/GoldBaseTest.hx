@@ -3,11 +3,12 @@ import haxe.Template;
 import sys.io.File;
 import formatter.Formatter;
 import formatter.config.Config;
-import massive.munit.Assert;
 import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 class GoldBaseTest {
 	var entryPoint:TokenTreeEntryPoint = null;
+
+	public function new() {}
 
 	function goldCheck(fileName:String, unformatted:String, goldCode:String, lineSeparator:String, ?configString:String, ?pos:PosInfos) {
 		var config = new Config();
@@ -41,14 +42,16 @@ class GoldBaseTest {
 				if (goldCode != formattedCode) {
 					File.saveContent("test/formatter-result.txt", '$goldCode\n---\n$formattedCode');
 				}
-				Assert.areEqual(goldCode, formattedCode, pos);
+				Assert.equals(goldCode, formattedCode, pos);
 			case Failure(errorMessage):
 				if (isFailing) {
+					Assert.isTrue(isFailing, "testcase is expected to fail");
 					return;
 				}
 				Assert.fail(errorMessage, pos);
 			case Disabled:
 				if (isDisabled) {
+					Assert.isTrue(isDisabled, "testcase is disabled");
 					return;
 				}
 				Assert.fail("Formatting is disabled", pos);

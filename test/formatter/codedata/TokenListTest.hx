@@ -2,10 +2,10 @@ package formatter.codedata;
 
 import haxe.PosInfos;
 import haxe.io.Bytes;
-import massive.munit.Assert;
 
-class TokenListTest {
-	@Test
+class TokenListTest implements ITest {
+	public function new() {}
+
 	public function testGetTokenAt() {
 		var tokenList:TokenList = makeTokenList(FormatStatsTestCode.CodeSample);
 		checkToken(tokenList, 0, 0, "class");
@@ -17,30 +17,27 @@ class TokenListTest {
 		checkToken(tokenList, 41, 9, "trace");
 	}
 
-	@Test
 	public function testInvalidGetTokenAt() {
 		var tokenList:TokenList = makeTokenList(FormatStatsTestCode.CodeSample);
-		try {
+		Assert.raises(function() {
 			tokenList.getTokenAtOffset(-1);
-			Assert.fail("previous call should not succeed");
-		} catch (e:Any) {}
-		try {
+		}, String);
+		Assert.raises(function() {
 			tokenList.getTokenAtOffset(64);
-			Assert.fail("previous call should not succeed");
-		} catch (e:Any) {}
+		}, String);
+
 		tokenList = makeTokenList("");
-		try {
+		Assert.raises(function() {
 			tokenList.getTokenAtOffset(1);
-			Assert.fail("previous call should not succeed");
-		} catch (e:Any) {}
+		}, String);
 	}
 
 	function checkToken(tokenList:TokenList, offset:Int, expectedIndex:Int, expectedText:String, ?pos:PosInfos) {
 		var tokenInfo:Null<TokenInfo> = tokenList.getTokenAtOffset(offset);
-		Assert.isNotNull(tokenInfo, pos);
-		Assert.isNotNull(tokenInfo.token, pos);
-		Assert.areEqual(expectedIndex, tokenInfo.token.index, pos);
-		Assert.areEqual(expectedText, tokenInfo.token.toString());
+		Assert.notNull(tokenInfo, pos);
+		Assert.notNull(tokenInfo.token, pos);
+		Assert.equals(expectedIndex, tokenInfo.token.index, pos);
+		Assert.equals(expectedText, tokenInfo.token.toString());
 	}
 
 	function makeTokenList(code:String):TokenList {

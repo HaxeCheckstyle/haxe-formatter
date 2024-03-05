@@ -15,8 +15,7 @@
 # -D debugWrapping
 -D unittest
 -D haxe-next
---jvm out/TestMain.jar
--main TestMain
+-x TestMain
 
 -D UTEST_PRINT_TESTS
 
@@ -40,5 +39,3 @@
 # -D dump=pretty
 
 # --macro instrument.Instrumentation.profiling(['formatter'], ['src'], [])
-
--cmd java -jar out/TestMain.jar

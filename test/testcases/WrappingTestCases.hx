@@ -1,4 +1,5 @@
 package testcases;
 
 @:build(TestCaseMacro.build("test/testcases/wrapping"))
-class WrappingTestCases extends GoldBaseTest {}
+@:build(utest.utils.TestBuilder.build())
+class WrappingTestCases extends GoldBaseTest implements ITest {}
