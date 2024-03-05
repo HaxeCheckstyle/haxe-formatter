@@ -55,7 +55,7 @@ jobs:
     - name: Run eval tests (with coverage)
       run: npx haxe testCoverage.hxml
     - name: Run Java tests
-      run: npx haxe -D codecov_json testJava.hxml
+      run: npx haxe testJava.hxml
     - name: Run Node version with --check
       run: node run.js -s . --check
     - name: Run Java version with --check
