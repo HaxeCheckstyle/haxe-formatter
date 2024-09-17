@@ -2,8 +2,11 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.16.1 (2024-09-18)
+
 - Refactored unittests to work with utest library ([#679](https://github.com/HaxeCheckstyle/haxe-formatter/issues/679))
 - Removed munit library ([#679](https://github.com/HaxeCheckstyle/haxe-formatter/issues/679))
+- Fixed parse error when trying to format conditional arrow function
 
 ## version 1.16.0 (2024-02-10)
 

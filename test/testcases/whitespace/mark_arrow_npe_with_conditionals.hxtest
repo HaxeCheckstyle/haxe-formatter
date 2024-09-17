@@ -1,0 +1,26 @@
+{}
+
+---
+
+function prepareToSong()
+{
+#if (target.threaded)
+Thread.create(() -> {
+#end
+completedThread();
+#if (target.threaded)
+});
+#end
+}
+
+---
+
+function prepareToSong() {
+	#if (target.threaded)
+	Thread.create(() -> {
+	#end
+		completedThread();
+	#if (target.threaded)
+	});
+	#end
+}
