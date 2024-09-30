@@ -964,6 +964,18 @@
 				{
 					"description": "condition value = 1 matches if unwrapped line exceeds maxLineLength value = 0 matches unwrapped lines not exceeding maxLineLength",
 					"const": "exceedsMaxLineLength"
+				},
+				{
+					"description": "condition value = 1 matches if all items have identical item length value = 0 matches any two items having different item lengths",
+					"const": "equalItemLengths"
+				},
+				{
+					"description": "condition matches when all item have more than or equal n characters",
+					"const": "allItemLengths >= n"
+				},
+				{
+					"description": "condition matches when all item have less than or equal n characters",
+					"const": "allItemLengths <= n"
 				}
 			]
 		},
@@ -1249,6 +1261,10 @@
 				},
 				"callParameter": {
 					"description": "call parameter wrapping rules",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"opAssignWrap": {
+					"description": "chain wrapping rules for case patterns",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
 				"arrayMatrixWrap": {
