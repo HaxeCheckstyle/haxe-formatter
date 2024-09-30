@@ -433,6 +433,18 @@ class MarkEmptyLines extends MarkerBase {
 				emptyLinesAfterSubTree(prevToken, conf.afterPrivateFunctions);
 				return;
 			}
+			switch (prevToken.tok) {
+				case Sharp(MarkLineEnds.SHARP_END):
+					var previous:TokenInfo = getPreviousToken(prevToken);
+					if (previous != null) {
+						switch (previous.token.tok) {
+							case Semicolon | BrClose:
+							default:
+								return;
+						}
+					}
+				default:
+			}
 			emptyLinesAfterSubTree(prevToken, conf.betweenFunctions);
 			return;
 		}
@@ -520,7 +532,7 @@ class MarkEmptyLines extends MarkerBase {
 		var currToken:Null<TokenTree> = null;
 		var currTokenType:Null<TokenFieldType> = null;
 		for (field in fields) {
-			currToken = field;
+			currToken = skipSharpFields(field);
 			currTokenType = FieldUtils.getFieldType(field, Public);
 			markInterfaceEmptyLines(prevToken, prevTokenType, currToken, currTokenType, conf);
 			prevToken = currToken;
@@ -608,7 +620,7 @@ class MarkEmptyLines extends MarkerBase {
 		var currToken:Null<TokenTree> = null;
 		var currTokenType:Null<TokenFieldType> = null;
 		for (func in functions) {
-			currToken = func;
+			currToken = skipSharpFields(func);
 			currTokenType = FieldUtils.getFieldType(func, Public);
 			markEnumAbstractFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType);
 			prevToken = currToken;
@@ -641,10 +653,6 @@ class MarkEmptyLines extends MarkerBase {
 				currVar = true;
 			case Unknown:
 				return;
-		}
-		prevToken = skipSharpFields(prevToken);
-		if (prevToken == null) {
-			return;
 		}
 		if (config.emptyLines.enumAbstractEmptyLines.existingBetweenFields == Keep) {
 			if (hasEmptyLinesBetweenFields(prevToken, currToken)) {
@@ -760,6 +768,18 @@ class MarkEmptyLines extends MarkerBase {
 		}
 		switch (next.tok) {
 			case Sharp(MarkLineEnds.SHARP_END):
+				var previous:TokenInfo = getPreviousToken(next);
+				if (previous != null) {
+					switch (previous.token.tok) {
+						case Semicolon | BrClose:
+							return next;
+						default:
+							var nextSibling:TokenTree = next.parent?.nextSibling;
+							if (nextSibling != null) {
+								return nextSibling;
+							}
+					}
+				}
 				return next;
 			case Sharp(MarkLineEnds.SHARP_IF):
 				return prevToken;
@@ -783,6 +803,8 @@ class MarkEmptyLines extends MarkerBase {
 					FoundSkipSubtree;
 				case Kwd(KwdFinal):
 					FoundSkipSubtree;
+				case BrOpen:
+					SkipSubtree;
 				default:
 					GoDeeper;
 			}
@@ -812,7 +834,21 @@ class MarkEmptyLines extends MarkerBase {
 			if (prevTypeInfo.oneLine && newTypeInfo.oneLine) {
 				emptyLines = config.emptyLines.betweenSingleLineTypes;
 			}
-			emptyLinesAfterSubTree(prevTypeInfo.lastToken, emptyLines);
+			var noEmptyLines:Bool = false;
+			switch (prevTypeInfo.lastToken.tok) {
+				case Sharp(MarkLineEnds.SHARP_END):
+					var sharpEnd:TokenInfo = getTokenInfo(prevTypeInfo.lastToken);
+					if (sharpEnd != null && sharpEnd.whitespaceAfter != Newline) {
+						noEmptyLines = true;
+					}
+				default:
+			}
+			if (prevTypeInfo.typeToken.index == prevTypeInfo.lastToken.index) {
+				noEmptyLines = true;
+			}
+			if (!noEmptyLines) {
+				emptyLinesAfterSubTree(prevTypeInfo.lastToken, emptyLines);
+			}
 			markLineCommentsAfter(prevTypeInfo.typeToken, 1);
 			prevTypeInfo = newTypeInfo;
 		}
@@ -825,7 +861,43 @@ class MarkEmptyLines extends MarkerBase {
 			oneLine: false
 		};
 
+		switch (info.lastToken.tok) {
+			case Semicolon | BrClose:
+			default:
+				var afterLast:TokenInfo = getNextToken(info.lastToken);
+				if (afterLast != null) {
+					switch (afterLast.token.tok) {
+						case Sharp(MarkLineEnds.SHARP_ELSE) | Sharp(MarkLineEnds.SHARP_END) | Sharp(MarkLineEnds.SHARP_ELSE_IF):
+							var parent:TokenTree = afterLast.token.parent;
+							var lastChild:TokenTree = parent.getLastChild();
+							var newLastToken:TokenTree = TokenTreeCheckUtils.getLastToken(lastChild);
+							if (newLastToken != null) {
+								info.lastToken = newLastToken;
+							}
+						default:
+					}
+				}
+		}
+
 		var start:TokenTree = parsedCode.tokenList.findLowestIndex(token);
+		if (token.previousSibling != null) {
+			switch (token.previousSibling.tok) {
+				case Sharp(MarkLineEnds.SHARP_IF) if (token.previousSibling.hasChildren()):
+					var allMeta:Bool = true;
+					for (child in token.previousSibling.children) {
+						switch (child.tok) {
+							case Const(_) | At | Sharp(MarkLineEnds.SHARP_END):
+							default:
+								allMeta = false;
+								break;
+						}
+					}
+					if (allMeta) {
+						start = token.previousSibling;
+					}
+				default:
+			}
+		}
 		if (isSameLine(start, info.lastToken)) {
 			info.oneLine = true;
 		}

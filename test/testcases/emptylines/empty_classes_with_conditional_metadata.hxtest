@@ -1,0 +1,23 @@
+{
+}
+
+
+---
+
+#if FLX_DEBUG @:bitmap("assets/images/debugger/flixel.png") #end
+private class GraphicFlixel extends BitmapData {}
+#if FLX_DEBUG @:bitmap("assets/images/debugger/buttons/drawDebug.png") #end
+private class GraphicDrawDebug extends BitmapData {}
+#if FLX_DEBUG @:bitmap("assets/images/debugger/buttons/log.png") #end
+@:noCompletion class GraphicLog extends BitmapData {}
+
+---
+
+#if FLX_DEBUG @:bitmap("assets/images/debugger/flixel.png") #end
+private class GraphicFlixel extends BitmapData {}
+
+#if FLX_DEBUG @:bitmap("assets/images/debugger/buttons/drawDebug.png") #end
+private class GraphicDrawDebug extends BitmapData {}
+
+#if FLX_DEBUG @:bitmap("assets/images/debugger/buttons/log.png") #end
+@:noCompletion class GraphicLog extends BitmapData {}
