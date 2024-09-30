@@ -939,6 +939,14 @@
 				},
 				{
 					"description": "condition matches if max item length is less than or equal n characters",
+					"const": "allItemLengths <= n"
+				},
+				{
+					"description": "condition matches if min item length is larger than or equal n characters",
+					"const": "allItemLengths >= n"
+				},
+				{
+					"description": "condition matches if min item length is less than or equal n characters",
 					"const": "anyItemLength <= n"
 				},
 				{
@@ -968,14 +976,6 @@
 				{
 					"description": "condition value = 1 matches if all items have identical item length value = 0 matches any two items having different item lengths",
 					"const": "equalItemLengths"
-				},
-				{
-					"description": "condition matches when all item have more than or equal n characters",
-					"const": "allItemLengths >= n"
-				},
-				{
-					"description": "condition matches when all item have less than or equal n characters",
-					"const": "allItemLengths <= n"
 				}
 			]
 		},

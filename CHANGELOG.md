@@ -2,7 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
-- Added wrap condition types EqualItemLengths, AllItemLengthsLargerThan and AllItemLengthsLessThan
+- Added wrap condition types `EqualItemLengths`, `AllItemLengthsLargerThan` and `AllItemLengthsLessThan`
+- **Breaking Change** Fixed wrap condition type `AnyItemLengthLessThan` - use `AllItemLengthsLessThan` for old behaviour
 - Fixed modifiers with complex conditionals, fixes [#332](https://github.com/HaxeCheckstyle/haxe-formatter/issues/332)
 - Fixed unexpected array wrapping behavior, fixes [#340](https://github.com/HaxeCheckstyle/haxe-formatter/issues/340)
 
