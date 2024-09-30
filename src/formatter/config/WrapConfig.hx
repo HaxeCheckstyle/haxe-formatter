@@ -22,7 +22,18 @@ typedef WrapConfig = {
 				type: NoWrap
 			},
 			{
-				conditions: [{cond: AnyItemLengthLessThan, value: 30}, {cond: ItemCountLargerThan, value: 10}],
+				conditions: [
+					{cond: EqualItemLengths, value: 1},
+					{cond: AllItemLengthsLessThan, value: 30},
+					{cond: ItemCountLargerThan, value: 10}
+				],
+				type: FillLineWithLeadingBreak
+			},
+			{
+				conditions: [
+					{cond: AllItemLengthsLessThan, value: 10},
+					{cond: ItemCountLargerThan, value: 10}
+				],
 				type: FillLineWithLeadingBreak
 			},
 			{
@@ -223,7 +234,8 @@ typedef WrapConfig = {
 				type: OnePerLine
 			}
 		]
-	}) @:optional
+	})
+	@:optional
 	var objectLiteral:WrapRules;
 
 	/**
@@ -602,6 +614,22 @@ enum abstract WrapConditionType(String) {
 		value = 0 matches unwrapped lines not exceeding maxLineLength
 	**/
 	var ExceedsMaxLineLength = "exceedsMaxLineLength";
+
+	/**
+		condition value = 1 matches if all items have identical item length
+		value = 0 matches any two items having different item lengths
+	**/
+	var EqualItemLengths = "equalItemLengths";
+
+	/**
+		condition matches when all item have more than or equal n characters
+	**/
+	var AllItemLengthsLargerThan = "allItemLengths >= n";
+
+	/**
+		condition matches when all item have less than or equal n characters
+	**/
+	var AllItemLengthsLessThan = "allItemLengths <= n";
 }
 
 typedef ArrayWrapping = {

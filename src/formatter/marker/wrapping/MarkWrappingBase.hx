@@ -672,28 +672,49 @@ class MarkWrappingBase extends MarkerBase {
 				additionalIndent: rules.defaultAdditionalIndent
 			};
 		}
+		var minItemLength:Int = 9999;
 		var maxItemLength:Int = 0;
 		var totalItemLength:Int = 0;
 		var lineLength:Int = calcLineLength(token);
 		var hasMultiLineItem:Bool = false;
+		var hasEqualItemLengths:Bool = true;
+		var itemLength:Int = -1;
+		var count:Int = 0;
 		for (item in items) {
+			count++;
 			totalItemLength += item.firstLineLength + item.lastLineLength;
 			if (item.multiline) {
 				hasMultiLineItem = true;
 			}
 			var length:Int = Math.floor(Math.max(item.firstLineLength, item.lastLineLength));
+			if (length < minItemLength) {
+				minItemLength = length;
+			}
 			if (length > maxItemLength) {
 				maxItemLength = length;
 			}
+			if (itemLength < 0) {
+				itemLength = length;
+				continue;
+			}
+			if (itemLength != length) {
+				if (count == items.length && (length + 2) == itemLength) {
+					// allow last item to be two characters short e.g. [1,2,3] turns into "1 ,", "2 ,", "3"
+					continue;
+				}
+				hasEqualItemLengths = false;
+			}
 		}
 		#if debugWrapping
+		log("maxItemLength", '$minItemLength', pos);
 		log("maxItemLength", '$maxItemLength', pos);
 		log("totalItemLength", '$totalItemLength', pos);
 		log("lineLength", '$lineLength', pos);
 		log("hasMultiLineItem", '$hasMultiLineItem', pos);
+		log("hasEqualItemLengths", '$hasEqualItemLengths', pos);
 		#end
 		for (rule in rules.rules) {
-			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength, hasMultiLineItem)) {
+			if (matchesRule(rule, itemCount, minItemLength, maxItemLength, totalItemLength, lineLength, hasMultiLineItem, hasEqualItemLengths)) {
 				return rule;
 			}
 		}
@@ -708,9 +729,9 @@ class MarkWrappingBase extends MarkerBase {
 		};
 	}
 
-	function determineWrapType(rules:WrapRules, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
+	function determineWrapType(rules:WrapRules, itemCount:Int, minItemLength:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int):WrapRule {
 		for (rule in rules.rules) {
-			if (matchesRule(rule, itemCount, maxItemLength, totalItemLength, lineLength, false)) {
+			if (matchesRule(rule, itemCount, minItemLength, maxItemLength, totalItemLength, lineLength, false, false)) {
 				return rule;
 			}
 		}
@@ -722,7 +743,8 @@ class MarkWrappingBase extends MarkerBase {
 		};
 	}
 
-	function matchesRule(rule:WrapRule, itemCount:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int, hasMultiLineItem:Bool):Bool {
+	function matchesRule(rule:WrapRule, itemCount:Int, minItemLength:Int, maxItemLength:Int, totalItemLength:Int, lineLength:Int, hasMultiLineItem:Bool,
+			hasEqualItemLenghts:Bool):Bool {
 		for (cond in rule.conditions) {
 			switch (cond.cond) {
 				case ItemCountLargerThan:
@@ -737,8 +759,16 @@ class MarkWrappingBase extends MarkerBase {
 					if (maxItemLength < cond.value) {
 						return false;
 					}
-				case AnyItemLengthLessThan:
+				case AllItemLengthsLessThan:
 					if (maxItemLength > cond.value) {
+						return false;
+					}
+				case AllItemLengthsLargerThan:
+					if (minItemLength < cond.value) {
+						return false;
+					}
+				case AnyItemLengthLessThan:
+					if (minItemLength > cond.value) {
 						return false;
 					}
 				case TotalItemLengthLargerThan:
@@ -774,6 +804,16 @@ class MarkWrappingBase extends MarkerBase {
 						}
 					} else {
 						if (lineLength > config.wrapping.maxLineLength) {
+							return false;
+						}
+					}
+				case EqualItemLengths:
+					if (cond.value == 1) {
+						if (!hasEqualItemLenghts) {
+							return false;
+						}
+					} else {
+						if (hasEqualItemLenghts) {
 							return false;
 						}
 					}

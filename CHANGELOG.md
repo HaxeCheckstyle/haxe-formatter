@@ -2,7 +2,9 @@
 
 ## dev branch / next version (1.x.x)
 
+- Added wrap condition types EqualItemLengths, AllItemLengthsLargerThan and AllItemLengthsLessThan
 - Fixed modifiers with complex conditionals, fixes [#332](https://github.com/HaxeCheckstyle/haxe-formatter/issues/332)
+- Fixed unexpected array wrapping behavior, fixes [#340](https://github.com/HaxeCheckstyle/haxe-formatter/issues/340)
 
 ## version 1.16.1 (2024-09-18)
 

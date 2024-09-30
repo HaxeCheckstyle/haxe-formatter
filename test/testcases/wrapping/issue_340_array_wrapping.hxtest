@@ -1,0 +1,139 @@
+{
+}
+
+---
+
+class TestMain {
+	static function main() {
+		UTest.run([
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+		]);
+	}
+}
+
+class TestMain {
+	static function main() {
+		UTest.run([
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),  
+			new RenameResolverTest(), 
+			new HelperTest(), 
+			new TokenTreeTest()
+		]);
+	}
+}
+
+class TestMain {
+	static function main() {
+		UTest.run([
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),  
+			new RenameResolverTest(), 
+			new HelperTest(), 
+			new TokenTreeTest(),
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),  
+			new RenameResolverTest(), 
+			new HelperTest(), 
+			new TokenTreeTest(),
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),  
+			new RenameResolverTest(), 
+			new HelperTest(), 
+			new TokenTreeTest(),
+		]);
+	}
+}
+
+
+---
+
+class TestMain {
+	static function main() {
+		UTest.run([
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+		]);
+	}
+}
+
+class TestMain {
+	static function main() {
+		UTest.run([
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),
+			new RenameResolverTest(),
+			new HelperTest(),
+			new TokenTreeTest()
+		]);
+	}
+}
+
+class TestMain {
+	static function main() {
+		UTest.run([
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),
+			new RenameResolverTest(),
+			new HelperTest(),
+			new TokenTreeTest(),
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),
+			new RenameResolverTest(),
+			new HelperTest(),
+			new TokenTreeTest(),
+			new ArrayHelperTest(),
+			new IdentifierHelperTest(),
+			new ImportHelperTest(),
+			new PathHelperTest(),
+			new PositionHelperTest(),
+			new RangeHelperTest(),
+			new TypeHelperTest(),
+			new RenameResolverTest(),
+			new HelperTest(),
+			new TokenTreeTest(),
+		]);
+	}
+}

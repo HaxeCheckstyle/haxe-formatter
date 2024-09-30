@@ -166,6 +166,7 @@ class MarkWrapping extends MarkWrappingBase {
 			wrapChildOneLineEach(token, brClose, 0);
 			return;
 		}
+		var minLength:Int = 9999;
 		var maxLength:Int = 0;
 		var totalLength:Int = 0;
 		var itemCount:Int = 0;
@@ -183,10 +184,13 @@ class MarkWrapping extends MarkWrappingBase {
 			if (length > maxLength) {
 				maxLength = length;
 			}
+			if (length < minLength) {
+				minLength = length;
+			}
 			itemCount++;
 		}
 		var lineLength:Int = calcLineLength(token);
-		var rule:WrapRule = determineWrapType(config.wrapping.objectLiteral, itemCount, maxLength, totalLength, lineLength);
+		var rule:WrapRule = determineWrapType(config.wrapping.objectLiteral, itemCount, minLength, maxLength, totalLength, lineLength);
 		switch (rule.type) {
 			case OnePerLine:
 				wrapChildOneLineEach(token, brClose, rule.additionalIndent);

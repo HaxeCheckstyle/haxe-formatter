@@ -1,7 +1,7 @@
 package formatter.codedata;
 
-import formatter.config.Config;
 import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
+import formatter.config.Config;
 
 typedef FormatterInputData = {
 	var fileName:String;
