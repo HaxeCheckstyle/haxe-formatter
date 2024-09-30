@@ -581,6 +581,16 @@ enum abstract WrapConditionType(String) {
 	/**
 		condition matches if max item length is less than or equal n characters
 	**/
+	var AllItemLengthsLessThan = "allItemLengths <= n";
+
+	/**
+		condition matches if min item length is larger than or equal n characters
+	**/
+	var AllItemLengthsLargerThan = "allItemLengths >= n";
+
+	/**
+		condition matches if min item length is less than or equal n characters
+	**/
 	var AnyItemLengthLessThan = "anyItemLength <= n";
 
 	/**
@@ -620,16 +630,6 @@ enum abstract WrapConditionType(String) {
 		value = 0 matches any two items having different item lengths
 	**/
 	var EqualItemLengths = "equalItemLengths";
-
-	/**
-		condition matches when all item have more than or equal n characters
-	**/
-	var AllItemLengthsLargerThan = "allItemLengths >= n";
-
-	/**
-		condition matches when all item have less than or equal n characters
-	**/
-	var AllItemLengthsLessThan = "allItemLengths <= n";
 }
 
 typedef ArrayWrapping = {
