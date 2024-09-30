@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- Fixed modifiers with complex conditionals, fixes [#332](https://github.com/HaxeCheckstyle/haxe-formatter/issues/332)
+
 ## version 1.16.1 (2024-09-18)
 
 - Refactored unittests to work with utest library ([#679](https://github.com/HaxeCheckstyle/haxe-formatter/issues/679))
