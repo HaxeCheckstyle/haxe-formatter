@@ -1,0 +1,90 @@
+{
+}
+
+
+---
+
+class Test {
+	public inline function compileShader(shader:GLShader):Void
+	{
+		this.compileShader(shader);
+	}
+	
+	#if !lime_webgl
+	public inline function uniform3iv(location:GLUniformLocation, v:Int32Array, ?srcOffset:Int, ?srcLength:Int):Void
+	#else
+	public inline function uniform3iv(location:GLUniformLocation, v:Dynamic, ?srcOffset:Int, ?srcLength:Int):Void
+	#end
+	{
+		this.uniform3iv(location, v != null ? Std.int(v.length / 3) : 0, v);
+	}
+	public inline function uniform3ui(location:GLUniformLocation, v0:Int, v1:Int, v2:Int):Void
+	{
+		this.uniform3ui(location, v0, v1, v2);
+	}
+
+	#if !lime_webgl
+	public function compressedTexImage2D(target:Int, level:Int, internalformat:Int, width:Int, height:Int, border:Int, srcData:ArrayBufferView,
+		srcOffset:Int = 0,
+		?srcLengthOverride:Int):Void
+	#else
+	public inline function compressedTexImage2D(target:Int, level:Int, internalformat:Int, width:Int, height:Int, border:Int, srcData:Dynamic, ?srcOffset:Int,
+		?srcLengthOverride:Int):Void
+	#end
+
+	{
+		var imageSize = (srcLengthOverride != null) ? srcLengthOverride : (srcData != null) ? srcData.byteLength : 0;
+
+		__tempPointer.set(srcData, srcOffset);
+		this.compressedTexImage2D(target, level, internalformat, width, height, border, imageSize, __tempPointer);
+	}
+	public function compressedTexImage3D(target:Int, level:Int, internalformat:Int, width:Int, height:Int, depth:Int, border:Int, srcData:ArrayBufferView,
+			srcOffset:Int = 0, ?srcLengthOverride:Int):Void
+	{
+		var imageSize = (srcLengthOverride != null) ? srcLengthOverride : (srcData != null) ? srcData.byteLength : 0;
+		__tempPointer.set(srcData, srcOffset);
+		this.compressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, __tempPointer);
+	}
+}
+
+---
+
+class Test {
+	public inline function compileShader(shader:GLShader):Void {
+		this.compileShader(shader);
+	}
+
+	#if !lime_webgl
+	public inline function uniform3iv(location:GLUniformLocation, v:Int32Array, ?srcOffset:Int, ?srcLength:Int):Void
+	#else
+	public inline function uniform3iv(location:GLUniformLocation, v:Dynamic, ?srcOffset:Int, ?srcLength:Int):Void
+	#end
+	{
+		this.uniform3iv(location, v != null ? Std.int(v.length / 3) : 0, v);
+	}
+
+	public inline function uniform3ui(location:GLUniformLocation, v0:Int, v1:Int, v2:Int):Void {
+		this.uniform3ui(location, v0, v1, v2);
+	}
+
+	#if !lime_webgl
+	public function compressedTexImage2D(target:Int, level:Int, internalformat:Int, width:Int, height:Int, border:Int, srcData:ArrayBufferView,
+		srcOffset:Int = 0, ?srcLengthOverride:Int):Void
+	#else
+	public inline function compressedTexImage2D(target:Int, level:Int, internalformat:Int, width:Int, height:Int, border:Int, srcData:Dynamic, ?srcOffset:Int,
+		?srcLengthOverride:Int):Void
+	#end
+	{
+		var imageSize = (srcLengthOverride != null) ? srcLengthOverride : (srcData != null) ? srcData.byteLength : 0;
+
+		__tempPointer.set(srcData, srcOffset);
+		this.compressedTexImage2D(target, level, internalformat, width, height, border, imageSize, __tempPointer);
+	}
+
+	public function compressedTexImage3D(target:Int, level:Int, internalformat:Int, width:Int, height:Int, depth:Int, border:Int, srcData:ArrayBufferView,
+			srcOffset:Int = 0, ?srcLengthOverride:Int):Void {
+		var imageSize = (srcLengthOverride != null) ? srcLengthOverride : (srcData != null) ? srcData.byteLength : 0;
+		__tempPointer.set(srcData, srcOffset);
+		this.compressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, __tempPointer);
+	}
+}

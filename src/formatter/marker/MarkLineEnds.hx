@@ -459,7 +459,7 @@ class MarkLineEnds extends MarkerBase {
 			case Kwd(KwdFunction):
 				return config.lineEnds.metadataFunction;
 			case Sharp(_):
-				return After;
+				return config.lineEnds.metadataOther;
 			default:
 				return config.lineEnds.metadataOther;
 		}

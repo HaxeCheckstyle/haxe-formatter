@@ -6,6 +6,10 @@
 - **Breaking Change** Fixed wrap condition type `AnyItemLengthLessThan` - use `AllItemLengthsLessThan` for old behaviour
 - Fixed modifiers with complex conditionals, fixes [#332](https://github.com/HaxeCheckstyle/haxe-formatter/issues/332)
 - Fixed unexpected array wrapping behavior, fixes [#340](https://github.com/HaxeCheckstyle/haxe-formatter/issues/340)
+- Fixed conditionalized class declaration with constraints, fixes [#431](https://github.com/HaxeCheckstyle/haxe-formatter/issues/431)
+- Fixed empty classes with conditional metadata
+- Fixed class fields with conditional function signatures
+- Fixed abstract enum abstracts with conditionals
 
 ## version 1.16.1 (2024-09-18)
 
