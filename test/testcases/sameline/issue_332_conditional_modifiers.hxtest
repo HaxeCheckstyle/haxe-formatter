@@ -1,0 +1,34 @@
+{
+}
+
+---
+
+class Main {
+	#if (neko_v21 || (cpp && !cppia) || flash) inline #end
+	public static function main() {}
+
+	#if (neko_v21 || (cpp && !cppia) || flash) inline #end public static function main() {}
+
+	public static #if (neko_v21 || (cpp && !cppia) || flash) inline #end  function main() {}
+
+	#if (neko_v21 || (cpp && !cppia) || flash) 
+	inline 
+	#end
+	public static function main() {}
+}
+
+---
+
+class Main {
+	#if (neko_v21 || (cpp && !cppia) || flash) inline #end
+	public static function main() {}
+
+	#if (neko_v21 || (cpp && !cppia) || flash) inline #end public static function main() {}
+
+	public static #if (neko_v21 || (cpp && !cppia) || flash) inline #end function main() {}
+
+	#if (neko_v21 || (cpp && !cppia) || flash)
+	inline
+	#end
+	public static function main() {}
+}
