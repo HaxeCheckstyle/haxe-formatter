@@ -11,6 +11,7 @@
 - Fixed class fields with conditional function signatures
 - Fixed abstract enum abstracts with conditionals
 - Fixed map wrapping rules to avoid fill line wrapping
+- Fixed curly with comments, fixes [#445](https://github.com/HaxeCheckstyle/haxe-formatter/issues/445)
 
 ## version 1.16.1 (2024-09-18)
 
