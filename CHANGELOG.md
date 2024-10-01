@@ -10,6 +10,7 @@
 - Fixed empty classes with conditional metadata
 - Fixed class fields with conditional function signatures
 - Fixed abstract enum abstracts with conditionals
+- Fixed map wrapping rules to avoid fill line wrapping
 
 ## version 1.16.1 (2024-09-18)
 
