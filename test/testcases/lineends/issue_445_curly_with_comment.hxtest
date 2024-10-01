@@ -1,0 +1,33 @@
+{}
+
+---
+
+class Main
+{
+	static function main()
+	{
+		if (foo)
+		{ // comment
+			bar;
+		} // comment
+		if (foo)
+		{ 
+			// comment
+			bar;
+		} // comment
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		if (foo) { // comment
+			bar;
+		} // comment
+		if (foo) {
+			// comment
+			bar;
+		} // comment
+	}
+}
