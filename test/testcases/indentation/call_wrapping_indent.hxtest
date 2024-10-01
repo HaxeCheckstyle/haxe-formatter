@@ -9,9 +9,7 @@
     },
 	"whitespace": {
 		"colonPolicy": "around",
-		"typeHintColonPolicy": "around",
-		"openingParenPolicy": "before",
-		"openingBracketPolicy": "before"
+		"typeHintColonPolicy": "around"
 	},
 	"sameLine": {
 		"catchBody": "next",

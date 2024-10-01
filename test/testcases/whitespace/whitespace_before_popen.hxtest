@@ -9,8 +9,7 @@
 			"callParens": {
 				"openingPolicy": "before"
 			}
-		},
-		"openingBracketPolicy": "before"
+		}
 	}
 }
 

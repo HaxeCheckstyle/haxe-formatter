@@ -12,14 +12,9 @@ typedef WhitespaceConfig = {
 	@:default(auto) @:optional var bracesConfig:BracesWhitespaceConfig;
 
 	/**
-		"["
+		"[" + "]"
 	**/
-	@:default(NoneAfter) @:optional var openingBracketPolicy:WhitespacePolicy;
-
-	/**
-		"]"
-	**/
-	@:default(None) @:optional var closingBracketPolicy:WhitespacePolicy;
+	@:default(auto) @:optional var bracketConfig:BracketWhitespaceConfig;
 
 	/**
 		"<"
@@ -158,6 +153,33 @@ typedef BracesWhitespaceConfig = {
 		unknown braces
 	**/
 	@:default({openingPolicy: Before, closingPolicy: OnlyAfter, removeInnerWhenEmpty: true}) @:optional var unknownBraces:OpenClosePolicy;
+}
+
+typedef BracketWhitespaceConfig = {
+	/**
+		brackets for array access
+	**/
+	@:default({openingPolicy: None, closingPolicy: None, removeInnerWhenEmpty: true}) @:optional var accessBrackets:OpenClosePolicy;
+
+	/**
+		brackets for array and map comprehension
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: None, removeInnerWhenEmpty: true}) @:optional var comprehensionBrackets:OpenClosePolicy;
+
+	/**
+		brackets for array literals
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: None, removeInnerWhenEmpty: true}) @:optional var arrayLiteralBrackets:OpenClosePolicy;
+
+	/**
+		brackets for map literals
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: None, removeInnerWhenEmpty: true}) @:optional var mapLiteralBrackets:OpenClosePolicy;
+
+	/**
+		unknown brackets
+	**/
+	@:default({openingPolicy: NoneAfter, closingPolicy: None, removeInnerWhenEmpty: true}) @:optional var unknownBrackets:OpenClosePolicy;
 }
 
 typedef OpenClosePolicy = {

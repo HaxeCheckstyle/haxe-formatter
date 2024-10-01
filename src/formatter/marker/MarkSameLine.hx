@@ -422,8 +422,12 @@ class MarkSameLine extends MarkerBase {
 				if (origSame) {
 					markBodyAfterPOpen(token, config.sameLine.comprehensionFor, false);
 					if (bkClose != null) {
-						whitespace(token, NoneBefore);
-						whitespace(bkClose, NoneBefore);
+						if (!config.whitespace.bracketConfig.comprehensionBrackets.openingPolicy.has(After)) {
+							whitespace(token, NoneBefore);
+						}
+						if (!config.whitespace.bracketConfig.comprehensionBrackets.closingPolicy.has(Before)) {
+							whitespace(bkClose, NoneBefore);
+						}
 					}
 				} else {
 					markBodyAfterPOpen(token, config.sameLine.forBody, false);

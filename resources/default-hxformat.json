@@ -198,9 +198,35 @@
 				"removeInnerWhenEmpty": true
 			}
 		},
+		"bracketConfig": {
+			"accessBrackets": {
+				"openingPolicy": "none",
+				"closingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"arrayLiteralBrackets": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"comprehensionBrackets": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"mapLiteralBrackets": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			},
+			"unknownBrackets": {
+				"openingPolicy": "noneAfter",
+				"closingPolicy": "none",
+				"removeInnerWhenEmpty": true
+			}
+		},
 		"caseColonPolicy": "onlyAfter",
 		"catchPolicy": "after",
-		"closingBracketPolicy": "none",
 		"colonPolicy": "none",
 		"commaPolicy": "onlyAfter",
 		"compressSuccessiveParenthesis": true,
@@ -213,7 +239,6 @@
 		"ifPolicy": "after",
 		"intervalPolicy": "none",
 		"objectFieldColonPolicy": "after",
-		"openingBracketPolicy": "noneAfter",
 		"parenConfig": {
 			"anonFuncParamParens": {
 				"closingPolicy": "onlyAfter",
@@ -575,8 +600,25 @@
 				{
 					"conditions": [
 						{
-							"cond": "anyItemLength <= n",
+							"cond": "equalItemLengths",
+							"value": 1
+						},
+						{
+							"cond": "allItemLengths <= n",
 							"value": 30
+						},
+						{
+							"cond": "itemCount >= n",
+							"value": 10
+						}
+					],
+					"type": "fillLineWithLeadingBreak"
+				},
+				{
+					"conditions": [
+						{
+							"cond": "allItemLengths <= n",
+							"value": 10
 						},
 						{
 							"cond": "itemCount >= n",
