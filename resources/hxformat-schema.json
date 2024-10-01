@@ -523,6 +523,10 @@
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
 					"default": "onlyAfter"
 				},
+				"bracketConfig": {
+					"description": "\"[\" + \"]\"",
+					"$ref": "#/definitions/formatter.config.BracketWhitespaceConfig"
+				},
 				"typeCheckColonPolicy": {
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
 					"default": "around"
@@ -585,11 +589,6 @@
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
 					"default": "after"
 				},
-				"openingBracketPolicy": {
-					"description": "\"[\"",
-					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
-					"default": "noneAfter"
-				},
 				"typeParamOpenPolicy": {
 					"description": "\"<\"",
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
@@ -612,11 +611,6 @@
 					"default": "around"
 				},
 				"colonPolicy": {
-					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
-					"default": "none"
-				},
-				"closingBracketPolicy": {
-					"description": "\"]\"",
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy",
 					"default": "none"
 				},
@@ -862,6 +856,32 @@
 					"const": "both"
 				}
 			]
+		},
+		"formatter.config.BracketWhitespaceConfig": {
+			"properties": {
+				"accessBrackets": {
+					"description": "brackets for array access",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"arrayLiteralBrackets": {
+					"description": "brackets for array literals",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"mapLiteralBrackets": {
+					"description": "brackets for map literals",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"comprehensionBrackets": {
+					"description": "brackets for array and map comprehension",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"unknownBrackets": {
+					"description": "unknown brackets",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
 		},
 		"formatter.config.AtLineEndPolicy": {
 			"anyOf": [

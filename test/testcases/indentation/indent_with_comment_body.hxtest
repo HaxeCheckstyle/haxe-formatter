@@ -10,7 +10,6 @@
 	"whitespace": {
 		"colonPolicy": "around",
 		"typeHintColonPolicy": "around",
-		"openingBracketPolicy": "before",
 		"parenConfig": {
 			"funcParamParens": {
 				"openingPolicy": "before"

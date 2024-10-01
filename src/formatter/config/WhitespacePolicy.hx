@@ -10,6 +10,10 @@ enum abstract WhitespacePolicy(String) {
 	var NoneAfter = "noneAfter";
 	var Around = "around";
 
+	public static function has(policy:WhitespacePolicy, wantPolicy:WhitespacePolicy):Bool {
+		return (policy.remove(wantPolicy) != policy);
+	}
+
 	public static function remove(policy:WhitespacePolicy, removePolicy:WhitespacePolicy):WhitespacePolicy {
 		switch (removePolicy) {
 			case None:

@@ -2,6 +2,7 @@
 
 ## dev branch / next version (1.x.x)
 
+- **Breaking Change** replaced `whitespace.openingBracketPolicy` and `whitespace.closingBracketPolicy` settings with `whitespace.bracketConfig`, fixes [#592](https://github.com/HaxeCheckstyle/haxe-formatter/issues/592)
 - Added wrap condition types `EqualItemLengths`, `AllItemLengthsLargerThan` and `AllItemLengthsLessThan`
 - **Breaking Change** Fixed wrap condition type `AnyItemLengthLessThan` - use `AllItemLengthsLessThan` for old behaviour
 - Fixed modifiers with complex conditionals, fixes [#332](https://github.com/HaxeCheckstyle/haxe-formatter/issues/332)

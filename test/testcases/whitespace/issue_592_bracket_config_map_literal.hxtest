@@ -1,0 +1,35 @@
+{
+  "whitespace": {
+    "bracketConfig": {
+      "mapLiteralBrackets": {
+        "openingPolicy": "onlyAfter",
+        "closingPolicy": "before"
+      }
+    },
+	"compressSuccessiveParenthesis": false
+  }
+}
+
+---
+
+
+var x = [];
+var y = [ 1 ];
+var z = [ 1 => "a", 2 => "b" ];
+function test (arr) {
+	trace(arr[1]);
+	makeArray()[100]();
+	var a = [for (i in 0...100) i*i];
+}
+
+---
+
+var x = [];
+var y = [1];
+var z = [ 1 => "a", 2 => "b" ];
+
+function test(arr) {
+	trace(arr[1]);
+	makeArray()[100]();
+	var a = [for (i in 0...100) i * i];
+}

@@ -63,9 +63,9 @@ class MarkWhitespace extends MarkerBase {
 				case BrClose:
 					markBrClose(token);
 				case BkOpen:
-					successiveParenthesis(token, false, config.whitespace.openingBracketPolicy, config.whitespace.compressSuccessiveParenthesis);
+					markBkOpen(token);
 				case BkClose:
-					successiveParenthesis(token, true, config.whitespace.closingBracketPolicy, config.whitespace.compressSuccessiveParenthesis);
+					markBkClose(token);
 				case Question:
 					if (TokenTreeCheckUtils.isTernary(token)) {
 						whitespace(token, config.whitespace.ternaryPolicy);
@@ -150,6 +150,21 @@ class MarkWhitespace extends MarkerBase {
 	}
 
 	public function successiveParenthesis(token:TokenTree, closing:Bool, policy:WhitespacePolicy, compress:Bool) {
+		var prev:Null<TokenInfo> = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case Binop(OpAssign) | Binop(OpAssignOp(_)):
+					policy = policy.add(Before);
+				case PClose if (token.matches(BkOpen)):
+					var type:POpenType = TokenTreeCheckUtils.getPOpenType(prev.token?.parent);
+					switch (type) {
+						case At | Parameter | SwitchCondition | WhileCondition | IfCondition | SharpCondition | Catch | ForLoop:
+							policy = policy.add(Before);
+						case Call | Expression:
+					}
+				default:
+			}
+		}
 		var next:Null<TokenInfo> = getNextToken(token);
 		if (next != null) {
 			switch (next.token.tok) {
@@ -200,7 +215,6 @@ class MarkWhitespace extends MarkerBase {
 				}
 			}
 		} else {
-			var prev:Null<TokenInfo> = getPreviousToken(token);
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case POpen | BrOpen | BkOpen | IntInterval(_) | Spread | Binop(OpInterval):
@@ -703,6 +717,58 @@ class MarkWhitespace extends MarkerBase {
 			if (prev != null) {
 				switch (prev.token.tok) {
 					case BrOpen:
+						policy = policy.remove(Before);
+					default:
+				}
+			}
+		}
+		successiveParenthesis(token, true, policy, config.whitespace.compressSuccessiveParenthesis);
+	}
+
+	function determineBkOpenPolicy(token:TokenTree):OpenClosePolicy {
+		var type:Null<BkOpenType> = TokenTreeCheckUtils.getBkOpenType(token);
+		if (type == null) {
+			type = Unknown;
+		}
+		switch (type) {
+			case ArrayAccess:
+				return config.whitespace.bracketConfig.accessBrackets;
+			case ArrayLiteral:
+				return config.whitespace.bracketConfig.arrayLiteralBrackets;
+			case Comprehension:
+				return config.whitespace.bracketConfig.comprehensionBrackets;
+			case MapLiteral:
+				return config.whitespace.bracketConfig.mapLiteralBrackets;
+			case Unknown:
+				return config.whitespace.bracketConfig.unknownBrackets;
+		}
+		return config.whitespace.bracketConfig.unknownBrackets;
+	}
+
+	function markBkOpen(token:TokenTree) {
+		var openClosePolicy:OpenClosePolicy = determineBkOpenPolicy(token);
+		var policy:WhitespacePolicy = openClosePolicy.openingPolicy;
+		if (openClosePolicy.removeInnerWhenEmpty) {
+			var next:Null<TokenInfo> = getNextToken(token);
+			if (next != null) {
+				switch (next.token.tok) {
+					case BkClose:
+						policy = policy.remove(After);
+					default:
+				}
+			}
+		}
+		successiveParenthesis(token, false, policy, config.whitespace.compressSuccessiveParenthesis);
+	}
+
+	function markBkClose(token:TokenTree) {
+		var openClosePolicy:OpenClosePolicy = determineBkOpenPolicy(token.parent);
+		var policy:WhitespacePolicy = openClosePolicy.closingPolicy;
+		if (openClosePolicy.removeInnerWhenEmpty) {
+			var prev:Null<TokenInfo> = getPreviousToken(token);
+			if (prev != null) {
+				switch (prev.token.tok) {
+					case BkOpen:
 						policy = policy.remove(Before);
 					default:
 				}
