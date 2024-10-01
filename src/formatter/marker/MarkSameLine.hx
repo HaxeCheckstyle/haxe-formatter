@@ -172,6 +172,14 @@ class MarkSameLine extends MarkerBase {
 		if (!token.tok.match(Kwd(KwdCatch))) {
 			return false;
 		}
+		var prev:TokenInfo = getPreviousToken(token);
+		if (prev != null) {
+			switch (prev.token.tok) {
+				case BrClose:
+					return false;
+				default:
+			}
+		}
 		return shouldTryBeSameLine(token.parent);
 	}
 
