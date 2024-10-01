@@ -1,0 +1,25 @@
+{
+	"sameLine": {
+		"tryCatch": "next",
+		"expressionTry": "next"
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var applicationName = try ProjectUtils.getApplicationFile(FileSystem.fullPath(project.projectXmlPath)) catch (_:Dynamic) project.name;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		var applicationName = try
+			ProjectUtils.getApplicationFile(FileSystem.fullPath(project.projectXmlPath))
+		catch (_:Dynamic)
+			project.name;
+	}
+}

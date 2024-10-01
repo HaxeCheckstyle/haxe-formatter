@@ -162,7 +162,7 @@ class MarkWhitespace extends MarkerBase {
 							policy = policy.add(Before);
 						case Call | Expression:
 					}
-				case Question:
+				case Question | DblDot:
 					policy = policy.add(Before);
 				default:
 			}

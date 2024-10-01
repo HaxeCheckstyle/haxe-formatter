@@ -33,5 +33,5 @@ function test(arr) {
 	trace(arr[1]);
 	makeArray()[100]();
 	var a = [for (i in 0...100) i * i];
-	_metadata = _data == null ? [] : [Constants.DEFAULT_VARIATION => _data];
+	_metadata = _data == null ? [] : [ Constants.DEFAULT_VARIATION => _data ];
 }

@@ -264,7 +264,7 @@ class MarkSameLine extends MarkerBase {
 	function markCatch(token:TokenTree) {
 		if (shouldCatchBeSameLine(token) && config.sameLine.expressionTry == Same) {
 			markBodyAfterPOpen(token, Same, false);
-			applySameLinePolicy(token, config.sameLine.tryCatch);
+			applySameLinePolicy(token, config.sameLine.expressionTry);
 			return;
 		}
 		markBodyAfterPOpen(token, config.sameLine.catchBody, false);
