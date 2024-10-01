@@ -532,7 +532,7 @@ class MarkEmptyLines extends MarkerBase {
 		var currToken:Null<TokenTree> = null;
 		var currTokenType:Null<TokenFieldType> = null;
 		for (field in fields) {
-			currToken = skipSharpFields(field);
+			currToken = field;
 			currTokenType = FieldUtils.getFieldType(field, Public);
 			markInterfaceEmptyLines(prevToken, prevTokenType, currToken, currTokenType, conf);
 			prevToken = currToken;
@@ -620,7 +620,7 @@ class MarkEmptyLines extends MarkerBase {
 		var currToken:Null<TokenTree> = null;
 		var currTokenType:Null<TokenFieldType> = null;
 		for (func in functions) {
-			currToken = skipSharpFields(func);
+			currToken = func;
 			currTokenType = FieldUtils.getFieldType(func, Public);
 			markEnumAbstractFieldEmptyLines(prevToken, prevTokenType, currToken, currTokenType);
 			prevToken = currToken;
@@ -653,6 +653,10 @@ class MarkEmptyLines extends MarkerBase {
 				currVar = true;
 			case Unknown:
 				return;
+		}
+		prevToken = skipSharpFields(prevToken);
+		if (prevToken == null) {
+			return;
 		}
 		if (config.emptyLines.enumAbstractEmptyLines.existingBetweenFields == Keep) {
 			if (hasEmptyLinesBetweenFields(prevToken, currToken)) {
