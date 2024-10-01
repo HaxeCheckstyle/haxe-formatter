@@ -1,7 +1,12 @@
 {
-	"sameLine": {
-		"tryCatch": "next"
-	}
+  "lineEnds": {
+    "leftCurly": "both",
+    "emptyCurly": "break"
+  },
+  "sameLine": {
+	"tryCatch": "next"
+  }
+
 }
 
 ---
@@ -20,19 +25,25 @@ class Main {
 
 ---
 
-class Main {
-	public static function main() {
+class Main
+{
+	public static function main()
+	{
 		return try call(); catch (e:Any) null;
-		return try {
+		return try
+		{
 			call();
 		}
-		catch (e:Any) {
+		catch (e:Any)
+		{
 			null;
 		}
-		return try {
+		return try
+		{
 			call();
 		}
-		catch (e:Any) {
+		catch (e:Any)
+		{
 			null;
 		}
 	}

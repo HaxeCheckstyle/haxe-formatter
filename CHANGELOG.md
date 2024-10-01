@@ -16,6 +16,7 @@
 - Fixed array literals in ternarys
 - Fixed expression try…catch, fixes [#509](https://github.com/HaxeCheckstyle/haxe-formatter/issues/509)
 - Fixed long array access wrapping
+- Fixed expression try…catch for allman curlies
 
 ## version 1.16.1 (2024-09-18)
 
