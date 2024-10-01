@@ -1,0 +1,42 @@
+{
+	"wrapping": {
+		"maxLineLength": 100
+	}
+}
+
+
+---
+
+class Main {
+	static function test() : String
+	{
+		destPixel.r = RGBA.__clamp[
+			Math.round((sourcePixel.r * sourceAlpha + destPixel.r * destAlpha * oneMinusSourceAlpha) / blendAlpha)
+		];
+		destPixel.g = RGBA.__clamp[
+			Math.round((sourcePixel.g * sourceAlpha + destPixel.g * destAlpha * oneMinusSourceAlpha) / blendAlpha)
+		];
+		destPixel.b = RGBA.__clamp[
+			Math.round((sourcePixel.b * sourceAlpha + destPixel.b * destAlpha * oneMinusSourceAlpha) / blendAlpha)
+		];
+	}
+}
+
+---
+
+class Main {
+	static function test():String {
+		destPixel.r = RGBA.__clamp[
+			Math.round((sourcePixel.r * sourceAlpha
+				+ destPixel.r * destAlpha * oneMinusSourceAlpha) / blendAlpha)
+		];
+		destPixel.g = RGBA.__clamp[
+			Math.round((sourcePixel.g * sourceAlpha
+				+ destPixel.g * destAlpha * oneMinusSourceAlpha) / blendAlpha)
+		];
+		destPixel.b = RGBA.__clamp[
+			Math.round((sourcePixel.b * sourceAlpha
+				+ destPixel.b * destAlpha * oneMinusSourceAlpha) / blendAlpha)
+		];
+	}
+}

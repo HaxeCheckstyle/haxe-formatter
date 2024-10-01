@@ -250,16 +250,10 @@ class MarkWrapping extends MarkWrappingBase {
 
 	function arrayWrapping(token:TokenTree) {
 		switch (TokenTreeCheckUtils.getBkOpenType(token)) {
-			case ArrayAccess:
-				return;
-			case ArrayLiteral:
-				arrayLiteralWrapping(token);
-			case Comprehension:
+			case ArrayAccess | ArrayLiteral | Comprehension | Unknown:
 				arrayLiteralWrapping(token);
 			case MapLiteral:
 				mapLiteralWrapping(token);
-			case Unknown:
-				arrayLiteralWrapping(token);
 		}
 	}
 
