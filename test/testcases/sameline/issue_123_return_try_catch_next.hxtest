@@ -8,6 +8,8 @@
 
 class Main {
 	public static function main() {
+		return try call(); catch (e:Any) null;
+		return try {call();} catch (e:Any) {null;}
 		return try {
 			call();
 		} catch (e:Any) {
@@ -20,10 +22,15 @@ class Main {
 
 class Main {
 	public static function main() {
+		return try call(); catch (e:Any) null;
 		return try {
 			call();
+		} catch (e:Any) {
+			null;
 		}
-		catch (e:Any) {
+		return try {
+			call();
+		} catch (e:Any) {
 			null;
 		}
 	}
