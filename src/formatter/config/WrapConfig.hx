@@ -69,7 +69,18 @@ typedef WrapConfig = {
 				type: NoWrap
 			},
 			{
-				conditions: [{cond: AnyItemLengthLessThan, value: 30}, {cond: ItemCountLargerThan, value: 10}],
+				conditions: [
+					{cond: EqualItemLengths, value: 1},
+					{cond: AllItemLengthsLessThan, value: 30},
+					{cond: ItemCountLargerThan, value: 10}
+				],
+				type: FillLineWithLeadingBreak
+			},
+			{
+				conditions: [
+					{cond: AllItemLengthsLessThan, value: 10},
+					{cond: ItemCountLargerThan, value: 10}
+				],
 				type: FillLineWithLeadingBreak
 			},
 			{
