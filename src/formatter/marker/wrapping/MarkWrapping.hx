@@ -517,6 +517,7 @@ class MarkWrapping extends MarkWrappingBase {
 							case CommentLine(_):
 							case PClose:
 								return FoundGoDeeper;
+							case Sharp(MarkLineEnds.SHARP_END):
 							default:
 								break;
 						}
@@ -525,6 +526,14 @@ class MarkWrapping extends MarkWrappingBase {
 					return GoDeeper;
 				case POpen, BrOpen, BkOpen:
 					return SkipSubtree;
+				case Sharp(MarkLineEnds.SHARP_IF):
+					if (token.hasChildren()) {
+						for (child in token.children) {
+							if (child.matches(Dot)) {
+								return FoundSkipSubtree;
+							}
+						}
+					}
 				default:
 			}
 			return GoDeeper;

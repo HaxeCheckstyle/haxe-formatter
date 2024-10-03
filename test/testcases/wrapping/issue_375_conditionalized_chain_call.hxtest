@@ -1,0 +1,40 @@
+{
+	"wrapping": {
+		"maxLineLength": 100
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return s.replace("\n", "\\n").replace("\t", "\\t").replace("\r", "\\r").replace("'", "\\'").replace('"', "\\\"") #if sys .replace("\x00", "\\x00") #end + delim;
+		return s.replace("\n", "\\n").replace("\t", "\\t").replace("\r", "\\r")#if sys .replace("\x00", "\\x00") #end.replace("'", "\\'").replace('"', "\\\"") + delim;
+		return s.replace("\n", "\\n").replace("\t", "\\t")#if sys .replace("\x00", "\\x00") #end.replace("\r", "\\r").replace("'", "\\'").replace('"', "\\\"") + delim;
+	}
+}
+
+---
+
+class Main {
+	static function main() {
+		return s.replace("\n", "\\n")
+			.replace("\t", "\\t")
+			.replace("\r", "\\r")
+			.replace("'", "\\'")
+			.replace('"', "\\\"")
+			#if sys .replace("\x00", "\\x00") #end + delim;
+		return s.replace("\n", "\\n")
+			.replace("\t", "\\t")
+			.replace("\r", "\\r")
+			#if sys .replace("\x00", "\\x00") #end
+			.replace("'", "\\'")
+			.replace('"', "\\\"") + delim;
+		return s.replace("\n", "\\n")
+			.replace("\t", "\\t")
+			#if sys .replace("\x00", "\\x00") #end
+			.replace("\r", "\\r")
+			.replace("'", "\\'")
+			.replace('"', "\\\"") + delim;
+	}
+}
