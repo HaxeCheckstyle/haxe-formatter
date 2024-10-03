@@ -666,10 +666,8 @@ class MarkSameLine extends MarkerBase {
 					lineEndBefore(token);
 					return;
 				}
-				if (!parsedCode.isOriginalNewlineBefore(token)) {
-					return;
-				}
-				lineEndBefore(token);
+				var lowestToken:TokenTree = parsedCode.tokenList.findLowestIndex(token);
+				lineEndBefore(lowestToken);
 		}
 	}
 
@@ -779,11 +777,29 @@ class MarkSameLine extends MarkerBase {
 	}
 
 	function markReturn(token:TokenTree) {
+		if (isFunctionBody(token)) {
+			return;
+		}
 		if (shouldReturnBeSameLine(token)) {
 			markBody(token, config.sameLine.returnBodySingleLine, false);
 		} else {
 			markBody(token, config.sameLine.returnBody, false);
 		}
+	}
+
+	function isFunctionBody(token:TokenTree):Bool {
+		var parent = token.parent;
+		if (parent == null) {
+			return false;
+		}
+		if (parent.matches(BrOpen)) {
+			return false;
+		}
+		parent = parent.parent;
+		if (parent == null) {
+			return false;
+		}
+		return parent.matches(Kwd(KwdFunction));
 	}
 
 	function markUntyped(token:TokenTree) {
