@@ -1,0 +1,54 @@
+{
+	"sameLine": {
+		"functionBody": "next"
+	}
+}
+
+---
+
+class Main {
+	public inline function main():Bool
+		@:privateAccess return true;
+	public inline function main():Bool @:privateAccess return true;
+	public inline function main():Bool
+		@:privateAccess @:privateAccess return true;
+	public inline function main():Bool @:privateAccess @:privateAccess return true;
+
+	public inline function main():Bool {
+		@:privateAccess return true;
+	}
+
+	public inline function main():Bool @:privateAccess {
+		return true;
+	}
+
+	public inline function main()
+		@:privateAccess trace("");
+}
+
+---
+
+class Main {
+	public inline function main():Bool
+		@:privateAccess return true;
+
+	public inline function main():Bool
+		@:privateAccess return true;
+
+	public inline function main():Bool
+		@:privateAccess @:privateAccess return true;
+
+	public inline function main():Bool
+		@:privateAccess @:privateAccess return true;
+
+	public inline function main():Bool {
+		@:privateAccess return true;
+	}
+
+	public inline function main():Bool @:privateAccess {
+		return true;
+	}
+
+	public inline function main()
+		@:privateAccess trace("");
+}

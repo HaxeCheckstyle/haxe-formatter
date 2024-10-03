@@ -18,6 +18,7 @@
 - Fixed long array access wrapping
 - Fixed expression try…catch for allman curlies
 - Fixed conditionalized chained function call, fixes [#375](https://github.com/HaxeCheckstyle/haxe-formatter/issues/375)
+- Fixed sameLine.functionBody with metadata before body, fixes [#681](https://github.com/HaxeCheckstyle/haxe-formatter/issues/681)
 
 ## version 1.16.1 (2024-09-18)
 
