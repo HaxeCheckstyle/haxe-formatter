@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.17.0 (2024-10-XX)
+
 - **Breaking Change** replaced `whitespace.openingBracketPolicy` and `whitespace.closingBracketPolicy` settings with `whitespace.bracketConfig`, fixes [#592](https://github.com/HaxeCheckstyle/haxe-formatter/issues/592)
 - Added wrap condition types `EqualItemLengths`, `AllItemLengthsLargerThan` and `AllItemLengthsLessThan`
 - **Breaking Change** Fixed wrap condition type `AnyItemLengthLessThan` - use `AllItemLengthsLessThan` for old behaviour
@@ -19,6 +21,7 @@
 - Fixed expression try…catch for allman curlies
 - Fixed conditionalized chained function call, fixes [#375](https://github.com/HaxeCheckstyle/haxe-formatter/issues/375)
 - Fixed sameLine.functionBody with metadata before body, fixes [#681](https://github.com/HaxeCheckstyle/haxe-formatter/issues/681)
+- Fixed nested conditional types
 
 ## version 1.16.1 (2024-09-18)
 
