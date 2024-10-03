@@ -505,6 +505,21 @@ class Indenter {
 					if (isAbstractFromTo(token) && parsedCode.tokenList.isNewLineBefore(prevToken)) {
 						mustIndent = true;
 					}
+				case Sharp(MarkLineEnds.SHARP_IF):
+					if (currentToken.matches(Dot)) {
+						if (prevToken.hasChildren()) {
+							var isCallChain:Bool = false;
+							for (child in prevToken.children) {
+								if (child.matches(Dot)) {
+									isCallChain = true;
+									break;
+								}
+							}
+							if (isCallChain) {
+								continue;
+							}
+						}
+					}
 				default:
 			}
 			if (!mustIndent && parsedCode.tokenList.isSameLineBetween(currentToken, prevToken, false)) {
