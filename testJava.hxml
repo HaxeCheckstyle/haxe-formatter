@@ -35,6 +35,7 @@
 -D coverage-codecov-reporter
 
 -lib instrument
+# --macro instrument.Instrumentation.profiling(['formatter'], ['src'], ['formatter.Cli', 'formatter.debug.PosInfosMacro'])
 --macro instrument.Instrumentation.coverage(['formatter'], ['src'], ['formatter.Cli', 'formatter.debug.PosInfosMacro'])
 
 # -D dump=pretty

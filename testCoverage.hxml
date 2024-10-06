@@ -16,6 +16,7 @@
 -D unittest
 -D haxe-next
 -x TestMain
+# -D dump=pretty
 
 -D UTEST_PRINT_TESTS
 

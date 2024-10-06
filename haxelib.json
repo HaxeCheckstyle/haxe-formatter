@@ -8,8 +8,8 @@
 		"style"
 	],
 	"description": "A code formatter for Haxe",
-	"version": "1.16.1",
-	"releasenote": "Added wrapping.mapWrap; fixed some indentation issues - see CHANGELOG for details.",
+	"version": "1.17.0",
+	"releasenote": "Added more wrapping conditions; fixed various issues affecting a whole bunch of special cases - see CHANGELOG for details.",
 	"contributors": [
 		"AlexHaxe",
 		"Gama11"
