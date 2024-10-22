@@ -1283,10 +1283,6 @@
 					"description": "call parameter wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
-				"opAssignWrap": {
-					"description": "chain wrapping rules for case patterns",
-					"$ref": "#/definitions/formatter.config.WrapRules"
-				},
 				"arrayMatrixWrap": {
 					"description": "detect arrays in matrix configuration from source noMatrixWrap = no detection matrixWrapNoAlign = detect and format as matrix without alignment matrixWrapWithAlign = detect and format as matrix and align columns",
 					"$ref": "#/definitions/formatter.config.ArrayMatrixWrap",

@@ -921,20 +921,6 @@
 				}
 			]
 		},
-		"opAssignWrap": {
-			"defaultWrap": "noWrap",
-			"rules": [
-				{
-					"conditions": [
-						{
-							"cond": "exceedsMaxLineLength",
-							"value": 1
-						}
-					],
-					"type": "fillLineWithLeadingBreak"
-				}
-			]
-		},
 		"opBoolChain": {
 			"defaultWrap": "noWrap",
 			"rules": [

@@ -11,7 +11,7 @@ enum abstract WhitespacePolicy(String) {
 	var Around = "around";
 
 	public static function has(policy:WhitespacePolicy, wantPolicy:WhitespacePolicy):Bool {
-		return (policy.remove(wantPolicy) != policy);
+		return (remove(policy, wantPolicy) != policy);
 	}
 
 	public static function remove(policy:WhitespacePolicy, removePolicy:WhitespacePolicy):WhitespacePolicy {
