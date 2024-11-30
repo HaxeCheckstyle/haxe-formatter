@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- added indentOffset to support code snippets with non-zero indentation levels
+
 ## version 1.17.1 (2024-10-22)
 
 - Fixed WhitespacePolicy compilation error

@@ -4,9 +4,6 @@ package formatter;
 import sys.FileSystem;
 import sys.io.File;
 #end
-import haxe.CallStack;
-import haxe.io.Path;
-import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 import formatter.codedata.CodeLines;
 import formatter.codedata.FormatterInputData;
 import formatter.config.Config;
@@ -18,6 +15,9 @@ import formatter.marker.MarkSameLine;
 import formatter.marker.MarkTokenText;
 import formatter.marker.MarkWhitespace;
 import formatter.marker.wrapping.MarkWrapping;
+import haxe.CallStack;
+import haxe.io.Path;
+import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 enum Result {
 	Success(formattedCode:String);
@@ -28,8 +28,8 @@ enum Result {
 class Formatter {
 	static inline var FORMATTER_JSON:String = "hxformat.json";
 
-	public static function format(input:FormatterInput, ?config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint,
-			?range:FormatterInputRange):Result {
+	public static function format(input:FormatterInput, ?config:Config, ?lineSeparator:String, ?entryPoint:TokenTreeEntryPoint, ?range:FormatterInputRange,
+			?indentOffset:Int):Result {
 		if (config == null) {
 			config = new Config();
 		}
@@ -48,7 +48,8 @@ class Formatter {
 					config: config,
 					lineSeparator: lineSeparator,
 					entryPoint: entryPoint,
-					range: range
+					range: range,
+					indentOffset: indentOffset
 				};
 				return formatInputData(inputData);
 			#end
@@ -63,7 +64,8 @@ class Formatter {
 					config: config,
 					lineSeparator: lineSeparator,
 					entryPoint: entryPoint,
-					range: range
+					range: range,
+					indentOffset: indentOffset
 				};
 				return formatInputData(inputData);
 			case Tokens(tokenList, tokenTree, code, origin):
@@ -78,7 +80,8 @@ class Formatter {
 					config: config,
 					lineSeparator: lineSeparator,
 					entryPoint: entryPoint,
-					range: range
+					range: range,
+					indentOffset: indentOffset
 				};
 				return formatInputData(inputData);
 		}
@@ -119,6 +122,9 @@ class Formatter {
 
 			var indenter = new Indenter(config.indentation);
 			indenter.setParsedCode(parsedCode);
+			if (inputData.indentOffset != null) {
+				indenter.setIndentOffset(inputData.indentOffset);
+			}
 
 			var markTokenText = new MarkTokenText(config, parsedCode, indenter);
 			var markWhitespace = new MarkWhitespace(config, parsedCode, indenter);

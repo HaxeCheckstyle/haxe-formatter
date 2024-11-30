@@ -9,9 +9,11 @@ import sys.io.FileOutput;
 class Indenter {
 	var config:IndentationConfig;
 	var parsedCode:Null<ParsedCode>;
+	var indentOffset:Int;
 
 	public function new(config:IndentationConfig) {
 		this.config = config;
+		indentOffset = 0;
 		if (config.character.toLowerCase() == "tab") {
 			config.character = "\t";
 		}
@@ -19,6 +21,13 @@ class Indenter {
 
 	public function setParsedCode(parsedCode:ParsedCode) {
 		this.parsedCode = parsedCode;
+	}
+
+	public function setIndentOffset(indentOffset:Int) {
+		if (indentOffset < 0) {
+			indentOffset = 0;
+		}
+		this.indentOffset = indentOffset;
 	}
 
 	public function makeIndent(token:TokenTree):String {
@@ -37,6 +46,10 @@ class Indenter {
 	}
 
 	public function calcIndent(token:TokenTree):Int {
+		return calcRealIndent(token) + indentOffset;
+	}
+
+	function calcRealIndent(token:TokenTree):Int {
 		if (token == null) {
 			return 0;
 		}

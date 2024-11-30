@@ -1,7 +1,7 @@
 package formatter.codedata;
 
-import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 import formatter.config.Config;
+import tokentree.TokenTreeBuilder.TokenTreeEntryPoint;
 
 typedef FormatterInputData = {
 	var fileName:String;
@@ -12,6 +12,7 @@ typedef FormatterInputData = {
 	@:optional var entryPoint:TokenTreeEntryPoint;
 	@:optional var lineSeparator:String;
 	@:optional var range:FormatterInputRange;
+	@:optional var indentOffset:Int;
 }
 
 typedef FormatterInputRange = {
