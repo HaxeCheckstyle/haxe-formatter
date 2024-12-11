@@ -334,6 +334,7 @@ class MarkLineEnds extends MarkerBase {
 			case Comma:
 			case Semicolon:
 			case Arrow:
+			case Binop(OpAnd):
 			case Binop(OpAssign):
 			case Binop(OpGt):
 			case Const(CIdent("is")):

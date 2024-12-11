@@ -1,0 +1,14 @@
+{
+}
+
+---
+
+function hasIdent<T, O:{} & T>(name:T):T {
+	return false;
+}
+
+---
+
+function hasIdent<T, O:{} & T>(name:T):T {
+	return false;
+}
