@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+## version 1.18.0 (2024-12-23)
+
 - added indentOffset to support code snippets with non-zero indentation levels
 - fixed line break in type parameter constraint
 
