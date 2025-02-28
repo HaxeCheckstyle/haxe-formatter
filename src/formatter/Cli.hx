@@ -19,6 +19,7 @@ class Cli {
 	var mode:Mode = Format;
 	var exitCode:Int = 0;
 	var lastConfigFileName:Null<String>;
+	var extension:String;
 
 	function new() {
 		var args = Sys.args();
@@ -46,8 +47,17 @@ class Cli {
 		var help = false;
 		var pipemode = false;
 		var argHandler = hxargs.Args.generate([
-			@doc("File or directory with .hx files to format (multiple allowed)")
+			@doc("File or directory with haxe files to format (multiple allowed)")
 			["-s", "--source"] => function(path:String) paths.push(path),
+
+			@doc("File extension to use, defaults to hx")
+			["-e", "--extension"] => function(fileExtension:String) {
+				#if (haxe_ver >= 4.3)
+				extension = fileExtension?.toString() ?? "hx";
+				#else
+				extension = if (fileExtension != null) fileExtension.toString() else "hx";
+				#end
+			},
 
 			@doc("Read code from stdin and print formatted output to stdout (needs _one_ -s <path> for reference in configuration detection)")
 			["--stdin"] => function() pipemode = true,
@@ -198,7 +208,7 @@ class Cli {
 	}
 
 	function formatFile(path:String) {
-		if (path.endsWith(".hx")) {
+		if (path.endsWith("." + extension)) {
 			var config = Formatter.loadConfig(path);
 			if (verbose) {
 				verboseLogFile(path, config);
