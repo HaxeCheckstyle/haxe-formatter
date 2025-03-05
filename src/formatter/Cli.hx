@@ -51,7 +51,7 @@ class Cli {
 			["-s", "--source"] => function(path:String) paths.push(path),
 
 			@doc("File extension to use, defaults to hx")
-			["-e", "--extension"] => function(fileExtension:String) extension = fileExtension.replace(fileExtension, ".", ""), // https://try.haxe.org/#d42dc902
+			["-e", "--extension"] => function(fileExtension:String) extension = "." + fileExtension.replace(".", ""), // https://try.haxe.org/#d42dc902
 
 			@doc("Read code from stdin and print formatted output to stdout (needs _one_ -s <path> for reference in configuration detection)")
 			["--stdin"] => function() pipemode = true,
