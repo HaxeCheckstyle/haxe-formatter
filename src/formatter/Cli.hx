@@ -19,7 +19,7 @@ class Cli {
 	var mode:Mode = Format;
 	var exitCode:Int = 0;
 	var lastConfigFileName:Null<String>;
-	var extension:String = "hx";
+	var extension:String = ".hx";
 
 	function new() {
 		var args = Sys.args();
@@ -51,7 +51,7 @@ class Cli {
 			["-s", "--source"] => function(path:String) paths.push(path),
 
 			@doc("File extension to use, defaults to hx")
-			["-e", "--extension"] => function(fileExtension:String) extension = "." + StringTools.replace(fileExtension.toString(), ".", ""), // https://try.haxe.org/#f0564E03
+			["-e", "--extension"] => function(fileExtension:String) extension = "." + fileExtension.replace(fileExtension, ".", ""), // https://try.haxe.org/#d42dc902
 
 			@doc("Read code from stdin and print formatted output to stdout (needs _one_ -s <path> for reference in configuration detection)")
 			["--stdin"] => function() pipemode = true,
