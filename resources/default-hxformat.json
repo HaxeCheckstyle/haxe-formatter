@@ -497,7 +497,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 160
+							"value": 80
 						}
 					],
 					"type": "fillLine"
@@ -656,7 +656,7 @@
 				}
 			]
 		},
-		"maxLineLength": 160,
+		"maxLineLength": 80,
 		"metadataCallParameter": {
 			"defaultWrap": "noWrap",
 			"rules": [
@@ -673,7 +673,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 160
+							"value": 80
 						}
 					],
 					"type": "fillLine"
@@ -696,7 +696,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 160
+							"value": 80
 						}
 					],
 					"type": "onePerLineAfterFirst"
@@ -853,7 +853,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 160
+							"value": 80
 						},
 						{
 							"cond": "anyItemLength >= n",
@@ -867,7 +867,7 @@
 					"conditions": [
 						{
 							"cond": "lineLength >= n",
-							"value": 160
+							"value": 80
 						}
 					],
 					"location": "beforeLast",
