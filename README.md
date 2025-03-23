@@ -64,7 +64,7 @@ In case of errors, it will print your input file without modifications (as long 
 | Exit code | Description                                                   | STDOUT                    |
 |:---------:| ------------------------------------------------------------- | ------------------------- |
 | 0         | Formatting succeeded                                          | Formatted code            |
-| -1        | no input data or other unknwon error                          | there might not be output |
+| -1        | no input data or other unknown error                          | there might not be output |
 | 1         | Formatting is disabled for `--source <path>`                  | unformatted input         |
 | 2         | Formatter error                                               | unformatted input         |
 | 3         | no reference or invalid path specified via  `--source <path>` | unformatted input         |
@@ -115,7 +115,7 @@ to your configuration (local or global). `formatOnPaste` will also give you `For
 
 - turn off formatter in your IDE / don't run CLI version
   - affects all files
-- place a `hxformat.json` file with `{ "disableFormatting": true }` in you workspace
+- place a `hxformat.json` file with `{ "disableFormatting": true }` in your workspace
   - affects all files and subfolders from where you placed `hxformat.json`
   - since formatter searches for a `hxformat.json` file closest to the file being formatted, you can `disableFormatting` in a subfolder, while enabling it everywhere else
   - you can reverse a `disableFormatting` by placing a `hxformat.json` with `{}` (for built-in formatter config) in a subfolder, every file in that subfolder and below will get formatted
@@ -135,7 +135,7 @@ Switching from manually formatted source code to an automated formatter workflow
 5. goto step 1 and rerun formatter until you are happy with the resulting changelist or run out of options to try - you can rerun formatter on already formatted code, but some options might work better on unmodified sources (e.g. using `keep` in wrapping rules will try to conserve your original line breaks, but it will not recreate them after a previous formatter run removed them)
 
 Depending on the size of your project your initial changelist is going to be large and quite possibly contains every source file.
-When you have a `hxformat.json` file that works for you, you can enable formatting in [VSCode](https://github.com/vshaxe/vshaxe/wiki/Formatting) or add an external programm / command that simply calls `haxelib run formatter -s <filename>` (or `node <path_to_formatter>/run.js -s <filename>`) when saving or pressing a hotkey.
+When you have a `hxformat.json` file that works for you, you can enable formatting in [VSCode](https://github.com/vshaxe/vshaxe/wiki/Formatting) or add an external program / command that simply calls `haxelib run formatter -s <filename>` (or `node <path_to_formatter>/run.js -s <filename>`) when saving or pressing a hotkey.
 
 ## Todo
 
