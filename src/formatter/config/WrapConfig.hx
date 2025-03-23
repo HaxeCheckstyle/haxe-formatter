@@ -4,7 +4,7 @@ typedef WrapConfig = {
 	/**
 		maximum characters per line, formatter will try to wrap code longer than `maxLineLength`
 	**/
-	@:default(160) @:optional var maxLineLength:Int;
+	@:default(80) @:optional var maxLineLength:Int;
 
 	/**
 		array wrapping rules
@@ -183,7 +183,7 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				conditions: [{cond: LineLengthLargerThan, value: 80}],
 				type: FillLine
 			},
 			{
@@ -206,7 +206,7 @@ typedef WrapConfig = {
 				type: FillLine
 			},
 			{
-				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				conditions: [{cond: LineLengthLargerThan, value: 80}],
 				type: FillLine
 			},
 			{
@@ -287,7 +287,7 @@ typedef WrapConfig = {
 		defaultWrap: NoWrap,
 		rules: [
 			{
-				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				conditions: [{cond: LineLengthLargerThan, value: 80}],
 				type: OnePerLineAfterFirst
 			},
 			{
@@ -400,14 +400,14 @@ typedef WrapConfig = {
 		rules: [
 			{
 				conditions: [
-					{cond: LineLengthLargerThan, value: 160},
+					{cond: LineLengthLargerThan, value: 80},
 					{cond: AnyItemLengthLargerThan, value: 60}
 				],
 				location: BeforeLast,
 				type: OnePerLineAfterFirst
 			},
 			{
-				conditions: [{cond: LineLengthLargerThan, value: 160}],
+				conditions: [{cond: LineLengthLargerThan, value: 80}],
 				location: BeforeLast,
 				type: FillLine
 			},
