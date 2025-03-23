@@ -1306,7 +1306,7 @@
 				},
 				"maxLineLength": {
 					"description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
-					"default": 160,
+					"default": 80,
 					"type": "integer"
 				},
 				"functionSignature": {
