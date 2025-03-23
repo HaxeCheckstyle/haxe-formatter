@@ -76,7 +76,7 @@
 		},
 		{
 			"props": {
-				"max": 160,
+				"max": 80,
 				"ignorePattern": "(^@desc)|(LONG LINE TEST)"
 			},
 			"type": "LineLength"
