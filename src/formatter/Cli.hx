@@ -3,9 +3,9 @@ package formatter;
 import haxe.Json;
 import haxe.Timer;
 import haxe.io.Path;
-import json2object.JsonParser;
-import sys.io.File;
 import sys.FileSystem;
+import sys.io.File;
+import json2object.JsonParser;
 import formatter.Formatter.Result;
 import formatter.config.Config;
 import formatter.config.FormatterConfig;
@@ -50,8 +50,8 @@ class Cli {
 			@doc("File or directory with haxe files to format (multiple allowed)")
 			["-s", "--source"] => function(path:String) paths.push(path),
 
-			@doc("File extension to use, defaults to hx")
-			["-e", "--extension"] => function(fileExtension:String) extension = "." + fileExtension.replace(".", ""), // https://try.haxe.org/#d42dc902
+			@doc("File extension to use, defaults to .hx")
+			["-e", "--extension"] => function(fileExtension:String) extension = "." + fileExtension.replace(".", ""),
 
 			@doc("Read code from stdin and print formatted output to stdout (needs _one_ -s <path> for reference in configuration detection)")
 			["--stdin"] => function() pipemode = true,

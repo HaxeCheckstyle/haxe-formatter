@@ -2,6 +2,8 @@
 
 ## dev branch / next version (1.x.x)
 
+- added `-e` option to allow formatting files not ending in `.hx`
+
 ## version 1.18.0 (2024-12-23)
 
 - added indentOffset to support code snippets with non-zero indentation levels
