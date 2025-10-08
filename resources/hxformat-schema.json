@@ -256,6 +256,13 @@
 					},
 					"type": "array"
 				},
+				"fileExtensions": {
+					"description": "Additional file extensions to format. * Example: hxp files from OpenFL",
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				},
 				"sameLine": {
 					"$ref": "#/definitions/formatter.config.SameLineConfig"
 				},
