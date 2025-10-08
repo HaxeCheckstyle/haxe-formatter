@@ -14,10 +14,12 @@ class Config {
 	public var whitespace:WhitespaceConfig;
 	public var wrapping:WrapConfig;
 	public var disableFormatting:Bool;
+	public var fileExtensions:Array<String>;
 	public var excludes:Array<EReg>;
 	public var configFileName:String;
 
 	public function new() {
+		fileExtensions = [];
 		excludes = [];
 		readConfigFromString("{}", "hxformat.json");
 	}
@@ -41,8 +43,14 @@ class Config {
 		whitespace = data.whitespace;
 		wrapping = data.wrapping;
 		disableFormatting = data.disableFormatting;
+		fileExtensions = [];
 		excludes = [];
 		configFileName = fileName;
+
+		for (fileExtension in data.fileExtensions) {
+			fileExtensions.push(fileExtension);
+		}
+
 		for (exclude in data.excludes) {
 			excludes.push(new EReg(exclude, ""));
 		}

@@ -202,8 +202,11 @@ class Cli {
 	}
 
 	function formatFile(path:String) {
-		if (path.endsWith(extension)) {
-			var config = Formatter.loadConfig(path);
+		var config = Formatter.loadConfig(path);
+		var fileExtensions = config.fileExtensions;
+		fileExtensions.push(extension);
+
+		if (fileExtensions.exists(fileExtension -> path.endsWith(fileExtension))) {
 			if (verbose) {
 				verboseLogFile(path, config);
 			}

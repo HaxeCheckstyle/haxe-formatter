@@ -116,6 +116,9 @@
 		"\\.git",
 		"node_modules"
 	],
+	"fileExtensions": [
+		"hx"
+	],
 	"indentation": {
 		"character": "tab",
 		"conditionalPolicy": "aligned",
