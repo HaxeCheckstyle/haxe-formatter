@@ -15,6 +15,12 @@ typedef FormatterConfig = {
 	@:default(auto) @:optional var wrapping:WrapConfig;
 
 	/**
+	 * Additional file extensions to format.
+	 * Example: hxp files from OpenFL
+	 */
+	@:default(["hx"]) @:optional var fileExtensions:Array<String>;
+
+	/**
 		regular expressions matching files to exclude from formatting
 		default is to exclude any `.haxelib`, `.git` and `node_modules` folder
 	**/
