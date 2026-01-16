@@ -11,6 +11,7 @@ import tokentree.utils.TokenTreeCheckUtils;
 import formatter.codedata.ParsedCode;
 import formatter.codedata.TokenInfo;
 
+using Lambda;
 using StringTools;
 using tokentree.TokenTreeAccessHelper;
 using formatter.config.WhitespacePolicy;
